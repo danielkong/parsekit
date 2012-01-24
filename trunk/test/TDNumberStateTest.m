@@ -29,6 +29,42 @@
 }
 
 
+- (void)testWordFallbackState {
+    s = @".";
+    t.string = s;
+    t.numberState.fallbackState = t.wordState;
+    [t.wordState setWordChars:YES from:'.' to:'.'];
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((CGFloat)0.0, tok.floatValue);
+    TDTrue(tok.isWord);
+    TDEqualObjects(@".", tok.stringValue);
+}
+
+
+- (void)testSymbolFallbackState {
+    s = @".";
+    t.string = s;
+    t.numberState.fallbackState = t.symbolState;
+
+    PKToken *tok = [t nextToken];
+    TDEquals((CGFloat)0.0, tok.floatValue);
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@".", tok.stringValue);
+}
+
+
+- (void)testDefaultFallbackState {
+    s = @".";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((CGFloat)0.0, tok.floatValue);
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@".", tok.stringValue);
+}
+
+
 - (void)testSingleDigit {
     s = @"3";
     t.string = s;
