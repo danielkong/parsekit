@@ -477,11 +477,36 @@
 
 - (void)doTestGrammar {
     
-	NSString *g = @"@start = sentence+;sentence = adjectives 'beer' '.';adjectives = cold adjective*;adjective = cold | freezing;cold = 'cold';freezing = 'freezing';";
+	NSString *g = 
+    
+    @"@delimitState='$'; @delimitedStrings='${' '}' nil; @start=content*;"
+    @"content = passthru | variable;"
+    @"passthru= /[^$].*/"
+    @"variable = DelimitedString('${', '}');";
+    
     PKParser *p = [[PKParserFactory factory] parserFromGrammar:g assembler:self];
-    NSString *s = @"cold freezing beer.";
-    PKAssembly *res = [p completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+    NSString *s = 
+    //@"<html><head></head><body><h1>${title}</h1><p>${paragraph1}</p><img src=\"${image}\" /></body></html>";
+    @"${paragraph1}";
+    //[p parse:s];
+    PKAssembly *res = [p parse:s];
+    NSLog(@"p %@", p);
+    NSLog(@"res %@", res);
+    
     res = res;
+}
+
+
+- (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
+    
+}
+
+- (void)parser:(PKParser *)p didMatchPassthru:(PKAssembly *)a {
+    
+}
+
+- (void)parser:(PKParser *)p didMatchTree:(PKAssembly *)a {
+    
 }
 
 
