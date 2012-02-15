@@ -72,6 +72,7 @@
 
 
 - (void)add:(PKParser *)p {
+    // TODO remove
     if (![p isKindOfClass:[PKParser class]]) {
         NSLog(@"p: %@", p);
     }
