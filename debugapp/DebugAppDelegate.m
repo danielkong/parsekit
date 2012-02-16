@@ -479,15 +479,16 @@
     
 	NSString *g = 
     
-    @"@delimitState='$'; @delimitedStrings='${' '}' nil; @start=content*;"
+    @"@symbolState='\"' \"'\"; @delimitState='$'; @delimitedStrings='${' '}' nil; @start=content*;"
     @"content = passthru | variable;"
-    @"passthru= /[^$].*/"
+    @"passthru= /[^$].*/;"
     @"variable = DelimitedString('${', '}');";
     
     PKParser *p = [[PKParserFactory factory] parserFromGrammar:g assembler:self];
     NSString *s = 
-    //@"<html><head></head><body><h1>${title}</h1><p>${paragraph1}</p><img src=\"${image}\" /></body></html>";
-    @"${paragraph1}";
+    //    @"<html><head></head><body><h1>${title}</h1><p>${paragraph1}</p><img src=\"${image}\" /></body></html>";
+    @"<img src=\"${image}\" />";
+    //@"<foo>${paragraph1}";
     //[p parse:s];
     PKAssembly *res = [p parse:s];
     NSLog(@"p %@", p);
@@ -498,10 +499,12 @@
 
 
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
 
 - (void)parser:(PKParser *)p didMatchPassthru:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
 
