@@ -76,7 +76,7 @@
             [r unread];
             return [PKToken tokenWithTokenType:PKTokenTypeNumber stringValue:@"0" floatValue:0.0];
         } else {
-            if (isNegative && PKEOF != c) { // ??
+            if (!gotADigit && PKEOF != c) { // ??
                 [r unread];
             }
             return [t.symbolState nextTokenFromReader:r startingWith:originalCin tokenizer:t];
