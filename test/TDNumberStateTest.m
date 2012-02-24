@@ -694,10 +694,51 @@
 	TDTrue(tok.isSymbol);
     TDEqualObjects(tok.stringValue, @"-");
     TDEquals((CGFloat)0.0, tok.floatValue);
-
+    
     tok = [t nextToken];
 	TDTrue(tok.isSymbol);
     TDEqualObjects(tok.stringValue, @"(");
+    TDEquals((CGFloat)0.0, tok.floatValue);
+}
+
+
+- (void)testMultiCharPlusPlusAndExplicitlyPositiveNumbers {
+    s = @"++ +1 -2 + 3++";
+    [t.symbolState add:@"++"];
+    [t setTokenizerState:t.numberState from:'+' to:'+'];
+    
+    t.string = s;
+    r.string = s;
+    PKToken *tok = nil;
+    
+    tok = [t nextToken];
+	TDTrue(tok.isSymbol);
+    TDEqualObjects(tok.stringValue, @"++");
+    TDEquals((CGFloat)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+	TDTrue(tok.isNumber);
+    TDEqualObjects(tok.stringValue, @"+1");
+    TDEquals((CGFloat)1.0, tok.floatValue);
+
+    tok = [t nextToken];
+	TDTrue(tok.isNumber);
+    TDEqualObjects(tok.stringValue, @"-2");
+    TDEquals((CGFloat)-2.0, tok.floatValue);
+
+    tok = [t nextToken];
+	TDTrue(tok.isSymbol);
+    TDEqualObjects(tok.stringValue, @"+");
+    TDEquals((CGFloat)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+	TDTrue(tok.isNumber);
+    TDEqualObjects(tok.stringValue, @"3");
+    TDEquals((CGFloat)3.0, tok.floatValue);
+
+    tok = [t nextToken];
+	TDTrue(tok.isSymbol);
+    TDEqualObjects(tok.stringValue, @"++");
     TDEquals((CGFloat)0.0, tok.floatValue);
 }
 

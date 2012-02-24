@@ -76,10 +76,10 @@
             [r unread];
             return [PKToken tokenWithTokenType:PKTokenTypeNumber stringValue:@"0" floatValue:0.0];
         } else {
-            if (!gotADigit && PKEOF != c) { // ??
+            if ((originalCin == '+' || originalCin == '-') && PKEOF != c) { // ??
                 [r unread];
             }
-            return [t.symbolState nextTokenFromReader:r startingWith:originalCin tokenizer:t];
+            return [[self nextTokenizerStateFor:originalCin tokenizer:t] nextTokenFromReader:r startingWith:originalCin tokenizer:t];
         }
     }
     
