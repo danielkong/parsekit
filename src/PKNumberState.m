@@ -73,12 +73,10 @@
     if ('.' == c) {
         if (allowsFloatingPoint) {
             [self parseRightSideFromReader:r];
-        } else {
-            // whole numbers only. continue…
         }
     } else {
         [self parseLeftSideFromReader:r];
-        if (isDecimal) {
+        if (isDecimal && allowsFloatingPoint) {
             [self parseRightSideFromReader:r];
         }
     }
