@@ -742,4 +742,30 @@
     TDEquals((CGFloat)0.0, tok.floatValue);
 }
 
+
+- (void)testAllowsFloatingPoint {
+    s = @"3.14";
+    t.string = s;
+    r.string = s;
+    t.numberState.allowsFloatingPoint = NO;
+    PKToken *tok = [t nextToken];
+
+	TDTrue(tok.isNumber);
+    TDEqualObjects(tok.stringValue, @"3");
+    TDEquals((CGFloat)3.0, tok.floatValue);
+    
+    tok = [t nextToken];
+	TDTrue(tok.isSymbol);
+    TDEqualObjects(tok.stringValue, @".");
+    TDEquals((CGFloat)0.0, tok.floatValue);
+
+    tok = [t nextToken];
+	TDTrue(tok.isNumber);
+    TDEqualObjects(tok.stringValue, @"14");
+    TDEquals((CGFloat)14.0, tok.floatValue);
+    
+}
+
+
+
 @end
