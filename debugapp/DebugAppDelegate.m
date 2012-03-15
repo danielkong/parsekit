@@ -477,20 +477,46 @@
 
 - (void)doTestGrammar {
     
-	NSString *g = 
-    
-    @"@symbolState='\"' \"'\"; @delimitState='$'; @delimitedStrings='${' '}' nil; @start=content*;"
-    @"content = passthru | variable;"
-    @"passthru= /[^$].*/;"
-    @"variable = DelimitedString('${', '}');";
-    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"date" ofType:@"grammar"];
+    NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     PKParser *p = [[PKParserFactory factory] parserFromGrammar:g assembler:self];
-    NSString *s = 
-    //    @"<html><head></head><body><h1>${title}</h1><p>${paragraph1}</p><img src=\"${image}\" /></body></html>";
-    @"<img src=\"${image}\" />";
-    //@"<foo>${paragraph1}";
-    //[p parse:s];
+    NSString *s = @"2008-01-25";
+    
+    
+//    //NSString *s = @"foo bar\nbaz bat\n";
+//    NSString *path = [@"~/Desktop/text.txt" stringByExpandingTildeInPath];
+//    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+//	NSString *g = 
+//    
+//    @"@symbolState = '\n';"
+//    @"@start = headerLine*;"
+//    @"headerLine = logFormat logId comma category eol;"
+//    @"logFormat = ('Type' 'A' 'Logfile') | ('Logfile II') | ('Some' 'Other' 'Format');"
+//    @"logId = hash Number;"
+//    @"category = Any+;"
+//    
+//    @"comma = ',';"
+//    @"hash = '#';"
+//    @"eol = '\n';";
+//
+//    
+////    @"@symbolState='\"' \"'\"; @delimitState='$'; @delimitedStrings='${' '}' nil; @start=content*;"
+////    @"content = passthru | variable;"
+////    @"passthru= /[^$].*/;"
+////    @"variable = DelimitedString('${', '}');";
+////    
+//    PKParser *p = [[PKParserFactory factory] parserFromGrammar:g assembler:self];
+//    NSString *s = 
+//    //    @"<html><head></head><body><h1>${title}</h1><p>${paragraph1}</p><img src=\"${image}\" /></body></html>";
+//    @"Type A Logfile #4, some category\n";
+//    //@"<foo>${paragraph1}";
+//    //[p parse:s];
+//    
+
     PKAssembly *res = [p parse:s];
+//    p.tokenizer.string = s;
+//    PKAssembly *res = [p bestMatchFor:[PKTokenAssembly assemblyWithTokenizer:p.tokenizer]];
     NSLog(@"p %@", p);
     NSLog(@"res %@", res);
     
@@ -498,7 +524,19 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchDay:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+}
+
+- (void)parser:(PKParser *)p didMatchMonth:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+}
+
+- (void)parser:(PKParser *)p didMatchYear:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+}
+
+- (void)parser:(PKParser *)p didMatchDate:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
