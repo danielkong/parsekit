@@ -323,7 +323,7 @@
     
     PKToken *eof = [PKToken EOFToken];
     PKToken *token = nil;
-    while (token = [t nextToken]) {
+    while ((token = [t nextToken])) {
         if (eof == token) break;
         
         [toks addObject:token];

@@ -43,6 +43,15 @@
 
 @implementation PKNumberState
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.allowsFloatingPoint = YES;
+    }
+    return self;
+}
+
+
 - (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
     NSParameterAssert(r);
     NSParameterAssert(t);
@@ -62,7 +71,11 @@
     
     [self reset:cin];
     if ('.' == c) {
-        [self parseRightSideFromReader:r];
+        if (allowsFloatingPoint) {
+            [self parseRightSideFromReader:r];
+        } else {
+            // whole numbers only. continue…
+        }
     } else {
         [self parseLeftSideFromReader:r];
         if (isDecimal) {
@@ -261,4 +274,5 @@
 @synthesize allowsScientificNotation;
 @synthesize allowsOctalNotation;
 @synthesize allowsHexadecimalNotation;
+@synthesize allowsFloatingPoint;
 @end

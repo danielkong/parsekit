@@ -26,6 +26,7 @@
     BOOL allowsScientificNotation;
     BOOL allowsOctalNotation;
     BOOL allowsHexadecimalNotation;
+    BOOL allowsFloatingPoint;
     BOOL isDecimal;
     BOOL isFraction;
     BOOL isNegative;
@@ -68,4 +69,11 @@
     @details    default is NO
 */
 @property (nonatomic) BOOL allowsHexadecimalNotation;
+
+/*!
+    @property   allowsFloatingPoint
+    @brief      If YES, supports floating point numbers like <tt>1.0<tt> or <tt>3.14<tt>. If NO, only whole numbers are allowed.
+    @details    default is YES
+*/
+@property (nonatomic) BOOL allowsFloatingPoint;
 @end
