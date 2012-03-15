@@ -311,7 +311,7 @@
     t.string = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     NSDate *d = [NSDate date];
     res = [p bestMatchFor:[PKTokenAssembly assemblyWithTokenizer:t]];
-    NSLog(@"time: %d", [d timeIntervalSinceNow]);
+    NSLog(@"time: %f", [d timeIntervalSinceNow]);
     TDNotNil(res);
     TDTrue([[res description] hasSuffix:@"^"]);
 }

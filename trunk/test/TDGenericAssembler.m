@@ -91,7 +91,7 @@
     
     NSMutableArray *toks = nil;
     PKToken *tok = nil;
-    while (tok = [a pop]) {
+    while ((tok = [a pop])) {
         if (PKTokenTypeWhitespace != tok.tokenType) {
             if (!toks) toks = [NSMutableArray array];
             [toks addObject:tok];
@@ -131,7 +131,7 @@
 - (NSMutableArray *)popWhitespaceTokensFrom:(PKAssembly *)a {
     NSMutableArray *whitespaceToks = nil;
     PKToken *tok = nil;
-    while (tok = [a pop]) {
+    while ((tok = [a pop])) {
         if (PKTokenTypeWhitespace == tok.tokenType) {
             if (!whitespaceToks) {
                 whitespaceToks = [NSMutableArray array];
