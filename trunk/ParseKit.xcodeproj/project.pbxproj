@@ -2760,9 +2760,9 @@
 				D31A15270F6DE449002AFDF1 /* javascript.grammar in Resources */,
 				D355C6A70FE9F704006A91A4 /* nspredicate.grammar in Resources */,
 				D3BBBCC10FECD477007DF30D /* xml.grammar in Resources */,
-				D315DF730FEF59B600D876C8 /* date.grammar in Resources */,
 				D34BAC9A0FF8A9AD00D7773A /* xpath1_0.grammar in Resources */,
 				D3668293101D2C000008632C /* erb.grammar in Resources */,
+				D315DF730FEF59B600D876C8 /* date.grammar in Resources */,
 				D319E42B106D8A1F008C63DD /* arithmetic.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
