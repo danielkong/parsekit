@@ -24,7 +24,6 @@ date    = /\d{4}/ '-' /\d{2}/ '-' /\d{2}/;  // will match any sequence of tokens
 /*
 NOTE:
 An equivalent grammar could be expressed in many ways. Here's an equivalent grammar
-*/
 
 @symbolState = '-';
 
@@ -38,3 +37,16 @@ day     = /\d{2}/;
 
 dash    = '-';
 
+*/
+
+@symbolState = '-';
+
+@start  = date;
+
+date    = year dash month dash day;
+
+year    = /\d{4}/;
+month   = /\d{2}/;
+day     = /\d{2}/;
+
+dash    = '.';
