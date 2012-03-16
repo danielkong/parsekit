@@ -743,11 +743,11 @@
 }
 
 
-- (void)testAllowsFloatingPoint {
+- (void)testallowsFloats {
     s = @"3.14";
     t.string = s;
     r.string = s;
-    t.numberState.allowsFloatingPoint = NO;
+    t.numberState.allowsFloats = NO;
     PKToken *tok = [t nextToken];
 
 	TDTrue(tok.isNumber);
