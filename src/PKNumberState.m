@@ -74,7 +74,7 @@
     }
     
     [self reset:cin];
-    if ('.' == c) {
+    if (decimalSeparator == c) {
         if (allowsFloatingPoint) {
             [self parseRightSideFromReader:r];
         }
@@ -182,7 +182,7 @@
 
 
 - (void)parseRightSideFromReader:(PKReader *)r {
-    if ('.' == c) {
+    if (decimalSeparator == c) {
         PKUniChar n = [r read];
         BOOL nextIsDigit = isdigit(n);
         if (PKEOF != n) {
@@ -190,7 +190,7 @@
         }
 
         if (nextIsDigit || allowsTrailingDot) {
-            [self append:'.'];
+            [self append:decimalSeparator];
             if (nextIsDigit) {
                 c = [r read];
                 isFraction = YES;
