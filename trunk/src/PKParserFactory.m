@@ -312,7 +312,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     t.numberState.allowsScientificNotation  = [self boolForTokenForKey:@"@allowsScientificNotation"];
     t.numberState.allowsOctalNotation  = [self boolForTokenForKey:@"@allowsOctalNotation"];
     t.numberState.allowsHexadecimalNotation  = [self boolForTokenForKey:@"@allowsHexadecimalNotation"];
-    t.numberState.allowsFloatingPoint  = [self boolForTokenForKey:@"allowsFloatingPoint"];
+    t.numberState.allowsFloats  = [self boolForTokenForKey:@"allowsFloats"];
     
     [self setTokenizerState:t.wordState onTokenizer:t forTokensForKey:@"@wordState"];
     [self setTokenizerState:t.numberState onTokenizer:t forTokensForKey:@"@numberState"];

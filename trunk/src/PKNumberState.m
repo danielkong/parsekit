@@ -46,7 +46,11 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.allowsFloatingPoint = YES;
+        self.allowsFloats = YES;
+        self.positivePrefix = '+';
+        self.negativePrefix = '-';
+        self.groupingSeparator = ',';
+        self.decimalSeparator = '.';
     }
     return self;
 }
@@ -60,23 +64,23 @@
     isNegative = NO;
     originalCin = cin;
     
-    if ('-' == cin) {
+    if (negativePrefix == cin) {
         isNegative = YES;
         cin = [r read];
-        [self append:'-'];
-    } else if ('+' == cin) {
+        [self append:negativePrefix];
+    } else if (positivePrefix == cin) {
         cin = [r read];
-        [self append:'+'];
+        [self append:positivePrefix];
     }
     
     [self reset:cin];
     if ('.' == c) {
-        if (allowsFloatingPoint) {
+        if (allowsFloats) {
             [self parseRightSideFromReader:r];
         }
     } else {
         [self parseLeftSideFromReader:r];
-        if (isDecimal && allowsFloatingPoint) {
+        if (isDecimal && allowsFloats) {
             [self parseRightSideFromReader:r];
         }
     }
@@ -87,7 +91,7 @@
             [r unread];
             return [PKToken tokenWithTokenType:PKTokenTypeNumber stringValue:@"0" floatValue:0.0];
         } else {
-            if ((originalCin == '+' || originalCin == '-') && PKEOF != c) { // ??
+            if ((originalCin == positivePrefix || originalCin == negativePrefix) && PKEOF != c) { // ??
                 [r unread];
             }
             return [[self nextTokenizerStateFor:originalCin tokenizer:t] nextTokenFromReader:r startingWith:originalCin tokenizer:t];
@@ -208,8 +212,8 @@
         c = [r read];
         
         BOOL hasExp = isdigit(c);
-        isNegativeExp = ('-' == c);
-        BOOL positiveExp = ('+' == c);
+        isNegativeExp = (negativePrefix == c);
+        BOOL positiveExp = (positivePrefix == c);
         
         if (!hasExp && (isNegativeExp || positiveExp)) {
             c = [r read];
@@ -221,9 +225,9 @@
         if (hasExp) {
             [self append:e];
             if (isNegativeExp) {
-                [self append:'-'];
+                [self append:negativePrefix];
             } else if (positiveExp) {
-                [self append:'+'];
+                [self append:positivePrefix];
             }
             c = [r read];
             isFraction = NO;
@@ -272,5 +276,9 @@
 @synthesize allowsScientificNotation;
 @synthesize allowsOctalNotation;
 @synthesize allowsHexadecimalNotation;
-@synthesize allowsFloatingPoint;
+@synthesize allowsFloats;
+@synthesize positivePrefix;
+@synthesize negativePrefix;
+@synthesize groupingSeparator;
+@synthesize decimalSeparator;
 @end

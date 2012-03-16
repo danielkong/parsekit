@@ -26,7 +26,13 @@
     BOOL allowsScientificNotation;
     BOOL allowsOctalNotation;
     BOOL allowsHexadecimalNotation;
-    BOOL allowsFloatingPoint;
+    BOOL allowsFloats;
+    
+    PKUniChar positivePrefix;
+    PKUniChar negativePrefix;
+    PKUniChar groupingSeparator;
+    PKUniChar decimalSeparator;
+    
     BOOL isDecimal;
     BOOL isFraction;
     BOOL isNegative;
@@ -71,9 +77,14 @@
 @property (nonatomic) BOOL allowsHexadecimalNotation;
 
 /*!
-    @property   allowsFloatingPoint
+    @property   allowsFloats
     @brief      If YES, supports floating point numbers like <tt>1.0<tt> or <tt>3.14<tt>. If NO, only whole numbers are allowed.
     @details    default is YES
 */
-@property (nonatomic) BOOL allowsFloatingPoint;
+@property (nonatomic) BOOL allowsFloats;
+
+@property (nonatomic) PKUniChar positivePrefix;
+@property (nonatomic) PKUniChar negativePrefix;
+@property (nonatomic) PKUniChar groupingSeparator;
+@property (nonatomic) PKUniChar decimalSeparator;
 @end
