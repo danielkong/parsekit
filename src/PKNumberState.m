@@ -46,7 +46,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.allowsFloats = YES;
+        self.allowsFloatingPoint = YES;
         self.positivePrefix = '+';
         self.negativePrefix = '-';
         self.groupingSeparator = ',';
@@ -75,12 +75,12 @@
     
     [self reset:cin];
     if ('.' == c) {
-        if (allowsFloats) {
+        if (allowsFloatingPoint) {
             [self parseRightSideFromReader:r];
         }
     } else {
         [self parseLeftSideFromReader:r];
-        if (isDecimal && allowsFloats) {
+        if (isDecimal && allowsFloatingPoint) {
             [self parseRightSideFromReader:r];
         }
     }
@@ -276,7 +276,7 @@
 @synthesize allowsScientificNotation;
 @synthesize allowsOctalNotation;
 @synthesize allowsHexadecimalNotation;
-@synthesize allowsFloats;
+@synthesize allowsFloatingPoint;
 @synthesize positivePrefix;
 @synthesize negativePrefix;
 @synthesize groupingSeparator;
