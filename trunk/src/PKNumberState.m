@@ -59,6 +59,7 @@
 - (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
     NSParameterAssert(r);
     NSParameterAssert(t);
+    NSAssert1(!(allowsGroupingSeparator && (decimalSeparator == groupingSeparator)), @"You have configured your tokenizer's numberState with the same decimal and grouping separator: `%C`. You don't want to do that.", decimalSeparator);
 
     [self resetWithReader:r];
     isNegative = NO;
@@ -162,6 +163,10 @@
             if (isFraction) {
                 divideBy *= base;
             }
+        } else if (allowsGroupingSeparator && groupingSeparator == c) {
+            [self append:c];
+            len++;
+            c = [r read];
         } else {
             break;
         }
@@ -277,6 +282,7 @@
 @synthesize allowsOctalNotation;
 @synthesize allowsHexadecimalNotation;
 @synthesize allowsFloatingPoint;
+@synthesize allowsGroupingSeparator;
 @synthesize positivePrefix;
 @synthesize negativePrefix;
 @synthesize groupingSeparator;

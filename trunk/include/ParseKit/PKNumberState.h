@@ -27,6 +27,7 @@
     BOOL allowsOctalNotation;
     BOOL allowsHexadecimalNotation;
     BOOL allowsFloatingPoint;
+    BOOL allowsGroupingSeparator;
     
     PKUniChar positivePrefix;
     PKUniChar negativePrefix;
@@ -82,6 +83,13 @@
     @details    default is YES
 */
 @property (nonatomic) BOOL allowsFloatingPoint;
+
+/*!
+    @property   allowsGroupingSeparator
+    @brief      If YES, supports numbers with internal grouping separators like <tt>2,001</tt>.
+    @details    default is NO
+*/
+@property (nonatomic) BOOL allowsGroupingSeparator;
 
 @property (nonatomic) PKUniChar positivePrefix;
 @property (nonatomic) PKUniChar negativePrefix;
