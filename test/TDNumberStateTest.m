@@ -743,7 +743,7 @@
 }
 
 
-- (void)testallowsFloatingPoint {
+- (void)testAllowsFloatingPoint {
     s = @"3.14";
     t.string = s;
     r.string = s;
@@ -763,9 +763,73 @@
 	TDTrue(tok.isNumber);
     TDEqualObjects(tok.stringValue, @"14");
     TDEquals((CGFloat)14.0, tok.floatValue);
-    
 }
 
 
+- (void)testCommaDecimalSeparator {
+    s = @"3,14";
+    t.string = s;
+    r.string = s;
+    t.numberState.decimalSeparator = ',';
+    t.numberState.groupingSeparator = '.';
+    PKToken *tok = [t nextToken];
+    
+	TDTrue(tok.isNumber);
+    TDEqualObjects(tok.stringValue, @"3,14");
+    TDEquals((CGFloat)3.14, tok.floatValue);
+}
+
+
+- (void)testSlashDecimalSeparator {
+    s = @"3/14";
+    t.string = s;
+    r.string = s;
+    t.numberState.decimalSeparator = '/';
+    PKToken *tok = [t nextToken];
+    
+    TDTrue(tok.isNumber);
+    TDEqualObjects(tok.stringValue, @"3/14");
+    TDEquals((CGFloat)3.14, tok.floatValue);
+}
+
+
+- (void)testDefaultGroupingSeparator {
+    s = @"2,001";
+    t.string = s;
+    r.string = s;
+    t.numberState.allowsGroupingSeparator = YES;
+    PKToken *tok = [t nextToken];
+    
+	TDTrue(tok.isNumber);
+    TDEqualObjects(tok.stringValue, @"2,001");
+    TDEquals((CGFloat)2001.0, tok.floatValue);
+}
+
+
+- (void)testDefaultGroupingSeparator2 {
+    s = @"2,001 5,000,000 5,000.000";
+    t.string = s;
+    r.string = s;
+    t.numberState.allowsGroupingSeparator = YES;
+    PKToken *tok = [t nextToken];
+    
+	TDTrue(tok.isNumber);
+    TDEqualObjects(tok.stringValue, @"2,001");
+    TDEquals((CGFloat)2001.0, tok.floatValue);
+
+    tok = [t nextToken];
+    
+	TDTrue(tok.isNumber);
+    TDEqualObjects(tok.stringValue, @"5,000,000");
+    TDEquals((CGFloat)5000000.0, tok.floatValue);
+
+    tok = [t nextToken];
+    
+	TDTrue(tok.isNumber);
+    TDEqualObjects(tok.stringValue, @"5,000.000");
+    TDEquals((CGFloat)5000.0, tok.floatValue);
+}
 
 @end
+
+
