@@ -22,7 +22,7 @@
                 If <tt>allowsScientificNotation</tt> is YES (default is NO) this state allows 'e' or 'E' followed by an (optionally explicityly positive or negative) integer to represent 10 to the indicated power. For example, this state will recognize <tt>1e2</tt> as equaling <tt>100</tt>.</p>
 */
 @interface PKNumberState : PKTokenizerState {
-    BOOL allowsTrailingDot;
+    BOOL allowsTrailingDecimalSeparator;
     BOOL allowsScientificNotation;
     BOOL allowsOctalNotation;
     BOOL allowsHexadecimalNotation;
@@ -50,11 +50,11 @@
 }
 
 /*!
-    @property   allowsTrailingDot
-    @brief      If YES, numbers are allowed to end with a trialing dot, e.g. <tt>42.<tt>
+    @property   allowsTrailingDecimalSeparator
+    @brief      If YES, numbers are allowed to end with a trialing decimal separator, e.g. <tt>42.<tt>
     @details    default is NO
 */
-@property (nonatomic) BOOL allowsTrailingDot;
+@property (nonatomic) BOOL allowsTrailingDecimalSeparator;
 
 /*!
     @property   allowsScientificNotation

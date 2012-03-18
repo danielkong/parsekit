@@ -194,7 +194,7 @@
             [r unread];
         }
 
-        if (nextIsDigit || allowsTrailingDot) {
+        if (nextIsDigit || allowsTrailingDecimalSeparator) {
             [self append:decimalSeparator];
             if (nextIsDigit) {
                 c = [r read];
@@ -277,7 +277,7 @@
     }
 }
 
-@synthesize allowsTrailingDot;
+@synthesize allowsTrailingDecimalSeparator;
 @synthesize allowsScientificNotation;
 @synthesize allowsOctalNotation;
 @synthesize allowsHexadecimalNotation;

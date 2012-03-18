@@ -139,7 +139,7 @@
 - (void)testCustomOneDot1 {
     s = @"1.";
     t.string = s;
-    numberState.allowsTrailingDot = YES;
+    numberState.allowsTrailingDecimalSeparator = YES;
     numberState.allowsScientificNotation = YES;
     PKToken *tok = [t nextToken];
     TDEquals((CGFloat)1.0, tok.floatValue);
@@ -151,7 +151,7 @@
 - (void)testCustomOneDot2 {
     s = @"1.";
     t.string = s;
-    numberState.allowsTrailingDot = YES;
+    numberState.allowsTrailingDecimalSeparator = YES;
     numberState.allowsScientificNotation = NO;
     PKToken *tok = [t nextToken];
     TDEquals((CGFloat)1.0, tok.floatValue);
@@ -186,7 +186,7 @@
     s = @"+1.";
     t.string = s;
     r.string = s;
-    numberState.allowsTrailingDot = YES;
+    numberState.allowsTrailingDecimalSeparator = YES;
     PKToken *tok = [numberState nextTokenFromReader:r startingWith:[r read] tokenizer:t];
     TDEquals((CGFloat)1.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -231,7 +231,7 @@
     s = @"-1.";
     t.string = s;
     r.string = s;
-    numberState.allowsTrailingDot = YES;
+    numberState.allowsTrailingDecimalSeparator = YES;
     PKToken *tok = [numberState nextTokenFromReader:r startingWith:[r read] tokenizer:t];
     TDEquals((CGFloat)-1.0, tok.floatValue);
     TDTrue(tok.isNumber);
