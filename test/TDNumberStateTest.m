@@ -160,7 +160,7 @@
     s = @"1.";
     t.string = s;
     r.string = s;
-    numberState.allowsTrailingDot = YES;
+    numberState.allowsTrailingDecimalSeparator = YES;
     PKToken *tok = [numberState nextTokenFromReader:r startingWith:[r read] tokenizer:t];
     TDEquals((CGFloat)1.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -194,7 +194,7 @@
     s = @"+1.";
     t.string = s;
     r.string = s;
-    numberState.allowsTrailingDot = YES;
+    numberState.allowsTrailingDecimalSeparator = YES;
     PKToken *tok = [numberState nextTokenFromReader:r startingWith:[r read] tokenizer:t];
     TDEquals((CGFloat)1.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -239,7 +239,7 @@
     s = @"-1.";
     t.string = s;
     r.string = s;
-    numberState.allowsTrailingDot = YES;
+    numberState.allowsTrailingDecimalSeparator = YES;
     PKToken *tok = [numberState nextTokenFromReader:r startingWith:[r read] tokenizer:t];
     TDEquals((CGFloat)-1.0, tok.floatValue);
     TDTrue(tok.isNumber);
