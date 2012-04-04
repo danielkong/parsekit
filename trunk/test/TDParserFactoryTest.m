@@ -78,13 +78,13 @@
     PKParser *declParser = [lp parserNamed:@"decl"];
     TDNotNil(declParser);
     TDEqualObjects(declParser.name, @"decl");
-    TDEqualObjects([declParser class], [PKSequence class]);
+    TDTrue([declParser isKindOfClass:[PKSequence class]]);
 
     PKParser *rulesetParser = [lp parserNamed:@"ruleset"];
     TDNotNil(rulesetParser);
     TDEqualObjects(rulesetParser, [(PKRepetition *)lp subparser]);
     TDEqualObjects(rulesetParser.name, @"ruleset");
-    TDEqualObjects([rulesetParser class], [PKSequence class]);
+    TDTrue([rulesetParser isKindOfClass:[PKSequence class]]);
     
     PKParser *startParser = [lp parserNamed:@"@start"];
     TDNotNil(startParser);
@@ -632,9 +632,9 @@
 
     res = [exprSeq bestMatchFor:a];
     TDNotNil(res);
-    TDEqualObjects(@"[Sequence]'foo'/ /'bar'^", [res description]);
+    TDEqualObjects(@"[Track]'foo'/ /'bar'^", [res description]);
     PKSequence *seq = [res pop];
-    TDTrue([seq isMemberOfClass:[PKSequence class]]);
+    TDTrue([seq isKindOfClass:[PKSequence class]]);
     TDEquals((NSUInteger)2, [seq.subparsers count]);
     
     PKLiteral *c = [seq.subparsers objectAtIndex:0];
@@ -661,9 +661,9 @@
     a = [PKTokenAssembly assemblyWithTokenizer:t];
     res = [exprSeq bestMatchFor:a];
     TDNotNil(res);
-    TDEqualObjects(@"[Sequence]'foo'/ /'bar'/ /'baz'^", [res description]);
+    TDEqualObjects(@"[Track]'foo'/ /'bar'/ /'baz'^", [res description]);
     PKSequence *seq = [res pop];
-    TDTrue([seq isMemberOfClass:[PKSequence class]]);
+    TDTrue([seq isKindOfClass:[PKSequence class]]);
     TDEquals((NSUInteger)3, [seq.subparsers count]);
     
     PKLiteral *c = [seq.subparsers objectAtIndex:0];
