@@ -45,7 +45,6 @@
 		D31FE5980E60E5AC00A0803E /* TDDigitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5910E60E5AC00A0803E /* TDDigitTest.m */; };
 		D31FE5990E60E5AC00A0803E /* TDLetterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5930E60E5AC00A0803E /* TDLetterTest.m */; };
 		D31FE59A0E60E5AC00A0803E /* TDSpecificCharTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5950E60E5AC00A0803E /* TDSpecificCharTest.m */; };
-		D31FE59F0E60E5C000A0803E /* TDRegularParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE59C0E60E5C000A0803E /* TDRegularParser.m */; };
 		D31FE5A00E60E5C000A0803E /* TDRegularParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE59E0E60E5C000A0803E /* TDRegularParserTest.m */; };
 		D31FE5A90E60E5D500A0803E /* TDFastJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5A20E60E5D500A0803E /* TDFastJsonParser.m */; };
 		D31FE5AA0E60E5D500A0803E /* TDFastJsonParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5A40E60E5D500A0803E /* TDFastJsonParserTest.m */; };
@@ -275,7 +274,6 @@
 		D36C55FF0FD3617B00141CB7 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C55FD0FD3617B00141CB7 /* RegexKitLite.m */; };
 		D36C560C0FD363D500141CB7 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
 		D36C562B0FD365DB00141CB7 /* TDPatternTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C562A0FD365DB00141CB7 /* TDPatternTest.m */; };
-		D36E95460E578ECC00496BD3 /* XPathParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E95450E578ECC00496BD3 /* XPathParser.m */; };
 		D36E95D80E57B08400496BD3 /* XPathParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E95D70E57B08400496BD3 /* XPathParserTest.m */; };
 		D36E97B00E589DAE00496BD3 /* XPathAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E97AF0E589DAE00496BD3 /* XPathAssembler.m */; };
 		D36E98220E58A3A800496BD3 /* XPathContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98210E58A3A800496BD3 /* XPathContext.m */; };
@@ -463,7 +461,6 @@
 		D3C2222F0FFE8DEF004514FE /* NSString+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD50FF9E95500D7773A /* NSString+ParseKitAdditions.h */; };
 		D3C222300FFE8DF3004514FE /* NSArray+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD30FF9E95500D7773A /* NSArray+ParseKitAdditions.h */; };
 		D3C7D9DA0A412874005DD154 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
-		D3C85C7B0E63B438000445FD /* TDArithmeticParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85C7A0E63B438000445FD /* TDArithmeticParser.m */; };
 		D3C85C800E63B9E9000445FD /* TDArithmeticParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85C7F0E63B9E9000445FD /* TDArithmeticParserTest.m */; };
 		D3C85D450E63D1BF000445FD /* TDScientificNumberStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85D440E63D1BF000445FD /* TDScientificNumberStateTest.m */; };
 		D3D01CAA0EFDB89900C24DDE /* json_with_discards.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3D01CA90EFDB89900C24DDE /* json_with_discards.grammar */; };
@@ -484,6 +481,9 @@
 		D3E27A320E741DD20078CC2C /* small-xml-file.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */; };
 		D3E27A330E741DD20078CC2C /* apple-boss.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36E9FB40E5A944A00496BD3 /* apple-boss.xml */; };
 		D3E39C3F0FC5FFD10022DAB9 /* TDDelimitStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E39C3E0FC5FFD10022DAB9 /* TDDelimitStateTest.m */; };
+		D3E3C00C152C1A9F00F73B40 /* TDArithmeticParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85C7A0E63B438000445FD /* TDArithmeticParser.m */; };
+		D3E3C015152C1AE800F73B40 /* TDRegularParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE59C0E60E5C000A0803E /* TDRegularParser.m */; };
+		D3E3C01A152C1AF700F73B40 /* XPathParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E95450E578ECC00496BD3 /* XPathParser.m */; };
 		D3E784BD0E53DA28008C7D61 /* apple-boss.json in Resources */ = {isa = PBXBuildFile; fileRef = D3E784BC0E53DA28008C7D61 /* apple-boss.json */; };
 		D3E785560E53FB54008C7D61 /* apple-boss.json in Resources */ = {isa = PBXBuildFile; fileRef = D3E784BC0E53DA28008C7D61 /* apple-boss.json */; };
 		D3E787A30E5661A9008C7D61 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
@@ -3030,7 +3030,6 @@
 				D3E788960E567E0A008C7D61 /* SRGSParser.m in Sources */,
 				D3E78A190E574C99008C7D61 /* EBNFParser.m in Sources */,
 				D3E78A1A0E574C99008C7D61 /* EBNFParserTest.m in Sources */,
-				D36E95460E578ECC00496BD3 /* XPathParser.m in Sources */,
 				D36E95D80E57B08400496BD3 /* XPathParserTest.m in Sources */,
 				D36E97B00E589DAE00496BD3 /* XPathAssembler.m in Sources */,
 				D36E98220E58A3A800496BD3 /* XPathContext.m in Sources */,
@@ -3059,7 +3058,6 @@
 				D31FE5980E60E5AC00A0803E /* TDDigitTest.m in Sources */,
 				D31FE5990E60E5AC00A0803E /* TDLetterTest.m in Sources */,
 				D31FE59A0E60E5AC00A0803E /* TDSpecificCharTest.m in Sources */,
-				D31FE59F0E60E5C000A0803E /* TDRegularParser.m in Sources */,
 				D31FE5A00E60E5C000A0803E /* TDRegularParserTest.m in Sources */,
 				D31FE5A90E60E5D500A0803E /* TDFastJsonParser.m in Sources */,
 				D31FE5AA0E60E5D500A0803E /* TDFastJsonParserTest.m in Sources */,
@@ -3092,7 +3090,6 @@
 				D31FE6000E60E6B500A0803E /* TDXmlNmtoken.m in Sources */,
 				D31FE6010E60E6B500A0803E /* TDXmlNmtokenState.m in Sources */,
 				D31FE6E00E60EE2500A0803E /* TDNCName.m in Sources */,
-				D3C85C7B0E63B438000445FD /* TDArithmeticParser.m in Sources */,
 				D3C85C800E63B9E9000445FD /* TDArithmeticParserTest.m in Sources */,
 				D3C85D450E63D1BF000445FD /* TDScientificNumberStateTest.m in Sources */,
 				D3EADD8E0E75EAA400F78584 /* TDHtmlSyntaxHighlighter.m in Sources */,
@@ -3144,6 +3141,9 @@
 				D35F4AA21164380C003811F3 /* TDURLStateTest.m in Sources */,
 				D35F4ABA11643979003811F3 /* TDEmailStateTest.m in Sources */,
 				D33DC195116562DB004CE58C /* TDTwitterStateTest.m in Sources */,
+				D3E3C00C152C1A9F00F73B40 /* TDArithmeticParser.m in Sources */,
+				D3E3C015152C1AE800F73B40 /* TDRegularParser.m in Sources */,
+				D3E3C01A152C1AF700F73B40 /* XPathParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3588,7 +3588,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_ENABLE_OBJC_GC = supported;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
