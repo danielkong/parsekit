@@ -673,7 +673,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     [a pop]; // pop '('
     
     if ([objs count] > 1) {
-        PKSequence *seq = [PKSequence sequence];
+        PKSequence *seq = [PKTrack track];
         for (id obj in [objs reverseObjectEnumerator]) {
             [seq add:obj];
         }
@@ -955,7 +955,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     if ([parsers count] > 1) {
-        PKSequence *seq = [PKSequence sequence];
+        PKSequence *seq = [PKTrack track];
         for (PKParser *p in [parsers reverseObjectEnumerator]) {
             [seq add:p];
         }
