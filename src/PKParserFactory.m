@@ -12,6 +12,8 @@
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
 
+#define USE_TRACK 0
+
 @interface PKParser (PKParserFactoryAdditionsFriend)
 - (void)setTokenizer:(PKTokenizer *)t;
 @end
@@ -673,7 +675,12 @@ void PKReleaseSubparserTree(PKParser *p) {
     [a pop]; // pop '('
     
     if ([objs count] > 1) {
-        PKSequence *seq = [PKTrack track];
+        PKSequence *seq = nil;
+#if USE_TRACK
+        seq = [PKTrack track];
+#else
+        seq = [PKSequence sequence];
+#endif
         for (id obj in [objs reverseObjectEnumerator]) {
             [seq add:obj];
         }
@@ -955,7 +962,12 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     if ([parsers count] > 1) {
-        PKSequence *seq = [PKTrack track];
+        PKSequence *seq = nil;
+#if USE_TRACK
+        seq = [PKTrack track];
+#else
+        seq = [PKSequence sequence];
+#endif
         for (PKParser *p in [parsers reverseObjectEnumerator]) {
             [seq add:p];
         }
