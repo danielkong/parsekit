@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		D302C69D0EF044810090E714 /* TDPlistParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D36568A60EEF9FE900226554 /* TDPlistParser.m */; };
+		D30805BA155ECB1F0000BC60 /* PKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAF380FF9E18300D7773A /* PKPattern.m */; };
+		D30805BB155ECB220000BC60 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C55FD0FD3617B00141CB7 /* RegexKitLite.m */; };
+		D30805BC155ECB3F0000BC60 /* PKPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221F00FFE8C7A004514FE /* PKPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126D0B0FFD9E4B00CBF4C4 /* TDNegationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
@@ -140,7 +143,6 @@
 		D34BAEEA0FF9D56400D7773A /* PKWordState.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAED60FF9D56400D7773A /* PKWordState.m */; };
 		D34BAF280FF9DF9900D7773A /* PKSymbolNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAF240FF9DF9900D7773A /* PKSymbolNode.m */; };
 		D34BAF2A0FF9DF9900D7773A /* PKSymbolRootNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAF260FF9DF9900D7773A /* PKSymbolRootNode.m */; };
-		D34BAF3A0FF9E18300D7773A /* PKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAF380FF9E18300D7773A /* PKPattern.m */; };
 		D34BAF4C0FF9E19700D7773A /* PKCaseInsensitiveLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAF3C0FF9E19700D7773A /* PKCaseInsensitiveLiteral.m */; };
 		D34BAF4E0FF9E19700D7773A /* PKComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAF3E0FF9E19700D7773A /* PKComment.m */; };
 		D34BAF500FF9E19700D7773A /* PKDelimitedString.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAF400FF9E19700D7773A /* PKDelimitedString.m */; };
@@ -271,7 +273,6 @@
 		D36934741038E28B00527AF3 /* PKRuleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D369345A1038DE5300527AF3 /* PKRuleNode.m */; };
 		D36934751038E28F00527AF3 /* PKTokenNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D369345C1038DE5300527AF3 /* PKTokenNode.m */; };
 		D36C53790FD27F1300141CB7 /* TDParserFactoryTest2.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C53780FD27F1300141CB7 /* TDParserFactoryTest2.m */; };
-		D36C55FF0FD3617B00141CB7 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C55FD0FD3617B00141CB7 /* RegexKitLite.m */; };
 		D36C560C0FD363D500141CB7 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
 		D36C562B0FD365DB00141CB7 /* TDPatternTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C562A0FD365DB00141CB7 /* TDPatternTest.m */; };
 		D36E95D80E57B08400496BD3 /* XPathParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E95D70E57B08400496BD3 /* XPathParserTest.m */; };
@@ -419,7 +420,6 @@
 		D3C221EC0FFE8C69004514FE /* PKSymbolNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221EA0FFE8C69004514FE /* PKSymbolNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C221EE0FFE8C6F004514FE /* PKSymbolRootNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221ED0FFE8C6F004514FE /* PKSymbolRootNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C221EF0FFE8C6F004514FE /* PKSymbolRootNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221ED0FFE8C6F004514FE /* PKSymbolRootNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3C221F10FFE8C7A004514FE /* PKPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221F00FFE8C7A004514FE /* PKPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C221F20FFE8C7A004514FE /* PKPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221F00FFE8C7A004514FE /* PKPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C221F40FFE8C87004514FE /* PKWord.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221F30FFE8C87004514FE /* PKWord.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C221F50FFE8C87004514FE /* PKWord.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221F30FFE8C87004514FE /* PKWord.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2398,7 +2398,6 @@
 				D3C221E80FFE8C60004514FE /* PKMultiLineCommentState.h in Headers */,
 				D3C221EB0FFE8C69004514FE /* PKSymbolNode.h in Headers */,
 				D3C221EE0FFE8C6F004514FE /* PKSymbolRootNode.h in Headers */,
-				D3C221F10FFE8C7A004514FE /* PKPattern.h in Headers */,
 				D3C221F40FFE8C87004514FE /* PKWord.h in Headers */,
 				D3C221F70FFE8C8E004514FE /* PKNumber.h in Headers */,
 				D3C221FA0FFE8C97004514FE /* PKQuotedString.h in Headers */,
@@ -2425,6 +2424,7 @@
 				D35F4A8E11643662003811F3 /* PKURLState.h in Headers */,
 				D33DC1A111656952004CE58C /* PKTwitterState.h in Headers */,
 				D37F232B1453842900A98014 /* PKHashtagState.h in Headers */,
+				D30805BC155ECB3F0000BC60 /* PKPattern.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2862,7 +2862,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D36C55FF0FD3617B00141CB7 /* RegexKitLite.m in Sources */,
 				D34BAD9D0FF9C95800D7773A /* PKReader.m in Sources */,
 				D34BADA20FF9C9B000D7773A /* PKAssembly.m in Sources */,
 				D34BADD80FF9CBFB00D7773A /* PKParser.m in Sources */,
@@ -2894,7 +2893,6 @@
 				D34BAEEA0FF9D56400D7773A /* PKWordState.m in Sources */,
 				D34BAF280FF9DF9900D7773A /* PKSymbolNode.m in Sources */,
 				D34BAF2A0FF9DF9900D7773A /* PKSymbolRootNode.m in Sources */,
-				D34BAF3A0FF9E18300D7773A /* PKPattern.m in Sources */,
 				D34BAF4C0FF9E19700D7773A /* PKCaseInsensitiveLiteral.m in Sources */,
 				D34BAF4E0FF9E19700D7773A /* PKComment.m in Sources */,
 				D34BAF500FF9E19700D7773A /* PKDelimitedString.m in Sources */,
@@ -2919,6 +2917,8 @@
 				D35F4A8811643630003811F3 /* PKURLState.m in Sources */,
 				D33DC19B1165634F004CE58C /* PKTwitterState.m in Sources */,
 				D37F23221453841100A98014 /* PKHashtagState.m in Sources */,
+				D30805BA155ECB1F0000BC60 /* PKPattern.m in Sources */,
+				D30805BB155ECB220000BC60 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3255,10 +3255,7 @@
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					i386,
-					x86_64,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3283,7 +3280,7 @@
 					Foundation,
 				);
 				PRODUCT_NAME = ParseKit;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				SKIP_INSTALL = YES;
 				WARNING_CFLAGS = "-Wundeclared-selector";
 				WRAPPER_EXTENSION = framework;
@@ -3294,10 +3291,7 @@
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					i386,
-					x86_64,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3320,7 +3314,7 @@
 				);
 				PRODUCT_NAME = ParseKit;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				SKIP_INSTALL = YES;
 				TDPARSEKIT_FRAMEWORK_TARGET_PATH = "@executable_path/../Frameworks";
 				WARNING_CFLAGS = "-Wundeclared-selector";
