@@ -12,7 +12,7 @@
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
 
-#define USE_TRACK 0
+#define USE_TRACK 1
 
 @interface PKParser (PKParserFactoryAdditionsFriend)
 - (void)setTokenizer:(PKTokenizer *)t;
@@ -307,14 +307,19 @@ void PKReleaseSubparserTree(PKParser *p) {
 
     t.whitespaceState.reportsWhitespaceTokens = [self boolForTokenForKey:@"@reportsWhitespaceTokens"];
     t.commentState.reportsCommentTokens = [self boolForTokenForKey:@"@reportsCommentTokens"];
-	t.commentState.balancesEOFTerminatedComments = [self boolForTokenForKey:@"balancesEOFTerminatedComments"];
-	t.quoteState.balancesEOFTerminatedQuotes = [self boolForTokenForKey:@"@balancesEOFTerminatedQuotes"];
-	t.delimitState.balancesEOFTerminatedStrings = [self boolForTokenForKey:@"@balancesEOFTerminatedStrings"];
-	t.numberState.allowsTrailingDecimalSeparator = [self boolForTokenForKey:@"@allowsTrailingDecimalSeparator"];
-    t.numberState.allowsScientificNotation  = [self boolForTokenForKey:@"@allowsScientificNotation"];
-    t.numberState.allowsOctalNotation  = [self boolForTokenForKey:@"@allowsOctalNotation"];
-    t.numberState.allowsHexadecimalNotation  = [self boolForTokenForKey:@"@allowsHexadecimalNotation"];
-    t.numberState.allowsFloatingPoint  = [self boolForTokenForKey:@"allowsFloatingPoint"];
+    t.commentState.balancesEOFTerminatedComments = [self boolForTokenForKey:@"balancesEOFTerminatedComments"];
+    t.quoteState.balancesEOFTerminatedQuotes = [self boolForTokenForKey:@"@balancesEOFTerminatedQuotes"];
+    t.delimitState.balancesEOFTerminatedStrings = [self boolForTokenForKey:@"@balancesEOFTerminatedStrings"];
+    t.numberState.allowsTrailingDecimalSeparator = [self boolForTokenForKey:@"@allowsTrailingDecimalSeparator"];
+    t.numberState.allowsScientificNotation = [self boolForTokenForKey:@"@allowsScientificNotation"];
+    t.numberState.allowsOctalNotation = [self boolForTokenForKey:@"@allowsOctalNotation"];
+    t.numberState.allowsHexadecimalNotation = [self boolForTokenForKey:@"@allowsHexadecimalNotation"];
+    
+    BOOL yn = YES;
+    if ([parserTokensTable objectForKey:@"allowsFloatingPoint"]) {
+        yn = [self boolForTokenForKey:@"allowsFloatingPoint"];
+    }
+    t.numberState.allowsFloatingPoint = yn;
     
     [self setTokenizerState:t.wordState onTokenizer:t forTokensForKey:@"@wordState"];
     [self setTokenizerState:t.numberState onTokenizer:t forTokensForKey:@"@numberState"];
