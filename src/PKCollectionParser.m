@@ -72,10 +72,6 @@
 
 
 - (void)add:(PKParser *)p {
-    // TODO remove
-    if (![p isKindOfClass:[PKParser class]]) {
-        NSLog(@"p: %@", p);
-    }
     NSParameterAssert([p isKindOfClass:[PKParser class]]);
     [subparsers addObject:p];
 }
