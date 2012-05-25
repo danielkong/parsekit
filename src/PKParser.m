@@ -99,6 +99,8 @@
 
 - (NSSet *)matchAndAssemble:(NSSet *)inAssemblies {
     NSParameterAssert(inAssemblies);
+    
+#define CONCURRENT 0
 
 #ifdef TARGET_OS_SNOW_LEOPARD
     if (preassemblerBlock) {
@@ -133,9 +135,23 @@
 #endif
     if (assembler) {
         NSAssert2([assembler respondsToSelector:assemblerSelector], @"provided assembler %@ should respond to %s", assembler, assemblerSelector);
+#if CONCURRENT
+        dispatch_group_t myGroup = dispatch_group_create();
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+#endif
         for (PKAssembly *a in outAssemblies) {
-            [assembler performSelector:assemblerSelector withObject:self withObject:a];
+#if CONCURRENT
+            dispatch_group_async(myGroup, queue, ^{
+#endif
+                [assembler performSelector:assemblerSelector withObject:self withObject:a];
+#if CONCURRENT
+            });
+            dispatch_group_wait(myGroup, DISPATCH_TIME_FOREVER);
+#endif
         }
+#if CONCURRENT
+        dispatch_release(myGroup);
+#endif
     }
     return outAssemblies;
 }
