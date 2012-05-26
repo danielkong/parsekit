@@ -202,8 +202,8 @@
 
 - (void)doProf {
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"json_with_discards" ofType:@"grammar"];
-    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    PKTokenizer *t = [PKTokenizer tokenizerWithString:s];
+    NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    PKTokenizer *t = [PKTokenizer tokenizerWithString:g];
     PKToken *eof = [PKToken EOFToken];
     PKToken *tok = nil;
     NSDate *start = [NSDate date];
@@ -217,14 +217,14 @@
     
     //JSONAssembler *assembler = [[[JSONAssembler alloc] init] autorelease];
     start = [NSDate date];
-    PKParser *lp = [factory parserFromGrammar:s assembler:p];
+    PKParser *lp = [factory parserFromGrammar:g assembler:p];
     CGFloat ms4grammar = -([start timeIntervalSinceNow]);
     
     path = [[NSBundle bundleForClass:[self class]] pathForResource:@"yahoo" ofType:@"json"];
-    s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     
     start = [NSDate date];
-    PKAssembly *a = [PKTokenAssembly assemblyWithString:s];
+    PKAssembly *a = [PKTokenAssembly assemblyWithString:g];
     a = [lp completeMatchFor:a];
     CGFloat ms4json = -([start timeIntervalSinceNow]);
 
@@ -232,19 +232,19 @@
     
     p = [[TDJsonParser alloc] initWithIntentToAssemble:NO];
     start = [NSDate date];
-    id res = [p parse:s];
+    id res = [p parse:g];
     CGFloat ms4json2 = -([start timeIntervalSinceNow]);
     [p release];
     
     p = [[TDJsonParser alloc] initWithIntentToAssemble:YES];
     start = [NSDate date];
-    res = [p parse:s];
+    res = [p parse:g];
     CGFloat ms4json3 = -([start timeIntervalSinceNow]);
     [p release];
     
     id fp = [[[TDFastJsonParser alloc] init] autorelease];
     start = [NSDate date];
-    res = [fp parse:s];
+    res = [fp parse:g];
     CGFloat ms4json4 = -([start timeIntervalSinceNow]);
     
     id attrs = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -252,8 +252,8 @@
                 [NSColor whiteColor], NSForegroundColorAttributeName,
                 nil];
 
-    s = [NSString stringWithFormat:@"tokenization: %f \n\ngrammar parse: %f sec\n\nlp json parse: %f sec\n\np json parse (not assembled): %f sec\n\np json parse (assembled): %f sec\n\nfast json parse (assembled): %f sec\n\n %f", ms4tok, ms4grammar, ms4json, ms4json2, ms4json3, ms4json4, (ms4json3/ms4json4)];
-    self.displayString = [[[NSMutableAttributedString alloc] initWithString:s attributes:attrs] autorelease];
+    g = [NSString stringWithFormat:@"tokenization: %f \n\ngrammar parse: %f sec\n\nlp json parse: %f sec\n\np json parse (not assembled): %f sec\n\np json parse (assembled): %f sec\n\nfast json parse (assembled): %f sec\n\n %f", ms4tok, ms4grammar, ms4json, ms4json2, ms4json3, ms4json4, (ms4json3/ms4json4)];
+    self.displayString = [[[NSMutableAttributedString alloc] initWithString:g attributes:attrs] autorelease];
 }
 
 
@@ -477,43 +477,12 @@
 
 - (void)doTestGrammar {
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"date" ofType:@"grammar"];
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"date" ofType:@"grammar"];
+    NSString *path = [@"~/Desktop/grammar.txt" stringByExpandingTildeInPath];
     NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     PKParser *p = [[PKParserFactory factory] parserFromGrammar:g assembler:self];
-    NSString *s = @"2008-01-25";
+    NSString *s = @"1+42+2";
     
-    
-//    //NSString *s = @"foo bar\nbaz bat\n";
-//    NSString *path = [@"~/Desktop/text.txt" stringByExpandingTildeInPath];
-//    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    
-//	NSString *g = 
-//    
-//    @"@symbolState = '\n';"
-//    @"@start = headerLine*;"
-//    @"headerLine = logFormat logId comma category eol;"
-//    @"logFormat = ('Type' 'A' 'Logfile') | ('Logfile II') | ('Some' 'Other' 'Format');"
-//    @"logId = hash Number;"
-//    @"category = Any+;"
-//    
-//    @"comma = ',';"
-//    @"hash = '#';"
-//    @"eol = '\n';";
-//
-//    
-////    @"@symbolState='\"' \"'\"; @delimitState='$'; @delimitedStrings='${' '}' nil; @start=content*;"
-////    @"content = passthru | variable;"
-////    @"passthru= /[^$].*/;"
-////    @"variable = DelimitedString('${', '}');";
-////    
-//    PKParser *p = [[PKParserFactory factory] parserFromGrammar:g assembler:self];
-//    NSString *s = 
-//    //    @"<html><head></head><body><h1>${title}</h1><p>${paragraph1}</p><img src=\"${image}\" /></body></html>";
-//    @"Type A Logfile #4, some category\n";
-//    //@"<foo>${paragraph1}";
-//    //[p parse:s];
-//    
-
     PKAssembly *res = [p parse:s];
 //    p.tokenizer.string = s;
 //    PKAssembly *res = [p bestMatchFor:[PKTokenAssembly assemblyWithTokenizer:p.tokenizer]];
@@ -524,13 +493,23 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchDay:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchExpr:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    NSArray *toks = [a objectsAbove:nil];
+    
+    double total = 0.0;
+    for (PKToken *tok in toks) {
+        double n = tok.floatValue;
+        total += n;
+    }
+    
+    a.target = [NSNumber numberWithDouble:total];
 }
 
-- (void)parser:(PKParser *)p didMatchMonth:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
-}
+//- (void)parser:(PKParser *)p didMatchTerm:(PKAssembly *)a {
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+////    PKToken *tok = [a pop];
+//}
 
 - (void)parser:(PKParser *)p didMatchYear:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
@@ -556,7 +535,7 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     
-    [self doTestGrammar];
+//    [self doTestGrammar];
     
 //    [self doPlistParser];
 //    [self doHtmlSyntaxHighlighter];
@@ -565,7 +544,7 @@
 
 //    [self doJSParser];
     
-//    [self doProf];
+    [self doProf];
 
     //[self doJavaScriptGrammarParser];
     

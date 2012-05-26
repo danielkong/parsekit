@@ -184,17 +184,17 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (PKParser *)parserFromGrammar:(NSString *)s assembler:(id)a {
-    return [self parserFromGrammar:s assembler:a preassembler:nil];
+- (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a {
+    return [self parserFromGrammar:g assembler:a preassembler:nil];
 }
 
 
-- (PKParser *)parserFromGrammar:(NSString *)s assembler:(id)a preassembler:(id)pa {
+- (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a preassembler:(id)pa {
     self.assembler = a;
     self.preassembler = pa;
     self.selectorTable = [NSMutableDictionary dictionary];
     self.parserClassTable = [NSMutableDictionary dictionary];
-    self.parserTokensTable = [self parserTokensTableFromParsingStatementsInString:s];
+    self.parserTokensTable = [self parserTokensTableFromParsingStatementsInString:g];
 
     PKTokenizer *t = [self tokenizerFromGrammarSettings];
 
