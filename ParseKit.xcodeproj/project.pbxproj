@@ -293,6 +293,130 @@
 		D37D3A000FE77A71008C2E4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
 		D37D3A010FE77A72008C2E4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
 		D37D3A020FE77A77008C2E4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
+		D37D8DC91571A4F700CDB822 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */; };
+		D37D8DCB1571A4F700CDB822 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37D8DCA1571A4F700CDB822 /* Cocoa.framework */; };
+		D37D8DD51571A4F700CDB822 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D37D8DD31571A4F700CDB822 /* InfoPlist.strings */; };
+		D37D8DDE1571A57300CDB822 /* PKParseTree.m in Sources */ = {isa = PBXBuildFile; fileRef = D36934561038DE5300527AF3 /* PKParseTree.m */; };
+		D37D8DDF1571A57300CDB822 /* PKParseTreeAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D36934581038DE5300527AF3 /* PKParseTreeAssembler.m */; };
+		D37D8DE01571A57300CDB822 /* PKRuleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D369345A1038DE5300527AF3 /* PKRuleNode.m */; };
+		D37D8DE11571A57300CDB822 /* PKTokenNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D369345C1038DE5300527AF3 /* PKTokenNode.m */; };
+		D37D8DE21571A57300CDB822 /* TDParseTreeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F55F601025737D00DD6DB1 /* TDParseTreeTest.m */; };
+		D37D8DE31571A57300CDB822 /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
+		D37D8DE41571A57300CDB822 /* TDParserFactoryTest3.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAC220FF87F8600D7773A /* TDParserFactoryTest3.m */; };
+		D37D8DE51571A57300CDB822 /* TDParserFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D380BA600F0F06CD0009EC13 /* TDParserFactoryTest.m */; };
+		D37D8DE61571A57300CDB822 /* TDParserFactoryTest2.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C53780FD27F1300141CB7 /* TDParserFactoryTest2.m */; };
+		D37D8DE71571A57300CDB822 /* TDParserFactoryPatternTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF49770FDB122E0032F4DC /* TDParserFactoryPatternTest.m */; };
+		D37D8DE81571A57300CDB822 /* TDMiniCSSAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D385FD410F05A88C00DB2946 /* TDMiniCSSAssembler.m */; };
+		D37D8DE91571A57300CDB822 /* TDMiniCSSAssemblerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D385FD430F05A88C00DB2946 /* TDMiniCSSAssemblerTest.m */; };
+		D37D8DEA1571A57300CDB822 /* TDGenericAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D385F9890F046FE900DB2946 /* TDGenericAssembler.m */; };
+		D37D8DEB1571A57300CDB822 /* TDGenericAssemblerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D385FA220F04971400DB2946 /* TDGenericAssemblerTest.m */; };
+		D37D8DEC1571A57300CDB822 /* TDSyntaxHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DDDA860F0779FD00A58000 /* TDSyntaxHighlighter.m */; };
+		D37D8DED1571A57300CDB822 /* TDNSPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D355C62C0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m */; };
+		D37D8DEE1571A57300CDB822 /* TDNSPredicateEvaluatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D355C6300FE9EFEA006A91A4 /* TDNSPredicateEvaluatorTest.m */; };
+		D37D8DEF1571A57300CDB822 /* TDNSPredicateBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = D3252F7D0FCE1A87005EF059 /* TDNSPredicateBuilder.m */; };
+		D37D8DF01571A57300CDB822 /* TDNSPredicateBuilderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3252F790FCE1A7F005EF059 /* TDNSPredicateBuilderTest.m */; };
+		D37D8DF11571A57300CDB822 /* TDPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */; };
+		D37D8DF21571A57300CDB822 /* TDPredicateEvaluatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3385FDC0FCFB227003BF729 /* TDPredicateEvaluatorTest.m */; };
+		D37D8DF31571A57300CDB822 /* TDJavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D31A16510F7038C2002AFDF1 /* TDJavaScriptParser.m */; };
+		D37D8DF41571A57300CDB822 /* TDJavaScriptParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B43FB60F76E99C0072AF40 /* TDJavaScriptParserTest.m */; };
+		D37D8DF51571A57300CDB822 /* TDAlternationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE54E0E60E50800A0803E /* TDAlternationTest.m */; };
+		D37D8DF61571A57300CDB822 /* TDLiteralTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5500E60E50800A0803E /* TDLiteralTest.m */; };
+		D37D8DF71571A57300CDB822 /* TDParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5520E60E50800A0803E /* TDParserTest.m */; };
+		D37D8DF81571A57300CDB822 /* TDParserBlocksTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D38E98D71062C5BA00739C39 /* TDParserBlocksTest.m */; };
+		D37D8DF91571A57300CDB822 /* TDRepetitionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5540E60E50800A0803E /* TDRepetitionTest.m */; };
+		D37D8DFB1571A57400CDB822 /* TDRobotCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5580E60E50800A0803E /* TDRobotCommandTest.m */; };
+		D37D8DFC1571A57400CDB822 /* TDSequenceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE55A0E60E50800A0803E /* TDSequenceTest.m */; };
+		D37D8DFD1571A57400CDB822 /* TDSymbolTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE55C0E60E50800A0803E /* TDSymbolTest.m */; };
+		D37D8DFE1571A57400CDB822 /* TDTokenAssemblyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE55E0E60E50800A0803E /* TDTokenAssemblyTest.m */; };
+		D37D8DFF1571A57400CDB822 /* TDTrackTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5600E60E50800A0803E /* TDTrackTest.m */; };
+		D37D8E001571A57400CDB822 /* TDUppercaseWordTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5620E60E50800A0803E /* TDUppercaseWordTest.m */; };
+		D37D8E011571A57400CDB822 /* TDLowercaseWordTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C031EC0EF38D2D00C5ABEB /* TDLowercaseWordTest.m */; };
+		D37D8E031571A57400CDB822 /* TDPatternTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C562A0FD365DB00141CB7 /* TDPatternTest.m */; };
+		D37D8E041571A57400CDB822 /* TDDifferenceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D338E5BA0FF5DDCB003DE6AA /* TDDifferenceTest.m */; };
+		D37D8E051571A57400CDB822 /* TDNegationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */; };
+		D37D8E061571A57400CDB822 /* TDReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5720E60E55700A0803E /* TDReaderTest.m */; };
+		D37D8E071571A57400CDB822 /* TDTokenizerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5740E60E55700A0803E /* TDTokenizerTest.m */; };
+		D37D8E081571A57400CDB822 /* TDTokenizerBlocksTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D38E97CB1061CF6500739C39 /* TDTokenizerBlocksTest.m */; };
+		D37D8E091571A57400CDB822 /* TDTokenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D38205BD0EEE48EE004340DD /* TDTokenTest.m */; };
+		D37D8E0A1571A57400CDB822 /* TDTokenArraySourceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3656DFD0EF2620E00226554 /* TDTokenArraySourceTest.m */; };
+		D37D8E0B1571A57400CDB822 /* TDTokenizerStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAD17100A9B7900996341 /* TDTokenizerStateTest.m */; };
+		D37D8E0C1571A57400CDB822 /* TDNumberStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5780E60E58C00A0803E /* TDNumberStateTest.m */; };
+		D37D8E0D1571A57400CDB822 /* TDQuoteStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE57A0E60E58C00A0803E /* TDQuoteStateTest.m */; };
+		D37D8E0E1571A57400CDB822 /* TDSymbolStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5800E60E58C00A0803E /* TDSymbolStateTest.m */; };
+		D37D8E0F1571A57400CDB822 /* TDWhitespaceStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5820E60E58C00A0803E /* TDWhitespaceStateTest.m */; };
+		D37D8E101571A57400CDB822 /* TDWordStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5840E60E58C00A0803E /* TDWordStateTest.m */; };
+		D37D8E111571A57400CDB822 /* TDScientificNumberStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85D440E63D1BF000445FD /* TDScientificNumberStateTest.m */; };
+		D37D8E121571A57400CDB822 /* TDCommentStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DDDAFD0F083C9700A58000 /* TDCommentStateTest.m */; };
+		D37D8E131571A57400CDB822 /* TDDelimitStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E39C3E0FC5FFD10022DAB9 /* TDDelimitStateTest.m */; };
+		D37D8E141571A57400CDB822 /* TDURLStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4AA11164380C003811F3 /* TDURLStateTest.m */; };
+		D37D8E151571A57400CDB822 /* TDEmailStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4AB911643979003811F3 /* TDEmailStateTest.m */; };
+		D37D8E161571A57400CDB822 /* TDTwitterStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC194116562DB004CE58C /* TDTwitterStateTest.m */; };
+		D37D8E171571A57400CDB822 /* TDCharacterAssemblyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE58D0E60E5AC00A0803E /* TDCharacterAssemblyTest.m */; };
+		D37D8E181571A57400CDB822 /* TDCharTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE58F0E60E5AC00A0803E /* TDCharTest.m */; };
+		D37D8E191571A57400CDB822 /* TDDigitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5910E60E5AC00A0803E /* TDDigitTest.m */; };
+		D37D8E1A1571A57400CDB822 /* TDLetterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5930E60E5AC00A0803E /* TDLetterTest.m */; };
+		D37D8E1B1571A57400CDB822 /* TDSpecificCharTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5950E60E5AC00A0803E /* TDSpecificCharTest.m */; };
+		D37D8E1C1571A57400CDB822 /* TDArithmeticAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D319E42D106D8A31008C63DD /* TDArithmeticAssembler.m */; };
+		D37D8E1D1571A57400CDB822 /* TDArithmeticParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85C7A0E63B438000445FD /* TDArithmeticParser.m */; };
+		D37D8E1E1571A57400CDB822 /* TDArithmeticParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85C7F0E63B9E9000445FD /* TDArithmeticParserTest.m */; };
+		D37D8E1F1571A57400CDB822 /* TDRegularParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE59C0E60E5C000A0803E /* TDRegularParser.m */; };
+		D37D8E201571A57400CDB822 /* TDRegularParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE59E0E60E5C000A0803E /* TDRegularParserTest.m */; };
+		D37D8E211571A57400CDB822 /* EBNFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E78A160E574C99008C7D61 /* EBNFParser.m */; };
+		D37D8E221571A57400CDB822 /* EBNFParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E78A180E574C99008C7D61 /* EBNFParserTest.m */; };
+		D37D8E231571A57400CDB822 /* TDPlistParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D36568A60EEF9FE900226554 /* TDPlistParser.m */; };
+		D37D8E241571A57400CDB822 /* TDPlistParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36568A90EEFA05300226554 /* TDPlistParserTest.m */; };
+		D37D8E251571A57400CDB822 /* SAXTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D1BF2A1039445C003656E5 /* SAXTest.m */; };
+		D37D8E261571A57400CDB822 /* SAXAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D1BF2710394420003656E5 /* SAXAssembler.m */; };
+		D37D8E271571A57400CDB822 /* TDXMLParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBBC970FEC9722007DF30D /* TDXMLParserTest.m */; };
+		D37D8E281571A57400CDB822 /* TDXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */; };
+		D37D8E291571A57400CDB822 /* XPathParserGrammarTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAC4A0FF892C200D7773A /* XPathParserGrammarTest.m */; };
+		D37D8E2A1571A57400CDB822 /* TDNCName.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE6DF0E60EE2500A0803E /* TDNCName.m */; };
+		D37D8E2B1571A57400CDB822 /* TDNCNameState.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5F10E60E6B500A0803E /* TDNCNameState.m */; };
+		D37D8E2C1571A57400CDB822 /* XPathParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E95450E578ECC00496BD3 /* XPathParser.m */; };
+		D37D8E2D1571A57400CDB822 /* XPathAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E97AF0E589DAE00496BD3 /* XPathAssembler.m */; };
+		D37D8E2E1571A57400CDB822 /* XPathContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98210E58A3A800496BD3 /* XPathContext.m */; };
+		D37D8E2F1571A57400CDB822 /* XPathParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E95D70E57B08400496BD3 /* XPathParserTest.m */; };
+		D37D8E301571A57400CDB822 /* SRGSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E788950E567E0A008C7D61 /* SRGSParser.m */; };
+		D37D8E311571A57400CDB822 /* SRGSParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E788920E567DFD008C7D61 /* SRGSParserTest.m */; };
+		D37D8E331571A57400CDB822 /* TDHtmlSyntaxHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EADD8C0E75EAA400F78584 /* TDHtmlSyntaxHighlighter.m */; };
+		D37D8E341571A57400CDB822 /* ERBTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3668295101D2C200008632C /* ERBTest.m */; };
+		D37D8E351571A5A200CDB822 /* css.css in Resources */ = {isa = PBXBuildFile; fileRef = D380B5370F0D7DDE0009EC13 /* css.css */; };
+		D37D8E361571A5A200CDB822 /* css.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D380B5080F0D71A90009EC13 /* css.grammar */; };
+		D37D8E371571A5A200CDB822 /* example.css in Resources */ = {isa = PBXBuildFile; fileRef = D380B5930F0D82F60009EC13 /* example.css */; };
+		D37D8E381571A5A200CDB822 /* html.css in Resources */ = {isa = PBXBuildFile; fileRef = D380AFBB0F0C54B60009EC13 /* html.css */; };
+		D37D8E391571A5A200CDB822 /* html.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D380AFBC0F0C54B60009EC13 /* html.grammar */; };
+		D37D8E3A1571A5A200CDB822 /* mini_css.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D385FD6B0F05A99900DB2946 /* mini_css.grammar */; };
+		D37D8E3B1571A5A200CDB822 /* json.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3DCB4C20EF6015300DE5110 /* json.grammar */; };
+		D37D8E3C1571A5A200CDB822 /* json.css in Resources */ = {isa = PBXBuildFile; fileRef = D385FA240F04993500DB2946 /* json.css */; };
+		D37D8E3D1571A5A200CDB822 /* json_with_comments.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */; };
+		D37D8E3E1571A5A200CDB822 /* json_with_comments.css in Resources */ = {isa = PBXBuildFile; fileRef = D38349BB0F0C0D910055E4E0 /* json_with_comments.css */; };
+		D37D8E3F1571A5A200CDB822 /* yahoo_with_comments.json in Resources */ = {isa = PBXBuildFile; fileRef = D3834A470F0C14B60055E4E0 /* yahoo_with_comments.json */; };
+		D37D8E401571A5A200CDB822 /* rubyhash.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3FD791F0F4CC86800BAD816 /* rubyhash.grammar */; };
+		D37D8E411571A5A200CDB822 /* example.html in Resources */ = {isa = PBXBuildFile; fileRef = D380AFC20F0C56000009EC13 /* example.html */; };
+		D37D8E421571A5A200CDB822 /* css2_1.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3F741BD0EF9F28D00559B9F /* css2_1.grammar */; };
+		D37D8E431571A5A200CDB822 /* xpath1_0.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3F741430EF8E96A00559B9F /* xpath1_0.grammar */; };
+		D37D8E441571A5A200CDB822 /* json_with_discards.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3D01CA90EFDB89900C24DDE /* json_with_discards.grammar */; };
+		D37D8E451571A5A200CDB822 /* javascript.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D31A15250F6DE449002AFDF1 /* javascript.grammar */; };
+		D37D8E461571A5A200CDB822 /* c.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D353899B0FEAC94400926552 /* c.grammar */; };
+		D37D8E471571A5A200CDB822 /* objc.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D353899D0FEAC96B00926552 /* objc.grammar */; };
+		D37D8E481571A5A200CDB822 /* proto.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8830FEB4B94006A91A4 /* proto.grammar */; };
+		D37D8E491571A5A200CDB822 /* nspredicate.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D35384EC0FE9691100926552 /* nspredicate.grammar */; };
+		D37D8E4A1571A5A200CDB822 /* arithmetic.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D319E429106D8A1F008C63DD /* arithmetic.grammar */; };
+		D37D8E4B1571A5A200CDB822 /* apple-boss.json in Resources */ = {isa = PBXBuildFile; fileRef = D3E784BC0E53DA28008C7D61 /* apple-boss.json */; };
+		D37D8E4C1571A5A200CDB822 /* yahoo.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B473840E48C9CF008AFBDD /* yahoo.json */; };
+		D37D8E4D1571A5A200CDB822 /* xml.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8800FEB36A1006A91A4 /* xml.grammar */; };
+		D37D8E4E1571A5A200CDB822 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
+		D37D8E4F1571A5A200CDB822 /* small-xml-file.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */; };
+		D37D8E501571A5A200CDB822 /* apple-boss.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36E9FB40E5A944A00496BD3 /* apple-boss.xml */; };
+		D37D8E511571A5A200CDB822 /* example1.srgs in Resources */ = {isa = PBXBuildFile; fileRef = D3DDDCAC0F0880D800A58000 /* example1.srgs */; };
+		D37D8E521571A5A200CDB822 /* SRGSGrammar.txt in Resources */ = {isa = PBXBuildFile; fileRef = D36E9FE40E5BA0FC00496BD3 /* SRGSGrammar.txt */; };
+		D37D8E531571A5A200CDB822 /* nyt.html in Resources */ = {isa = PBXBuildFile; fileRef = D38DD9E70EC29F260070BC4D /* nyt.html */; };
+		D37D8E541571A5A200CDB822 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
+		D37D8E551571A5A200CDB822 /* nasty.html in Resources */ = {isa = PBXBuildFile; fileRef = D3EADD7F0E75E9CC00F78584 /* nasty.html */; };
+		D37D8E561571A5A200CDB822 /* erb.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3668291101D2BFA0008632C /* erb.grammar */; };
+		D37D8E591571A5B200CDB822 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
+		D37D8E5A1571A5BA00CDB822 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3DCB35C0EF5E52500DE5110 /* OCMock.framework */; };
+		D37D8E5C1571A5C900CDB822 /* OCMock.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D3DCB35C0EF5E52500DE5110 /* OCMock.framework */; };
 		D37F23221453841100A98014 /* PKHashtagState.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F23201453841100A98014 /* PKHashtagState.m */; };
 		D37F232B1453842900A98014 /* PKHashtagState.h in Headers */ = {isa = PBXBuildFile; fileRef = D37F232A1453842800A98014 /* PKHashtagState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D380AFBD0F0C54B60009EC13 /* html.css in Resources */ = {isa = PBXBuildFile; fileRef = D380AFBB0F0C54B60009EC13 /* html.css */; };
@@ -593,6 +717,13 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = TODParseKit;
 		};
+		D37D8E571571A5A900CDB822 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = ParseKit;
+		};
 		D389F1D30F19665C00558235 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -610,6 +741,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		D37D8E5B1571A5BF00CDB822 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(BUILT_PRODUCTS_DIR)";
+			dstSubfolderSpec = 0;
+			files = (
+				D37D8E5C1571A5C900CDB822 /* OCMock.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D380B9A10F0EF3DC0009EC13 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -995,6 +1136,15 @@
 		D36E9FB40E5A944A00496BD3 /* apple-boss.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "apple-boss.xml"; path = "res/apple-boss.xml"; sourceTree = "<group>"; };
 		D36E9FE40E5BA0FC00496BD3 /* SRGSGrammar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SRGSGrammar.txt; path = res/SRGSGrammar.txt; sourceTree = "<group>"; };
 		D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "small-xml-file.xml"; path = "res/small-xml-file.xml"; sourceTree = "<group>"; };
+		D37D8DC61571A4F700CDB822 /* NewTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		D37D8DCA1571A4F700CDB822 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		D37D8DCD1571A4F700CDB822 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		D37D8DCE1571A4F700CDB822 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D37D8DCF1571A4F700CDB822 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D37D8DD21571A4F700CDB822 /* NewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NewTests-Info.plist"; sourceTree = "<group>"; };
+		D37D8DD41571A4F700CDB822 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D37D8DD91571A4F700CDB822 /* NewTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NewTests-Prefix.pch"; sourceTree = "<group>"; };
 		D37F23201453841100A98014 /* PKHashtagState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKHashtagState.m; path = src/PKHashtagState.m; sourceTree = "<group>"; };
 		D37F232A1453842800A98014 /* PKHashtagState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKHashtagState.h; path = include/ParseKit/PKHashtagState.h; sourceTree = "<group>"; };
 		D380AFBB0F0C54B60009EC13 /* html.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = html.css; path = res/html.css; sourceTree = "<group>"; };
@@ -1218,6 +1368,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D37D8DC21571A4F700CDB822 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D37D8E591571A5B200CDB822 /* ParseKit.framework in Frameworks */,
+				D37D8DC91571A4F700CDB822 /* SenTestingKit.framework in Frameworks */,
+				D37D8DCB1571A4F700CDB822 /* Cocoa.framework in Frameworks */,
+				D37D8E5A1571A5BA00CDB822 /* OCMock.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D389F1CC0F1965E600558235 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1274,6 +1435,7 @@
 				D34185040E520D3F0081B0DC /* DebugApp.app */,
 				D389F2030F196A7500558235 /* JSDemoApp.app */,
 				D3FDC5830FFC4BFC00F1F797 /* libparsekit.a */,
+				D37D8DC61571A4F700CDB822 /* NewTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1291,6 +1453,8 @@
 				32C88DFF0371C24200C91783 /* Other Sources (not used) */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				D37D8DD01571A4F700CDB822 /* NewTests */,
+				D37D8DC71571A4F700CDB822 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
 			name = TODParseKit;
@@ -1730,6 +1894,44 @@
 				D31FE5B60E60E66600A0803E /* TDXmlTokenizer.m */,
 			);
 			name = tokenizer;
+			sourceTree = "<group>";
+		};
+		D37D8DC71571A4F700CDB822 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */,
+				D37D8DCA1571A4F700CDB822 /* Cocoa.framework */,
+				D37D8DCC1571A4F700CDB822 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D37D8DCC1571A4F700CDB822 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D37D8DCD1571A4F700CDB822 /* AppKit.framework */,
+				D37D8DCE1571A4F700CDB822 /* CoreData.framework */,
+				D37D8DCF1571A4F700CDB822 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		D37D8DD01571A4F700CDB822 /* NewTests */ = {
+			isa = PBXGroup;
+			children = (
+				D37D8DD11571A4F700CDB822 /* Supporting Files */,
+			);
+			path = NewTests;
+			sourceTree = "<group>";
+		};
+		D37D8DD11571A4F700CDB822 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D37D8DD21571A4F700CDB822 /* NewTests-Info.plist */,
+				D37D8DD31571A4F700CDB822 /* InfoPlist.strings */,
+				D37D8DD91571A4F700CDB822 /* NewTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		D380BA950F0F1C450009EC13 /* JSParseKit Framework */ = {
@@ -2599,6 +2801,26 @@
 			productReference = D34185040E520D3F0081B0DC /* DebugApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D37D8DC51571A4F700CDB822 /* NewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D37D8DDC1571A4F700CDB822 /* Build configuration list for PBXNativeTarget "NewTests" */;
+			buildPhases = (
+				D37D8DC11571A4F700CDB822 /* Sources */,
+				D37D8DC21571A4F700CDB822 /* Frameworks */,
+				D37D8E5B1571A5BF00CDB822 /* CopyFiles */,
+				D37D8DC31571A4F700CDB822 /* Resources */,
+				D37D8DC41571A4F700CDB822 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D37D8E581571A5A900CDB822 /* PBXTargetDependency */,
+			);
+			name = NewTests;
+			productName = NewTests;
+			productReference = D37D8DC61571A4F700CDB822 /* NewTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		D389F1CD0F1965E600558235 /* JSParseKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D389F1D20F1965E800558235 /* Build configuration list for PBXNativeTarget "JSParseKit" */;
@@ -2690,6 +2912,7 @@
 				Japanese,
 				French,
 				German,
+				en,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* TODParseKit */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -2700,6 +2923,7 @@
 				D389F1CD0F1965E600558235 /* JSParseKit */,
 				D3FDC5820FFC4BFC00F1F797 /* ParseKitMobile */,
 				D3C7D8790A411FBF005DD154 /* Tests */,
+				D37D8DC51571A4F700CDB822 /* NewTests */,
 				D334940F0E2963FD00406085 /* DemoApp */,
 				D34185030E520D3F0081B0DC /* DebugApp */,
 				D389F2020F196A7500558235 /* JSDemoApp */,
@@ -2764,6 +2988,48 @@
 				D3668293101D2C000008632C /* erb.grammar in Resources */,
 				D315DF730FEF59B600D876C8 /* date.grammar in Resources */,
 				D319E42B106D8A1F008C63DD /* arithmetic.grammar in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D37D8DC31571A4F700CDB822 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D37D8E351571A5A200CDB822 /* css.css in Resources */,
+				D37D8E361571A5A200CDB822 /* css.grammar in Resources */,
+				D37D8E371571A5A200CDB822 /* example.css in Resources */,
+				D37D8E381571A5A200CDB822 /* html.css in Resources */,
+				D37D8E391571A5A200CDB822 /* html.grammar in Resources */,
+				D37D8E3A1571A5A200CDB822 /* mini_css.grammar in Resources */,
+				D37D8E3B1571A5A200CDB822 /* json.grammar in Resources */,
+				D37D8E3C1571A5A200CDB822 /* json.css in Resources */,
+				D37D8E3D1571A5A200CDB822 /* json_with_comments.grammar in Resources */,
+				D37D8E3E1571A5A200CDB822 /* json_with_comments.css in Resources */,
+				D37D8E3F1571A5A200CDB822 /* yahoo_with_comments.json in Resources */,
+				D37D8E401571A5A200CDB822 /* rubyhash.grammar in Resources */,
+				D37D8E411571A5A200CDB822 /* example.html in Resources */,
+				D37D8E421571A5A200CDB822 /* css2_1.grammar in Resources */,
+				D37D8E431571A5A200CDB822 /* xpath1_0.grammar in Resources */,
+				D37D8E441571A5A200CDB822 /* json_with_discards.grammar in Resources */,
+				D37D8E451571A5A200CDB822 /* javascript.grammar in Resources */,
+				D37D8E461571A5A200CDB822 /* c.grammar in Resources */,
+				D37D8E471571A5A200CDB822 /* objc.grammar in Resources */,
+				D37D8E481571A5A200CDB822 /* proto.grammar in Resources */,
+				D37D8E491571A5A200CDB822 /* nspredicate.grammar in Resources */,
+				D37D8E4A1571A5A200CDB822 /* arithmetic.grammar in Resources */,
+				D37D8E4B1571A5A200CDB822 /* apple-boss.json in Resources */,
+				D37D8E4C1571A5A200CDB822 /* yahoo.json in Resources */,
+				D37D8E4D1571A5A200CDB822 /* xml.grammar in Resources */,
+				D37D8E4E1571A5A200CDB822 /* date.grammar in Resources */,
+				D37D8E4F1571A5A200CDB822 /* small-xml-file.xml in Resources */,
+				D37D8E501571A5A200CDB822 /* apple-boss.xml in Resources */,
+				D37D8E511571A5A200CDB822 /* example1.srgs in Resources */,
+				D37D8E521571A5A200CDB822 /* SRGSGrammar.txt in Resources */,
+				D37D8E531571A5A200CDB822 /* nyt.html in Resources */,
+				D37D8E541571A5A200CDB822 /* nonascii.html in Resources */,
+				D37D8E551571A5A200CDB822 /* nasty.html in Resources */,
+				D37D8E561571A5A200CDB822 /* erb.grammar in Resources */,
+				D37D8DD51571A4F700CDB822 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2841,6 +3107,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#cp -R -f \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\" ${HOME}/Library/Frameworks";
+		};
+		D37D8DC41571A4F700CDB822 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 		D3C7D8780A411FBF005DD154 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2966,6 +3245,97 @@
 				D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */,
 				D3376D8F10096C0700E4602E /* PKAST.m in Sources */,
 				D319E42F106D8A31008C63DD /* TDArithmeticAssembler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D37D8DC11571A4F700CDB822 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D37D8DDE1571A57300CDB822 /* PKParseTree.m in Sources */,
+				D37D8DDF1571A57300CDB822 /* PKParseTreeAssembler.m in Sources */,
+				D37D8DE01571A57300CDB822 /* PKRuleNode.m in Sources */,
+				D37D8DE11571A57300CDB822 /* PKTokenNode.m in Sources */,
+				D37D8DE21571A57300CDB822 /* TDParseTreeTest.m in Sources */,
+				D37D8DE31571A57300CDB822 /* PKAST.m in Sources */,
+				D37D8DE41571A57300CDB822 /* TDParserFactoryTest3.m in Sources */,
+				D37D8DE51571A57300CDB822 /* TDParserFactoryTest.m in Sources */,
+				D37D8DE61571A57300CDB822 /* TDParserFactoryTest2.m in Sources */,
+				D37D8DE71571A57300CDB822 /* TDParserFactoryPatternTest.m in Sources */,
+				D37D8DE81571A57300CDB822 /* TDMiniCSSAssembler.m in Sources */,
+				D37D8DE91571A57300CDB822 /* TDMiniCSSAssemblerTest.m in Sources */,
+				D37D8DEA1571A57300CDB822 /* TDGenericAssembler.m in Sources */,
+				D37D8DEB1571A57300CDB822 /* TDGenericAssemblerTest.m in Sources */,
+				D37D8DEC1571A57300CDB822 /* TDSyntaxHighlighter.m in Sources */,
+				D37D8DED1571A57300CDB822 /* TDNSPredicateEvaluator.m in Sources */,
+				D37D8DEE1571A57300CDB822 /* TDNSPredicateEvaluatorTest.m in Sources */,
+				D37D8DEF1571A57300CDB822 /* TDNSPredicateBuilder.m in Sources */,
+				D37D8DF01571A57300CDB822 /* TDNSPredicateBuilderTest.m in Sources */,
+				D37D8DF11571A57300CDB822 /* TDPredicateEvaluator.m in Sources */,
+				D37D8DF21571A57300CDB822 /* TDPredicateEvaluatorTest.m in Sources */,
+				D37D8DF31571A57300CDB822 /* TDJavaScriptParser.m in Sources */,
+				D37D8DF41571A57300CDB822 /* TDJavaScriptParserTest.m in Sources */,
+				D37D8DF51571A57300CDB822 /* TDAlternationTest.m in Sources */,
+				D37D8DF61571A57300CDB822 /* TDLiteralTest.m in Sources */,
+				D37D8DF71571A57300CDB822 /* TDParserTest.m in Sources */,
+				D37D8DF81571A57300CDB822 /* TDParserBlocksTest.m in Sources */,
+				D37D8DF91571A57300CDB822 /* TDRepetitionTest.m in Sources */,
+				D37D8DFB1571A57400CDB822 /* TDRobotCommandTest.m in Sources */,
+				D37D8DFC1571A57400CDB822 /* TDSequenceTest.m in Sources */,
+				D37D8DFD1571A57400CDB822 /* TDSymbolTest.m in Sources */,
+				D37D8DFE1571A57400CDB822 /* TDTokenAssemblyTest.m in Sources */,
+				D37D8DFF1571A57400CDB822 /* TDTrackTest.m in Sources */,
+				D37D8E001571A57400CDB822 /* TDUppercaseWordTest.m in Sources */,
+				D37D8E011571A57400CDB822 /* TDLowercaseWordTest.m in Sources */,
+				D37D8E031571A57400CDB822 /* TDPatternTest.m in Sources */,
+				D37D8E041571A57400CDB822 /* TDDifferenceTest.m in Sources */,
+				D37D8E051571A57400CDB822 /* TDNegationTest.m in Sources */,
+				D37D8E061571A57400CDB822 /* TDReaderTest.m in Sources */,
+				D37D8E071571A57400CDB822 /* TDTokenizerTest.m in Sources */,
+				D37D8E081571A57400CDB822 /* TDTokenizerBlocksTest.m in Sources */,
+				D37D8E091571A57400CDB822 /* TDTokenTest.m in Sources */,
+				D37D8E0A1571A57400CDB822 /* TDTokenArraySourceTest.m in Sources */,
+				D37D8E0B1571A57400CDB822 /* TDTokenizerStateTest.m in Sources */,
+				D37D8E0C1571A57400CDB822 /* TDNumberStateTest.m in Sources */,
+				D37D8E0D1571A57400CDB822 /* TDQuoteStateTest.m in Sources */,
+				D37D8E0E1571A57400CDB822 /* TDSymbolStateTest.m in Sources */,
+				D37D8E0F1571A57400CDB822 /* TDWhitespaceStateTest.m in Sources */,
+				D37D8E101571A57400CDB822 /* TDWordStateTest.m in Sources */,
+				D37D8E111571A57400CDB822 /* TDScientificNumberStateTest.m in Sources */,
+				D37D8E121571A57400CDB822 /* TDCommentStateTest.m in Sources */,
+				D37D8E131571A57400CDB822 /* TDDelimitStateTest.m in Sources */,
+				D37D8E141571A57400CDB822 /* TDURLStateTest.m in Sources */,
+				D37D8E151571A57400CDB822 /* TDEmailStateTest.m in Sources */,
+				D37D8E161571A57400CDB822 /* TDTwitterStateTest.m in Sources */,
+				D37D8E171571A57400CDB822 /* TDCharacterAssemblyTest.m in Sources */,
+				D37D8E181571A57400CDB822 /* TDCharTest.m in Sources */,
+				D37D8E191571A57400CDB822 /* TDDigitTest.m in Sources */,
+				D37D8E1A1571A57400CDB822 /* TDLetterTest.m in Sources */,
+				D37D8E1B1571A57400CDB822 /* TDSpecificCharTest.m in Sources */,
+				D37D8E1C1571A57400CDB822 /* TDArithmeticAssembler.m in Sources */,
+				D37D8E1D1571A57400CDB822 /* TDArithmeticParser.m in Sources */,
+				D37D8E1E1571A57400CDB822 /* TDArithmeticParserTest.m in Sources */,
+				D37D8E1F1571A57400CDB822 /* TDRegularParser.m in Sources */,
+				D37D8E201571A57400CDB822 /* TDRegularParserTest.m in Sources */,
+				D37D8E211571A57400CDB822 /* EBNFParser.m in Sources */,
+				D37D8E221571A57400CDB822 /* EBNFParserTest.m in Sources */,
+				D37D8E231571A57400CDB822 /* TDPlistParser.m in Sources */,
+				D37D8E241571A57400CDB822 /* TDPlistParserTest.m in Sources */,
+				D37D8E251571A57400CDB822 /* SAXTest.m in Sources */,
+				D37D8E261571A57400CDB822 /* SAXAssembler.m in Sources */,
+				D37D8E271571A57400CDB822 /* TDXMLParserTest.m in Sources */,
+				D37D8E281571A57400CDB822 /* TDXMLParser.m in Sources */,
+				D37D8E291571A57400CDB822 /* XPathParserGrammarTest.m in Sources */,
+				D37D8E2A1571A57400CDB822 /* TDNCName.m in Sources */,
+				D37D8E2B1571A57400CDB822 /* TDNCNameState.m in Sources */,
+				D37D8E2C1571A57400CDB822 /* XPathParser.m in Sources */,
+				D37D8E2D1571A57400CDB822 /* XPathAssembler.m in Sources */,
+				D37D8E2E1571A57400CDB822 /* XPathContext.m in Sources */,
+				D37D8E2F1571A57400CDB822 /* XPathParserTest.m in Sources */,
+				D37D8E301571A57400CDB822 /* SRGSParser.m in Sources */,
+				D37D8E311571A57400CDB822 /* SRGSParserTest.m in Sources */,
+				D37D8E331571A57400CDB822 /* TDHtmlSyntaxHighlighter.m in Sources */,
+				D37D8E341571A57400CDB822 /* ERBTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3228,6 +3598,11 @@
 			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;
 			targetProxy = D341850F0E520D6F0081B0DC /* PBXContainerItemProxy */;
 		};
+		D37D8E581571A5A900CDB822 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;
+			targetProxy = D37D8E571571A5A900CDB822 /* PBXContainerItemProxy */;
+		};
 		D389F1D40F19665C00558235 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;
@@ -3245,6 +3620,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D37D8DD31571A4F700CDB822 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D37D8DD41571A4F700CDB822 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3453,6 +3836,65 @@
 				PRODUCT_NAME = DebugApp;
 				SDKROOT = "";
 				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		D37D8DDA1571A4F700CDB822 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NewTests/NewTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "NewTests/NewTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		D37D8DDB1571A4F700CDB822 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NewTests/NewTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "NewTests/NewTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -3723,6 +4165,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
+		};
+		D37D8DDC1571A4F700CDB822 /* Build configuration list for PBXNativeTarget "NewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D37D8DDA1571A4F700CDB822 /* Debug */,
+				D37D8DDB1571A4F700CDB822 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		D389F1D20F1965E800558235 /* Build configuration list for PBXNativeTarget "JSParseKit" */ = {
 			isa = XCConfigurationList;

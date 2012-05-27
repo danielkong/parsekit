@@ -12,7 +12,7 @@
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
 
-#define USE_TRACK 1
+#define USE_TRACK 0
 
 @interface PKParser (PKParserFactoryAdditionsFriend)
 - (void)setTokenizer:(PKTokenizer *)t;
