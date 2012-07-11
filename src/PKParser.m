@@ -110,7 +110,7 @@
     } else 
 #endif
     if (preassembler) {
-        NSAssert2([preassembler respondsToSelector:preassemblerSelector], @"provided preassembler %@ should respond to %s", preassembler, preassemblerSelector);
+        NSAssert2([preassembler respondsToSelector:preassemblerSelector], @"provided preassembler %@ should respond to %@", preassembler, NSStringFromSelector(preassemblerSelector));
         for (PKAssembly *a in inAssemblies) {
             [preassembler performSelector:preassemblerSelector withObject:self withObject:a];
         }
@@ -134,7 +134,7 @@
     } else 
 #endif
     if (assembler) {
-        NSAssert2([assembler respondsToSelector:assemblerSelector], @"provided assembler %@ should respond to %s", assembler, assemblerSelector);
+        NSAssert2([assembler respondsToSelector:assemblerSelector], @"provided assembler %@ should respond to %@", assembler, NSStringFromSelector(assemblerSelector));
 #if CONCURRENT
         dispatch_group_t myGroup = dispatch_group_create();
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
