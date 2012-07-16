@@ -481,7 +481,9 @@
     NSString *path = [@"~/Desktop/grammar.txt" stringByExpandingTildeInPath];
     NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     PKParser *p = [[PKParserFactory factory] parserFromGrammar:g assembler:self];
-    NSString *s = @"1+42+2";
+
+    path = [@"~/Desktop/input.txt" stringByExpandingTildeInPath];
+    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     
     PKAssembly *res = [p parse:s];
 //    p.tokenizer.string = s;
@@ -535,7 +537,7 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     
-//    [self doTestGrammar];
+    [self doTestGrammar];
     
 //    [self doPlistParser];
 //    [self doHtmlSyntaxHighlighter];
@@ -544,7 +546,7 @@
 
 //    [self doJSParser];
     
-    [self doProf];
+    //    [self doProf];
 
     //[self doJavaScriptGrammarParser];
     
