@@ -101,7 +101,7 @@
     BOOL hasAtLeastOneChar = NO;
     BOOL hasDot = NO;
     
-    // ^[:space:]()<>/
+    // ^[:space:]()<>/"'
     for (;;) {
         if (PKEOF == c || isspace(c) || '(' == c || ')' == c || '<' == c || '>' == c || '/' == c || '"' == c || '\'' == c) {
             result = hasAtLeastOneChar && hasDot;
