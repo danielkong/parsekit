@@ -103,7 +103,7 @@
     
     // ^[:space:]()<>/
     for (;;) {
-        if (PKEOF == c || isspace(c) || '(' == c || ')' == c || '<' == c || '>' == c || '/' == c) {
+        if (PKEOF == c || isspace(c) || '(' == c || ')' == c || '<' == c || '>' == c || '/' == c || '"' == c || '\'' == c) {
             result = hasAtLeastOneChar && hasDot;
             break;
         } else {
