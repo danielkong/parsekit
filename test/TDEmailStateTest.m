@@ -140,7 +140,7 @@
 
 - (void)testNSLog2 {
     s = @"NSLog(@\"playbackFinished. Reason: Playback Ended\");";
-    t = [PKTokenizer tokenizerWithString:s];
+    t.string = s;
     
     tok = [t nextToken];
     
@@ -176,6 +176,5 @@
     tok = [t nextToken];
     TDEqualObjects(tok, [PKToken EOFToken]);
 }
-
 
 @end
