@@ -27,46 +27,10 @@ static PKTokenEOF *EOFToken = nil;
 + (PKTokenEOF *)instance {
     @synchronized(self) {
         if (!EOFToken) {
-            [[self alloc] init]; // assignment not done here
+            EOFToken = [[self alloc] init];
         }
     }
     return EOFToken;
-}
-
-
-+ (id)allocWithZone:(NSZone *)zone {
-    @synchronized(self) {
-        if (!EOFToken) {
-            EOFToken = [super allocWithZone:zone];
-            return EOFToken;  // assignment and return on first allocation
-        }
-    }
-    return nil; //on subsequent allocation attempts return nil
-}
-
-
-- (id)copyWithZone:(NSZone *)zone {
-    return self;
-}
-
-
-- (id)retain {
-    return self;
-}
-
-
-- (oneway void)release {
-    // do nothing
-}
-
-
-- (id)autorelease {
-    return self;
-}
-
-
-- (NSUInteger)retainCount {
-    return UINT_MAX; // denotes an object that cannot be released
 }
 
 
