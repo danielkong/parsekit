@@ -14,6 +14,9 @@
 
 #import "TDTestScaffold.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
+
 #define RUN_ALL_TEST_CASES 1
 #define SOLO_TEST_CASE @"TDNumberStateTest"
 
@@ -158,5 +161,7 @@ SenTestSuite *TDParserFactoryTestSuite() {
         [self addTest:suite];
     }
 }
+
+#pragma clang diagnostic pop
 
 @end
