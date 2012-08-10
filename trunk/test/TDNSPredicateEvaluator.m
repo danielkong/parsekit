@@ -61,9 +61,9 @@
 
 
 - (void)parser:(PKParser *)p didMatchNumComparisonPredicate:(PKAssembly *)a {
-    CGFloat n2 = [(PKToken *)[a pop] floatValue];
+    PKFloat n2 = [(PKToken *)[a pop] floatValue];
     NSString *op = [[a pop] stringValue];
-    CGFloat n1 = [(PKToken *)[a pop] floatValue];
+    PKFloat n1 = [(PKToken *)[a pop] floatValue];
     
     BOOL result = NO;
     if ([op isEqualToString:@"<"]) {
