@@ -34,7 +34,7 @@
 
         NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"nspredicate" ofType:@"grammar"];
         NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        self.parser = [[PKParserFactory factory] parserFromGrammar:s assembler:self];
+        self.parser = [[PKParserFactory factory] parserFromGrammar:s assembler:self error:nil];
     }
     return self;
 }
