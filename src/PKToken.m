@@ -67,7 +67,7 @@ static PKTokenEOF *EOFToken = nil;
 @property (nonatomic, readwrite, getter=isHashtag) BOOL hashtag;
 #endif
 
-@property (nonatomic, readwrite) CGFloat floatValue;
+@property (nonatomic, readwrite) PKFloat floatValue;
 @property (nonatomic, readwrite, copy) NSString *stringValue;
 @property (nonatomic, readwrite) PKTokenType tokenType;
 @property (nonatomic, readwrite, copy) id value;
@@ -82,13 +82,13 @@ static PKTokenEOF *EOFToken = nil;
 }
 
 
-+ (PKToken *)tokenWithTokenType:(PKTokenType)t stringValue:(NSString *)s floatValue:(CGFloat)n {
++ (PKToken *)tokenWithTokenType:(PKTokenType)t stringValue:(NSString *)s floatValue:(PKFloat)n {
     return [[[self alloc] initWithTokenType:t stringValue:s floatValue:n] autorelease];
 }
 
 
 // designated initializer
-- (id)initWithTokenType:(PKTokenType)t stringValue:(NSString *)s floatValue:(CGFloat)n {
+- (id)initWithTokenType:(PKTokenType)t stringValue:(NSString *)s floatValue:(PKFloat)n {
     //NSParameterAssert(s);
     if (self = [super init]) {
         self.tokenType = t;

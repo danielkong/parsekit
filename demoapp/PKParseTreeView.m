@@ -27,8 +27,8 @@
 - (void)drawParentNode:(PKParseTree *)n atPoint:(NSPoint)p;
 - (void)drawLeafNode:(PKTokenNode *)n atPoint:(NSPoint)p;
 
-- (CGFloat)widthForNode:(PKParseTree *)n;
-- (CGFloat)depthForNode:(PKParseTree *)n;
+- (PKFloat)widthForNode:(PKParseTree *)n;
+- (PKFloat)depthForNode:(PKParseTree *)n;
 - (NSString *)labelFromNode:(PKParseTree *)n;
 - (void)drawLabel:(NSString *)label atPoint:(NSPoint)p;
 @end
@@ -61,8 +61,8 @@
 - (void)drawParseTree:(PKParseTree *)t {
     self.parseTree = t;
     
-    CGFloat w = [self widthForNode:parseTree] * CELL_WIDTH;
-    CGFloat h = [self depthForNode:parseTree] * ROW_HEIGHT + 120.0;
+    PKFloat w = [self widthForNode:parseTree] * CELL_WIDTH;
+    PKFloat h = [self depthForNode:parseTree] * ROW_HEIGHT + 120.0;
     
     NSSize minSize = [[self superview] bounds].size;
     w = w < minSize.width ? minSize.width : w;
@@ -98,8 +98,8 @@
     NSUInteger c = [[n children] count];
 
     // get total width
-    CGFloat widths[c];
-    CGFloat totalWidth = 0.0;
+    PKFloat widths[c];
+    PKFloat totalWidth = 0.0;
     for (PKParseTree *child in [n children]) {
         widths[i] = [self widthForNode:child] * CELL_WIDTH;
         totalWidth += widths[i++];
@@ -112,8 +112,8 @@
         points[0] = NSMakePoint(p.x, p.y + ROW_HEIGHT);
         [self drawTree:[[n children] objectAtIndex:0] atPoint:points[0]];
     } else {
-        CGFloat x = 0.0;
-        CGFloat buff = 0.0;
+        PKFloat x = 0.0;
+        PKFloat buff = 0.0;
         for (i = 0; i < c; i++) {
             x = p.x - (totalWidth / 2.0) + buff + (widths[i] / 2.0);
             buff += widths[i];
@@ -141,8 +141,8 @@
 }
 
 
-- (CGFloat)widthForNode:(PKParseTree *)n {
-    CGFloat res = 0.0;
+- (PKFloat)widthForNode:(PKParseTree *)n {
+    PKFloat res = 0.0;
     for (PKParseTree *child in [n children]) {
         res += [self widthForNode:child];
     }
@@ -150,10 +150,10 @@
 }
     
     
-- (CGFloat)depthForNode:(PKParseTree *)n {
-    CGFloat res = 0.0;
+- (PKFloat)depthForNode:(PKParseTree *)n {
+    PKFloat res = 0.0;
     for (PKParseTree *child in [n children]) {
-        CGFloat n = [self depthForNode:child];
+        PKFloat n = [self depthForNode:child];
         res = n > res ? n : res;
     }
     return res + 1.0;
