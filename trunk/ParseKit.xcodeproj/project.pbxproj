@@ -1369,7 +1369,6 @@
 		D3FDC5830FFC4BFC00F1F797 /* libparsekit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libparsekit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3FDC7360FFC4D6100F1F797 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D3FDC7380FFC4D6100F1F797 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		D3FDC74B0FFC4DAC00F1F797 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D3FDC8DB0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseKitMobile_Prefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1480,7 +1479,6 @@
 		0867D691FE84028FC02AAC07 /* TODParseKit */ = {
 			isa = PBXGroup;
 			children = (
-				D35D18A415D5AD78003DF6BC /* CoreGraphics.framework */,
 				08FB77AEFE84172EC02AAC07 /* ParseKit Framework */,
 				D3C7D8220A411F31005DD154 /* ParseKit Tests */,
 				D36E98CB0E58C08F00496BD3 /* DebugApp */,
@@ -2591,8 +2589,8 @@
 		D3FDC8EF0FFC52CD00F1F797 /* Mobile Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D35D18A415D5AD78003DF6BC /* CoreGraphics.framework */,
 				D3FDC7360FFC4D6100F1F797 /* Foundation.framework */,
-				D3FDC74B0FFC4DAC00F1F797 /* CoreGraphics.framework */,
 				D3FDC7380FFC4D6100F1F797 /* libicucore.dylib */,
 			);
 			name = "Mobile Frameworks";
