@@ -155,7 +155,6 @@
 }
 
 
-#ifdef TARGET_OS_SNOW_LEOPARD
 - (void)enumerateTokensUsingBlock:(void (^)(PKToken *tok, BOOL *stop))block {
     PKToken *eof = [PKToken EOFToken];
 
@@ -167,7 +166,6 @@
         if (stop) break;
     }
 }
-#endif
 
 
 - (void)setTokenizerState:(PKTokenizerState *)state from:(PKUniChar)start to:(PKUniChar)end {

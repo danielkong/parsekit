@@ -44,10 +44,8 @@ typedef void (^PKAssemblerBlock)(PKParser *, PKAssembly *);
                 <p>The parser does not match directly against a string, it matches against a <tt>PKAssembly</tt>. The resulting assembly shows its stack, with four words on it, along with its sequence of tokens, and the index at the end of these. In practice, parsers will do some work on an assembly, based on the text they recognize.</p>
 */
 @interface PKParser : NSObject {
-#ifdef TARGET_OS_SNOW_LEOPARD
     PKAssemblerBlock assemblerBlock;
     PKAssemblerBlock preassemblerBlock;
-#endif
     id assembler;
     SEL assemblerSelector;
     id preassembler;
@@ -109,7 +107,6 @@ typedef void (^PKAssemblerBlock)(PKParser *, PKAssembly *);
  */
 - (PKParser *)parserNamed:(NSString *)name;
 
-#ifdef TARGET_OS_SNOW_LEOPARD
 /*!
     @property   assemblerBlock
     @brief      Set a block which should be executed after this parser is matched
@@ -129,7 +126,6 @@ typedef void (^PKAssemblerBlock)(PKParser *, PKAssembly *);
     @param      block of code to be executed before a parser is matched.
  */
 @property (nonatomic, copy) PKAssemblerBlock preassemblerBlock;
-#endif
 
 /*!
     @property   assembler
