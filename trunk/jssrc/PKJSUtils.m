@@ -123,8 +123,8 @@ CFTypeRef PKJSValueCopyCFType(JSContextRef ctx, JSValueRef value, JSValueRef *ex
     } else if (JSValueIsNull(ctx, value)) {
         result = NULL;
     } else if (JSValueIsNumber(ctx, value)) {
-        PKFloat d = JSValueToNumber(ctx, value, NULL);
-        result = CFNumberCreate(NULL, kCFNumberPKFloatType, &d);
+        double d = JSValueToNumber(ctx, value, NULL);
+        result = CFNumberCreate(NULL, kCFNumberCGFloatType, &d);
     } else if (JSValueIsString(ctx, value)) {
         result = PKJSValueCopyCFString(ctx, value, ex);
     } else if (JSValueIsObject(ctx, value)) {

@@ -15,7 +15,6 @@
 #import <Foundation/Foundation.h>
 #import <ParseKit/PKTypes.h>
 
-
 /*!
     @typedef    enum PKTokenType
     @brief      Indicates the type of a <tt>PKToken</tt>
