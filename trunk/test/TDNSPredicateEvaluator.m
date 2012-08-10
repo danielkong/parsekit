@@ -49,7 +49,7 @@
 
 
 - (BOOL)evaluate:(NSString *)s {
-    id result = [parser parse:s];
+    id result = [parser parse:s error:nil];
     return [result boolValue];
 }
 
