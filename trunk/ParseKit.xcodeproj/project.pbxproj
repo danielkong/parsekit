@@ -2591,9 +2591,9 @@
 		D3FDC8EF0FFC52CD00F1F797 /* Mobile Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D3FDC7360FFC4D6100F1F797 /* Foundation.framework */,
 				D3FDC74B0FFC4DAC00F1F797 /* CoreGraphics.framework */,
 				D3FDC7380FFC4D6100F1F797 /* libicucore.dylib */,
-				D3FDC7360FFC4D6100F1F797 /* Foundation.framework */,
 			);
 			name = "Mobile Frameworks";
 			sourceTree = "<group>";
