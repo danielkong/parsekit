@@ -34,6 +34,7 @@
 		D3376D5910093A1600E4602E /* PKGrammarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3376D5710093A1600E4602E /* PKGrammarParser.h */; };
 		D3376D5A10093A1600E4602E /* PKGrammarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D5810093A1600E4602E /* PKGrammarParser.m */; };
 		D3376D8F10096C0700E4602E /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
+		D337F07E15D5AE7B00C83AED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D337F07C15D5AE7B00C83AED /* InfoPlist.strings */; };
 		D3385FDA0FCFB1FF003BF729 /* TDPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */; };
 		D33DC1991165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
 		D33DC19B1165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
@@ -196,7 +197,6 @@
 		D37D3A010FE77A72008C2E4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
 		D37D3A020FE77A77008C2E4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
 		D37D8DC91571A4F700CDB822 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */; };
-		D37D8DD51571A4F700CDB822 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D37D8DD31571A4F700CDB822 /* InfoPlist.strings */; };
 		D37D8DDE1571A57300CDB822 /* PKParseTree.m in Sources */ = {isa = PBXBuildFile; fileRef = D36934561038DE5300527AF3 /* PKParseTree.m */; };
 		D37D8DDF1571A57300CDB822 /* PKParseTreeAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D36934581038DE5300527AF3 /* PKParseTreeAssembler.m */; };
 		D37D8DE01571A57300CDB822 /* PKRuleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D369345A1038DE5300527AF3 /* PKRuleNode.m */; };
@@ -784,6 +784,9 @@
 		D3376D5810093A1600E4602E /* PKGrammarParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGrammarParser.m; path = src/PKGrammarParser.m; sourceTree = "<group>"; };
 		D3376D8C10096C0700E4602E /* PKAST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKAST.h; path = test/PKAST.h; sourceTree = "<group>"; };
 		D3376D8D10096C0700E4602E /* PKAST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKAST.m; path = test/PKAST.m; sourceTree = "<group>"; };
+		D337F07D15D5AE7B00C83AED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = test/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		D337F07F15D5AE9000C83AED /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Tests-Info.plist"; path = "test/Tests-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D337F08015D5AE9000C83AED /* Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Tests-Prefix.pch"; path = "test/Tests-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		D3385FD70FCFB1FF003BF729 /* TDPredicateEvaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPredicateEvaluator.h; path = test/TDPredicateEvaluator.h; sourceTree = "<group>"; };
 		D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPredicateEvaluator.m; path = test/TDPredicateEvaluator.m; sourceTree = "<group>"; };
 		D3385FDB0FCFB227003BF729 /* TDPredicateEvaluatorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPredicateEvaluatorTest.h; path = test/TDPredicateEvaluatorTest.h; sourceTree = "<group>"; };
@@ -996,15 +999,12 @@
 		D36E9FB40E5A944A00496BD3 /* apple-boss.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "apple-boss.xml"; path = "res/apple-boss.xml"; sourceTree = "<group>"; };
 		D36E9FE40E5BA0FC00496BD3 /* SRGSGrammar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SRGSGrammar.txt; path = res/SRGSGrammar.txt; sourceTree = "<group>"; };
 		D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "small-xml-file.xml"; path = "res/small-xml-file.xml"; sourceTree = "<group>"; };
-		D37D8DC61571A4F700CDB822 /* NewTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D37D8DC61571A4F700CDB822 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D37D8DCA1571A4F700CDB822 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		D37D8DCD1571A4F700CDB822 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		D37D8DCE1571A4F700CDB822 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D37D8DCF1571A4F700CDB822 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		D37D8DD21571A4F700CDB822 /* NewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NewTests-Info.plist"; sourceTree = "<group>"; };
-		D37D8DD41571A4F700CDB822 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D37D8DD91571A4F700CDB822 /* NewTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NewTests-Prefix.pch"; sourceTree = "<group>"; };
 		D37F23201453841100A98014 /* PKHashtagState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKHashtagState.m; path = src/PKHashtagState.m; sourceTree = "<group>"; };
 		D37F232A1453842800A98014 /* PKHashtagState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKHashtagState.h; path = include/ParseKit/PKHashtagState.h; sourceTree = "<group>"; };
 		D380AFBB0F0C54B60009EC13 /* html.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = html.css; path = res/html.css; sourceTree = "<group>"; };
@@ -1280,7 +1280,7 @@
 				D34185040E520D3F0081B0DC /* DebugApp.app */,
 				D389F2030F196A7500558235 /* JSDemoApp.app */,
 				D3FDC5830FFC4BFC00F1F797 /* libparsekit.a */,
-				D37D8DC61571A4F700CDB822 /* NewTests.octest */,
+				D37D8DC61571A4F700CDB822 /* Tests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1763,9 +1763,9 @@
 		D37D8DD11571A4F700CDB822 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D37D8DD21571A4F700CDB822 /* NewTests-Info.plist */,
-				D37D8DD31571A4F700CDB822 /* InfoPlist.strings */,
-				D37D8DD91571A4F700CDB822 /* NewTests-Prefix.pch */,
+				D337F07F15D5AE9000C83AED /* Tests-Info.plist */,
+				D337F08015D5AE9000C83AED /* Tests-Prefix.pch */,
+				D337F07C15D5AE7B00C83AED /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			path = NewTests;
@@ -2638,9 +2638,9 @@
 			productReference = D34185040E520D3F0081B0DC /* DebugApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D37D8DC51571A4F700CDB822 /* NewTests */ = {
+		D37D8DC51571A4F700CDB822 /* Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D37D8DDC1571A4F700CDB822 /* Build configuration list for PBXNativeTarget "NewTests" */;
+			buildConfigurationList = D37D8DDC1571A4F700CDB822 /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
 				D37D8DC11571A4F700CDB822 /* Sources */,
 				D37D8DC21571A4F700CDB822 /* Frameworks */,
@@ -2653,9 +2653,9 @@
 			dependencies = (
 				D37D8E581571A5A900CDB822 /* PBXTargetDependency */,
 			);
-			name = NewTests;
+			name = Tests;
 			productName = NewTests;
-			productReference = D37D8DC61571A4F700CDB822 /* NewTests.octest */;
+			productReference = D37D8DC61571A4F700CDB822 /* Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 		D389F1CD0F1965E600558235 /* JSParseKit */ = {
@@ -2739,7 +2739,7 @@
 				8DC2EF4F0486A6940098B216 /* ParseKit */,
 				D389F1CD0F1965E600558235 /* JSParseKit */,
 				D3FDC5820FFC4BFC00F1F797 /* ParseKitMobile */,
-				D37D8DC51571A4F700CDB822 /* NewTests */,
+				D37D8DC51571A4F700CDB822 /* Tests */,
 				D334940F0E2963FD00406085 /* DemoApp */,
 				D34185030E520D3F0081B0DC /* DebugApp */,
 				D389F2020F196A7500558235 /* JSDemoApp */,
@@ -2845,7 +2845,7 @@
 				D37D8E541571A5A200CDB822 /* nonascii.html in Resources */,
 				D37D8E551571A5A200CDB822 /* nasty.html in Resources */,
 				D37D8E561571A5A200CDB822 /* erb.grammar in Resources */,
-				D37D8DD51571A4F700CDB822 /* InfoPlist.strings in Resources */,
+				D337F07E15D5AE7B00C83AED /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3289,10 +3289,10 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		D37D8DD31571A4F700CDB822 /* InfoPlist.strings */ = {
+		D337F07C15D5AE7B00C83AED /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D37D8DD41571A4F700CDB822 /* en */,
+				D337F07D15D5AE7B00C83AED /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3513,7 +3513,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NewTests/NewTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "test/Tests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -3523,7 +3523,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "$(LIBXML_PATH)";
-				INFOPLIST_FILE = "NewTests/NewTests-Info.plist";
+				INFOPLIST_FILE = "test/Tests-Info.plist";
 				LIBXML_PATH = "\"/usr/include/libxml2/\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3546,12 +3546,12 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NewTests/NewTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "test/Tests-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "$(LIBXML_PATH)";
-				INFOPLIST_FILE = "NewTests/NewTests-Info.plist";
+				INFOPLIST_FILE = "test/Tests-Info.plist";
 				LIBXML_PATH = "\"/usr/include/libxml2/\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3739,7 +3739,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		D37D8DDC1571A4F700CDB822 /* Build configuration list for PBXNativeTarget "NewTests" */ = {
+		D37D8DDC1571A4F700CDB822 /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D37D8DDA1571A4F700CDB822 /* Debug */,
