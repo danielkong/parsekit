@@ -58,12 +58,17 @@
         self.wordState       = [[[PKWordState alloc] init] autorelease];
         self.delimitState    = [[[PKDelimitState alloc] init] autorelease];
         self.URLState        = [[[PKURLState alloc] init] autorelease];
+#if PK_INCLUDE_EMAIL_STATE
         self.emailState      = [[[PKEmailState alloc] init] autorelease];
-
+#endif
         numberState.fallbackState = symbolState;
         quoteState.fallbackState = symbolState;
+#if PK_INCLUDE_EMAIL_STATE
         URLState.fallbackState = emailState;
         emailState.fallbackState = wordState;
+#else
+        URLState.fallbackState = wordState;
+#endif
         
 #if PK_INCLUDE_TWITTER_STATE
         self.twitterState    = [[[PKTwitterState alloc] init] autorelease];
@@ -119,7 +124,9 @@
     self.wordState = nil;
     self.delimitState = nil;
     self.URLState = nil;
+#if PK_INCLUDE_EMAIL_STATE
     self.emailState = nil;
+#endif
 #if PK_INCLUDE_TWITTER_STATE
     self.twitterState = nil;
     self.hashtagState = nil;
@@ -282,7 +289,9 @@
 @synthesize wordState;
 @synthesize delimitState;
 @synthesize URLState;
+#if PK_INCLUDE_EMAIL_STATE
 @synthesize emailState;
+#endif
 #if PK_INCLUDE_TWITTER_STATE
 @synthesize twitterState;
 @synthesize hashtagState;
