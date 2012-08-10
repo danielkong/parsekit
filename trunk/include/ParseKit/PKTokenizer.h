@@ -107,14 +107,12 @@
 */
 - (PKToken *)nextToken;
 
-#ifdef TARGET_OS_SNOW_LEOPARD
 /*!
     @brief      Enumerate tokens in this tokenizer using block
     @details    repeatedly executes block by passing the token returned from calling <tt>-nextToken</tt> on this tokenizer
     @param      block the code to execute with every token returned by calling <tt>-nextToken</tt> on this tokenizer
 */
 - (void)enumerateTokensUsingBlock:(void (^)(PKToken *tok, BOOL *stop))block;
-#endif
 
 /*!
     @brief      Change the state the tokenizer will enter upon reading any character between "start" and "end".
