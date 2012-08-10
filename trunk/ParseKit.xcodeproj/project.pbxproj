@@ -1001,10 +1001,6 @@
 		D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "small-xml-file.xml"; path = "res/small-xml-file.xml"; sourceTree = "<group>"; };
 		D37D8DC61571A4F700CDB822 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		D37D8DCA1571A4F700CDB822 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		D37D8DCD1571A4F700CDB822 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		D37D8DCE1571A4F700CDB822 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D37D8DCF1571A4F700CDB822 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D37F23201453841100A98014 /* PKHashtagState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKHashtagState.m; path = src/PKHashtagState.m; sourceTree = "<group>"; };
 		D37F232A1453842800A98014 /* PKHashtagState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKHashtagState.h; path = include/ParseKit/PKHashtagState.h; sourceTree = "<group>"; };
 		D380AFBB0F0C54B60009EC13 /* html.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = html.css; path = res/html.css; sourceTree = "<group>"; };
@@ -1294,11 +1290,9 @@
 				D334941B0E29641300406085 /* DemoApp */,
 				D380BA950F0F1C450009EC13 /* JSParseKit Framework */,
 				D389F2CA0F196ACF00558235 /* JSDemoApp */,
-				D3AF4C8E0FDC738B0032F4DC /* Other Sources */,
 				32C88DFF0371C24200C91783 /* Other Sources (not used) */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
-				D37D8DC71571A4F700CDB822 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
 			name = TODParseKit;
@@ -1326,6 +1320,7 @@
 		08FB77AEFE84172EC02AAC07 /* ParseKit Framework */ = {
 			isa = PBXGroup;
 			children = (
+				D34BAD630FF9C6AE00D7773A /* ParseKit_Prefix.pch */,
 				D3C221900FFE8B8C004514FE /* ParseKit.h */,
 				D3C221910FFE8B8C004514FE /* PKTypes.h */,
 				D3C7D8710A411F6B005DD154 /* io */,
@@ -1342,6 +1337,7 @@
 			children = (
 				D389F20D0F196A9200558235 /* WebKit.framework */,
 				D380BAA20F0F1D980009EC13 /* JavaScriptCore.framework */,
+				D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */,
 				D3DCB35C0EF5E52500DE5110 /* OCMock.framework */,
 				D36E9F860E5A795400496BD3 /* libxml2.dylib */,
 				D36C560B0FD363D500141CB7 /* libicucore.dylib */,
@@ -1740,26 +1736,6 @@
 			name = tokenizer;
 			sourceTree = "<group>";
 		};
-		D37D8DC71571A4F700CDB822 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */,
-				D37D8DCA1571A4F700CDB822 /* Cocoa.framework */,
-				D37D8DCC1571A4F700CDB822 /* Other Frameworks */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D37D8DCC1571A4F700CDB822 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D37D8DCD1571A4F700CDB822 /* AppKit.framework */,
-				D37D8DCE1571A4F700CDB822 /* CoreData.framework */,
-				D37D8DCF1571A4F700CDB822 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
 		D37D8DD11571A4F700CDB822 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1774,6 +1750,7 @@
 		D380BA950F0F1C450009EC13 /* JSParseKit Framework */ = {
 			isa = PBXGroup;
 			children = (
+				D3FDC8DB0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch */,
 				D34BB04E0FF9EC4E00D7773A /* JSParseKit-Info.plist */,
 				D34BB0660FF9EDDF00D7773A /* JSParseKit.h */,
 				D34BB0670FF9EDDF00D7773A /* JSParseKit.m */,
@@ -1916,15 +1893,6 @@
 			children = (
 			);
 			name = "Char Terminals";
-			sourceTree = "<group>";
-		};
-		D3AF4C8E0FDC738B0032F4DC /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				D34BAD630FF9C6AE00D7773A /* ParseKit_Prefix.pch */,
-				D3FDC8DB0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch */,
-			);
-			name = "Other Sources";
 			sourceTree = "<group>";
 		};
 		D3AF4CC80FDC74320032F4DC /* Blob */ = {
