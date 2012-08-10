@@ -64,7 +64,7 @@
 #import <ParseKit/PKDelimitState.h>
 #import <ParseKit/PKURLState.h>
 #import <ParseKit/PKEmailState.h>
-#if PK_INCLUDE_TWITTER_STATE
+#if PLATFORM(TWITTER_STATE)
 #import <ParseKit/PKTwitterState.h>
 #import <ParseKit/PKHashtagState.h>
 #endif

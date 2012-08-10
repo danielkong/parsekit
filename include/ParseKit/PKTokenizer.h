@@ -25,10 +25,10 @@
 @class PKWordState;
 @class PKDelimitState;
 @class PKURLState;
-#if PK_INCLUDE_EMAIL_STATE
+#if PLATFORM(EMAIL_STATE)
 @class PKEmailState;
 #endif
-#if PK_INCLUDE_TWITTER_STATE
+#if PLATFORM(TWITTER_STATE)
 @class PKTwitterState;
 @class PKHashtagState;
 #endif
@@ -72,10 +72,10 @@
     PKWordState *wordState;
     PKDelimitState *delimitState;
     PKURLState *URLState;
-#if PK_INCLUDE_EMAIL_STATE
+#if PLATFORM(EMAIL_STATE)
     PKEmailState *emailState;
 #endif
-#if PK_INCLUDE_TWITTER_STATE
+#if PLATFORM(TWITTER_STATE)
     PKTwitterState *twitterState;
     PKHashtagState *hashtagState;
 #endif
@@ -171,10 +171,10 @@
 @property (nonatomic, retain) PKDelimitState *delimitState;
 
 @property (nonatomic, retain) PKURLState *URLState;
-#if PK_INCLUDE_EMAIL_STATE
+#if PLATFORM(EMAIL_STATE)
 @property (nonatomic, retain) PKEmailState *emailState;
 #endif
-#if PK_INCLUDE_TWITTER_STATE
+#if PLATFORM(TWITTER_STATE)
 @property (nonatomic, retain) PKTwitterState *twitterState;
 @property (nonatomic, retain) PKHashtagState *hashtagState;
 #endif
