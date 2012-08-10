@@ -31,8 +31,8 @@
 @end
 
 @interface PKNumberState ()
-- (CGFloat)absorbDigitsFromReader:(PKReader *)r;
-- (CGFloat)value;
+- (PKFloat)absorbDigitsFromReader:(PKReader *)r;
+- (PKFloat)value;
 - (void)parseLeftSideFromReader:(PKReader *)r;
 - (void)parseRightSideFromReader:(PKReader *)r;
 - (void)parseExponentFromReader:(PKReader *)r;
@@ -113,25 +113,25 @@
 }
 
 
-- (CGFloat)value {
-    CGFloat result = (CGFloat)floatValue;
+- (PKFloat)value {
+    PKFloat result = (PKFloat)floatValue;
     
     NSUInteger i = 0;
     for ( ; i < exp; i++) {
         if (isNegativeExp) {
-            result /= (CGFloat)10.0;
+            result /= (PKFloat)10.0;
         } else {
-            result *= (CGFloat)10.0;
+            result *= (PKFloat)10.0;
         }
     }
     
-    return (CGFloat)result;
+    return (PKFloat)result;
 }
 
 
-- (CGFloat)absorbDigitsFromReader:(PKReader *)r {
-    CGFloat divideBy = 1.0;
-    CGFloat v = 0.0;
+- (PKFloat)absorbDigitsFromReader:(PKReader *)r {
+    PKFloat divideBy = 1.0;
+    PKFloat v = 0.0;
     BOOL isHexAlpha = NO;
     
     while (1) {
@@ -176,7 +176,7 @@
         v = v / divideBy;
     }
 
-    return (CGFloat)v;
+    return (PKFloat)v;
 }
 
 
@@ -250,9 +250,9 @@
     isDecimal = YES;
     isHex = NO;
     len = 0;
-    base = (CGFloat)10.0;
-    floatValue = (CGFloat)0.0;
-    exp = (CGFloat)0.0;
+    base = (PKFloat)10.0;
+    floatValue = (PKFloat)0.0;
+    exp = (PKFloat)0.0;
     isNegativeExp = NO;
 }
 
@@ -263,7 +263,7 @@
         len++;
         c = [r read];
         isDecimal = NO;
-        base = (CGFloat)16.0;
+        base = (PKFloat)16.0;
         isHex = YES;
         gotADigit = NO;
     }
@@ -273,7 +273,7 @@
 - (void)checkForOctal {
     if ('0' == firstNum && !isFraction && isDecimal && 2 == len) {
         isDecimal = NO;
-        base = (CGFloat)8.0;
+        base = (PKFloat)8.0;
     }
 }
 

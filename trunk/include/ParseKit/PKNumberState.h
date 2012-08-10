@@ -40,12 +40,12 @@
     BOOL isHex;
     BOOL gotADigit;
     NSUInteger len;
-    CGFloat base;
+    PKFloat base;
     PKUniChar originalCin;
     PKUniChar firstNum;
     PKUniChar c;
-    CGFloat floatValue;
-    CGFloat exp;
+    PKFloat floatValue;
+    PKFloat exp;
     BOOL isNegativeExp;    
 }
 

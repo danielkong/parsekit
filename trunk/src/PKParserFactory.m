@@ -928,8 +928,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([toks count] > 0, @"");
     
     PKToken *tok = [toks lastObject];
-    CGFloat start = tok.floatValue;
-    CGFloat end = start;
+    PKFloat start = tok.floatValue;
+    PKFloat end = start;
     if ([toks count] > 1) {
         tok = [toks objectAtIndex:0];
         end = tok.floatValue;
