@@ -94,7 +94,7 @@
         NSUInteger prefixLen = [prefix length];
         PKUniChar c = (PKUniChar)[[selName lowercaseString] characterAtIndex:prefixLen];
         NSRange r = NSMakeRange(prefixLen + 1, [selName length] - (prefixLen + [suffix length] + 1 /*:*/));
-        ruleName = [NSString stringWithFormat:@"%C%@", c, [selName substringWithRange:r]];
+        ruleName = [NSString stringWithFormat:@"%C%@", (unichar)c, [selName substringWithRange:r]];
         [ruleNames setObject:ruleName forKey:selName];
     }
     
