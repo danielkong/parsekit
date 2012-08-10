@@ -285,6 +285,7 @@
     TDEqualObjects(@"[foo, (, 'bar', ,, 1, )]foo/(/'bar'/,/1/)^", [result description]);
 }
 
+
 - (void)testOrExpr {
     s = @"foo or bar";
     a = [p assemblyWithString:s];
