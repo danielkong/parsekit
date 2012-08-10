@@ -184,35 +184,60 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a {
-    return [self parserFromGrammar:g assembler:a preassembler:nil];
+- (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a error:(NSError **)outError {
+    return [self parserFromGrammar:g assembler:a preassembler:nil error:outError];
 }
 
 
-- (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a preassembler:(id)pa {
-    self.assembler = a;
-    self.preassembler = pa;
-    self.selectorTable = [NSMutableDictionary dictionary];
-    self.parserClassTable = [NSMutableDictionary dictionary];
-    self.parserTokensTable = [self parserTokensTableFromParsingStatementsInString:g];
+- (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a preassembler:(id)pa error:(NSError **)outError {
+    PKParser *result = nil;
 
-    PKTokenizer *t = [self tokenizerFromGrammarSettings];
+    @try {
+        self.assembler = a;
+        self.preassembler = pa;
+        self.selectorTable = [NSMutableDictionary dictionary];
+        self.parserClassTable = [NSMutableDictionary dictionary];
+        self.parserTokensTable = [self parserTokensTableFromParsingStatementsInString:g];
 
-    [self gatherParserClassNamesFromTokens];
-    
-    PKParser *start = [self expandedParserForName:@"@start"];
-    
-    assembler = nil;
-    self.selectorTable = nil;
-    self.parserClassTable = nil;
-    self.parserTokensTable = nil;
-    
-    if (start && [start isKindOfClass:[PKParser class]]) {
-        start.tokenizer = t;
-        return start;
-    } else {
-        [NSException raise:@"GrammarException" format:@"The provided language grammar was invalid"];
-        return nil;
+        PKTokenizer *t = [self tokenizerFromGrammarSettings];
+
+        [self gatherParserClassNamesFromTokens];
+        
+        PKParser *start = [self expandedParserForName:@"@start"];
+        
+        assembler = nil;
+        self.selectorTable = nil;
+        self.parserClassTable = nil;
+        self.parserTokensTable = nil;
+        
+        if (start && [start isKindOfClass:[PKParser class]]) {
+            start.tokenizer = t;
+            result = start;
+        } else {
+            [NSException raise:@"PKGrammarException" format:NSLocalizedString(@"An unknown error occurred while parsing the grammar. The provided language grammar was invalid.", @"")];
+        }
+        
+        return result;
+
+    }
+    @catch (NSException *ex) {
+        if (outError) {
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
+
+            // get reason
+            NSString *reason = [ex reason];
+            if ([reason length]) [userInfo setObject:reason forKey:NSLocalizedFailureReasonErrorKey];
+            
+            // get domain
+            NSString *name = [ex name];
+            NSString *domain = name ? name : @"PKGrammarException";
+
+            // convert to NSError
+            NSError *err = [NSError errorWithDomain:domain code:47 userInfo:[[userInfo copy] autorelease]];
+            *outError = err;
+        } else {
+            [ex raise];
+        }
     }
 }
 
