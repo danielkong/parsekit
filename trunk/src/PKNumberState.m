@@ -59,7 +59,7 @@
 - (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
     NSParameterAssert(r);
     NSParameterAssert(t);
-    NSAssert1(!(allowsGroupingSeparator && (decimalSeparator == groupingSeparator)), @"You have configured your tokenizer's numberState with the same decimal and grouping separator: `%C`. You don't want to do that.", decimalSeparator);
+    NSAssert1(!(allowsGroupingSeparator && (decimalSeparator == groupingSeparator)), @"You have configured your tokenizer's numberState with the same decimal and grouping separator: `%C`. You don't want to do that.", (unichar)decimalSeparator);
 
     [self resetWithReader:r];
     isNegative = NO;
