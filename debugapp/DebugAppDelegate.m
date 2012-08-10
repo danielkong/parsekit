@@ -208,7 +208,7 @@
     PKToken *tok = nil;
     NSDate *start = [NSDate date];
     while ((tok = [t nextToken]) != eof) ;
-    CGFloat ms4tok = -([start timeIntervalSinceNow]);
+    double ms4tok = -([start timeIntervalSinceNow]);
     
     PKParserFactory *factory = [PKParserFactory factory];
     TDJsonParser *p = nil;
@@ -218,7 +218,7 @@
     //JSONAssembler *assembler = [[[JSONAssembler alloc] init] autorelease];
     start = [NSDate date];
     PKParser *lp = [factory parserFromGrammar:g assembler:p];
-    CGFloat ms4grammar = -([start timeIntervalSinceNow]);
+    double ms4grammar = -([start timeIntervalSinceNow]);
     
     path = [[NSBundle bundleForClass:[self class]] pathForResource:@"yahoo" ofType:@"json"];
     g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -226,26 +226,26 @@
     start = [NSDate date];
     PKAssembly *a = [PKTokenAssembly assemblyWithString:g];
     a = [lp completeMatchFor:a];
-    CGFloat ms4json = -([start timeIntervalSinceNow]);
+    double ms4json = -([start timeIntervalSinceNow]);
 
     PKReleaseSubparserTree(lp);
     
     p = [[TDJsonParser alloc] initWithIntentToAssemble:NO];
     start = [NSDate date];
     id res = [p parse:g];
-    CGFloat ms4json2 = -([start timeIntervalSinceNow]);
+    double ms4json2 = -([start timeIntervalSinceNow]);
     [p release];
     
     p = [[TDJsonParser alloc] initWithIntentToAssemble:YES];
     start = [NSDate date];
     res = [p parse:g];
-    CGFloat ms4json3 = -([start timeIntervalSinceNow]);
+    double ms4json3 = -([start timeIntervalSinceNow]);
     [p release];
     
     id fp = [[[TDFastJsonParser alloc] init] autorelease];
     start = [NSDate date];
     res = [fp parse:g];
-    CGFloat ms4json4 = -([start timeIntervalSinceNow]);
+    double ms4json4 = -([start timeIntervalSinceNow]);
     
     id attrs = [NSDictionary dictionaryWithObjectsAndKeys:
                 [NSFont fontWithName:@"Monaco" size:14.], NSFontAttributeName,
@@ -267,7 +267,7 @@
 
     NSDate *start = [NSDate date];    
     while ((tok = [t nextToken]) != eof) ;
-    CGFloat secs = -([start timeIntervalSinceNow]);
+    double secs = -([start timeIntervalSinceNow]);
     
     id attrs = [NSDictionary dictionaryWithObjectsAndKeys:
                 [NSFont fontWithName:@"Monaco" size:14.], NSFontAttributeName,
@@ -425,12 +425,12 @@
     
 //    TDTrue(tok.isSymbol);
 //    TDEqualObjects(tok.stringValue, @"-");    
-//    TDEquals((CGFloat)0.0, tok.floatValue);
+//    TDEquals((double)0.0, tok.floatValue);
     
     tok = [t nextToken];
 //    TDTrue(tok.isSymbol);
 //    TDEqualObjects(tok.stringValue, @"(");
-//    TDEquals((CGFloat)0.0, tok.floatValue);
+//    TDEquals((double)0.0, tok.floatValue);
 }
 
 
