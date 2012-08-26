@@ -3473,7 +3473,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"/**",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"/**",
 					"\"$(SRCROOT)/frameworks\"/**",
 				);
@@ -3509,7 +3508,6 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"/**",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"/**",
 					"\"$(SRCROOT)/frameworks\"/**",
 				);
