@@ -63,7 +63,10 @@
             }
         } else if ((!usesCSVStyleEscaping && c == '\\') || (usesCSVStyleEscaping && c == cin)) {
             PKUniChar peek = [r read];
-            if (peek == cin) {
+            if (peek == '\\') { // escaped backslash found
+                // discard `c`
+                [self append:peek];
+            } else if (peek == cin) {
                 [self append:c];
                 [self append:peek];
                 c = PKEOF;	// Just to get past the while() condition
