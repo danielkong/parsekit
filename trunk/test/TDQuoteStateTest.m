@@ -119,6 +119,16 @@
 }
 
 
+- (void)testLiteralBackslashInQuotedString {
+    s = @"'\\\\'";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEqualObjects(@"'\\\\'", tok.stringValue);
+    TDTrue(tok.isQuotedString);
+}
+
+
 - (void)testQuotedStringEOFTerminated {
     s = @"'stuff";
     t.string = s;
