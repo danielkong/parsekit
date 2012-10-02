@@ -11,7 +11,8 @@ phraseStar        = phrase '*'!;
 phrasePlus        = phrase '+'!;
 phraseQuestion    = phrase '?'!;
 phraseInterval    = phrase '{' Digit (','! Digit)? '}'!;
-char              = metaChar | Letter | Digit;
+char              = literalChar | metaChar;
+literalChar       = Letter | Digit;
 metaChar          = dot;
 
 dot = '.'!;

@@ -47,22 +47,32 @@
 #pragma mark -
 #pragma mark Assembler methods
 
-- (void)parser:(PKParser *)p didMatchChar:(PKAssembly *)a {
-    //    NSLog(@"%s", _cmd);
-    //    NSLog(@"a: %@", a);
-    id obj = [a pop];
-    NSAssert([obj isKindOfClass:[NSNumber class]], @"");
-    PKUniChar c = (PKUniChar)[obj integerValue];
-    [a push:[PKSpecificChar specificCharWithChar:c]];
+//- (void)parser:(PKParser *)p didMatchChar:(PKAssembly *)a {
+//    //    NSLog(@"%s", _cmd);
+//    //    NSLog(@"a: %@", a);
+//    id obj = [a pop];
+//    NSAssert([obj isKindOfClass:[NSNumber class]], @"");
+//    PKUniChar c = (PKUniChar)[obj integerValue];
+//    [a push:[PKSpecificChar specificCharWithChar:c]];
+//}
+
+
+- (void)parser:(PKParser *)p didMatchLiteralChar:(PKAssembly *)a {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"a: %@", a);
+
+    NSNumber *n = [a pop];
+    PKUniChar c = [n intValue];
+    
+    PKParser *top = [PKSpecificChar specificCharWithChar:c];
+    [a push:top];
 }
 
 
 - (void)parser:(PKParser *)p didMatchDot:(PKAssembly *)a {
-//    NSLog(@"%s", __PRETTY_FUNCTION__);
-//    NSLog(@"a: %@", a);
-    id obj = [a pop];
-    NSAssert([obj isKindOfClass:[NSNumber class]], @"");
-    
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"a: %@", a);
+
     PKNegation *neg = [PKNegation negationWithSubparser:[PKSpecificChar specificCharWithChar:'\n']];
     [a push:neg];
 }
@@ -143,17 +153,13 @@
     
     NSAssert(![a isStackEmpty], @"");
     
-    id obj = nil;
-    NSMutableArray *objs = [NSMutableArray array];
-    while (![a isStackEmpty]) {
-        obj = [a pop];
-        [objs addObject:obj];
-        NSAssert([obj isKindOfClass:[PKParser class]], @"");
-    }
+    NSArray *objs = [a objectsAbove:paren];
+    [a pop]; // discard '('
     
     if ([objs count] > 1) {
         PKSequence *seq = [PKSequence sequence];
         for (id obj in [objs reverseObjectEnumerator]) {
+            NSAssert([obj isKindOfClass:[PKParser class]], @"");
             [seq add:obj];
         }
         [a push:seq];
@@ -166,8 +172,8 @@
 
 
 - (void)parser:(PKParser *)p didMatchOrTerm:(PKAssembly *)a {
-    //    NSLog(@"%s", _cmd);
-    //    NSLog(@"a: %@", a);
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"a: %@", a);
     id second = [a pop];
     id first = [a pop];
     //    NSLog(@"first: %@", first);

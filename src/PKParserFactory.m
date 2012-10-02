@@ -919,7 +919,13 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a {
     PKToken *tok = [a pop];
-    [a push:[NSNumber numberWithFloat:tok.floatValue]];
+    
+    if (self.wantsCharacters) {
+        PKUniChar c = [tok.stringValue characterAtIndex:0];
+        [a push:[PKSpecificChar specificCharWithChar:c]];
+    } else {
+        [a push:[NSNumber numberWithFloat:tok.floatValue]];
+    }
 }
 
 
