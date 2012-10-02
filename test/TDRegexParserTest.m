@@ -1,4 +1,4 @@
-//  Copyright 2010 Todd Ditchendorf
+//  Copyright 2012 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -12,12 +12,29 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "TDRegularParserTest.h"
+#import "TDRegexParserTest.h"
 
-@implementation TDRegularParserTest
+@implementation TDRegexParserTest
 
 - (void)setUp {
-    p = (TDRegularParser *)[TDRegularParser parser];
+
+    ass = [[TDRegexAssembler alloc] init];
+
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"regex" ofType:@"grammar"];
+    NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+
+    NSError *err = nil;
+    p = [[[PKParserFactory factory] parserFromGrammar:g assembler:ass error:&err] retain];
+    if (err) {
+        NSLog(@"%@", err);
+    }
+}
+
+
+
+- (void)tearDown {
+    [p release];
+    [ass release];
 }
 
 
@@ -76,7 +93,7 @@
     c = [seq.subparsers objectAtIndex:1];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
     TDEqualObjects(@"b", c.string);
-
+    
     // use the result parser
     p = [TDRegularParser parserFromGrammar:s];
     TDNotNil(p);
@@ -135,7 +152,7 @@
     c = [alt.subparsers objectAtIndex:1];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
     TDEqualObjects(@"b", c.string);
-
+    
     // use the result parser
     p = [TDRegularParser parserFromGrammar:s];
     TDNotNil(p);
@@ -309,7 +326,7 @@
     c = [alt.subparsers objectAtIndex:1];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
     TDEqualObjects(@"b", c.string);
-
+    
     // use the result parser
     p = [TDRegularParser parserFromGrammar:s];
     TDNotNil(p);
@@ -329,9 +346,9 @@
     TDEqualObjects(@"[Sequence](a|b)+^", [res description]);
     PKSequence *seq = [res pop];
     TDTrue([seq isMemberOfClass:[PKSequence class]]);
-
+    
     TDEquals((NSUInteger)2, [seq.subparsers count]);
-
+    
     PKAlternation *alt = [seq.subparsers objectAtIndex:0];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
     TDEquals((NSUInteger)2, [alt.subparsers count]);
@@ -343,13 +360,13 @@
     c = [alt.subparsers objectAtIndex:1];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
     TDEqualObjects(@"b", c.string);
-
+    
     PKRepetition *rep = [seq.subparsers objectAtIndex:1];
     TDTrue([rep isMemberOfClass:[PKRepetition class]]);
     
     alt = (PKAlternation *)rep.subparser;
     TDEqualObjects([PKAlternation class], [alt class]);
-
+    
     c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
     TDEqualObjects(@"a", c.string);
@@ -357,7 +374,7 @@
     c = [alt.subparsers objectAtIndex:1];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
     TDEqualObjects(@"b", c.string);
-
+    
     // use the result parser
     p = [TDRegularParser parserFromGrammar:s];
     TDNotNil(p);
@@ -422,7 +439,7 @@
     a = [PKCharacterAssembly assemblyWithString:s];
     res = (PKCharacterAssembly *)[p bestMatchFor:a];
     TDEqualObjects(@"[a]a^", [res description]);
-
+    
     s = @"aa";
     a = [PKCharacterAssembly assemblyWithString:s];
     res = (PKCharacterAssembly *)[p bestMatchFor:a];
@@ -452,7 +469,7 @@
     a = [PKCharacterAssembly assemblyWithString:s];
     res = (PKCharacterAssembly *)[p bestMatchFor:a];
     TDEqualObjects(@"[a, a]aa^", [res description]);
-
+    
     s = @"aaa";
     a = [PKCharacterAssembly assemblyWithString:s];
     res = (PKCharacterAssembly *)[p bestMatchFor:a];
