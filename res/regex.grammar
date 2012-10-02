@@ -1,4 +1,4 @@
-@wantsCharacters = YES;
+@wantsCharacters  = YES;
 
 @start = expression;
 expression        = term orTerm*;
@@ -12,4 +12,6 @@ phrasePlus        = phrase '+'!;
 phraseQuestion    = phrase '?'!;
 phraseInterval    = phrase '{' Digit (','! Digit)? '}'!;
 char              = metaChar | Letter | Digit;
-metaChar          = '.'!;
+metaChar          = dot;
+
+dot = '.'!;

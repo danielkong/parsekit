@@ -277,8 +277,8 @@
 
 
 - (void)parser:(PKParser *)p didMatchMetaChar:(PKAssembly *)a {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    NSLog(@"a: %@", a);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"a: %@", a);
     id obj = [a pop];
     NSAssert([obj isKindOfClass:[NSString class]], @"");
     
@@ -322,12 +322,11 @@
 
 
 - (void)parser:(PKParser *)p didMatchInterval:(PKAssembly *)a {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    NSLog(@"a: %@", a);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"a: %@", a);
     
     NSArray *digits = [a objectsAbove:curly];
     [a pop]; // discard '{'
-    NSLog(@"digits: %@", digits);
 
     NSInteger start = -1;
     NSInteger end = -1;
@@ -371,8 +370,8 @@
 
 
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    NSLog(@"a: %@", a);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"a: %@", a);
     
     NSAssert(![a isStackEmpty], @"");
     
