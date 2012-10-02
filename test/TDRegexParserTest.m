@@ -37,7 +37,7 @@
     [ass release];
 }
 
-
+/*
 - (void)testAabPlus {
     s = @"aab+";
     // use the result parser
@@ -475,5 +475,5 @@
     res = (PKCharacterAssembly *)[p bestMatchFor:a];
     TDEqualObjects(@"[a, a]aa^a", [res description]);
 }
-
+*/
 @end
