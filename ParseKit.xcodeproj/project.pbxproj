@@ -513,6 +513,9 @@
 		D3F740B70EF8C38A00559B9F /* JSONAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F740B60EF8C38A00559B9F /* JSONAssembler.m */; };
 		D3F741BF0EF9F29400559B9F /* css2_1.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3F741BD0EF9F28D00559B9F /* css2_1.grammar */; };
 		D3F741C00EF9F29500559B9F /* css2_1.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3F741BD0EF9F28D00559B9F /* css2_1.grammar */; };
+		D3F8121A161AA5BC00DEA1CB /* TDTestScaffold.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE54B0E60E46100A0803E /* TDTestScaffold.m */; };
+		D3F8121E161AB35F00DEA1CB /* TDRegexAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8121D161AB35E00DEA1CB /* TDRegexAssembler.m */; };
+		D3F81220161AB38100DEA1CB /* regex.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3F8121F161AB38100DEA1CB /* regex.grammar */; };
 		D3FD79210F4CC87900BAD816 /* rubyhash.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3FD791F0F4CC86800BAD816 /* rubyhash.grammar */; };
 		D3FDC4A50FFB3B2A00F1F797 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = D36C55FC0FD3617B00141CB7 /* RegexKitLite.h */; };
 		D3FDC6DA0FFC4C8C00F1F797 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = D36C55FC0FD3617B00141CB7 /* RegexKitLite.h */; };
@@ -1183,6 +1186,9 @@
 		D3F740B60EF8C38A00559B9F /* JSONAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONAssembler.m; sourceTree = "<group>"; };
 		D3F741430EF8E96A00559B9F /* xpath1_0.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xpath1_0.grammar; path = res/xpath1_0.grammar; sourceTree = "<group>"; };
 		D3F741BD0EF9F28D00559B9F /* css2_1.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = css2_1.grammar; path = res/css2_1.grammar; sourceTree = "<group>"; };
+		D3F8121C161AB35E00DEA1CB /* TDRegexAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRegexAssembler.h; sourceTree = "<group>"; };
+		D3F8121D161AB35E00DEA1CB /* TDRegexAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRegexAssembler.m; sourceTree = "<group>"; };
+		D3F8121F161AB38100DEA1CB /* regex.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = regex.grammar; path = res/regex.grammar; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
 		D3FD791F0F4CC86800BAD816 /* rubyhash.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rubyhash.grammar; path = res/rubyhash.grammar; sourceTree = "<group>"; };
 		D3FDC5830FFC4BFC00F1F797 /* libparsekit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libparsekit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3FDC7360FFC4D6100F1F797 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2266,6 +2272,9 @@
 				D31FE59C0E60E5C000A0803E /* TDRegularParser.m */,
 				D31FE59D0E60E5C000A0803E /* TDRegularParserTest.h */,
 				D31FE59E0E60E5C000A0803E /* TDRegularParserTest.m */,
+				D3F8121C161AB35E00DEA1CB /* TDRegexAssembler.h */,
+				D3F8121D161AB35E00DEA1CB /* TDRegexAssembler.m */,
+				D3F8121F161AB38100DEA1CB /* regex.grammar */,
 			);
 			name = regex;
 			sourceTree = "<group>";
@@ -2814,6 +2823,7 @@
 				D37D8E551571A5A200CDB822 /* nasty.html in Resources */,
 				D37D8E561571A5A200CDB822 /* erb.grammar in Resources */,
 				D337F07E15D5AE7B00C83AED /* InfoPlist.strings in Resources */,
+				D3F81220161AB38100DEA1CB /* regex.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3099,6 +3109,8 @@
 				D3CF388D1571A7FA0089A070 /* TDXmlNameTest.m in Sources */,
 				D3CF388E1571A7FA0089A070 /* TDXmlNmtoken.m in Sources */,
 				D3CF388F1571A7FA0089A070 /* TDXmlNmtokenState.m in Sources */,
+				D3F8121A161AA5BC00DEA1CB /* TDTestScaffold.m in Sources */,
+				D3F8121E161AB35F00DEA1CB /* TDRegexAssembler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

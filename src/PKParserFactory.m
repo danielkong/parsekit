@@ -867,6 +867,12 @@ void PKReleaseSubparserTree(PKParser *p) {
         obj = [PKAny any];
     } else if ([s isEqualToString:@"Empty"]) {
         obj = [PKEmpty empty];
+    } else if ([s isEqualToString:@"Char"]) {
+        obj = [PKChar char];
+    } else if ([s isEqualToString:@"Letter"]) {
+        obj = [PKLetter letter];
+    } else if ([s isEqualToString:@"Digit"]) {
+        obj = [PKDigit digit];
     } else if ([s isEqualToString:@"Pattern"]) {
         obj = tok;
     } else if ([s isEqualToString:@"DelimitedString"]) {

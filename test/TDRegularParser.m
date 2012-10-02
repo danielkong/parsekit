@@ -49,7 +49,8 @@
     self.phrasePlusParser = nil;
     self.phraseQuestionParser = nil;
     self.phraseIntervalParser = nil;
-    self.letterOrDigitParser = nil;
+    self.charParser = nil;
+    self.metaCharParser = nil;
     
     self.curly = nil;
     [super dealloc];
@@ -85,12 +86,13 @@
 // orTerm            = '|' term;
 // factor            = phrase | phraseStar | phrasePlus | phraseQuestion | phraseInterval;
 // nextFactor        = factor;
-// phrase            = letterOrDigit | '(' expression ')';
+// phrase            = char | '(' expression ')';
 // phraseStar        = phrase '*';
 // phrasePlus        = phrase '+';
 // phraseQuestion    = phrase '?';
 // phraseInterval    = phrase '{' Digit (',' Digit)? '}';
-// letterOrDigit     = Letter | Digit;
+// char              = metaChar | Letter | Digit;
+// metaChar          = '.';
 
 
 // expression        = term orTerm*
@@ -162,7 +164,7 @@
 }
 
 
-// phrase            = letterOrDigit | '(' expression ')'
+// phrase            = char | '(' expression ')'
 - (PKCollectionParser *)phraseParser {
     if (!phraseParser) {
         PKSequence *s = [PKSequence sequence];
@@ -172,7 +174,7 @@
 
         self.phraseParser = [PKAlternation alternation];
         phraseParser.name = @"phrase";
-        [phraseParser add:self.letterOrDigitParser];
+        [phraseParser add:self.charParser];
         [phraseParser add:s];
     }
     return phraseParser;
@@ -239,26 +241,49 @@
 }
 
 
-// letterOrDigit    = Letter | Digit
-- (PKCollectionParser *)letterOrDigitParser {
-    if (!letterOrDigitParser) {
-        self.letterOrDigitParser = [PKAlternation alternation];
-        letterOrDigitParser.name = @"letterOrDigit";
-        [letterOrDigitParser add:[PKLetter letter]];
-        [letterOrDigitParser add:[PKDigit digit]];
-        [letterOrDigitParser setAssembler:self selector:@selector(parser:didMatchChar:)];
+// char    = metaChar | Letter | Digit;
+- (PKCollectionParser *)charParser {
+    if (!charParser) {
+        self.charParser = [PKAlternation alternation];
+        charParser.name = @"char";
+        [charParser add:self.metaCharParser];
+        [charParser add:[PKLetter letter]];
+        [charParser add:[PKDigit digit]];
+        [charParser setAssembler:self selector:@selector(parser:didMatchChar:)];
     }
-    return letterOrDigitParser;
+    return charParser;
+}
+
+
+- (PKCollectionParser *)metaCharParser {
+    if (!metaCharParser) {
+        self.metaCharParser = [PKAlternation alternation];
+        metaCharParser.name = @"metaChar";
+        [metaCharParser add:[PKSpecificChar specificCharWithChar:'.']];
+        [metaCharParser setAssembler:self selector:@selector(parser:didMatchMetaChar:)];
+    }
+    return metaCharParser;
 }
 
 
 - (void)parser:(PKParser *)p didMatchChar:(PKAssembly *)a {
-//    NSLog(@"%s", _cmd);
-//    NSLog(@"a: %@", a);
+    //    NSLog(@"%s", _cmd);
+    //    NSLog(@"a: %@", a);
     id obj = [a pop];
     NSAssert([obj isKindOfClass:[NSNumber class]], @"");
     PKUniChar c = (PKUniChar)[obj integerValue];
     [a push:[PKSpecificChar specificCharWithChar:c]];
+}
+
+
+- (void)parser:(PKParser *)p didMatchMetaChar:(PKAssembly *)a {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"a: %@", a);
+    id obj = [a pop];
+    NSAssert([obj isKindOfClass:[NSString class]], @"");
+    
+    PKNegation *neg = [PKNegation negationWithSubparser:[PKSpecificChar specificCharWithChar:'\n']];
+    [a push:neg];
 }
 
 
@@ -346,7 +371,7 @@
 
 
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a {
-    NSLog(@"%s", _cmd);
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSLog(@"a: %@", a);
     
     NSAssert(![a isStackEmpty], @"");
@@ -400,6 +425,7 @@
 @synthesize phrasePlusParser;
 @synthesize phraseQuestionParser;
 @synthesize phraseIntervalParser;
-@synthesize letterOrDigitParser;
+@synthesize charParser;
+@synthesize metaCharParser;
 @synthesize curly;
 @end

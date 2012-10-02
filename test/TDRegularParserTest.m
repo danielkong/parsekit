@@ -20,6 +20,29 @@
     p = (TDRegularParser *)[TDRegularParser parser];
 }
 
+//- (void)setUp {
+//    
+//    //    ass = [[TDRegexAssembler alloc] init];
+//    //
+//    //    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"regex" ofType:@"grammar"];
+//    //    NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    //
+//    //    NSError *err = nil;
+//    //    p = [[[PKParserFactory factory] parserFromGrammar:g assembler:ass error:&err] retain];
+//    //    if (err) {
+//    //        NSLog(@"%@", err);
+//    //    }
+//    
+//    p = (TDRegularParser *)[TDRegularParser parser];
+//}
+
+
+
+- (void)tearDown {
+    //[p release];
+    //[ass release];
+}
+
 
 - (void)testAabPlus {
     s = @"aab+";
