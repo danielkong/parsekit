@@ -387,9 +387,8 @@
         PKSequence *seq = [PKSequence sequence];
         for (id obj in [objs reverseObjectEnumerator]) {
             [seq add:obj];
-            //[seq add:obj];
         }
-        //[a push:seq];
+        [a push:seq];
     } else {
         NSAssert((NSUInteger)1 == [objs count], @"");
         PKParser *p = [objs objectAtIndex:0];
