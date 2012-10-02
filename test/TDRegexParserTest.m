@@ -1,4 +1,3 @@
-s
 //  Copyright 2012 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,18 +38,18 @@ s
 }
 
 
-- (void)testAabPlus {
-    s = @"aab+";
-    // use the result parser
-    TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKSequence class]]);
-    s = @"aabbbb";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
-    TDEqualObjects(@"[a, a, b, b, b, b]aabbbb^", [res description]);
-}
-
-
+//- (void)testAabPlus {
+//    s = @"aab+";
+//    // use the result parser
+//    TDNotNil(p);
+//    TDTrue([p isKindOfClass:[PKSequence class]]);
+//    s = @"aabbbb";
+//    a = [PKCharacterAssembly assemblyWithString:s];
+//    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+//    TDEqualObjects(@"[a, a, b, b, b, b]aabbbb^", [res description]);
+//}
+//
+//
 //- (void)testAabStar {
 //    s = @"aab*";
 //    // use the result parser
