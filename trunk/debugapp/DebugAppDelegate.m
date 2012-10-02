@@ -491,7 +491,12 @@
     NSLog(@"p %@", p);
     NSLog(@"res %@", res);
     
-    res = res;
+}
+
+- (void)parser:(PKParser *)p didMatchTag:(PKAssembly *)a {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"%@", a);
+    
 }
 
 

@@ -25,7 +25,8 @@
     PKCollectionParser *phrasePlusParser;
     PKCollectionParser *phraseQuestionParser;
     PKCollectionParser *phraseIntervalParser;
-    PKCollectionParser *letterOrDigitParser;
+    PKCollectionParser *charParser;
+    PKCollectionParser *metaCharParser;
     
     NSNumber *curly;
 }
@@ -42,5 +43,6 @@
 @property (nonatomic, retain) PKCollectionParser *phrasePlusParser;
 @property (nonatomic, retain) PKCollectionParser *phraseQuestionParser;
 @property (nonatomic, retain) PKCollectionParser *phraseIntervalParser;
-@property (nonatomic, retain) PKCollectionParser *letterOrDigitParser;
+@property (nonatomic, retain) PKCollectionParser *charParser;
+@property (nonatomic, retain) PKCollectionParser *metaCharParser;
 @end
