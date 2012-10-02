@@ -30,6 +30,12 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, self.string];
+}
+
+
+
 - (BOOL)qualifies:(id)obj {
     PKUniChar c = [obj intValue];
     return c == [string characterAtIndex:0];
