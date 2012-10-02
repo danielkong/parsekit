@@ -31,6 +31,8 @@ typedef enum {
     NSMutableDictionary *parserTokensTable;
     NSMutableDictionary *parserClassTable;
     NSMutableDictionary *selectorTable;
+    Class assemblyClass;
+    BOOL wantsCharacters;
     PKToken *equals;
     PKToken *curly;
     PKToken *paren;

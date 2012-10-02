@@ -1,13 +1,15 @@
+@wantsCharacters = YES;
+
 @start = expression;
 expression        = term orTerm*;
 term              = factor nextFactor*;
-orTerm            = '|' term;
+orTerm            = '|'! term;
 factor            = phrase | phraseStar | phrasePlus | phraseQuestion | phraseInterval;
 nextFactor        = factor;
-phrase            = char | '(' expression ')';
-phraseStar        = phrase '*';
-phrasePlus        = phrase '+';
-phraseQuestion    = phrase '?';
-phraseInterval    = phrase '{' Digit (',' Digit)? '}';
+phrase            = char | '(' expression ')'!;
+phraseStar        = phrase '*'!;
+phrasePlus        = phrase '+'!;
+phraseQuestion    = phrase '?'!;
+phraseInterval    = phrase '{' Digit (','! Digit)? '}'!;
 char              = metaChar | Letter | Digit;
-metaChar          = '.';
+metaChar          = '.'!;

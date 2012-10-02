@@ -10,7 +10,9 @@
 
 @interface TDRegexAssembler : NSObject {
     NSNumber *curly;
+    NSNumber *paren;
 }
 
 @property (nonatomic, retain) NSNumber *curly;
+@property (nonatomic, retain) NSNumber *paren;
 @end

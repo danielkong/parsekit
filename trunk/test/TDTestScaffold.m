@@ -92,7 +92,7 @@ SenTestSuite *TDParseTestSuite() {
                            @"TDJsonParserTest",
                            @"TDFastJsonParserTest",
                            @"TDRegularParserTest",
-                           //@"TDRegexParserTest",
+                           @"TDRegexParserTest",
                            @"SRGSParserTest",
                            @"EBNFParserTest",
                            @"TDPlistParserTest",
