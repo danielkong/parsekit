@@ -31,9 +31,8 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, self.string];
+    return [NSString stringWithFormat:@"'%@'", string];
 }
-
 
 
 - (BOOL)qualifies:(id)obj {

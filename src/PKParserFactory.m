@@ -141,6 +141,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) NSMutableDictionary *parserTokensTable;
 @property (nonatomic, retain) NSMutableDictionary *parserClassTable;
 @property (nonatomic, retain) NSMutableDictionary *selectorTable;
+@property (nonatomic, retain) Class assemblyClass;
+@property (nonatomic, assign) BOOL wantsCharacters;
 @property (nonatomic, retain) PKToken *equals;
 @property (nonatomic, retain) PKToken *curly;
 @property (nonatomic, retain) PKToken *paren;
@@ -172,6 +174,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.parserTokensTable = nil;
     self.parserClassTable = nil;
     self.selectorTable = nil;
+    self.assemblyClass = nil;
     self.equals = nil;
     self.curly = nil;
     self.paren = nil;
@@ -326,6 +329,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKTokenizer *)tokenizerFromGrammarSettings {
+    self.wantsCharacters = [self boolForTokenForKey:@"@wantsCharacters"];
+
     PKTokenizer *t = [PKTokenizer tokenizer];
     [t.commentState removeSingleLineStartMarker:@"//"];
     [t.commentState removeMultiLineStartMarker:@"/*"];
@@ -814,7 +819,14 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKToken *tok = [a pop];
 
     NSString *s = [tok.stringValue stringByTrimmingQuotes];
-    PKTerminal *t = [PKCaseInsensitiveLiteral literalWithString:s];
+    PKTerminal *t = nil;
+    
+    NSAssert([s length], @"");
+    if (self.wantsCharacters) {
+        t = [PKSpecificChar specificCharWithChar:[s characterAtIndex:0]];
+    } else {
+        t = [PKCaseInsensitiveLiteral literalWithString:s];
+    }
 
     [a push:t];
 }
@@ -1026,6 +1038,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize parserTokensTable;
 @synthesize parserClassTable;
 @synthesize selectorTable;
+@synthesize assemblyClass;
+@synthesize wantsCharacters;
 @synthesize equals;
 @synthesize curly;
 @synthesize paren;

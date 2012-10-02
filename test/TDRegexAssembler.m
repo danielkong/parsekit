@@ -11,8 +11,19 @@
 
 @implementation TDRegexAssembler
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.curly = [NSNumber numberWithInt:'{'];
+        self.paren = [NSNumber numberWithInt:'('];
+    }
+    return self;
+}
+
+
 - (void)dealloc {
     self.curly = nil;
+    self.paren = nil;
     [super dealloc];
 }
 
@@ -57,7 +68,7 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchPhraseStar:(PKAssembly *)a {
     //    NSLog(@"%s", _cmd);
     //    NSLog(@"a: %@", a);
     id top = [a pop];
@@ -67,7 +78,7 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchPhrasePlus:(PKAssembly *)a {
     //    NSLog(@"%s", _cmd);
     //    NSLog(@"a: %@", a);
     id top = [a pop];
@@ -79,7 +90,7 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchPhraseQuestion:(PKAssembly *)a {
     //    NSLog(@"%s", _cmd);
     //    NSLog(@"a: %@", a);
     id top = [a pop];
@@ -91,7 +102,7 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchInterval:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchPhraseInterval:(PKAssembly *)a {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     NSLog(@"a: %@", a);
     
@@ -111,15 +122,15 @@
         }
     }
     
-    PKParser *rep = [a pop];
+    PKParser *top = [a pop];
     PKSequence *seq = [PKSequence sequence];
     
     for (NSInteger i = 0; i < start; i++) {
-        [seq add:rep];
+        [seq add:top];
     }
     
     for (NSInteger i = start; i < end; i++) {
-        [seq add:[self zeroOrOne:rep]];
+        [seq add:[self zeroOrOne:top]];
     }
     
     [a push:seq];
@@ -145,14 +156,9 @@
     NSLog(@"a: %@", a);
     
     NSAssert(![a isStackEmpty], @"");
-    
-    id obj = nil;
-    NSMutableArray *objs = [NSMutableArray array];
-    while (![a isStackEmpty]) {
-        obj = [a pop];
-        [objs addObject:obj];
-        NSAssert([obj isKindOfClass:[PKParser class]], @"");
-    }
+
+    NSArray *objs = [a objectsAbove:paren];
+    [a pop]; // discard '('
     
     if ([objs count] > 1) {
         PKSequence *seq = [PKSequence sequence];
@@ -168,7 +174,7 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchOrTerm:(PKAssembly *)a {
     //    NSLog(@"%s", _cmd);
     //    NSLog(@"a: %@", a);
     id second = [a pop];
@@ -186,4 +192,5 @@
 }
 
 @synthesize curly;
+@synthesize paren;
 @end
