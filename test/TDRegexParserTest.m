@@ -18,122 +18,122 @@
 
 - (void)setUp {
 
-    ass = [[TDRegexAssembler alloc] init];
+    self.ass = [[[TDRegexAssembler alloc] init] autorelease];
 
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"regex" ofType:@"grammar"];
     NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 
     NSError *err = nil;
-    p = [[[PKParserFactory factory] parserFromGrammar:g assembler:ass error:&err] retain];
+    self.p = [[PKParserFactory factory] parserFromGrammar:g assembler:ass error:&err];
     if (err) {
         NSLog(@"%@", err);
     }
 }
 
 
-
 - (void)tearDown {
-//    [p release];
-//    [ass release];
+    PKReleaseSubparserTree(p);
+    //self.p = nil;
+    self.ass = nil;
 }
 
 
-//- (void)testAabPlus {
-//    s = @"aab+";
-//    // use the result parser
-//    p = [TDRegularParser parserFromGrammar:s];
-//    TDNotNil(p);
-//    TDTrue([p isKindOfClass:[PKSequence class]]);
-//    s = @"aabbbb";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = (PKCharacterAssembly *)[p bestMatchFor:a];
-//    TDEqualObjects(@"[a, a, b, b, b, b]aabbbb^", [res description]);
-//}
-//
-//
-//- (void)testAabStar {
-//    s = @"aab*";
-//    // use the result parser
-//    p = [TDRegularParser parserFromGrammar:s];
-//    TDNotNil(p);
-//    TDTrue([p isKindOfClass:[PKSequence class]]);
-//    s = @"aabbbb";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = (PKCharacterAssembly *)[p bestMatchFor:a];
-//    TDEqualObjects(@"[a, a, b, b, b, b]aabbbb^", [res description]);
-//}
-//
-//
-//- (void)testAabQuestion {
-//    s = @"aab?";
-//    // use the result parser
-//    p = [TDRegularParser parserFromGrammar:s];
-//    TDNotNil(p);
-//    TDTrue([p isKindOfClass:[PKSequence class]]);
-//    s = @"aabbbb";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = (PKCharacterAssembly *)[p bestMatchFor:a];
-//    TDEqualObjects(@"[a, a, b]aab^bbb", [res description]);
-//}
-//
-//
-//- (void)testAb {
-//    s = @"ab";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = [p bestMatchFor:a];
-//    TDNotNil(res);
-//    TDEqualObjects(@"[Sequence]ab^", [res description]);
-//    PKSequence *seq = [res pop];
-//    TDTrue([seq isMemberOfClass:[PKSequence class]]);
-//    TDEquals((NSUInteger)2, [seq.subparsers count]);
-//    
-//    PKSpecificChar *c = [seq.subparsers objectAtIndex:0];
-//    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
-//    TDEqualObjects(@"a", c.string);
-//    c = [seq.subparsers objectAtIndex:1];
-//    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
-//    TDEqualObjects(@"b", c.string);
-//    
-//    // use the result parser
-//    p = [TDRegularParser parserFromGrammar:s];
-//    TDNotNil(p);
-//    TDTrue([p isKindOfClass:[PKSequence class]]);
-//    s = @"ab";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = (PKCharacterAssembly *)[p bestMatchFor:a];
-//    TDEqualObjects(@"[a, b]ab^", [res description]);
-//}
-//
-//
-//- (void)testAbc {
-//    s = @"abc";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = [p bestMatchFor:a];
-//    TDNotNil(res);
-//    TDEqualObjects(@"[Sequence]abc^", [res description]);
-//    PKSequence *seq = [res pop];
-//    TDTrue([seq isMemberOfClass:[PKSequence class]]);
-//    TDEquals((NSUInteger)3, [seq.subparsers count]);
-//    
-//    PKSpecificChar *c = [seq.subparsers objectAtIndex:0];
-//    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
-//    TDEqualObjects(@"a", c.string);
-//    c = [seq.subparsers objectAtIndex:1];
-//    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
-//    TDEqualObjects(@"b", c.string);
-//    c = [seq.subparsers objectAtIndex:2];
-//    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
-//    TDEqualObjects(@"c", c.string);
-//    
-//    // use the result parser
-//    p = [TDRegularParser parserFromGrammar:s];
-//    TDNotNil(p);
-//    TDTrue([p isKindOfClass:[PKSequence class]]);
-//    s = @"abc";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = (PKCharacterAssembly *)[p bestMatchFor:a];
-//    TDEqualObjects(@"[a, b, c]abc^", [res description]);
-//}
+- (void)testAabPlus {
+    s = @"aab+";
+    // use the result parser
+    p = [TDRegularParser parserFromGrammar:s];
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKSequence class]]);
+    s = @"aabbbb";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    TDEqualObjects(@"[a, a, b, b, b, b]aabbbb^", [res description]);
+}
+
+
+- (void)testAabStar {
+    s = @"aab*";
+    // use the result parser
+    p = [TDRegularParser parserFromGrammar:s];
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKSequence class]]);
+    s = @"aabbbb";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    TDEqualObjects(@"[a, a, b, b, b, b]aabbbb^", [res description]);
+}
+
+
+- (void)testAabQuestion {
+    s = @"aab?";
+    // use the result parser
+    p = [TDRegularParser parserFromGrammar:s];
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKSequence class]]);
+    s = @"aabbbb";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    TDEqualObjects(@"[a, a, b]aab^bbb", [res description]);
+}
+
+
+- (void)testAb {
+    s = @"ab";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = [p bestMatchFor:a];
+    TDNotNil(res);
+    TDEqualObjects(@"[Sequence]ab^", [res description]);
+    PKSequence *seq = [res pop];
+    TDTrue([seq isMemberOfClass:[PKSequence class]]);
+    TDEquals((NSUInteger)2, [seq.subparsers count]);
+    
+    PKSpecificChar *c = [seq.subparsers objectAtIndex:0];
+    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
+    TDEqualObjects(@"a", c.string);
+    c = [seq.subparsers objectAtIndex:1];
+    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
+    TDEqualObjects(@"b", c.string);
+    
+    // use the result parser
+    p = [TDRegularParser parserFromGrammar:s];
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKSequence class]]);
+    s = @"ab";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    TDEqualObjects(@"[a, b]ab^", [res description]);
+}
+
+
+- (void)testAbc {
+    s = @"abc";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = [p bestMatchFor:a];
+    TDNotNil(res);
+    TDEqualObjects(@"[Sequence]abc^", [res description]);
+    PKSequence *seq = [res pop];
+    TDTrue([seq isMemberOfClass:[PKSequence class]]);
+    TDEquals((NSUInteger)3, [seq.subparsers count]);
+    
+    PKSpecificChar *c = [seq.subparsers objectAtIndex:0];
+    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
+    TDEqualObjects(@"a", c.string);
+    c = [seq.subparsers objectAtIndex:1];
+    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
+    TDEqualObjects(@"b", c.string);
+    c = [seq.subparsers objectAtIndex:2];
+    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
+    TDEqualObjects(@"c", c.string);
+    
+    // use the result parser
+    p = [TDRegularParser parserFromGrammar:s];
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKSequence class]]);
+    s = @"abc";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    TDEqualObjects(@"[a, b, c]abc^", [res description]);
+}
 
 
 - (void)testAOrB {
@@ -164,32 +164,32 @@
 }
 
 
-//- (void)test4Or7 {
-//    s = @"4|7";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = [p bestMatchFor:a];
-//    TDNotNil(res);
-//    TDEqualObjects(@"[Alternation]4|7^", [res description]);
-//    PKAlternation *alt = [res pop];
-//    TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-//    TDEquals((NSUInteger)2, [alt.subparsers count]);
-//    
-//    PKSpecificChar *c = [alt.subparsers objectAtIndex:0];
-//    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
-//    TDEqualObjects(@"4", c.string);
-//    c = [alt.subparsers objectAtIndex:1];
-//    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
-//    TDEqualObjects(@"7", c.string);
-//    
-//    // use the result parser
-//    p = [TDRegularParser parserFromGrammar:s];
-//    TDNotNil(p);
-//    TDTrue([p isKindOfClass:[PKAlternation class]]);
-//    s = @"4";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = (PKCharacterAssembly *)[p bestMatchFor:a];
-//    TDEqualObjects(@"[4]4^", [res description]);
-//}
+- (void)test4Or7 {
+    s = @"4|7";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = [p bestMatchFor:a];
+    TDNotNil(res);
+    TDEqualObjects(@"[Alternation]4|7^", [res description]);
+    PKAlternation *alt = [res pop];
+    TDTrue([alt isMemberOfClass:[PKAlternation class]]);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
+    
+    PKSpecificChar *c = [alt.subparsers objectAtIndex:0];
+    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
+    TDEqualObjects(@"4", c.string);
+    c = [alt.subparsers objectAtIndex:1];
+    TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
+    TDEqualObjects(@"7", c.string);
+    
+    // use the result parser
+    p = [TDRegularParser parserFromGrammar:s];
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKAlternation class]]);
+    s = @"4";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    TDEqualObjects(@"[4]4^", [res description]);
+}
 
 
 - (void)testAOrBStar {
@@ -476,4 +476,6 @@
     TDEqualObjects(@"[a, a]aa^a", [res description]);
 }
 
+@synthesize p;
+@synthesize ass;
 @end

@@ -24,4 +24,6 @@
     PKAssembly *res;
 }
 
+@property (nonatomic, retain) PKParser *p;
+@property (nonatomic, retain) TDRegexAssembler *ass;
 @end
