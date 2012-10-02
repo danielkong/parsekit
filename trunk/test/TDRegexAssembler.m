@@ -61,7 +61,7 @@
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
 //    NSLog(@"a: %@", a);
     id obj = [a pop];
-    NSAssert([obj isKindOfClass:[NSString class]], @"");
+    NSAssert([obj isKindOfClass:[NSNumber class]], @"");
     
     PKNegation *neg = [PKNegation negationWithSubparser:[PKSpecificChar specificCharWithChar:'\n']];
     [a push:neg];
@@ -138,13 +138,18 @@
 
 
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a {
-//    NSLog(@"%s", __PRETTY_FUNCTION__);
-//    NSLog(@"a: %@", a);
+    //    NSLog(@"%s", __PRETTY_FUNCTION__);
+    //    NSLog(@"a: %@", a);
     
     NSAssert(![a isStackEmpty], @"");
-
-    NSArray *objs = [a objectsAbove:paren];
-    [a pop]; // discard '('
+    
+    id obj = nil;
+    NSMutableArray *objs = [NSMutableArray array];
+    while (![a isStackEmpty]) {
+        obj = [a pop];
+        [objs addObject:obj];
+        NSAssert([obj isKindOfClass:[PKParser class]], @"");
+    }
     
     if ([objs count] > 1) {
         PKSequence *seq = [PKSequence sequence];
