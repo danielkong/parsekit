@@ -19,11 +19,13 @@
 @interface TDRegexParserTest : SenTestCase {
     NSString *s;
     PKCharacterAssembly *a;
-    PKParser *p;
+    PKParser *regexParser;
     TDRegexAssembler *ass;
     PKAssembly *res;
+
+    PKParser *p;
 }
 
-@property (nonatomic, retain) PKParser *p;
+@property (nonatomic, retain) PKParser *regexParser;
 @property (nonatomic, retain) TDRegexAssembler *ass;
 @end
