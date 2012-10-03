@@ -11,7 +11,10 @@
 #import "PKGrammarParser.h"
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
-#import "PKAST.h"
+
+#import "PKParseTree.h"
+#import "PKRuleNode.h"
+#import "PKTokenNode.h"
 
 #define USE_TRACK 0
 
@@ -75,6 +78,10 @@
 @property (nonatomic, retain) PKToken *curly;
 @property (nonatomic, retain) PKToken *paren;
 
+@property (nonatomic, retain) PKToken *altToken;
+@property (nonatomic, retain) PKToken *wordToken;
+@property (nonatomic, retain) PKToken *numberToken;
+
 @property (nonatomic, retain) NSMutableDictionary *productionTab;
 @property (nonatomic, retain) NSMutableDictionary *callbackTab;
 @end
@@ -93,8 +100,12 @@
     if (self) {
         self.grammarParser = [[[PKGrammarParser alloc] initWithAssembler:self] autorelease];
         self.equals = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"=" floatValue:0.0];
-        self.curly  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
-        self.paren  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];        
+        self.curly = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
+        self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
+
+        self.altToken = [PKToken tokenWithTokenType:PKTokenTypeAny stringValue:@"|" floatValue:0.0];
+        self.wordToken = [PKToken tokenWithTokenType:PKTokenTypeAny stringValue:@"Word" floatValue:0.0];
+        self.numberToken = [PKToken tokenWithTokenType:PKTokenTypeAny stringValue:@"Num" floatValue:0.0];
     }
     return self;
 }
@@ -107,6 +118,10 @@
     self.equals = nil;
     self.curly = nil;
     self.paren = nil;
+    
+    self.altToken = nil;
+    self.wordToken = nil;
+    self.numberToken = nil;
     
     self.productionTab = nil;
     self.callbackTab = nil;
@@ -132,7 +147,7 @@
         self.callbackTab = [NSMutableDictionary dictionary];
         self.productionTab = [self productionTokensTableFromParsingStatementsInString:g];
         
-        PKAST *rootNode = [_productionTab objectForKey:@"@start"];
+        PKParseTree *rootNode = [_productionTab objectForKey:@"@start"];
         NSLog(@"%@", rootNode);
 
 //        self.parserClassTable = [NSMutableDictionary dictionary];
@@ -190,7 +205,6 @@
     
     PKTokenArraySource *src = [[[PKTokenArraySource alloc] initWithTokenizer:t delimiter:@";"] autorelease];
     id target = [NSMutableDictionary dictionary]; // setup the variable lookup table
-    //id target = [PKAST ASTWithToken:nil];
     
     while ([src hasMore]) {
         NSArray *toks = [src nextTokenArray];
@@ -272,7 +286,7 @@
 #pragma mark Assembler Callbacks
 
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a {
-    NSArray *toks = [[a objectsAbove:_equals] reversedArray];
+    NSArray *nodes = [[a objectsAbove:_equals] reversedArray];
     [a pop]; // discard '=' tok
     
     PKToken *prodNameTok = nil;
@@ -289,9 +303,9 @@
     NSMutableDictionary *d = a.target;
 
     prodName = [prodNameTok stringValue];
-    PKAST *parent = [d objectForKey:prodName];
+    PKParseTree *parent = [d objectForKey:prodName];
     if (!parent) {
-        parent = [PKAST ASTWithToken:prodNameTok];
+        parent = [PKRuleNode ruleNodeWithName:prodName];
     }
     if (![d count]) {
         [d setObject:parent forKey:@"@start"];
@@ -304,7 +318,7 @@
     }
     
     NSLog(@"productionName: %@", prodName);
-    NSAssert([toks count], @"");
+    NSAssert([nodes count], @"");
     
     // support for multiple @delimitedString = ... tokenizer directives
 //    if ([productionName hasPrefix:@"@"]) {
@@ -319,13 +333,13 @@
 //        }
 //    }
     
-    for (PKToken *tok in toks) {
-        NSString *name = tok.stringValue;
-        PKAST *child = [d objectForKey:name];
-        if (!child) {
-            child = [PKAST ASTWithToken:tok];
-            [d setObject:child forKey:name];
-        }
+    for (PKParseTree *child in nodes) {
+//        NSString *name = child.
+//        PKAST *child = [d objectForKey:name];
+//        if (!child) {
+//            child = [PKAST ASTWithToken:tok];
+//            [d setObject:child forKey:name];
+//        }
         [parent addChild:child];
     }
 
@@ -509,21 +523,22 @@
     PKToken *tok = [a pop];
     NSString *parserName = tok.stringValue;
     
-//    p = nil;
+    PKParseTree *node = nil;
 //    if (isGatheringClasses) {
-//        // lookup the actual possible parser.
-//        // if its not there, or still a token array, just spoof it with a sequence
-//		NSMutableDictionary *d = a.target;
-//        p = [d objectForKey:parserName];
-//        if (![p isKindOfClass:[PKParser class]]) {
-//            p = [PKSequence sequence];
-//        }
+        // lookup the actual possible parser.
+        // if its not there, or still a token array, just spoof it with a sequence
+		NSMutableDictionary *d = a.target;
+        node = [d objectForKey:parserName];
+        if (!node) {
+            node = [PKRuleNode ruleNodeWithName:parserName];
+            [d setObject:node forKey:parserName];
+        }
 //    } else {
 //        if ([parserTokensTable objectForKey:parserName]) {
 //            p = [self expandedParserForName:parserName];
 //        }
 //    }
-//    [a push:p];
+    [a push:node];
 }
 
 
@@ -531,45 +546,45 @@
     PKToken *tok = [a pop];
     NSString *s = tok.stringValue;
     
-    id obj = nil;
+    PKTokenNode *node = nil;
     if ([s isEqualToString:@"Word"]) {
-        obj = [PKWord word];
-    } else if ([s isEqualToString:@"LowercaseWord"]) {
-        obj = [PKLowercaseWord word];
-    } else if ([s isEqualToString:@"UppercaseWord"]) {
-        obj = [PKUppercaseWord word];
-    } else if ([s isEqualToString:@"Number"]) {
-        obj = [PKNumber number];
-    } else if ([s isEqualToString:@"S"]) {
-        obj = [PKWhitespace whitespace];
-    } else if ([s isEqualToString:@"QuotedString"]) {
-        obj = [PKQuotedString quotedString];
-    } else if ([s isEqualToString:@"Symbol"]) {
-        obj = [PKSymbol symbol];
-    } else if ([s isEqualToString:@"Comment"]) {
-        obj = [PKComment comment];
-    } else if ([s isEqualToString:@"Any"]) {
-        obj = [PKAny any];
-    } else if ([s isEqualToString:@"Empty"]) {
-        obj = [PKEmpty empty];
-    } else if ([s isEqualToString:@"Char"]) {
-        obj = [PKChar char];
-    } else if ([s isEqualToString:@"Letter"]) {
-        obj = [PKLetter letter];
-    } else if ([s isEqualToString:@"Digit"]) {
-        obj = [PKDigit digit];
-    } else if ([s isEqualToString:@"Pattern"]) {
-        obj = tok;
-    } else if ([s isEqualToString:@"DelimitedString"]) {
-        obj = tok;
-    } else if ([s isEqualToString:@"YES"] || [s isEqualToString:@"NO"]) {
-        obj = tok;
+        node = [PKTokenNode tokenNodeWithToken:_wordToken]; //[PKWord word];
+//    } else if ([s isEqualToString:@"LowercaseWord"]) {
+//        obj = [PKLowercaseWord word];
+//    } else if ([s isEqualToString:@"UppercaseWord"]) {
+//        obj = [PKUppercaseWord word];
+    } else if ([s isEqualToString:@"Number"] || [s isEqualToString:@"Num"]) {
+        node = [PKTokenNode tokenNodeWithToken:_numberToken]; //[PKNumber number];
+//    } else if ([s isEqualToString:@"S"]) {
+//        obj = [PKWhitespace whitespace];
+//    } else if ([s isEqualToString:@"QuotedString"]) {
+//        obj = [PKQuotedString quotedString];
+//    } else if ([s isEqualToString:@"Symbol"]) {
+//        obj = [PKSymbol symbol];
+//    } else if ([s isEqualToString:@"Comment"]) {
+//        obj = [PKComment comment];
+//    } else if ([s isEqualToString:@"Any"]) {
+//        obj = [PKAny any];
+//    } else if ([s isEqualToString:@"Empty"]) {
+//        obj = [PKEmpty empty];
+//    } else if ([s isEqualToString:@"Char"]) {
+//        obj = [PKChar char];
+//    } else if ([s isEqualToString:@"Letter"]) {
+//        obj = [PKLetter letter];
+//    } else if ([s isEqualToString:@"Digit"]) {
+//        obj = [PKDigit digit];
+//    } else if ([s isEqualToString:@"Pattern"]) {
+//        obj = tok;
+//    } else if ([s isEqualToString:@"DelimitedString"]) {
+//        obj = tok;
+//    } else if ([s isEqualToString:@"YES"] || [s isEqualToString:@"NO"]) {
+//        obj = tok;
     } else {
         [NSException raise:@"Grammar Exception" format:
          @"User Grammar referenced a constant parser name (uppercase word) which is not supported: %@. Must be one of: Word, LowercaseWord, UppercaseWord, QuotedString, Number, Symbol, Empty.", s];
     }
     
-    [a push:obj];
+    [a push:node];
 }
 
 
@@ -668,10 +683,10 @@
     [a pop]; // pop '|'
     id first = [a pop];
     
-    PKAlternation *alt = [PKAlternation alternation];
-    [alt add:first];
-    [alt add:second];
-    [a push:alt];
+    PKParseTree *altNode = [PKTokenNode tokenNodeWithToken:_altToken];
+    [altNode addChild:first];
+    [altNode addChild:second];
+    [a push:altNode];
 }
 
 

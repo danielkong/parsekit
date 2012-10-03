@@ -15,8 +15,6 @@
 #import "PKAST.h"
 
 @interface PKAST ()
-@property (nonatomic, retain) PKToken *token;
-@property (nonatomic, retain) NSMutableArray *children;
 @end
 
 @implementation PKAST
