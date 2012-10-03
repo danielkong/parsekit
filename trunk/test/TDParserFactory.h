@@ -12,7 +12,7 @@
 
 @interface TDParserFactory : NSObject
 
-+ (PKParserFactory *)factory;
++ (TDParserFactory *)factory;
 
 - (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a error:(NSError **)outError;
 - (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a preassembler:(id)pa error:(NSError **)outError;
