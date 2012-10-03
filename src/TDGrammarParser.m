@@ -49,17 +49,15 @@
 
 - (id)initWithAssembler:(id)a {
     if (self = [super init]) {
-        assembler = a;
+        self.assembler = a;
+
     }
     return self;
 }
 
 
 - (void)dealloc {
-    assembler = nil; // appease clang static analyzer
-
-    PKReleaseSubparserTree(statementParser);
-    PKReleaseSubparserTree(exprParser);
+    PKReleaseSubparserTree(self.startParser);
 
     self.statementParser = nil;
     self.declarationParser = nil;
@@ -111,7 +109,7 @@
 
 
 // @start               = statement*;
-// statement            = S* declaration S* '=' expr ';';
+// statement            = S* declaration S* '=' expr ';'!;
 // callback             = S* '(' S* selector S* ')';
 // selector             = Word ':';
 // expr                 = S* term orTerm* S*;
@@ -142,6 +140,14 @@
 // literal              = QuotedString;
 // variable             = LowercaseWord;
 // constant             = UppercaseWord;
+
+
+- (PKRepetition *)startParser {
+    if (!startParser) {
+        self.startParser = [PKRepetition repetitionWithSubparser:self.statementParser];
+    }
+    return startParser;
+}
 
 
 // statement             = S* declaration S* '=' expr;
@@ -617,6 +623,8 @@
     return [PKRepetition repetitionWithSubparser:self.whitespaceParser];
 }
 
+@synthesize assembler;
+@synthesize startParser;
 @synthesize statementParser;
 @synthesize declarationParser;
 @synthesize callbackParser;

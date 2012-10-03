@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class PKParser;
+@class PKParseTree;
 
 @interface TDParserFactory : NSObject
 
@@ -16,4 +17,6 @@
 
 - (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a error:(NSError **)outError;
 - (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a preassembler:(id)pa error:(NSError **)outError;
+
+- (PKParseTree *)syntaxTreeFromGrammar:(NSString *)g error:(NSError **)outError;
 @end
