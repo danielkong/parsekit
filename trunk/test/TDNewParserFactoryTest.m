@@ -29,7 +29,8 @@
     NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Num;";
 
     NSError *err = nil;
-    PKParser *p = [_factory parserFromGrammar:g assembler:nil error:&err];
+    //PKParser *p =
+    [_factory parserFromGrammar:g assembler:nil error:&err];
     //TDNotNil(p);
     
     

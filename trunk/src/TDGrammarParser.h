@@ -13,9 +13,11 @@
 //  limitations under the License.
 
 #import <ParseKit/PKCollectionParser.h>
+#import <ParseKit/PKRepetition.h>
 
 @interface TDGrammarParser : NSObject {
     id assembler;
+    PKRepetition *startParser;
     PKCollectionParser *statementParser;
     PKCollectionParser *declarationParser;
     PKCollectionParser *callbackParser;
@@ -49,6 +51,8 @@
 
 - (id)initWithAssembler:(id)a;
 
+@property (nonatomic, assign) id assembler;
+@property (nonatomic, retain) PKRepetition *startParser;
 @property (nonatomic, retain) PKCollectionParser *statementParser;
 @property (nonatomic, retain) PKCollectionParser *declarationParser;
 @property (nonatomic, retain) PKCollectionParser *callbackParser;

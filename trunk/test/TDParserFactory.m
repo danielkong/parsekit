@@ -44,7 +44,6 @@
 @end
 
 @interface TDParserFactory ()
-- (PKParseTree *)syntaxTreeFromParsingStatementsInString:(NSString *)s;
 - (BOOL)isAllWhitespace:(NSArray *)toks;
 - (PKTokenizer *)tokenizerForParsingGrammar;
 
@@ -137,7 +136,7 @@
         self.callbackTab = [NSMutableDictionary dictionary];
         self.productionTab = nil;
         
-        PKParseTree *rootNode = [self syntaxTreeFromParsingStatementsInString:g];
+        PKParseTree *rootNode = [self syntaxTreeFromGrammar:g error:outError];
         
         NSLog(@"%@", rootNode);
 
@@ -190,39 +189,19 @@
 #pragma mark -
 #pragma mark Private
 
-- (PKParseTree *)syntaxTreeFromParsingStatementsInString:(NSString *)s {
-    PKTokenizer *t = [self tokenizerForParsingGrammar];
-    t.string = s;
-    
-    PKTokenArraySource *src = [[[PKTokenArraySource alloc] initWithTokenizer:t delimiter:@";"] autorelease];
+- (PKParseTree *)syntaxTreeFromGrammar:(NSString *)g error:(NSError **)outError {
     self.productionTab = [NSMutableDictionary dictionary];
-    
-    while ([src hasMore]) {
-        NSMutableArray *toks = [[[src nextTokenArray] mutableCopy] autorelease];
-        [toks addObject:_semi];
-        
-        NSLog(@"%@", toks);
-        if (![self isAllWhitespace:toks]) {
-            PKTokenAssembly *a = [PKTokenAssembly assemblyWithTokenArray:toks];
-            NSLog(@"%@", a);
-            //a.preservesWhitespaceTokens = YES;
-            a.target = [NSMutableDictionary dictionary];
-            PKAssembly *res = [_grammarParser.statementParser completeMatchFor:a];
-            NSLog(@"res: %@", res);
-            
-            PKRuleNode *prodNode = [res pop];
-            NSAssert([prodNode isKindOfClass:[PKRuleNode class]], @"");
 
-            [_productionTab setObject:prodNode forKey:prodNode.name];
-            NSLog(@"%@", _productionTab);
-        }
-    }
+    PKTokenizer *t = [self tokenizerForParsingGrammar];
+    t.string = g;
+    
+    _grammarParser.startParser.tokenizer = t;
+    [_grammarParser.startParser parse:g error:outError];
     
     NSLog(@"%@", _productionTab);
 
     PKParseTree *rootNode = [_productionTab objectForKey:@"@start"];
     return rootNode;
-    //    return target;
 }
 
 
@@ -291,10 +270,13 @@
     PKToken *tok = [a pop];
     NSString *prodName = tok.stringValue;
     
-    //    PKParseTree *parent = a.target;
-    PKRuleNode *prodNode = [PKRuleNode ruleNodeWithName:prodName];
+    PKRuleNode *prodNode = [_productionTab objectForKey:prodName];
+    if (!prodNode) {
+        prodNode = [PKRuleNode ruleNodeWithName:prodName];
+        [_productionTab setObject:prodNode forKey:prodName];
+    }
     
-    NSAssert([a isStackEmpty], @"");
+    //NSAssert([a isStackEmpty], @"");
     [a push:prodNode];
     NSLog(@"%@", a);
 }
@@ -305,14 +287,14 @@
 
     PKToken *tok = [a pop];
     NSString *prodName = tok.stringValue;
-    
-//    PKParseTree *parent = [a pop];
-//    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
-//
-//    [parent addChildRule:prodName];
-//    [a push:parent];
-    
-    PKParseTree *prodNode = [PKRuleNode ruleNodeWithName:prodName];
+
+    PKParseTree *prodNode = [_productionTab objectForKey:prodName];
+    if (!prodNode) {
+        prodNode = [PKRuleNode ruleNodeWithName:prodName];
+        [_productionTab setObject:prodNode forKey:prodName];
+    } else {
+        NSLog(@"%@", a);
+    }
     [a push:prodNode];
 
     NSLog(@"%@", a);
@@ -323,12 +305,6 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
     PKToken *tok = [a pop];
-
-//    PKParseTree *parent = [a pop];
-//    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
-//    
-//    [parent addChildToken:tok];
-//    [a push:parent];
 
     PKParseTree *parserNode = [PKTokenNode tokenNodeWithToken:tok];
     [a push:parserNode];
@@ -346,16 +322,11 @@
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
     NSAssert([first isKindOfClass:[PKParseTree class]], @"");
     NSAssert([second isKindOfClass:[PKParseTree class]], @"");
-        
-//    PKParseTree *parent = [a pop];
-//    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
-//    PKParseTree *altNode = [parent addChildToken:tok];
 
     PKTokenNode *altNode = [PKTokenNode tokenNodeWithToken:tok];
     [altNode addChild:first];
     [altNode addChild:second];
     
-//    [a push:parent];
     [a push:altNode];
     NSLog(@"%@", a);
 
