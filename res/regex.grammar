@@ -20,7 +20,7 @@ dot = '.'!;
 
 charClass = customCharClass | wordCharClass | notWordCharClass | digitCharClass | notDigitCharClass;
 
-customCharClass = '[' Char ']';
+customCharClass = '[' Char+ ']'!;
 
 wordCharClass = '\\'! 'w'!;
 notWordCharClass = '\\'! 'W'!;

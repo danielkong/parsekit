@@ -11,8 +11,10 @@
 @interface TDRegexAssembler : NSObject {
     NSNumber *curly;
     NSNumber *paren;
+    NSNumber *square;
 }
 
 @property (nonatomic, retain) NSNumber *curly;
 @property (nonatomic, retain) NSNumber *paren;
+@property (nonatomic, retain) NSNumber *square;
 @end
