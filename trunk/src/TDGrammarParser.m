@@ -111,7 +111,7 @@
 
 
 // @start               = statement*;
-// satement             = S* declaration S* '='! expr;
+// statement            = S* declaration S* '=' expr ';';
 // callback             = S* '(' S* selector S* ')';
 // selector             = Word ':';
 // expr                 = S* term orTerm* S*;
@@ -144,7 +144,7 @@
 // constant             = UppercaseWord;
 
 
-// satement             = S* declaration S* '=' expr;
+// statement             = S* declaration S* '=' expr;
 - (PKCollectionParser *)statementParser {
     if (!statementParser) {
         self.statementParser = [PKSequence sequence];
@@ -154,8 +154,9 @@
         PKTrack *tr = [PKTrack track];
         [tr add:self.declarationParser];
         [tr add:self.optionalWhitespaceParser];
-        [tr add:[[PKSymbol symbolWithString:@"="] discard]];
+        [tr add:[PKSymbol symbolWithString:@"="]];
         [tr add:self.exprParser];
+        [tr add:[[PKSymbol symbolWithString:@";"] discard]];
         
         [statementParser add:tr];
         [statementParser setAssembler:assembler selector:@selector(parser:didMatchStatement:)];
