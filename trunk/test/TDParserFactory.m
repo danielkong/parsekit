@@ -200,7 +200,12 @@
             PKAssembly *res = [_grammarParser.statementParser completeMatchFor:a];
             NSLog(@"%@", res);
             target = res.target;
-            NSLog(@"%@", [(PKAST *)[[target allValues] objectAtIndex:0] treeDescription]);
+            
+            PKAST *foo = [target objectForKey:@"foo"];
+            PKAST *bar = [target objectForKey:@"bar"];
+            NSLog(@"foo: %@", foo);
+            NSLog(@"bar: %@", bar);
+            //            NSLog(@"%@",   [(PKAST *)[target objectForKey:@"foo"] treeDescription]);
         }
     }
         
@@ -281,15 +286,19 @@
     } else {
         prodNameTok = obj;
     }
-    
+
+    NSMutableDictionary *d = a.target;
+
     prodName = [prodNameTok stringValue];
-    PKAST *parent = [PKAST ASTWithToken:prodNameTok];
+    PKAST *parent = [d objectForKey:prodName];
+    if (!parent) {
+        parent = [PKAST ASTWithToken:prodNameTok];
+    }
 
     if (selName) {
         NSAssert([selName length], @"");
         [_callbackTab setObject:selName forKey:prodName];
     }
-	NSMutableDictionary *d = a.target;
     
     NSLog(@"productionName: %@", prodName);
     NSAssert([toks count], @"");
@@ -308,7 +317,11 @@
 //    }
     
     for (PKToken *tok in toks) {
-        PKAST *child = [PKAST ASTWithToken:tok];
+        PKAST *child = [d objectForKey:tok.stringValue];
+        if (!child) {
+            child = [PKAST ASTWithToken:tok];
+            [d setObject:child forKey:tok.stringValue];
+        }
         [parent addChild:child];
     }
 

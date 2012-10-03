@@ -47,27 +47,27 @@
 
 
 - (NSString *)description {
-    return [token stringValue];
+    return [self treeDescription];
 }
 
 
 - (NSString *)treeDescription {
     if (![children count]) {
-        return [self description];
+        return [token stringValue];
     }
     
     NSMutableString *ms = [NSMutableString string];
     
     if (![self isNil]) {
-        [ms appendFormat:@"(%@ ", [self description]];
+        [ms appendFormat:@"(%@ ", [token stringValue]];
     }
 
     NSInteger i = 0;
     for (PKAST *child in children) {
         if (i++) {
-            [ms appendFormat:@" %@", child];
+            [ms appendFormat:@" %@", [child treeDescription]];
         } else {
-            [ms appendFormat:@"%@", child];
+            [ms appendFormat:@"%@", [child treeDescription]];
         }
     }
     
