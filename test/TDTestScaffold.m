@@ -17,7 +17,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 
-#define RUN_ALL_TEST_CASES 0
+#define RUN_ALL_TEST_CASES 1
 #define SOLO_TEST_CASE @"TDRegexMatcherTest"
 
 @interface SenTestSuite (TDAdditions)
