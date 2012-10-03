@@ -30,7 +30,7 @@
 
     NSError *err = nil;
     PKParser *p = [_factory parserFromGrammar:g assembler:nil error:&err];
-    TDNotNil(p);
+    //TDNotNil(p);
     
     
     
