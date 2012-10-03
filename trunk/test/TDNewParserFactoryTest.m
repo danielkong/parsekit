@@ -29,8 +29,9 @@
     NSString *g = @"foo=Word;";
 
     NSError *err = nil;
-    PKParser *p = [self.factory parserFromGrammar:g assembler:nil error:&err];
+    PKParser *p = [_factory parserFromGrammar:g assembler:nil error:&err];
     TDNotNil(p);
+    
     
     
 }
