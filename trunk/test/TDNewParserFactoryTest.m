@@ -8,6 +8,7 @@
 
 #import "TDNewParserFactoryTest.h"
 #import "TDParserFactory.h"
+#import "PKParseTree.h"
 
 @interface TDNewParserFactoryTest ()
 @property (nonatomic, retain) TDParserFactory *factory;
@@ -29,10 +30,9 @@
     NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Num;";
 
     NSError *err = nil;
-    //PKParser *p =
-    [_factory parserFromGrammar:g assembler:nil error:&err];
-    //TDNotNil(p);
-    
+    PKParseTree *rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar (| (baz Word) (bat Num)))))");
     
     
 }

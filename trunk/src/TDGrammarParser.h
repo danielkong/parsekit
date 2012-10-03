@@ -36,6 +36,7 @@
     PKCollectionParser *primaryExprParser;
     PKCollectionParser *negatedPrimaryExprParser;
     PKCollectionParser *barePrimaryExprParser;
+    PKCollectionParser *subExprParser;
     PKCollectionParser *predicateParser;
     PKCollectionParser *intersectionParser;
     PKCollectionParser *differenceParser;
@@ -71,6 +72,7 @@
 @property (nonatomic, retain) PKCollectionParser *primaryExprParser;
 @property (nonatomic, retain) PKCollectionParser *negatedPrimaryExprParser;
 @property (nonatomic, retain) PKCollectionParser *barePrimaryExprParser;
+@property (nonatomic, retain) PKCollectionParser *subExprParser;
 @property (nonatomic, retain) PKCollectionParser *predicateParser;
 @property (nonatomic, retain) PKCollectionParser *intersectionParser;
 @property (nonatomic, retain) PKCollectionParser *differenceParser;

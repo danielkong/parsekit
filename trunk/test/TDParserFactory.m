@@ -132,9 +132,6 @@
         self.assembler = a;
         self.preassembler = pa;
         
-        self.callbackTab = [NSMutableDictionary dictionary];
-        self.productionTab = [NSMutableDictionary dictionary];
-
         PKParseTree *rootNode = [self syntaxTreeFromGrammar:g error:outError];
         
         NSLog(@"%@", rootNode);
@@ -179,6 +176,9 @@
 
 
 - (PKParseTree *)syntaxTreeFromGrammar:(NSString *)g error:(NSError **)outError {
+    self.callbackTab = [NSMutableDictionary dictionary];
+    self.productionTab = [NSMutableDictionary dictionary];
+
     PKTokenizer *t = [self tokenizerForParsingGrammar];
     t.string = g;
     
@@ -332,17 +332,6 @@
 }
 
 
-- (NSArray *)tokens:(NSArray *)toks byRemovingTokensOfType:(PKTokenType)tt {
-    NSMutableArray *res = [NSMutableArray array];
-    for (PKToken *tok in toks) {
-        if (PKTokenTypeWhitespace != tok.tokenType) {
-            [res addObject:tok];
-        }
-    }
-    return res;
-}
-
-
 //- (NSString *)defaultAssemblerSelectorNameForParserName:(NSString *)parserName {
 //    NSString *prefix = nil;
 //    if ([parserName hasPrefix:@"@"]) {
@@ -378,24 +367,26 @@
 
 
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a {
-//    NSArray *objs = [a objectsAbove:_paren];
-//    NSAssert([objs count], @"");
-//    [a pop]; // pop '('
-//    
-//    if ([objs count] > 1) {
-//        PKSequence *seq = nil;
-//#if USE_TRACK
-//        seq = [PKTrack track];
-//#else
-//        seq = [PKSequence sequence];
-//#endif
-//        for (id obj in [objs reverseObjectEnumerator]) {
-//            [seq add:obj];
-//        }
-//        [a push:seq];
-//    } else if ([objs count]) {
-//        [a push:[objs objectAtIndex:0]];
-//    }
+}
+
+
+- (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+
+    NSArray *objs = [a objectsAbove:_paren];
+    NSAssert([objs count], @"");
+    [a pop]; // pop '('
+    
+    if ([objs count] > 1) {
+        PKTokenNode *seqNode = [PKTokenNode tokenNodeWithToken:_paren];
+        for (PKParseTree *child in [objs reverseObjectEnumerator]) {
+            NSAssert([child isKindOfClass:[PKParseTree class]], @"");
+            [seqNode addChild:child];
+        }
+        [a push:seqNode];
+    } else if ([objs count]) {
+        [a push:[objs objectAtIndex:0]];
+    }
 }
 
 
