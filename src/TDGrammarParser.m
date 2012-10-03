@@ -19,6 +19,7 @@
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDeclaration:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;    
@@ -77,6 +78,7 @@
     self.primaryExprParser = nil;
     self.negatedPrimaryExprParser = nil;
     self.barePrimaryExprParser = nil;
+    self.subExprParser = nil;
     self.predicateParser = nil;
     self.intersectionParser = nil;
     self.differenceParser = nil;
@@ -131,7 +133,8 @@
 
 // primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
 // negatedPrimaryExpr   = '~' barePrimaryExpr;
-// barePrimaryExpr      = atomicValue | '(' expr ')';
+// barePrimaryExpr      = atomicValue | subExpr;
+// subExpr              = '(' expr ')';
 // atomicValue          = parser discard?;
 // parser               = pattern | literal | variable | constant | delimitedString;
 // discard              = S* '!';
@@ -338,21 +341,30 @@
 }
 
 
-// barePrimaryExpr          = atomicValue | '(' expr ')';
+// barePrimaryExpr          = atomicValue | subExpr;
 - (PKCollectionParser *)barePrimaryExprParser {
     if (!barePrimaryExprParser) {
         self.barePrimaryExprParser = [PKAlternation alternation];
         barePrimaryExprParser.name = @"barePrimaryExpr";
         [barePrimaryExprParser add:self.atomicValueParser];
-        
-        PKSequence *s = [PKSequence sequence];
-        [s add:[PKSymbol symbolWithString:@"("]];
-        [s add:self.exprParser];
-        [s add:[[PKSymbol symbolWithString:@")"] discard]];
-        
-        [barePrimaryExprParser add:s];
+        [barePrimaryExprParser add:self.subExprParser];
     }
     return barePrimaryExprParser;
+}
+
+
+// subExpr          = '(' expr ')';
+- (PKCollectionParser *)subExprParser {
+    if (!subExprParser) {
+        self.subExprParser = [PKSequence sequence];
+        subExprParser.name = @"subExpr";
+
+        [subExprParser add:[PKSymbol symbolWithString:@"("]];
+        [subExprParser add:self.exprParser];
+        [subExprParser add:[[PKSymbol symbolWithString:@")"] discard]];
+        [subExprParser setAssembler:assembler selector:@selector(parser:didMatchSubExpr:)];
+    }
+    return subExprParser;
 }
 
 
@@ -643,6 +655,7 @@
 @synthesize primaryExprParser;
 @synthesize negatedPrimaryExprParser;
 @synthesize barePrimaryExprParser;
+@synthesize subExprParser;
 @synthesize predicateParser;
 @synthesize intersectionParser;
 @synthesize differenceParser;
