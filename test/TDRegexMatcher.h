@@ -6,17 +6,14 @@
 //
 //
 
-#import <ParseKit/ParseKit.h>
+#import <Foundation/Foundation.h>
 
-@interface TDRegexMatcher : NSObject {
-    PKParser *parser;
-}
+@interface TDRegexMatcher : NSObject
 
-+ (TDRegexMatcher *)matcherFromRegex:(NSString *)regex;
++ (TDRegexMatcher *)matcherWithRegex:(NSString *)regex;
+
+- (id)initWithRegex:(NSString *)regex;
 
 - (BOOL)matches:(NSString *)inputStr;
-@end
-
-@interface TDRegexMatcher (Debug)
-- (PKAssembly *)bestMatchFor:(NSString *)inputStr;
+//- (NSArray *)capturesFor:(NSString *)inputStr;
 @end

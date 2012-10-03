@@ -23,9 +23,7 @@
     TDRegexAssembler *ass;
     PKAssembly *res;
 
-    TDRegexMatcher *p;
+    TDRegexMatcher *m;
 }
 
-@property (nonatomic, retain) PKParser *regexParser;
-@property (nonatomic, retain) TDRegexAssembler *ass;
 @end
