@@ -13,8 +13,8 @@
 //  limitations under the License.
 
 #import "TDTestScaffold.h"
+#import "TDRegexMatcher.h"
 #import "TDRegexAssembler.h"
-#import "TDRegularParser.h"
 
 @interface TDRegexParserTest : SenTestCase {
     NSString *s;
@@ -23,7 +23,7 @@
     TDRegexAssembler *ass;
     PKAssembly *res;
 
-    PKParser *p;
+    TDRegexMatcher *p;
 }
 
 @property (nonatomic, retain) PKParser *regexParser;

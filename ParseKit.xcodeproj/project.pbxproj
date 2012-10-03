@@ -360,6 +360,7 @@
 		D398E20E0E60F86D00A1C877 /* yahoo.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B473840E48C9CF008AFBDD /* yahoo.json */; };
 		D3A20245161B6AEB00207F4D /* TDRegexAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20244161B6AEB00207F4D /* TDRegexAssembler.m */; };
 		D3A20248161B6B2900207F4D /* TDRegexParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20247161B6B2900207F4D /* TDRegexParserTest.m */; };
+		D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203A7161BCF6600207F4D /* TDRegexMatcher.m */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */; };
 		D3BBBCC10FECD477007DF30D /* xml.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8800FEB36A1006A91A4 /* xml.grammar */; };
@@ -1056,6 +1057,8 @@
 		D3A20244161B6AEB00207F4D /* TDRegexAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRegexAssembler.m; path = test/TDRegexAssembler.m; sourceTree = "<group>"; };
 		D3A20246161B6B2900207F4D /* TDRegexParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDRegexParserTest.h; path = test/TDRegexParserTest.h; sourceTree = "<group>"; };
 		D3A20247161B6B2900207F4D /* TDRegexParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRegexParserTest.m; path = test/TDRegexParserTest.m; sourceTree = "<group>"; };
+		D3A203A6161BCF6600207F4D /* TDRegexMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDRegexMatcher.h; path = test/TDRegexMatcher.h; sourceTree = "<group>"; };
+		D3A203A7161BCF6600207F4D /* TDRegexMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRegexMatcher.m; path = test/TDRegexMatcher.m; sourceTree = "<group>"; };
 		D3AF49760FDB122E0032F4DC /* TDParserFactoryPatternTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryPatternTest.h; path = test/TDParserFactoryPatternTest.h; sourceTree = "<group>"; };
 		D3AF49770FDB122E0032F4DC /* TDParserFactoryPatternTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryPatternTest.m; path = test/TDParserFactoryPatternTest.m; sourceTree = "<group>"; };
 		D3AF4BE80FDC3DD50032F4DC /* TDBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBlob.h; path = test/TDBlob.h; sourceTree = "<group>"; };
@@ -2280,6 +2283,8 @@
 				D3A20244161B6AEB00207F4D /* TDRegexAssembler.m */,
 				D3A20246161B6B2900207F4D /* TDRegexParserTest.h */,
 				D3A20247161B6B2900207F4D /* TDRegexParserTest.m */,
+				D3A203A6161BCF6600207F4D /* TDRegexMatcher.h */,
+				D3A203A7161BCF6600207F4D /* TDRegexMatcher.m */,
 			);
 			name = regex;
 			sourceTree = "<group>";
@@ -3117,6 +3122,7 @@
 				D3F8121A161AA5BC00DEA1CB /* TDTestScaffold.m in Sources */,
 				D3A20245161B6AEB00207F4D /* TDRegexAssembler.m in Sources */,
 				D3A20248161B6B2900207F4D /* TDRegexParserTest.m in Sources */,
+				D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

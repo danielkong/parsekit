@@ -13,35 +13,39 @@
 //  limitations under the License.
 
 #import "TDRegexParserTest.h"
+#import "TDRegexMatcher.h"
+
+@interface TDRegexMatcher ()
+@property (nonatomic, retain) PKParser *parser;
+@end
 
 @implementation TDRegexParserTest
 
-- (void)setUp {
+//- (void)setUp {
+//
+//    self.ass = [[[TDRegexAssembler alloc] init] autorelease];
+//
+//    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"regex" ofType:@"grammar"];
+//    NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//
+//    NSError *err = nil;
+//    self.regexParser = [[PKParserFactory factory] parserFromGrammar:g assembler:ass error:&err];
+//    if (err) {
+//        NSLog(@"%@", err);
+//    }
+//}
+//
+//
+//- (void)tearDown {
+//    PKReleaseSubparserTree(regexParser);
+//    self.regexParser = nil;
+//    self.ass = nil;
+//}
 
-    self.ass = [[[TDRegexAssembler alloc] init] autorelease];
 
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"regex" ofType:@"grammar"];
-    NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-
-    NSError *err = nil;
-    self.regexParser = [[PKParserFactory factory] parserFromGrammar:g assembler:ass error:&err];
-    if (err) {
-        NSLog(@"%@", err);
-    }
-}
-
-
-- (void)tearDown {
-    PKReleaseSubparserTree(regexParser);
-    self.regexParser = nil;
-    self.ass = nil;
-}
-
-
-- (PKParser *)parserForRegex:(NSString *)regex {
-    a = [PKCharacterAssembly assemblyWithString:s];
-    a = (PKCharacterAssembly *)[regexParser completeMatchFor:a];
-    return [a pop];
+- (TDRegexMatcher *)parserForRegex:(NSString *)regex {
+    TDRegexMatcher *m = [TDRegexMatcher matcherFromRegex:regex];
+    return m;
 }
 
 
@@ -51,10 +55,9 @@
     p = [self parserForRegex:s];
     
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKSequence class]]);
+    TDTrue([p.parser isKindOfClass:[PKSequence class]]);
     s = @"aabbbb";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a, a, b, b, b, b]aabbbb^", [res description]);
 }
 
@@ -63,10 +66,9 @@
     s = @"aab*";
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKSequence class]]);
+    TDTrue([p.parser isKindOfClass:[PKSequence class]]);
     s = @"aabbbb";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a, a, b, b, b, b]aabbbb^", [res description]);
 }
 
@@ -75,10 +77,9 @@
     s = @"aab?";
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKSequence class]]);
+    TDTrue([p.parser isKindOfClass:[PKSequence class]]);
     s = @"aabbbb";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a, a, b]aab^bbb", [res description]);
 }
 
@@ -88,10 +89,9 @@
     p = [self parserForRegex:s];
 
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKSequence class]]);
+    TDTrue([p.parser isKindOfClass:[PKSequence class]]);
     s = @"ab";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a, b]ab^", [res description]);
 }
 
@@ -101,10 +101,9 @@
     p = [self parserForRegex:s];
 
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKSequence class]]);
+    TDTrue([p.parser isKindOfClass:[PKSequence class]]);
     s = @"abc";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a, b, c]abc^", [res description]);
 }
 
@@ -114,10 +113,9 @@
     
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKAlternation class]]);
+    TDTrue([p.parser isKindOfClass:[PKAlternation class]]);
     s = @"b";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[b]b^", [res description]);
 }
 
@@ -127,10 +125,8 @@
     
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKAlternation class]]);
     s = @"4";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[4]4^", [res description]);
 }
 
@@ -140,10 +136,9 @@
     
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKAlternation class]]);
+    TDTrue([p.parser isKindOfClass:[PKAlternation class]]);
     s = @"bbb";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[b, b, b]bbb^", [res description]);
 }
 
@@ -153,15 +148,13 @@
     
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKAlternation class]]);
+    TDTrue([p.parser isKindOfClass:[PKAlternation class]]);
     s = @"bbb";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[b, b, b]bbb^", [res description]);
     
     s = @"abbb";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a]a^bbb", [res description]);
 }
 
@@ -171,15 +164,13 @@
     
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKAlternation class]]);
+    TDTrue([p.parser isKindOfClass:[PKAlternation class]]);
     s = @"bbb";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[b]b^bb", [res description]);
     
     s = @"abbb";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a]a^bbb", [res description]);
 }
 
@@ -189,10 +180,9 @@
     
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKRepetition class]]);
+    TDTrue([p.parser isKindOfClass:[PKRepetition class]]);
     s = @"bbbaaa";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[b, b, b, a, a, a]bbbaaa^", [res description]);
 }
 
@@ -202,10 +192,9 @@
     
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKSequence class]]);
+    TDTrue([p.parser isKindOfClass:[PKSequence class]]);
     s = @"bbbaaa";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[b, b, b, a, a, a]bbbaaa^", [res description]);
 }
 
@@ -215,10 +204,9 @@
     
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKAlternation class]]);
+    TDTrue([p.parser isKindOfClass:[PKAlternation class]]);
     s = @"bbbaaa";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[b]b^bbaaa", [res description]);
 }
 
@@ -228,15 +216,13 @@
 
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKSequence class]]);
+    TDTrue([p.parser isKindOfClass:[PKSequence class]]);
     s = @"a";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a]a^", [res description]);
     
     s = @"aa";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a]a^a", [res description]);
 }
 
@@ -246,20 +232,17 @@
     
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKSequence class]]);
+    TDTrue([p.parser isKindOfClass:[PKSequence class]]);
     s = @"a";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a]a^", [res description]);
     
     s = @"aa";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a, a]aa^", [res description]);
     
     s = @"aaa";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a, a]aa^a", [res description]);
 }
 
@@ -269,20 +252,17 @@
     
     p = [self parserForRegex:s];
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKParser class]]);
+    TDTrue([p.parser isKindOfClass:[PKParser class]]);
     s = @"a";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a]a^", [res description]);
     
     s = @"aa";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a]a^a", [res description]);
     
     s = @"aaa";
-    a = [PKCharacterAssembly assemblyWithString:s];
-    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    res = (PKCharacterAssembly *)[p bestMatchFor:s];
     TDEqualObjects(@"[a]a^aa", [res description]);
 }
 
