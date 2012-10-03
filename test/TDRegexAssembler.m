@@ -128,10 +128,10 @@
     
     for (NSNumber *n in [digits reverseObjectEnumerator]) {
         if (-1 == start) {
-            start = [n integerValue] - '0';
+            start = [n intValue] - '0';
             end = start;
         } else {
-            end = [n integerValue] - '0';
+            end = [n intValue] - '0';
         }
     }
     
