@@ -11,6 +11,7 @@
 #import "PKGrammarParser.h"
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
+#import "PKAST.h"
 
 #define USE_TRACK 0
 
@@ -40,6 +41,10 @@
 @end
 
 @interface TDParserFactory ()
+- (id)productionTokensTableFromParsingStatementsInString:(NSString *)s;
+- (BOOL)isAllWhitespace:(NSArray *)toks;
+- (PKTokenizer *)tokenizerForParsingGrammar;
+
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a;
@@ -78,8 +83,8 @@
 
 }
 
-+ (PKParserFactory *)factory {
-    return [[[PKParserFactory alloc] init] autorelease];
++ (TDParserFactory *)factory {
+    return [[[TDParserFactory alloc] init] autorelease];
 }
 
 
@@ -124,8 +129,9 @@
         self.assembler = a;
         self.preassembler = pa;
         
-        self.productionTab = [NSMutableDictionary dictionary];
         self.callbackTab = [NSMutableDictionary dictionary];
+        self.productionTab = [self productionTokensTableFromParsingStatementsInString:g];
+
 //        self.parserClassTable = [NSMutableDictionary dictionary];
 //        self.parserTokensTable = [self parserTokensTableFromParsingStatementsInString:g];
 //        
@@ -173,7 +179,74 @@
 
 
 #pragma mark -
-#pragma mark Utility
+#pragma mark Private
+
+- (id)productionTokensTableFromParsingStatementsInString:(NSString *)s {
+    PKTokenizer *t = [self tokenizerForParsingGrammar];
+    t.string = s;
+    
+    PKTokenArraySource *src = [[[PKTokenArraySource alloc] initWithTokenizer:t delimiter:@";"] autorelease];
+    id target = [NSMutableDictionary dictionary]; // setup the variable lookup table
+    //id target = [PKAST ASTWithToken:nil];
+    
+    while ([src hasMore]) {
+        NSArray *toks = [src nextTokenArray];
+        NSLog(@"%@", toks);
+        if (![self isAllWhitespace:toks]) {
+            PKTokenAssembly *a = [PKTokenAssembly assemblyWithTokenArray:toks];
+            NSLog(@"%@", a);
+            //a.preservesWhitespaceTokens = YES;
+            a.target = target;
+            PKAssembly *res = [_grammarParser.statementParser completeMatchFor:a];
+            NSLog(@"%@", res);
+            target = res.target;
+            NSLog(@"%@", [(PKAST *)[[target allValues] objectAtIndex:0] treeDescription]);
+        }
+    }
+        
+    return target;
+}
+
+
+- (BOOL)isAllWhitespace:(NSArray *)toks {
+    for (PKToken *tok in toks) {
+        if (PKTokenTypeWhitespace != tok.tokenType) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+
+- (PKTokenizer *)tokenizerForParsingGrammar {
+    PKTokenizer *t = [PKTokenizer tokenizer];
+    
+    t.whitespaceState.reportsWhitespaceTokens = YES;
+    
+    // customize tokenizer to find tokenizer customization directives
+    [t setTokenizerState:t.wordState from:'@' to:'@'];
+    
+    // add support for tokenizer directives like @commentState.fallbackState
+    [t.wordState setWordChars:YES from:'.' to:'.'];
+    [t.wordState setWordChars:NO from:'-' to:'-'];
+    
+    // setup comments
+    [t setTokenizerState:t.commentState from:'/' to:'/'];
+    [t.commentState addSingleLineStartMarker:@"//"];
+    [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
+    
+    // comment state should fallback to delimit state to match regex delimited strings
+    t.commentState.fallbackState = t.delimitState;
+    
+    // regex delimited strings
+    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]];
+    
+    return t;
+}
+
+
+#pragma mark -
+#pragma mark Assembler Helpers
 
 - (PKAlternation *)zeroOrOne:(PKParser *)p {
     PKAlternation *a = [PKAlternation alternation];
@@ -198,38 +271,48 @@
     NSArray *toks = [[a objectsAbove:_equals] reversedArray];
     [a pop]; // discard '=' tok
     
-    NSString *productionName = nil;
+    PKToken *prodNameTok = nil;
+    NSString *prodName = nil;
     NSString *selName = nil;
     id obj = [a pop];
     if ([obj isKindOfClass:[NSString class]]) { // a callback was provided
         selName = obj;
-        productionName = [[a pop] stringValue];
+        prodNameTok = [a pop];
     } else {
-        productionName = [obj stringValue];
+        prodNameTok = obj;
     }
     
+    prodName = [prodNameTok stringValue];
+    PKAST *parent = [PKAST ASTWithToken:prodNameTok];
+
     if (selName) {
         NSAssert([selName length], @"");
-        [_callbackTab setObject:selName forKey:productionName];
+        [_callbackTab setObject:selName forKey:prodName];
     }
 	NSMutableDictionary *d = a.target;
-    NSLog(@"productionName: %@", productionName);
+    
+    NSLog(@"productionName: %@", prodName);
     NSAssert([toks count], @"");
     
     // support for multiple @delimitedString = ... tokenizer directives
-    if ([productionName hasPrefix:@"@"]) {
-        // remove whitespace toks from tokenizer directives
-        if (![productionName isEqualToString:@"@start"]) {
-            toks = [self tokens:toks byRemovingTokensOfType:PKTokenTypeWhitespace];
-        }
-        
-        NSArray *existingToks = [d objectForKey:productionName];
-        if ([existingToks count]) {
-            toks = [toks arrayByAddingObjectsFromArray:existingToks];
-        }
-    }
+//    if ([productionName hasPrefix:@"@"]) {
+//        // remove whitespace toks from tokenizer directives
+//        if (![productionName isEqualToString:@"@start"]) {
+//            toks = [self tokens:toks byRemovingTokensOfType:PKTokenTypeWhitespace];
+//        }
+//        
+//        NSArray *existingToks = [d objectForKey:productionName];
+//        if ([existingToks count]) {
+//            toks = [toks arrayByAddingObjectsFromArray:existingToks];
+//        }
+//    }
     
-    [d setObject:toks forKey:productionName];
+    for (PKToken *tok in toks) {
+        PKAST *child = [PKAST ASTWithToken:tok];
+        [parent addChild:child];
+    }
+
+    [d setObject:parent forKey:prodName];
 }
 
 
@@ -268,17 +351,17 @@
 //    NSString *s = [NSString stringWithFormat:@"%@%@", [[parserName substringToIndex:1] uppercaseString], [parserName substringFromIndex:1]];
 //    return [NSString stringWithFormat:@"%@%@:", prefix, s];
 //}
-//
-//
-//- (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a {
+
+
+- (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a {
 //    PKToken *selNameTok2 = [a pop];
 //    PKToken *selNameTok1 = [a pop];
 //    NSString *selName = [NSString stringWithFormat:@"%@:%@:", selNameTok1.stringValue, selNameTok2.stringValue];
 //    [a push:selName];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a {
 //    NSArray *objs = [a objectsAbove:_paren];
 //    NSAssert([objs count], @"");
 //    [a pop]; // pop '('
@@ -297,20 +380,20 @@
 //    } else if ([objs count]) {
 //        [a push:[objs objectAtIndex:0]];
 //    }
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a {
 //    PKParser *minus = [a pop];
 //    PKParser *sub = [a pop];
 //    NSAssert([minus isKindOfClass:[PKParser class]], @"");
 //    NSAssert([sub isKindOfClass:[PKParser class]], @"");
 //    
 //    [a push:[PKDifference differenceWithSubparser:sub minus:minus]];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a {
 //    PKParser *predicate = [a pop];
 //    PKParser *sub = [a pop];
 //    NSAssert([predicate isKindOfClass:[PKParser class]], @"");
@@ -321,10 +404,10 @@
 //    [inter add:predicate];
 //    
 //    [a push:inter];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a {
 //    PKToken *tok = [a pop];
 //    NSAssert(tok.isWord, @"");
 //    
@@ -349,10 +432,10 @@
 //    }
 //    
 //    [a push:[NSNumber numberWithInteger:opts]];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a {
 //    id obj = [a pop]; // opts (as Number*) or DelimitedString('/', '/')
 //    
 //    PKPatternOptions opts = PKPatternOptionsNone;
@@ -376,20 +459,20 @@
 //    PKTerminal *t = [PKPattern patternWithString:re options:opts];
 //    
 //    [a push:t];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchDiscard:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchDiscard:(PKAssembly *)a {
 //    id obj = [a pop];
 //    if ([obj isKindOfClass:[PKTerminal class]]) {
 //        PKTerminal *t = (PKTerminal *)obj;
 //        [t discard];
 //    }
 //    [a push:obj];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a {
 //    PKToken *tok = [a pop];
 //    
 //    NSString *s = [tok.stringValue stringByTrimmingQuotes];
@@ -403,32 +486,32 @@
 //    }
 //    
 //    [a push:t];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
-////    PKToken *tok = [a pop];
-////    NSString *parserName = tok.stringValue;
-////    
-////    p = nil;
-////    if (isGatheringClasses) {
-////        // lookup the actual possible parser.
-////        // if its not there, or still a token array, just spoof it with a sequence
-////		NSMutableDictionary *d = a.target;
-////        p = [d objectForKey:parserName];
-////        if (![p isKindOfClass:[PKParser class]]) {
-////            p = [PKSequence sequence];
-////        }
-////    } else {
-////        if ([parserTokensTable objectForKey:parserName]) {
-////            p = [self expandedParserForName:parserName];
-////        }
-////    }
-////    [a push:p];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
+//    PKToken *tok = [a pop];
+//    NSString *parserName = tok.stringValue;
+//    
+//    p = nil;
+//    if (isGatheringClasses) {
+//        // lookup the actual possible parser.
+//        // if its not there, or still a token array, just spoof it with a sequence
+//		NSMutableDictionary *d = a.target;
+//        p = [d objectForKey:parserName];
+//        if (![p isKindOfClass:[PKParser class]]) {
+//            p = [PKSequence sequence];
+//        }
+//    } else {
+//        if ([parserTokensTable objectForKey:parserName]) {
+//            p = [self expandedParserForName:parserName];
+//        }
+//    }
+//    [a push:p];
+}
+
+
+- (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
 //    PKToken *tok = [a pop];
 //    NSString *s = tok.stringValue;
 //    
@@ -471,10 +554,10 @@
 //    }
 //    
 //    [a push:obj];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a {
 //    NSArray *toks = [a objectsAbove:_paren];
 //    [a pop]; // discard '(' fence
 //    
@@ -488,10 +571,10 @@
 //    PKTerminal *t = [PKDelimitedString delimitedStringWithStartMarker:start endMarker:end];
 //    
 //    [a push:t];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a {
 //    PKToken *tok = [a pop];
 //    
 //    if (_wantsCharacters) {
@@ -500,29 +583,29 @@
 //    } else {
 //        [a push:[NSNumber numberWithFloat:tok.floatValue]];
 //    }
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a {
 //    id top = [a pop];
 //    PKRepetition *rep = [PKRepetition repetitionWithSubparser:top];
 //    [a push:rep];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a {
 //    id top = [a pop];
 //    [a push:[self oneOrMore:top]];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a {
 //    id top = [a pop];
 //    [a push:[self zeroOrOne:top]];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a {
 //    NSRange r = [[a pop] rangeValue];
 //    
 //    p = [a pop];
@@ -540,10 +623,10 @@
 //    }
 //    
 //    [a push:s];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchCardinality:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchCardinality:(PKAssembly *)a {
 //    NSArray *toks = [a objectsAbove:self.curly];
 //    [a pop]; // discard '{' tok
 //    
@@ -561,10 +644,10 @@
 //    
 //    NSRange r = NSMakeRange(start, end);
 //    [a push:[NSValue valueWithRange:r]];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
 //    id second = [a pop];
 //    [a pop]; // pop '|'
 //    id first = [a pop];
@@ -573,10 +656,10 @@
 //    [alt add:first];
 //    [alt add:second];
 //    [a push:alt];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a {
 //    NSMutableArray *parsers = [NSMutableArray array];
 //    while (![a isStackEmpty]) {
 //        id obj = [a pop];
@@ -603,12 +686,12 @@
 //    } else if (1 == [parsers count]) {
 //        [a push:[parsers objectAtIndex:0]];
 //    }
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a {
+}
+
+
+- (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a {
 //    p = [a pop];
 //    [a push:[PKNegation negationWithSubparser:p]];
-//}
+}
 
 @end

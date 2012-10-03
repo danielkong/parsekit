@@ -30,4 +30,5 @@
 - (void)addChild:(PKAST *)c;
 - (BOOL)isNil;
 
+- (NSString *)treeDescription;
 @end
