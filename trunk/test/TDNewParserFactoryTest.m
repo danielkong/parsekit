@@ -26,7 +26,7 @@
 
 
 - (void)testSomething {
-    NSString *g = @"foo=bar;bar=Word;";
+    NSString *g = @"foo=bar;bar=baz|bat;baz=Word;bat=Num;";
 
     NSError *err = nil;
     PKParser *p = [_factory parserFromGrammar:g assembler:nil error:&err];
