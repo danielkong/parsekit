@@ -8,7 +8,7 @@
 
 #import "TDParserFactory.h"
 #import <ParseKit/ParseKit.h>
-#import "PKGrammarParser.h"
+#import "TDGrammarParser.h"
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
 
@@ -44,7 +44,7 @@
 @end
 
 @interface TDParserFactory ()
-- (id)productionTokensTableFromParsingStatementsInString:(NSString *)s;
+- (PKParseTree *)syntaxTreeFromParsingStatementsInString:(NSString *)s;
 - (BOOL)isAllWhitespace:(NSArray *)toks;
 - (PKTokenizer *)tokenizerForParsingGrammar;
 
@@ -70,7 +70,7 @@
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a;
 
-@property (nonatomic, retain) PKGrammarParser *grammarParser;
+@property (nonatomic, retain) TDGrammarParser *grammarParser;
 @property (nonatomic, assign) id assembler;
 @property (nonatomic, assign) id preassembler;
 @property (nonatomic, assign) BOOL wantsCharacters;
@@ -98,7 +98,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.grammarParser = [[[PKGrammarParser alloc] initWithAssembler:self] autorelease];
+        self.grammarParser = [[[TDGrammarParser alloc] initWithAssembler:self] autorelease];
         self.equals = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"=" floatValue:0.0];
         self.curly = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
@@ -145,9 +145,10 @@
         self.preassembler = pa;
         
         self.callbackTab = [NSMutableDictionary dictionary];
-        self.productionTab = [self productionTokensTableFromParsingStatementsInString:g];
+        self.productionTab = nil;
         
-        PKParseTree *rootNode = [_productionTab objectForKey:@"@start"];
+        PKParseTree *rootNode = [self syntaxTreeFromParsingStatementsInString:g];
+        
         NSLog(@"%@", rootNode);
 
 //        self.parserClassTable = [NSMutableDictionary dictionary];
@@ -199,12 +200,12 @@
 #pragma mark -
 #pragma mark Private
 
-- (id)productionTokensTableFromParsingStatementsInString:(NSString *)s {
+- (PKParseTree *)syntaxTreeFromParsingStatementsInString:(NSString *)s {
     PKTokenizer *t = [self tokenizerForParsingGrammar];
     t.string = s;
     
     PKTokenArraySource *src = [[[PKTokenArraySource alloc] initWithTokenizer:t delimiter:@";"] autorelease];
-    id target = [NSMutableDictionary dictionary]; // setup the variable lookup table
+//    id target = [NSMutableDictionary dictionary]; // setup the variable lookup table
     
     while ([src hasMore]) {
         NSArray *toks = [src nextTokenArray];
@@ -213,16 +214,19 @@
             PKTokenAssembly *a = [PKTokenAssembly assemblyWithTokenArray:toks];
             NSLog(@"%@", a);
             //a.preservesWhitespaceTokens = YES;
-            a.target = target;
+            a.target = [NSMutableDictionary dictionary];
             PKAssembly *res = [_grammarParser.statementParser completeMatchFor:a];
-            NSLog(@"%@", res);
-            target = res.target;
-            NSLog(@"%@", target);
+            NSLog(@"res: %@", res);
+            id target = res.target;
+            NSLog(@"target: %@", target);
             
         }
     }
-        
-    return target;
+    
+
+    PKParseTree *rootNode = nil;
+    return rootNode;
+    //    return target;
 }
 
 
@@ -285,64 +289,77 @@
 #pragma mark -
 #pragma mark Assembler Callbacks
 
+- (void)parser:(PKParser *)p didMatchDeclaration:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    
+    PKToken *tok = [a pop];
+    NSString *prodName = tok.stringValue;
+    
+    //    PKParseTree *parent = a.target;
+    PKParseTree *prodNode = [PKRuleNode ruleNodeWithName:prodName];
+    
+    NSAssert([a isStackEmpty], @"");
+    [a push:prodNode];
+    NSLog(@"%@", a);
+}
+
+
+- (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+
+    PKToken *tok = [a pop];
+    NSString *prodName = tok.stringValue;
+    
+    PKParseTree *parent = [a pop];
+    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
+
+    [parent addChildRule:prodName];
+    [a push:parent];
+    NSLog(@"%@", a);
+}
+
+
+- (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+
+    PKToken *tok = [a pop];
+
+    PKParseTree *parent = [a pop];
+    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
+    
+    [parent addChildToken:tok];
+    [a push:parent];
+    NSLog(@"%@", a);
+
+}
+
+
+- (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
+    PKParseTree *first = [a pop];
+    PKToken *tok = [a pop]; // pop '|'
+    PKParseTree *second = [a pop];
+    
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert([first isKindOfClass:[PKParseTree class]], @"");
+    NSAssert([second isKindOfClass:[PKParseTree class]], @"");
+        
+    PKParseTree *parent = [a pop];
+    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
+
+    PKParseTree *altNode = [parent addChildToken:tok];
+    [altNode addChild:first];
+    [altNode addChild:second];
+    
+    [a push:parent];
+    [a push:altNode];
+    NSLog(@"%@", a);
+
+}
+
+
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a {
-    NSArray *nodes = [[a objectsAbove:_equals] reversedArray];
-    [a pop]; // discard '=' tok
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
-    PKToken *prodNameTok = nil;
-    NSString *prodName = nil;
-    NSString *selName = nil;
-    id obj = [a pop];
-    if ([obj isKindOfClass:[NSString class]]) { // a callback was provided
-        selName = obj;
-        prodNameTok = [a pop];
-    } else {
-        prodNameTok = obj;
-    }
-
-    NSMutableDictionary *d = a.target;
-
-    prodName = [prodNameTok stringValue];
-    PKParseTree *parent = [d objectForKey:prodName];
-    if (!parent) {
-        parent = [PKRuleNode ruleNodeWithName:prodName];
-    }
-    if (![d count]) {
-        [d setObject:parent forKey:@"@start"];
-    }
-    [d setObject:parent forKey:prodName];
-
-    if (selName) {
-        NSAssert([selName length], @"");
-        [_callbackTab setObject:selName forKey:prodName];
-    }
-    
-    NSLog(@"productionName: %@", prodName);
-    NSAssert([nodes count], @"");
-    
-    // support for multiple @delimitedString = ... tokenizer directives
-//    if ([productionName hasPrefix:@"@"]) {
-//        // remove whitespace toks from tokenizer directives
-//        if (![productionName isEqualToString:@"@start"]) {
-//            toks = [self tokens:toks byRemovingTokensOfType:PKTokenTypeWhitespace];
-//        }
-//        
-//        NSArray *existingToks = [d objectForKey:productionName];
-//        if ([existingToks count]) {
-//            toks = [toks arrayByAddingObjectsFromArray:existingToks];
-//        }
-//    }
-    
-    for (PKParseTree *child in nodes) {
-//        NSString *name = child.
-//        PKAST *child = [d objectForKey:name];
-//        if (!child) {
-//            child = [PKAST ASTWithToken:tok];
-//            [d setObject:child forKey:name];
-//        }
-        [parent addChild:child];
-    }
-
 }
 
 
@@ -519,73 +536,50 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
-    PKToken *tok = [a pop];
-    NSString *parserName = tok.stringValue;
-    
-    PKParseTree *node = nil;
-//    if (isGatheringClasses) {
-        // lookup the actual possible parser.
-        // if its not there, or still a token array, just spoof it with a sequence
-		NSMutableDictionary *d = a.target;
-        node = [d objectForKey:parserName];
-        if (!node) {
-            node = [PKRuleNode ruleNodeWithName:parserName];
-            [d setObject:node forKey:parserName];
-        }
+//- (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
+//    PKToken *tok = [a pop];
+//    NSString *s = tok.stringValue;
+//    
+//    PKTokenNode *node = nil;
+//    if ([s isEqualToString:@"Word"]) {
+//        node = [PKTokenNode tokenNodeWithToken:_wordToken]; //[PKWord word];
+////    } else if ([s isEqualToString:@"LowercaseWord"]) {
+////        obj = [PKLowercaseWord word];
+////    } else if ([s isEqualToString:@"UppercaseWord"]) {
+////        obj = [PKUppercaseWord word];
+//    } else if ([s isEqualToString:@"Number"] || [s isEqualToString:@"Num"]) {
+//        node = [PKTokenNode tokenNodeWithToken:_numberToken]; //[PKNumber number];
+////    } else if ([s isEqualToString:@"S"]) {
+////        obj = [PKWhitespace whitespace];
+////    } else if ([s isEqualToString:@"QuotedString"]) {
+////        obj = [PKQuotedString quotedString];
+////    } else if ([s isEqualToString:@"Symbol"]) {
+////        obj = [PKSymbol symbol];
+////    } else if ([s isEqualToString:@"Comment"]) {
+////        obj = [PKComment comment];
+////    } else if ([s isEqualToString:@"Any"]) {
+////        obj = [PKAny any];
+////    } else if ([s isEqualToString:@"Empty"]) {
+////        obj = [PKEmpty empty];
+////    } else if ([s isEqualToString:@"Char"]) {
+////        obj = [PKChar char];
+////    } else if ([s isEqualToString:@"Letter"]) {
+////        obj = [PKLetter letter];
+////    } else if ([s isEqualToString:@"Digit"]) {
+////        obj = [PKDigit digit];
+////    } else if ([s isEqualToString:@"Pattern"]) {
+////        obj = tok;
+////    } else if ([s isEqualToString:@"DelimitedString"]) {
+////        obj = tok;
+////    } else if ([s isEqualToString:@"YES"] || [s isEqualToString:@"NO"]) {
+////        obj = tok;
 //    } else {
-//        if ([parserTokensTable objectForKey:parserName]) {
-//            p = [self expandedParserForName:parserName];
-//        }
+//        [NSException raise:@"Grammar Exception" format:
+//         @"User Grammar referenced a constant parser name (uppercase word) which is not supported: %@. Must be one of: Word, LowercaseWord, UppercaseWord, QuotedString, Number, Symbol, Empty.", s];
 //    }
-    [a push:node];
-}
-
-
-- (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
-    PKToken *tok = [a pop];
-    NSString *s = tok.stringValue;
-    
-    PKTokenNode *node = nil;
-    if ([s isEqualToString:@"Word"]) {
-        node = [PKTokenNode tokenNodeWithToken:_wordToken]; //[PKWord word];
-//    } else if ([s isEqualToString:@"LowercaseWord"]) {
-//        obj = [PKLowercaseWord word];
-//    } else if ([s isEqualToString:@"UppercaseWord"]) {
-//        obj = [PKUppercaseWord word];
-    } else if ([s isEqualToString:@"Number"] || [s isEqualToString:@"Num"]) {
-        node = [PKTokenNode tokenNodeWithToken:_numberToken]; //[PKNumber number];
-//    } else if ([s isEqualToString:@"S"]) {
-//        obj = [PKWhitespace whitespace];
-//    } else if ([s isEqualToString:@"QuotedString"]) {
-//        obj = [PKQuotedString quotedString];
-//    } else if ([s isEqualToString:@"Symbol"]) {
-//        obj = [PKSymbol symbol];
-//    } else if ([s isEqualToString:@"Comment"]) {
-//        obj = [PKComment comment];
-//    } else if ([s isEqualToString:@"Any"]) {
-//        obj = [PKAny any];
-//    } else if ([s isEqualToString:@"Empty"]) {
-//        obj = [PKEmpty empty];
-//    } else if ([s isEqualToString:@"Char"]) {
-//        obj = [PKChar char];
-//    } else if ([s isEqualToString:@"Letter"]) {
-//        obj = [PKLetter letter];
-//    } else if ([s isEqualToString:@"Digit"]) {
-//        obj = [PKDigit digit];
-//    } else if ([s isEqualToString:@"Pattern"]) {
-//        obj = tok;
-//    } else if ([s isEqualToString:@"DelimitedString"]) {
-//        obj = tok;
-//    } else if ([s isEqualToString:@"YES"] || [s isEqualToString:@"NO"]) {
-//        obj = tok;
-    } else {
-        [NSException raise:@"Grammar Exception" format:
-         @"User Grammar referenced a constant parser name (uppercase word) which is not supported: %@. Must be one of: Word, LowercaseWord, UppercaseWord, QuotedString, Number, Symbol, Empty.", s];
-    }
-    
-    [a push:node];
-}
+//    
+//    [a push:node];
+//}
 
 
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a {
@@ -675,18 +669,6 @@
 //    
 //    NSRange r = NSMakeRange(start, end);
 //    [a push:[NSValue valueWithRange:r]];
-}
-
-
-- (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
-    id second = [a pop];
-    [a pop]; // pop '|'
-    id first = [a pop];
-    
-    PKParseTree *altNode = [PKTokenNode tokenNodeWithToken:_altToken];
-    [altNode addChild:first];
-    [altNode addChild:second];
-    [a push:altNode];
 }
 
 
