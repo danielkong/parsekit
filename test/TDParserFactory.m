@@ -44,8 +44,9 @@
 @end
 
 @interface TDParserFactory ()
-- (BOOL)isAllWhitespace:(NSArray *)toks;
 - (PKTokenizer *)tokenizerForParsingGrammar;
+- (PKTokenizer *)tokenizerFromGrammarSettings;
+- (PKParser *)parserFromSyntaxTree:(PKParseTree *)rootNode;
 
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
@@ -76,7 +77,6 @@
 @property (nonatomic, retain) PKToken *equals;
 @property (nonatomic, retain) PKToken *curly;
 @property (nonatomic, retain) PKToken *paren;
-@property (nonatomic, retain) PKToken *semi;
 
 @property (nonatomic, retain) NSMutableDictionary *productionTab;
 @property (nonatomic, retain) NSMutableDictionary *callbackTab;
@@ -98,7 +98,6 @@
         self.equals = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"=" floatValue:0.0];
         self.curly = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
-        self.semi = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@";" floatValue:0.0];
     }
     return self;
 }
@@ -134,25 +133,18 @@
         self.preassembler = pa;
         
         self.callbackTab = [NSMutableDictionary dictionary];
-        self.productionTab = nil;
-        
+        self.productionTab = [NSMutableDictionary dictionary];
+
         PKParseTree *rootNode = [self syntaxTreeFromGrammar:g error:outError];
         
         NSLog(@"%@", rootNode);
 
-//        self.parserClassTable = [NSMutableDictionary dictionary];
-//        self.parserTokensTable = [self parserTokensTableFromParsingStatementsInString:g];
-//        
 //        PKTokenizer *t = [self tokenizerFromGrammarSettings];
+//        PKParser *start = [self parserFromSyntaxTree:rootNode];
 //        
-//        [self gatherParserClassNamesFromTokens];
-//        
-//        PKParser *start = [self expandedParserForName:@"@start"];
-//        
-//        assembler = nil;
-//        self.selectorTable = nil;
-//        self.parserClassTable = nil;
-//        self.parserTokensTable = nil;
+//        self.assembler = nil;
+//        self.callbackTab = nil;
+//        self.productionTab = nil;
 //        
 //        if (start && [start isKindOfClass:[PKParser class]]) {
 //            start.tokenizer = t;
@@ -186,12 +178,7 @@
 }
 
 
-#pragma mark -
-#pragma mark Private
-
 - (PKParseTree *)syntaxTreeFromGrammar:(NSString *)g error:(NSError **)outError {
-    self.productionTab = [NSMutableDictionary dictionary];
-
     PKTokenizer *t = [self tokenizerForParsingGrammar];
     t.string = g;
     
@@ -199,21 +186,14 @@
     [_grammarParser.startParser parse:g error:outError];
     
     NSLog(@"%@", _productionTab);
-
+    
     PKParseTree *rootNode = [_productionTab objectForKey:@"@start"];
     return rootNode;
 }
 
 
-- (BOOL)isAllWhitespace:(NSArray *)toks {
-    for (PKToken *tok in toks) {
-        if (PKTokenTypeWhitespace != tok.tokenType) {
-            return NO;
-        }
-    }
-    return YES;
-}
-
+#pragma mark -
+#pragma mark Private
 
 - (PKTokenizer *)tokenizerForParsingGrammar {
     PKTokenizer *t = [PKTokenizer tokenizer];
@@ -242,6 +222,16 @@
 }
 
 
+- (PKTokenizer *)tokenizerFromGrammarSettings {
+    return nil;
+}
+
+
+- (PKParser *)parserFromSyntaxTree:(PKParseTree *)rootNode {
+    return nil;
+}
+
+
 #pragma mark -
 #pragma mark Assembler Helpers
 
@@ -265,7 +255,7 @@
 #pragma mark Assembler Callbacks
 
 - (void)parser:(PKParser *)p didMatchDeclaration:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
     PKToken *tok = [a pop];
     NSString *prodName = tok.stringValue;
@@ -276,14 +266,12 @@
         [_productionTab setObject:prodNode forKey:prodName];
     }
     
-    //NSAssert([a isStackEmpty], @"");
     [a push:prodNode];
-    NSLog(@"%@", a);
 }
 
 
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
     PKToken *tok = [a pop];
     NSString *prodName = tok.stringValue;
@@ -292,29 +280,24 @@
     if (!prodNode) {
         prodNode = [PKRuleNode ruleNodeWithName:prodName];
         [_productionTab setObject:prodNode forKey:prodName];
-    } else {
-        NSLog(@"%@", a);
     }
     [a push:prodNode];
-
-    NSLog(@"%@", a);
 }
 
 
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
     PKToken *tok = [a pop];
 
     PKParseTree *parserNode = [PKTokenNode tokenNodeWithToken:tok];
     [a push:parserNode];
-    
-    NSLog(@"%@", a);
-
 }
 
 
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+
     PKParseTree *second = [a pop];
     PKToken *tok = [a pop]; // pop '|'
     PKParseTree *first = [a pop];
@@ -328,13 +311,11 @@
     [altNode addChild:second];
     
     [a push:altNode];
-    NSLog(@"%@", a);
-
 }
 
 
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
     NSArray *children = [a objectsAbove:_equals];
     [a pop]; // '='
@@ -348,7 +329,6 @@
     }
     
     [a push:parent];
-    NSLog(@"%@", a);
 }
 
 
