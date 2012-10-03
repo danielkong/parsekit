@@ -267,4 +267,84 @@
     TDEqualObjects(@"[a]a^aa", [res description]);
 }
 
+
+- (void)testWordCharClass {
+    s = @"\\w";
+    
+    m = [self matcherForRegex:s];
+    TDNotNil(m);
+    TDTrue([m.parser isKindOfClass:[PKParser class]]);
+    s = @"a";
+    res = [m bestMatchFor:s];
+    TDEqualObjects(@"[a]a^", [res description]);
+    
+    s = @"aa";
+    res = [m bestMatchFor:s];
+    TDEqualObjects(@"[a]a^a", [res description]);
+    
+    s = @"1a";
+    res = [m bestMatchFor:s];
+    TDEqualObjects(@"[1]1^a", [res description]);
+}
+
+
+- (void)testNotWordCharClass {
+    s = @"\\W";
+    
+    m = [self matcherForRegex:s];
+    TDNotNil(m);
+    TDTrue([m.parser isKindOfClass:[PKParser class]]);
+    s = @"a";
+    res = [m bestMatchFor:s];
+    TDNil(res);
+    
+    s = @"1";
+    res = [m bestMatchFor:s];
+    TDNil(res);
+    
+    s = @"#";
+    res = [m bestMatchFor:s];
+    TDEqualObjects(@"[#]#^", [res description]);
+}
+
+
+- (void)testDigitCharClass {
+    s = @"\\d";
+    
+    m = [self matcherForRegex:s];
+    TDNotNil(m);
+    TDTrue([m.parser isKindOfClass:[PKParser class]]);
+    s = @"a";
+    res = [m bestMatchFor:s];
+    TDNil(res);
+    
+    s = @"2";
+    res = [m bestMatchFor:s];
+    TDEqualObjects(@"[2]2^", [res description]);
+    
+    s = @"1a";
+    res = [m bestMatchFor:s];
+    TDEqualObjects(@"[1]1^a", [res description]);
+}
+
+
+- (void)testNotDigitCharClass {
+    s = @"\\D";
+    
+    m = [self matcherForRegex:s];
+    TDNotNil(m);
+    TDTrue([m.parser isKindOfClass:[PKParser class]]);
+    s = @"a";
+    res = [m bestMatchFor:s];
+    TDEqualObjects(@"[a]a^", [res description]);
+    
+    s = @"1";
+    res = [m bestMatchFor:s];
+    TDNil(res);
+    
+    s = @"#";
+    res = [m bestMatchFor:s];
+    TDEqualObjects(@"[#]#^", [res description]);
+}
+
 @end

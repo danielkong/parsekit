@@ -11,8 +11,19 @@ phraseStar        = phrase '*'!;
 phrasePlus        = phrase '+'!;
 phraseQuestion    = phrase '?'!;
 phraseInterval    = phrase '{' Digit (','! Digit)? '}'!;
-char              = literalChar | metaChar;
+char              = charClass | literalChar | metaChar;
 literalChar       = Letter | Digit;
 metaChar          = dot;
 
 dot = '.'!;
+
+
+charClass = customCharClass | wordCharClass | notWordCharClass | digitCharClass | notDigitCharClass;
+
+customCharClass = '[' Char ']';
+
+wordCharClass = '\\'! 'w'!;
+notWordCharClass = '\\'! 'W'!;
+
+digitCharClass = '\\'! 'd'!;
+notDigitCharClass = '\\'! 'D'!;
