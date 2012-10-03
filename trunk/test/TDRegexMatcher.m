@@ -18,16 +18,16 @@
 + (PKParser *)regexParser {
     static PKParser *sRegexParser = nil;
     if (!sRegexParser) {
-        static TDRegexAssembler *ass = nil;
-        if (!ass) {
-            ass = [[TDRegexAssembler alloc] init];
+        static TDRegexAssembler *sAss = nil;
+        if (!sAss) {
+            sAss = [[TDRegexAssembler alloc] init];
         }
         
         NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"regex" ofType:@"grammar"];
         NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         
         NSError *err = nil;
-        sRegexParser = [[[PKParserFactory factory] parserFromGrammar:g assembler:ass error:&err] retain];
+        sRegexParser = [[[PKParserFactory factory] parserFromGrammar:g assembler:sAss error:&err] retain];
         if (err) {
             NSLog(@"%@", err);
         }
@@ -43,16 +43,22 @@
     a = [[self regexParser] completeMatchFor:a];
     PKParser *p = [a pop];
     
-    TDRegexMatcher *result = [[[TDRegexMatcher alloc] init] autorelease];
-    result.parser = p;
+    TDRegexMatcher *m = [[[TDRegexMatcher alloc] init] autorelease];
+    m.parser = p;
     
-    return result;
+    return m;
 }
 
 
 - (void)dealloc {
     self.parser = nil;
     [super dealloc];
+}
+
+
+- (BOOL)matches:(NSString *)inputStr {
+    PKAssembly *a = [self bestMatchFor:inputStr];
+    return ![a isStackEmpty];
 }
 
 

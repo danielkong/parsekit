@@ -359,7 +359,7 @@
 		D389FBCD0F1B25E200558235 /* ParserTest.html in Resources */ = {isa = PBXBuildFile; fileRef = D389FBCC0F1B25E200558235 /* ParserTest.html */; };
 		D398E20E0E60F86D00A1C877 /* yahoo.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B473840E48C9CF008AFBDD /* yahoo.json */; };
 		D3A20245161B6AEB00207F4D /* TDRegexAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20244161B6AEB00207F4D /* TDRegexAssembler.m */; };
-		D3A20248161B6B2900207F4D /* TDRegexParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20247161B6B2900207F4D /* TDRegexParserTest.m */; };
+		D3A20248161B6B2900207F4D /* TDRegexMatcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20247161B6B2900207F4D /* TDRegexMatcherTest.m */; };
 		D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203A7161BCF6600207F4D /* TDRegexMatcher.m */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */; };
@@ -1055,8 +1055,8 @@
 		D38E98D71062C5BA00739C39 /* TDParserBlocksTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserBlocksTest.m; path = test/TDParserBlocksTest.m; sourceTree = "<group>"; };
 		D3A20243161B6AEB00207F4D /* TDRegexAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDRegexAssembler.h; path = test/TDRegexAssembler.h; sourceTree = "<group>"; };
 		D3A20244161B6AEB00207F4D /* TDRegexAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRegexAssembler.m; path = test/TDRegexAssembler.m; sourceTree = "<group>"; };
-		D3A20246161B6B2900207F4D /* TDRegexParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDRegexParserTest.h; path = test/TDRegexParserTest.h; sourceTree = "<group>"; };
-		D3A20247161B6B2900207F4D /* TDRegexParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRegexParserTest.m; path = test/TDRegexParserTest.m; sourceTree = "<group>"; };
+		D3A20246161B6B2900207F4D /* TDRegexMatcherTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDRegexMatcherTest.h; path = test/TDRegexMatcherTest.h; sourceTree = "<group>"; };
+		D3A20247161B6B2900207F4D /* TDRegexMatcherTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRegexMatcherTest.m; path = test/TDRegexMatcherTest.m; sourceTree = "<group>"; };
 		D3A203A6161BCF6600207F4D /* TDRegexMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDRegexMatcher.h; path = test/TDRegexMatcher.h; sourceTree = "<group>"; };
 		D3A203A7161BCF6600207F4D /* TDRegexMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRegexMatcher.m; path = test/TDRegexMatcher.m; sourceTree = "<group>"; };
 		D3AF49760FDB122E0032F4DC /* TDParserFactoryPatternTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryPatternTest.h; path = test/TDParserFactoryPatternTest.h; sourceTree = "<group>"; };
@@ -2281,8 +2281,8 @@
 				D3F8121F161AB38100DEA1CB /* regex.grammar */,
 				D3A20243161B6AEB00207F4D /* TDRegexAssembler.h */,
 				D3A20244161B6AEB00207F4D /* TDRegexAssembler.m */,
-				D3A20246161B6B2900207F4D /* TDRegexParserTest.h */,
-				D3A20247161B6B2900207F4D /* TDRegexParserTest.m */,
+				D3A20246161B6B2900207F4D /* TDRegexMatcherTest.h */,
+				D3A20247161B6B2900207F4D /* TDRegexMatcherTest.m */,
 				D3A203A6161BCF6600207F4D /* TDRegexMatcher.h */,
 				D3A203A7161BCF6600207F4D /* TDRegexMatcher.m */,
 			);
@@ -3121,7 +3121,7 @@
 				D3CF388F1571A7FA0089A070 /* TDXmlNmtokenState.m in Sources */,
 				D3F8121A161AA5BC00DEA1CB /* TDTestScaffold.m in Sources */,
 				D3A20245161B6AEB00207F4D /* TDRegexAssembler.m in Sources */,
-				D3A20248161B6B2900207F4D /* TDRegexParserTest.m in Sources */,
+				D3A20248161B6B2900207F4D /* TDRegexMatcherTest.m in Sources */,
 				D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

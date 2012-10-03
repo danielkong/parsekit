@@ -17,8 +17,8 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 
-#define RUN_ALL_TEST_CASES 0
-#define SOLO_TEST_CASE @"TDRegexParserTest"
+#define RUN_ALL_TEST_CASES 1
+#define SOLO_TEST_CASE @"TDRegexMatcherTest"
 
 @interface SenTestSuite (TDAdditions)
 - (void)addSuitesForClassNames:(NSArray *)classNames;
@@ -92,7 +92,7 @@ SenTestSuite *TDParseTestSuite() {
                            @"TDJsonParserTest",
                            @"TDFastJsonParserTest",
                            @"TDRegularParserTest",
-                           @"TDRegexParserTest",
+                           @"TDRegexMatcherTest",
                            @"SRGSParserTest",
                            @"EBNFParserTest",
                            @"TDPlistParserTest",
