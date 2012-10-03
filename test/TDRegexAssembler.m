@@ -81,6 +81,43 @@
 }
 
 
+- (void)parser:(PKParser *)p didMatchWordCharClass:(PKAssembly *)a {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"a: %@", a);
+    
+    PKAlternation *alt = [PKAlternation alternationWithSubparsers:[PKLetter letter], [PKDigit digit], nil];
+    [a push:alt];
+}
+
+
+- (void)parser:(PKParser *)p didMatchNotWordCharClass:(PKAssembly *)a {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"a: %@", a);
+    
+    PKAlternation *alt = [PKAlternation alternationWithSubparsers:[PKLetter letter], [PKDigit digit], nil];
+    PKDifference *dif = [PKDifference differenceWithSubparser:[PKChar char] minus:alt];
+    [a push:dif];
+}
+
+
+- (void)parser:(PKParser *)p didMatchDigitCharClass:(PKAssembly *)a {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"a: %@", a);
+    
+    
+    [a push:[PKDigit digit]];
+}
+
+
+- (void)parser:(PKParser *)p didMatchNotDigitCharClass:(PKAssembly *)a {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"a: %@", a);
+
+    PKDifference *dif = [PKDifference differenceWithSubparser:[PKChar char] minus:[PKDigit digit]];
+    [a push:dif];
+}
+
+
 - (void)parser:(PKParser *)p didMatchPhraseStar:(PKAssembly *)a {
     //    NSLog(@"%s", _cmd);
     //    NSLog(@"a: %@", a);
