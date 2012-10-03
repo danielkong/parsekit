@@ -131,6 +131,9 @@
         
         self.callbackTab = [NSMutableDictionary dictionary];
         self.productionTab = [self productionTokensTableFromParsingStatementsInString:g];
+        
+        PKAST *rootNode = [_productionTab objectForKey:@"@start"];
+        NSLog(@"%@", rootNode);
 
 //        self.parserClassTable = [NSMutableDictionary dictionary];
 //        self.parserTokensTable = [self parserTokensTableFromParsingStatementsInString:g];
@@ -200,12 +203,8 @@
             PKAssembly *res = [_grammarParser.statementParser completeMatchFor:a];
             NSLog(@"%@", res);
             target = res.target;
+            NSLog(@"%@", target);
             
-            PKAST *foo = [target objectForKey:@"foo"];
-            PKAST *bar = [target objectForKey:@"bar"];
-            NSLog(@"foo: %@", foo);
-            NSLog(@"bar: %@", bar);
-            //            NSLog(@"%@",   [(PKAST *)[target objectForKey:@"foo"] treeDescription]);
         }
     }
         
@@ -294,6 +293,10 @@
     if (!parent) {
         parent = [PKAST ASTWithToken:prodNameTok];
     }
+    if (![d count]) {
+        [d setObject:parent forKey:@"@start"];
+    }
+    [d setObject:parent forKey:prodName];
 
     if (selName) {
         NSAssert([selName length], @"");
@@ -317,15 +320,15 @@
 //    }
     
     for (PKToken *tok in toks) {
-        PKAST *child = [d objectForKey:tok.stringValue];
+        NSString *name = tok.stringValue;
+        PKAST *child = [d objectForKey:name];
         if (!child) {
             child = [PKAST ASTWithToken:tok];
-            [d setObject:child forKey:tok.stringValue];
+            [d setObject:child forKey:name];
         }
         [parent addChild:child];
     }
 
-    [d setObject:parent forKey:prodName];
 }
 
 
@@ -367,10 +370,10 @@
 
 
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a {
-//    PKToken *selNameTok2 = [a pop];
-//    PKToken *selNameTok1 = [a pop];
-//    NSString *selName = [NSString stringWithFormat:@"%@:%@:", selNameTok1.stringValue, selNameTok2.stringValue];
-//    [a push:selName];
+    PKToken *selNameTok2 = [a pop];
+    PKToken *selNameTok1 = [a pop];
+    NSString *selName = [NSString stringWithFormat:@"%@:%@:", selNameTok1.stringValue, selNameTok2.stringValue];
+    [a push:selName];
 }
 
 
@@ -503,9 +506,9 @@
 
 
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
-//    PKToken *tok = [a pop];
-//    NSString *parserName = tok.stringValue;
-//    
+    PKToken *tok = [a pop];
+    NSString *parserName = tok.stringValue;
+    
 //    p = nil;
 //    if (isGatheringClasses) {
 //        // lookup the actual possible parser.
@@ -525,48 +528,48 @@
 
 
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
-//    PKToken *tok = [a pop];
-//    NSString *s = tok.stringValue;
-//    
-//    id obj = nil;
-//    if ([s isEqualToString:@"Word"]) {
-//        obj = [PKWord word];
-//    } else if ([s isEqualToString:@"LowercaseWord"]) {
-//        obj = [PKLowercaseWord word];
-//    } else if ([s isEqualToString:@"UppercaseWord"]) {
-//        obj = [PKUppercaseWord word];
-//    } else if ([s isEqualToString:@"Number"]) {
-//        obj = [PKNumber number];
-//    } else if ([s isEqualToString:@"S"]) {
-//        obj = [PKWhitespace whitespace];
-//    } else if ([s isEqualToString:@"QuotedString"]) {
-//        obj = [PKQuotedString quotedString];
-//    } else if ([s isEqualToString:@"Symbol"]) {
-//        obj = [PKSymbol symbol];
-//    } else if ([s isEqualToString:@"Comment"]) {
-//        obj = [PKComment comment];
-//    } else if ([s isEqualToString:@"Any"]) {
-//        obj = [PKAny any];
-//    } else if ([s isEqualToString:@"Empty"]) {
-//        obj = [PKEmpty empty];
-//    } else if ([s isEqualToString:@"Char"]) {
-//        obj = [PKChar char];
-//    } else if ([s isEqualToString:@"Letter"]) {
-//        obj = [PKLetter letter];
-//    } else if ([s isEqualToString:@"Digit"]) {
-//        obj = [PKDigit digit];
-//    } else if ([s isEqualToString:@"Pattern"]) {
-//        obj = tok;
-//    } else if ([s isEqualToString:@"DelimitedString"]) {
-//        obj = tok;
-//    } else if ([s isEqualToString:@"YES"] || [s isEqualToString:@"NO"]) {
-//        obj = tok;
-//    } else {
-//        [NSException raise:@"Grammar Exception" format:
-//         @"User Grammar referenced a constant parser name (uppercase word) which is not supported: %@. Must be one of: Word, LowercaseWord, UppercaseWord, QuotedString, Number, Symbol, Empty.", s];
-//    }
-//    
-//    [a push:obj];
+    PKToken *tok = [a pop];
+    NSString *s = tok.stringValue;
+    
+    id obj = nil;
+    if ([s isEqualToString:@"Word"]) {
+        obj = [PKWord word];
+    } else if ([s isEqualToString:@"LowercaseWord"]) {
+        obj = [PKLowercaseWord word];
+    } else if ([s isEqualToString:@"UppercaseWord"]) {
+        obj = [PKUppercaseWord word];
+    } else if ([s isEqualToString:@"Number"]) {
+        obj = [PKNumber number];
+    } else if ([s isEqualToString:@"S"]) {
+        obj = [PKWhitespace whitespace];
+    } else if ([s isEqualToString:@"QuotedString"]) {
+        obj = [PKQuotedString quotedString];
+    } else if ([s isEqualToString:@"Symbol"]) {
+        obj = [PKSymbol symbol];
+    } else if ([s isEqualToString:@"Comment"]) {
+        obj = [PKComment comment];
+    } else if ([s isEqualToString:@"Any"]) {
+        obj = [PKAny any];
+    } else if ([s isEqualToString:@"Empty"]) {
+        obj = [PKEmpty empty];
+    } else if ([s isEqualToString:@"Char"]) {
+        obj = [PKChar char];
+    } else if ([s isEqualToString:@"Letter"]) {
+        obj = [PKLetter letter];
+    } else if ([s isEqualToString:@"Digit"]) {
+        obj = [PKDigit digit];
+    } else if ([s isEqualToString:@"Pattern"]) {
+        obj = tok;
+    } else if ([s isEqualToString:@"DelimitedString"]) {
+        obj = tok;
+    } else if ([s isEqualToString:@"YES"] || [s isEqualToString:@"NO"]) {
+        obj = tok;
+    } else {
+        [NSException raise:@"Grammar Exception" format:
+         @"User Grammar referenced a constant parser name (uppercase word) which is not supported: %@. Must be one of: Word, LowercaseWord, UppercaseWord, QuotedString, Number, Symbol, Empty.", s];
+    }
+    
+    [a push:obj];
 }
 
 
@@ -661,14 +664,14 @@
 
 
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
-//    id second = [a pop];
-//    [a pop]; // pop '|'
-//    id first = [a pop];
-//    
-//    PKAlternation *alt = [PKAlternation alternation];
-//    [alt add:first];
-//    [alt add:second];
-//    [a push:alt];
+    id second = [a pop];
+    [a pop]; // pop '|'
+    id first = [a pop];
+    
+    PKAlternation *alt = [PKAlternation alternation];
+    [alt add:first];
+    [alt add:second];
+    [a push:alt];
 }
 
 
