@@ -77,10 +77,7 @@
 @property (nonatomic, retain) PKToken *equals;
 @property (nonatomic, retain) PKToken *curly;
 @property (nonatomic, retain) PKToken *paren;
-
-@property (nonatomic, retain) PKToken *altToken;
-@property (nonatomic, retain) PKToken *wordToken;
-@property (nonatomic, retain) PKToken *numberToken;
+@property (nonatomic, retain) PKToken *semi;
 
 @property (nonatomic, retain) NSMutableDictionary *productionTab;
 @property (nonatomic, retain) NSMutableDictionary *callbackTab;
@@ -102,10 +99,7 @@
         self.equals = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"=" floatValue:0.0];
         self.curly = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
-
-        self.altToken = [PKToken tokenWithTokenType:PKTokenTypeAny stringValue:@"|" floatValue:0.0];
-        self.wordToken = [PKToken tokenWithTokenType:PKTokenTypeAny stringValue:@"Word" floatValue:0.0];
-        self.numberToken = [PKToken tokenWithTokenType:PKTokenTypeAny stringValue:@"Num" floatValue:0.0];
+        self.semi = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@";" floatValue:0.0];
     }
     return self;
 }
@@ -118,10 +112,6 @@
     self.equals = nil;
     self.curly = nil;
     self.paren = nil;
-    
-    self.altToken = nil;
-    self.wordToken = nil;
-    self.numberToken = nil;
     
     self.productionTab = nil;
     self.callbackTab = nil;
@@ -205,10 +195,12 @@
     t.string = s;
     
     PKTokenArraySource *src = [[[PKTokenArraySource alloc] initWithTokenizer:t delimiter:@";"] autorelease];
-//    id target = [NSMutableDictionary dictionary]; // setup the variable lookup table
+    self.productionTab = [NSMutableDictionary dictionary];
     
     while ([src hasMore]) {
-        NSArray *toks = [src nextTokenArray];
+        NSMutableArray *toks = [[[src nextTokenArray] mutableCopy] autorelease];
+        [toks addObject:_semi];
+        
         NSLog(@"%@", toks);
         if (![self isAllWhitespace:toks]) {
             PKTokenAssembly *a = [PKTokenAssembly assemblyWithTokenArray:toks];
@@ -217,14 +209,18 @@
             a.target = [NSMutableDictionary dictionary];
             PKAssembly *res = [_grammarParser.statementParser completeMatchFor:a];
             NSLog(@"res: %@", res);
-            id target = res.target;
-            NSLog(@"target: %@", target);
             
+            PKRuleNode *prodNode = [res pop];
+            NSAssert([prodNode isKindOfClass:[PKRuleNode class]], @"");
+
+            [_productionTab setObject:prodNode forKey:prodNode.name];
+            NSLog(@"%@", _productionTab);
         }
     }
     
+    NSLog(@"%@", _productionTab);
 
-    PKParseTree *rootNode = nil;
+    PKParseTree *rootNode = [_productionTab objectForKey:@"@start"];
     return rootNode;
     //    return target;
 }
@@ -296,7 +292,7 @@
     NSString *prodName = tok.stringValue;
     
     //    PKParseTree *parent = a.target;
-    PKParseTree *prodNode = [PKRuleNode ruleNodeWithName:prodName];
+    PKRuleNode *prodNode = [PKRuleNode ruleNodeWithName:prodName];
     
     NSAssert([a isStackEmpty], @"");
     [a push:prodNode];
@@ -310,11 +306,15 @@
     PKToken *tok = [a pop];
     NSString *prodName = tok.stringValue;
     
-    PKParseTree *parent = [a pop];
-    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
+//    PKParseTree *parent = [a pop];
+//    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
+//
+//    [parent addChildRule:prodName];
+//    [a push:parent];
+    
+    PKParseTree *prodNode = [PKRuleNode ruleNodeWithName:prodName];
+    [a push:prodNode];
 
-    [parent addChildRule:prodName];
-    [a push:parent];
     NSLog(@"%@", a);
 }
 
@@ -324,33 +324,38 @@
 
     PKToken *tok = [a pop];
 
-    PKParseTree *parent = [a pop];
-    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
+//    PKParseTree *parent = [a pop];
+//    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
+//    
+//    [parent addChildToken:tok];
+//    [a push:parent];
+
+    PKParseTree *parserNode = [PKTokenNode tokenNodeWithToken:tok];
+    [a push:parserNode];
     
-    [parent addChildToken:tok];
-    [a push:parent];
     NSLog(@"%@", a);
 
 }
 
 
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
-    PKParseTree *first = [a pop];
-    PKToken *tok = [a pop]; // pop '|'
     PKParseTree *second = [a pop];
+    PKToken *tok = [a pop]; // pop '|'
+    PKParseTree *first = [a pop];
     
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
     NSAssert([first isKindOfClass:[PKParseTree class]], @"");
     NSAssert([second isKindOfClass:[PKParseTree class]], @"");
         
-    PKParseTree *parent = [a pop];
-    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
+//    PKParseTree *parent = [a pop];
+//    NSAssert([parent isKindOfClass:[PKParseTree class]], @"");
+//    PKParseTree *altNode = [parent addChildToken:tok];
 
-    PKParseTree *altNode = [parent addChildToken:tok];
+    PKTokenNode *altNode = [PKTokenNode tokenNodeWithToken:tok];
     [altNode addChild:first];
     [altNode addChild:second];
     
-    [a push:parent];
+//    [a push:parent];
     [a push:altNode];
     NSLog(@"%@", a);
 
@@ -360,6 +365,19 @@
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
+    NSArray *children = [a objectsAbove:_equals];
+    [a pop]; // '='
+    
+    PKRuleNode *parent = [a pop];
+    NSAssert([parent isKindOfClass:[PKRuleNode class]], @"");
+
+    for (PKParseTree *child in [children reverseObjectEnumerator]) {
+        NSAssert([child isKindOfClass:[PKParseTree class]], @"");
+        [parent addChild:child];
+    }
+    
+    [a push:parent];
+    NSLog(@"%@", a);
 }
 
 
