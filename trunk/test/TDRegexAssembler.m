@@ -16,6 +16,7 @@
     if (self) {
         self.curly = [NSNumber numberWithInt:'{'];
         self.paren = [NSNumber numberWithInt:'('];
+        self.square = [NSNumber numberWithInt:'['];
     }
     return self;
 }
@@ -24,6 +25,7 @@
 - (void)dealloc {
     self.curly = nil;
     self.paren = nil;
+    self.square = nil;
     [super dealloc];
 }
 
@@ -112,9 +114,26 @@
 - (void)parser:(PKParser *)p didMatchNotDigitCharClass:(PKAssembly *)a {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     NSLog(@"a: %@", a);
-
+    
     PKDifference *dif = [PKDifference differenceWithSubparser:[PKChar char] minus:[PKDigit digit]];
     [a push:dif];
+}
+
+
+- (void)parser:(PKParser *)p didMatchCustomCharClass:(PKAssembly *)a {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"a: %@", a);
+    
+    NSArray *nums = [a objectsAbove:square];
+    [a pop]; // discard '['
+    
+    PKAlternation *alt = [PKAlternation alternation];
+    for (NSNumber *n in nums) {
+        PKUniChar c = [n intValue];
+        [alt add:[PKSpecificChar specificCharWithChar:c]];
+    }
+    
+    [a push:alt];
 }
 
 
@@ -230,4 +249,5 @@
 
 @synthesize curly;
 @synthesize paren;
+@synthesize square;
 @end

@@ -347,4 +347,28 @@
     TDEqualObjects(@"[#]#^", [res description]);
 }
 
+
+- (void)testCustomCharClass {
+    s = @"[dcq]";
+    
+    m = [self matcherForRegex:s];
+    TDNotNil(m);
+    TDTrue([m.parser isKindOfClass:[PKParser class]]);
+    s = @"d";
+    res = [m bestMatchFor:s];
+    TDEqualObjects(@"[d]d^", [res description]);
+    
+    s = @"q";
+    res = [m bestMatchFor:s];
+    TDEqualObjects(@"[q]q^", [res description]);
+    
+    s = @"1";
+    res = [m bestMatchFor:s];
+    TDNil(res);
+    
+//    s = @"#";
+//    res = [m bestMatchFor:s];
+//    TDEqualObjects(@"[#]#^", [res description]);
+}
+
 @end
