@@ -31,4 +31,7 @@
 - (BOOL)isNil;
 
 - (NSString *)treeDescription;
+
+@property (nonatomic, retain) PKToken *token;
+@property (nonatomic, retain) NSMutableArray *children;
 @end

@@ -47,8 +47,32 @@
 }
 
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<PKTokenNode '%@'>", token];
+//- (NSString *)description {
+//    return [NSString stringWithFormat:@"<PKTokenNode '%@'>", token];
+//}
+
+
+- (NSString *)treeDescription {
+    if (![children count]) {
+        return [token stringValue];
+    }
+    
+    NSMutableString *ms = [NSMutableString string];
+    
+    [ms appendFormat:@"(%@ ", [token stringValue]];
+    
+    NSInteger i = 0;
+    for (PKParseTree *child in children) {
+        if (i++) {
+            [ms appendFormat:@" %@", [child treeDescription]];
+        } else {
+            [ms appendFormat:@"%@", [child treeDescription]];
+        }
+    }
+    
+    [ms appendString:@")"];
+    
+    return [[ms copy] autorelease];
 }
 
 @synthesize token;
