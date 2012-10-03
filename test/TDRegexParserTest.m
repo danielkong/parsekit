@@ -264,27 +264,27 @@
 }
 
 
-//- (void)testDot {
-//    s = @".";
-//    
-//    p = [self parserForRegex:s];
-//    TDNotNil(p);
-//    TDTrue([p isKindOfClass:[PKSequence class]]);
-//    s = @"a";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = (PKCharacterAssembly *)[p bestMatchFor:a];
-//    TDEqualObjects(@"[a]a^", [res description]);
-//    
-//    s = @"aa";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = (PKCharacterAssembly *)[p bestMatchFor:a];
-//    TDEqualObjects(@"[a]a^a", [res description]);
-//    
-//    s = @"aaa";
-//    a = [PKCharacterAssembly assemblyWithString:s];
-//    res = (PKCharacterAssembly *)[p bestMatchFor:a];
-//    TDEqualObjects(@"[a]a^aa", [res description]);
-//}
+- (void)testDot {
+    s = @".";
+    
+    p = [self parserForRegex:s];
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKParser class]]);
+    s = @"a";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    TDEqualObjects(@"[a]a^", [res description]);
+    
+    s = @"aa";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    TDEqualObjects(@"[a]a^a", [res description]);
+    
+    s = @"aaa";
+    a = [PKCharacterAssembly assemblyWithString:s];
+    res = (PKCharacterAssembly *)[p bestMatchFor:a];
+    TDEqualObjects(@"[a]a^aa", [res description]);
+}
 
 @synthesize regexParser;
 @synthesize ass;
