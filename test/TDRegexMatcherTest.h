@@ -16,7 +16,7 @@
 #import "TDRegexMatcher.h"
 #import "TDRegexAssembler.h"
 
-@interface TDRegexParserTest : SenTestCase {
+@interface TDRegexMatcherTest : SenTestCase {
     NSString *s;
     PKCharacterAssembly *a;
     PKParser *regexParser;

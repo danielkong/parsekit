@@ -14,5 +14,9 @@
 
 + (TDRegexMatcher *)matcherFromRegex:(NSString *)regex;
 
+- (BOOL)matches:(NSString *)inputStr;
+@end
+
+@interface TDRegexMatcher (Debug)
 - (PKAssembly *)bestMatchFor:(NSString *)inputStr;
 @end
