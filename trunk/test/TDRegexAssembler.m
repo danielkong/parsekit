@@ -73,8 +73,11 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
     NSLog(@"a: %@", a);
 
-    PKNegation *neg = [PKNegation negationWithSubparser:[PKSpecificChar specificCharWithChar:'\n']];
-    [a push:neg];
+    //PKParser *top = [PKNegation negationWithSubparser:[PKSpecificChar specificCharWithChar:'\n']];
+    
+    PKParser *newline = [PKSpecificChar specificCharWithChar:'\n'];
+    PKDifference *top = [PKDifference differenceWithSubparser:[PKChar char] minus:newline];
+    [a push:top];
 }
 
 
