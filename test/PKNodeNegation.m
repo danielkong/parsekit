@@ -14,4 +14,9 @@
     return PKNodeTypeNegation;
 }
 
+
+- (void)visit:(PKParserVisitor *)v {
+    [v visitNegation:self];
+}
+
 @end

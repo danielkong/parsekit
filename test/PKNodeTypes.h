@@ -10,7 +10,7 @@
 #define ParseKit_PKASTNodeType_h
 
 #import <Foundation/Foundation.h>
-#import "PKAST.h"
+#import "PKNodeParser.h"
 
 typedef enum {
     PKNodeTypeTerminal = 0,

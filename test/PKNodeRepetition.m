@@ -14,4 +14,9 @@
     return PKNodeTypeRepetition;
 }
 
+
+- (void)visit:(PKParserVisitor *)v {
+    [v visitRepetition:self];
+}
+
 @end

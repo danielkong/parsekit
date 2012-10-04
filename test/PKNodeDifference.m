@@ -14,4 +14,9 @@
     return PKNodeTypeDifference;
 }
 
+
+- (void)visit:(PKParserVisitor *)v {
+    [v visitDifference:self];
+}
+
 @end
