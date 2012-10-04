@@ -132,7 +132,7 @@
 // difference           = '-' S* primaryExpr;
 
 // primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
-// negatedPrimaryExpr   = '~' barePrimaryExpr;
+// negatedPrimaryExpr   = '~' S* barePrimaryExpr;
 // barePrimaryExpr      = atomicValue | subExpr;
 // subExpr              = '(' expr ')';
 // atomicValue          = parser discard?;
@@ -328,12 +328,13 @@
 }
 
 
-// negatedPrimaryExpr   = '~' barePrimaryExpr;
+// negatedPrimaryExpr   = '~' S* barePrimaryExpr;
 - (PKCollectionParser *)negatedPrimaryExprParser {
     if (!negatedPrimaryExprParser) {
         self.negatedPrimaryExprParser = [PKSequence sequence];
         negatedPrimaryExprParser.name = @"negatedPrimaryExpr";
-        [negatedPrimaryExprParser add:[[PKLiteral literalWithString:@"~"] discard]];
+        [negatedPrimaryExprParser add:[PKLiteral literalWithString:@"~"]];
+        [negatedPrimaryExprParser add:self.optionalWhitespaceParser];
         [negatedPrimaryExprParser add:self.barePrimaryExprParser];
         [negatedPrimaryExprParser setAssembler:assembler selector:@selector(parser:didMatchNegation:)];
     }
@@ -392,7 +393,7 @@
         intersectionParser.name = @"intersection";
         
         PKTrack *tr = [PKTrack track];
-        [tr add:[[PKSymbol symbolWithString:@"&"] discard]];
+        [tr add:[PKSymbol symbolWithString:@"&"]];
         [tr add:self.optionalWhitespaceParser];
         [tr add:self.primaryExprParser];
         
@@ -410,7 +411,7 @@
         differenceParser.name = @"difference";
         
         PKTrack *tr = [PKTrack track];
-        [tr add:[[PKSymbol symbolWithString:@"-"] discard]];
+        [tr add:[PKSymbol symbolWithString:@"-"]];
         [tr add:self.optionalWhitespaceParser];
         [tr add:self.primaryExprParser];
         
@@ -428,7 +429,7 @@
         phraseStarParser.name = @"phraseStar";
         [phraseStarParser add:self.phraseParser];
         [phraseStarParser add:self.optionalWhitespaceParser];
-        [phraseStarParser add:[[PKSymbol symbolWithString:@"*"] discard]];
+        [phraseStarParser add:[PKSymbol symbolWithString:@"*"]];
         [phraseStarParser setAssembler:assembler selector:@selector(parser:didMatchStar:)];
     }
     return phraseStarParser;
@@ -442,7 +443,7 @@
         phrasePlusParser.name = @"phrasePlus";
         [phrasePlusParser add:self.phraseParser];
         [phrasePlusParser add:self.optionalWhitespaceParser];
-        [phrasePlusParser add:[[PKSymbol symbolWithString:@"+"] discard]];
+        [phrasePlusParser add:[PKSymbol symbolWithString:@"+"]];
         [phrasePlusParser setAssembler:assembler selector:@selector(parser:didMatchPlus:)];
     }
     return phrasePlusParser;
@@ -456,7 +457,7 @@
         phraseQuestionParser.name = @"phraseQuestion";
         [phraseQuestionParser add:self.phraseParser];
         [phraseQuestionParser add:self.optionalWhitespaceParser];
-        [phraseQuestionParser add:[[PKSymbol symbolWithString:@"?"] discard]];
+        [phraseQuestionParser add:[PKSymbol symbolWithString:@"?"]];
         [phraseQuestionParser setAssembler:assembler selector:@selector(parser:didMatchQuestion:)];
     }
     return phraseQuestionParser;
