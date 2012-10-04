@@ -314,7 +314,7 @@
     PKToken *tok = [a pop]; // pop '|'
     PKAST *first = [a pop];
     
-    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isSymbol, @"");
     NSAssert([first isKindOfClass:[PKAST class]], @"");
     NSAssert([second isKindOfClass:[PKAST class]], @"");
 
@@ -409,7 +409,7 @@
     PKToken *tok = [a pop]; // '-'
     PKAST *sub = [a pop];
     
-    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isSymbol, @"");
     NSAssert([minus isKindOfClass:[PKAST class]], @"");
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
@@ -428,7 +428,7 @@
     PKToken *tok = [a pop]; // '&'
     PKAST *sub = [a pop];
     
-    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isSymbol, @"");
     NSAssert([predicate isKindOfClass:[PKAST class]], @"");
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
@@ -441,30 +441,30 @@
 
 
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a {
-//    PKToken *tok = [a pop];
-//    NSAssert(tok.isWord, @"");
-//    
-//    NSString *s = tok.stringValue;
-//    NSAssert([s length] > 0, @"");
-//    
-//    PKPatternOptions opts = PKPatternOptionsNone;
-//    if (NSNotFound != [s rangeOfString:@"i"].location) {
-//        opts |= PKPatternOptionsIgnoreCase;
-//    }
-//    if (NSNotFound != [s rangeOfString:@"m"].location) {
-//        opts |= PKPatternOptionsMultiline;
-//    }
-//    if (NSNotFound != [s rangeOfString:@"x"].location) {
-//        opts |= PKPatternOptionsComments;
-//    }
-//    if (NSNotFound != [s rangeOfString:@"s"].location) {
-//        opts |= PKPatternOptionsDotAll;
-//    }
-//    if (NSNotFound != [s rangeOfString:@"w"].location) {
-//        opts |= PKPatternOptionsUnicodeWordBoundaries;
-//    }
-//    
-//    [a push:[NSNumber numberWithInteger:opts]];
+    PKToken *tok = [a pop];
+    NSAssert(tok.isWord, @"");
+    
+    NSString *s = tok.stringValue;
+    NSAssert([s length] > 0, @"");
+    
+    PKPatternOptions opts = PKPatternOptionsNone;
+    if (NSNotFound != [s rangeOfString:@"i"].location) {
+        opts |= PKPatternOptionsIgnoreCase;
+    }
+    if (NSNotFound != [s rangeOfString:@"m"].location) {
+        opts |= PKPatternOptionsMultiline;
+    }
+    if (NSNotFound != [s rangeOfString:@"x"].location) {
+        opts |= PKPatternOptionsComments;
+    }
+    if (NSNotFound != [s rangeOfString:@"s"].location) {
+        opts |= PKPatternOptionsDotAll;
+    }
+    if (NSNotFound != [s rangeOfString:@"w"].location) {
+        opts |= PKPatternOptionsUnicodeWordBoundaries;
+    }
+    
+    [a push:[NSNumber numberWithInteger:opts]];
 }
 
 
@@ -542,7 +542,7 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
     PKToken *tok = [a pop]; // '*'
-    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isSymbol, @"");
     PKAST *sub = [a pop];
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
@@ -557,7 +557,7 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
     PKToken *tok = [a pop]; // '+'
-    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isSymbol, @"");
     PKAST *sub = [a pop];
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
@@ -572,7 +572,7 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
     PKToken *tok = [a pop]; // '?'
-    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isSymbol, @"");
     PKAST *sub = [a pop];
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
@@ -589,7 +589,7 @@
     PKAST *sub = [a pop];
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     PKToken *tok = [a pop]; // '~'
-    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isSymbol, @"");
 
     PKAST *negNode = [PKAST ASTWithToken:tok];
     [negNode addChild:sub];
