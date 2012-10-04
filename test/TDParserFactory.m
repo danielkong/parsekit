@@ -12,8 +12,8 @@
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
 
-#import "PKParseTree.h"
-#import "PKRuleNode.h"
+#import "PKAST.h"
+#import "PKAST.h"
 #import "PKTokenNode.h"
 
 #define USE_TRACK 0
@@ -46,7 +46,7 @@
 @interface TDParserFactory ()
 - (PKTokenizer *)tokenizerForParsingGrammar;
 - (PKTokenizer *)tokenizerFromGrammarSettings;
-- (PKParser *)parserFromSyntaxTree:(PKParseTree *)rootNode;
+- (PKParser *)parserFromSyntaxTree:(PKAST *)rootNode;
 
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
@@ -144,7 +144,7 @@
         self.assembler = a;
         self.preassembler = pa;
         
-        PKParseTree *rootNode = [self syntaxTreeFromGrammar:g error:outError];
+        PKAST *rootNode = [self ASTFromGrammar:g error:outError];
         
         NSLog(@"%@", rootNode);
 
@@ -187,7 +187,7 @@
 }
 
 
-- (PKParseTree *)syntaxTreeFromGrammar:(NSString *)g error:(NSError **)outError {
+- (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError {
     self.callbackTab = [NSMutableDictionary dictionary];
     self.productionTab = [NSMutableDictionary dictionary];
 
@@ -199,7 +199,7 @@
     
     NSLog(@"%@", _productionTab);
     
-    PKParseTree *rootNode = [_productionTab objectForKey:@"@start"];
+    PKAST *rootNode = [_productionTab objectForKey:@"@start"];
     return rootNode;
 }
 
@@ -239,7 +239,7 @@
 }
 
 
-- (PKParser *)parserFromSyntaxTree:(PKParseTree *)rootNode {
+- (PKParser *)parserFromSyntaxTree:(PKAST *)rootNode {
     return nil;
 }
 
@@ -272,9 +272,9 @@
     PKToken *tok = [a pop];
     NSString *prodName = tok.stringValue;
     
-    PKRuleNode *prodNode = [_productionTab objectForKey:prodName];
+    PKAST *prodNode = [_productionTab objectForKey:prodName];
     if (!prodNode) {
-        prodNode = [PKRuleNode ruleNodeWithName:prodName];
+        prodNode = [PKAST ASTWithToken:tok];
         [_productionTab setObject:prodNode forKey:prodName];
     }
     
@@ -288,9 +288,9 @@
     PKToken *tok = [a pop];
     NSString *prodName = tok.stringValue;
 
-    PKParseTree *prodNode = [_productionTab objectForKey:prodName];
+    PKAST *prodNode = [_productionTab objectForKey:prodName];
     if (!prodNode) {
-        prodNode = [PKRuleNode ruleNodeWithName:prodName];
+        prodNode = [PKAST ASTWithToken:tok];
         [_productionTab setObject:prodNode forKey:prodName];
     }
     [a push:prodNode];
@@ -302,7 +302,7 @@
 
     PKToken *tok = [a pop];
 
-    PKParseTree *parserNode = [PKTokenNode tokenNodeWithToken:tok];
+    PKAST *parserNode = [PKAST ASTWithToken:tok];
     [a push:parserNode];
 }
 
@@ -310,15 +310,15 @@
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
 //    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
-    PKParseTree *second = [a pop];
+    PKAST *second = [a pop];
     PKToken *tok = [a pop]; // pop '|'
-    PKParseTree *first = [a pop];
+    PKAST *first = [a pop];
     
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
-    NSAssert([first isKindOfClass:[PKParseTree class]], @"");
-    NSAssert([second isKindOfClass:[PKParseTree class]], @"");
+    NSAssert([first isKindOfClass:[PKAST class]], @"");
+    NSAssert([second isKindOfClass:[PKAST class]], @"");
 
-    PKTokenNode *altNode = [PKTokenNode tokenNodeWithToken:tok];
+    PKAST *altNode = [PKAST ASTWithToken:tok];
     [altNode addChild:first];
     [altNode addChild:second];
     
@@ -332,11 +332,11 @@
     NSArray *children = [a objectsAbove:_equals];
     [a pop]; // '='
     
-    PKRuleNode *parent = [a pop];
-    NSAssert([parent isKindOfClass:[PKRuleNode class]], @"");
+    PKAST *parent = [a pop];
+    NSAssert([parent isKindOfClass:[PKAST class]], @"");
 
-    for (PKParseTree *child in [children reverseObjectEnumerator]) {
-        NSAssert([child isKindOfClass:[PKParseTree class]], @"");
+    for (PKAST *child in [children reverseObjectEnumerator]) {
+        NSAssert([child isKindOfClass:[PKAST class]], @"");
         [parent addChild:child];
     }
     
@@ -390,9 +390,9 @@
     [a pop]; // pop '('
     
     if ([objs count] > 1) {
-        PKTokenNode *seqNode = [PKTokenNode tokenNodeWithToken:_seqToken];
-        for (PKParseTree *child in [objs reverseObjectEnumerator]) {
-            NSAssert([child isKindOfClass:[PKParseTree class]], @"");
+        PKAST *seqNode = [PKAST ASTWithToken:_seqToken];
+        for (PKAST *child in [objs reverseObjectEnumerator]) {
+            NSAssert([child isKindOfClass:[PKAST class]], @"");
             [seqNode addChild:child];
         }
         [a push:seqNode];
@@ -405,15 +405,15 @@
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
-    PKParseTree *minus = [a pop];
+    PKAST *minus = [a pop];
     PKToken *tok = [a pop]; // '-'
-    PKParseTree *sub = [a pop];
+    PKAST *sub = [a pop];
     
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
-    NSAssert([minus isKindOfClass:[PKParseTree class]], @"");
-    NSAssert([sub isKindOfClass:[PKParseTree class]], @"");
+    NSAssert([minus isKindOfClass:[PKAST class]], @"");
+    NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKTokenNode *diffNode = [PKTokenNode tokenNodeWithToken:tok];
+    PKAST *diffNode = [PKAST ASTWithToken:tok];
     [diffNode addChild:sub];
     [diffNode addChild:minus];
     
@@ -424,15 +424,15 @@
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
-    PKParseTree *predicate = [a pop];
+    PKAST *predicate = [a pop];
     PKToken *tok = [a pop]; // '&'
-    PKParseTree *sub = [a pop];
+    PKAST *sub = [a pop];
     
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
-    NSAssert([predicate isKindOfClass:[PKParseTree class]], @"");
-    NSAssert([sub isKindOfClass:[PKParseTree class]], @"");
+    NSAssert([predicate isKindOfClass:[PKAST class]], @"");
+    NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKTokenNode *intNode = [PKTokenNode tokenNodeWithToken:tok];
+    PKAST *intNode = [PKAST ASTWithToken:tok];
     [intNode addChild:sub];
     [intNode addChild:predicate];
     
@@ -508,7 +508,7 @@
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a {
     PKToken *tok = [a pop];
 
-    PKParseTree *litNode = [PKTokenNode tokenNodeWithToken:tok];
+    PKAST *litNode = [PKAST ASTWithToken:tok];
     [a push:litNode];
 }
 
@@ -519,10 +519,10 @@
     NSArray *toks = [a objectsAbove:_paren];
     [a pop]; // discard '(' fence
 
-    PKParseTree *delimNode = [PKTokenNode tokenNodeWithToken:_delimToken];
+    PKAST *delimNode = [PKAST ASTWithToken:_delimToken];
     
     for (PKToken *tok in toks) {
-        PKTokenNode *tokNode = [PKTokenNode tokenNodeWithToken:tok];
+        PKAST *tokNode = [PKAST ASTWithToken:tok];
         [delimNode addChild:tokNode];
     }
     
@@ -543,10 +543,10 @@
     
     PKToken *tok = [a pop]; // '*'
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
-    PKParseTree *sub = [a pop];
-    NSAssert([sub isKindOfClass:[PKParseTree class]], @"");
+    PKAST *sub = [a pop];
+    NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKParseTree *starNode = [PKTokenNode tokenNodeWithToken:tok];
+    PKAST *starNode = [PKAST ASTWithToken:tok];
     [starNode addChild:sub];
 
     [a push:starNode];
@@ -558,10 +558,10 @@
     
     PKToken *tok = [a pop]; // '+'
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
-    PKParseTree *sub = [a pop];
-    NSAssert([sub isKindOfClass:[PKParseTree class]], @"");
+    PKAST *sub = [a pop];
+    NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKParseTree *plusNode = [PKTokenNode tokenNodeWithToken:tok];
+    PKAST *plusNode = [PKAST ASTWithToken:tok];
     [plusNode addChild:sub];
     
     [a push:plusNode];
@@ -573,10 +573,10 @@
     
     PKToken *tok = [a pop]; // '?'
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
-    PKParseTree *sub = [a pop];
-    NSAssert([sub isKindOfClass:[PKParseTree class]], @"");
+    PKAST *sub = [a pop];
+    NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKParseTree *qNode = [PKTokenNode tokenNodeWithToken:tok];
+    PKAST *qNode = [PKAST ASTWithToken:tok];
     [qNode addChild:sub];
     
     [a push:qNode];
@@ -586,12 +586,12 @@
 - (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
-    PKParseTree *sub = [a pop];
-    NSAssert([sub isKindOfClass:[PKParseTree class]], @"");
+    PKAST *sub = [a pop];
+    NSAssert([sub isKindOfClass:[PKAST class]], @"");
     PKToken *tok = [a pop]; // '~'
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
 
-    PKParseTree *negNode = [PKTokenNode tokenNodeWithToken:tok];
+    PKAST *negNode = [PKAST ASTWithToken:tok];
     [negNode addChild:sub];
     
     [a push:negNode];
