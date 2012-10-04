@@ -13,8 +13,12 @@
 #import "NSArray+ParseKitAdditions.h"
 
 #import "PKAST.h"
-#import "PKAST.h"
-#import "PKTokenNode.h"
+#import "PKNodeTerminal.h"
+#import "PKNodeCollection.h"
+#import "PKNodeRepetition.h"
+#import "PKNodeDifference.h"
+#import "PKNodePattern.h"
+#import "PKNodeNegation.h"
 
 #define USE_TRACK 0
 
@@ -81,6 +85,7 @@
 @property (nonatomic, retain) PKToken *seqToken;
 @property (nonatomic, retain) PKToken *trackToken;
 @property (nonatomic, retain) PKToken *delimToken;
+@property (nonatomic, retain) PKToken *patternToken;
 
 @property (nonatomic, retain) NSMutableDictionary *productionTab;
 @property (nonatomic, retain) NSMutableDictionary *callbackTab;
@@ -122,6 +127,7 @@
     self.seqToken = nil;
     self.trackToken = nil;
     self.delimToken = nil;
+    self.patternToken = nil;
     
     self.productionTab = nil;
     self.callbackTab = nil;
@@ -274,7 +280,7 @@
     
     PKAST *prodNode = [_productionTab objectForKey:prodName];
     if (!prodNode) {
-        prodNode = [PKAST ASTWithToken:tok];
+        prodNode = [PKNodeCollection ASTWithToken:tok];
         [_productionTab setObject:prodNode forKey:prodName];
     }
     
@@ -290,7 +296,7 @@
 
     PKAST *prodNode = [_productionTab objectForKey:prodName];
     if (!prodNode) {
-        prodNode = [PKAST ASTWithToken:tok];
+        prodNode = [PKNodeCollection ASTWithToken:tok];
         [_productionTab setObject:prodNode forKey:prodName];
     }
     [a push:prodNode];
@@ -302,7 +308,7 @@
 
     PKToken *tok = [a pop];
 
-    PKAST *parserNode = [PKAST ASTWithToken:tok];
+    PKAST *parserNode = [PKNodeTerminal ASTWithToken:tok];
     [a push:parserNode];
 }
 
@@ -318,7 +324,7 @@
     NSAssert([first isKindOfClass:[PKAST class]], @"");
     NSAssert([second isKindOfClass:[PKAST class]], @"");
 
-    PKAST *altNode = [PKAST ASTWithToken:tok];
+    PKAST *altNode = [PKNodeCollection ASTWithToken:tok];
     [altNode addChild:first];
     [altNode addChild:second];
     
@@ -390,7 +396,7 @@
     [a pop]; // pop '('
     
     if ([objs count] > 1) {
-        PKAST *seqNode = [PKAST ASTWithToken:_seqToken];
+        PKAST *seqNode = [PKNodeCollection ASTWithToken:_seqToken];
         for (PKAST *child in [objs reverseObjectEnumerator]) {
             NSAssert([child isKindOfClass:[PKAST class]], @"");
             [seqNode addChild:child];
@@ -413,7 +419,7 @@
     NSAssert([minus isKindOfClass:[PKAST class]], @"");
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKAST *diffNode = [PKAST ASTWithToken:tok];
+    PKAST *diffNode = [PKNodeDifference ASTWithToken:tok];
     [diffNode addChild:sub];
     [diffNode addChild:minus];
     
@@ -432,7 +438,7 @@
     NSAssert([predicate isKindOfClass:[PKAST class]], @"");
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKAST *intNode = [PKAST ASTWithToken:tok];
+    PKAST *intNode = [PKNodeCollection ASTWithToken:tok];
     [intNode addChild:sub];
     [intNode addChild:predicate];
     
@@ -469,29 +475,31 @@
 
 
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a {
-//    id obj = [a pop]; // opts (as Number*) or DelimitedString('/', '/')
-//    
-//    PKPatternOptions opts = PKPatternOptionsNone;
-//    if ([obj isKindOfClass:[NSNumber class]]) {
-//        opts = [obj unsignedIntValue];
-//        obj = [a pop];
-//    }
-//    
-//    NSAssert([obj isMemberOfClass:[PKToken class]], @"");
-//    PKToken *tok = (PKToken *)obj;
-//    NSAssert(tok.isDelimitedString, @"");
-//    
-//    NSString *s = tok.stringValue;
-//    NSAssert([s length] > 2, @"");
-//    
-//    NSAssert([s hasPrefix:@"/"], @"");
-//    NSAssert([s hasSuffix:@"/"], @"");
-//    
-//    NSString *re = [s stringByTrimmingQuotes];
-//    
+    id obj = [a pop]; // opts (as Number*) or DelimitedString('/', '/')
+    
+    PKPatternOptions opts = PKPatternOptionsNone;
+    if ([obj isKindOfClass:[NSNumber class]]) {
+        opts = [obj unsignedIntValue];
+        obj = [a pop];
+    }
+    
+    NSAssert([obj isMemberOfClass:[PKToken class]], @"");
+    PKToken *tok = (PKToken *)obj;
+    NSAssert(tok.isDelimitedString, @"");
+    
+    NSString *s = tok.stringValue;
+    NSAssert([s length] > 2, @"");
+    
+    NSAssert([s hasPrefix:@"/"], @"");
+    NSAssert([s hasSuffix:@"/"], @"");
+    
+    //NSString *re = [s stringByTrimmingQuotes];
+    
 //    PKTerminal *t = [PKPattern patternWithString:re options:opts];
-//    
-//    [a push:t];
+
+    // TODO
+    PKAST *patNode = [PKNodePattern ASTWithToken:tok];
+    [a push:patNode];
 }
 
 
@@ -508,7 +516,7 @@
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a {
     PKToken *tok = [a pop];
 
-    PKAST *litNode = [PKAST ASTWithToken:tok];
+    PKAST *litNode = [PKNodeTerminal ASTWithToken:tok];
     [a push:litNode];
 }
 
@@ -519,7 +527,7 @@
     NSArray *toks = [a objectsAbove:_paren];
     [a pop]; // discard '(' fence
 
-    PKAST *delimNode = [PKAST ASTWithToken:_delimToken];
+    PKAST *delimNode = [PKNodeTerminal ASTWithToken:_delimToken];
     
     for (PKToken *tok in toks) {
         PKAST *tokNode = [PKAST ASTWithToken:tok];
@@ -546,7 +554,7 @@
     PKAST *sub = [a pop];
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKAST *starNode = [PKAST ASTWithToken:tok];
+    PKAST *starNode = [PKNodeRepetition ASTWithToken:tok];
     [starNode addChild:sub];
 
     [a push:starNode];
@@ -561,7 +569,7 @@
     PKAST *sub = [a pop];
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKAST *plusNode = [PKAST ASTWithToken:tok];
+    PKAST *plusNode = [PKNodeCollection ASTWithToken:tok];
     [plusNode addChild:sub];
     
     [a push:plusNode];
@@ -576,7 +584,7 @@
     PKAST *sub = [a pop];
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKAST *qNode = [PKAST ASTWithToken:tok];
+    PKAST *qNode = [PKNodeCollection ASTWithToken:tok];
     [qNode addChild:sub];
     
     [a push:qNode];
@@ -591,7 +599,7 @@
     PKToken *tok = [a pop]; // '~'
     NSAssert(tok.isSymbol, @"");
 
-    PKAST *negNode = [PKAST ASTWithToken:tok];
+    PKAST *negNode = [PKNodeNegation ASTWithToken:tok];
     [negNode addChild:sub];
     
     [a push:negNode];
