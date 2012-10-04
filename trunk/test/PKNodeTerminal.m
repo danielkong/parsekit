@@ -14,4 +14,9 @@
     return PKNodeTypeTerminal;
 }
 
+
+- (void)visit:(PKParserVisitor *)v {
+    [v visitTerminal:self];
+}
+
 @end

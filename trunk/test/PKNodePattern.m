@@ -14,4 +14,9 @@
     return PKNodeTypePattern;
 }
 
+
+- (void)visit:(PKParserVisitor *)v {
+    [v visitPattern:self];
+}
+
 @end
