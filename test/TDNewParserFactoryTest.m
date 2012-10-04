@@ -26,7 +26,7 @@
 }
 
 
-- (void)testAlternationSyntax {
+- (void)testAlternationAST {
     NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Num;";
 
     NSError *err = nil;
@@ -36,7 +36,7 @@
 }
 
 
-- (void)testSequenceSyntax {
+- (void)testSequenceAST {
     NSString *g = @"@start=foo;foo=QuotedString Num;";
     
     NSError *err = nil;
@@ -46,7 +46,7 @@
 }
 
 
-- (void)testSubExprSequenceSyntax {
+- (void)testSubExprSequenceAST {
     NSString *g = @"@start=foo;foo=(QuotedString Num);";
     
     NSError *err = nil;
@@ -70,7 +70,7 @@
 }
 
 
-- (void)testDifferenceSyntax {
+- (void)testDifferenceAST {
     NSString *g = @"@start=foo;foo=Any-Word;";
     
     NSError *err = nil;
@@ -101,7 +101,7 @@
 }
 
 
-- (void)testIntersectionSyntax {
+- (void)testIntersectionAST {
     NSString *g = @"@start=foo;foo=Word&LowercaseWord;";
     
     NSError *err = nil;
@@ -132,7 +132,7 @@
 }
 
 
-- (void)testStarSyntax {
+- (void)testStarAST {
     NSString *g = @"@start=foo;foo=Word*;";
     
     NSError *err = nil;
@@ -149,7 +149,7 @@
 }
 
 
-- (void)testQuestionSyntax {
+- (void)testQuestionAST {
     NSString *g = @"@start=foo;foo=Word?;";
     
     NSError *err = nil;
@@ -166,7 +166,7 @@
 }
 
 
-- (void)testPlusSyntax {
+- (void)testPlusAST {
     NSString *g = @"@start=foo;foo=Word+;";
     
     NSError *err = nil;
@@ -183,7 +183,7 @@
 }
 
 
-- (void)testNegationSyntax {
+- (void)testNegationAST {
     NSString *g = @"@start=foo;foo=~Word;";
     
     NSError *err = nil;
@@ -204,6 +204,23 @@
     rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (~ Word)))");
+}
+
+
+- (void)testPatternAST {
+    NSString *g = @"@start=foo;foo=/\\w/;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects([rootNode treeDescription], @"(@start (foo /\\w/))");
+    
+    g = @"@start=foo;foo = /\\w/;";
+    
+    err = nil;
+    rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects([rootNode treeDescription], @"(@start (foo /\\w/))");
 }
 
 @end
