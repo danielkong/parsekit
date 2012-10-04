@@ -15,40 +15,7 @@
 #import <ParseKit/PKCollectionParser.h>
 #import <ParseKit/PKRepetition.h>
 
-@interface TDGrammarParser : NSObject {
-    id assembler;
-    PKRepetition *startParser;
-    PKCollectionParser *statementParser;
-    PKCollectionParser *declarationParser;
-    PKCollectionParser *callbackParser;
-    PKCollectionParser *selectorParser;
-    PKCollectionParser *exprParser;
-    PKCollectionParser *termParser;
-    PKCollectionParser *orTermParser;
-    PKCollectionParser *factorParser;
-    PKCollectionParser *nextFactorParser;
-    PKCollectionParser *phraseParser;
-    PKCollectionParser *phraseStarParser;
-    PKCollectionParser *phrasePlusParser;
-    PKCollectionParser *phraseQuestionParser;
-    PKCollectionParser *phraseCardinalityParser;
-    PKCollectionParser *cardinalityParser;
-    PKCollectionParser *primaryExprParser;
-    PKCollectionParser *negatedPrimaryExprParser;
-    PKCollectionParser *barePrimaryExprParser;
-    PKCollectionParser *subExprParser;
-    PKCollectionParser *predicateParser;
-    PKCollectionParser *intersectionParser;
-    PKCollectionParser *differenceParser;
-    PKCollectionParser *atomicValueParser;
-    PKCollectionParser *parserParser;
-    PKCollectionParser *discardParser;
-    PKCollectionParser *patternParser;
-    PKCollectionParser *delimitedStringParser;
-    PKParser *literalParser;
-    PKParser *variableParser;
-    PKParser *constantParser;
-}
+@interface TDGrammarParser : NSObject
 
 - (id)initWithAssembler:(id)a;
 
