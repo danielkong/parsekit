@@ -50,18 +50,18 @@
 
 
 - (NSString *)treeDescription {
-    if (![children count]) {
-        return [token stringValue];
+    if (![_children count]) {
+        return [_token stringValue];
     }
     
     NSMutableString *ms = [NSMutableString string];
     
     if (![self isNil]) {
-        [ms appendFormat:@"(%@ ", [token stringValue]];
+        [ms appendFormat:@"(%@ ", [_token stringValue]];
     }
 
     NSInteger i = 0;
-    for (PKAST *child in children) {
+    for (PKAST *child in _children) {
         if (i++) {
             [ms appendFormat:@" %@", [child treeDescription]];
         } else {
@@ -84,17 +84,15 @@
 
 
 - (void)addChild:(PKAST *)c {
-    if (!children) {
+    if (!_children) {
         self.children = [NSMutableArray array];
     }
-    [children addObject:c];
+    [_children addObject:c];
 }
 
 
 - (BOOL)isNil {
-    return !token;
+    return !_token;
 }
 
-@synthesize token;
-@synthesize children;
 @end

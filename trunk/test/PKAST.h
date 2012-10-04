@@ -16,10 +16,7 @@
 
 @class PKToken;
 
-@interface PKAST : NSObject {
-    PKToken *token;
-    NSMutableArray *children;
-}
+@interface PKAST : NSObject
 
 + (PKAST *)ASTWithToken:(PKToken *)tok;
 

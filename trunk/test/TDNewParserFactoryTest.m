@@ -8,7 +8,7 @@
 
 #import "TDNewParserFactoryTest.h"
 #import "TDParserFactory.h"
-#import "PKParseTree.h"
+#import "PKAST.h"
 
 @interface TDNewParserFactoryTest ()
 @property (nonatomic, retain) TDParserFactory *factory;
@@ -30,7 +30,7 @@
     NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Num;";
 
     NSError *err = nil;
-    PKParseTree *rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar (| (baz Word) (bat Num)))))");    
 }
@@ -40,7 +40,7 @@
     NSString *g = @"@start=foo;foo=QuotedString Num;";
     
     NSError *err = nil;
-    PKParseTree *rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo QuotedString Num))");
 }
@@ -50,21 +50,21 @@
     NSString *g = @"@start=foo;foo=(QuotedString Num);";
     
     NSError *err = nil;
-    PKParseTree *rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (SEQ QuotedString Num)))");
 
     g = @"@start=foo;foo=( QuotedString Num );";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (SEQ QuotedString Num)))");
 
     g = @"@start=foo; foo = ( QuotedString Num );";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (SEQ QuotedString Num)))");
 }
@@ -74,28 +74,28 @@
     NSString *g = @"@start=foo;foo=Any-Word;";
     
     NSError *err = nil;
-    PKParseTree *rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (- Any Word)))");
 
     g = @"@start=foo;foo=Any - Word;";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (- Any Word)))");
 
     g = @"@start=foo;foo=Any -Word;";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (- Any Word)))");
 
     g = @"@start=foo;foo=Any- Word;";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (- Any Word)))");
 }
@@ -105,28 +105,28 @@
     NSString *g = @"@start=foo;foo=Word&LowercaseWord;";
     
     NSError *err = nil;
-    PKParseTree *rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (& Word LowercaseWord)))");
     
     g = @"@start=foo;foo=Word & LowercaseWord;";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (& Word LowercaseWord)))");
     
     g = @"@start=foo;foo=Word &LowercaseWord;";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (& Word LowercaseWord)))");
     
     g = @"@start=foo;foo=Word& LowercaseWord;";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (& Word LowercaseWord)))");
 }
@@ -136,14 +136,14 @@
     NSString *g = @"@start=foo;foo=Word*;";
     
     NSError *err = nil;
-    PKParseTree *rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (* Word)))");
     
     g = @"@start=foo;foo=Word *;";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (* Word)))");
 }
@@ -153,14 +153,14 @@
     NSString *g = @"@start=foo;foo=Word?;";
     
     NSError *err = nil;
-    PKParseTree *rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (? Word)))");
     
     g = @"@start=foo;foo=Word ?;";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (? Word)))");
 }
@@ -170,14 +170,14 @@
     NSString *g = @"@start=foo;foo=Word+;";
     
     NSError *err = nil;
-    PKParseTree *rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (+ Word)))");
     
     g = @"@start=foo;foo=Word +;";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (+ Word)))");
 }
@@ -187,21 +187,21 @@
     NSString *g = @"@start=foo;foo=~Word;";
     
     NSError *err = nil;
-    PKParseTree *rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (~ Word)))");
     
     g = @"@start=foo;foo= ~Word;";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (~ Word)))");
 
     g = @"@start=foo;foo= ~ Word;";
     
     err = nil;
-    rootNode = [_factory syntaxTreeFromGrammar:g error:&err];
+    rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects([rootNode treeDescription], @"(@start (foo (~ Word)))");
 }
