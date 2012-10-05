@@ -59,6 +59,24 @@
     
     TDEqualObjects([a description], @"[hello]hello^");
     
+    input = @"22.3";
+    a = [PKTokenAssembly assemblyWithString:input];
+    a = [p completeMatchFor:a];
+    
+    TDEqualObjects([a description], @"[22.3]22.3^");
+    
+    input = @"##";
+    a = [PKTokenAssembly assemblyWithString:input];
+    a = [p completeMatchFor:a];
+    
+    TDNil(a);
+    
+    input = @"'asdf'";
+    a = [PKTokenAssembly assemblyWithString:input];
+    a = [p completeMatchFor:a];
+    
+    TDNil(a);
+    
 }
 
 @end
