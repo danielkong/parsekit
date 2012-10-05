@@ -10,7 +10,7 @@
 
 @implementation PKNodeConstant
 
-- (NSInteger)type {
+- (int)type {
     return PKNodeTypeConstant;
 }
 

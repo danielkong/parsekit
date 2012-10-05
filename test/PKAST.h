@@ -22,7 +22,7 @@
 
 - (id)initWithToken:(PKToken *)tok;
 
-- (NSInteger)type;
+- (int)type;
 
 - (void)addChild:(PKAST *)c;
 - (BOOL)isNil;

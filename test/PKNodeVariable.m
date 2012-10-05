@@ -10,7 +10,7 @@
 
 @implementation PKNodeVariable
 
-- (NSInteger)type {
+- (int)type {
     return PKNodeTypeVariable;
 }
 

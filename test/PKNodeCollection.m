@@ -10,7 +10,7 @@
 
 @implementation PKNodeCollection
 
-- (NSInteger)type {
+- (int)type {
     return PKNodeTypeCollection;
 }
 
