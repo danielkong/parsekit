@@ -15,9 +15,12 @@
 typedef enum {
     PKNodeTypeVariable = 0,
     PKNodeTypeConstant,
+    PKNodeTypeDelimited,
     PKNodeTypePattern,
     PKNodeTypeComposite,
     PKNodeTypeCollection,
+    PKNodeTypeOptional,
+    PKNodeTypeMultiple,
 //    PKNodeTypeRepetition,
 //    PKNodeTypeDifference,
 //    PKNodeTypeNegation,

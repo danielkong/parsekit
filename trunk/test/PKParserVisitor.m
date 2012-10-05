@@ -61,6 +61,14 @@
 }
 
 
+- (void)visitDelimited:(PKNodeDelimited *)node {
+    NSString *startMarker = nil;
+    NSString *endMarker = nil;
+    PKDelimitedString *p = [PKDelimitedString delimitedStringWithStartMarker:startMarker endMarker:endMarker];
+    
+    [_currentParser add:p];
+}
+
 
 - (void)visitPattern:(PKNodePattern *)node {
     PKPatternOptions opts = 0;
@@ -94,6 +102,7 @@
             parserClass = [PKNegation class];
             break;
         default:
+            NSAssert1(0, @"unknown composite node type '%@'", tokStr);
             break;
     }
     
@@ -117,15 +126,10 @@
     NSString *tokStr = tok.stringValue;
     NSAssert([tokStr length], @"");
     unichar c = [tokStr characterAtIndex:0];
-
+    
     Class parserClass = Nil;
-    BOOL optional = NO;
-    BOOL multiple = NO;
     
     switch (c) {
-        case '+':
-            multiple = YES;
-            // fall-thru
         case 'S':
             parserClass = [PKSequence class];
             break;
@@ -135,34 +139,61 @@
         case '&':
             parserClass = [PKIntersection class];
             break;
-        case '?':
-            optional = YES;
-            // fall-thru
         case '|':
             parserClass = [PKAlternation class];
             break;
         default:
+            NSAssert1(0, @"unknown collection node type '%@'", tokStr);
             break;
     }
     
     p = [[[parserClass alloc] init] autorelease];
-    
-    if (optional) {
-        [p add:[PKEmpty empty]];
-    }
-    
+
     [_currentParser add:p];
-
-    if (multiple) {
-        [_currentParser add:[PKRepetition repetitionWithSubparser:p]];
-    }
-
     self.currentParser = p;
-
+    
     for (PKNodeParser *child in node.children) {
         [child visit:self];
     }
+}
+
+
+- (void)visitOptional:(PKNodeCollection *)node {
+    PKCollectionParser *alt = [PKAlternation alternation];
+    [alt add:[PKEmpty empty]];
     
+    PKToken *tok = node.token;
+    NSAssert(tok.isSymbol, @"");
+    NSAssert([tok.stringValue isEqualToString:@"?"], @"");
+    
+    [_currentParser add:alt];
+    self.currentParser = alt;
+    
+    for (PKNodeParser *child in node.children) {
+        [child visit:self];
+    }
+}
+
+
+- (void)visitMultiple:(PKNodeCollection *)node {
+    PKCollectionParser *seq = [PKSequence sequence];
+    
+    PKToken *tok = node.token;
+    NSAssert(tok.isSymbol, @"");
+    NSAssert([tok.stringValue isEqualToString:@"+"], @"");
+    
+    [_currentParser add:seq];
+    self.currentParser = seq;
+    
+    NSAssert(1 == [node.children count], @"");
+    for (PKNodeParser *childNode in node.children) {
+        [childNode visit:self];
+    }
+    
+    NSAssert(1 == [seq.subparsers count], @"");
+    for (PKParser *childParser in seq.subparsers) {
+        [seq add:[PKRepetition repetitionWithSubparser:childParser]];
+    }
 }
 
 
