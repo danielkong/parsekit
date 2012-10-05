@@ -8,6 +8,6 @@
 
 #import "PKNodeTypes.h"
 
-@interface PKNodeVariable : PKNodeParser
+@interface PKNodeVariable : PKNodeBase
 
 @end

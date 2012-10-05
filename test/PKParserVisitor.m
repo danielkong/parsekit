@@ -7,7 +7,7 @@
 //
 
 #import "PKParserVisitor.h"
-#import "PKNodeParser.h"
+#import "PKNodeBase.h"
 #import "PKNodeVariable.h"
 #import "PKNodeConstant.h"
 #import "PKNodePattern.h"
@@ -38,7 +38,7 @@
     [_currentParser add:p];
     self.currentParser = p;
     
-    for (PKNodeParser *child in node.children) {
+    for (PKNodeBase *child in node.children) {
         [child visit:self];
     }
 }
@@ -111,7 +111,7 @@
     [_currentParser add:p];
     self.currentParser = p;
     
-    for (PKNodeParser *child in node.children) {
+    for (PKNodeBase *child in node.children) {
         [child visit:self];
     }
 }
@@ -152,7 +152,7 @@
     [_currentParser add:p];
     self.currentParser = p;
     
-    for (PKNodeParser *child in node.children) {
+    for (PKNodeBase *child in node.children) {
         [child visit:self];
     }
 }
@@ -169,7 +169,7 @@
     [_currentParser add:alt];
     self.currentParser = alt;
     
-    for (PKNodeParser *child in node.children) {
+    for (PKNodeBase *child in node.children) {
         [child visit:self];
     }
 }
@@ -186,7 +186,7 @@
     self.currentParser = seq;
     
     NSAssert(1 == [node.children count], @"");
-    for (PKNodeParser *childNode in node.children) {
+    for (PKNodeBase *childNode in node.children) {
         [childNode visit:self];
     }
     

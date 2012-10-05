@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeParser.h"
+#import "PKNodeBase.h"
 
-@implementation PKNodeParser
+@implementation PKNodeBase
 
 - (void)visit:(PKParserVisitor *)v {
     NSAssert2(0, @"%s is an abastract method. Must be overridden in %@", __PRETTY_FUNCTION__, NSStringFromClass([self class]));

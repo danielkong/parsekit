@@ -11,7 +11,7 @@
 //@class PKParser;
 //@class PKCollectionParser;
 
-@class PKNodeParser;
+@class PKNodeBase;
 @class PKNodeVariable;
 @class PKNodeConstant;
 @class PKNodeDelimited;

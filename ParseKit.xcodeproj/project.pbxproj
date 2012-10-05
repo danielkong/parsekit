@@ -32,7 +32,7 @@
 		D325FFC0161E4E5500D4EBCC /* PKNodeCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFBF161E4E5500D4EBCC /* PKNodeCollection.m */; };
 		D325FFC4161E4F5D00D4EBCC /* PKNodeConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFC3161E4F5D00D4EBCC /* PKNodeConstant.m */; };
 		D325FFCD161E500600D4EBCC /* PKNodePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFCC161E500600D4EBCC /* PKNodePattern.m */; };
-		D325FFDB161E551E00D4EBCC /* PKNodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDA161E551E00D4EBCC /* PKNodeParser.m */; };
+		D325FFDB161E551E00D4EBCC /* PKNodeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDA161E551E00D4EBCC /* PKNodeBase.m */; };
 		D325FFE0161E59F100D4EBCC /* PKNodeVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDF161E59F100D4EBCC /* PKNodeVariable.m */; };
 		D325FFE7161F482F00D4EBCC /* PKCompositeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */; };
 		D325FFE9161F484100D4EBCC /* PKCompositeParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D325FFE8161F484100D4EBCC /* PKCompositeParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -809,16 +809,10 @@
 		D325FFC1161E4E9C00D4EBCC /* PKNodeTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeTypes.h; path = test/PKNodeTypes.h; sourceTree = "<group>"; };
 		D325FFC2161E4F5D00D4EBCC /* PKNodeConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeConstant.h; path = test/PKNodeConstant.h; sourceTree = "<group>"; };
 		D325FFC3161E4F5D00D4EBCC /* PKNodeConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeConstant.m; path = test/PKNodeConstant.m; sourceTree = "<group>"; };
-		D325FFC5161E4FDC00D4EBCC /* PKNodeRepetition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeRepetition.h; path = test/PKNodeRepetition.h; sourceTree = "<group>"; };
-		D325FFC6161E4FDC00D4EBCC /* PKNodeRepetition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeRepetition.m; path = test/PKNodeRepetition.m; sourceTree = "<group>"; };
-		D325FFC8161E4FF600D4EBCC /* PKNodeDifference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeDifference.h; path = test/PKNodeDifference.h; sourceTree = "<group>"; };
-		D325FFC9161E4FF600D4EBCC /* PKNodeDifference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeDifference.m; path = test/PKNodeDifference.m; sourceTree = "<group>"; };
 		D325FFCB161E500600D4EBCC /* PKNodePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodePattern.h; path = test/PKNodePattern.h; sourceTree = "<group>"; };
 		D325FFCC161E500600D4EBCC /* PKNodePattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodePattern.m; path = test/PKNodePattern.m; sourceTree = "<group>"; };
-		D325FFCE161E507C00D4EBCC /* PKNodeNegation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeNegation.h; path = test/PKNodeNegation.h; sourceTree = "<group>"; };
-		D325FFCF161E507C00D4EBCC /* PKNodeNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeNegation.m; path = test/PKNodeNegation.m; sourceTree = "<group>"; };
-		D325FFD9161E551E00D4EBCC /* PKNodeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeParser.h; path = test/PKNodeParser.h; sourceTree = "<group>"; };
-		D325FFDA161E551E00D4EBCC /* PKNodeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeParser.m; path = test/PKNodeParser.m; sourceTree = "<group>"; };
+		D325FFD9161E551E00D4EBCC /* PKNodeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeBase.h; path = test/PKNodeBase.h; sourceTree = "<group>"; };
+		D325FFDA161E551E00D4EBCC /* PKNodeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeBase.m; path = test/PKNodeBase.m; sourceTree = "<group>"; };
 		D325FFDE161E59F000D4EBCC /* PKNodeVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeVariable.h; path = test/PKNodeVariable.h; sourceTree = "<group>"; };
 		D325FFDF161E59F100D4EBCC /* PKNodeVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeVariable.m; path = test/PKNodeVariable.m; sourceTree = "<group>"; };
 		D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKCompositeParser.m; path = src/PKCompositeParser.m; sourceTree = "<group>"; };
@@ -1489,8 +1483,8 @@
 			isa = PBXGroup;
 			children = (
 				D325FFC1161E4E9C00D4EBCC /* PKNodeTypes.h */,
-				D325FFD9161E551E00D4EBCC /* PKNodeParser.h */,
-				D325FFDA161E551E00D4EBCC /* PKNodeParser.m */,
+				D325FFD9161E551E00D4EBCC /* PKNodeBase.h */,
+				D325FFDA161E551E00D4EBCC /* PKNodeBase.m */,
 				D325FFDE161E59F000D4EBCC /* PKNodeVariable.h */,
 				D325FFDF161E59F100D4EBCC /* PKNodeVariable.m */,
 				D325FFC2161E4F5D00D4EBCC /* PKNodeConstant.h */,
@@ -1507,12 +1501,6 @@
 				D325FFEE161F59D300D4EBCC /* PKNodeOptional.m */,
 				D325FFF0161F59E500D4EBCC /* PKNodeMultiple.h */,
 				D325FFF1161F59E600D4EBCC /* PKNodeMultiple.m */,
-				D325FFC5161E4FDC00D4EBCC /* PKNodeRepetition.h */,
-				D325FFC6161E4FDC00D4EBCC /* PKNodeRepetition.m */,
-				D325FFC8161E4FF600D4EBCC /* PKNodeDifference.h */,
-				D325FFC9161E4FF600D4EBCC /* PKNodeDifference.m */,
-				D325FFCE161E507C00D4EBCC /* PKNodeNegation.h */,
-				D325FFCF161E507C00D4EBCC /* PKNodeNegation.m */,
 			);
 			name = "AST Nodes";
 			sourceTree = "<group>";
@@ -3241,7 +3229,7 @@
 				D325FFC0161E4E5500D4EBCC /* PKNodeCollection.m in Sources */,
 				D325FFC4161E4F5D00D4EBCC /* PKNodeConstant.m in Sources */,
 				D325FFCD161E500600D4EBCC /* PKNodePattern.m in Sources */,
-				D325FFDB161E551E00D4EBCC /* PKNodeParser.m in Sources */,
+				D325FFDB161E551E00D4EBCC /* PKNodeBase.m in Sources */,
 				D325FFE0161E59F100D4EBCC /* PKNodeVariable.m in Sources */,
 				D325FFEC161F557D00D4EBCC /* PKNodeComposite.m in Sources */,
 				D325FFEF161F59D400D4EBCC /* PKNodeOptional.m in Sources */,
