@@ -13,12 +13,14 @@
 #import "NSArray+ParseKitAdditions.h"
 
 #import "PKAST.h"
+#import "PKNodeVariable.h"
 #import "PKNodeConstant.h"
-#import "PKNodeCollection.h"
-#import "PKNodeRepetition.h"
-#import "PKNodeDifference.h"
 #import "PKNodePattern.h"
-#import "PKNodeNegation.h"
+#import "PKNodeComposite.h"
+#import "PKNodeCollection.h"
+//#import "PKNodeRepetition.h"
+//#import "PKNodeDifference.h"
+//#import "PKNodeNegation.h"
 
 #define USE_TRACK 0
 
@@ -419,7 +421,8 @@
     NSAssert([minus isKindOfClass:[PKAST class]], @"");
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKAST *diffNode = [PKNodeDifference ASTWithToken:tok];
+//    PKAST *diffNode = [PKNodeDifference ASTWithToken:tok];
+    PKAST *diffNode = [PKNodeComposite ASTWithToken:tok];
     [diffNode addChild:sub];
     [diffNode addChild:minus];
     
@@ -554,7 +557,8 @@
     PKAST *sub = [a pop];
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKAST *starNode = [PKNodeRepetition ASTWithToken:tok];
+    //    PKAST *starNode = [PKNodeRepetition ASTWithToken:tok];
+    PKAST *starNode = [PKNodeComposite ASTWithToken:tok];
     [starNode addChild:sub];
 
     [a push:starNode];
@@ -599,7 +603,8 @@
     PKToken *tok = [a pop]; // '~'
     NSAssert(tok.isSymbol, @"");
 
-    PKAST *negNode = [PKNodeNegation ASTWithToken:tok];
+    //    PKAST *negNode = [PKNodeNegation ASTWithToken:tok];
+    PKAST *negNode = [PKNodeComposite ASTWithToken:tok];
     [negNode addChild:sub];
     
     [a push:negNode];

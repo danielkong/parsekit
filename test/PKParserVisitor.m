@@ -10,11 +10,12 @@
 #import "PKNodeParser.h"
 #import "PKNodeVariable.h"
 #import "PKNodeConstant.h"
-#import "PKNodeCollection.h"
-#import "PKNodeRepetition.h"
-#import "PKNodeDifference.h"
 #import "PKNodePattern.h"
-#import "PKNodeNegation.h"
+#import "PKNodeComposite.h"
+#import "PKNodeCollection.h"
+//#import "PKNodeRepetition.h"
+//#import "PKNodeDifference.h"
+//#import "PKNodeNegation.h"
 
 @implementation PKParserVisitor
 
@@ -70,55 +71,135 @@
 }
 
 
+- (void)visitComposite:(PKNodeComposite *)node {
+    PKCompositeParser *p = nil;
+    
+    PKToken *tok = node.token;
+    NSAssert(tok.isSymbol, @"");
+    
+    NSString *tokStr = tok.stringValue;
+    NSAssert([tokStr length], @"");
+    unichar c = [tokStr characterAtIndex:0];
+    
+    Class parserClass = Nil;
+    
+    switch (c) {
+        case '*':
+            parserClass = [PKRepetition class];
+            break;
+        case '~':
+            parserClass = [PKNegation class];
+            break;
+        case '-':
+            parserClass = [PKNegation class];
+            break;
+        default:
+            break;
+    }
+    
+    p = [[[parserClass alloc] init] autorelease];
+    
+    [_currentParser add:p];
+    self.currentParser = p;
+    
+    for (PKNodeParser *child in node.children) {
+        [child visit:self];
+    }
+}
+
+
 - (void)visitCollection:(PKNodeCollection *)node {
     PKCollectionParser *p = nil;
     
     PKToken *tok = node.token;
     NSAssert(tok.isSymbol, @"");
+    
+    NSString *tokStr = tok.stringValue;
+    NSAssert([tokStr length], @"");
+    unichar c = [tokStr characterAtIndex:0];
 
+    Class parserClass = Nil;
+    BOOL optional = NO;
+    BOOL multiple = NO;
+    
+    switch (c) {
+        case '+':
+            multiple = YES;
+            // fall-thru
+        case 'S':
+            parserClass = [PKSequence class];
+            break;
+        case 'T':
+            parserClass = [PKTrack class];
+            break;
+        case '&':
+            parserClass = [PKIntersection class];
+            break;
+        case '?':
+            optional = YES;
+            // fall-thru
+        case '|':
+            parserClass = [PKAlternation class];
+            break;
+        default:
+            break;
+    }
+    
+    p = [[[parserClass alloc] init] autorelease];
+    
+    if (optional) {
+        [p add:[PKEmpty empty]];
+    }
+    
     [_currentParser add:p];
+
+    if (multiple) {
+        [_currentParser add:[PKRepetition repetitionWithSubparser:p]];
+    }
+
     self.currentParser = p;
 
     for (PKNodeParser *child in node.children) {
         [child visit:self];
     }
+    
 }
 
 
-- (void)visitRepetition:(PKNodeRepetition *)node {
-    PKRepetition *p = [[[PKRepetition alloc] init] autorelease];
-    
-    [_currentParser add:p];
-    self.currentParser = p;
-
-    for (PKNodeParser *child in node.children) {
-        [child visit:self];
-    }
-}
-
-
-- (void)visitDifference:(PKNodeDifference *)node {
-    PKDifference *p = [[[PKDifference alloc] init] autorelease];
-    
-    [_currentParser add:p];
-    self.currentParser = p;
-    
-    for (PKNodeParser *child in node.children) {
-        [child visit:self];
-    }
-}
-
-
-- (void)visitNegation:(PKNodeNegation *)node {
-    PKNegation *p = [[[PKNegation alloc] init] autorelease];
-    
-    [_currentParser add:p];
-    self.currentParser = p;
-    
-    for (PKNodeParser *child in node.children) {
-        [child visit:self];
-    }
-}
+//- (void)visitRepetition:(PKNodeRepetition *)node {
+//    PKRepetition *p = [[[PKRepetition alloc] init] autorelease];
+//    
+//    [_currentParser add:p];
+//    self.currentParser = p;
+//
+//    for (PKNodeParser *child in node.children) {
+//        [child visit:self];
+//    }
+//}
+//
+//
+//- (void)visitDifference:(PKNodeDifference *)node {
+//    PKDifference *p = [[[PKDifference alloc] init] autorelease];
+//    
+//    [_currentParser add:p];
+//    self.currentParser = p;
+//    
+//    for (PKNodeParser *child in node.children) {
+//        [child visit:self];
+//    }
+//}
+//
+//
+//- (void)visitNegation:(PKNodeNegation *)node {
+//    PKNegation *p = [[[PKNegation alloc] init] autorelease];
+//    
+//    [_currentParser add:p];
+//    self.currentParser = p;
+//    
+//    for (PKNodeParser *child in node.children) {
+//        [child visit:self];
+//    }
+//}
 
 
 - (void)setCurrentParser:(PKCompositeParser *)p {
