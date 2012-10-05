@@ -8,7 +8,8 @@
 
 #import "PKParserVisitor.h"
 #import "PKNodeParser.h"
-#import "PKNodeTerminal.h"
+#import "PKNodeVariable.h"
+#import "PKNodeConstant.h"
 #import "PKNodeCollection.h"
 #import "PKNodeRepetition.h"
 #import "PKNodeDifference.h"
@@ -24,20 +25,36 @@
 }
 
 
-- (void)visitTerminal:(PKNodeTerminal *)node {
+- (void)visitVariable:(PKNodeVariable *)node {
+    PKCollectionParser *p = nil;
+    
+    PKToken *tok = node.token;
+    NSAssert(tok.isWord, @"");
+    
+    p = [PKSequence sequence];
+    p.name = tok.stringValue;
+    
+    [_currentParser add:p];
+    self.currentParser = p;
+    
+    for (PKNodeParser *child in node.children) {
+        [child visit:self];
+    }
+}
+
+
+- (void)visitConstant:(PKNodeConstant *)node {
     PKTerminal *p = nil;
     
     PKToken *tok = node.token;
+    NSAssert(tok.isWord, @"");
     
-    switch (tok.tokenType) {
-        case PKTokenTypeWord:
-            p = [PKWord word];
-            break;
-            
-        default:
-            break;
-    }
+    NSString *parserClassName = tok.stringValue;
+
+    Class parserClass = NSClassFromString([NSString stringWithFormat:@"PK%@", parserClassName]);
+    NSAssert(parserClass, @"");
     
+    p = [[[parserClass alloc] init] autorelease];
     
     [_currentParser add:p];
 }
@@ -48,13 +65,24 @@
 
     [_currentParser add:p];
     self.currentParser = p;
+
+    for (PKNodeParser *child in node.children) {
+        [child visit:self];
+    }
 }
 
 
 - (void)visitRepetition:(PKNodeRepetition *)node {
     PKRepetition *p = nil;
     
+    
+    
     [_currentParser add:p];
+    //    self.currentParser = p;
+
+    for (PKNodeParser *child in node.children) {
+        [child visit:self];
+    }
 }
 
 

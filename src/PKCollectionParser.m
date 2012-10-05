@@ -48,14 +48,14 @@
         self.subparsers = [NSMutableArray array];
 
         if (p1) {
-            [subparsers addObject:p1];
+            [self add:p1];
 
             va_list vargs;
             va_start(vargs, p1);
 
             PKParser *p = nil;
             while ((p = va_arg(vargs, PKParser *))) {
-                [subparsers addObject:p];
+                [self add:p];
             }
 
             va_end(vargs);

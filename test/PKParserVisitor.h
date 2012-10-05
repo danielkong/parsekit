@@ -12,7 +12,8 @@
 //@class PKCollectionParser;
 
 @class PKNodeParser;
-@class PKNodeTerminal;
+@class PKNodeVariable;
+@class PKNodeConstant;
 @class PKNodeCollection;
 @class PKNodeRepetition;
 @class PKNodeDifference;
@@ -21,7 +22,8 @@
 
 @interface PKParserVisitor : NSObject
 
-- (void)visitTerminal:(PKNodeTerminal *)node;
+- (void)visitVariable:(PKNodeVariable *)node;
+- (void)visitConstant:(PKNodeConstant *)node;
 - (void)visitCollection:(PKNodeCollection *)node;
 - (void)visitRepetition:(PKNodeRepetition *)node;
 - (void)visitDifference:(PKNodeDifference *)node;

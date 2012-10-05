@@ -13,7 +13,7 @@
 #import "NSArray+ParseKitAdditions.h"
 
 #import "PKAST.h"
-#import "PKNodeTerminal.h"
+#import "PKNodeConstant.h"
 #import "PKNodeCollection.h"
 #import "PKNodeRepetition.h"
 #import "PKNodeDifference.h"
@@ -308,7 +308,7 @@
 
     PKToken *tok = [a pop];
 
-    PKAST *parserNode = [PKNodeTerminal ASTWithToken:tok];
+    PKAST *parserNode = [PKNodeConstant ASTWithToken:tok];
     [a push:parserNode];
 }
 
@@ -516,7 +516,7 @@
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a {
     PKToken *tok = [a pop];
 
-    PKAST *litNode = [PKNodeTerminal ASTWithToken:tok];
+    PKAST *litNode = [PKNodeConstant ASTWithToken:tok];
     [a push:litNode];
 }
 
@@ -527,7 +527,7 @@
     NSArray *toks = [a objectsAbove:_paren];
     [a pop]; // discard '(' fence
 
-    PKAST *delimNode = [PKNodeTerminal ASTWithToken:_delimToken];
+    PKAST *delimNode = [PKNodeConstant ASTWithToken:_delimToken];
     
     for (PKToken *tok in toks) {
         PKAST *tokNode = [PKAST ASTWithToken:tok];
