@@ -19,7 +19,7 @@
 		D319E42F106D8A31008C63DD /* TDArithmeticAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D319E42D106D8A31008C63DD /* TDArithmeticAssembler.m */; };
 		D31A15270F6DE449002AFDF1 /* javascript.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D31A15250F6DE449002AFDF1 /* javascript.grammar */; };
 		D31A16530F7038C2002AFDF1 /* TDJavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D31A16510F7038C2002AFDF1 /* TDJavaScriptParser.m */; };
-		D31D394F161DFD15002D7210 /* PKParserVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D31D394E161DFD15002D7210 /* PKParserVisitor.m */; };
+		D31D394F161DFD15002D7210 /* PKNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D31D394E161DFD15002D7210 /* PKNodeVisitor.m */; };
 		D31EEF3315D482CA00399F70 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D31FE7300E60F31E00A0803E /* TDFastJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5A20E60E5D500A0803E /* TDFastJsonParser.m */; };
 		D31FE7320E60F33000A0803E /* EBNFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E78A160E574C99008C7D61 /* EBNFParser.m */; };
@@ -681,8 +681,8 @@
 		D31A15250F6DE449002AFDF1 /* javascript.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = javascript.grammar; path = res/javascript.grammar; sourceTree = "<group>"; };
 		D31A16500F7038C2002AFDF1 /* TDJavaScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDJavaScriptParser.h; path = test/TDJavaScriptParser.h; sourceTree = "<group>"; };
 		D31A16510F7038C2002AFDF1 /* TDJavaScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDJavaScriptParser.m; path = test/TDJavaScriptParser.m; sourceTree = "<group>"; };
-		D31D394D161DFD15002D7210 /* PKParserVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKParserVisitor.h; path = test/PKParserVisitor.h; sourceTree = "<group>"; };
-		D31D394E161DFD15002D7210 /* PKParserVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKParserVisitor.m; path = test/PKParserVisitor.m; sourceTree = "<group>"; };
+		D31D394D161DFD15002D7210 /* PKNodeVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeVisitor.h; path = test/PKNodeVisitor.h; sourceTree = "<group>"; };
+		D31D394E161DFD15002D7210 /* PKNodeVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeVisitor.m; path = test/PKNodeVisitor.m; sourceTree = "<group>"; };
 		D31FE54A0E60E46100A0803E /* TDTestScaffold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTestScaffold.h; path = test/TDTestScaffold.h; sourceTree = "<group>"; };
 		D31FE54B0E60E46100A0803E /* TDTestScaffold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTestScaffold.m; path = test/TDTestScaffold.m; sourceTree = "<group>"; };
 		D31FE54D0E60E50800A0803E /* TDAlternationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDAlternationTest.h; path = test/TDAlternationTest.h; sourceTree = "<group>"; };
@@ -1995,8 +1995,8 @@
 				D3A203E6161CE4F400207F4D /* TDGrammarParser.m */,
 				D3A203B4161CA1A200207F4D /* TDParserFactory.h */,
 				D3A203B5161CA1A200207F4D /* TDParserFactory.m */,
-				D31D394D161DFD15002D7210 /* PKParserVisitor.h */,
-				D31D394E161DFD15002D7210 /* PKParserVisitor.m */,
+				D31D394D161DFD15002D7210 /* PKNodeVisitor.h */,
+				D31D394E161DFD15002D7210 /* PKNodeVisitor.m */,
 				D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */,
 				D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */,
 				D325FFF6161F681D00D4EBCC /* TDParserFactoryParserTest.h */,
@@ -3230,7 +3230,7 @@
 				D3A203B6161CA1A200207F4D /* TDParserFactory.m in Sources */,
 				D3A203E4161CADD200207F4D /* TDParserFactoryASTTest.m in Sources */,
 				D3A203E7161CE4F500207F4D /* TDGrammarParser.m in Sources */,
-				D31D394F161DFD15002D7210 /* PKParserVisitor.m in Sources */,
+				D31D394F161DFD15002D7210 /* PKNodeVisitor.m in Sources */,
 				D325FFC0161E4E5500D4EBCC /* PKNodeCollection.m in Sources */,
 				D325FFC4161E4F5D00D4EBCC /* PKNodeConstant.m in Sources */,
 				D325FFCD161E500600D4EBCC /* PKNodePattern.m in Sources */,
