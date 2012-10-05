@@ -16,7 +16,7 @@
 }
 
 
-- (NSInteger)type {
+- (int)type {
     return PKNodeTypePattern;
 }
 

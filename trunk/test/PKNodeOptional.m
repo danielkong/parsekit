@@ -10,7 +10,7 @@
 
 @implementation PKNodeOptional
 
-- (NSInteger)type {
+- (int)type {
     return PKNodeTypeOptional;
 }
 

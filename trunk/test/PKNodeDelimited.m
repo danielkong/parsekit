@@ -17,7 +17,7 @@
 }
 
 
-- (NSInteger)type {
+- (int)type {
     return PKNodeTypeDelimited;
 }
 

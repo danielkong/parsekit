@@ -55,7 +55,7 @@
 @interface TDParserFactory ()
 - (PKTokenizer *)tokenizerForParsingGrammar;
 - (PKTokenizer *)tokenizerFromGrammarSettings;
-- (PKParser *)parserFromSyntaxTree:(PKAST *)rootNode;
+- (PKParser *)parserFromSyntaxTree:(PKNodeBase *)rootNode;
 
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
@@ -155,23 +155,23 @@
         self.assembler = a;
         self.preassembler = pa;
         
-        PKAST *rootNode = [self ASTFromGrammar:g error:outError];
+        PKNodeBase *rootNode = (PKNodeBase *)[self ASTFromGrammar:g error:outError];
         
         NSLog(@"%@", rootNode);
 
-//        PKTokenizer *t = [self tokenizerFromGrammarSettings];
-//        PKParser *start = [self parserFromSyntaxTree:rootNode];
-//        
-//        self.assembler = nil;
-//        self.callbackTab = nil;
-//        self.productionTab = nil;
-//        
-//        if (start && [start isKindOfClass:[PKParser class]]) {
-//            start.tokenizer = t;
-//            result = start;
-//        } else {
-//            [NSException raise:@"PKGrammarException" format:NSLocalizedString(@"An unknown error occurred while parsing the grammar. The provided language grammar was invalid.", @"")];
-//        }
+        PKTokenizer *t = [self tokenizerFromGrammarSettings];
+        PKParser *start = [self parserFromSyntaxTree:rootNode];
+        
+        self.assembler = nil;
+        self.callbackTab = nil;
+        self.productionTab = nil;
+        
+        if (start && [start isKindOfClass:[PKParser class]]) {
+            start.tokenizer = t;
+            result = start;
+        } else {
+            [NSException raise:@"PKGrammarException" format:NSLocalizedString(@"An unknown error occurred while parsing the grammar. The provided language grammar was invalid.", @"")];
+        }
         
         return result;
         
@@ -246,12 +246,47 @@
 
 
 - (PKTokenizer *)tokenizerFromGrammarSettings {
-    return nil;
+    // TODO
+    return [PKTokenizer tokenizer];
 }
 
 
-- (PKParser *)parserFromSyntaxTree:(PKAST *)rootNode {
-    return nil;
+- (PKParser *)parserFromSyntaxTree:(PKNodeBase *)rootNode {
+    PKParserVisitor *v = [[[PKParserVisitor alloc] init] autorelease];
+
+    PKNodeType nodeType = rootNode.type;
+    switch (nodeType) {
+        case PKNodeTypeVariable:
+            [v visitVariable:(PKNodeVariable *)rootNode];
+            break;
+        case PKNodeTypeConstant:
+            [v visitConstant:(PKNodeConstant *)rootNode];
+            break;
+        case PKNodeTypeDelimited:
+            [v visitDelimited:(PKNodeDelimited *)rootNode];
+            break;
+        case PKNodeTypePattern:
+            [v visitPattern:(PKNodePattern *)rootNode];
+            break;
+        case PKNodeTypeComposite:
+            [v visitComposite:(PKNodeComposite *)rootNode];
+            break;
+        case PKNodeTypeCollection:
+            [v visitCollection:(PKNodeCollection *)rootNode];
+            break;
+        case PKNodeTypeOptional:
+            [v visitOptional:(PKNodeOptional *)rootNode];
+            break;
+        case PKNodeTypeMultiple:
+            [v visitMultiple:(PKNodeMultiple *)rootNode];
+            break;
+        default:
+            NSAssert1(0, @"unknown nodeType %d", nodeType);
+            break;
+    }
+    
+    PKParser *p = v.rootParser;
+    return p;
 }
 
 
