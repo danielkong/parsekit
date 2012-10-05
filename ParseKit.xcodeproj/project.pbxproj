@@ -40,6 +40,7 @@
 		D325FFEF161F59D400D4EBCC /* PKNodeOptional.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEE161F59D300D4EBCC /* PKNodeOptional.m */; };
 		D325FFF2161F59E700D4EBCC /* PKNodeMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF1161F59E600D4EBCC /* PKNodeMultiple.m */; };
 		D325FFF5161F59F800D4EBCC /* PKNodeDelimited.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF4161F59F700D4EBCC /* PKNodeDelimited.m */; };
+		D325FFF8161F681F00D4EBCC /* TDParserFactoryParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF7161F681E00D4EBCC /* TDParserFactoryParserTest.m */; };
 		D3305C4F102F5BAE00DC4F75 /* TDGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */; };
 		D3305C50102F5BAE00DC4F75 /* TDSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4E102F5BAE00DC4F75 /* TDSourceCodeTextView.m */; };
 		D33494720E29670B00406085 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
@@ -825,6 +826,8 @@
 		D325FFF1161F59E600D4EBCC /* PKNodeMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeMultiple.m; path = test/PKNodeMultiple.m; sourceTree = "<group>"; };
 		D325FFF3161F59F500D4EBCC /* PKNodeDelimited.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeDelimited.h; path = test/PKNodeDelimited.h; sourceTree = "<group>"; };
 		D325FFF4161F59F700D4EBCC /* PKNodeDelimited.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeDelimited.m; path = test/PKNodeDelimited.m; sourceTree = "<group>"; };
+		D325FFF6161F681D00D4EBCC /* TDParserFactoryParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryParserTest.h; path = test/TDParserFactoryParserTest.h; sourceTree = "<group>"; };
+		D325FFF7161F681E00D4EBCC /* TDParserFactoryParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryParserTest.m; path = test/TDParserFactoryParserTest.m; sourceTree = "<group>"; };
 		D3305C4B102F5BAD00DC4F75 /* TDGutterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGutterView.h; path = demoapp/TDGutterView.h; sourceTree = "<group>"; };
 		D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGutterView.m; path = demoapp/TDGutterView.m; sourceTree = "<group>"; };
 		D3305C4D102F5BAE00DC4F75 /* TDSourceCodeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSourceCodeTextView.h; path = demoapp/TDSourceCodeTextView.h; sourceTree = "<group>"; };
@@ -1996,6 +1999,8 @@
 				D31D394E161DFD15002D7210 /* PKParserVisitor.m */,
 				D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */,
 				D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */,
+				D325FFF6161F681D00D4EBCC /* TDParserFactoryParserTest.h */,
+				D325FFF7161F681E00D4EBCC /* TDParserFactoryParserTest.m */,
 			);
 			name = NewFactory;
 			sourceTree = "<group>";
@@ -3235,6 +3240,7 @@
 				D325FFEF161F59D400D4EBCC /* PKNodeOptional.m in Sources */,
 				D325FFF2161F59E700D4EBCC /* PKNodeMultiple.m in Sources */,
 				D325FFF5161F59F800D4EBCC /* PKNodeDelimited.m in Sources */,
+				D325FFF8161F681F00D4EBCC /* TDParserFactoryParserTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
