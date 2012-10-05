@@ -15,7 +15,7 @@
 }
 
 
-- (void)visit:(PKParserVisitor *)v {
+- (void)visit:(PKNodeVisitor *)v {
     [v visitCollection:self];
 }
 

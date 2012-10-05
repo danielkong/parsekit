@@ -8,10 +8,10 @@
 
 #import "PKNodeTypes.h"
 #import "PKAST.h"
-#import "PKParserVisitor.h"
+#import "PKNodeVisitor.h"
 
 @interface PKNodeBase : PKAST
-- (void)visit:(PKParserVisitor *)v;
+- (void)visit:(PKNodeVisitor *)v;
 
 @property (nonatomic, assign) BOOL discard;
 @end

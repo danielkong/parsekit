@@ -254,7 +254,7 @@
 
 
 - (PKParser *)parserFromAST:(PKNodeBase *)rootNode {
-    PKParserVisitor *v = [[[PKParserVisitor alloc] init] autorelease];
+    PKNodeVisitor *v = [[[PKNodeVisitor alloc] init] autorelease];
 
     PKNodeType nodeType = rootNode.type;
     switch (nodeType) {

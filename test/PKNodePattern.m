@@ -21,7 +21,7 @@
 }
 
 
-- (void)visit:(PKParserVisitor *)v {
+- (void)visit:(PKNodeVisitor *)v {
     [v visitPattern:self];
 }
 

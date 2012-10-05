@@ -24,7 +24,7 @@
 //@class PKNodeDifference;
 //@class PKNodeNegation;
 
-@interface PKParserVisitor : NSObject
+@interface PKNodeVisitor : NSObject
 
 - (void)visitVariable:(PKNodeVariable *)node;
 - (void)visitConstant:(PKNodeConstant *)node;
