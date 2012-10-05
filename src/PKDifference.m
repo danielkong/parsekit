@@ -99,6 +99,18 @@
     return outAssemblies;
 }
 
+
+- (void)add:(PKParser *)p {
+    NSParameterAssert([p isKindOfClass:[PKParser class]]);
+    NSAssert(!subparser || !minus, @"");
+    
+    if (!subparser) {
+        self.subparser = p;
+    } else if (!minus) {
+        self.minus = p;
+    }
+}
+
 @synthesize subparser;
 @synthesize minus;
 @end

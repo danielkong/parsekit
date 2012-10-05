@@ -73,5 +73,12 @@
     return outAssemblies;
 }
 
+
+- (void)add:(PKParser *)p {
+    NSParameterAssert([p isKindOfClass:[PKParser class]]);
+    NSAssert(!subparser, @"");
+    self.subparser = p;
+}
+
 @synthesize subparser;
 @end

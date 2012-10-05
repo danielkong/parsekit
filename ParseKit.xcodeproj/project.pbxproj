@@ -37,6 +37,8 @@
 		D325FFD0161E507C00D4EBCC /* PKNodeNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFCF161E507C00D4EBCC /* PKNodeNegation.m */; };
 		D325FFDB161E551E00D4EBCC /* PKNodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDA161E551E00D4EBCC /* PKNodeParser.m */; };
 		D325FFE0161E59F100D4EBCC /* PKNodeVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDF161E59F100D4EBCC /* PKNodeVariable.m */; };
+		D325FFE7161F482F00D4EBCC /* PKCompositeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */; };
+		D325FFE9161F484100D4EBCC /* PKCompositeParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D325FFE8161F484100D4EBCC /* PKCompositeParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3305C4F102F5BAE00DC4F75 /* TDGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */; };
 		D3305C50102F5BAE00DC4F75 /* TDSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4E102F5BAE00DC4F75 /* TDSourceCodeTextView.m */; };
 		D33494720E29670B00406085 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
@@ -818,6 +820,8 @@
 		D325FFDA161E551E00D4EBCC /* PKNodeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeParser.m; path = test/PKNodeParser.m; sourceTree = "<group>"; };
 		D325FFDE161E59F000D4EBCC /* PKNodeVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeVariable.h; path = test/PKNodeVariable.h; sourceTree = "<group>"; };
 		D325FFDF161E59F100D4EBCC /* PKNodeVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeVariable.m; path = test/PKNodeVariable.m; sourceTree = "<group>"; };
+		D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKCompositeParser.m; path = src/PKCompositeParser.m; sourceTree = "<group>"; };
+		D325FFE8161F484100D4EBCC /* PKCompositeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKCompositeParser.h; path = include/ParseKit/PKCompositeParser.h; sourceTree = "<group>"; };
 		D3305C4B102F5BAD00DC4F75 /* TDGutterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGutterView.h; path = demoapp/TDGutterView.h; sourceTree = "<group>"; };
 		D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGutterView.m; path = demoapp/TDGutterView.m; sourceTree = "<group>"; };
 		D3305C4D102F5BAE00DC4F75 /* TDSourceCodeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSourceCodeTextView.h; path = demoapp/TDSourceCodeTextView.h; sourceTree = "<group>"; };
@@ -2213,6 +2217,8 @@
 				D34BADD60FF9CBFB00D7773A /* PKParser.m */,
 				D3C2219F0FFE8BAE004514FE /* PKRepetition.h */,
 				D34BAE130FF9CE0E00D7773A /* PKRepetition.m */,
+				D325FFE8161F484100D4EBCC /* PKCompositeParser.h */,
+				D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */,
 				D3C221A20FFE8BBA004514FE /* PKCollectionParser.h */,
 				D34BAE010FF9CCAE00D7773A /* PKCollectionParser.m */,
 				D3C221A50FFE8BC1004514FE /* PKAlternation.h */,
@@ -2536,6 +2542,7 @@
 				D33DC1A111656952004CE58C /* PKTwitterState.h in Headers */,
 				D37F232B1453842900A98014 /* PKHashtagState.h in Headers */,
 				D30805BC155ECB3F0000BC60 /* PKPattern.h in Headers */,
+				D325FFE9161F484100D4EBCC /* PKCompositeParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3034,6 +3041,7 @@
 				D37F23221453841100A98014 /* PKHashtagState.m in Sources */,
 				D30805BA155ECB1F0000BC60 /* PKPattern.m in Sources */,
 				D30805BB155ECB220000BC60 /* RegexKitLite.m in Sources */,
+				D325FFE7161F482F00D4EBCC /* PKCompositeParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
