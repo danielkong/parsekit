@@ -30,10 +30,26 @@
     NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Number;";
     
     NSError *err = nil;
-    PKParser *p = [_factory parserFromGrammar:g assembler:nil error:&err];
+    PKCollectionParser *p = (PKCollectionParser *)[_factory parserFromGrammar:g assembler:nil error:&err];
 
     TDNotNil(p);
     TDTrue([p isKindOfClass:[PKSequence class]]);
+    
+    TDTrue(1 == [p.subparsers count]);
+    PKCollectionParser *foo = [p.subparsers objectAtIndex:0];
+    TDTrue([foo isKindOfClass:[PKCollectionParser class]]);
+    
+    TDTrue(1 == [foo.subparsers count]);
+    PKCollectionParser *bar = [p.subparsers objectAtIndex:0];
+    TDTrue([bar isKindOfClass:[PKCollectionParser class]]);
+    
+    TDTrue(2 == [bar.subparsers count]);
+    PKCollectionParser *baz = [p.subparsers objectAtIndex:0];
+    TDTrue([baz isKindOfClass:[PKCollectionParser class]]);
+    
+    PKCollectionParser *bat = [p.subparsers objectAtIndex:1];
+    TDTrue([bat isKindOfClass:[PKCollectionParser class]]);
+    
 }
 
 @end
