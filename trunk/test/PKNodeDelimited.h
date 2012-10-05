@@ -9,5 +9,6 @@
 #import "PKNodeTypes.h"
 
 @interface PKNodeDelimited : PKNodeBase
-
+@property (nonatomic, retain) NSString *startMarker;
+@property (nonatomic, retain) NSString *endMarker;
 @end
