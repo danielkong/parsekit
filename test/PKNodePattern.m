@@ -10,6 +10,12 @@
 
 @implementation PKNodePattern
 
+- (void)dealloc {
+    self.string = nil;
+    [super dealloc];
+}
+
+
 - (NSInteger)type {
     return PKNodeTypePattern;
 }

@@ -12,4 +12,6 @@
 
 @interface PKNodeBase : PKAST
 - (void)visit:(PKParserVisitor *)v;
+
+@property (nonatomic, assign) BOOL discard;
 @end

@@ -499,23 +499,22 @@
     NSAssert([s hasPrefix:@"/"], @"");
     NSAssert([s hasSuffix:@"/"], @"");
     
-    //NSString *re = [s stringByTrimmingQuotes];
+    NSString *re = [s stringByTrimmingQuotes];
     
-//    PKTerminal *t = [PKPattern patternWithString:re options:opts];
-
-    // TODO
-    PKAST *patNode = [PKNodePattern ASTWithToken:tok];
+    PKNodePattern *patNode = (PKNodePattern *)[PKNodePattern ASTWithToken:tok];
+    patNode.string = re;
+    patNode.options = opts;
+    
     [a push:patNode];
 }
 
 
 - (void)parser:(PKParser *)p didMatchDiscard:(PKAssembly *)a {
-//    id obj = [a pop];
-//    if ([obj isKindOfClass:[PKTerminal class]]) {
-//        PKTerminal *t = (PKTerminal *)obj;
-//        [t discard];
-//    }
-//    [a push:obj];
+    PKNodeBase *node = [a pop];
+    NSAssert([node isKindOfClass:[PKNodeBase class]], @"");
+
+    node.discard = YES;
+    [a push:node];
 }
 
 
@@ -533,12 +532,17 @@
     NSArray *toks = [a objectsAbove:_paren];
     [a pop]; // discard '(' fence
 
-    PKAST *delimNode = [PKNodeConstant ASTWithToken:_delimToken];
-    
-    for (PKToken *tok in toks) {
-        PKAST *tokNode = [PKAST ASTWithToken:tok];
-        [delimNode addChild:tokNode];
+    PKNodeDelimited *delimNode = (PKNodeDelimited *)[PKNodeDelimited ASTWithToken:_delimToken];
+
+    NSAssert([toks count] > 0 && [toks count] < 3, @"");
+    NSString *start = [[[toks lastObject] stringValue] stringByTrimmingQuotes];
+    NSString *end = nil;
+    if ([toks count] > 1) {
+        end = [[[toks objectAtIndex:0] stringValue] stringByTrimmingQuotes];
     }
+    
+    delimNode.startMarker = start;
+    delimNode.endMarker = end;
     
     [a push:delimNode];
 }

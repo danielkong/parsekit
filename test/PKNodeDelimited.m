@@ -10,6 +10,13 @@
 
 @implementation PKNodeDelimited
 
+- (void)dealloc {
+    self.startMarker = nil;
+    self.endMarker = nil;
+    [super dealloc];
+}
+
+
 - (NSInteger)type {
     return PKNodeTypeDelimited;
 }

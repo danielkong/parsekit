@@ -57,6 +57,10 @@
     
     p = [[[parserClass alloc] init] autorelease];
     
+    if (node.discard) {
+        [p discard];
+    }
+    
     [_currentParser add:p];
 }
 
