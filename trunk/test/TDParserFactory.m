@@ -55,7 +55,7 @@
 @interface TDParserFactory ()
 - (PKTokenizer *)tokenizerForParsingGrammar;
 - (PKTokenizer *)tokenizerFromGrammarSettings;
-- (PKParser *)parserFromSyntaxTree:(PKNodeBase *)rootNode;
+- (PKParser *)parserFromAST:(PKNodeBase *)rootNode;
 
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
@@ -157,11 +157,13 @@
         
         PKNodeBase *rootNode = (PKNodeBase *)[self ASTFromGrammar:g error:outError];
         
-        NSLog(@"%@", rootNode);
+        NSLog(@"rootNode %@", rootNode);
 
         PKTokenizer *t = [self tokenizerFromGrammarSettings];
-        PKParser *start = [self parserFromSyntaxTree:rootNode];
+        PKParser *start = [self parserFromAST:rootNode];
         
+        NSLog(@"start %@", start);
+
         self.assembler = nil;
         self.callbackTab = nil;
         self.productionTab = nil;
@@ -251,7 +253,7 @@
 }
 
 
-- (PKParser *)parserFromSyntaxTree:(PKNodeBase *)rootNode {
+- (PKParser *)parserFromAST:(PKNodeBase *)rootNode {
     PKParserVisitor *v = [[[PKParserVisitor alloc] init] autorelease];
 
     PKNodeType nodeType = rootNode.type;
@@ -320,7 +322,7 @@
     
     PKAST *prodNode = [_productionTab objectForKey:prodName];
     if (!prodNode) {
-        prodNode = [PKNodeCollection ASTWithToken:tok];
+        prodNode = [PKNodeVariable ASTWithToken:tok];
         [_productionTab setObject:prodNode forKey:prodName];
     }
     
@@ -336,7 +338,7 @@
 
     PKAST *prodNode = [_productionTab objectForKey:prodName];
     if (!prodNode) {
-        prodNode = [PKNodeCollection ASTWithToken:tok];
+        prodNode = [PKNodeVariable ASTWithToken:tok];
         [_productionTab setObject:prodNode forKey:prodName];
     }
     [a push:prodNode];

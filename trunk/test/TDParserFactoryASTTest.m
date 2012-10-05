@@ -1,5 +1,5 @@
 //
-//  TDNewParserFactoryTest.m
+//  TDParserFactoryASTTest.m
 //  ParseKit
 //
 //  Created by Todd Ditchendorf on 10/3/12.
@@ -27,46 +27,46 @@
 
 
 - (void)testAlternationAST {
-    NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Num;";
+    NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Number;";
 
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar (| (baz Word) (bat Num)))))");    
+    TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar (| (baz Word) (bat Number)))))");    
 }
 
 
 - (void)testSequenceAST {
-    NSString *g = @"@start=foo;foo=QuotedString Num;";
+    NSString *g = @"@start=foo;foo=QuotedString Number;";
     
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects([rootNode treeDescription], @"(@start (foo QuotedString Num))");
+    TDEqualObjects([rootNode treeDescription], @"(@start (foo QuotedString Number))");
 }
 
 
 - (void)testSubExprSequenceAST {
-    NSString *g = @"@start=foo;foo=(QuotedString Num);";
+    NSString *g = @"@start=foo;foo=(QuotedString Number);";
     
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects([rootNode treeDescription], @"(@start (foo (SEQ QuotedString Num)))");
+    TDEqualObjects([rootNode treeDescription], @"(@start (foo (SEQ QuotedString Number)))");
 
-    g = @"@start=foo;foo=( QuotedString Num );";
+    g = @"@start=foo;foo=( QuotedString Number );";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects([rootNode treeDescription], @"(@start (foo (SEQ QuotedString Num)))");
+    TDEqualObjects([rootNode treeDescription], @"(@start (foo (SEQ QuotedString Number)))");
 
-    g = @"@start=foo; foo = ( QuotedString Num );";
+    g = @"@start=foo; foo = ( QuotedString Number );";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects([rootNode treeDescription], @"(@start (foo (SEQ QuotedString Num)))");
+    TDEqualObjects([rootNode treeDescription], @"(@start (foo (SEQ QuotedString Number)))");
 }
 
 
