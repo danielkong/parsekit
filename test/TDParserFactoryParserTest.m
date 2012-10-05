@@ -40,15 +40,24 @@
     TDTrue([foo isKindOfClass:[PKCollectionParser class]]);
     
     TDTrue(1 == [foo.subparsers count]);
-    PKCollectionParser *bar = [p.subparsers objectAtIndex:0];
+    PKCollectionParser *bar = [foo.subparsers objectAtIndex:0];
     TDTrue([bar isKindOfClass:[PKCollectionParser class]]);
     
-    TDTrue(2 == [bar.subparsers count]);
-    PKCollectionParser *baz = [p.subparsers objectAtIndex:0];
+    TDTrue(1 == [bar.subparsers count]);
+    PKAlternation *alt = [bar.subparsers objectAtIndex:0];
+    TDTrue(2 == [alt.subparsers count]);
+    
+    PKCollectionParser *baz = [alt.subparsers objectAtIndex:0];
     TDTrue([baz isKindOfClass:[PKCollectionParser class]]);
     
-    PKCollectionParser *bat = [p.subparsers objectAtIndex:1];
+    PKCollectionParser *bat = [alt.subparsers objectAtIndex:1];
     TDTrue([bat isKindOfClass:[PKCollectionParser class]]);
+    
+    NSString *input = @"hello";
+    PKAssembly *a = [PKTokenAssembly assemblyWithString:input];
+    a = [p completeMatchFor:a];
+    
+    TDEqualObjects([a description], @"[hello]hello^");
     
 }
 

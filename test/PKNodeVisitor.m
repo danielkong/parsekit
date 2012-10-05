@@ -41,6 +41,8 @@
     for (PKNodeBase *child in node.children) {
         [child visit:self];
     }
+
+    self.currentParser = p;
 }
 
 
@@ -117,6 +119,7 @@
     
     for (PKNodeBase *child in node.children) {
         [child visit:self];
+        self.currentParser = p;
     }
 }
 
@@ -158,6 +161,7 @@
     
     for (PKNodeBase *child in node.children) {
         [child visit:self];
+        self.currentParser = p;
     }
 }
 
@@ -175,6 +179,7 @@
     
     for (PKNodeBase *child in node.children) {
         [child visit:self];
+        self.currentParser = alt;
     }
 }
 
@@ -197,6 +202,7 @@
     NSAssert(1 == [seq.subparsers count], @"");
     for (PKParser *childParser in seq.subparsers) {
         [seq add:[PKRepetition repetitionWithSubparser:childParser]];
+        self.currentParser = seq;
     }
 }
 
