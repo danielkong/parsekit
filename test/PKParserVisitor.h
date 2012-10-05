@@ -24,12 +24,12 @@
 
 - (void)visitVariable:(PKNodeVariable *)node;
 - (void)visitConstant:(PKNodeConstant *)node;
+- (void)visitPattern:(PKNodePattern *)node;
 - (void)visitCollection:(PKNodeCollection *)node;
 - (void)visitRepetition:(PKNodeRepetition *)node;
 - (void)visitDifference:(PKNodeDifference *)node;
-- (void)visitPattern:(PKNodePattern *)node;
 - (void)visitNegation:(PKNodeNegation *)node;
 
 @property (nonatomic, retain) PKParser *rootParser;
-@property (nonatomic, retain) PKCollectionParser *currentParser;
+@property (nonatomic, retain) PKCompositeParser *currentParser;
 @end
