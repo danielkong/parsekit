@@ -1,22 +1,22 @@
 //
-//  PKNodeTerminal.m
+//  PKNodeVariable.m
 //  ParseKit
 //
 //  Created by Todd Ditchendorf on 10/4/12.
 //
 //
 
-#import "PKNodeTerminal.h"
+#import "PKNodeVariable.h"
 
-@implementation PKNodeTerminal
+@implementation PKNodeVariable
 
 - (NSInteger)type {
-    return PKNodeTypeTerminal;
+    return PKNodeTypeVariable;
 }
 
 
 - (void)visit:(PKParserVisitor *)v {
-    [v visitTerminal:self];
+    [v visitVariable:self];
 }
 
 @end

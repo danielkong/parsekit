@@ -13,7 +13,8 @@
 #import "PKNodeParser.h"
 
 typedef enum {
-    PKNodeTypeTerminal = 0,
+    PKNodeTypeVariable = 0,
+    PKNodeTypeConstant,
     PKNodeTypeCollection,
     PKNodeTypeRepetition,
     PKNodeTypeDifference,
