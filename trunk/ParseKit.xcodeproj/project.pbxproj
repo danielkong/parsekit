@@ -374,7 +374,7 @@
 		D3A20248161B6B2900207F4D /* TDRegexMatcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20247161B6B2900207F4D /* TDRegexMatcherTest.m */; };
 		D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203A7161BCF6600207F4D /* TDRegexMatcher.m */; };
 		D3A203B6161CA1A200207F4D /* TDParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203B5161CA1A200207F4D /* TDParserFactory.m */; };
-		D3A203E4161CADD200207F4D /* TDNewParserFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203E3161CADD200207F4D /* TDNewParserFactoryTest.m */; };
+		D3A203E4161CADD200207F4D /* TDParserFactoryASTTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */; };
 		D3A203E7161CE4F500207F4D /* TDGrammarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203E6161CE4F400207F4D /* TDGrammarParser.m */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */; };
@@ -1106,8 +1106,8 @@
 		D3A203A7161BCF6600207F4D /* TDRegexMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRegexMatcher.m; path = test/TDRegexMatcher.m; sourceTree = "<group>"; };
 		D3A203B4161CA1A200207F4D /* TDParserFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactory.h; path = test/TDParserFactory.h; sourceTree = "<group>"; };
 		D3A203B5161CA1A200207F4D /* TDParserFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactory.m; path = test/TDParserFactory.m; sourceTree = "<group>"; };
-		D3A203E2161CADD200207F4D /* TDNewParserFactoryTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNewParserFactoryTest.h; path = test/TDNewParserFactoryTest.h; sourceTree = "<group>"; };
-		D3A203E3161CADD200207F4D /* TDNewParserFactoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNewParserFactoryTest.m; path = test/TDNewParserFactoryTest.m; sourceTree = "<group>"; };
+		D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryASTTest.h; path = test/TDParserFactoryASTTest.h; sourceTree = "<group>"; };
+		D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryASTTest.m; path = test/TDParserFactoryASTTest.m; sourceTree = "<group>"; };
 		D3A203E5161CE4F400207F4D /* TDGrammarParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGrammarParser.h; path = src/TDGrammarParser.h; sourceTree = "<group>"; };
 		D3A203E6161CE4F400207F4D /* TDGrammarParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGrammarParser.m; path = src/TDGrammarParser.m; sourceTree = "<group>"; };
 		D3AF49760FDB122E0032F4DC /* TDParserFactoryPatternTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryPatternTest.h; path = test/TDParserFactoryPatternTest.h; sourceTree = "<group>"; };
@@ -1994,8 +1994,8 @@
 				D3A203B5161CA1A200207F4D /* TDParserFactory.m */,
 				D31D394D161DFD15002D7210 /* PKParserVisitor.h */,
 				D31D394E161DFD15002D7210 /* PKParserVisitor.m */,
-				D3A203E2161CADD200207F4D /* TDNewParserFactoryTest.h */,
-				D3A203E3161CADD200207F4D /* TDNewParserFactoryTest.m */,
+				D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */,
+				D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */,
 			);
 			name = NewFactory;
 			sourceTree = "<group>";
@@ -3223,7 +3223,7 @@
 				D3A20248161B6B2900207F4D /* TDRegexMatcherTest.m in Sources */,
 				D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */,
 				D3A203B6161CA1A200207F4D /* TDParserFactory.m in Sources */,
-				D3A203E4161CADD200207F4D /* TDNewParserFactoryTest.m in Sources */,
+				D3A203E4161CADD200207F4D /* TDParserFactoryASTTest.m in Sources */,
 				D3A203E7161CE4F500207F4D /* TDGrammarParser.m in Sources */,
 				D31D394F161DFD15002D7210 /* PKParserVisitor.m in Sources */,
 				D325FFC0161E4E5500D4EBCC /* PKNodeCollection.m in Sources */,
