@@ -60,8 +60,21 @@
 }
 
 
+
+- (void)visitPattern:(PKNodePattern *)node {
+    PKPatternOptions opts = 0;
+    NSString *regex = nil;
+    PKPattern *p = [PKPattern patternWithString:regex options:opts];
+    
+    [_currentParser add:p];
+}
+
+
 - (void)visitCollection:(PKNodeCollection *)node {
     PKCollectionParser *p = nil;
+    
+    PKToken *tok = node.token;
+    NSAssert(tok.isSymbol, @"");
 
     [_currentParser add:p];
     self.currentParser = p;
@@ -73,12 +86,10 @@
 
 
 - (void)visitRepetition:(PKNodeRepetition *)node {
-    PKRepetition *p = nil;
-    
-    
+    PKRepetition *p = [[[PKRepetition alloc] init] autorelease];
     
     [_currentParser add:p];
-    //    self.currentParser = p;
+    self.currentParser = p;
 
     for (PKNodeParser *child in node.children) {
         [child visit:self];
@@ -87,27 +98,30 @@
 
 
 - (void)visitDifference:(PKNodeDifference *)node {
-    PKDifference *p = nil;
+    PKDifference *p = [[[PKDifference alloc] init] autorelease];
     
     [_currentParser add:p];
-}
-
-
-- (void)visitPattern:(PKNodePattern *)node {
-    PKPattern *p = nil;
+    self.currentParser = p;
     
-    [_currentParser add:p];
+    for (PKNodeParser *child in node.children) {
+        [child visit:self];
+    }
 }
 
 
 - (void)visitNegation:(PKNodeNegation *)node {
-    PKNegation *p = nil;
+    PKNegation *p = [[[PKNegation alloc] init] autorelease];
     
     [_currentParser add:p];
+    self.currentParser = p;
+    
+    for (PKNodeParser *child in node.children) {
+        [child visit:self];
+    }
 }
 
 
-- (void)setCurrentParser:(PKCollectionParser *)p {
+- (void)setCurrentParser:(PKCompositeParser *)p {
     if (p != _currentParser) {
         [_currentParser release];
         _currentParser = [p retain];
