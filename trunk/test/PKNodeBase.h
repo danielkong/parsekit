@@ -10,6 +10,6 @@
 #import "PKAST.h"
 #import "PKParserVisitor.h"
 
-@interface PKNodeParser : PKAST
+@interface PKNodeBase : PKAST
 - (void)visit:(PKParserVisitor *)v;
 @end
