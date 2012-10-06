@@ -18,6 +18,7 @@
 @class PKNodePattern;
 @class PKNodeComposite;
 @class PKNodeCollection;
+@class PKNodeCardinal;
 @class PKNodeOptional;
 @class PKNodeMultiple;
 //@class PKNodeRepetition;
@@ -32,6 +33,7 @@
 - (void)visitPattern:(PKNodePattern *)node;
 - (void)visitComposite:(PKNodeComposite *)node;
 - (void)visitCollection:(PKNodeCollection *)node;
+- (void)visitCardinal:(PKNodeCardinal *)node;
 - (void)visitOptional:(PKNodeOptional *)node;
 - (void)visitMultiple:(PKNodeMultiple *)node;
 //- (void)visitRepetition:(PKNodeRepetition *)node;

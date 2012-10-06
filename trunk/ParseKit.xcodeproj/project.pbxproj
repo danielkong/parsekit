@@ -353,6 +353,7 @@
 		D383498C0F0C0CF30055E4E0 /* json_with_comments.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */; };
 		D38349BD0F0C0D910055E4E0 /* json_with_comments.css in Resources */ = {isa = PBXBuildFile; fileRef = D38349BB0F0C0D910055E4E0 /* json_with_comments.css */; };
 		D3834A490F0C14C00055E4E0 /* yahoo_with_comments.json in Resources */ = {isa = PBXBuildFile; fileRef = D3834A470F0C14B60055E4E0 /* yahoo_with_comments.json */; };
+		D38395DC1620B37400F0DADE /* PKNodeCardinal.m in Sources */ = {isa = PBXBuildFile; fileRef = D38395DB1620B37400F0DADE /* PKNodeCardinal.m */; };
 		D385F98C0F046FE900DB2946 /* TDGenericAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D385F9890F046FE900DB2946 /* TDGenericAssembler.m */; };
 		D385FA260F04993500DB2946 /* json.css in Resources */ = {isa = PBXBuildFile; fileRef = D385FA240F04993500DB2946 /* json.css */; };
 		D385FD440F05A88C00DB2946 /* TDMiniCSSAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D385FD410F05A88C00DB2946 /* TDMiniCSSAssembler.m */; };
@@ -1070,6 +1071,8 @@
 		D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = json_with_comments.grammar; path = res/json_with_comments.grammar; sourceTree = "<group>"; };
 		D38349BB0F0C0D910055E4E0 /* json_with_comments.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = json_with_comments.css; path = res/json_with_comments.css; sourceTree = "<group>"; };
 		D3834A470F0C14B60055E4E0 /* yahoo_with_comments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = yahoo_with_comments.json; path = res/yahoo_with_comments.json; sourceTree = "<group>"; };
+		D38395DA1620B37400F0DADE /* PKNodeCardinal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeCardinal.h; path = test/PKNodeCardinal.h; sourceTree = "<group>"; };
+		D38395DB1620B37400F0DADE /* PKNodeCardinal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeCardinal.m; path = test/PKNodeCardinal.m; sourceTree = "<group>"; };
 		D385F9880F046FE900DB2946 /* TDGenericAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGenericAssembler.h; path = test/TDGenericAssembler.h; sourceTree = "<group>"; };
 		D385F9890F046FE900DB2946 /* TDGenericAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGenericAssembler.m; path = test/TDGenericAssembler.m; sourceTree = "<group>"; };
 		D385FA210F04971400DB2946 /* TDGenericAssemblerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGenericAssemblerTest.h; path = test/TDGenericAssemblerTest.h; sourceTree = "<group>"; };
@@ -1500,6 +1503,8 @@
 				D325FFEB161F557C00D4EBCC /* PKNodeComposite.m */,
 				D325FFBE161E4E5500D4EBCC /* PKNodeCollection.h */,
 				D325FFBF161E4E5500D4EBCC /* PKNodeCollection.m */,
+				D38395DA1620B37400F0DADE /* PKNodeCardinal.h */,
+				D38395DB1620B37400F0DADE /* PKNodeCardinal.m */,
 				D325FFED161F59D200D4EBCC /* PKNodeOptional.h */,
 				D325FFEE161F59D300D4EBCC /* PKNodeOptional.m */,
 				D325FFF0161F59E500D4EBCC /* PKNodeMultiple.h */,
@@ -3241,6 +3246,7 @@
 				D325FFF2161F59E700D4EBCC /* PKNodeMultiple.m in Sources */,
 				D325FFF5161F59F800D4EBCC /* PKNodeDelimited.m in Sources */,
 				D325FFF8161F681F00D4EBCC /* TDParserFactoryParserTest.m in Sources */,
+				D38395DC1620B37400F0DADE /* PKNodeCardinal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
