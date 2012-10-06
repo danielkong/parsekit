@@ -13,6 +13,9 @@
 #import "PKNodePattern.h"
 #import "PKNodeComposite.h"
 #import "PKNodeCollection.h"
+#import "PKNodeCardinal.h"
+#import "PKNodeOptional.h"
+#import "PKNodeMultiple.h"
 //#import "PKNodeRepetition.h"
 //#import "PKNodeDifference.h"
 //#import "PKNodeNegation.h"
@@ -166,7 +169,32 @@
 }
 
 
-- (void)visitOptional:(PKNodeCollection *)node {
+- (void)visitCardinal:(PKNodeCardinal *)node {
+    PKCollectionParser *seq = [PKSequence sequence];
+    
+    NSAssert(node.token.isSymbol, @"");
+    NSAssert([node.token.stringValue isEqualToString:@"{"], @"");
+    
+    NSInteger start = node.rangeStart;
+    NSInteger end = node.rangeEnd;
+    
+    [_currentParser add:seq];
+    self.currentParser = seq;
+    
+    NSAssert(1 == [node.children count], @"");
+    for (PKNodeBase *childNode in node.children) {
+        [childNode visit:self];
+    }
+    
+    NSAssert(1 == [seq.subparsers count], @"");
+    for (PKParser *childParser in seq.subparsers) {
+        [seq add:[PKRepetition repetitionWithSubparser:childParser]];
+        self.currentParser = seq;
+    }
+}
+
+
+- (void)visitOptional:(PKNodeOptional *)node {
     PKCollectionParser *alt = [PKAlternation alternation];
     [alt add:[PKEmpty empty]];
     
@@ -184,7 +212,7 @@
 }
 
 
-- (void)visitMultiple:(PKNodeCollection *)node {
+- (void)visitMultiple:(PKNodeMultiple *)node {
     PKCollectionParser *seq = [PKSequence sequence];
     
     PKToken *tok = node.token;

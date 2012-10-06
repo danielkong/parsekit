@@ -19,6 +19,7 @@ typedef enum {
     PKNodeTypePattern,
     PKNodeTypeComposite,
     PKNodeTypeCollection,
+    PKNodeTypeCardinal,
     PKNodeTypeOptional,
     PKNodeTypeMultiple,
 //    PKNodeTypeRepetition,
