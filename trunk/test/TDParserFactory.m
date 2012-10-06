@@ -19,6 +19,7 @@
 #import "PKNodePattern.h"
 #import "PKNodeComposite.h"
 #import "PKNodeCollection.h"
+#import "PKNodeCardinal.h"
 #import "PKNodeOptional.h"
 #import "PKNodeMultiple.h"
 //#import "PKNodeRepetition.h"
@@ -656,44 +657,41 @@
 
 
 - (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a {
-//    NSRange r = [[a pop] rangeValue];
-//    
-//    p = [a pop];
-//    PKSequence *s = [PKSequence sequence];
-//    
-//    NSInteger start = r.location;
-//    NSInteger end = r.length;
-//    
-//    for (NSInteger i = 0; i < start; i++) {
-//        [s add:p];
-//    }
-//    
-//    for (NSInteger i = 0; i < end; i++) {
-//        [s add:[self zeroOrOne:p]];
-//    }
-//    
-//    [a push:s];
+    NSRange r = [[a pop] rangeValue];
+    PKToken *tok = [a pop]; // '{' tok
+
+    PKNodeBase *childNode = [a pop];
+    PKNodeCardinal *node = (PKNodeCardinal *)[PKNodeCardinal ASTWithToken:tok];
+    
+    [node addChild:childNode];
+    
+    NSInteger start = r.location;
+    NSInteger end = r.length;
+
+    node.rangeStart = start;
+    node.rangeEnd = end;
+    
+    [a push:node];
 }
 
 
 - (void)parser:(PKParser *)p didMatchCardinality:(PKAssembly *)a {
-//    NSArray *toks = [a objectsAbove:self.curly];
-//    [a pop]; // discard '{' tok
-//    
-//    NSAssert([toks count] > 0, @"");
-//    
-//    PKToken *tok = [toks lastObject];
-//    PKFloat start = tok.floatValue;
-//    PKFloat end = start;
-//    if ([toks count] > 1) {
-//        tok = [toks objectAtIndex:0];
-//        end = tok.floatValue;
-//    }
-//    
-//    NSAssert(start <= end, @"");
-//    
-//    NSRange r = NSMakeRange(start, end);
-//    [a push:[NSValue valueWithRange:r]];
+    NSArray *toks = [a objectsAbove:self.curly];
+    
+    NSAssert([toks count] > 0, @"");
+    
+    PKToken *tok = [toks lastObject];
+    PKFloat start = tok.floatValue;
+    PKFloat end = start;
+    if ([toks count] > 1) {
+        tok = [toks objectAtIndex:0];
+        end = tok.floatValue;
+    }
+    
+    NSAssert(start <= end, @"");
+    
+    NSRange r = NSMakeRange(start, end);
+    [a push:[NSValue valueWithRange:r]];
 }
 
 

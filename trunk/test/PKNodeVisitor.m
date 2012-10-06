@@ -182,15 +182,21 @@
     self.currentParser = seq;
     
     NSAssert(1 == [node.children count], @"");
-    for (PKNodeBase *childNode in node.children) {
+    PKNodeBase *childNode = [node.children objectAtIndex:0];
+    
+    for (NSInteger i = 0; i < start; i++) {
         [childNode visit:self];
     }
     
-    NSAssert(1 == [seq.subparsers count], @"");
-    for (PKParser *childParser in seq.subparsers) {
-        [seq add:[PKRepetition repetitionWithSubparser:childParser]];
-        self.currentParser = seq;
+    for (NSInteger i = start; i < end; i++) {
+        PKAlternation *opt = [PKAlternation alternation];
+        [opt add:[PKEmpty empty]];
+        self.currentParser = opt;
+        [childNode visit:self];
+        [seq add:opt];
     }
+    
+    self.currentParser = seq;
 }
 
 
