@@ -256,6 +256,9 @@
 
 - (PKParser *)parserFromAST:(PKNodeBase *)rootNode {
     PKNodeVisitor *v = [[[PKNodeVisitor alloc] init] autorelease];
+    
+    v.assembler = _assembler;
+    v.preassembler = _preassembler;
 
     PKNodeType nodeType = rootNode.type;
     switch (nodeType) {
@@ -391,32 +394,6 @@
     
     [a push:parent];
 }
-
-
-//- (NSString *)defaultAssemblerSelectorNameForParserName:(NSString *)parserName {
-//    NSString *prefix = nil;
-//    if ([parserName hasPrefix:@"@"]) {
-//        //        parserName = [parserName substringFromIndex:1];
-//        //        prefix = @"parser:didMatch_";
-//        return nil;
-//    } else {
-//        prefix = @"parser:didMatch";
-//    }
-//    NSString *s = [NSString stringWithFormat:@"%@%@", [[parserName substringToIndex:1] uppercaseString], [parserName substringFromIndex:1]];
-//    return [NSString stringWithFormat:@"%@%@:", prefix, s];
-//}
-//
-//
-//- (NSString *)defaultPreassemblerSelectorNameForParserName:(NSString *)parserName {
-//    NSString *prefix = nil;
-//    if ([parserName hasPrefix:@"@"]) {
-//        return nil;
-//    } else {
-//        prefix = @"parser:willMatch";
-//    }
-//    NSString *s = [NSString stringWithFormat:@"%@%@", [[parserName substringToIndex:1] uppercaseString], [parserName substringFromIndex:1]];
-//    return [NSString stringWithFormat:@"%@%@:", prefix, s];
-//}
 
 
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a {
