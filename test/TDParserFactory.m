@@ -399,8 +399,18 @@
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a {
     PKToken *selNameTok2 = [a pop];
     PKToken *selNameTok1 = [a pop];
+    PKNodeVariable *node = [a pop];
+    
+    NSAssert([selNameTok1 isKindOfClass:[PKToken class]], @"");
+    NSAssert([selNameTok2 isKindOfClass:[PKToken class]], @"");
+    NSAssert(selNameTok1.isWord, @"");
+    NSAssert(selNameTok2.isWord, @"");
+    
+    NSAssert([node isKindOfClass:[PKNodeVariable class]], @"");
+    
     NSString *selName = [NSString stringWithFormat:@"%@:%@:", selNameTok1.stringValue, selNameTok2.stringValue];
-    [a push:selName];
+    node.callbackName = selName;
+    [a push:node];
 }
 
 
