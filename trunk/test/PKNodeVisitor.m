@@ -48,6 +48,8 @@
     }
 
     self.currentParser = p;
+
+    [self setAssemblerForParser:p callbackName:node.callbackName];
 }
 
 
@@ -281,9 +283,9 @@
 #pragma mark -
 #pragma mark Assemblers
 
-- (void)setAssemblerForParser:(PKParser *)p {
+- (void)setAssemblerForParser:(PKParser *)p callbackName:(NSString *)callbackName {
     NSString *parserName = p.name;
-    NSString *selName = nil; //[selectorTable objectForKey:parserName];
+    NSString *selName = callbackName;
 
     BOOL setOnAll = (_assemblerSettingBehavior & TDParserFactoryAssemblerSettingBehaviorOnAll);
     
