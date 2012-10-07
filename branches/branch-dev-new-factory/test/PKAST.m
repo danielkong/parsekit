@@ -62,6 +62,7 @@
 
     NSInteger i = 0;
     for (PKAST *child in _children) {
+        NSAssert(child !=  self, @"");
         if (i++) {
             [ms appendFormat:@" %@", [child treeDescription]];
         } else {

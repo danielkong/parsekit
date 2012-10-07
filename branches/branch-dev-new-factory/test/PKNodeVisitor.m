@@ -16,6 +16,7 @@
 #import "PKNodeCardinal.h"
 #import "PKNodeOptional.h"
 #import "PKNodeMultiple.h"
+#import "NSString+ParseKitAdditions.h"
 //#import "PKNodeRepetition.h"
 //#import "PKNodeDifference.h"
 //#import "PKNodeNegation.h"
@@ -57,14 +58,24 @@
     PKTerminal *p = nil;
     
     PKToken *tok = node.token;
-    NSAssert(tok.isWord, @"");
-    
-    NSString *parserClassName = tok.stringValue;
-
-    Class parserClass = NSClassFromString([NSString stringWithFormat:@"PK%@", parserClassName]);
-    NSAssert(parserClass, @"");
-    
-    p = [[[parserClass alloc] init] autorelease];
+    if (tok.isWord) {
+        NSAssert(tok.isWord, @"");
+        
+        NSString *parserClassName = tok.stringValue;
+        
+        Class parserClass = NSClassFromString([NSString stringWithFormat:@"PK%@", parserClassName]);
+        NSAssert(parserClass, @"");
+        
+        p = [[[parserClass alloc] init] autorelease];
+    } else if (tok.isQuotedString) {
+        NSAssert(tok.isQuotedString, @"");
+        
+        NSString *str = [tok.stringValue stringByTrimmingQuotes];
+        
+        p = [PKLiteral literalWithString:str];
+    } else {
+        NSAssert(0, @"");
+    }
     
     if (node.discard) {
         [p discard];

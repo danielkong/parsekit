@@ -17,11 +17,11 @@
 @implementation SAXTest
 
 - (void)setUp {
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"xml" ofType:@"grammar"];
-    g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    factory = [PKParserFactory factory];
-    p = [factory parserFromGrammar:g assembler:self error:nil];
-    t = p.tokenizer;
+//    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"xml" ofType:@"grammar"];
+//    g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    factory = [PKParserFactory factory];
+//    p = [factory parserFromGrammar:g assembler:self error:nil];
+//    t = p.tokenizer;
 }
 
 

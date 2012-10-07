@@ -170,7 +170,9 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.seqToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"SEQ" floatValue:0.0];
         self.trackToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"TRACK" floatValue:0.0];
         self.delimToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"DELIM" floatValue:0.0];
-}
+
+        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
+    }
     return self;
 }
 
@@ -492,6 +494,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     v.assembler = _assembler;
     v.preassembler = _preassembler;
 
+    v.assemblerSettingBehavior = _assemblerSettingBehavior;
+    
     PKNodeType nodeType = rootNode.type;
     switch (nodeType) {
         case PKNodeTypeVariable:
@@ -881,7 +885,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKAST *sub = [a pop];
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKAST *qNode = [PKNodeCollection ASTWithToken:tok];
+    PKAST *qNode = [PKNodeOptional ASTWithToken:tok];
     [qNode addChild:sub];
     
     [a push:qNode];
