@@ -178,7 +178,7 @@
 }
 
 
-// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' S*  (~';')* ';'!;
+// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' (S* | (~';'))+ ';'!;
 - (PKCollectionParser *)tokenizerDirectiveParser {
     if (!_tokenizerDirectiveParser) {
         self.tokenizerDirectiveParser = [PKSequence sequence];
@@ -190,10 +190,13 @@
         [_tokenizerDirectiveParser add:notStart];
         [_tokenizerDirectiveParser add:self.optionalWhitespaceParser];
         [_tokenizerDirectiveParser add:[PKSymbol symbolWithString:@"="]];
-        [_tokenizerDirectiveParser add:self.optionalWhitespaceParser];
         
         PKParser *notSemi = [PKNegation negationWithSubparser:[PKSymbol symbolWithString:@";"]];
-        [_tokenizerDirectiveParser add:[PKRepetition repetitionWithSubparser:notSemi]];
+        PKAlternation *alt = [PKAlternation alternation];
+        [alt add:self.optionalWhitespaceParser];
+        [alt add:notSemi];
+        
+        [_tokenizerDirectiveParser add:[self oneOrMore:alt]];
         [_tokenizerDirectiveParser add:[[PKSymbol symbolWithString:@";"] discard]];
 
         [_tokenizerDirectiveParser setAssembler:_assembler selector:@selector(parser:didMatchTokenizerDirective:)];
