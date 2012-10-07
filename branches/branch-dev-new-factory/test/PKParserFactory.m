@@ -15,6 +15,7 @@
 #import "PKAST.h"
 #import "PKNodeVariable.h"
 #import "PKNodeConstant.h"
+#import "PKNodeLiteral.h"
 #import "PKNodeDelimited.h"
 #import "PKNodePattern.h"
 #import "PKNodeComposite.h"
@@ -624,6 +625,15 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
+- (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a {
+    //    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    PKToken *tok = [a pop];
+    
+    PKAST *litNode = [PKNodeLiteral ASTWithToken:tok];
+    [a push:litNode];
+}
+
+
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
 //    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
@@ -805,14 +815,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 
     node.discard = YES;
     [a push:node];
-}
-
-
-- (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a {
-    PKToken *tok = [a pop];
-
-    PKAST *litNode = [PKNodeConstant ASTWithToken:tok];
-    [a push:litNode];
 }
 
 

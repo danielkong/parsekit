@@ -10,6 +10,7 @@
 #import "PKNodeBase.h"
 #import "PKNodeVariable.h"
 #import "PKNodeConstant.h"
+#import "PKNodeLiteral.h"
 #import "PKNodePattern.h"
 #import "PKNodeComposite.h"
 #import "PKNodeCollection.h"
@@ -58,24 +59,32 @@
     PKTerminal *p = nil;
     
     PKToken *tok = node.token;
-    if (tok.isWord) {
-        NSAssert(tok.isWord, @"");
-        
-        NSString *parserClassName = tok.stringValue;
-        
-        Class parserClass = NSClassFromString([NSString stringWithFormat:@"PK%@", parserClassName]);
-        NSAssert(parserClass, @"");
-        
-        p = [[[parserClass alloc] init] autorelease];
-    } else if (tok.isQuotedString) {
-        NSAssert(tok.isQuotedString, @"");
-        
-        NSString *str = [tok.stringValue stringByTrimmingQuotes];
-        
-        p = [PKLiteral literalWithString:str];
-    } else {
-        NSAssert(0, @"");
+    NSAssert(tok.isWord, @"");
+    
+    NSString *parserClassName = tok.stringValue;
+    
+    Class parserClass = NSClassFromString([NSString stringWithFormat:@"PK%@", parserClassName]);
+    NSAssert(parserClass, @"");
+    
+    p = [[[parserClass alloc] init] autorelease];
+    
+    if (node.discard) {
+        [p discard];
     }
+    
+    [_currentParser add:p];
+}
+
+
+- (void)visitLiteral:(PKNodeLiteral *)node {
+    PKTerminal *p = nil;
+    
+    PKToken *tok = node.token;
+    NSAssert(tok.isQuotedString, @"");
+    
+    NSString *str = [tok.stringValue stringByTrimmingQuotes];
+    
+    p = [PKLiteral literalWithString:str];
     
     if (node.discard) {
         [p discard];

@@ -14,6 +14,7 @@
 @class PKNodeBase;
 @class PKNodeVariable;
 @class PKNodeConstant;
+@class PKNodeLiteral;
 @class PKNodeDelimited;
 @class PKNodePattern;
 @class PKNodeComposite;
@@ -29,6 +30,7 @@
 
 - (void)visitVariable:(PKNodeVariable *)node;
 - (void)visitConstant:(PKNodeConstant *)node;
+- (void)visitLiteral:(PKNodeLiteral *)node;
 - (void)visitDelimited:(PKNodeDelimited *)node;
 - (void)visitPattern:(PKNodePattern *)node;
 - (void)visitComposite:(PKNodeComposite *)node;
