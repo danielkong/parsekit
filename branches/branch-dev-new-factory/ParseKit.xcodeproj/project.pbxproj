@@ -19,7 +19,6 @@
 		D319E42F106D8A31008C63DD /* TDArithmeticAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D319E42D106D8A31008C63DD /* TDArithmeticAssembler.m */; };
 		D31A15270F6DE449002AFDF1 /* javascript.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D31A15250F6DE449002AFDF1 /* javascript.grammar */; };
 		D31A16530F7038C2002AFDF1 /* TDJavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D31A16510F7038C2002AFDF1 /* TDJavaScriptParser.m */; };
-		D31D394F161DFD15002D7210 /* PKNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D31D394E161DFD15002D7210 /* PKNodeVisitor.m */; };
 		D31EEF3315D482CA00399F70 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D31FE7300E60F31E00A0803E /* TDFastJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE5A20E60E5D500A0803E /* TDFastJsonParser.m */; };
 		D31FE7320E60F33000A0803E /* EBNFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E78A160E574C99008C7D61 /* EBNFParser.m */; };
@@ -29,24 +28,12 @@
 		D31FE7400E60F40300A0803E /* XPathAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E97AF0E589DAE00496BD3 /* XPathAssembler.m */; };
 		D31FE7420E60F40900A0803E /* XPathContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98210E58A3A800496BD3 /* XPathContext.m */; };
 		D3252F7E0FCE1A87005EF059 /* TDNSPredicateBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = D3252F7D0FCE1A87005EF059 /* TDNSPredicateBuilder.m */; };
-		D325FFC0161E4E5500D4EBCC /* PKNodeCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFBF161E4E5500D4EBCC /* PKNodeCollection.m */; };
-		D325FFC4161E4F5D00D4EBCC /* PKNodeConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFC3161E4F5D00D4EBCC /* PKNodeConstant.m */; };
-		D325FFCD161E500600D4EBCC /* PKNodePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFCC161E500600D4EBCC /* PKNodePattern.m */; };
-		D325FFDB161E551E00D4EBCC /* PKNodeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDA161E551E00D4EBCC /* PKNodeBase.m */; };
-		D325FFE0161E59F100D4EBCC /* PKNodeVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDF161E59F100D4EBCC /* PKNodeVariable.m */; };
 		D325FFE7161F482F00D4EBCC /* PKCompositeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */; };
 		D325FFE9161F484100D4EBCC /* PKCompositeParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D325FFE8161F484100D4EBCC /* PKCompositeParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D325FFEC161F557D00D4EBCC /* PKNodeComposite.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEB161F557C00D4EBCC /* PKNodeComposite.m */; };
-		D325FFEF161F59D400D4EBCC /* PKNodeOptional.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEE161F59D300D4EBCC /* PKNodeOptional.m */; };
-		D325FFF2161F59E700D4EBCC /* PKNodeMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF1161F59E600D4EBCC /* PKNodeMultiple.m */; };
-		D325FFF5161F59F800D4EBCC /* PKNodeDelimited.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF4161F59F700D4EBCC /* PKNodeDelimited.m */; };
 		D325FFF8161F681F00D4EBCC /* TDParserFactoryParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF7161F681E00D4EBCC /* TDParserFactoryParserTest.m */; };
 		D3305C4F102F5BAE00DC4F75 /* TDGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */; };
 		D3305C50102F5BAE00DC4F75 /* TDSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4E102F5BAE00DC4F75 /* TDSourceCodeTextView.m */; };
 		D33494720E29670B00406085 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
-		D3376D5910093A1600E4602E /* PKGrammarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3376D5710093A1600E4602E /* PKGrammarParser.h */; };
-		D3376D5A10093A1600E4602E /* PKGrammarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D5810093A1600E4602E /* PKGrammarParser.m */; };
-		D3376D8F10096C0700E4602E /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
 		D337F07E15D5AE7B00C83AED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D337F07C15D5AE7B00C83AED /* InfoPlist.strings */; };
 		D3385FDA0FCFB1FF003BF729 /* TDPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */; };
 		D33DC1991165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
@@ -104,7 +91,6 @@
 		D34BAFC20FF9E80300D7773A /* PKSpecificChar.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFBA0FF9E80300D7773A /* PKSpecificChar.m */; };
 		D34BAFDA0FF9E95500D7773A /* NSArray+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD40FF9E95500D7773A /* NSArray+ParseKitAdditions.m */; };
 		D34BAFDC0FF9E95500D7773A /* NSString+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD60FF9E95500D7773A /* NSString+ParseKitAdditions.m */; };
-		D34BAFDE0FF9E95500D7773A /* PKParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD80FF9E95500D7773A /* PKParserFactory.m */; };
 		D34BB0680FF9EDDF00D7773A /* JSParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0660FF9EDDF00D7773A /* JSParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D34BB0690FF9EDDF00D7773A /* JSParseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0670FF9EDDF00D7773A /* JSParseKit.m */; };
 		D34BB0710FF9EE4000D7773A /* PKJSAssembly.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB06A0FF9EE4000D7773A /* PKJSAssembly.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -204,8 +190,6 @@
 		D36E98E70E58C14000496BD3 /* DemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98E40E58C14000496BD3 /* DemoAppDelegate.m */; };
 		D36E98E80E58C14000496BD3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98E50E58C14000496BD3 /* main.m */; };
 		D36E98F80E58C1A000496BD3 /* DemoAppMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D36E98F70E58C1A000496BD3 /* DemoAppMainMenu.xib */; };
-		D37A28671013942300E936B7 /* PKGrammarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D5810093A1600E4602E /* PKGrammarParser.m */; };
-		D37A28681013942A00E936B7 /* PKGrammarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3376D5710093A1600E4602E /* PKGrammarParser.h */; };
 		D37D3A000FE77A71008C2E4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
 		D37D3A010FE77A72008C2E4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
 		D37D3A020FE77A77008C2E4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
@@ -215,7 +199,6 @@
 		D37D8DE01571A57300CDB822 /* PKRuleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D369345A1038DE5300527AF3 /* PKRuleNode.m */; };
 		D37D8DE11571A57300CDB822 /* PKTokenNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D369345C1038DE5300527AF3 /* PKTokenNode.m */; };
 		D37D8DE21571A57300CDB822 /* TDParseTreeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F55F601025737D00DD6DB1 /* TDParseTreeTest.m */; };
-		D37D8DE31571A57300CDB822 /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
 		D37D8DE41571A57300CDB822 /* TDParserFactoryTest3.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAC220FF87F8600D7773A /* TDParserFactoryTest3.m */; };
 		D37D8DE51571A57300CDB822 /* TDParserFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D380BA600F0F06CD0009EC13 /* TDParserFactoryTest.m */; };
 		D37D8DE61571A57300CDB822 /* TDParserFactoryTest2.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C53780FD27F1300141CB7 /* TDParserFactoryTest2.m */; };
@@ -353,7 +336,40 @@
 		D383498C0F0C0CF30055E4E0 /* json_with_comments.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */; };
 		D38349BD0F0C0D910055E4E0 /* json_with_comments.css in Resources */ = {isa = PBXBuildFile; fileRef = D38349BB0F0C0D910055E4E0 /* json_with_comments.css */; };
 		D3834A490F0C14C00055E4E0 /* yahoo_with_comments.json in Resources */ = {isa = PBXBuildFile; fileRef = D3834A470F0C14B60055E4E0 /* yahoo_with_comments.json */; };
-		D38395DC1620B37400F0DADE /* PKNodeCardinal.m in Sources */ = {isa = PBXBuildFile; fileRef = D38395DB1620B37400F0DADE /* PKNodeCardinal.m */; };
+		D38395DF1621007600F0DADE /* PKGrammarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D38395DD1621007500F0DADE /* PKGrammarParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D38395E01621007600F0DADE /* PKGrammarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D38395DD1621007500F0DADE /* PKGrammarParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D38395E11621007600F0DADE /* PKGrammarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D38395DE1621007500F0DADE /* PKGrammarParser.m */; };
+		D38395E21621007600F0DADE /* PKGrammarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D38395DE1621007500F0DADE /* PKGrammarParser.m */; };
+		D38395E31621008E00F0DADE /* PKParserFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A203B4161CA1A200207F4D /* PKParserFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D38395E41621009000F0DADE /* PKParserFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A203B4161CA1A200207F4D /* PKParserFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D38395E61621009E00F0DADE /* PKParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203B5161CA1A200207F4D /* PKParserFactory.m */; };
+		D38395E71621009F00F0DADE /* PKParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203B5161CA1A200207F4D /* PKParserFactory.m */; };
+		D38395E8162100A900F0DADE /* PKNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D31D394E161DFD15002D7210 /* PKNodeVisitor.m */; };
+		D38395E9162100AA00F0DADE /* PKNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D31D394E161DFD15002D7210 /* PKNodeVisitor.m */; };
+		D38395EA162100BC00F0DADE /* PKNodeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDA161E551E00D4EBCC /* PKNodeBase.m */; };
+		D38395EB162100BC00F0DADE /* PKNodeVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDF161E59F100D4EBCC /* PKNodeVariable.m */; };
+		D38395EC162100BC00F0DADE /* PKNodeConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFC3161E4F5D00D4EBCC /* PKNodeConstant.m */; };
+		D38395ED162100BC00F0DADE /* PKNodePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFCC161E500600D4EBCC /* PKNodePattern.m */; };
+		D38395EE162100BC00F0DADE /* PKNodeDelimited.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF4161F59F700D4EBCC /* PKNodeDelimited.m */; };
+		D38395EF162100BC00F0DADE /* PKNodeComposite.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEB161F557C00D4EBCC /* PKNodeComposite.m */; };
+		D38395F0162100BC00F0DADE /* PKNodeCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFBF161E4E5500D4EBCC /* PKNodeCollection.m */; };
+		D38395F1162100BC00F0DADE /* PKNodeCardinal.m in Sources */ = {isa = PBXBuildFile; fileRef = D38395DB1620B37400F0DADE /* PKNodeCardinal.m */; };
+		D38395F2162100BC00F0DADE /* PKNodeOptional.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEE161F59D300D4EBCC /* PKNodeOptional.m */; };
+		D38395F3162100BC00F0DADE /* PKNodeMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF1161F59E600D4EBCC /* PKNodeMultiple.m */; };
+		D38395F4162100BD00F0DADE /* PKNodeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDA161E551E00D4EBCC /* PKNodeBase.m */; };
+		D38395F5162100BD00F0DADE /* PKNodeVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDF161E59F100D4EBCC /* PKNodeVariable.m */; };
+		D38395F6162100BD00F0DADE /* PKNodeConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFC3161E4F5D00D4EBCC /* PKNodeConstant.m */; };
+		D38395F7162100BD00F0DADE /* PKNodePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFCC161E500600D4EBCC /* PKNodePattern.m */; };
+		D38395F8162100BD00F0DADE /* PKNodeDelimited.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF4161F59F700D4EBCC /* PKNodeDelimited.m */; };
+		D38395F9162100BD00F0DADE /* PKNodeComposite.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEB161F557C00D4EBCC /* PKNodeComposite.m */; };
+		D38395FA162100BD00F0DADE /* PKNodeCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFBF161E4E5500D4EBCC /* PKNodeCollection.m */; };
+		D38395FB162100BD00F0DADE /* PKNodeCardinal.m in Sources */ = {isa = PBXBuildFile; fileRef = D38395DB1620B37400F0DADE /* PKNodeCardinal.m */; };
+		D38395FC162100BD00F0DADE /* PKNodeOptional.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEE161F59D300D4EBCC /* PKNodeOptional.m */; };
+		D38395FD162100BD00F0DADE /* PKNodeMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF1161F59E600D4EBCC /* PKNodeMultiple.m */; };
+		D38395FE1621027200F0DADE /* PKAST.h in Headers */ = {isa = PBXBuildFile; fileRef = D3376D8C10096C0700E4602E /* PKAST.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D38395FF1621027300F0DADE /* PKAST.h in Headers */ = {isa = PBXBuildFile; fileRef = D3376D8C10096C0700E4602E /* PKAST.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D38396001621027C00F0DADE /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
+		D38396011621027D00F0DADE /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
 		D385F98C0F046FE900DB2946 /* TDGenericAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D385F9890F046FE900DB2946 /* TDGenericAssembler.m */; };
 		D385FA260F04993500DB2946 /* json.css in Resources */ = {isa = PBXBuildFile; fileRef = D385FA240F04993500DB2946 /* json.css */; };
 		D385FD440F05A88C00DB2946 /* TDMiniCSSAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D385FD410F05A88C00DB2946 /* TDMiniCSSAssembler.m */; };
@@ -375,9 +391,7 @@
 		D3A20245161B6AEB00207F4D /* TDRegexAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20244161B6AEB00207F4D /* TDRegexAssembler.m */; };
 		D3A20248161B6B2900207F4D /* TDRegexMatcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20247161B6B2900207F4D /* TDRegexMatcherTest.m */; };
 		D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203A7161BCF6600207F4D /* TDRegexMatcher.m */; };
-		D3A203B6161CA1A200207F4D /* TDParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203B5161CA1A200207F4D /* TDParserFactory.m */; };
 		D3A203E4161CADD200207F4D /* TDParserFactoryASTTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */; };
-		D3A203E7161CE4F500207F4D /* TDGrammarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203E6161CE4F400207F4D /* TDGrammarParser.m */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */; };
 		D3BBBCC10FECD477007DF30D /* xml.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8800FEB36A1006A91A4 /* xml.grammar */; };
@@ -477,8 +491,6 @@
 		D3C222250FFE8D49004514FE /* PKLetter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C222230FFE8D49004514FE /* PKLetter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C222270FFE8D6B004514FE /* PKSpecificChar.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C222260FFE8D6B004514FE /* PKSpecificChar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C222280FFE8D6B004514FE /* PKSpecificChar.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C222260FFE8D6B004514FE /* PKSpecificChar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3C2222A0FFE8DAC004514FE /* PKParserFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C222290FFE8DAC004514FE /* PKParserFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3C2222B0FFE8DAC004514FE /* PKParserFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C222290FFE8DAC004514FE /* PKParserFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C2222D0FFE8DE9004514FE /* NSArray+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD30FF9E95500D7773A /* NSArray+ParseKitAdditions.h */; };
 		D3C2222E0FFE8DEE004514FE /* NSString+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD50FF9E95500D7773A /* NSString+ParseKitAdditions.h */; };
 		D3C2222F0FFE8DEF004514FE /* NSString+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD50FF9E95500D7773A /* NSString+ParseKitAdditions.h */; };
@@ -585,7 +597,6 @@
 		D3FDC71C0FFC4C9E00F1F797 /* PKDigit.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFB60FF9E80300D7773A /* PKDigit.m */; };
 		D3FDC71D0FFC4C9E00F1F797 /* PKLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFB80FF9E80300D7773A /* PKLetter.m */; };
 		D3FDC71E0FFC4C9E00F1F797 /* PKSpecificChar.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFBA0FF9E80300D7773A /* PKSpecificChar.m */; };
-		D3FDC71F0FFC4C9E00F1F797 /* PKParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD80FF9E95500D7773A /* PKParserFactory.m */; };
 		D3FDC7200FFC4C9E00F1F797 /* NSArray+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD40FF9E95500D7773A /* NSArray+ParseKitAdditions.m */; };
 		D3FDC7210FFC4C9E00F1F797 /* NSString+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD60FF9E95500D7773A /* NSString+ParseKitAdditions.m */; };
 		D3FDC7370FFC4D6100F1F797 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FDC7360FFC4D6100F1F797 /* Foundation.framework */; };
@@ -594,13 +605,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D325FFDC161E597400D4EBCC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D37D8DC51571A4F700CDB822;
-			remoteInfo = Tests;
-		};
 		D334949F0E296AA900406085 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1073,6 +1077,8 @@
 		D3834A470F0C14B60055E4E0 /* yahoo_with_comments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = yahoo_with_comments.json; path = res/yahoo_with_comments.json; sourceTree = "<group>"; };
 		D38395DA1620B37400F0DADE /* PKNodeCardinal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeCardinal.h; path = test/PKNodeCardinal.h; sourceTree = "<group>"; };
 		D38395DB1620B37400F0DADE /* PKNodeCardinal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeCardinal.m; path = test/PKNodeCardinal.m; sourceTree = "<group>"; };
+		D38395DD1621007500F0DADE /* PKGrammarParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGrammarParser.h; path = test/PKGrammarParser.h; sourceTree = "<group>"; };
+		D38395DE1621007500F0DADE /* PKGrammarParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGrammarParser.m; path = test/PKGrammarParser.m; sourceTree = "<group>"; };
 		D385F9880F046FE900DB2946 /* TDGenericAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGenericAssembler.h; path = test/TDGenericAssembler.h; sourceTree = "<group>"; };
 		D385F9890F046FE900DB2946 /* TDGenericAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGenericAssembler.m; path = test/TDGenericAssembler.m; sourceTree = "<group>"; };
 		D385FA210F04971400DB2946 /* TDGenericAssemblerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGenericAssemblerTest.h; path = test/TDGenericAssemblerTest.h; sourceTree = "<group>"; };
@@ -1110,12 +1116,10 @@
 		D3A20247161B6B2900207F4D /* TDRegexMatcherTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRegexMatcherTest.m; path = test/TDRegexMatcherTest.m; sourceTree = "<group>"; };
 		D3A203A6161BCF6600207F4D /* TDRegexMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDRegexMatcher.h; path = test/TDRegexMatcher.h; sourceTree = "<group>"; };
 		D3A203A7161BCF6600207F4D /* TDRegexMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRegexMatcher.m; path = test/TDRegexMatcher.m; sourceTree = "<group>"; };
-		D3A203B4161CA1A200207F4D /* TDParserFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactory.h; path = test/TDParserFactory.h; sourceTree = "<group>"; };
-		D3A203B5161CA1A200207F4D /* TDParserFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactory.m; path = test/TDParserFactory.m; sourceTree = "<group>"; };
+		D3A203B4161CA1A200207F4D /* PKParserFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKParserFactory.h; path = test/PKParserFactory.h; sourceTree = "<group>"; };
+		D3A203B5161CA1A200207F4D /* PKParserFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKParserFactory.m; path = test/PKParserFactory.m; sourceTree = "<group>"; };
 		D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryASTTest.h; path = test/TDParserFactoryASTTest.h; sourceTree = "<group>"; };
 		D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryASTTest.m; path = test/TDParserFactoryASTTest.m; sourceTree = "<group>"; };
-		D3A203E5161CE4F400207F4D /* TDGrammarParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGrammarParser.h; path = src/TDGrammarParser.h; sourceTree = "<group>"; };
-		D3A203E6161CE4F400207F4D /* TDGrammarParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGrammarParser.m; path = src/TDGrammarParser.m; sourceTree = "<group>"; };
 		D3AF49760FDB122E0032F4DC /* TDParserFactoryPatternTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryPatternTest.h; path = test/TDParserFactoryPatternTest.h; sourceTree = "<group>"; };
 		D3AF49770FDB122E0032F4DC /* TDParserFactoryPatternTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryPatternTest.m; path = test/TDParserFactoryPatternTest.m; sourceTree = "<group>"; };
 		D3AF4BE80FDC3DD50032F4DC /* TDBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBlob.h; path = test/TDBlob.h; sourceTree = "<group>"; };
@@ -1996,10 +2000,10 @@
 			isa = PBXGroup;
 			children = (
 				D325FFBC161E4E3200D4EBCC /* AST Nodes */,
-				D3A203E5161CE4F400207F4D /* TDGrammarParser.h */,
-				D3A203E6161CE4F400207F4D /* TDGrammarParser.m */,
-				D3A203B4161CA1A200207F4D /* TDParserFactory.h */,
-				D3A203B5161CA1A200207F4D /* TDParserFactory.m */,
+				D38395DD1621007500F0DADE /* PKGrammarParser.h */,
+				D38395DE1621007500F0DADE /* PKGrammarParser.m */,
+				D3A203B4161CA1A200207F4D /* PKParserFactory.h */,
+				D3A203B5161CA1A200207F4D /* PKParserFactory.m */,
 				D31D394D161DFD15002D7210 /* PKNodeVisitor.h */,
 				D31D394E161DFD15002D7210 /* PKNodeVisitor.m */,
 				D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */,
@@ -2547,17 +2551,18 @@
 				D3C222210FFE8D42004514FE /* PKDigit.h in Headers */,
 				D3C222240FFE8D49004514FE /* PKLetter.h in Headers */,
 				D3C222270FFE8D6B004514FE /* PKSpecificChar.h in Headers */,
-				D3C2222A0FFE8DAC004514FE /* PKParserFactory.h in Headers */,
 				D3C2222D0FFE8DE9004514FE /* NSArray+ParseKitAdditions.h in Headers */,
 				D3C2222E0FFE8DEE004514FE /* NSString+ParseKitAdditions.h in Headers */,
 				D3F0E2480FFE8EB900C9DF74 /* PKQuoteState.h in Headers */,
-				D3376D5910093A1600E4602E /* PKGrammarParser.h in Headers */,
 				D35F4A8D11643662003811F3 /* PKEmailState.h in Headers */,
 				D35F4A8E11643662003811F3 /* PKURLState.h in Headers */,
 				D33DC1A111656952004CE58C /* PKTwitterState.h in Headers */,
 				D37F232B1453842900A98014 /* PKHashtagState.h in Headers */,
 				D30805BC155ECB3F0000BC60 /* PKPattern.h in Headers */,
 				D325FFE9161F484100D4EBCC /* PKCompositeParser.h in Headers */,
+				D38395DF1621007600F0DADE /* PKGrammarParser.h in Headers */,
+				D38395E31621008E00F0DADE /* PKParserFactory.h in Headers */,
+				D38395FE1621027200F0DADE /* PKAST.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2660,15 +2665,16 @@
 				D3C222220FFE8D42004514FE /* PKDigit.h in Headers */,
 				D3C222250FFE8D49004514FE /* PKLetter.h in Headers */,
 				D3C222280FFE8D6B004514FE /* PKSpecificChar.h in Headers */,
-				D3C2222B0FFE8DAC004514FE /* PKParserFactory.h in Headers */,
 				D3C2222F0FFE8DEF004514FE /* NSString+ParseKitAdditions.h in Headers */,
 				D3C222300FFE8DF3004514FE /* NSArray+ParseKitAdditions.h in Headers */,
 				D3F0E2490FFE8EB900C9DF74 /* PKQuoteState.h in Headers */,
 				D3F0E3CB0FFEB70100C9DF74 /* PKNumber.h in Headers */,
-				D37A28681013942A00E936B7 /* PKGrammarParser.h in Headers */,
 				D35F4A8F11643662003811F3 /* PKEmailState.h in Headers */,
 				D35F4A9011643662003811F3 /* PKURLState.h in Headers */,
 				D33DC1A011656952004CE58C /* PKTwitterState.h in Headers */,
+				D38395E01621007600F0DADE /* PKGrammarParser.h in Headers */,
+				D38395E41621009000F0DADE /* PKParserFactory.h in Headers */,
+				D38395FF1621027300F0DADE /* PKAST.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2688,7 +2694,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D325FFDD161E597400D4EBCC /* PBXTargetDependency */,
 			);
 			name = ParseKit;
 			productInstallPath = "$(HOME)/Library/Frameworks";
@@ -3047,9 +3052,7 @@
 				D34BAFC20FF9E80300D7773A /* PKSpecificChar.m in Sources */,
 				D34BAFDA0FF9E95500D7773A /* NSArray+ParseKitAdditions.m in Sources */,
 				D34BAFDC0FF9E95500D7773A /* NSString+ParseKitAdditions.m in Sources */,
-				D34BAFDE0FF9E95500D7773A /* PKParserFactory.m in Sources */,
 				D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */,
-				D3376D5A10093A1600E4602E /* PKGrammarParser.m in Sources */,
 				D35F4A8711643630003811F3 /* PKEmailState.m in Sources */,
 				D35F4A8811643630003811F3 /* PKURLState.m in Sources */,
 				D33DC19B1165634F004CE58C /* PKTwitterState.m in Sources */,
@@ -3057,6 +3060,20 @@
 				D30805BA155ECB1F0000BC60 /* PKPattern.m in Sources */,
 				D30805BB155ECB220000BC60 /* RegexKitLite.m in Sources */,
 				D325FFE7161F482F00D4EBCC /* PKCompositeParser.m in Sources */,
+				D38395E11621007600F0DADE /* PKGrammarParser.m in Sources */,
+				D38395E71621009F00F0DADE /* PKParserFactory.m in Sources */,
+				D38395E8162100A900F0DADE /* PKNodeVisitor.m in Sources */,
+				D38395F4162100BD00F0DADE /* PKNodeBase.m in Sources */,
+				D38395F5162100BD00F0DADE /* PKNodeVariable.m in Sources */,
+				D38395F6162100BD00F0DADE /* PKNodeConstant.m in Sources */,
+				D38395F7162100BD00F0DADE /* PKNodePattern.m in Sources */,
+				D38395F8162100BD00F0DADE /* PKNodeDelimited.m in Sources */,
+				D38395F9162100BD00F0DADE /* PKNodeComposite.m in Sources */,
+				D38395FA162100BD00F0DADE /* PKNodeCollection.m in Sources */,
+				D38395FB162100BD00F0DADE /* PKNodeCardinal.m in Sources */,
+				D38395FC162100BD00F0DADE /* PKNodeOptional.m in Sources */,
+				D38395FD162100BD00F0DADE /* PKNodeMultiple.m in Sources */,
+				D38396001621027C00F0DADE /* PKAST.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3102,7 +3119,6 @@
 				D3385FDA0FCFB1FF003BF729 /* TDPredicateEvaluator.m in Sources */,
 				D355C62E0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m in Sources */,
 				D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */,
-				D3376D8F10096C0700E4602E /* PKAST.m in Sources */,
 				D319E42F106D8A31008C63DD /* TDArithmeticAssembler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3116,7 +3132,6 @@
 				D37D8DE01571A57300CDB822 /* PKRuleNode.m in Sources */,
 				D37D8DE11571A57300CDB822 /* PKTokenNode.m in Sources */,
 				D37D8DE21571A57300CDB822 /* TDParseTreeTest.m in Sources */,
-				D37D8DE31571A57300CDB822 /* PKAST.m in Sources */,
 				D37D8DE41571A57300CDB822 /* TDParserFactoryTest3.m in Sources */,
 				D37D8DE51571A57300CDB822 /* TDParserFactoryTest.m in Sources */,
 				D37D8DE61571A57300CDB822 /* TDParserFactoryTest2.m in Sources */,
@@ -3232,21 +3247,8 @@
 				D3A20245161B6AEB00207F4D /* TDRegexAssembler.m in Sources */,
 				D3A20248161B6B2900207F4D /* TDRegexMatcherTest.m in Sources */,
 				D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */,
-				D3A203B6161CA1A200207F4D /* TDParserFactory.m in Sources */,
 				D3A203E4161CADD200207F4D /* TDParserFactoryASTTest.m in Sources */,
-				D3A203E7161CE4F500207F4D /* TDGrammarParser.m in Sources */,
-				D31D394F161DFD15002D7210 /* PKNodeVisitor.m in Sources */,
-				D325FFC0161E4E5500D4EBCC /* PKNodeCollection.m in Sources */,
-				D325FFC4161E4F5D00D4EBCC /* PKNodeConstant.m in Sources */,
-				D325FFCD161E500600D4EBCC /* PKNodePattern.m in Sources */,
-				D325FFDB161E551E00D4EBCC /* PKNodeBase.m in Sources */,
-				D325FFE0161E59F100D4EBCC /* PKNodeVariable.m in Sources */,
-				D325FFEC161F557D00D4EBCC /* PKNodeComposite.m in Sources */,
-				D325FFEF161F59D400D4EBCC /* PKNodeOptional.m in Sources */,
-				D325FFF2161F59E700D4EBCC /* PKNodeMultiple.m in Sources */,
-				D325FFF5161F59F800D4EBCC /* PKNodeDelimited.m in Sources */,
 				D325FFF8161F681F00D4EBCC /* TDParserFactoryParserTest.m in Sources */,
-				D38395DC1620B37400F0DADE /* PKNodeCardinal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3354,26 +3356,33 @@
 				D3FDC71C0FFC4C9E00F1F797 /* PKDigit.m in Sources */,
 				D3FDC71D0FFC4C9E00F1F797 /* PKLetter.m in Sources */,
 				D3FDC71E0FFC4C9E00F1F797 /* PKSpecificChar.m in Sources */,
-				D3FDC71F0FFC4C9E00F1F797 /* PKParserFactory.m in Sources */,
 				D3FDC7200FFC4C9E00F1F797 /* NSArray+ParseKitAdditions.m in Sources */,
 				D3FDC7210FFC4C9E00F1F797 /* NSString+ParseKitAdditions.m in Sources */,
 				D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */,
 				D3F0E3CC0FFEB70700C9DF74 /* PKNumber.m in Sources */,
-				D37A28671013942300E936B7 /* PKGrammarParser.m in Sources */,
 				D35F4A8911643630003811F3 /* PKEmailState.m in Sources */,
 				D35F4A8A11643630003811F3 /* PKURLState.m in Sources */,
 				D33DC1991165634F004CE58C /* PKTwitterState.m in Sources */,
+				D38395E21621007600F0DADE /* PKGrammarParser.m in Sources */,
+				D38395E61621009E00F0DADE /* PKParserFactory.m in Sources */,
+				D38395E9162100AA00F0DADE /* PKNodeVisitor.m in Sources */,
+				D38395EA162100BC00F0DADE /* PKNodeBase.m in Sources */,
+				D38395EB162100BC00F0DADE /* PKNodeVariable.m in Sources */,
+				D38395EC162100BC00F0DADE /* PKNodeConstant.m in Sources */,
+				D38395ED162100BC00F0DADE /* PKNodePattern.m in Sources */,
+				D38395EE162100BC00F0DADE /* PKNodeDelimited.m in Sources */,
+				D38395EF162100BC00F0DADE /* PKNodeComposite.m in Sources */,
+				D38395F0162100BC00F0DADE /* PKNodeCollection.m in Sources */,
+				D38395F1162100BC00F0DADE /* PKNodeCardinal.m in Sources */,
+				D38395F2162100BC00F0DADE /* PKNodeOptional.m in Sources */,
+				D38395F3162100BC00F0DADE /* PKNodeMultiple.m in Sources */,
+				D38396011621027D00F0DADE /* PKAST.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D325FFDD161E597400D4EBCC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D37D8DC51571A4F700CDB822 /* Tests */;
-			targetProxy = D325FFDC161E597400D4EBCC /* PBXContainerItemProxy */;
-		};
 		D33494A00E296AA900406085 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;

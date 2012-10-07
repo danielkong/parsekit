@@ -7,17 +7,17 @@
 //
 
 #import "TDParserFactoryParserTest.h"
-#import "TDParserFactory.h"
+#import "PKParserFactory.h"
 #import "PKAST.h"
 
 @interface TDParserFactoryParserTest ()
-@property (nonatomic, retain) TDParserFactory *factory;
+@property (nonatomic, retain) PKParserFactory *factory;
 @end
 
 @implementation TDParserFactoryParserTest
 
 - (void)setUp {
-    self.factory = [TDParserFactory factory];
+    self.factory = [PKParserFactory factory];
 }
 
 

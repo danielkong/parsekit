@@ -1,14 +1,14 @@
 //
-//  TDParserFactory.m
+//  PKParserFactory.m
 //  ParseKit
 //
 //  Created by Todd Ditchendorf on 10/3/12.
 //
 //
 
-#import "TDParserFactory.h"
+#import "PKParserFactory.h"
 #import <ParseKit/ParseKit.h>
-#import "TDGrammarParser.h"
+#import "PKGrammarParser.h"
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
 
@@ -53,7 +53,56 @@
 @property (nonatomic, assign) PKTokenType tokenType;
 @end
 
-@interface TDParserFactory ()
+void PKReleaseSubparserTree(PKParser *p) {
+    if ([p isKindOfClass:[PKCollectionParser class]]) {
+        PKCollectionParser *c = (PKCollectionParser *)p;
+        NSArray *subs = c.subparsers;
+        if (subs) {
+            [subs retain];
+            c.subparsers = nil;
+            for (PKParser *s in subs) {
+                PKReleaseSubparserTree(s);
+            }
+            [subs release];
+        }
+    } else if ([p isMemberOfClass:[PKRepetition class]]) {
+        PKRepetition *r = (PKRepetition *)p;
+		PKParser *sub = r.subparser;
+        if (sub) {
+            [sub retain];
+            r.subparser = nil;
+            PKReleaseSubparserTree(sub);
+            [sub release];
+        }
+    } else if ([p isMemberOfClass:[PKNegation class]]) {
+        PKNegation *n = (PKNegation *)p;
+		PKParser *sub = n.subparser;
+        if (sub) {
+            [sub retain];
+            n.subparser = nil;
+            PKReleaseSubparserTree(sub);
+            [sub release];
+        }
+    } else if ([p isMemberOfClass:[PKDifference class]]) {
+        PKDifference *d = (PKDifference *)p;
+		PKParser *sub = d.subparser;
+        if (sub) {
+            [sub retain];
+            d.subparser = nil;
+            PKReleaseSubparserTree(sub);
+            [sub release];
+        }
+		PKParser *m = d.minus;
+        if (m) {
+            [m retain];
+            d.minus = nil;
+            PKReleaseSubparserTree(m);
+            [m release];
+        }
+    }
+}
+
+@interface PKParserFactory ()
 - (PKTokenizer *)tokenizerForParsingGrammar;
 - (PKTokenizer *)tokenizerFromGrammarSettings;
 - (PKParser *)parserFromAST:(PKNodeBase *)rootNode;
@@ -80,7 +129,7 @@
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a;
 
-@property (nonatomic, retain) TDGrammarParser *grammarParser;
+@property (nonatomic, retain) PKGrammarParser *grammarParser;
 @property (nonatomic, assign) id assembler;
 @property (nonatomic, assign) id preassembler;
 @property (nonatomic, assign) BOOL wantsCharacters;
@@ -97,19 +146,19 @@
 @property (nonatomic, retain) NSMutableDictionary *callbackTab;
 @end
 
-@implementation TDParserFactory {
+@implementation PKParserFactory {
 
 }
 
-+ (TDParserFactory *)factory {
-    return [[[TDParserFactory alloc] init] autorelease];
++ (PKParserFactory *)factory {
+    return [[[PKParserFactory alloc] init] autorelease];
 }
 
 
 - (id)init {
     self = [super init];
     if (self) {
-        self.grammarParser = [[[TDGrammarParser alloc] initWithAssembler:self] autorelease];
+        self.grammarParser = [[[PKGrammarParser alloc] initWithAssembler:self] autorelease];
         self.equals = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"=" floatValue:0.0];
         self.curly = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
@@ -208,8 +257,8 @@
     PKTokenizer *t = [self tokenizerForParsingGrammar];
     t.string = g;
     
-    _grammarParser.startParser.tokenizer = t;
-    [_grammarParser.startParser parse:g error:outError];
+    _grammarParser.parser.tokenizer = t;
+    [_grammarParser.parser parse:g error:outError];
     
     NSLog(@"%@", _productionTab);
     
@@ -226,8 +275,8 @@
     
     t.whitespaceState.reportsWhitespaceTokens = YES;
     
-    // customize tokenizer to find tokenizer customization directives
-    [t setTokenizerState:t.wordState from:'@' to:'@'];
+//    // customize tokenizer to find tokenizer customization directives
+//    [t setTokenizerState:t.wordState from:'@' to:'@'];
     
     // add support for tokenizer directives like @commentState.fallbackState
     [t.wordState setWordChars:YES from:'.' to:'.'];
@@ -249,8 +298,187 @@
 
 
 - (PKTokenizer *)tokenizerFromGrammarSettings {
-    // TODO
-    return [PKTokenizer tokenizer];
+    self.wantsCharacters = [self boolForTokenForKey:@"@wantsCharacters"];
+    
+    PKTokenizer *t = [PKTokenizer tokenizer];
+    [t.commentState removeSingleLineStartMarker:@"//"];
+    [t.commentState removeMultiLineStartMarker:@"/*"];
+    
+    t.whitespaceState.reportsWhitespaceTokens = [self boolForTokenForKey:@"@reportsWhitespaceTokens"];
+    t.commentState.reportsCommentTokens = [self boolForTokenForKey:@"@reportsCommentTokens"];
+    t.commentState.balancesEOFTerminatedComments = [self boolForTokenForKey:@"balancesEOFTerminatedComments"];
+    t.quoteState.balancesEOFTerminatedQuotes = [self boolForTokenForKey:@"@balancesEOFTerminatedQuotes"];
+    t.delimitState.balancesEOFTerminatedStrings = [self boolForTokenForKey:@"@balancesEOFTerminatedStrings"];
+    t.numberState.allowsTrailingDecimalSeparator = [self boolForTokenForKey:@"@allowsTrailingDecimalSeparator"];
+    t.numberState.allowsScientificNotation = [self boolForTokenForKey:@"@allowsScientificNotation"];
+    t.numberState.allowsOctalNotation = [self boolForTokenForKey:@"@allowsOctalNotation"];
+    t.numberState.allowsHexadecimalNotation = [self boolForTokenForKey:@"@allowsHexadecimalNotation"];
+    
+    BOOL yn = YES;
+    if ([_productionTab objectForKey:@"allowsFloatingPoint"]) {
+        yn = [self boolForTokenForKey:@"allowsFloatingPoint"];
+    }
+    t.numberState.allowsFloatingPoint = yn;
+    
+    [self setTokenizerState:t.wordState onTokenizer:t forTokensForKey:@"@wordState"];
+    [self setTokenizerState:t.numberState onTokenizer:t forTokensForKey:@"@numberState"];
+    [self setTokenizerState:t.quoteState onTokenizer:t forTokensForKey:@"@quoteState"];
+    [self setTokenizerState:t.delimitState onTokenizer:t forTokensForKey:@"@delimitState"];
+    [self setTokenizerState:t.symbolState onTokenizer:t forTokensForKey:@"@symbolState"];
+    [self setTokenizerState:t.commentState onTokenizer:t forTokensForKey:@"@commentState"];
+    [self setTokenizerState:t.whitespaceState onTokenizer:t forTokensForKey:@"@whitespaceState"];
+    
+    [self setFallbackStateOn:t.commentState withTokenizer:t forTokensForKey:@"@commentState.fallbackState"];
+    [self setFallbackStateOn:t.delimitState withTokenizer:t forTokensForKey:@"@delimitState.fallbackState"];
+    
+    NSArray *toks = nil;
+    
+    // muli-char symbols
+    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@symbol"]];
+    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@symbols"]];
+    [_productionTab removeObjectForKey:@"@symbol"];
+    [_productionTab removeObjectForKey:@"@symbols"];
+    for (PKToken *tok in toks) {
+        if (tok.isQuotedString) {
+            [t.symbolState add:[tok.stringValue stringByTrimmingQuotes]];
+        }
+    }
+    
+    // wordChars
+    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@wordChar"]];
+    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@wordChars"]];
+    [_productionTab removeObjectForKey:@"@wordChar"];
+    [_productionTab removeObjectForKey:@"@wordChars"];
+    for (PKToken *tok in toks) {
+        if (tok.isQuotedString) {
+			NSString *s = [tok.stringValue stringByTrimmingQuotes];
+			if ([s length]) {
+				PKUniChar c = [s characterAtIndex:0];
+				[t.wordState setWordChars:YES from:c to:c];
+			}
+        }
+    }
+    
+    // whitespaceChars
+    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@whitespaceChar"]];
+    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@whitespaceChars"]];
+    [_productionTab removeObjectForKey:@"@whitespaceChar"];
+    [_productionTab removeObjectForKey:@"@whitespaceChars"];
+    for (PKToken *tok in toks) {
+        if (tok.isQuotedString) {
+			NSString *s = [tok.stringValue stringByTrimmingQuotes];
+			if ([s length]) {
+                PKUniChar c = 0;
+                if ([s hasPrefix:@"#x"]) {
+                    c = (PKUniChar)[s integerValue];
+                } else {
+                    c = [s characterAtIndex:0];
+                }
+                [t.whitespaceState setWhitespaceChars:YES from:c to:c];
+			}
+        }
+    }
+    
+    // single-line comments
+    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@singleLineComment"]];
+    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@singleLineComments"]];
+    [_productionTab removeObjectForKey:@"@singleLineComment"];
+    [_productionTab removeObjectForKey:@"@singleLineComments"];
+    for (PKToken *tok in toks) {
+        if (tok.isQuotedString) {
+            NSString *s = [tok.stringValue stringByTrimmingQuotes];
+            [t.commentState addSingleLineStartMarker:s];
+        }
+    }
+    
+    // multi-line comments
+    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@multiLineComment"]];
+    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@multiLineComments"]];
+    NSAssert(0 == [toks count] % 2, @"@multiLineComments must be specified as quoted strings in multiples of 2");
+    [_productionTab removeObjectForKey:@"@multiLineComment"];
+    [_productionTab removeObjectForKey:@"@multiLineComments"];
+    if ([toks count] > 1) {
+        NSInteger i = 0;
+        for ( ; i < [toks count] - 1; i++) {
+            PKToken *startTok = [toks objectAtIndex:i];
+            PKToken *endTok = [toks objectAtIndex:++i];
+            if (startTok.isQuotedString && endTok.isQuotedString) {
+                NSString *start = [startTok.stringValue stringByTrimmingQuotes];
+                NSString *end = [endTok.stringValue stringByTrimmingQuotes];
+                [t.commentState addMultiLineStartMarker:start endMarker:end];
+            }
+        }
+    }
+    
+    // delimited strings
+    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@delimitedString"]];
+    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@delimitedStrings"]];
+    NSAssert(0 == [toks count] % 3, @"@delimitedString must be specified as quoted strings in multiples of 3");
+    [_productionTab removeObjectForKey:@"@delimitedString"];
+    [_productionTab removeObjectForKey:@"@delimitedStrings"];
+    if ([toks count] > 1) {
+        NSInteger i = 0;
+        for ( ; i < [toks count] - 2; i++) {
+            PKToken *startTok = [toks objectAtIndex:i];
+            PKToken *endTok = [toks objectAtIndex:++i];
+            PKToken *charSetTok = [toks objectAtIndex:++i];
+            if (startTok.isQuotedString && endTok.isQuotedString) {
+                NSString *start = [startTok.stringValue stringByTrimmingQuotes];
+                NSString *end = [endTok.stringValue stringByTrimmingQuotes];
+                NSCharacterSet *charSet = nil;
+                if (charSetTok.isQuotedString) {
+                    charSet = [NSCharacterSet characterSetWithCharactersInString:[charSetTok.stringValue stringByTrimmingQuotes]];
+                }
+                [t.delimitState addStartMarker:start endMarker:end allowedCharacterSet:charSet];
+            }
+        }
+    }
+    
+    return t;
+}
+
+
+- (BOOL)boolForTokenForKey:(NSString *)key {
+    BOOL result = NO;
+    NSArray *toks = [_productionTab objectForKey:key];
+    if ([toks count]) {
+        PKToken *tok = [toks objectAtIndex:0];
+        if (tok.isWord && [tok.stringValue isEqualToString:@"YES"]) {
+            result = YES;
+        }
+    }
+    [_productionTab removeObjectForKey:key];
+    return result;
+}
+
+
+- (void)setTokenizerState:(PKTokenizerState *)state onTokenizer:(PKTokenizer *)t forTokensForKey:(NSString *)key {
+    NSArray *toks = [_productionTab objectForKey:key];
+    for (PKToken *tok in toks) {
+        if (tok.isQuotedString) {
+            NSString *s = [tok.stringValue stringByTrimmingQuotes];
+            if (1 == [s length]) {
+                PKUniChar c = [s characterAtIndex:0];
+                [t setTokenizerState:state from:c to:c];
+            }
+        }
+    }
+    [_productionTab removeObjectForKey:key];
+}
+
+
+- (void)setFallbackStateOn:(PKTokenizerState *)state withTokenizer:(PKTokenizer *)t forTokensForKey:(NSString *)key {
+    NSArray *toks = [_productionTab objectForKey:key];
+    if ([toks count]) {
+        PKToken *tok = [toks objectAtIndex:0];
+        if (tok.isWord) {
+            PKTokenizerState *fallbackState = [t valueForKey:tok.stringValue];
+            if (state != fallbackState) {
+                state.fallbackState = fallbackState;
+            }
+        }
+    }
+    [_productionTab removeObjectForKey:key];
 }
 
 
@@ -318,8 +546,40 @@
 #pragma mark -
 #pragma mark Assembler Callbacks
 
-- (void)parser:(PKParser *)p didMatchDeclaration:(PKAssembly *)a {
-//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+- (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a {
+    //    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    
+    PKToken *tok = [a pop];
+    NSString *prodName = [NSString stringWithFormat:@"@%@", tok.stringValue];
+    
+    PKAST *prodNode = [_productionTab objectForKey:prodName];
+    if (!prodNode) {
+        prodNode = [PKNodeVariable ASTWithToken:tok];
+        [_productionTab setObject:prodNode forKey:prodName];
+    }
+    
+    [a push:prodNode];
+}
+
+
+- (void)parser:(PKParser *)p didMatchStartDecl:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    
+    NSString *prodName = @"@start";
+    PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:prodName floatValue:0.0];
+    
+    PKAST *prodNode = [_productionTab objectForKey:prodName];
+    if (!prodNode) {
+        prodNode = [PKNodeVariable ASTWithToken:tok];
+        [_productionTab setObject:prodNode forKey:prodName];
+    }
+    
+    [a push:prodNode];
+}
+
+
+- (void)parser:(PKParser *)p didMatchVarDecl:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
     PKToken *tok = [a pop];
     NSString *prodName = tok.stringValue;
@@ -335,7 +595,7 @@
 
 
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
-//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
     PKToken *tok = [a pop];
     NSString *prodName = tok.stringValue;

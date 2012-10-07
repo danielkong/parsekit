@@ -7,7 +7,7 @@
 //
 
 #import <ParseKit/ParseKit.h>
-#import "TDParserFactory.h" // remove
+#import "PKParserFactory.h" // remove
 //@class PKParser;
 //@class PKCollectionParser;
 
@@ -45,5 +45,5 @@
 
 @property (nonatomic, retain) id assembler;
 @property (nonatomic, retain) id preassembler;
-@property (nonatomic, assign) TDParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
+@property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
 @end
