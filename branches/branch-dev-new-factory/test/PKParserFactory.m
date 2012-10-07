@@ -505,6 +505,9 @@ void PKReleaseSubparserTree(PKParser *p) {
         case PKNodeTypeConstant:
             [v visitConstant:(PKNodeConstant *)rootNode];
             break;
+        case PKNodeTypeLiteral:
+            [v visitLiteral:(PKNodeLiteral *)rootNode];
+            break;
         case PKNodeTypeDelimited:
             [v visitDelimited:(PKNodeDelimited *)rootNode];
             break;
