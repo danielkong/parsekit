@@ -2,14 +2,11 @@
 //  PKNodeVisitor.h
 //  ParseKit
 //
-//  Created by Todd Ditchendorf on 10/4/12.
+//  Created by Todd Ditchendorf on 10/7/12.
 //
 //
 
-#import <ParseKit/ParseKit.h>
-#import "PKParserFactory.h" // remove
-//@class PKParser;
-//@class PKCollectionParser;
+#import <Foundation/Foundation.h>
 
 @class PKNodeBase;
 @class PKNodeVariable;
@@ -26,8 +23,7 @@
 //@class PKNodeDifference;
 //@class PKNodeNegation;
 
-@interface PKNodeVisitor : NSObject
-
+@protocol PKNodeVisitor <NSObject>
 - (void)visitVariable:(PKNodeVariable *)node;
 - (void)visitConstant:(PKNodeConstant *)node;
 - (void)visitLiteral:(PKNodeLiteral *)node;
@@ -41,11 +37,4 @@
 //- (void)visitRepetition:(PKNodeRepetition *)node;
 //- (void)visitDifference:(PKNodeDifference *)node;
 //- (void)visitNegation:(PKNodeNegation *)node;
-
-@property (nonatomic, retain) PKParser *rootParser;
-@property (nonatomic, retain) PKCompositeParser *currentParser;
-
-@property (nonatomic, retain) id assembler;
-@property (nonatomic, retain) id preassembler;
-@property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
 @end

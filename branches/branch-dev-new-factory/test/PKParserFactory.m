@@ -27,6 +27,9 @@
 //#import "PKNodeDifference.h"
 //#import "PKNodeNegation.h"
 
+#import "PKConstructNodeVisitor.h"
+#import "PKSimplifyNodeVisitor.h"
+
 #define USE_TRACK 0
 
 @interface PKParser (PKParserFactoryAdditionsFriend)
@@ -277,7 +280,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     NSLog(@"%@", _productionTab);
     
-    PKAST *rootNode = [_productionTab objectForKey:@"@start"];
+    PKNodeBase *rootNode = [_productionTab objectForKey:@"@start"];
+    
+    id <PKNodeVisitor>v = [[[PKSimplifyNodeVisitor alloc] init] autorelease];
+    [self visit:rootNode with:v];
+    
     return rootNode;
 }
 
@@ -498,13 +505,21 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKParser *)parserFromAST:(PKNodeBase *)rootNode {
-    PKNodeVisitor *v = [[[PKNodeVisitor alloc] init] autorelease];
+    PKConstructNodeVisitor *v = [[[PKConstructNodeVisitor alloc] init] autorelease];
     
     v.assembler = _assembler;
     v.preassembler = _preassembler;
 
     v.assemblerSettingBehavior = _assemblerSettingBehavior;
+
+    [self visit:rootNode with:v];
     
+    PKParser *p = v.rootParser;
+    return p;
+}
+
+
+- (void)visit:(PKNodeBase *)rootNode with:(id <PKNodeVisitor>)v {
     PKNodeType nodeType = rootNode.type;
     switch (nodeType) {
         case PKNodeTypeVariable:
@@ -538,9 +553,6 @@ void PKReleaseSubparserTree(PKParser *p) {
             NSAssert1(0, @"unknown nodeType %d", nodeType);
             break;
     }
-    
-    PKParser *p = v.rootParser;
-    return p;
 }
 
 

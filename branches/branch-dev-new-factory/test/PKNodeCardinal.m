@@ -15,7 +15,7 @@
 }
 
 
-- (void)visit:(PKNodeVisitor *)v {
+- (void)visit:(id <PKNodeVisitor>)v; {
     [v visitCardinal:self];
 }
 

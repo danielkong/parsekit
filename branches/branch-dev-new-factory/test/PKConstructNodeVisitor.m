@@ -6,7 +6,7 @@
 //
 //
 
-#import "PKNodeVisitor.h"
+#import "PKConstructNodeVisitor.h"
 #import "PKNodeBase.h"
 #import "PKNodeVariable.h"
 #import "PKNodeConstant.h"
@@ -22,7 +22,7 @@
 //#import "PKNodeDifference.h"
 //#import "PKNodeNegation.h"
 
-@implementation PKNodeVisitor
+@implementation PKConstructNodeVisitor
 
 - (void)dealloc {
     self.rootParser = nil;

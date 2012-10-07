@@ -22,7 +22,7 @@
 }
 
 
-- (void)visit:(PKNodeVisitor *)v {
+- (void)visit:(id <PKNodeVisitor>)v; {
     [v visitDelimited:self];
 }
 
