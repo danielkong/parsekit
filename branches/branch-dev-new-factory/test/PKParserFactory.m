@@ -147,7 +147,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *patternToken;
 
 @property (nonatomic, retain) NSMutableDictionary *productionTab;
-@property (nonatomic, retain) NSMutableDictionary *callbackTab;
+//@property (nonatomic, retain) NSMutableDictionary *callbackTab;
 @end
 
 @implementation PKParserFactory {
@@ -189,7 +189,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.patternToken = nil;
     
     self.productionTab = nil;
-    self.callbackTab = nil;
+//    self.callbackTab = nil;
     [super dealloc];
 }
 
@@ -219,7 +219,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         NSLog(@"start %@", start);
 
         self.assembler = nil;
-        self.callbackTab = nil;
+//        self.callbackTab = nil;
         self.productionTab = nil;
         
         if (start && [start isKindOfClass:[PKParser class]]) {
@@ -255,7 +255,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError {
-    self.callbackTab = [NSMutableDictionary dictionary];
+//    self.callbackTab = [NSMutableDictionary dictionary];
     self.productionTab = [NSMutableDictionary dictionary];
 
     PKTokenizer *t = [self tokenizerForParsingGrammar];

@@ -127,4 +127,22 @@
 
 }
 
+
+- (void)testTokDirectiveAST {
+    NSString *g = @"@symbols='!==';@start=foo;foo=Symbol;";
+    
+    NSError *err = nil;
+    PKCollectionParser *p = (PKCollectionParser *)[_factory parserFromGrammar:g assembler:nil error:&err];
+    
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKSequence class]]);
+    
+    NSString *input = @"!==";
+    p.tokenizer.string = input;
+    PKAssembly *a = [PKTokenAssembly assemblyWithTokenizer:p.tokenizer];
+    a = [p bestMatchFor:a];
+    
+    TDEqualObjects([a description], @"[!==]!==^");
+}
+
 @end

@@ -120,7 +120,7 @@
 
 // @start               = statement*;
 // statement            = tokenizerDirective | decl;
-// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' S*  (~';')* ';'!;
+// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' (S | ~';')+ ';'!;
 // decl                 = S* production S* callback? S* '=' expr ';'!;
 // production           = startProduction | varProduction;
 // startProduction      = '@'! 'start'!;
@@ -178,7 +178,7 @@
 }
 
 
-// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' (S* | (~';'))+ ';'!;
+// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' (S | ~';')+ ';'!;
 - (PKCollectionParser *)tokenizerDirectiveParser {
     if (!_tokenizerDirectiveParser) {
         self.tokenizerDirectiveParser = [PKSequence sequence];
@@ -193,7 +193,7 @@
         
         PKParser *notSemi = [PKNegation negationWithSubparser:[PKSymbol symbolWithString:@";"]];
         PKAlternation *alt = [PKAlternation alternation];
-        [alt add:self.optionalWhitespaceParser];
+        [alt add:[[PKWhitespace whitespace] discard]];
         [alt add:notSemi];
         
         [_tokenizerDirectiveParser add:[self oneOrMore:alt]];
