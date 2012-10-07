@@ -198,6 +198,14 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 #pragma mark -
+#pragma mark Testing
+
+- (PKCollectionParser *)exprParser {
+    return _grammarParser.exprParser;
+}
+
+
+#pragma mark -
 #pragma mark Public
 
 - (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a error:(NSError **)outError {

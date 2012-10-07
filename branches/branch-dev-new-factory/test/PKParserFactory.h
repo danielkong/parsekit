@@ -31,3 +31,7 @@ typedef enum {
 
 @property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
 @end
+
+@interface PKParserFactory (Testing)
+- (PKParser *)exprParser;
+@end
