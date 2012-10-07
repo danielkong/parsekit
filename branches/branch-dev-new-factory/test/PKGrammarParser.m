@@ -16,13 +16,13 @@
 #import <ParseKit/ParseKit.h>
 
 @interface NSObject (PKGrammarParserAdditions)
-- (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchStartDecl:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchVarDecl:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;    
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
@@ -64,9 +64,11 @@
 
     self.parser = nil;
     self.statementParser = nil;
+    self.tokenizerDirectiveParser = nil;
     self.declParser = nil;
-    self.varDeclParser = nil;
-    self.startDeclParser = nil;
+    self.productionParser = nil;
+    self.varProductionParser = nil;
+    self.startProductionParser = nil;
     self.tokenizerDirectiveParser = nil;
     self.callbackParser = nil;
     self.selectorParser = nil;
@@ -117,11 +119,12 @@
 
 
 // @start               = statement*;
-// statement            = S* decl callback? S* '=' expr ';'!;
-// decl                 = startDecl | varDecl | tokenizerDirective;
-// startDecl            = '@'! 'start'!;
-// varDecl              = Word;
-// tokenizerDirective   = '@'! Word;
+// statement            = tokenizerDirective | decl;
+// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' S*  (~';')* ';'!;
+// decl                 = S* production S* callback? S* '=' expr ';'!;
+// production           = startProduction | varProduction;
+// startProduction      = '@'! 'start'!;
+// varProduction        = Word;
 // callback             = S* '(' S* selector S* ')';
 // selector             = Word ':';
 // expr                 = S* term orTerm* S*;
@@ -163,77 +166,96 @@
 }
 
 
-// statement            = S* decl callback? S* '=' expr ';'!;
+// statement            = tokenizerDirective | decl;
 - (PKCollectionParser *)statementParser {
     if (!_statementParser) {
-        self.statementParser = [PKSequence sequence];
+        self.statementParser = [PKAlternation alternation];
         _statementParser.name = @"statement";
-        [_statementParser add:self.optionalWhitespaceParser];
-        
-        PKTrack *tr = [PKTrack track];
-        [tr add:self.declParser];
-        [tr add:self.optionalWhitespaceParser];
-        [tr add:[self zeroOrOne:self.callbackParser]];
-        [tr add:self.optionalWhitespaceParser];
-        [tr add:[PKSymbol symbolWithString:@"="]];
-        [tr add:self.exprParser];
-        [tr add:[[PKSymbol symbolWithString:@";"] discard]];
-        
-        [_statementParser add:tr];
-        [_statementParser setAssembler:_assembler selector:@selector(parser:didMatchStatement:)];
+        [_statementParser add:self.tokenizerDirectiveParser];
+        [_statementParser add:self.declParser];
     }
     return _statementParser;
 }
 
 
-// decl                 = startDecl | varDecl | tokenizerDirective;
+// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' S*  (~';')* ';'!;
+- (PKCollectionParser *)tokenizerDirectiveParser {
+    if (!_tokenizerDirectiveParser) {
+        self.tokenizerDirectiveParser = [PKSequence sequence];
+        _tokenizerDirectiveParser.name = @"decl";
+        [_tokenizerDirectiveParser add:self.optionalWhitespaceParser];
+        [_tokenizerDirectiveParser add:[[PKSymbol symbolWithString:@"@"] discard]];
+        
+        PKParser *notStart = [PKDifference differenceWithSubparser:[PKWord word] minus:[PKLiteral literalWithString:@"start"]];
+        [_tokenizerDirectiveParser add:notStart];
+        [_tokenizerDirectiveParser add:self.optionalWhitespaceParser];
+        [_tokenizerDirectiveParser add:[PKSymbol symbolWithString:@"="]];
+        [_tokenizerDirectiveParser add:self.optionalWhitespaceParser];
+        
+        PKParser *notSemi = [PKNegation negationWithSubparser:[PKSymbol symbolWithString:@";"]];
+        [_tokenizerDirectiveParser add:[PKRepetition repetitionWithSubparser:notSemi]];
+        [_tokenizerDirectiveParser add:[[PKSymbol symbolWithString:@";"] discard]];
+
+        [_tokenizerDirectiveParser setAssembler:_assembler selector:@selector(parser:didMatchTokenizerDirective:)];
+    }
+    return _tokenizerDirectiveParser;
+}
+
+
+// decl                 = S* production S* callback? S* '=' expr ';'!;
 - (PKCollectionParser *)declParser {
     if (!_declParser) {
-        self.declParser = [PKAlternation alternation];
+        self.declParser = [PKSequence sequence];
         _declParser.name = @"decl";
-        [_declParser add:self.startDeclParser];
-        [_declParser add:self.varDeclParser];
-        [_declParser add:self.tokenizerDirectiveParser];
+        [_declParser add:self.optionalWhitespaceParser];
+        [_declParser add:self.productionParser];
+        [_declParser add:self.optionalWhitespaceParser];
+        [_declParser add:[self zeroOrOne:self.callbackParser]];
+        [_declParser add:self.optionalWhitespaceParser];
+        [_declParser add:[PKSymbol symbolWithString:@"="]];
+        [_declParser add:self.exprParser];
+        [_declParser add:[[PKSymbol symbolWithString:@";"] discard]];
+        
+        [_declParser setAssembler:_assembler selector:@selector(parser:didMatchDecl:)];
     }
     return _declParser;
 }
 
 
-// startDecl              = '@' 'start';
-- (PKCollectionParser *)startDeclParser {
-    if (!_startDeclParser) {
-        self.startDeclParser = [PKSequence sequence];
-        _startDeclParser.name = @"startDecl";
-        [_startDeclParser add:[[PKSymbol symbolWithString:@"@"] discard]];
-        [_startDeclParser add:[[PKLiteral literalWithString:@"start"] discard]];
-        [_startDeclParser setAssembler:_assembler selector:@selector(parser:didMatchStartDecl:)];
+// productionParser              = varProduction | startProduction;
+- (PKCollectionParser *)productionParser {
+    if (!_productionParser) {
+        self.productionParser = [PKAlternation alternation];
+        _productionParser.name = @"production";
+        [_productionParser add:self.varProductionParser];
+        [_productionParser add:self.startProductionParser];
     }
-    return _startDeclParser;
+    return _productionParser;
 }
 
 
-// varDecl              = Word;
-- (PKCollectionParser *)varDeclParser {
-    if (!_varDeclParser) {
-        self.varDeclParser = [PKSequence sequence];
-        _varDeclParser.name = @"varDecl";
-        [_varDeclParser add:[PKWord word]];
-        [_varDeclParser setAssembler:_assembler selector:@selector(parser:didMatchVarDecl:)];
+// startProduction              = '@' 'start';
+- (PKCollectionParser *)startProductionParser {
+    if (!_startProductionParser) {
+        self.startProductionParser = [PKSequence sequence];
+        _startProductionParser.name = @"startProduction";
+        [_startProductionParser add:[[PKSymbol symbolWithString:@"@"] discard]];
+        [_startProductionParser add:[[PKLiteral literalWithString:@"start"] discard]];
+        [_startProductionParser setAssembler:_assembler selector:@selector(parser:didMatchStartProduction:)];
     }
-    return _varDeclParser;
+    return _startProductionParser;
 }
 
 
-// tokenizerDirective   = '@' Word;
-- (PKCollectionParser *)tokenizerDirectiveParser {
-    if (!_tokenizerDirectiveParser) {
-        self.tokenizerDirectiveParser = [PKSequence sequence];
-        _tokenizerDirectiveParser.name = @"tokenizerDirective";
-        [_tokenizerDirectiveParser add:[[PKSymbol symbolWithString:@"@"] discard]];
-        [_tokenizerDirectiveParser add:[PKWord word]];
-        [_tokenizerDirectiveParser setAssembler:_assembler selector:@selector(parser:didMatchTokenizerDirective:)];
+// varProduction              = Word;
+- (PKCollectionParser *)varProductionParser {
+    if (!_varProductionParser) {
+        self.varProductionParser = [PKSequence sequence];
+        _varProductionParser.name = @"varProduction";
+        [_varProductionParser add:[PKWord word]];
+        [_varProductionParser setAssembler:_assembler selector:@selector(parser:didMatchVarProduction:)];
     }
-    return _tokenizerDirectiveParser;
+    return _varProductionParser;
 }
 
 

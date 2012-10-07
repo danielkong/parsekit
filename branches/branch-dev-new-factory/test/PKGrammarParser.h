@@ -22,10 +22,11 @@
 @property (nonatomic, assign) id assembler;
 @property (nonatomic, retain) PKRepetition *parser;
 @property (nonatomic, retain) PKCollectionParser *statementParser;
-@property (nonatomic, retain) PKCollectionParser *declParser;
-@property (nonatomic, retain) PKCollectionParser *varDeclParser;
-@property (nonatomic, retain) PKCollectionParser *startDeclParser;
 @property (nonatomic, retain) PKCollectionParser *tokenizerDirectiveParser;
+@property (nonatomic, retain) PKCollectionParser *declParser;
+@property (nonatomic, retain) PKCollectionParser *productionParser;
+@property (nonatomic, retain) PKCollectionParser *varProductionParser;
+@property (nonatomic, retain) PKCollectionParser *startProductionParser;
 @property (nonatomic, retain) PKCollectionParser *callbackParser;
 @property (nonatomic, retain) PKCollectionParser *selectorParser;
 @property (nonatomic, retain) PKCollectionParser *exprParser;

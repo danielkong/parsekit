@@ -107,9 +107,13 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (PKTokenizer *)tokenizerFromGrammarSettings;
 - (PKParser *)parserFromAST:(PKNodeBase *)rootNode;
 
-- (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
@@ -547,22 +551,19 @@ void PKReleaseSubparserTree(PKParser *p) {
 #pragma mark Assembler Callbacks
 
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a {
-    //    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
-    PKToken *tok = [a pop];
-    NSString *prodName = [NSString stringWithFormat:@"@%@", tok.stringValue];
+    NSArray *argToks = [a objectsAbove:_equals];
+    [a pop]; // discard '='
+
+    PKToken *nameTok = [a pop];
+    NSString *prodName = [NSString stringWithFormat:@"@%@", nameTok.stringValue];
     
-    PKAST *prodNode = [_productionTab objectForKey:prodName];
-    if (!prodNode) {
-        prodNode = [PKNodeVariable ASTWithToken:tok];
-        [_productionTab setObject:prodNode forKey:prodName];
-    }
-    
-    [a push:prodNode];
+    [_productionTab setObject:argToks forKey:prodName];
 }
 
 
-- (void)parser:(PKParser *)p didMatchStartDecl:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
     NSString *prodName = @"@start";
@@ -578,7 +579,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchVarDecl:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
     PKToken *tok = [a pop];
@@ -638,8 +639,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a {
-//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+- (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
     NSArray *children = [a objectsAbove:_equals];
     [a pop]; // '='
