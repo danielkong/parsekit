@@ -1029,17 +1029,31 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a {
-//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
-//    
-//    PKAST *child = [a pop];
-//    PKAST *parent = [a pop];
-//
-//    NSAssert([child isKindOfClass:[PKAST class]], @"");
-//    NSAssert([parent isKindOfClass:[PKAST class]], @"");
-//    
-//    [parent addChild:child];
-//    
-//    [a push:parent];
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+
+    NSMutableArray *childNodes = [NSMutableArray array];
+    while (![a isStackEmpty]) {
+        id obj = [a pop];
+        if ([obj isKindOfClass:[PKAST class]]) {
+            [childNodes addObject:obj];
+        } else {
+            [a push:obj];
+            break;
+        }
+    }
+    
+    if ([childNodes count] > 1) {
+        PKAST *seq = [PKNodeCollection ASTWithToken:_seqToken];
+        for (PKAST *node in [childNodes reverseObjectEnumerator]) {
+            [seq addChild:node];
+        }
+        
+        [a push:seq];
+    } else {
+        for (PKAST *node in childNodes) {
+            [a push:node];
+        }
+    }
 }
 
 @end

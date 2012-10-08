@@ -44,11 +44,11 @@
     
     s = @"%";
     res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDNil(res);
-
+    TDEqualObjects(@"[%]%^", [res description]);
+    
     s = @"foo %";
     res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, %]foo/%^", [res description]);
+    TDNil(res);
     
     g = @"@start = Word (Number | Symbol);";
     lp = [factory parserFromGrammar:g assembler:nil error:nil];

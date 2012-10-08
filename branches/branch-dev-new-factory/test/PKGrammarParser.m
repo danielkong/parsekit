@@ -323,7 +323,6 @@
         _termParser.name = @"term";
         [_termParser add:self.factorParser];
         [_termParser add:[PKRepetition repetitionWithSubparser:self.nextFactorParser]];
-        [_termParser setAssembler:_assembler selector:@selector(parser:didMatchAnd:)];
     }
     return _termParser;
 }
@@ -378,6 +377,7 @@
         [a add:self.phraseCardinalityParser];
         
         [_nextFactorParser add:a];
+        [_nextFactorParser setAssembler:_assembler selector:@selector(parser:didMatchAnd:)];
     }
     return _nextFactorParser;
 }
