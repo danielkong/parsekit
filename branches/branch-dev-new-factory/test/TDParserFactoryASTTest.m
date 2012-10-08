@@ -43,7 +43,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects([rootNode treeDescription], @"(@start (foo QuotedString Number))");
+    TDEqualObjects([rootNode treeDescription], @"(@start (foo (SEQ QuotedString Number)))");
 }
 
 
@@ -257,7 +257,8 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects([rootNode treeDescription], @"(@start (* (| Word Number)) QuotedString)");
+    //    TDEqualObjects([rootNode treeDescription], @"(@start (* (| Word Number)) QuotedString)");
+    TDEqualObjects([rootNode treeDescription], @"(@start (SEQ (* (| Word Number)) QuotedString))");
     
 }
 
@@ -269,7 +270,8 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects([rootNode treeDescription], @"(@start (foo (* (| Word Number)) QuotedString))");
+    //    TDEqualObjects([rootNode treeDescription], @"(@start (foo (* (| Word Number)) QuotedString))");
+    TDEqualObjects([rootNode treeDescription], @"(@start (foo (SEQ (* (| Word Number)) QuotedString)))");
     
 }
 

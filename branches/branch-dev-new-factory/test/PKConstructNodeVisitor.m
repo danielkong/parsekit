@@ -242,11 +242,15 @@
 
     [_currentParser add:p];
     self.currentParser = p;
-    
+
+    PKCompositeParser *oldParent = _currentParser;
+
     for (PKNodeBase *child in node.children) {
         [child visit:self];
         self.currentParser = p;
     }
+
+    self.currentParser = oldParent;
 }
 
 
