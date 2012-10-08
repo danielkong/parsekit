@@ -45,7 +45,7 @@
 
 
 - (NSString *)description {
-    return [self treeDescription];
+    return [_token stringValue]; //[self treeDescription];
 }
 
 

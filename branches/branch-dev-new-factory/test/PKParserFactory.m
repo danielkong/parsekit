@@ -282,8 +282,9 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKNodeBase *rootNode = [_productionTab objectForKey:@"@start"];
     
-    id <PKNodeVisitor>v = [[[PKSimplifyNodeVisitor alloc] init] autorelease];
-    [self visit:rootNode with:v];
+    // simplify
+    //id <PKNodeVisitor>v = [[[PKSimplifyNodeVisitor alloc] init] autorelease];
+    //[self visit:rootNode with:v];
     
     return rootNode;
 }

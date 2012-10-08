@@ -223,4 +223,16 @@
     TDEqualObjects([rootNode treeDescription], @"(@start (foo /\\w/))");
 }
 
+
+- (void)testTokSimplifyAST {
+    NSString *g = @"@start=foo;foo=Symbol;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+
+    TDNotNil(rootNode);
+    TDEqualObjects([rootNode treeDescription], @"(@start foo)");
+    
+}
+
 @end

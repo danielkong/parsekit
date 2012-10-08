@@ -20,9 +20,28 @@
 
 @implementation PKSimplifyNodeVisitor
 
+- (void)dealloc {
+    self.currentParent = nil;
+    [super dealloc];
+}
+
+
 - (void)visitVariable:(PKNodeVariable *)node {
-    for (PKNodeBase *child in node.children) {
+    
+    NSUInteger c = [node.children count];
+    
+    if (1 == c) {
+        PKNodeBase *child = [node.children objectAtIndex:0];
+        
+        NSUInteger idx = [_currentParent.children indexOfObject:node];
+        //self.currentParent = node;
         [child visit:self];
+        [_currentParent.children replaceObjectAtIndex:idx withObject:child];
+    } else {
+        for (PKNodeBase *child in node.children) {
+            self.currentParent = node;
+            [child visit:self];
+        }
     }
 }
 
@@ -49,6 +68,7 @@
 
 - (void)visitComposite:(PKNodeComposite *)node {
     for (PKNodeBase *child in node.children) {
+        self.currentParent = node;
         [child visit:self];
     }
 }
@@ -56,18 +76,23 @@
 
 - (void)visitCollection:(PKNodeCollection *)node {
     for (PKNodeBase *child in node.children) {
+        self.currentParent = node;
         [child visit:self];
     }
 }
 
 
 - (void)visitCardinal:(PKNodeCardinal *)node {
-
+    for (PKNodeBase *child in node.children) {
+        self.currentParent = node;
+        [child visit:self];
+    }
 }
 
 
 - (void)visitOptional:(PKNodeOptional *)node {
     for (PKNodeBase *child in node.children) {
+        self.currentParent = node;
         [child visit:self];
     }
 }
@@ -75,6 +100,7 @@
 
 - (void)visitMultiple:(PKNodeMultiple *)node {
     for (PKNodeBase *child in node.children) {
+        self.currentParent = node;
         [child visit:self];
     }
 }
