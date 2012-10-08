@@ -32,7 +32,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar (| (baz Word) (bat Number)))))");    
+    TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar (| baz bat))))");    
 }
 
 

@@ -10,8 +10,10 @@
 #import "PKNodeBase.h"
 #import "PKNodeVariable.h"
 #import "PKNodeConstant.h"
+#import "PKNodeDelimited.h"
 #import "PKNodeLiteral.h"
 #import "PKNodePattern.h"
+#import "PKNodeWhitespace.h"
 #import "PKNodeComposite.h"
 #import "PKNodeCollection.h"
 #import "PKNodeCardinal.h"
@@ -25,6 +27,7 @@
 @implementation PKConstructNodeVisitor
 
 - (void)dealloc {
+    self.rootNode = nil;
     self.rootParser = nil;
     self.currentParser = nil;
     self.assembler = nil;
@@ -53,6 +56,33 @@
 
     [self setAssemblerForParser:p callbackName:node.callbackName];
 }
+
+
+//- (void)visitVariable:(PKNodeVariable *)node {
+//    PKToken *tok = node.token;
+//    NSAssert(tok.isWord, @"");
+//    
+//    NSUInteger childCount = [node.children count];
+//    if (1 == childCount) {
+//        PKNodeBase *child = [node.children objectAtIndex:0];
+//        [child visit:self];
+//        _currentParser.name = tok.stringValue;
+//    } else {
+//        PKCollectionParser *p = [PKSequence sequence];
+//        p.name = tok.stringValue;
+//        
+//        [_currentParser add:p];
+//        self.currentParser = p;
+//        
+//        for (PKNodeBase *child in node.children) {
+//            [child visit:self];
+//        }
+//        
+//        self.currentParser = p;
+//        
+//        [self setAssemblerForParser:p callbackName:node.callbackName];
+//    }
+//}
 
 
 - (void)visitConstant:(PKNodeConstant *)node {
@@ -99,14 +129,39 @@
     NSString *endMarker = nil;
     PKDelimitedString *p = [PKDelimitedString delimitedStringWithStartMarker:startMarker endMarker:endMarker];
     
+    if (node.discard) {
+        [p discard];
+    }
+    
     [_currentParser add:p];
 }
 
 
 - (void)visitPattern:(PKNodePattern *)node {
-    PKPatternOptions opts = 0;
-    NSString *regex = nil;
+    PKToken *tok = node.token;
+    NSAssert(tok.isDelimitedString, @"");
+    
+    PKPatternOptions opts = 0; // TODO
+    NSString *regex = [tok.stringValue stringByTrimmingQuotes];
     PKPattern *p = [PKPattern patternWithString:regex options:opts];
+    
+    if (node.discard) {
+        [p discard];
+    }
+    
+    [_currentParser add:p];
+}
+
+
+- (void)visitWhitespace:(PKNodeWhitespace *)node {
+    PKTerminal *p = [PKWhitespace whitespace];
+    
+    PKToken *tok = node.token;
+    NSAssert(tok.isWord, @"");
+    
+    if (node.discard) {
+        [p discard];
+    }
     
     [_currentParser add:p];
 }
@@ -132,7 +187,7 @@
             parserClass = [PKNegation class];
             break;
         case '-':
-            parserClass = [PKNegation class];
+            parserClass = [PKDifference class];
             break;
         default:
             NSAssert1(0, @"unknown composite node type '%@'", tokStr);

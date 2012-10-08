@@ -41,6 +41,9 @@
 
 
 - (BOOL)qualifies:(id)obj {
+    NSParameterAssert([obj isKindOfClass:[PKToken class]]);
+    NSAssert([self.string length], @"");
+    
     PKToken *tok = (PKToken *)obj;
 
     NSRange r = NSMakeRange(0, [tok.stringValue length]);

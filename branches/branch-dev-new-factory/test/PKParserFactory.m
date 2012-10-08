@@ -18,6 +18,7 @@
 #import "PKNodeLiteral.h"
 #import "PKNodeDelimited.h"
 #import "PKNodePattern.h"
+#import "PKNodeWhitespace.h"
 #import "PKNodeComposite.h"
 #import "PKNodeCollection.h"
 #import "PKNodeCardinal.h"
@@ -440,8 +441,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     [_productionTab removeObjectForKey:@"@delimitedString"];
     [_productionTab removeObjectForKey:@"@delimitedStrings"];
     if ([toks count] > 1) {
-        NSInteger i = 0;
-        for ( ; i < [toks count] - 2; i++) {
+        for (NSInteger i = 0; i < [toks count] - 2; i++) {
             PKToken *startTok = [toks objectAtIndex:i];
             PKToken *endTok = [toks objectAtIndex:++i];
             PKToken *charSetTok = [toks objectAtIndex:++i];
@@ -521,6 +521,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)visit:(PKNodeBase *)rootNode with:(id <PKNodeVisitor>)v {
+    v.rootNode = rootNode;
+
     PKNodeType nodeType = rootNode.type;
     switch (nodeType) {
         case PKNodeTypeVariable:
@@ -576,16 +578,32 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
+- (NSArray *)tokens:(NSArray *)toks byRemovingTokensOfType:(PKTokenType)tt {
+    NSMutableArray *res = [NSMutableArray array];
+    for (PKToken *tok in toks) {
+        if (tt != tok.tokenType) {
+            [res addObject:tok];
+        }
+    }
+    return res;
+}
+
+
 #pragma mark -
 #pragma mark Assembler Callbacks
 
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
-    NSArray *argToks = [a objectsAbove:_equals];
+    NSArray *argToks = [[self tokens:[a objectsAbove:_equals] byRemovingTokensOfType:PKTokenTypeWhitespace] reversedArray];
+    //NSArray *argToks = [a objectsAbove:_equals];
     [a pop]; // discard '='
 
     PKToken *nameTok = [a pop];
+    NSAssert(nameTok, @"");
+    NSAssert([nameTok isKindOfClass:[PKToken class]], @"");
+    NSAssert(nameTok.isWord, @"");
+    
     NSString *prodName = [NSString stringWithFormat:@"@%@", nameTok.stringValue];
     
     [_productionTab setObject:argToks forKey:prodName];
@@ -628,6 +646,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
     PKToken *tok = [a pop];
+    NSAssert(tok, @"");
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isWord, @"");
+    NSAssert(islower([tok.stringValue characterAtIndex:0]), @"");
+
     NSString *prodName = tok.stringValue;
 
     PKAST *prodNode = [_productionTab objectForKey:prodName];
@@ -643,8 +666,26 @@ void PKReleaseSubparserTree(PKParser *p) {
 //    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
     PKToken *tok = [a pop];
+    NSAssert(tok, @"");
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isWord, @"");
+    NSAssert(isupper([tok.stringValue characterAtIndex:0]), @"");
 
     PKAST *parserNode = [PKNodeConstant ASTWithToken:tok];
+    [a push:parserNode];
+}
+
+
+- (void)parser:(PKParser *)p didMatchSpace:(PKAssembly *)a {
+    //    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    
+    PKToken *tok = [a pop];
+    NSAssert(tok, @"");
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isWord, @"");
+    NSAssert([tok.stringValue isEqualToString:@"S"], @"");
+    
+    PKAST *parserNode = [PKNodeWhitespace ASTWithToken:tok];
     [a push:parserNode];
 }
 
@@ -896,7 +937,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKAST *sub = [a pop];
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
-    PKAST *plusNode = [PKNodeCollection ASTWithToken:tok];
+    PKAST *plusNode = [PKNodeMultiple ASTWithToken:tok];
     [plusNode addChild:sub];
     
     [a push:plusNode];

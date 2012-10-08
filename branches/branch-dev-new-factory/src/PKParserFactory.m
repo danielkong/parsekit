@@ -660,7 +660,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (NSArray *)tokens:(NSArray *)toks byRemovingTokensOfType:(PKTokenType)tt {
     NSMutableArray *res = [NSMutableArray array];
     for (PKToken *tok in toks) {
-        if (PKTokenTypeWhitespace != tok.tokenType) {
+        if (tt != tok.tokenType) {
             [res addObject:tok];
         }
     }

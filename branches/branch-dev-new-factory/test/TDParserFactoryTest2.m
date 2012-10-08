@@ -21,260 +21,260 @@
 }
 
 
-- (void)testOrVsAndPrecendence {
-    g = @"@start = Word | Number Symbol;";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"foo";
-    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo]foo^", [res description]);
-    
-    s = @"foo %";
-    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDNil(res);
-    
-    g = @"@start = Word Number | Symbol;";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"foo 3";
-    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, 3]foo/3^", [res description]);
-    
-    s = @"%";
-    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[%]%^", [res description]);
-
-    s = @"foo %";
-    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDNil(res);
-    
-    g = @"@start = Word (Number | Symbol);";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"foo 3";
-    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, 3]foo/3^", [res description]);
-    
-    s = @"foo";
-    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDNil(res);
-    
-    s = @"foo %";
-    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, %]foo/%^", [res description]);
-}
-
-
-- (void)test1 {
-    g = @"@start = (Word | Number)*;";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-
-    s = @"foo";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo]foo^", [res description]);
-
-    s = @"24.5";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[24.5]24.5^", [res description]);
-
-    s = @"foo bar 2 baz";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, bar, 2, baz]foo/bar/2/baz^", [res description]);
-    
-    s = @"foo bar 2 4 baz";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, bar, 2, 4, baz]foo/bar/2/4/baz^", [res description]);
-}
-
-
-- (void)test2 {
-    g = @"@start = (Word | Number)* QuotedString;";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"foo 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, 'bar']foo/'bar'^", [res description]);
-    
-    s = @"24.5 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[24.5, 'bar']24.5/'bar'^", [res description]);
-    
-    s = @"foo bar 2 baz 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, bar, 2, baz, 'bar']foo/bar/2/baz/'bar'^", [res description]);
-    
-    s = @"foo bar 2 4 baz 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, bar, 2, 4, baz, 'bar']foo/bar/2/4/baz/'bar'^", [res description]);
-}
-
-
-- (void)test3 {
-    g = @"@start = (Word | Number)* '$'+ QuotedString;";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"foo $ 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, $, 'bar']foo/$/'bar'^", [res description]);
-    
-    s = @"foo $ $ 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, $, $, 'bar']foo/$/$/'bar'^", [res description]);
-    
-    s = @"24.5 $ 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[24.5, $, 'bar']24.5/$/'bar'^", [res description]);
-    
-    s = @"foo bar 2 baz $ 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, bar, 2, baz, $, 'bar']foo/bar/2/baz/$/'bar'^", [res description]);
-    
-    s = @"foo bar 2 4 baz $ 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, bar, 2, 4, baz, $, 'bar']foo/bar/2/4/baz/$/'bar'^", [res description]);
-}
-
-
-- (void)test4 {
-    g = @"@start = (Word | Number)* ('$' '%')+ QuotedString;";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"foo $ % 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, $, %, 'bar']foo/$/%/'bar'^", [res description]);
-    
-    s = @"foo $ % $ % 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, $, %, $, %, 'bar']foo/$/%/$/%/'bar'^", [res description]);
-}
-
-
-- (void)test5 {
-    g = @"@start = (Word | Number)* ('$' '%')+ QuotedString;";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"foo $ % 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, $, %, 'bar']foo/$/%/'bar'^", [res description]);
-    
-    s = @"foo $ % $ % 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, $, %, $, %, 'bar']foo/$/%/$/%/'bar'^", [res description]);
-    
-    s = @"foo 33 4 $ % $ % 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, 33, 4, $, %, $, %, 'bar']foo/33/4/$/%/$/%/'bar'^", [res description]);
-    
-    s = @"foo 33 bar 4 $ % $ % 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, 33, bar, 4, $, %, $, %, 'bar']foo/33/bar/4/$/%/$/%/'bar'^", [res description]);
-}
-
-
-- (void)test6 {
-    g = @"@start = ((Word | Number)* ('$' '%')+) | QuotedString;";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"['bar']'bar'^", [res description]);
-    
-    s = @"foo $ % $ %";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, $, %, $, %]foo/$/%/$/%^", [res description]);
-}
-
-
-- (void)test7 {
-    g = @"@start = ((Word | Number)* ('$' '%')+) | QuotedString+;";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"'bar' 'foo'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"['bar', 'foo']'bar'/'foo'^", [res description]);
-    
-    s = @"foo $ % $ %";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, $, %, $, %]foo/$/%/$/%^", [res description]);
-
-    s = @"$ % $ %";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[$, %, $, %]$/%/$/%^", [res description]);
-}
-
-
-- (void)test8 {
-    g = @"@start = ((Word | Number)* ('$' '%')+) | QuotedString+;";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"'bar' 'foo'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"['bar', 'foo']'bar'/'foo'^", [res description]);
-    
-    s = @"foo $ % $ %";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, $, %, $, %]foo/$/%/$/%^", [res description]);
-    
-    s = @"$ % $ %";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[$, %, $, %]$/%/$/%^", [res description]);
-}
-
-
-- (void)test9 {
-    g = @"@start = Word | (Number);";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"42";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[42]42^", [res description]);
-    
-    s = @"foo";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo]foo^", [res description]);
-}
-
-
-- (void)test10 {
-    g = @"@start = Word | (Number QuotedString);";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-    
-    s = @"foo";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo]foo^", [res description]);
-
-    s = @"42 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[42, 'bar']42/'bar'^", [res description]);
-}
-
-
-- (void)test11 {
-    g = @"@start = ((Word | Number)* | ('$' '%')+) QuotedString+;";
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    TDNotNil(lp);
-
-    s = @"foo 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[foo, 'bar']foo/'bar'^", [res description]);
-    
-    s = @"$ % $ % 'bar'";
-    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[$, %, $, %, 'bar']$/%/$/%/'bar'^", [res description]);
-}
+//- (void)testOrVsAndPrecendence {
+//    g = @"@start = Word | Number Symbol;";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"foo";
+//    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo]foo^", [res description]);
+//    
+//    s = @"foo %";
+//    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDNil(res);
+//    
+//    g = @"@start = Word Number | Symbol;";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"foo 3";
+//    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, 3]foo/3^", [res description]);
+//    
+//    s = @"%";
+//    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[%]%^", [res description]);
+//
+//    s = @"foo %";
+//    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDNil(res);
+//    
+//    g = @"@start = Word (Number | Symbol);";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"foo 3";
+//    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, 3]foo/3^", [res description]);
+//    
+//    s = @"foo";
+//    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDNil(res);
+//    
+//    s = @"foo %";
+//    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, %]foo/%^", [res description]);
+//}
+//
+//
+//- (void)test1 {
+//    g = @"@start = (Word | Number)*;";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//
+//    s = @"foo";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo]foo^", [res description]);
+//
+//    s = @"24.5";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[24.5]24.5^", [res description]);
+//
+//    s = @"foo bar 2 baz";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, bar, 2, baz]foo/bar/2/baz^", [res description]);
+//    
+//    s = @"foo bar 2 4 baz";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, bar, 2, 4, baz]foo/bar/2/4/baz^", [res description]);
+//}
+//
+//
+//- (void)test2 {
+//    g = @"@start = (Word | Number)* QuotedString;";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"foo 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, 'bar']foo/'bar'^", [res description]);
+//    
+//    s = @"24.5 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[24.5, 'bar']24.5/'bar'^", [res description]);
+//    
+//    s = @"foo bar 2 baz 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, bar, 2, baz, 'bar']foo/bar/2/baz/'bar'^", [res description]);
+//    
+//    s = @"foo bar 2 4 baz 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, bar, 2, 4, baz, 'bar']foo/bar/2/4/baz/'bar'^", [res description]);
+//}
+//
+//
+//- (void)test3 {
+//    g = @"@start = (Word | Number)* '$'+ QuotedString;";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"foo $ 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, $, 'bar']foo/$/'bar'^", [res description]);
+//    
+//    s = @"foo $ $ 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, $, $, 'bar']foo/$/$/'bar'^", [res description]);
+//    
+//    s = @"24.5 $ 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[24.5, $, 'bar']24.5/$/'bar'^", [res description]);
+//    
+//    s = @"foo bar 2 baz $ 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, bar, 2, baz, $, 'bar']foo/bar/2/baz/$/'bar'^", [res description]);
+//    
+//    s = @"foo bar 2 4 baz $ 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, bar, 2, 4, baz, $, 'bar']foo/bar/2/4/baz/$/'bar'^", [res description]);
+//}
+//
+//
+//- (void)test4 {
+//    g = @"@start = (Word | Number)* ('$' '%')+ QuotedString;";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"foo $ % 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, $, %, 'bar']foo/$/%/'bar'^", [res description]);
+//    
+//    s = @"foo $ % $ % 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, $, %, $, %, 'bar']foo/$/%/$/%/'bar'^", [res description]);
+//}
+//
+//
+//- (void)test5 {
+//    g = @"@start = (Word | Number)* ('$' '%')+ QuotedString;";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"foo $ % 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, $, %, 'bar']foo/$/%/'bar'^", [res description]);
+//    
+//    s = @"foo $ % $ % 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, $, %, $, %, 'bar']foo/$/%/$/%/'bar'^", [res description]);
+//    
+//    s = @"foo 33 4 $ % $ % 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, 33, 4, $, %, $, %, 'bar']foo/33/4/$/%/$/%/'bar'^", [res description]);
+//    
+//    s = @"foo 33 bar 4 $ % $ % 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, 33, bar, 4, $, %, $, %, 'bar']foo/33/bar/4/$/%/$/%/'bar'^", [res description]);
+//}
+//
+//
+//- (void)test6 {
+//    g = @"@start = ((Word | Number)* ('$' '%')+) | QuotedString;";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"['bar']'bar'^", [res description]);
+//    
+//    s = @"foo $ % $ %";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, $, %, $, %]foo/$/%/$/%^", [res description]);
+//}
+//
+//
+//- (void)test7 {
+//    g = @"@start = ((Word | Number)* ('$' '%')+) | QuotedString+;";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"'bar' 'foo'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"['bar', 'foo']'bar'/'foo'^", [res description]);
+//    
+//    s = @"foo $ % $ %";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, $, %, $, %]foo/$/%/$/%^", [res description]);
+//
+//    s = @"$ % $ %";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[$, %, $, %]$/%/$/%^", [res description]);
+//}
+//
+//
+//- (void)test8 {
+//    g = @"@start = ((Word | Number)* ('$' '%')+) | QuotedString+;";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"'bar' 'foo'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"['bar', 'foo']'bar'/'foo'^", [res description]);
+//    
+//    s = @"foo $ % $ %";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, $, %, $, %]foo/$/%/$/%^", [res description]);
+//    
+//    s = @"$ % $ %";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[$, %, $, %]$/%/$/%^", [res description]);
+//}
+//
+//
+//- (void)test9 {
+//    g = @"@start = Word | (Number);";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"42";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[42]42^", [res description]);
+//    
+//    s = @"foo";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo]foo^", [res description]);
+//}
+//
+//
+//- (void)test10 {
+//    g = @"@start = Word | (Number QuotedString);";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//    
+//    s = @"foo";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo]foo^", [res description]);
+//
+//    s = @"42 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[42, 'bar']42/'bar'^", [res description]);
+//}
+//
+//
+//- (void)test11 {
+//    g = @"@start = ((Word | Number)* | ('$' '%')+) QuotedString+;";
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    TDNotNil(lp);
+//
+//    s = @"foo 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[foo, 'bar']foo/'bar'^", [res description]);
+//    
+//    s = @"$ % $ % 'bar'";
+//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[$, %, $, %, 'bar']$/%/$/%/'bar'^", [res description]);
+//}
 
 
 - (void)test12 {

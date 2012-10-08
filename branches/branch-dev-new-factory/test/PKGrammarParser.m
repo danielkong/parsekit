@@ -32,6 +32,7 @@
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchSpace:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a;
@@ -98,6 +99,8 @@
     self.literalParser = nil;
     self.variableParser = nil;
     self.constantParser = nil;
+    self.spaceParser = nil;
+    self.whitespaceParser = nil;
     [super dealloc];
 }
 
@@ -120,7 +123,7 @@
 
 // @start               = statement*;
 // statement            = tokenizerDirective | decl;
-// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' (S | ~';')+ ';'!;
+// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' (S! | ~';')+ ';'!;
 // decl                 = S* production S* callback? S* '=' expr ';'!;
 // production           = startProduction | varProduction;
 // startProduction      = '@'! 'start'!;
@@ -149,12 +152,13 @@
 // barePrimaryExpr      = atomicValue | subExpr;
 // subExpr              = '(' expr ')';
 // atomicValue          = parser discard?;
-// parser               = pattern | literal | variable | constant | delimitedString;
+// parser               = pattern | literal | variable | space | constant | delimitedString;
 // discard              = S* '!';
 // pattern              = DelimitedString('/', '/') (Word & /[imxsw]+/)?;
 // delimitedString      = 'DelimitedString' S* '(' S* QuotedString (S* ',' QuotedString)? S* ')';
 // literal              = QuotedString;
 // variable             = LowercaseWord;
+// space                = 'S';
 // constant             = UppercaseWord;
 
 
@@ -178,7 +182,7 @@
 }
 
 
-// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' (S | ~';')+ ';'!;
+// tokenizerDirective   = S* '@'! (Word - 'start') S* '=' (S! | ~';')+ ';'!;
 - (PKCollectionParser *)tokenizerDirectiveParser {
     if (!_tokenizerDirectiveParser) {
         self.tokenizerDirectiveParser = [PKSequence sequence];
@@ -592,7 +596,7 @@
 }
 
 
-// parser              = pattern | literal | variable | constant | delimitedString;
+// parser               = pattern | literal | variable | space | constant | delimitedString;
 - (PKCollectionParser *)parserParser {
     if (!_parserParser) {
         self.parserParser = [PKAlternation alternation];
@@ -600,6 +604,7 @@
         [_parserParser add:self.patternParser];
         [_parserParser add:self.literalParser];
         [_parserParser add:self.variableParser];
+        [_parserParser add:self.spaceParser];
         [_parserParser add:self.constantParser];
         [_parserParser add:self.delimitedStringParser];
     }
@@ -694,7 +699,7 @@
 // constant             = UppercaseWord;
 - (PKParser *)constantParser {
     if (!_constantParser) {
-        self.constantParser = [PKUppercaseWord word];
+        self.constantParser = [PKDifference differenceWithSubparser:[PKUppercaseWord word] minus:[PKLiteral literalWithString:@"S"]];
         _constantParser.name = @"constant";
         [_constantParser setAssembler:_assembler selector:@selector(parser:didMatchConstant:)];
     }
@@ -702,8 +707,23 @@
 }
 
 
+// space             = 'S';
+- (PKParser *)spaceParser {
+    if (!_spaceParser) {
+        self.spaceParser = [PKLiteral literalWithString:@"S"];
+        _spaceParser.name = @"space";
+        [_spaceParser setAssembler:_assembler selector:@selector(parser:didMatchSpace:)];
+    }
+    return _spaceParser;
+}
+
+
 - (PKParser *)whitespaceParser {
-    return [[PKWhitespace whitespace] discard];
+    if (!_whitespaceParser) {
+        self.whitespaceParser = [[PKWhitespace whitespace] discard];
+//        [_whitespaceParser setAssembler:_assembler selector:@selector(parser:didMatchWhitespace:)];
+    }
+    return _whitespaceParser;
 }
 
 

@@ -12,6 +12,7 @@
 #import "PKNodeConstant.h"
 #import "PKNodeLiteral.h"
 #import "PKNodePattern.h"
+#import "PKNodeWhitespace.h"
 #import "PKNodeComposite.h"
 #import "PKNodeCollection.h"
 #import "PKNodeCardinal.h"
@@ -21,22 +22,44 @@
 @implementation PKSimplifyNodeVisitor
 
 - (void)dealloc {
+    self.rootNode = nil;
     self.currentParent = nil;
     [super dealloc];
 }
 
 
 - (void)visitVariable:(PKNodeVariable *)node {
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+
+    BOOL hasOnlyChild = 1 == [node.children count];
     
-    NSUInteger c = [node.children count];
+    BOOL isRoot = NO; // TODO remove rootNode check if remove "@start"
+    PKNodeBase *firstChild = nil;
+    BOOL isChildTerminal = NO;
+
+    if (hasOnlyChild) {
+        isRoot = node == _rootNode;
+        firstChild = [node.children objectAtIndex:0];
+        isChildTerminal = PKNodeTypeConstant == firstChild.type || PKNodeTypeLiteral == firstChild.type;
+    }
     
-    if (1 == c) {
-        PKNodeBase *child = [node.children objectAtIndex:0];
+    if (hasOnlyChild && !isRoot && isChildTerminal) {
+        //NSLog(@"%@", firstChild);
         
+        // find index of current Node in parent's children
         NSUInteger idx = [_currentParent.children indexOfObject:node];
-        //self.currentParent = node;
-        [child visit:self];
-        [_currentParent.children replaceObjectAtIndex:idx withObject:child];
+        
+        // visit child
+        [firstChild visit:self];
+        
+        // transfer name to child name
+        firstChild.token = node.token;
+        
+        // replace current node with firstChild in parent's children
+        NSMutableArray *sibs = [[_currentParent.children mutableCopy] autorelease];
+        [sibs replaceObjectAtIndex:idx withObject:firstChild];
+        _currentParent.children = sibs;
+        
     } else {
         for (PKNodeBase *child in node.children) {
             self.currentParent = node;
@@ -62,7 +85,12 @@
 
 
 - (void)visitPattern:(PKNodePattern *)node {
+    
+}
 
+
+- (void)visitWhitespace:(PKNodeWhitespace *)node {
+    
 }
 
 
@@ -102,6 +130,19 @@
     for (PKNodeBase *child in node.children) {
         self.currentParent = node;
         [child visit:self];
+    }
+}
+
+
+#pragma mark -
+#pragma mark Properties
+
+- (void)setRootNode:(PKNodeBase *)node {
+    if (node != _rootNode) {
+        [_rootNode release];
+        _rootNode = [node retain];
+        
+        self.currentParent = _rootNode;
     }
 }
 

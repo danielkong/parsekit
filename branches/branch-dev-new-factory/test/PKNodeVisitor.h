@@ -14,6 +14,7 @@
 @class PKNodeLiteral;
 @class PKNodeDelimited;
 @class PKNodePattern;
+@class PKNodeWhitespace;
 @class PKNodeComposite;
 @class PKNodeCollection;
 @class PKNodeCardinal;
@@ -29,6 +30,7 @@
 - (void)visitLiteral:(PKNodeLiteral *)node;
 - (void)visitDelimited:(PKNodeDelimited *)node;
 - (void)visitPattern:(PKNodePattern *)node;
+- (void)visitWhitespace:(PKNodeWhitespace *)node;
 - (void)visitComposite:(PKNodeComposite *)node;
 - (void)visitCollection:(PKNodeCollection *)node;
 - (void)visitCardinal:(PKNodeCardinal *)node;
@@ -37,4 +39,6 @@
 //- (void)visitRepetition:(PKNodeRepetition *)node;
 //- (void)visitDifference:(PKNodeDifference *)node;
 //- (void)visitNegation:(PKNodeNegation *)node;
+
+@property (nonatomic, retain) PKNodeBase *rootNode;
 @end

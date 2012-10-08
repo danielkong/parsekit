@@ -18,6 +18,7 @@ typedef enum {
     PKNodeTypeLiteral,
     PKNodeTypeDelimited,
     PKNodeTypePattern,
+    PKNodeTypeWhitespace,
     PKNodeTypeComposite,
     PKNodeTypeCollection,
     PKNodeTypeCardinal,
