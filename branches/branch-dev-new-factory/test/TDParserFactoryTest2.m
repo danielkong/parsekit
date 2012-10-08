@@ -262,19 +262,19 @@
 }
 
 
-//- (void)test11 {
-//    g = @"@start = ((Word | Number)* | ('$' '%')+) QuotedString+;";
-//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-//    TDNotNil(lp);
-//
-//    s = @"foo 'bar'";
-//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-//    TDEqualObjects(@"[foo, 'bar']foo/'bar'^", [res description]);
-//    
-//    s = @"$ % $ % 'bar'";
-//    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
-//    TDEqualObjects(@"[$, %, $, %, 'bar']$/%/$/%/'bar'^", [res description]);
-//}
+- (void)test11 {
+    g = @"@start = ((Word | Number)* | ('$' '%')+) QuotedString+;";
+    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+    TDNotNil(lp);
+
+    s = @"foo 'bar'";
+    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+    TDEqualObjects(@"[foo, 'bar']foo/'bar'^", [res description]);
+    
+    s = @"$ % $ % 'bar'";
+    res = [lp bestMatchFor:[PKTokenAssembly assemblyWithString:s]];
+    TDEqualObjects(@"[$, %, $, %, 'bar']$/%/$/%/'bar'^", [res description]);
+}
 
 
 - (void)test12 {
