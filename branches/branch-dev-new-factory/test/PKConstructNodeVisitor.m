@@ -197,12 +197,14 @@
     p = [[[parserClass alloc] init] autorelease];
     
     [_currentParser add:p];
-    self.currentParser = p;
+    PKCompositeParser *oldParent = _currentParser;
     
     for (PKNodeBase *child in node.children) {
-        [child visit:self];
         self.currentParser = p;
+        [child visit:self];
     }
+
+    self.currentParser = oldParent;
 }
 
 

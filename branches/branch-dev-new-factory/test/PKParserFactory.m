@@ -700,7 +700,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
-//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
     PKAST *second = [a pop];
     PKToken *tok = [a pop]; // pop '|'
@@ -725,13 +725,25 @@ void PKReleaseSubparserTree(PKParser *p) {
     [a pop]; // '='
     
     PKAST *parent = [a pop];
+    BOOL isParentSeq = PKNodeTypeVariable == parent.type;
     NSAssert([parent isKindOfClass:[PKAST class]], @"");
-
-    for (PKAST *child in [children reverseObjectEnumerator]) {
-        NSAssert([child isKindOfClass:[PKAST class]], @"");
-        [parent addChild:child];
-    }
     
+    if ([children count] > 1 && !isParentSeq) {
+        PKAST *seq = [PKNodeCollection ASTWithToken:_seqToken];
+
+        for (PKAST *child in [children reverseObjectEnumerator]) {
+            NSAssert([child isKindOfClass:[PKAST class]], @"");
+            [seq addChild:child];
+        }
+        
+        [parent addChild:seq];
+    } else {
+        for (PKAST *child in [children reverseObjectEnumerator]) {
+            NSAssert([child isKindOfClass:[PKAST class]], @"");
+            [parent addChild:child];
+        }
+    }
+
     [a push:parent];
 }
 
@@ -755,6 +767,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+
 }
 
 
@@ -1015,6 +1029,17 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a {
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+//    
+//    PKAST *child = [a pop];
+//    PKAST *parent = [a pop];
+//
+//    NSAssert([child isKindOfClass:[PKAST class]], @"");
+//    NSAssert([parent isKindOfClass:[PKAST class]], @"");
+//    
+//    [parent addChild:child];
+//    
+//    [a push:parent];
 }
 
 @end
