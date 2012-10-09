@@ -780,16 +780,16 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([objs count], @"");
     [a pop]; // pop '('
     
-    if ([objs count] > 1) {
+    //    if ([objs count] > 1) {
         PKAST *seqNode = [PKNodeCollection ASTWithToken:_seqToken];
-        for (PKAST *child in [objs reverseObjectEnumerator]) {
+        for (PKAST *child in objs) {
             NSAssert([child isKindOfClass:[PKAST class]], @"");
             [seqNode addChild:child];
         }
         [a push:seqNode];
-    } else if ([objs count]) {
-        [a push:[objs objectAtIndex:0]];
-    }
+//    } else if ([objs count]) {
+//        [a push:[objs objectAtIndex:0]];
+//    }
 }
 
 
@@ -1032,28 +1032,34 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
-//    NSMutableArray *childNodes = [NSMutableArray array];
-//    while (![a isStackEmpty]) {
-//        id obj = [a pop];
-//        if ([obj isKindOfClass:[PKAST class]]) {
-//            [childNodes addObject:obj];
-//        } else {
-//            [a push:obj];
-//            break;
-//        }
-//    }
-
-    NSArray *childNodes = [a objectsAbove:_equals];
-    [a pop]; // '='
-    PKAST *seq = [a pop];
-
-    //    if ([childNodes count] > 1) {
-        for (PKAST *node in [childNodes reverseObjectEnumerator]) {
-            [seq addChild:node];
+    // objectsAbove: '(' or '='
+    NSMutableArray *nodes = [NSMutableArray array];
+    while (![a isStackEmpty]) {
+        id obj = [a pop];
+        if ([obj isKindOfClass:[PKAST class]]) {
+            [nodes addObject:obj];
+        } else {
+            [a push:obj];
+            break;
         }
-        
-        [a push:seq];
-    [a push:_equals];
+    }
+
+    //    NSArray *nodes = [a objectsAbove:_equals];
+    
+    for (PKAST *node in nodes) {
+        [a push:node];
+    }
+
+//    NSArray *childNodes = [a objectsAbove:_equals];
+//    [a pop]; // '='
+//    PKAST *seq = [a pop];
+//
+//    //    if ([childNodes count] > 1) {
+//        for (PKAST *node in [childNodes reverseObjectEnumerator]) {
+//            [seq addChild:node];
+//        }
+//        
+//        [a push:seq];
 //    } else {
 //        for (PKAST *node in childNodes) {
 //            [a push:node];
