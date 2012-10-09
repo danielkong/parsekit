@@ -81,15 +81,15 @@
  */
 
 
-//- (void)testAlternationAST3 {
-//    NSString *g = @"@start=foo;foo=bar|baz;bar=Word;baz=Number;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar Word) (baz Number)))");
-//    //TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar (| baz bat))))");
-//}
+- (void)testAlternationAST3 {
+    NSString *g = @"@start=foo;foo=bar|baz;bar=Word;baz=Number;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects([rootNode treeDescription], @"(@start:SEQ (foo:SEQ (nil:| (bar:SEQ nil:Word) (baz:SEQ nil:Number))))");
+    //TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar Word) (baz Number)))");
+}
 
 
 //- (void)testSequenceAST {
