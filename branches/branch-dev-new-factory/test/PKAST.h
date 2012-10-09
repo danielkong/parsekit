@@ -16,7 +16,7 @@
 
 @class PKToken;
 
-@interface PKAST : NSObject
+@interface PKAST : NSObject <NSCopying>
 
 + (PKAST *)ASTWithToken:(PKToken *)tok;
 
