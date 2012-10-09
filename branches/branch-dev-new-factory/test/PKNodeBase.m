@@ -23,11 +23,11 @@
 
 
 - (NSString *)name {
-    if (_parserName) {
-        return _parserName;
-    } else {
-        return [super name];
-    }
+    NSString *prefix = _parserName ? _parserName : @"nil";
+    NSString *suffix = [super name];
+    
+    NSString *str = [NSString stringWithFormat:@"%@:%@", prefix, suffix];
+    return str;
 }
 
 @end

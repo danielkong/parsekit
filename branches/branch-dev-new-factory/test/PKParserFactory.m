@@ -614,11 +614,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
     NSString *prodName = @"@start";
-    PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:prodName floatValue:0.0];
     
-    PKAST *prodNode = [_productionTab objectForKey:prodName];
+    PKNodeBase *prodNode = [_productionTab objectForKey:prodName];
     if (!prodNode) {
-        prodNode = [PKNodeVariable ASTWithToken:tok];
+        prodNode = (PKNodeBase *)[PKNodeCollection ASTWithToken:_seqToken];
+        prodNode.parserName = prodName;
         [_productionTab setObject:prodNode forKey:prodName];
     }
     
@@ -627,18 +627,25 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a {
+    [self parser:p didMatchVariable:a];
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+//    
+//    PKToken *tok = [a pop];
+//    NSString *prodName = tok.stringValue;
+//    
+//    PKNodeBase *prodNode = [_productionTab objectForKey:prodName];
+//    if (!prodNode) {
+//        prodNode = (PKNodeBase *)[PKNodeCollection ASTWithToken:_seqToken];
+//        prodNode.parserName = prodName;
+//        [_productionTab setObject:prodNode forKey:prodName];
+//    }
+//    
+//    [a push:prodNode];
+}
+
+
+- (void)parser:(PKParser *)p didMatchEq:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
-    
-    PKToken *tok = [a pop];
-    NSString *prodName = tok.stringValue;
-    
-    PKAST *prodNode = [_productionTab objectForKey:prodName];
-    if (!prodNode) {
-        prodNode = [PKNodeVariable ASTWithToken:tok];
-        [_productionTab setObject:prodNode forKey:prodName];
-    }
-    
-    [a push:prodNode];
 }
 
 
@@ -653,9 +660,10 @@ void PKReleaseSubparserTree(PKParser *p) {
 
     NSString *prodName = tok.stringValue;
 
-    PKAST *prodNode = [_productionTab objectForKey:prodName];
+    PKNodeBase *prodNode = [_productionTab objectForKey:prodName];
     if (!prodNode) {
-        prodNode = [PKNodeVariable ASTWithToken:tok];
+        prodNode = (PKNodeBase *)[PKNodeCollection ASTWithToken:_seqToken];
+        prodNode.parserName = prodName;
         [_productionTab setObject:prodNode forKey:prodName];
     }
     [a push:prodNode];
@@ -721,30 +729,17 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
-    NSArray *children = [a objectsAbove:_equals];
+    NSArray *nodes = [a objectsAbove:_equals];
     [a pop]; // '='
     
-    PKAST *parent = [a pop];
-    BOOL isParentSeq = PKNodeTypeVariable == parent.type;
-    NSAssert([parent isKindOfClass:[PKAST class]], @"");
+    PKNodeBase *var = [a pop];
+    NSAssert([var isKindOfClass:[PKNodeCollection class]], @"");
     
-    if ([children count] > 1 && !isParentSeq) {
-        PKAST *seq = [PKNodeCollection ASTWithToken:_seqToken];
-
-        for (PKAST *child in [children reverseObjectEnumerator]) {
-            NSAssert([child isKindOfClass:[PKAST class]], @"");
-            [seq addChild:child];
-        }
-        
-        [parent addChild:seq];
-    } else {
-        for (PKAST *child in [children reverseObjectEnumerator]) {
-            NSAssert([child isKindOfClass:[PKAST class]], @"");
-            [parent addChild:child];
-        }
+    for (PKAST *node in nodes) {
+        [var addChild:node];
     }
-
-    [a push:parent];
+    
+    [a push:var];
 }
 
 
@@ -1031,29 +1026,33 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
-    NSMutableArray *childNodes = [NSMutableArray array];
-    while (![a isStackEmpty]) {
-        id obj = [a pop];
-        if ([obj isKindOfClass:[PKAST class]]) {
-            [childNodes addObject:obj];
-        } else {
-            [a push:obj];
-            break;
-        }
-    }
-    
-    if ([childNodes count] > 1) {
-        PKAST *seq = [PKNodeCollection ASTWithToken:_seqToken];
+//    NSMutableArray *childNodes = [NSMutableArray array];
+//    while (![a isStackEmpty]) {
+//        id obj = [a pop];
+//        if ([obj isKindOfClass:[PKAST class]]) {
+//            [childNodes addObject:obj];
+//        } else {
+//            [a push:obj];
+//            break;
+//        }
+//    }
+
+    NSArray *childNodes = [a objectsAbove:_equals];
+    [a pop]; // '='
+    PKAST *seq = [a pop];
+
+    //    if ([childNodes count] > 1) {
         for (PKAST *node in [childNodes reverseObjectEnumerator]) {
             [seq addChild:node];
         }
         
         [a push:seq];
-    } else {
-        for (PKAST *node in childNodes) {
-            [a push:node];
-        }
-    }
+    [a push:_equals];
+//    } else {
+//        for (PKAST *node in childNodes) {
+//            [a push:node];
+//        }
+//    }
 }
 
 @end
