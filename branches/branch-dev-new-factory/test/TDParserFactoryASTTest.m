@@ -26,17 +26,17 @@
 }
 
 
-//- (void)testAlternationAST {
-//    NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Number;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar (| (baz Word) (bat Number)))))");
-//    //TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar (| baz bat))))");
-//}
-//
-//
+- (void)testAlternationAST {
+    NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Number;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects([rootNode treeDescription], @"(@start:SEQ (foo:SEQ (bar:SEQ (nil:| (baz:SEQ nil:Word) (bat:SEQ nil:Number)))))");
+    //TDEqualObjects([rootNode treeDescription], @"(@start (foo (bar (| (baz Word) (bat Number)))))");
+}
+
+
 
 /*
  @start = foo; foo = Word|Number;
