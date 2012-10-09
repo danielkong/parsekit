@@ -1038,6 +1038,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     //    NSArray *nodes = [a objectsAbove:_equals];
     
     // objectsAbove: '(' or '='
+
     PKToken *tok = nil;
     NSMutableArray *nodes = [NSMutableArray array];
     while (![a isStackEmpty]) {
@@ -1061,16 +1062,17 @@ void PKReleaseSubparserTree(PKParser *p) {
         seq = [a pop];
         [a push:seq];
     }
+    
     [a push:tok];
 
     if ([nodes count] > 1) {
-        if (!seq) {
-            seq = [PKNodeCollection ASTWithToken:_seqToken];
-        }
+        if (!isEq) seq = [PKNodeCollection ASTWithToken:_seqToken];
+
         for (PKAST *child in [nodes reverseObjectEnumerator]) {
             NSAssert([child isKindOfClass:[PKAST class]], @"");
             [seq addChild:child];
         }
+        
         if (!isEq) [a push:seq];
     } else if ([nodes count]) {
         [a push:[nodes objectAtIndex:0]];
