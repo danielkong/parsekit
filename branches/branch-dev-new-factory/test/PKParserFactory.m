@@ -224,7 +224,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.assembler = a;
         self.preassembler = pa;
         
-        PKNodeBase *rootNode = (PKNodeBase *)[self ASTFromGrammar:g error:outError];
+        PKNodeBase *rootNode = (PKNodeBase *)[self ASTFromGrammar:g simplify:NO error:outError];
         
         NSLog(@"rootNode %@", rootNode);
 
@@ -270,6 +270,11 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError {
+    return [self ASTFromGrammar:g simplify:NO error:outError];
+}
+
+
+- (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError {
 //    self.callbackTab = [NSMutableDictionary dictionary];
     self.productionTab = [NSMutableDictionary dictionary];
 
@@ -283,9 +288,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKNodeBase *rootNode = [_productionTab objectForKey:@"@start"];
     
-    // simplify
-    //id <PKNodeVisitor>v = [[[PKSimplifyNodeVisitor alloc] init] autorelease];
-    //[self visit:rootNode with:v];
+    if (simplify) {
+        id <PKNodeVisitor>v = [[[PKSimplifyNodeVisitor alloc] init] autorelease];
+        [self visit:rootNode with:v];
+    }
     
     return rootNode;
 }
