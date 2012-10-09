@@ -45,19 +45,19 @@
 
 
 - (NSString *)description {
-    return [_token stringValue]; //[self treeDescription];
+    return [self name]; //[self treeDescription];
 }
 
 
 - (NSString *)treeDescription {
     if (![_children count]) {
-        return [_token stringValue];
+        return [self name];
     }
     
     NSMutableString *ms = [NSMutableString string];
     
     if (![self isNil]) {
-        [ms appendFormat:@"(%@ ", [_token stringValue]];
+        [ms appendFormat:@"(%@ ", [self name]];
     }
 
     NSInteger i = 0;
@@ -94,6 +94,11 @@
 
 - (BOOL)isNil {
     return !_token;
+}
+
+
+- (NSString *)name {
+    return [_token stringValue];
 }
 
 @end

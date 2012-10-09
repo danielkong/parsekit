@@ -27,6 +27,8 @@
 - (void)addChild:(PKAST *)c;
 - (BOOL)isNil;
 
+- (NSString *)name;
+
 - (NSString *)treeDescription;
 
 @property (nonatomic, retain) PKToken *token;

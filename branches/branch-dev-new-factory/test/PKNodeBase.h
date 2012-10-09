@@ -13,5 +13,8 @@
 @interface PKNodeBase : PKAST
 - (void)visit:(id <PKNodeVisitor>)v;
 
+@property (nonatomic, retain) NSString *parserName;
+@property (nonatomic, retain) NSString *callbackName;
+
 @property (nonatomic, assign) BOOL discard;
 @end

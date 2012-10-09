@@ -10,12 +10,6 @@
 
 @implementation PKNodeVariable
 
-- (void)dealloc {
-    self.callbackName = nil;
-    [super dealloc];
-}
-
-
 - (int)type {
     return PKNodeTypeVariable;
 }
