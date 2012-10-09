@@ -23,7 +23,7 @@
 
 
 - (NSString *)name {
-    NSString *prefix = _parserName ? _parserName : @"nil";
+    NSString *prefix = _parserName ? _parserName : @"";
     NSString *suffix = [super name];
     
     NSString *str = [NSString stringWithFormat:@"%@:%@", prefix, suffix];
