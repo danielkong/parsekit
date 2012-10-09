@@ -292,18 +292,18 @@
 }
 
 
-//- (void)testSubExprAST {
-//    NSString *g = @"@start = (Number)*;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    
-//    TDNotNil(rootNode);
-//    TDEqualObjects([rootNode treeDescription], @"(@start (* Number))");
-//    
-//}
-//
-//
+- (void)testSubExprAST {
+    NSString *g = @"@start = (Number)*;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects([rootNode treeDescription], @"(@start:SEQ (:* (:SEQ :Number)))");
+    
+}
+
+
 //- (void)testSeqRepAST {
 //    NSString *g = @"@start = (Word | Number)* QuotedString;";
 //    
