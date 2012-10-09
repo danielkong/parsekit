@@ -1055,13 +1055,13 @@ void PKReleaseSubparserTree(PKParser *p) {
 //        [a push:node];
 //    }
 
-    BOOL isEq = [tok isEqual:_equals];
-    
+    BOOL isEq = NO; //[tok isEqual:_equals];
+
     PKAST *seq = nil;
-    if (isEq) {
-        seq = [a pop];
-        [a push:seq];
-    }
+//    if (isEq) {
+//        seq = [a pop];
+//        [a push:seq];
+//    }
     
     [a push:tok];
 
