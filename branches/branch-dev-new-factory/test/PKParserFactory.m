@@ -148,6 +148,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 @property (nonatomic, retain) PKToken *seqToken;
 @property (nonatomic, retain) PKToken *trackToken;
+@property (nonatomic, retain) PKToken *altToken;
 @property (nonatomic, retain) PKToken *delimToken;
 @property (nonatomic, retain) PKToken *patternToken;
 
@@ -174,6 +175,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
         self.seqToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"SEQ" floatValue:0.0];
         self.trackToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"TRACK" floatValue:0.0];
+        self.altToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"|" floatValue:0.0];
         self.delimToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"DELIM" floatValue:0.0];
 
         self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
@@ -192,6 +194,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     self.seqToken = nil;
     self.trackToken = nil;
+    self.altToken = nil;
     self.delimToken = nil;
     self.patternToken = nil;
     
@@ -1035,31 +1038,43 @@ void PKReleaseSubparserTree(PKParser *p) {
     //    NSArray *nodes = [a objectsAbove:_equals];
     
     // objectsAbove: '(' or '='
+    PKToken *tok = nil;
     NSMutableArray *nodes = [NSMutableArray array];
     while (![a isStackEmpty]) {
         id obj = [a pop];
         if ([obj isKindOfClass:[PKAST class]]) {
             [nodes addObject:obj];
         } else {
-            [a push:obj];
+            tok = obj;
             break;
         }
     }
 
-    for (PKAST *node in nodes) {
-        [a push:node];
-    }
-
-//    if ([nodes count] > 1) {
-//        PKAST *seqNode = [PKNodeCollection ASTWithToken:_seqToken];
-//        for (PKAST *child in nodes) {
-//            NSAssert([child isKindOfClass:[PKAST class]], @"");
-//            [seqNode addChild:child];
-//        }
-//        [a push:seqNode];
-//    } else if ([nodes count]) {
-//        [a push:[nodes objectAtIndex:0]];
+//    for (PKAST *node in nodes) {
+//        [a push:node];
 //    }
+
+    BOOL isEq = [tok isEqual:_equals];
+    
+    PKAST *seq = nil;
+    if (isEq) {
+        seq = [a pop];
+        [a push:seq];
+    }
+    [a push:tok];
+
+    if ([nodes count] > 1) {
+        if (!seq) {
+            seq = [PKNodeCollection ASTWithToken:_seqToken];
+        }
+        for (PKAST *child in [nodes reverseObjectEnumerator]) {
+            NSAssert([child isKindOfClass:[PKAST class]], @"");
+            [seq addChild:child];
+        }
+        if (!isEq) [a push:seq];
+    } else if ([nodes count]) {
+        [a push:[nodes objectAtIndex:0]];
+    }
 }
 
 @end

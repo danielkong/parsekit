@@ -329,15 +329,15 @@
 }
 
 
-//- (void)testAltPrecedenceAST {
-//    NSString *g = @"@start = foo; foo=Word | Number Symbol;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:| :Word (:SEQ :Number :Symbol))))", [rootNode treeDescription]);
-//    
-//}
+- (void)testAltPrecedenceAST {
+    NSString *g = @"@start = foo; foo=Word | Number Symbol;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:| :Word (:SEQ :Number :Symbol))))", [rootNode treeDescription]);
+    
+}
 
 @end
