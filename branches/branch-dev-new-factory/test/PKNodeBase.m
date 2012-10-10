@@ -21,6 +21,7 @@
     PKNodeBase *that = (PKNodeBase *)[super copyWithZone:zone];
     that->_parserName = [_parserName retain];
     that->_callbackName = [_callbackName retain];
+    that->_discard = _discard;
     return that;
 }
 
@@ -37,6 +38,10 @@
     }
     
     if (![_callbackName isEqual:that->_callbackName]) {
+        return NO;
+    }
+    
+    if (_discard != that->_discard) {
         return NO;
     }
     
