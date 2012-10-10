@@ -45,7 +45,7 @@
 
 
 - (id)copyWithZone:(NSZone *)zone {
-    PKAST *that = [[PKAST alloc] initWithToken:_token];
+    PKAST *that = [[[self class] alloc] initWithToken:_token];
     that->_children = [_children mutableCopyWithZone:zone];
     return that;
 }

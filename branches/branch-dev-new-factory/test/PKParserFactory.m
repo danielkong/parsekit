@@ -632,6 +632,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     [a push:prodNode];
+
+    a.target = prodNode;
 }
 
 
@@ -654,7 +656,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     [a push:prodNode];
     
-    //a.target = prodNode;
+    a.target = prodNode;
 }
 
 

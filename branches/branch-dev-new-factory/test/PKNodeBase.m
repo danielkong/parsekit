@@ -19,8 +19,8 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     PKNodeBase *that = (PKNodeBase *)[super copyWithZone:zone];
-    that->_parserName = [_parserName retain];
-    that->_callbackName = [_callbackName retain];
+    that->_parserName = [_parserName copyWithZone:zone];
+    that->_callbackName = [_callbackName copyWithZone:zone];
     that->_discard = _discard;
     return that;
 }
