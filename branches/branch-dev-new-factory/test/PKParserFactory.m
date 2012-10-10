@@ -728,13 +728,31 @@ void PKReleaseSubparserTree(PKParser *p) {
 
     PKAST *second = [a pop];
     PKToken *tok = [a pop]; // pop '|'
-    PKAST *first = [a pop];
+    PKAST *altNode = [PKNodeCollection ASTWithToken:tok];
+
+    PKAST *first = nil;
+    
+    id obj = [a pop]; // first or '='
+
+    if ([_equals isEqual:obj]) {
+
+        PKAST *var = [a pop];
+        first = [PKNodeCollection ASTWithToken:_seqToken];
+        for (PKAST *node in var.children) {
+            [first addChild:node];
+        }
+        [var.children removeAllObjects];
+
+        [a push:var];
+        [a push:obj];
+    } else {
+        first = obj;
+    }
     
     NSAssert(tok.isSymbol, @"");
     NSAssert([first isKindOfClass:[PKAST class]], @"");
     NSAssert([second isKindOfClass:[PKAST class]], @"");
 
-    PKAST *altNode = [PKNodeCollection ASTWithToken:tok];
     [altNode addChild:first];
     [altNode addChild:second];
     
