@@ -636,25 +636,30 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a {
-    [self parser:p didMatchVariable:a];
-//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
-//    
-//    PKToken *tok = [a pop];
-//    NSString *prodName = tok.stringValue;
-//    
-//    PKNodeBase *prodNode = [_productionTab objectForKey:prodName];
-//    if (!prodNode) {
-//        prodNode = (PKNodeBase *)[PKNodeCollection ASTWithToken:_seqToken];
-//        prodNode.parserName = prodName;
-//        [_productionTab setObject:prodNode forKey:prodName];
-//    }
-//    
-//    [a push:prodNode];
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    
+    PKToken *tok = [a pop];
+    NSAssert(tok, @"");
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isWord, @"");
+    NSAssert(islower([tok.stringValue characterAtIndex:0]), @"");
+    
+    NSString *prodName = tok.stringValue;
+    
+    PKNodeBase *prodNode = [_productionTab objectForKey:prodName];
+    if (!prodNode) {
+        prodNode = (PKNodeBase *)[PKNodeCollection ASTWithToken:_seqToken];
+        prodNode.parserName = prodName;
+        [_productionTab setObject:prodNode forKey:prodName];
+    }
+    [a push:prodNode];
+    
+    //a.target = prodNode;
 }
 
 
 - (void)parser:(PKParser *)p didMatchEq:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 }
 
 
