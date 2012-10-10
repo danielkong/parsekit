@@ -1062,24 +1062,31 @@ void PKReleaseSubparserTree(PKParser *p) {
 //        [a push:node];
 //    }
 
-    BOOL isEq = NO; //[tok isEqual:_equals];
+    BOOL isEq = [tok isEqual:_equals];
 
     PKAST *seq = nil;
-//    if (isEq) {
-//        seq = [a pop];
-//        [a push:seq];
-//    }
+    if (isEq) {
+        seq = [a pop];
+        [a push:seq];
+    }
     
     [a push:tok];
 
+    //NSAssert([nodes count] > 1, @"");
     if ([nodes count] > 1) {
-        if (!isEq) seq = [PKNodeCollection ASTWithToken:_seqToken];
+        if (isEq) {
+            //seq = a.target;
+        } else {
+            seq = [PKNodeCollection ASTWithToken:_seqToken];
+        }
 
         for (PKAST *child in [nodes reverseObjectEnumerator]) {
             NSAssert([child isKindOfClass:[PKAST class]], @"");
             [seq addChild:child];
         }
+        //        [a push:seq];
         
+        NSLog(@"%@", [seq treeDescription]);
         if (!isEq) [a push:seq];
     } else if ([nodes count]) {
         [a push:[nodes objectAtIndex:0]];

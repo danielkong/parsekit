@@ -55,7 +55,7 @@
     if (![obj isMemberOfClass:[self class]]) {
         return NO;
     }
-        
+    
     PKAST *that = (PKAST *)obj;
     
     if (![_token isEqual:that->_token]) {
