@@ -325,7 +325,20 @@
     TDNotNil(rootNode);
     //    TDEqualObjects(@"(@start (foo (* (| Word Number)) QuotedString))"), [rootNode treeDescription]);
     TDEqualObjects(@"(@start:SEQ (foo:SEQ (:* (:| :Word :Number)) :QuotedString))", [rootNode treeDescription]);
+    
+}
 
+
+- (void)testSeqRepAST3 {
+    NSString *g = @"@start = foo; foo=(Word | Number)* QuotedString Symbol;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    //    TDEqualObjects(@"(@start (foo (* (| Word Number)) QuotedString))"), [rootNode treeDescription]);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:* (:| :Word :Number)) :QuotedString :Symbol))", [rootNode treeDescription]);
+    
 }
 
 
