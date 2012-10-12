@@ -365,4 +365,40 @@
     
 }
 
+
+- (void)testLiteral {
+    NSString *g = @"@start = '$' '%';";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ :'$' :'%')", [rootNode treeDescription]);
+    
+}
+
+
+- (void)testLiteral2 {
+    NSString *g = @"@start = ('$' '%')+;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:+ (:SEQ :'$' :'%')))", [rootNode treeDescription]);
+    
+}
+
+
+- (void)testLiteral3 {
+    NSString *g = @"@start = ((Word | Number)* | ('$' '%')+) QuotedString+;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:| (:* (:| :Word :Number)) (:+ (:SEQ :'$' :'%'))) (:+ :QuotedString))", [rootNode treeDescription]);
+    
+}
+
 @end
