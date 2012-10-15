@@ -391,13 +391,49 @@
 
 
 - (void)testLiteral3 {
-    NSString *g = @"@start = ((Word | Number)* | ('$' '%')+) QuotedString+;";
+    NSString *g = @"@start = ((Word | Number)* | ('$' '%')) QuotedString+;";
     
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (:| (:* (:| :Word :Number)) (:+ (:SEQ :'$' :'%'))) (:+ :QuotedString))", [rootNode treeDescription]);
+    TDEqualObjects(@"(@start:SEQ (:| (:* (:| :Word :Number)) (:SEQ :'$' :'%')) (:+ :QuotedString))", [rootNode treeDescription]);
+    
+}
+
+
+- (void)testLiteral6 {
+    NSString *g = @"@start = QuotedString+;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:+ :QuotedString))", [rootNode treeDescription]);
+    
+}
+
+
+- (void)testLiteral4 {
+    NSString *g = @"@start = ((Word | Number)* | ('$' '%')+);";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:| (:* (:| :Word :Number)) (:+ (:SEQ :'$' :'%'))))", [rootNode treeDescription]);
+    
+}
+
+
+- (void)testLiteral5 {
+    NSString *g = @"@start = ((Word | Number)* | ('$' '%')+) QuotedString;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:| (:* (:| :Word :Number)) (:+ (:SEQ :'$' :'%'))) :QuotedString)", [rootNode treeDescription]);
     
 }
 
