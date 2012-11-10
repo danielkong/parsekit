@@ -594,13 +594,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D325FFDC161E597400D4EBCC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D37D8DC51571A4F700CDB822;
-			remoteInfo = Tests;
-		};
 		D334949F0E296AA900406085 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -2688,7 +2681,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D325FFDD161E597400D4EBCC /* PBXTargetDependency */,
 			);
 			name = ParseKit;
 			productInstallPath = "$(HOME)/Library/Frameworks";
@@ -3369,11 +3361,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D325FFDD161E597400D4EBCC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D37D8DC51571A4F700CDB822 /* Tests */;
-			targetProxy = D325FFDC161E597400D4EBCC /* PBXContainerItemProxy */;
-		};
 		D33494A00E296AA900406085 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;
