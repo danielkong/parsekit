@@ -24,8 +24,9 @@
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchEq:(PKAssembly *)a;
+- (void)parser:(PKParser *)p willMatchAnd:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;    
+- (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a;
@@ -362,6 +363,7 @@
         [_factorParser add:self.phrasePlusParser];
         [_factorParser add:self.phraseQuestionParser];
         [_factorParser add:self.phraseCardinalityParser];
+        [_factorParser setAssembler:_assembler selector:@selector(parser:willMatchAnd:)];
     }
     return _factorParser;
 }
