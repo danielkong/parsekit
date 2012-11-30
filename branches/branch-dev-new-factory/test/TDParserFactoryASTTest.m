@@ -54,6 +54,17 @@
 
 
 - (void)testAlternationAST2 {
+    NSString *g = @"@start=foo;foo=Word;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:SEQ :Word))))", [rootNode treeDescription]);
+    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
+}
+
+
+- (void)testAlternationAST2_1 {
     NSString *g = @"@start=foo;foo=Word|Number;";
     
     NSError *err = nil;
@@ -64,13 +75,24 @@
 }
 
 
-- (void)testAlternationAST2_1 {
+- (void)testAlternationAST2_1_0 {
     NSString *g = @"@start=foo;foo=Word|Number Symbol;";
     
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:| (:SEQ :Word) (:SEQ :Number :Symbol)))))", [rootNode treeDescription]);
+    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
+}
+
+
+- (void)testAlternationAST2_1_1 {
+    NSString *g = @"@start=foo;foo=Word Number|Symbol;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:| (:SEQ :Word :Number) (:SEQ :Symbol)))))", [rootNode treeDescription]);
     //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
