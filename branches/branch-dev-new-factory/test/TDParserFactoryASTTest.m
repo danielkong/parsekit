@@ -211,39 +211,39 @@
     TDNotNil(rootNode);
     TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:SEQ (:SEQ :QuotedString :Number)))))", [rootNode treeDescription]);
 }
-//
-//
-//- (void)testDifferenceAST {
-//    NSString *g = @"@start=foo;foo=Any-Word;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:- :Any :Word)))", [rootNode treeDescription]);
-//
-//    g = @"@start=foo;foo=Any - Word;";
-//    
-//    err = nil;
-//    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:- :Any :Word)))", [rootNode treeDescription]);
-//
-//    g = @"@start=foo;foo=Any -Word;";
-//    
-//    err = nil;
-//    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:- :Any :Word)))", [rootNode treeDescription]);
-//
-//    g = @"@start=foo;foo=Any- Word;";
-//    
-//    err = nil;
-//    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:- :Any :Word)))", [rootNode treeDescription]);
-//}
-//
-//
+
+
+- (void)testDifferenceAST {
+    NSString *g = @"@start=foo;foo=Any-Word;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:SEQ (:- :Any :Word)))))", [rootNode treeDescription]);
+
+    g = @"@start=foo;foo=Any - Word;";
+    
+    err = nil;
+    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:SEQ (:- :Any :Word)))))", [rootNode treeDescription]);
+
+    g = @"@start=foo;foo=Any -Word;";
+    
+    err = nil;
+    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:SEQ (:- :Any :Word)))))", [rootNode treeDescription]);
+
+    g = @"@start=foo;foo=Any- Word;";
+    
+    err = nil;
+    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:SEQ (:- :Any :Word)))))", [rootNode treeDescription]);
+}
+
+
 //- (void)testIntersectionAST {
 //    NSString *g = @"@start=foo;foo=Word&LowercaseWord;";
 //    
