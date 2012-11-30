@@ -2262,10 +2262,10 @@
 			children = (
 				D3C2219C0FFE8BA6004514FE /* PKParser.h */,
 				D34BADD60FF9CBFB00D7773A /* PKParser.m */,
-				D3C2219F0FFE8BAE004514FE /* PKRepetition.h */,
-				D34BAE130FF9CE0E00D7773A /* PKRepetition.m */,
 				D325FFE8161F484100D4EBCC /* PKCompositeParser.h */,
 				D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */,
+				D3C2219F0FFE8BAE004514FE /* PKRepetition.h */,
+				D34BAE130FF9CE0E00D7773A /* PKRepetition.m */,
 				D3C221A20FFE8BBA004514FE /* PKCollectionParser.h */,
 				D34BAE010FF9CCAE00D7773A /* PKCollectionParser.m */,
 				D3C221A50FFE8BC1004514FE /* PKAlternation.h */,

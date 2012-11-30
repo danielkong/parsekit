@@ -726,35 +726,28 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
-    PKAST *second = [a pop];
-    PKToken *tok = [a pop]; // pop '|'
-    PKAST *altNode = [PKNodeCollection ASTWithToken:tok];
+    PKNodeCollection *lSeq = (PKNodeCollection *)[PKNodeCollection ASTWithToken:_seqToken];
+    PKNodeCollection *rSeq = (PKNodeCollection *)[PKNodeCollection ASTWithToken:_seqToken];
 
-    PKAST *first = nil;
-    
-    id obj = [a pop]; // first or '='
-
-    if ([_equals isEqual:obj]) {
-
-        PKAST *var = [a pop];
-        first = [PKNodeCollection ASTWithToken:_seqToken];
-        for (PKAST *node in var.children) {
-            [first addChild:node];
-        }
-        [var.children removeAllObjects];
-
-        [a push:var];
-        [a push:obj];
-    } else {
-        first = obj;
+    NSArray *rNodes = [a objectsAbove:_altToken];
+    for (PKAST *rNode in rNodes) {
+        NSAssert([rNode isKindOfClass:[PKAST class]], @"");
+        [rSeq addChild:rNode];
     }
     
+    PKToken *tok = [a pop]; // pop '|'
     NSAssert(tok.isSymbol, @"");
-    NSAssert([first isKindOfClass:[PKAST class]], @"");
-    NSAssert([second isKindOfClass:[PKAST class]], @"");
 
-    [altNode addChild:first];
-    [altNode addChild:second];
+    NSArray *lNodes = [a objectsAbove:_equals];
+    for (PKAST *lNode in lNodes) {
+        NSAssert([lNode isKindOfClass:[PKAST class]], @"");
+        [lSeq addChild:lNode];
+    }
+    
+    PKAST *altNode = [PKNodeCollection ASTWithToken:tok];
+    
+    [altNode addChild:lSeq];
+    [altNode addChild:rSeq];
     
     [a push:altNode];
 }
