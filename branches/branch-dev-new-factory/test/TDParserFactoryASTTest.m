@@ -501,18 +501,18 @@
 }
 
 
-//- (void)testLiteral4 {
-//    NSString *g = @"@start = ((Word | Number)* | ('$' '%')+);";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (:| (:* (:| :Word :Number)) (:+ (:SEQ :'$' :'%'))))", [rootNode treeDescription]);
-//    
-//}
-//
-//
+- (void)testLiteral4 {
+    NSString *g = @"@start = ((Word | Number)* | ('$' '%')+);";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:SEQ (:| (:SEQ (:* (:| (:SEQ :Word) (:SEQ :Number)))) (:SEQ (:+ (:SEQ :'$' :'%'))))))", [rootNode treeDescription]);
+    
+}
+
+
 //- (void)testLiteral5 {
 //    NSString *g = @"@start = ((Word | Number)* | ('$' '%')+) QuotedString;";
 //    
