@@ -785,19 +785,20 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 
     NSArray *objs = [a objectsAbove:_paren];
-    NSAssert([objs count], @"");
+    NSAssert(1 == [objs count], @"");
     [a pop]; // pop '('
+    [a push:[objs lastObject]];
     
-    if ([objs count] > 1) {
-        PKAST *seqNode = [PKNodeCollection ASTWithToken:_seqToken];
-        for (PKAST *child in objs) {
-            NSAssert([child isKindOfClass:[PKAST class]], @"");
-            [seqNode addChild:child];
-        }
-        [a push:seqNode];
-    } else if ([objs count]) {
-        [a push:[objs objectAtIndex:0]];
-    }
+//    if ([objs count] > 1) {
+//        PKAST *seqNode = [PKNodeCollection ASTWithToken:_seqToken];
+//        for (PKAST *child in objs) {
+//            NSAssert([child isKindOfClass:[PKAST class]], @"");
+//            [seqNode addChild:child];
+//        }
+//        [a push:seqNode];
+//    } else if ([objs count]) {
+//        [a push:[objs objectAtIndex:0]];
+//    }
 }
 
 
