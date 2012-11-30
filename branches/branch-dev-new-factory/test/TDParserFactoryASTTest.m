@@ -391,31 +391,31 @@
 }
 
 
-//- (void)testSeqRepAST {
-//    NSString *g = @"@start = (Word | Number)* QuotedString;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (:* (:| :Word :Number)) :QuotedString)", [rootNode treeDescription]);
-//    
-//}
-//
-//
-//- (void)testSeqRepAST2 {
-//    NSString *g = @"@start = foo; foo=(Word | Number)* QuotedString;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    
-//    TDNotNil(rootNode);
-//    //    TDEqualObjects(@"(@start (foo (* (| Word Number)) QuotedString))"), [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:* (:| :Word :Number)) :QuotedString))", [rootNode treeDescription]);
-//    
-//}
-//
-//
+- (void)testSeqRepAST {
+    NSString *g = @"@start = (Word | Number)* QuotedString;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (:SEQ (:* (:| (:SEQ :Word) (:SEQ :Number))) :QuotedString))", [rootNode treeDescription]);
+    
+}
+
+
+- (void)testSeqRepAST2 {
+    NSString *g = @"@start = foo; foo=(Word | Number)* QuotedString;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    //    TDEqualObjects(@"(@start (foo (* (| Word Number)) QuotedString))"), [rootNode treeDescription]);
+    TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:SEQ (:* (:| (:SEQ :Word) (:SEQ :Number))) :QuotedString))))", [rootNode treeDescription]);
+    
+}
+
+
 //- (void)testSeqRepAST3 {
 //    NSString *g = @"@start = foo; foo=(Word | Number)* QuotedString Symbol;";
 //    
