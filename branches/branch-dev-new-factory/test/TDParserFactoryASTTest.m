@@ -484,11 +484,11 @@
 //    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
 //    
 //    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (:| (:* (:| :Word :Number)) (:SEQ :'$' :'%')) (:+ :QuotedString))", [rootNode treeDescription]);
+//    TDEqualObjects(@"(@start:SEQ (:SEQ (:| (:SEQ (:* (:| (:SEQ :Word) (:SEQ :Number)))) (:SEQ (:SEQ :'$' :'%'))) (:+ :QuotedString)))", [rootNode treeDescription]);
 //    
 //}
-//
-//
+
+
 //- (void)testLiteral6 {
 //    NSString *g = @"@start = QuotedString+;";
 //    
