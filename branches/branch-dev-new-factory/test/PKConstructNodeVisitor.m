@@ -141,7 +141,7 @@
     PKToken *tok = node.token;
     NSAssert(tok.isDelimitedString, @"");
     
-    PKPatternOptions opts = 0; // TODO
+    PKPatternOptions opts = node.options;
     NSString *regex = [tok.stringValue stringByTrimmingQuotes];
     PKPattern *p = [PKPattern patternWithString:regex options:opts];
     
