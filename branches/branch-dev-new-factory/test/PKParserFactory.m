@@ -33,8 +33,6 @@
 
 #define USE_TRACK 0
 
-#define KEY_AND @"AND"
-
 @interface PKParser (PKParserFactoryAdditionsFriend)
 - (void)setTokenizer:(PKTokenizer *)t;
 @end
@@ -1044,16 +1042,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-//- (PKNodeCollection *)currentAndFrom:(PKAssembly *)a {
-//    NSMutableDictionary *d = a.target;
-//    PKNodeCollection *and = [d objectForKey:KEY_AND];
-//    if (!and) {
-//        and = (PKNodeCollection *)[PKNodeCollection ASTWithToken:_seqToken];
-//    }
-//    return and;
-//}
-
-
 - (void)parser:(PKParser *)p willMatchAnd:(PKAssembly *)a {
     NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
     
@@ -1074,12 +1062,9 @@ void PKReleaseSubparserTree(PKParser *p) {
 
     
     PKNodeBase *child = [a pop];
-    PKNodeCollection *seq = (PKNodeCollection *)[PKNodeCollection ASTWithToken:_seqToken];
-    [seq addChild:child];
     
-    //NSLog(@"%@", [seq treeDescription]);
-    
-    [a push:seq];
+    [a push:_seqToken];
+    [a push:child];
     NSLog(@"\n\n%@", a);
 }
 
@@ -1087,11 +1072,15 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a {
     NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
     
-    PKNodeBase *child = [a pop];
-    PKNodeCollection *seq = [a pop];
-    [seq addChild:child];
+    NSArray *subs = [a objectsAbove:_seqToken];
+    [a pop]; // discard 'SEQ'
+
+    PKNodeCollection *seq = (PKNodeCollection *)[PKNodeCollection ASTWithToken:_seqToken];
+    for (PKNodeBase *child in [subs reverseObjectEnumerator]) {
+        [seq addChild:child];
+    }
     
-    //NSLog(@"%@", [seq treeDescription]);
+    NSLog(@"%@", [seq treeDescription]);
     
     [a push:seq];
     NSLog(@"\n\n%@", a);
