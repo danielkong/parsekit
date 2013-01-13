@@ -45,7 +45,7 @@
 
 <ol>
 <li><b>ParseKit</b> : the ParseKit Objective-C framework. The central feature/codebase of this project.</li>
-<li><b>Tests</b> : a UnitTest Bundle containing hundreds of unit tests (actually, more correctly, interaction tests) for the framework as well as some example classes that serve as real-world uses of the framework.</li>
+<li><b>Tests</b> : a UnitTest Bundle containing hundreds of unit tests (or more correctly, <i>interaction tests</i>) for the framework as well as some example classes that serve as real-world uses of the framework.</li>
 <li><b>DemoApp</b> : A simple Cocoa demo app that gives a visual presentation of the results of tokenizing text using the PKTokenizer class.</li>
 <li><b>DebugApp</b> : A simple Cocoa app that exists only to run arbitrary test code thru GDB with breakpoints for debugging (I was not able to do that with the UnitTest bundle).</li>
 <li><b>JSParseKit</b> : A JavaScriptCore-based scripting interface to ParseKit which can be used to expose the entire framework to JavaScript environments.</li>
@@ -95,7 +95,7 @@ while ((tok = [t nextToken]) != eof) {
 </pre>
 </div>
 
-<p>Each token produced is an object of class <tt>PKToken</tt>. <tt>PKToken</tt>s have a <tt>tokenType</tt> (<tt>Word</tt>, <tt>Symbol</tt>, <tt>Num</tt>, <tt>QuotedString</tt>, etc.) and both a <tt>stringValue</tt> and a <tt>floatValue</tt>.</p>
+<p>Each token produced is an object of class <tt>PKToken</tt>. <tt>PKToken</tt>s have a <tt>tokenType</tt> (<tt>Word</tt>, <tt>Symbol</tt>, <tt>Number</tt>, <tt>QuotedString</tt>, etc.) and both a <tt>stringValue</tt> and a <tt>floatValue</tt>.</p>
 
 <p>More information about a token can be easily discovered using the <tt>-debugDescription</tt> method instead of the default <tt>-description</tt>. Replace the line containing <tt>NSLog</tt> above with this line:</p>
 
@@ -131,7 +131,7 @@ NSLog(@"%@", [tok debugDescription]);
 <ul>
 <li>single- and double-quoted string tokens</li>
 <li>common multiple character symbols (<tt>&lt;=</tt>)</li>
-<li>apostrophes, dashes and other symbol chars that should not signal the start of a new Symbol token, but rather be included in the current Word or Num token (<tt>it's</tt>, <tt>blast-off</tt>, <tt>3.5</tt>)</li>	
+<li>apostrophes, dashes and other symbol chars that should not signal the start of a new Symbol token, but rather be included in the current Word or Number token (<tt>it's</tt>, <tt>blast-off</tt>, <tt>3.5</tt>)</li>	
 <li>silently ignoring C- and C++-style comments</li>
 <li>silently ignoring whitespace</li>
 </ul>
@@ -152,7 +152,7 @@ NSLog(@"%@", [tok debugDescription]);
 </li>
 	
 	
-<li>change which chars singnal the start of a token of any given type. ex: 
+<li>change which chars signal the start of a token of any given type. e.g.:
 <div class="code"><pre>[t setTokenizerState:t.wordState from:'_' to:'_'];</pre></div>
 <p><small>allows Word tokens to start with underscore</small></p>
 <div class="code"><pre>[t setTokenizerState:t.quoteState from:'*' to:'*'];</pre></div>
