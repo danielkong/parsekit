@@ -38,11 +38,11 @@
 @implementation PKWhitespaceState
 
 - (id)init {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         const NSUInteger len = 255;
         self.whitespaceChars = [NSMutableArray arrayWithCapacity:len];
-        NSUInteger i = 0;
-        for ( ; i <= len; i++) {
+        for (NSUInteger i = 0; i <= len; i++) {
             [whitespaceChars addObject:PKFALSE];
         }
         
@@ -65,8 +65,7 @@
     }
 
     id obj = yn ? PKTRUE : PKFALSE;
-    NSUInteger i = start;
-    for ( ; i <= end; i++) {
+    for (NSUInteger i = start; i <= end; i++) {
         [whitespaceChars replaceObjectAtIndex:i withObject:obj];
     }
 }

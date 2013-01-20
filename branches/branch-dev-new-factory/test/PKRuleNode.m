@@ -26,7 +26,8 @@
 
 
 - (id)initWithName:(NSString *)s {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.name = s;
     }
     return self;

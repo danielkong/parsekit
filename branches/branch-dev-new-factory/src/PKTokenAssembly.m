@@ -191,8 +191,7 @@
     NSMutableString *s = [NSMutableString string];
     NSArray *toks = self.tokens;
 
-    NSInteger i = start;
-    for ( ; i < end; i++) {
+    for (NSInteger i = start; i < end; i++) {
         PKToken *tok = [toks objectAtIndex:i];
         [s appendString:tok.stringValue];
         if (end - 1 != i) {

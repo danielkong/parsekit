@@ -47,7 +47,8 @@
 @implementation PKGrammarParser
 
 - (id)initWithAssembler:(id)a {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         assembler = a;
     }
     return self;

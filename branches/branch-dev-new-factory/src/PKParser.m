@@ -166,41 +166,45 @@
 - (id)parse:(NSString *)s error:(NSError **)outError {
     id result = nil;
     
-    @try {
-        
-        PKTokenizer *t = self.tokenizer;
-        if (!t) {
-            t = [PKTokenizer tokenizer];
+    @autoreleasepool {
+        @try {
+            
+            PKTokenizer *t = self.tokenizer;
+            if (!t) {
+                t = [PKTokenizer tokenizer];
+            }
+            t.string = s;
+            PKAssembly *a = [self completeMatchFor:[PKTokenAssembly assemblyWithTokenizer:t]];
+            if (a.target) {
+                result = a.target;
+            } else {
+                result = [a pop];
+            }
+            
+            [result retain];
         }
-        t.string = s;
-        PKAssembly *a = [self completeMatchFor:[PKTokenAssembly assemblyWithTokenizer:t]];
-        if (a.target) {
-            result = a.target;
-        } else {
-            result = [a pop];
+        @catch (NSException *ex) {
+            if (outError) {
+                NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
+                
+                // get reason
+                NSString *reason = [ex reason];
+                if ([reason length]) [userInfo setObject:reason forKey:NSLocalizedFailureReasonErrorKey];
+                
+                // get domain
+                NSString *exName = [ex name];
+                NSString *domain = exName ? exName : @"PKParseException";
+                
+                // convert to NSError
+                NSError *err = [NSError errorWithDomain:domain code:47 userInfo:[[userInfo copy] autorelease]];
+                *outError = err;
+            } else {
+                [ex raise];
+            }
         }
+    }
 
-        return result;
-    }
-    @catch (NSException *ex) {
-        if (outError) {
-            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
-            
-            // get reason
-            NSString *reason = [ex reason];
-            if ([reason length]) [userInfo setObject:reason forKey:NSLocalizedFailureReasonErrorKey];
-            
-            // get domain
-            NSString *exName = [ex name];
-            NSString *domain = exName ? exName : @"PKParseException";
-            
-            // convert to NSError
-            NSError *err = [NSError errorWithDomain:domain code:47 userInfo:[[userInfo copy] autorelease]];
-            *outError = err;
-        } else {
-            [ex raise];
-        }
-    }
+    return [result autorelease];
 }
 
 

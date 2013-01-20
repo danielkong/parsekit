@@ -155,7 +155,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (id)init {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.grammarParser = [[[PKGrammarParser alloc] initWithAssembler:self] autorelease];
         self.equals  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"=" floatValue:0.0];
         self.curly   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
@@ -428,8 +429,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     [parserTokensTable removeObjectForKey:@"@multiLineComment"];
     [parserTokensTable removeObjectForKey:@"@multiLineComments"];
     if ([toks count] > 1) {
-        NSInteger i = 0;
-        for ( ; i < [toks count] - 1; i++) {
+        for (NSInteger i = 0; i < [toks count] - 1; i++) {
             PKToken *startTok = [toks objectAtIndex:i];
             PKToken *endTok = [toks objectAtIndex:++i];
             if (startTok.isQuotedString && endTok.isQuotedString) {
@@ -447,8 +447,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     [parserTokensTable removeObjectForKey:@"@delimitedString"];
     [parserTokensTable removeObjectForKey:@"@delimitedStrings"];
     if ([toks count] > 1) {
-        NSInteger i = 0;
-        for ( ; i < [toks count] - 2; i++) {
+        for (NSInteger i = 0; i < [toks count] - 2; i++) {
             PKToken *startTok = [toks objectAtIndex:i];
             PKToken *endTok = [toks objectAtIndex:++i];
             PKToken *charSetTok = [toks objectAtIndex:++i];
@@ -956,12 +955,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSInteger start = r.location;
     NSInteger end = r.length;
     
-    NSInteger i = 0;
-    for ( ; i < start; i++) {
+    for (NSInteger i = 0; i < start; i++) {
         [s add:p];
     }
     
-    for ( ; i < end; i++) {
+    for (NSInteger i = start ; i < end; i++) {
         [s add:[self zeroOrOne:p]];
     }
     
