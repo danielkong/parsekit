@@ -66,8 +66,7 @@
 
 
 - (void)unread:(NSUInteger)count {
-    NSUInteger i = 0;
-    for ( ; i < count; i++) {
+    for (NSUInteger i = 0; i < count; i++) {
         [self unread];
     }
 }

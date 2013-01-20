@@ -81,8 +81,7 @@
 
         self.tokenizerStates = [NSMutableArray arrayWithCapacity:STATE_COUNT];
         
-        NSInteger i = 0;
-        for ( ; i < STATE_COUNT; i++) {
+        for (NSInteger i = 0; i < STATE_COUNT; i++) {
             [tokenizerStates addObject:[self defaultTokenizerStateFor:i]];
         }
 
@@ -172,8 +171,7 @@
 - (void)setTokenizerState:(PKTokenizerState *)state from:(PKUniChar)start to:(PKUniChar)end {
     NSParameterAssert(state);
 
-    NSInteger i = start;
-    for ( ; i <= end; i++) {
+    for (NSInteger i = start; i <= end; i++) {
         [tokenizerStates replaceObjectAtIndex:i withObject:state];
     }
 }

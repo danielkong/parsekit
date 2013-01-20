@@ -102,9 +102,8 @@
     NSArray *objs = [a objectsAbove:curly];
     [a pop]; // discard curly
 
-    NSInteger i = 0;
     NSInteger count = [objs count];
-    for ( ; i < count - 1; i++) {
+    for (NSInteger i = 0; i < count - 1; i++) {
         id propVal = [objs objectAtIndex:i];
         id propName = [objs objectAtIndex:++i];
         [d setObject:propVal forKey:propName];

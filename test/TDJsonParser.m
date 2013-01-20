@@ -285,8 +285,7 @@
     NSArray *elements = [a objectsAbove:self.curly];
     NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:[elements count] / 2.];
     
-    NSInteger i = 0;
-    for ( ; i < [elements count] - 1; i++) {
+    for (NSInteger i = 0; i < [elements count] - 1; i++) {
         id value = [elements objectAtIndex:i++];
         NSString *key = [elements objectAtIndex:i];
         if (key && value) {

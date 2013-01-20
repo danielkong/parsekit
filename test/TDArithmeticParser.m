@@ -234,8 +234,7 @@
     double d2 = [n2 doubleValue];
     
     double res = d1;
-    NSUInteger i = 1;
-    for ( ; i < d2; i++) {
+    for (NSUInteger i = 1; i < d2; i++) {
         res *= d1;
     }
     
