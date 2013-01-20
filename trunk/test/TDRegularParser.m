@@ -29,7 +29,8 @@
 @implementation TDRegularParser
 
 - (id)init {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.curly = [NSNumber numberWithInt:(int)'{'];
 
         [self add:self.expressionParser];

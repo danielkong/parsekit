@@ -155,7 +155,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (id)init {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.grammarParser = [[[PKGrammarParser alloc] initWithAssembler:self] autorelease];
         self.equals  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"=" floatValue:0.0];
         self.curly   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
