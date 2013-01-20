@@ -27,6 +27,9 @@ typedef enum {
 - (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a error:(NSError **)outError;
 - (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a preassembler:(id)pa error:(NSError **)outError;
 
+- (NSDictionary *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError;
+- (NSDictionary *)symbolTableFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError;
+
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError;
 - (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError;
 

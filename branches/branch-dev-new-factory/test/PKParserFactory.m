@@ -227,7 +227,9 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.assembler = a;
         self.preassembler = pa;
         
-        PKNodeBase *rootNode = (PKNodeBase *)[self ASTFromGrammar:g simplify:NO error:outError];
+        NSDictionary *tab = [self symbolTableFromGrammar:g simplify:NO error:outError];
+//        PKNodeBase *rootNode = (PKNodeBase *)[self ASTFromGrammar:g simplify:NO error:outError];
+        PKNodeBase *rootNode = (PKNodeBase *)[tab objectForKey:@"@start"];
         
         //NSLog(@"rootNode %@", rootNode);
 
@@ -272,6 +274,36 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
+- (NSDictionary *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError {
+    return [self symbolTableFromGrammar:g simplify:NO error:outError];
+}
+
+
+- (NSDictionary *)symbolTableFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError {
+    self.productionTab = [NSMutableDictionary dictionary];
+    
+    PKTokenizer *t = [self tokenizerForParsingGrammar];
+    t.string = g;
+    
+    _grammarParser.parser.tokenizer = t;
+    [_grammarParser.parser parse:g error:outError];
+    
+    //NSLog(@"%@", _productionTab);
+    
+    if (simplify) {
+        PKNodeBase *rootNode = [_productionTab objectForKey:@"@start"];
+
+        id <PKNodeVisitor>v = [[[PKSimplifyNodeVisitor alloc] init] autorelease];
+        [self visit:rootNode with:v];
+    }
+    
+    NSDictionary *result = [[_productionTab copy] autorelease];
+    //self.productionTab = nil;
+    
+    return result;
+}
+
+
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError {
     return [self ASTFromGrammar:g simplify:NO error:outError];
 }
@@ -287,7 +319,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     _grammarParser.parser.tokenizer = t;
     [_grammarParser.parser parse:g error:outError];
     
-    //NSLog(@"%@", _productionTab);
+    NSLog(@"%@", _productionTab);
     
     PKNodeBase *rootNode = [_productionTab objectForKey:@"@start"];
     
