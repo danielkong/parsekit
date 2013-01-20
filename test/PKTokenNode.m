@@ -27,7 +27,8 @@
 
 
 - (id)initWithToken:(PKToken *)s {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.token = s;
     }
     return self;

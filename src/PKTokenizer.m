@@ -46,7 +46,8 @@
 
 
 - (id)initWithString:(NSString *)s {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.string = s;
         self.reader = [[[PKReader alloc] init] autorelease];
         

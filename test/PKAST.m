@@ -30,7 +30,8 @@
 
 
 - (id)initWithToken:(PKToken *)tok {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.token = tok;
     }
     return self;

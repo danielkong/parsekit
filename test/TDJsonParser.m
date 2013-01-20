@@ -37,7 +37,8 @@
 
 
 - (id)initWithIntentToAssemble:(BOOL)yn {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         shouldAssemble = yn;
         self.curly = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
         self.bracket = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"[" floatValue:0.0];

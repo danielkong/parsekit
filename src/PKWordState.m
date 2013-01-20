@@ -40,7 +40,8 @@
 @implementation PKWordState
 
 - (id)init {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.wordChars = [NSMutableArray arrayWithCapacity:256];
         NSInteger i = 0;
         for ( ; i < 256; i++) {

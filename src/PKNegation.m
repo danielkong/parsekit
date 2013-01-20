@@ -34,7 +34,8 @@
 
 
 - (id)initWithSubparser:(PKParser *)s {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.subparser = s;
     }
     return self;
