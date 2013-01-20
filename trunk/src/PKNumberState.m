@@ -116,8 +116,7 @@
 - (PKFloat)value {
     PKFloat result = (PKFloat)floatValue;
     
-    NSUInteger i = 0;
-    for ( ; i < exp; i++) {
+    for (NSUInteger i = 0; i < exp; i++) {
         if (isNegativeExp) {
             result /= (PKFloat)10.0;
         } else {
