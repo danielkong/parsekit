@@ -81,8 +81,8 @@
 
 
 - (void)testCardinalAST {
-    //NSString *g = @"@start=foo{2,4};foo=Number;";
-    NSString *g = @"@start=foo foo foo? foo?;foo=Number;";
+    NSString *g = @"@start=foo{2,4};foo=Number;";
+//    NSString *g = @"@start=foo foo foo? foo?;foo=Number;";
     
     NSError *err = nil;
     PKCollectionParser *p = (PKCollectionParser *)[_factory parserFromGrammar:g assembler:nil error:&err];

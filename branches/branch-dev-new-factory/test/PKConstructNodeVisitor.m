@@ -83,13 +83,6 @@
     }
     
     [_currentParser add:p];
-    //    self.currentParser = p;
-    //
-    //    for (PKNodeBase *child in node.children) {
-    //        [child visit:self];
-    //    }
-    
-    self.currentParser = p;
     
     [self setAssemblerForParser:p callbackName:node.callbackName];
 }
