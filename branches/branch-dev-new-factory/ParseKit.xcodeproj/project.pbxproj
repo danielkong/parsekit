@@ -540,6 +540,7 @@
 		D3DCB4C50EF6015C00DE5110 /* json.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3DCB4C20EF6015300DE5110 /* json.grammar */; };
 		D3DDDA870F0779FD00A58000 /* TDSyntaxHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DDDA860F0779FD00A58000 /* TDSyntaxHighlighter.m */; };
 		D3DDDCAE0F0880D800A58000 /* example1.srgs in Resources */ = {isa = PBXBuildFile; fileRef = D3DDDCAC0F0880D800A58000 /* example1.srgs */; };
+		D3E016D416ADB98800C6BB96 /* TDParserFactorySymbolTableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E016D316ADB98800C6BB96 /* TDParserFactorySymbolTableTest.m */; };
 		D3E27A320E741DD20078CC2C /* small-xml-file.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */; };
 		D3E27A330E741DD20078CC2C /* apple-boss.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36E9FB40E5A944A00496BD3 /* apple-boss.xml */; };
 		D3E785560E53FB54008C7D61 /* apple-boss.json in Resources */ = {isa = PBXBuildFile; fileRef = D3E784BC0E53DA28008C7D61 /* apple-boss.json */; };
@@ -1244,6 +1245,8 @@
 		D3DDDC270F085C5400A58000 /* TDSlashState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSlashState.h; path = test/TDSlashState.h; sourceTree = "<group>"; };
 		D3DDDC280F085C5400A58000 /* TDSlashState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSlashState.m; path = test/TDSlashState.m; sourceTree = "<group>"; };
 		D3DDDCAC0F0880D800A58000 /* example1.srgs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = example1.srgs; path = res/example1.srgs; sourceTree = "<group>"; };
+		D3E016D216ADB98800C6BB96 /* TDParserFactorySymbolTableTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactorySymbolTableTest.h; path = test/TDParserFactorySymbolTableTest.h; sourceTree = "<group>"; };
+		D3E016D316ADB98800C6BB96 /* TDParserFactorySymbolTableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactorySymbolTableTest.m; path = test/TDParserFactorySymbolTableTest.m; sourceTree = "<group>"; };
 		D3E39C3D0FC5FFD10022DAB9 /* TDDelimitStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDDelimitStateTest.h; path = test/TDDelimitStateTest.h; sourceTree = "<group>"; };
 		D3E39C3E0FC5FFD10022DAB9 /* TDDelimitStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDDelimitStateTest.m; path = test/TDDelimitStateTest.m; sourceTree = "<group>"; };
 		D3E784BC0E53DA28008C7D61 /* apple-boss.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "apple-boss.json"; path = "res/apple-boss.json"; sourceTree = "<group>"; };
@@ -2038,6 +2041,8 @@
 				D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */,
 				D325FFF6161F681D00D4EBCC /* TDParserFactoryParserTest.h */,
 				D325FFF7161F681E00D4EBCC /* TDParserFactoryParserTest.m */,
+				D3E016D216ADB98800C6BB96 /* TDParserFactorySymbolTableTest.h */,
+				D3E016D316ADB98800C6BB96 /* TDParserFactorySymbolTableTest.m */,
 			);
 			name = NewFactory;
 			sourceTree = "<group>";
@@ -3288,6 +3293,7 @@
 				D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */,
 				D3A203E4161CADD200207F4D /* TDParserFactoryASTTest.m in Sources */,
 				D325FFF8161F681F00D4EBCC /* TDParserFactoryParserTest.m in Sources */,
+				D3E016D416ADB98800C6BB96 /* TDParserFactorySymbolTableTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
