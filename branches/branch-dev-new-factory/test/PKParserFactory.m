@@ -861,7 +861,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a {
-    //NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
+    NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
     
     PKAST *minus = [a pop];
     PKToken *tok = [a pop]; // '-'
