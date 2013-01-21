@@ -13,6 +13,7 @@
 @interface PKConstructNodeVisitor : NSObject <PKNodeVisitor>
 
 @property (nonatomic, retain) PKNodeBase *rootNode;
+@property (nonatomic, retain) NSMutableDictionary *symbolTable;
 
 @property (nonatomic, retain) PKParser *rootParser;
 @property (nonatomic, retain) PKCompositeParser *currentParser;

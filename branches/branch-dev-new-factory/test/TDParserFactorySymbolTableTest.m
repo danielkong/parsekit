@@ -27,7 +27,7 @@
 
 
 - (void)testAlternationAST {
-    NSString *g = @"@start=foo|bar;foo=Number;bar=foo Word;";
+    NSString *g = @"@start=num word;num=Number;word=Word;";
     
     NSError *err = nil;
     NSDictionary *tab = [_factory symbolTableFromGrammar:g simplify:NO error:&err];
@@ -35,22 +35,40 @@
     
     TDEquals((NSUInteger)3, [tab count]);
     TDNotNil(tab[@"@start"]);
-    TDNotNil(tab[@"foo"]);
-    TDNotNil(tab[@"bar"]);
+    TDNotNil(tab[@"num"]);
+    TDNotNil(tab[@"word"]);
     
-    TDTrue([tab[@"foo"] isKindOfClass:[PKAST class]]);
+    TDTrue([tab[@"num"] isKindOfClass:[PKAST class]]);
     
-    PKAST *start = [_factory ASTFromGrammar:g error:nil];
-    TDNotNil(start);
-    TDTrue([start isKindOfClass:[PKAST class]]);
-    TDEqualObjects([start treeDescription], @"");
-    
-    PKParser *p = [_factory parserFromGrammar:g assembler:nil error:&err];
+//    PKAST *start = [_factory ASTFromGrammar:g error:nil];
+//    TDNotNil(start);
+//    TDTrue([start isKindOfClass:[PKAST class]]);
+//    //TDEqualObjects([start treeDescription], @"");
+//    
+    id p = [_factory parserFromGrammar:g assembler:nil error:&err];
     TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKSequence class]]);
+
+    id seq = [[p subparsers][0] subparsers][0];
+    TDTrue([p isKindOfClass:[PKSequence class]]);
     
-    TDTrue([p isKindOfClass:[PKParser class]]);
-    NSString *s = @"1";
+    id num = [seq subparsers][0];
+    TDTrue([num isKindOfClass:[PKSequence class]]);
+    TDEquals((NSUInteger)1, [[num subparsers] count]);
+
+    id word = [seq subparsers][1];
+    TDTrue([word isKindOfClass:[PKSequence class]]);
+    TDEquals((NSUInteger)1, [[word subparsers] count]);
     
+    id numnum = [num subparsers][0];
+    TDTrue([numnum isKindOfClass:[PKNumber class]]);
+
+    id wordword = [word subparsers][0];
+    TDTrue([wordword isKindOfClass:[PKWord class]]);
+    
+    
+    NSString *s = @"1 foo 2";
+
     id res = [p parse:s error:nil];
     TDNotNil(res);
     TDTrue([res isKindOfClass:[PKToken class]]);

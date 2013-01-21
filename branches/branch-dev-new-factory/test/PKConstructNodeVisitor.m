@@ -28,6 +28,7 @@
 
 - (void)dealloc {
     self.rootNode = nil;
+    self.symbolTable = nil;
     self.rootParser = nil;
     self.currentParser = nil;
     self.assembler = nil;
@@ -37,52 +38,32 @@
 
 
 - (void)visitVariable:(PKNodeVariable *)node {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     PKCollectionParser *p = nil;
     
-    PKToken *tok = node.token;
-    NSAssert(tok.isWord, @"");
+    NSAssert(node.token.isSymbol, @"");
     
-    p = [PKSequence sequence];
-    p.name = tok.stringValue;
+    NSString *name = node.parserName;
+    NSAssert([name length], @"");
+    
+    p = _symbolTable[name];
+    if (!p) {
+        p = [PKSequence sequence];
+        p.name = name;
+        _symbolTable[name] = p;
+    }
     
     [_currentParser add:p];
-    self.currentParser = p;
-    
-    for (PKNodeBase *child in node.children) {
-        [child visit:self];
-    }
+//    self.currentParser = p;
+//    
+//    for (PKNodeBase *child in node.children) {
+//        [child visit:self];
+//    }
 
     self.currentParser = p;
 
     [self setAssemblerForParser:p callbackName:node.callbackName];
 }
-
-
-//- (void)visitVariable:(PKNodeVariable *)node {
-//    PKToken *tok = node.token;
-//    NSAssert(tok.isWord, @"");
-//    
-//    NSUInteger childCount = [node.children count];
-//    if (1 == childCount) {
-//        PKNodeBase *child = [node.children objectAtIndex:0];
-//        [child visit:self];
-//        _currentParser.name = tok.stringValue;
-//    } else {
-//        PKCollectionParser *p = [PKSequence sequence];
-//        p.name = tok.stringValue;
-//        
-//        [_currentParser add:p];
-//        self.currentParser = p;
-//        
-//        for (PKNodeBase *child in node.children) {
-//            [child visit:self];
-//        }
-//        
-//        self.currentParser = p;
-//        
-//        [self setAssemblerForParser:p callbackName:node.callbackName];
-//    }
-//}
 
 
 - (void)visitConstant:(PKNodeConstant *)node {
@@ -209,6 +190,7 @@
 
 
 - (void)visitCollection:(PKNodeCollection *)node {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     PKCollectionParser *p = nil;
     
     PKToken *tok = node.token;
@@ -238,7 +220,20 @@
             break;
     }
     
-    p = [[[parserClass alloc] init] autorelease];
+    NSString *name = node.parserName;    
+    if (name) {
+        p = _symbolTable[name];
+    }
+
+    if (!p) {
+        p = [[[parserClass alloc] init] autorelease];
+        
+        if (name) {
+            p.name = name;
+            _symbolTable[name] = p;
+        }
+    }
+    
 
     [_currentParser add:p];
     self.currentParser = p;
