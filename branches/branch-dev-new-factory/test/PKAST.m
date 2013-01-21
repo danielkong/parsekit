@@ -105,6 +105,35 @@
 }
 
 
+- (NSString *)fullTreeDescription:(NSDictionary *)symbolTab {
+    if (![_children count]) {
+        return [self name];
+    }
+    
+    NSMutableString *ms = [NSMutableString string];
+    
+    if (![self isNil]) {
+        [ms appendFormat:@"(%@ ", [self name]];
+    }
+    
+    NSInteger i = 0;
+    for (PKAST *child in _children) {
+        NSAssert(child != self, @"");
+        if (i++) {
+            [ms appendFormat:@" %@", [child fullTreeDescription:symbolTab]];
+        } else {
+            [ms appendFormat:@"%@", [child fullTreeDescription:symbolTab]];
+        }
+    }
+    
+    if (![self isNil]) {
+        [ms appendString:@")"];
+    }
+    
+    return [[ms copy] autorelease];
+}
+
+
 - (int)type {
     NSAssert2(0, @"%s is an abastract method. Must be overridden in %@", __PRETTY_FUNCTION__, NSStringFromClass([self class]));
     return -1;

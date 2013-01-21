@@ -30,6 +30,7 @@
 - (NSString *)name;
 
 - (NSString *)treeDescription;
+- (NSString *)fullTreeDescription:(NSDictionary *)symbolTab;
 
 @property (nonatomic, retain) PKToken *token;
 @property (nonatomic, retain) NSMutableArray *children;
