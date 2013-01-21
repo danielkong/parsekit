@@ -26,7 +26,7 @@
 }
 
 
-- (void)testAlternationAST {
+- (void)testSequenceSymbolTable {
     NSString *g = @"@start=num word;num=Number;word=Word;";
     
     NSError *err = nil;
@@ -68,11 +68,10 @@
     
     
     NSString *s = @"2 foo";
-
     PKAssembly *a = [PKTokenAssembly assemblyWithString:s];
     id res = [p bestMatchFor:a];
     TDNotNil(res);
-    //TDTrue([res isKindOfClass:[PKToken class]]);
+    TDEqualObjects(@"[2, foo]2/foo^", [res description]);
     
 //    TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:SEQ (bar:SEQ (:| (:SEQ (baz:SEQ (:SEQ :Word))) (:SEQ (bat:SEQ (:SEQ :Number)))))))))", [rootNode treeDescription]);
     //TDEqualObjects(@"(@start (foo (bar (| (baz Word) (bat Number)))))", [rootNode treeDescription]);
