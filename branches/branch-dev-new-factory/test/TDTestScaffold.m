@@ -28,7 +28,7 @@ SenTestSuite *TDSoloTestSuite() {
     SenTestSuite *suite = [SenTestSuite testSuiteWithName:@"Solo Test Suite"];
     
     //    NSArray *classNames = [NSArray arrayWithObject:SOLO_TEST_CASE];
-    NSArray *classNames = @[@"TDParserFactoryASTTest", @"TDParserFactorySymbolTableTest"];
+    NSArray *classNames = @[@"TDParserFactoryASTTest", @"TDParserFactorySymbolTableTest", @"TDParserFactoryParserTest"];
     
     [suite addSuitesForClassNames:classNames];
     return suite;

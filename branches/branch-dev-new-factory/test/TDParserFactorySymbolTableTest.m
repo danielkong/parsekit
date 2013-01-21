@@ -10,6 +10,11 @@
 #import "PKParserFactory.h"
 #import "PKAST.h"
 
+@interface PKParserFactory ()
+- (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError;
+- (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError;
+@end
+
 @interface TDParserFactorySymbolTableTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @end
@@ -44,7 +49,7 @@
 
     TDTrue([tab[@"num"] isKindOfClass:[PKAST class]]);
     
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:nil];
+    PKAST *rootNode = tab[@"@start"];
     TDNotNil(rootNode);
     TDTrue([rootNode isKindOfClass:[PKAST class]]);
     TDEqualObjects([rootNode treeDescription], @"(@start:DEF (:SEQ num:REF word:REF))");
@@ -78,6 +83,37 @@
     TDEqualObjects(@"[2, foo]2/foo^", [res description]);
     
 //    TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:SEQ (bar:SEQ (:| (:SEQ (baz:SEQ (:SEQ :Word))) (:SEQ (bat:SEQ (:SEQ :Number)))))))))", [rootNode treeDescription]);
+    //TDEqualObjects(@"(@start (foo (bar (| (baz Word) (bat Number)))))", [rootNode treeDescription]);
+}
+
+
+- (void)testSequenceSymbolTable2 {
+    NSString *g = @"@start=num word;num=Number;word=Word num;";
+    
+    NSError *err = nil;
+    NSDictionary *tab = [_factory symbolTableFromGrammar:g simplify:NO error:&err];
+    TDNotNil(tab);
+    
+    TDEquals((NSUInteger)3, [tab count]);
+    TDNotNil(tab[@"@start"]);
+    TDNotNil(tab[@"num"]);
+    TDNotNil(tab[@"word"]);
+    
+    TDEqualObjects([tab[@"@start"] treeDescription], @"(@start:DEF (:SEQ num:REF word:REF))");
+    TDEqualObjects([tab[@"num"] treeDescription], @"(num:DEF (:SEQ :Number))");
+    TDEqualObjects([tab[@"word"] treeDescription], @"(word:DEF (:SEQ :Word num:REF))");
+       
+    id p = [_factory parserFromGrammar:g assembler:nil error:&err];
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKSequence class]]);
+    
+    NSString *s = @"2 foo 1";
+    PKAssembly *a = [PKTokenAssembly assemblyWithString:s];
+    id res = [p bestMatchFor:a];
+    TDNotNil(res);
+    TDEqualObjects(@"[2, foo, 1]2/foo/1^", [res description]);
+    
+    //    TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:SEQ (bar:SEQ (:| (:SEQ (baz:SEQ (:SEQ :Word))) (:SEQ (bat:SEQ (:SEQ :Number)))))))))", [rootNode treeDescription]);
     //TDEqualObjects(@"(@start (foo (bar (| (baz Word) (bat Number)))))", [rootNode treeDescription]);
 }
 

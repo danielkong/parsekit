@@ -113,6 +113,9 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (PKTokenizer *)tokenizerFromGrammarSettings;
 - (PKParser *)parserFromAST:(PKNodeBase *)rootNode;
 
+- (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError;
+- (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError;
+
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
@@ -287,6 +290,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (NSDictionary *)symbolTableFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError {
+    //    self.callbackTab = [NSMutableDictionary dictionary];
     self.productionTab = [NSMutableDictionary dictionary];
     
     PKTokenizer *t = [self tokenizerForParsingGrammar];
@@ -298,7 +302,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     //NSLog(@"%@", _productionTab);
     
     if (simplify) {
-        PKNodeBase *rootNode = [_productionTab objectForKey:@"@start"];
+        PKNodeBase *rootNode = _productionTab[@"@start"];
 
         id <PKNodeVisitor>v = [[[PKSimplifyNodeVisitor alloc] init] autorelease];
         [self visit:rootNode with:v];
@@ -317,24 +321,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError {
-//    self.callbackTab = [NSMutableDictionary dictionary];
-    self.productionTab = [NSMutableDictionary dictionary];
-
-    PKTokenizer *t = [self tokenizerForParsingGrammar];
-    t.string = g;
-    
-    _grammarParser.parser.tokenizer = t;
-    [_grammarParser.parser parse:g error:outError];
-    
-    NSLog(@"%@", _productionTab);
-    
-    PKNodeBase *rootNode = [_productionTab objectForKey:@"@start"];
-    
-    if (simplify) {
-        id <PKNodeVisitor>v = [[[PKSimplifyNodeVisitor alloc] init] autorelease];
-        [self visit:rootNode with:v];
-    }
-    
+    NSDictionary *tab = [self symbolTableFromGrammar:g simplify:simplify error:outError];
+    PKNodeBase *rootNode = tab[@"@start"];
     return rootNode;
 }
 

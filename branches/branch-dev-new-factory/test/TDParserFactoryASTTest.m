@@ -10,6 +10,11 @@
 #import "PKParserFactory.h"
 #import "PKAST.h"
 
+@interface PKParserFactory ()
+- (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError;
+- (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError;
+@end
+
 @interface TDParserFactoryASTTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @end
