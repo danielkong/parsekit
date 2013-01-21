@@ -37,7 +37,11 @@
     TDNotNil(tab[@"@start"]);
     TDNotNil(tab[@"num"]);
     TDNotNil(tab[@"word"]);
-    
+
+    TDEqualObjects([tab[@"@start"] treeDescription], @"(@start:DEF (:SEQ num:REF word:REF))");
+    TDEqualObjects([tab[@"num"] treeDescription], @"(num:DEF (:SEQ :Number))");
+    TDEqualObjects([tab[@"word"] treeDescription], @"(word:DEF (:SEQ :Word))");
+
     TDTrue([tab[@"num"] isKindOfClass:[PKAST class]]);
     
     PKAST *rootNode = [_factory ASTFromGrammar:g error:nil];
