@@ -8,7 +8,7 @@
 
 #import "PKSimplifyNodeVisitor.h"
 #import "PKNodeBase.h"
-#import "PKNodeVariable.h"
+#import "PKNodeReference.h"
 #import "PKNodeConstant.h"
 #import "PKNodeLiteral.h"
 #import "PKNodePattern.h"
@@ -28,7 +28,12 @@
 }
 
 
-- (void)visitVariable:(PKNodeVariable *)node {
+- (void)visitDefinition:(PKNodeDefinition *)node {
+    NSAssert(0, @"");
+}
+
+
+- (void)visitReference:(PKNodeReference *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     BOOL hasOnlyChild = 1 == [node.children count];

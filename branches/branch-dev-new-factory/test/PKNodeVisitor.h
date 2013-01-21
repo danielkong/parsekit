@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @class PKNodeBase;
-@class PKNodeVariable;
+@class PKNodeDefinition;
+@class PKNodeReference;
 @class PKNodeConstant;
 @class PKNodeLiteral;
 @class PKNodeDelimited;
@@ -25,7 +26,8 @@
 //@class PKNodeNegation;
 
 @protocol PKNodeVisitor <NSObject>
-- (void)visitVariable:(PKNodeVariable *)node;
+- (void)visitDefinition:(PKNodeDefinition *)node;
+- (void)visitReference:(PKNodeReference *)node;
 - (void)visitConstant:(PKNodeConstant *)node;
 - (void)visitLiteral:(PKNodeLiteral *)node;
 - (void)visitDelimited:(PKNodeDelimited *)node;

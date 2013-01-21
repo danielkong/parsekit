@@ -13,7 +13,8 @@
 #import "NSArray+ParseKitAdditions.h"
 
 #import "PKAST.h"
-#import "PKNodeVariable.h"
+#import "PKNodeDefinition.h"
+#import "PKNodeReference.h"
 #import "PKNodeConstant.h"
 #import "PKNodeLiteral.h"
 #import "PKNodeDelimited.h"
@@ -146,7 +147,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *curly;
 @property (nonatomic, retain) PKToken *paren;
 
-@property (nonatomic, retain) PKToken *varToken;
+@property (nonatomic, retain) PKToken *defToken;
+@property (nonatomic, retain) PKToken *refToken;
 @property (nonatomic, retain) PKToken *seqToken;
 @property (nonatomic, retain) PKToken *trackToken;
 @property (nonatomic, retain) PKToken *altToken;
@@ -174,7 +176,8 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.curly = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
 
-        self.varToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"VAR" floatValue:0.0];
+        self.defToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"DEF" floatValue:0.0];
+        self.refToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"REF" floatValue:0.0];
         self.seqToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"SEQ" floatValue:0.0];
         self.trackToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"TRACK" floatValue:0.0];
         self.altToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"|" floatValue:0.0];
@@ -194,7 +197,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.curly = nil;
     self.paren = nil;
     
-    self.varToken = nil;
+    self.defToken = nil;
+    self.refToken = nil;
     self.seqToken = nil;
     self.trackToken = nil;
     self.altToken = nil;
@@ -572,7 +576,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     // visit others
     for (NSString *prodName in _productionTab) {
         PKNodeBase *node = _productionTab[prodName];
-        NSAssert([node isKindOfClass:[PKNodeCollection class]], @"");
+        NSAssert([node isKindOfClass:[PKNodeDefinition class]], @"");
         [self visit:node with:v];
     }
     
@@ -589,8 +593,11 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)visit:(PKNodeBase *)node with:(id <PKNodeVisitor>)v {
     PKNodeType nodeType = node.type;
     switch (nodeType) {
-        case PKNodeTypeVariable:
-            [v visitVariable:(PKNodeVariable *)node];
+        case PKNodeTypeDefinition:
+            [v visitDefinition:(PKNodeDefinition *)node];
+            break;
+        case PKNodeTypeReference:
+            [v visitReference:(PKNodeReference *)node];
             break;
         case PKNodeTypeConstant:
             [v visitConstant:(PKNodeConstant *)node];
@@ -681,7 +688,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKNodeBase *prodNode = _productionTab[prodName];
     if (!prodNode) {
-        prodNode = (PKNodeBase *)[PKNodeCollection ASTWithToken:_seqToken];
+        prodNode = (PKNodeBase *)[PKNodeDefinition ASTWithToken:_defToken];
         prodNode.parserName = prodName;
         _productionTab[prodName] = prodNode;
     }
@@ -705,7 +712,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKNodeBase *prodNode = _productionTab[prodName];
     if (!prodNode) {
-        prodNode = (PKNodeBase *)[PKNodeCollection ASTWithToken:_seqToken];
+        prodNode = (PKNodeBase *)[PKNodeDefinition ASTWithToken:_defToken];
         prodNode.parserName = prodName;
         _productionTab[prodName] = prodNode;
     }
@@ -733,12 +740,12 @@ void PKReleaseSubparserTree(PKParser *p) {
 
     PKNodeBase *prodNode = _productionTab[prodName];
     if (!prodNode) {
-        prodNode = (PKNodeBase *)[PKNodeCollection ASTWithToken:_seqToken];
+        prodNode = (PKNodeBase *)[PKNodeDefinition ASTWithToken:_defToken];
         prodNode.parserName = prodName;
         _productionTab[prodName] = prodNode;
     }
 
-    prodNode = (PKNodeBase *)[PKNodeVariable ASTWithToken:_varToken];
+    prodNode = (PKNodeBase *)[PKNodeReference ASTWithToken:_refToken];
     prodNode.parserName = prodName;
 
     [a push:prodNode];
@@ -803,11 +810,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSArray *nodes = [a objectsAbove:_equals];
     [a pop]; // '='
     
-    PKNodeBase *var = [a pop];
-    NSAssert([var isKindOfClass:[PKNodeCollection class]], @"");
+    PKNodeBase *def = [a pop];
+    NSAssert([def isKindOfClass:[PKNodeDefinition class]], @"");
     
     for (PKAST *node in nodes) {
-        [var addChild:node];
+        [def addChild:node];
     }
     
     //[a push:var];
@@ -817,7 +824,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a {
     PKToken *selNameTok2 = [a pop];
     PKToken *selNameTok1 = [a pop];
-    PKNodeVariable *node = [a pop];
+    PKNodeReference *node = [a pop];
     
     NSAssert([selNameTok1 isKindOfClass:[PKToken class]], @"");
     NSAssert([selNameTok2 isKindOfClass:[PKToken class]], @"");

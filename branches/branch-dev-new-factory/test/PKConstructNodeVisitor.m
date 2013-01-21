@@ -8,7 +8,8 @@
 
 #import "PKConstructNodeVisitor.h"
 #import "PKNodeBase.h"
-#import "PKNodeVariable.h"
+#import "PKNodeDefinition.h"
+#import "PKNodeReference.h"
 #import "PKNodeConstant.h"
 #import "PKNodeDelimited.h"
 #import "PKNodeLiteral.h"
@@ -37,7 +38,35 @@
 }
 
 
-- (void)visitVariable:(PKNodeVariable *)node {
+- (void)visitDefinition:(PKNodeDefinition *)node {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);    
+    NSAssert(node.token.isSymbol, @"");
+    
+    NSString *name = node.parserName;
+    NSAssert([name length], @"");
+    
+    PKCollectionParser *p = _symbolTable[name];
+    if (!p) {
+        p = [PKSequence sequence];
+        p.name = name;
+        _symbolTable[name] = p;
+    }
+    
+//    [_currentParser add:p];
+    self.currentParser = p;
+    
+    PKCompositeParser *oldParent = _currentParser;
+    
+    for (PKNodeBase *child in node.children) {
+        [child visit:self];
+        self.currentParser = p;
+    }
+    
+    self.currentParser = oldParent;
+}
+
+
+- (void)visitReference:(PKNodeReference *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     PKCollectionParser *p = nil;
     
@@ -54,14 +83,14 @@
     }
     
     [_currentParser add:p];
-//    self.currentParser = p;
-//    
-//    for (PKNodeBase *child in node.children) {
-//        [child visit:self];
-//    }
-
+    //    self.currentParser = p;
+    //
+    //    for (PKNodeBase *child in node.children) {
+    //        [child visit:self];
+    //    }
+    
     self.currentParser = p;
-
+    
     [self setAssemblerForParser:p callbackName:node.callbackName];
 }
 

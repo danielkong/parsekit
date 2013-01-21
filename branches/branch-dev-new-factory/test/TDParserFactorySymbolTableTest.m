@@ -40,16 +40,16 @@
     
     TDTrue([tab[@"num"] isKindOfClass:[PKAST class]]);
     
-//    PKAST *start = [_factory ASTFromGrammar:g error:nil];
-//    TDNotNil(start);
-//    TDTrue([start isKindOfClass:[PKAST class]]);
-//    //TDEqualObjects([start treeDescription], @"");
-//    
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:nil];
+    TDNotNil(rootNode);
+    TDTrue([rootNode isKindOfClass:[PKAST class]]);
+    TDEqualObjects([rootNode treeDescription], @"(@start:DEF (:SEQ num:REF word:REF))");
+    
     id p = [_factory parserFromGrammar:g assembler:nil error:&err];
     TDNotNil(p);
     TDTrue([p isKindOfClass:[PKSequence class]]);
 
-    id seq = [[p subparsers][0] subparsers][0];
+    id seq = [p subparsers][0];
     TDTrue([p isKindOfClass:[PKSequence class]]);
     
     id num = [seq subparsers][0];
@@ -60,18 +60,19 @@
     TDTrue([word isKindOfClass:[PKSequence class]]);
     TDEquals((NSUInteger)1, [[word subparsers] count]);
     
-    id numnum = [num subparsers][0];
+    id numnum = [[num subparsers][0] subparsers][0];
     TDTrue([numnum isKindOfClass:[PKNumber class]]);
 
-    id wordword = [word subparsers][0];
+    id wordword = [[word subparsers][0] subparsers][0];
     TDTrue([wordword isKindOfClass:[PKWord class]]);
     
     
-    NSString *s = @"1 foo 2";
+    NSString *s = @"2 foo";
 
-    id res = [p parse:s error:nil];
+    PKAssembly *a = [PKTokenAssembly assemblyWithString:s];
+    id res = [p bestMatchFor:a];
     TDNotNil(res);
-    TDTrue([res isKindOfClass:[PKToken class]]);
+    //TDTrue([res isKindOfClass:[PKToken class]]);
     
 //    TDEqualObjects(@"(@start:SEQ (:SEQ (foo:SEQ (:SEQ (bar:SEQ (:| (:SEQ (baz:SEQ (:SEQ :Word))) (:SEQ (bat:SEQ (:SEQ :Number)))))))))", [rootNode treeDescription]);
     //TDEqualObjects(@"(@start (foo (bar (| (baz Word) (bat Number)))))", [rootNode treeDescription]);

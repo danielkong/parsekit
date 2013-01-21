@@ -13,7 +13,8 @@
 #import "PKNodeBase.h"
 
 typedef enum {
-    PKNodeTypeVariable = 0,
+    PKNodeTypeDefinition = 0,
+    PKNodeTypeReference,
     PKNodeTypeConstant,
     PKNodeTypeLiteral,
     PKNodeTypeDelimited,
