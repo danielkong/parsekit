@@ -43,7 +43,7 @@
     PKCollectionParser *bar = [foo.subparsers objectAtIndex:0];
     TDTrue([bar isKindOfClass:[PKCollectionParser class]]);
     
-    TDTrue(1 == [bar.subparsers count]);
+//    TDTrue(1 == [bar.subparsers count]);
 //    PKAlternation *alt = [bar.subparsers objectAtIndex:0];
 //    TDTrue(2 == [alt.subparsers count]);
 //    
@@ -57,13 +57,13 @@
     PKAssembly *a = [PKTokenAssembly assemblyWithString:input];
     a = [p completeMatchFor:a];
     
-    TDEqualObjects([a description], @"[hello]hello^");
+    TDEqualObjects(@"[hello]hello^", [a description]);
     
     input = @"22.3";
     a = [PKTokenAssembly assemblyWithString:input];
     a = [p completeMatchFor:a];
     
-    TDEqualObjects([a description], @"[22.3]22.3^");
+    TDEqualObjects(@"[22.3]22.3^", [a description]);
     
     input = @"##";
     a = [PKTokenAssembly assemblyWithString:input];

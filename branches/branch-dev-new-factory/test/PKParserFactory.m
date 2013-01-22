@@ -809,6 +809,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         nodes = discardedSeq.children;
     }
 
+    def.token = _seqToken;
     NSAssert(discardedSeq.token.isSymbol, @"");
     
     for (PKAST *node in nodes) {

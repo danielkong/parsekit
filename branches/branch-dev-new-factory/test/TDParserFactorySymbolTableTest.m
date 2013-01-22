@@ -43,16 +43,16 @@
     TDNotNil(tab[@"num"]);
     TDNotNil(tab[@"word"]);
 
-    TDEqualObjects([tab[@"@start"] treeDescription], @"(@start:DEF num:REF word:REF)");
-    TDEqualObjects([tab[@"num"] treeDescription], @"(num:DEF :Number)");
-    TDEqualObjects([tab[@"word"] treeDescription], @"(word:DEF :Word)");
+    TDEqualObjects([tab[@"@start"] treeDescription], @"(@start:SEQ num:REF word:REF)");
+    TDEqualObjects([tab[@"num"] treeDescription], @"(num:SEQ :Number)");
+    TDEqualObjects([tab[@"word"] treeDescription], @"(word:SEQ :Word)");
 
     TDTrue([tab[@"num"] isKindOfClass:[PKAST class]]);
     
     PKAST *rootNode = tab[@"@start"];
     TDNotNil(rootNode);
     TDTrue([rootNode isKindOfClass:[PKAST class]]);
-    TDEqualObjects([rootNode treeDescription], @"(@start:DEF num:REF word:REF)");
+    TDEqualObjects([rootNode treeDescription], @"(@start:SEQ num:REF word:REF)");
     
     id p = [_factory parserFromGrammar:g assembler:nil error:&err];
     TDNotNil(p);
@@ -90,9 +90,9 @@
     TDNotNil(tab[@"num"]);
     TDNotNil(tab[@"word"]);
     
-    TDEqualObjects([tab[@"@start"] treeDescription], @"(@start:DEF num:REF word:REF)");
-    TDEqualObjects([tab[@"num"] treeDescription], @"(num:DEF :Number)");
-    TDEqualObjects([tab[@"word"] treeDescription], @"(word:DEF :Word num:REF)");
+    TDEqualObjects([tab[@"@start"] treeDescription], @"(@start:SEQ num:REF word:REF)");
+    TDEqualObjects([tab[@"num"] treeDescription], @"(num:SEQ :Number)");
+    TDEqualObjects([tab[@"word"] treeDescription], @"(word:SEQ :Word num:REF)");
        
     id p = [_factory parserFromGrammar:g assembler:nil error:&err];
     TDNotNil(p);
