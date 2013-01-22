@@ -43,38 +43,29 @@
     TDNotNil(tab[@"num"]);
     TDNotNil(tab[@"word"]);
 
-    TDEqualObjects([tab[@"@start"] treeDescription], @"(@start:DEF (:SEQ num:REF word:REF))");
-    TDEqualObjects([tab[@"num"] treeDescription], @"(num:DEF (:SEQ :Number))");
-    TDEqualObjects([tab[@"word"] treeDescription], @"(word:DEF (:SEQ :Word))");
+    TDEqualObjects([tab[@"@start"] treeDescription], @"(@start:DEF num:REF word:REF)");
+    TDEqualObjects([tab[@"num"] treeDescription], @"(num:DEF :Number)");
+    TDEqualObjects([tab[@"word"] treeDescription], @"(word:DEF :Word)");
 
     TDTrue([tab[@"num"] isKindOfClass:[PKAST class]]);
     
     PKAST *rootNode = tab[@"@start"];
     TDNotNil(rootNode);
     TDTrue([rootNode isKindOfClass:[PKAST class]]);
-    TDEqualObjects([rootNode treeDescription], @"(@start:DEF (:SEQ num:REF word:REF))");
+    TDEqualObjects([rootNode treeDescription], @"(@start:DEF num:REF word:REF)");
     
     id p = [_factory parserFromGrammar:g assembler:nil error:&err];
     TDNotNil(p);
     TDTrue([p isKindOfClass:[PKSequence class]]);
 
-    id seq = [p subparsers][0];
-    TDTrue([p isKindOfClass:[PKSequence class]]);
-    
-    id num = [seq subparsers][0];
-    TDTrue([num isKindOfClass:[PKSequence class]]);
-    TDEquals((NSUInteger)1, [[num subparsers] count]);
-
-    id word = [seq subparsers][1];
-    TDTrue([word isKindOfClass:[PKSequence class]]);
-    TDEquals((NSUInteger)1, [[word subparsers] count]);
-    
-    id numnum = [[num subparsers][0] subparsers][0];
-    TDTrue([numnum isKindOfClass:[PKNumber class]]);
-
-    id wordword = [[word subparsers][0] subparsers][0];
-    TDTrue([wordword isKindOfClass:[PKWord class]]);
-    
+//    id seq = [p subparsers][0];
+//    TDTrue([p isKindOfClass:[PKSequence class]]);
+//    
+//    id num = [seq subparsers][0];
+//    TDTrue([num isKindOfClass:[PKNumber class]]);
+//
+//    id word = [seq subparsers][1];
+//    TDTrue([word isKindOfClass:[PKWord class]]);
     
     NSString *s = @"2 foo";
     PKAssembly *a = [PKTokenAssembly assemblyWithString:s];
@@ -99,9 +90,9 @@
     TDNotNil(tab[@"num"]);
     TDNotNil(tab[@"word"]);
     
-    TDEqualObjects([tab[@"@start"] treeDescription], @"(@start:DEF (:SEQ num:REF word:REF))");
-    TDEqualObjects([tab[@"num"] treeDescription], @"(num:DEF (:SEQ :Number))");
-    TDEqualObjects([tab[@"word"] treeDescription], @"(word:DEF (:SEQ :Word num:REF))");
+    TDEqualObjects([tab[@"@start"] treeDescription], @"(@start:DEF num:REF word:REF)");
+    TDEqualObjects([tab[@"num"] treeDescription], @"(num:DEF :Number)");
+    TDEqualObjects([tab[@"word"] treeDescription], @"(word:DEF :Word num:REF)");
        
     id p = [_factory parserFromGrammar:g assembler:nil error:&err];
     TDNotNil(p);

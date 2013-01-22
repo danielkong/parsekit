@@ -188,7 +188,7 @@
 - (PKCollectionParser *)tokenizerDirectiveParser {
     if (!_tokenizerDirectiveParser) {
         self.tokenizerDirectiveParser = [PKSequence sequence];
-        _tokenizerDirectiveParser.name = @"decl";
+        _tokenizerDirectiveParser.name = @"tokenizerDirective";
         [_tokenizerDirectiveParser add:self.optionalWhitespaceParser];
         [_tokenizerDirectiveParser add:[[PKSymbol symbolWithString:@"@"] discard]];
         
