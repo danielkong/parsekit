@@ -99,7 +99,31 @@
     input = @"2 2";
     a = [PKTokenAssembly assemblyWithString:input];
     a = [p bestMatchFor:a];
+    
+    TDEqualObjects([a description], @"[2]2^2");
+}
 
+
+- (void)testNegationAST {
+    NSString *g = @"@start=~Word;";
+    //    NSString *g = @"@start=foo foo foo? foo?;foo=Number;";
+    
+    NSError *err = nil;
+    PKCollectionParser *p = (PKCollectionParser *)[_factory parserFromGrammar:g assembler:nil error:&err];
+    
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKSequence class]]);
+    
+    NSString *input = @"foo";
+    PKAssembly *a = [PKTokenAssembly assemblyWithString:input];
+    a = [p completeMatchFor:a];
+    
+    TDNil(a);
+    
+    input = @"2 2";
+    a = [PKTokenAssembly assemblyWithString:input];
+    a = [p bestMatchFor:a];
+    
     TDEqualObjects([a description], @"[2]2^2");
 }
 

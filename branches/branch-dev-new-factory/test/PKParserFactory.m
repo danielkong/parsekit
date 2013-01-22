@@ -546,8 +546,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     NSAssert([_productionTab count], @"");
     NSAssert(_productionTab[@"@start"], @"");
-    NSLog(@"%@", _productionTab);
-    NSLog(@"%@", [rootNode treeDescription]);
+    //NSLog(@"%@", _productionTab);
+    //NSLog(@"%@", [rootNode treeDescription]);
     
     v.rootNode = rootNode;
     v.symbolTable = [NSMutableDictionary dictionaryWithCapacity:[_productionTab count]];
@@ -716,7 +716,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
-    NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
 
     PKToken *tok = [a pop];
     NSAssert(tok, @"");
@@ -793,7 +793,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a {
-    NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
     
     NSArray *nodes = [a objectsAbove:_equals];
     [a pop]; // '='
@@ -861,7 +861,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a {
-    NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
     
     PKAST *minus = [a pop];
     PKToken *tok = [a pop]; // '-'

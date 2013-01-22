@@ -39,7 +39,7 @@
 
 
 - (void)visitDefinition:(PKNodeDefinition *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);    
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSAssert(node.token.isSymbol, @"");
     
     NSString *name = node.parserName;
@@ -67,7 +67,7 @@
 
 
 - (void)visitReference:(PKNodeReference *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     PKCollectionParser *p = nil;
     
     NSAssert(node.token.isSymbol, @"");
@@ -212,7 +212,7 @@
 
 
 - (void)visitCollection:(PKNodeCollection *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     PKCollectionParser *p = nil;
     
     PKToken *tok = node.token;
