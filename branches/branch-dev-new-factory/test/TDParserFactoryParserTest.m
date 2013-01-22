@@ -34,9 +34,9 @@
 - (void)testAlternationAST {
     NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Number;";
 
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:nil];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (foo:SEQ (bar:| (:SEQ (baz:SEQ :Word)) (:SEQ (bat:SEQ :Number)))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:nil];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ (bar:| (:SEQ (baz:SEQ :Word)) (:SEQ (bat:SEQ :Number)))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 
     NSError *err = nil;
     PKCollectionParser *p = (PKCollectionParser *)[_factory parserFromGrammar:g assembler:nil error:&err];

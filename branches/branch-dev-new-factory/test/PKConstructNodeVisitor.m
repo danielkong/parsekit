@@ -39,6 +39,55 @@
 }
 
 
+- (Class)collectionParserClassForToken:(PKToken *)tok {
+    NSString *tokStr = tok.stringValue;
+    NSAssert([tokStr length], @"");
+    unichar c = [tokStr characterAtIndex:0];
+    
+    Class parserClass = Nil;
+    
+    switch (c) {
+        case 'S':
+            parserClass = [PKSequence class];
+            break;
+        case 'T':
+            parserClass = [PKTrack class];
+            break;
+        case '&':
+            parserClass = [PKIntersection class];
+            break;
+        case '|':
+            parserClass = [PKAlternation class];
+            break;
+        default:
+            NSAssert1(0, @"unknown collection node type '%@'", tokStr);
+            break;
+    }
+
+    return parserClass;
+}
+
+
+- (PKCollectionParser *)collectionParserForProductionName:(NSString *)name {
+    PKCollectionParser *p = _parserTable[name];
+
+    if (!p) {
+        PKNodeBase *node = _productionTable[name];
+        NSAssert(node, @"");
+        
+        PKToken *tok = node.token;
+        Class parserClass = [self collectionParserClassForToken:tok];
+        
+        p = [[[parserClass alloc] init] autorelease];
+        p.name = name;
+        
+        _parserTable[name] = p;
+    }
+    
+    return p;
+}
+
+
 - (void)visitDefinition:(PKNodeDefinition *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSAssert(node.token.isSymbol, @"");
@@ -46,12 +95,7 @@
     NSString *name = node.parserName;
     NSAssert([name length], @"");
     
-    PKCollectionParser *p = _parserTable[name];
-    if (!p) {
-        p = [PKSequence sequence];
-        p.name = name;
-        _parserTable[name] = p;
-    }
+    PKCollectionParser *p = [self collectionParserForProductionName:name];
     
 //    [_currentParser add:p];
     self.currentParser = p;
@@ -69,19 +113,13 @@
 
 - (void)visitReference:(PKNodeReference *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-    PKCollectionParser *p = nil;
     
     NSAssert(node.token.isSymbol, @"");
     
     NSString *name = node.parserName;
     NSAssert([name length], @"");
     
-    p = _parserTable[name];
-    if (!p) {
-        p = [PKSequence sequence];
-        p.name = name;
-        _parserTable[name] = p;
-    }
+    PKCollectionParser *p = [self collectionParserForProductionName:name];
     
     [_currentParser add:p];
     
@@ -219,30 +257,8 @@
     PKToken *tok = node.token;
     NSAssert(tok.isSymbol, @"");
     
-    NSString *tokStr = tok.stringValue;
-    NSAssert([tokStr length], @"");
-    unichar c = [tokStr characterAtIndex:0];
-    
-    Class parserClass = Nil;
-    
-    switch (c) {
-        case 'S':
-            parserClass = [PKSequence class];
-            break;
-        case 'T':
-            parserClass = [PKTrack class];
-            break;
-        case '&':
-            parserClass = [PKIntersection class];
-            break;
-        case '|':
-            parserClass = [PKAlternation class];
-            break;
-        default:
-            NSAssert1(0, @"unknown collection node type '%@'", tokStr);
-            break;
-    }
-    
+    Class parserClass = [self collectionParserClassForToken:tok];
+
     NSString *name = node.parserName;    
     if (name) {
         p = _parserTable[name];

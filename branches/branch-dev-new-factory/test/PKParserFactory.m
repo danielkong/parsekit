@@ -804,14 +804,20 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKNodeBase *def = [a pop];
     NSAssert([def isKindOfClass:[PKNodeDefinition class]], @"");
     
-    PKAST *discardedSeq = [nodes lastObject];
-    if (discardedSeq.token == _seqToken) {
-        NSAssert([discardedSeq.token.stringValue isEqualToString:@"SEQ"], @"");
-        nodes = discardedSeq.children;
-    }
+    PKNodeBase *parent = def;
+    while ([parent.children count] && 1 == [nodes count]); {
+        parent = [nodes lastObject];
+        nodes = parent.children;
+    } 
+    
+//    PKAST *discardedSeq = [nodes lastObject];
+//    if (discardedSeq.token == _seqToken) {
+//        NSAssert([discardedSeq.token.stringValue isEqualToString:@"SEQ"], @"");
+//        nodes = discardedSeq.children;
+//    }
 
-    def.token = _seqToken;
-    NSAssert(discardedSeq.token.isSymbol, @"");
+    def.token = parent.token;
+    NSAssert(parent.token.isSymbol, @"");
     
     for (PKAST *node in nodes) {
         [def addChild:node];
