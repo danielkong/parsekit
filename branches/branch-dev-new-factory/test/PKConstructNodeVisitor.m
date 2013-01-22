@@ -29,7 +29,8 @@
 
 - (void)dealloc {
     self.rootNode = nil;
-    self.symbolTable = nil;
+    self.parserTable = nil;
+    self.productionTable = nil;
     self.rootParser = nil;
     self.currentParser = nil;
     self.assembler = nil;
@@ -45,11 +46,11 @@
     NSString *name = node.parserName;
     NSAssert([name length], @"");
     
-    PKCollectionParser *p = _symbolTable[name];
+    PKCollectionParser *p = _parserTable[name];
     if (!p) {
         p = [PKSequence sequence];
         p.name = name;
-        _symbolTable[name] = p;
+        _parserTable[name] = p;
     }
     
 //    [_currentParser add:p];
@@ -75,11 +76,11 @@
     NSString *name = node.parserName;
     NSAssert([name length], @"");
     
-    p = _symbolTable[name];
+    p = _parserTable[name];
     if (!p) {
         p = [PKSequence sequence];
         p.name = name;
-        _symbolTable[name] = p;
+        _parserTable[name] = p;
     }
     
     [_currentParser add:p];
@@ -244,7 +245,7 @@
     
     NSString *name = node.parserName;    
     if (name) {
-        p = _symbolTable[name];
+        p = _parserTable[name];
     }
 
     if (!p) {
@@ -252,7 +253,7 @@
         
         if (name) {
             p.name = name;
-            _symbolTable[name] = p;
+            _parserTable[name] = p;
         }
     }
     

@@ -550,7 +550,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     //NSLog(@"%@", [rootNode treeDescription]);
     
     v.rootNode = rootNode;
-    v.symbolTable = [NSMutableDictionary dictionaryWithCapacity:[_productionTab count]];
+    v.parserTable = [NSMutableDictionary dictionaryWithCapacity:[_productionTab count]];
+    v.productionTable = _productionTab;
     v.assembler = _assembler;
     v.preassembler = _preassembler;
 
@@ -568,7 +569,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         [self visit:node with:v];
     }
     
-    NSAssert([v.symbolTable count], @"");
+    NSAssert([v.parserTable count], @"");
     //NSAssert(v.symbolTable[@"@start"], @"");
     
     PKParser *p = v.rootParser;
