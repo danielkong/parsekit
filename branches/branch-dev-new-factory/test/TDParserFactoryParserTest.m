@@ -10,6 +10,11 @@
 #import "PKParserFactory.h"
 #import "PKAST.h"
 
+@interface PKParserFactory ()
+- (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError;
+- (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError;
+@end
+
 @interface TDParserFactoryParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @end
@@ -28,7 +33,11 @@
 
 - (void)testAlternationAST {
     NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Number;";
-    
+
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:nil];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ (bar:| (:SEQ (baz:SEQ :Word)) (:SEQ (bat:SEQ :Number)))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+
     NSError *err = nil;
     PKCollectionParser *p = (PKCollectionParser *)[_factory parserFromGrammar:g assembler:nil error:&err];
 
