@@ -19,11 +19,9 @@
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchEq:(PKAssembly *)a;
 - (void)parser:(PKParser *)p willMatchAnd:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
@@ -221,11 +219,7 @@
         [_declParser add:self.optionalWhitespaceParser];
         [_declParser add:[self zeroOrOne:self.callbackParser]];
         [_declParser add:self.optionalWhitespaceParser];
-        
-        PKSymbol *eq = [PKSymbol symbolWithString:@"="];
-        [eq setAssembler:_assembler selector:@selector(parser:didMatchEq:)];
-        [_declParser add:eq];
-
+        [_declParser add:[PKSymbol symbolWithString:@"="]];
         [_declParser add:self.exprParser];
         [_declParser add:[[PKSymbol symbolWithString:@";"] discard]];
         
@@ -316,7 +310,6 @@
         [_exprParser add:self.termParser];
         [_exprParser add:[PKRepetition repetitionWithSubparser:self.orTermParser]];
         [_exprParser add:self.optionalWhitespaceParser];
-        [_exprParser setAssembler:_assembler selector:@selector(parser:didMatchExpression:)];
     }
     return _exprParser;
 }
