@@ -46,7 +46,7 @@
     PKUniChar c;
     PKFloat floatValue;
     PKFloat exp;
-    BOOL isNegativeExp;    
+    BOOL isNegativeExp;
 }
 
 /*!
