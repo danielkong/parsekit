@@ -541,23 +541,23 @@ void PKReleaseSubparserTree(PKParser *p) {
 
     PKParser *result = nil;
     
+    PKNodeBase *rootNode = symTab[@"@start"];
+    NSAssert(rootNode, @"");
+    
+    PKConstructNodeVisitor *v = [[[PKConstructNodeVisitor alloc] init] autorelease];
+    
+    //NSLog(@"%@", symTab);
+    //NSLog(@"%@", [rootNode treeDescription]);
+    
+    v.rootNode = rootNode;
+    v.parserTable = [NSMutableDictionary dictionaryWithCapacity:[symTab count]];
+    v.productionTable = symTab;
+    v.assembler = _assembler;
+    v.preassembler = _preassembler;
+    
+    v.assemblerSettingBehavior = _assemblerSettingBehavior;
+    
     @autoreleasepool {
-        PKNodeBase *rootNode = symTab[@"@start"];
-        NSAssert(rootNode, @"");
-        
-        PKConstructNodeVisitor *v = [[[PKConstructNodeVisitor alloc] init] autorelease];
-        
-        //NSLog(@"%@", symTab);
-        //NSLog(@"%@", [rootNode treeDescription]);
-        
-        v.rootNode = rootNode;
-        v.parserTable = [NSMutableDictionary dictionaryWithCapacity:[symTab count]];
-        v.productionTable = symTab;
-        v.assembler = _assembler;
-        v.preassembler = _preassembler;
-        
-        v.assemblerSettingBehavior = _assemblerSettingBehavior;
-        
         // visit @start first
         [self visit:rootNode with:v];
         [symTab removeObjectForKey:@"@start"];
@@ -568,13 +568,13 @@ void PKReleaseSubparserTree(PKParser *p) {
             NSAssert([node isKindOfClass:[PKNodeDefinition class]], @"");
             [self visit:node with:v];
         }
-        
-        NSAssert([v.parserTable count], @"");
-        //NSAssert(v.symTable[@"@start"], @"");
-        
-        result = [v.rootParser retain]; // +1
-        NSAssert([result isKindOfClass:[PKParser class]], @"");
     }
+    
+    NSAssert([v.parserTable count], @"");
+    //NSAssert(v.symTable[@"@start"], @"");
+    
+    result = [v.rootParser retain]; // +1
+    NSAssert([result isKindOfClass:[PKParser class]], @"");
 
     return [result autorelease]; // -1
 }
