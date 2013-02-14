@@ -110,8 +110,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 @interface PKParserFactory ()
 - (PKTokenizer *)tokenizerForParsingGrammar;
-- (PKTokenizer *)tokenizerFromGrammarSettings;
-- (PKParser *)parserFromAST:(PKNodeBase *)rootNode;
+- (PKTokenizer *)tokenizerFromSymbolTable:(NSMutableDictionary *)symTab;
+- (PKParser *)parserFromSymbolTable:(NSMutableDictionary *)symTab;
 
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError;
 - (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError;
@@ -236,20 +236,16 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.assembler = a;
         self.preassembler = pa;
         
-        NSDictionary *tab = [self symbolTableFromGrammar:g simplify:NO error:outError];
-//        PKNodeBase *rootNode = (PKNodeBase *)[self ASTFromGrammar:g simplify:NO error:outError];
-        PKNodeBase *rootNode = (PKNodeBase *)[tab objectForKey:@"@start"];
-        
-        //NSLog(@"rootNode %@", rootNode);
+        NSMutableDictionary *symTab = [NSMutableDictionary dictionaryWithDictionary:[self symbolTableFromGrammar:g simplify:NO error:outError]];
+        //NSLog(@"tab %@", tab);
 
-        PKTokenizer *t = [self tokenizerFromGrammarSettings];
-        PKParser *start = [self parserFromAST:rootNode];
+        PKTokenizer *t = [self tokenizerFromSymbolTable:symTab];
+        PKParser *start = [self parserFromSymbolTable:symTab];
         
         //NSLog(@"start %@", start);
 
         self.assembler = nil;
 //        self.callbackTab = nil;
-        self.productionTab = nil;
         
         if (start && [start isKindOfClass:[PKParser class]]) {
             start.tokenizer = t;
@@ -298,8 +294,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     _grammarParser.parser.tokenizer = t;
     [_grammarParser.parser parse:g error:outError];
     
-    //NSLog(@"%@", _productionTab);
-    
     if (simplify) {
         PKNodeBase *rootNode = _productionTab[@"@start"];
 
@@ -307,10 +301,10 @@ void PKReleaseSubparserTree(PKParser *p) {
         [self visit:rootNode with:v];
     }
     
-    NSDictionary *result = [[_productionTab copy] autorelease];
-    //self.productionTab = nil;
+    NSDictionary *symTab = [[_productionTab copy] autorelease];
+    self.productionTab = nil;
     
-    return result;
+    return symTab;
 }
 
 
@@ -356,47 +350,47 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (PKTokenizer *)tokenizerFromGrammarSettings {
-    self.wantsCharacters = [self boolForTokenForKey:@"@wantsCharacters"];
+- (PKTokenizer *)tokenizerFromSymbolTable:(NSMutableDictionary *)symTab {
+    self.wantsCharacters = [self boolForTokenForKey:@"@wantsCharacters" inSymbolTable:symTab];
     
     PKTokenizer *t = [PKTokenizer tokenizer];
     [t.commentState removeSingleLineStartMarker:@"//"];
     [t.commentState removeMultiLineStartMarker:@"/*"];
     
-    t.whitespaceState.reportsWhitespaceTokens = [self boolForTokenForKey:@"@reportsWhitespaceTokens"];
-    t.commentState.reportsCommentTokens = [self boolForTokenForKey:@"@reportsCommentTokens"];
-    t.commentState.balancesEOFTerminatedComments = [self boolForTokenForKey:@"balancesEOFTerminatedComments"];
-    t.quoteState.balancesEOFTerminatedQuotes = [self boolForTokenForKey:@"@balancesEOFTerminatedQuotes"];
-    t.delimitState.balancesEOFTerminatedStrings = [self boolForTokenForKey:@"@balancesEOFTerminatedStrings"];
-    t.numberState.allowsTrailingDecimalSeparator = [self boolForTokenForKey:@"@allowsTrailingDecimalSeparator"];
-    t.numberState.allowsScientificNotation = [self boolForTokenForKey:@"@allowsScientificNotation"];
-    t.numberState.allowsOctalNotation = [self boolForTokenForKey:@"@allowsOctalNotation"];
-    t.numberState.allowsHexadecimalNotation = [self boolForTokenForKey:@"@allowsHexadecimalNotation"];
+    t.whitespaceState.reportsWhitespaceTokens = [self boolForTokenForKey:@"@reportsWhitespaceTokens" inSymbolTable:symTab];
+    t.commentState.reportsCommentTokens = [self boolForTokenForKey:@"@reportsCommentTokens" inSymbolTable:symTab];
+    t.commentState.balancesEOFTerminatedComments = [self boolForTokenForKey:@"balancesEOFTerminatedComments" inSymbolTable:symTab];
+    t.quoteState.balancesEOFTerminatedQuotes = [self boolForTokenForKey:@"@balancesEOFTerminatedQuotes" inSymbolTable:symTab];
+    t.delimitState.balancesEOFTerminatedStrings = [self boolForTokenForKey:@"@balancesEOFTerminatedStrings" inSymbolTable:symTab];
+    t.numberState.allowsTrailingDecimalSeparator = [self boolForTokenForKey:@"@allowsTrailingDecimalSeparator" inSymbolTable:symTab];
+    t.numberState.allowsScientificNotation = [self boolForTokenForKey:@"@allowsScientificNotation" inSymbolTable:symTab];
+    t.numberState.allowsOctalNotation = [self boolForTokenForKey:@"@allowsOctalNotation" inSymbolTable:symTab];
+    t.numberState.allowsHexadecimalNotation = [self boolForTokenForKey:@"@allowsHexadecimalNotation" inSymbolTable:symTab];
     
     BOOL yn = YES;
-    if ([_productionTab objectForKey:@"allowsFloatingPoint"]) {
-        yn = [self boolForTokenForKey:@"allowsFloatingPoint"];
+    if (symTab[@"allowsFloatingPoint"]) {
+        yn = [self boolForTokenForKey:@"allowsFloatingPoint" inSymbolTable:symTab];
     }
     t.numberState.allowsFloatingPoint = yn;
     
-    [self setTokenizerState:t.wordState onTokenizer:t forTokensForKey:@"@wordState"];
-    [self setTokenizerState:t.numberState onTokenizer:t forTokensForKey:@"@numberState"];
-    [self setTokenizerState:t.quoteState onTokenizer:t forTokensForKey:@"@quoteState"];
-    [self setTokenizerState:t.delimitState onTokenizer:t forTokensForKey:@"@delimitState"];
-    [self setTokenizerState:t.symbolState onTokenizer:t forTokensForKey:@"@symbolState"];
-    [self setTokenizerState:t.commentState onTokenizer:t forTokensForKey:@"@commentState"];
-    [self setTokenizerState:t.whitespaceState onTokenizer:t forTokensForKey:@"@whitespaceState"];
+    [self setTokenizerState:t.wordState onTokenizer:t forTokensForKey:@"@wordState" inSymbolTable:symTab];
+    [self setTokenizerState:t.numberState onTokenizer:t forTokensForKey:@"@numberState" inSymbolTable:symTab];
+    [self setTokenizerState:t.quoteState onTokenizer:t forTokensForKey:@"@quoteState" inSymbolTable:symTab];
+    [self setTokenizerState:t.delimitState onTokenizer:t forTokensForKey:@"@delimitState" inSymbolTable:symTab];
+    [self setTokenizerState:t.symbolState onTokenizer:t forTokensForKey:@"@symbolState" inSymbolTable:symTab];
+    [self setTokenizerState:t.commentState onTokenizer:t forTokensForKey:@"@commentState" inSymbolTable:symTab];
+    [self setTokenizerState:t.whitespaceState onTokenizer:t forTokensForKey:@"@whitespaceState" inSymbolTable:symTab];
     
-    [self setFallbackStateOn:t.commentState withTokenizer:t forTokensForKey:@"@commentState.fallbackState"];
-    [self setFallbackStateOn:t.delimitState withTokenizer:t forTokensForKey:@"@delimitState.fallbackState"];
+    [self setFallbackStateOn:t.commentState withTokenizer:t forTokensForKey:@"@commentState.fallbackState" inSymbolTable:symTab];
+    [self setFallbackStateOn:t.delimitState withTokenizer:t forTokensForKey:@"@delimitState.fallbackState" inSymbolTable:symTab];
     
     NSArray *toks = nil;
     
     // muli-char symbols
-    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@symbol"]];
-    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@symbols"]];
-    [_productionTab removeObjectForKey:@"@symbol"];
-    [_productionTab removeObjectForKey:@"@symbols"];
+    toks = [NSArray arrayWithArray:symTab[@"@symbol"]];
+    toks = [toks arrayByAddingObjectsFromArray:symTab[@"@symbols"]];
+    [symTab removeObjectForKey:@"@symbol"];
+    [symTab removeObjectForKey:@"@symbols"];
     for (PKToken *tok in toks) {
         if (tok.isQuotedString) {
             [t.symbolState add:[tok.stringValue stringByTrimmingQuotes]];
@@ -404,10 +398,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     // wordChars
-    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@wordChar"]];
-    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@wordChars"]];
-    [_productionTab removeObjectForKey:@"@wordChar"];
-    [_productionTab removeObjectForKey:@"@wordChars"];
+    toks = [NSArray arrayWithArray:symTab[@"@wordChar"]];
+    toks = [toks arrayByAddingObjectsFromArray:symTab[@"@wordChars"]];
+    [symTab removeObjectForKey:@"@wordChar"];
+    [symTab removeObjectForKey:@"@wordChars"];
     for (PKToken *tok in toks) {
         if (tok.isQuotedString) {
 			NSString *s = [tok.stringValue stringByTrimmingQuotes];
@@ -419,10 +413,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     // whitespaceChars
-    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@whitespaceChar"]];
-    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@whitespaceChars"]];
-    [_productionTab removeObjectForKey:@"@whitespaceChar"];
-    [_productionTab removeObjectForKey:@"@whitespaceChars"];
+    toks = [NSArray arrayWithArray:symTab[@"@whitespaceChar"]];
+    toks = [toks arrayByAddingObjectsFromArray:symTab[@"@whitespaceChars"]];
+    [symTab removeObjectForKey:@"@whitespaceChar"];
+    [symTab removeObjectForKey:@"@whitespaceChars"];
     for (PKToken *tok in toks) {
         if (tok.isQuotedString) {
 			NSString *s = [tok.stringValue stringByTrimmingQuotes];
@@ -439,10 +433,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     // single-line comments
-    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@singleLineComment"]];
-    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@singleLineComments"]];
-    [_productionTab removeObjectForKey:@"@singleLineComment"];
-    [_productionTab removeObjectForKey:@"@singleLineComments"];
+    toks = [NSArray arrayWithArray:symTab[@"@singleLineComment"]];
+    toks = [toks arrayByAddingObjectsFromArray:symTab[@"@singleLineComments"]];
+    [symTab removeObjectForKey:@"@singleLineComment"];
+    [symTab removeObjectForKey:@"@singleLineComments"];
     for (PKToken *tok in toks) {
         if (tok.isQuotedString) {
             NSString *s = [tok.stringValue stringByTrimmingQuotes];
@@ -451,11 +445,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     // multi-line comments
-    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@multiLineComment"]];
-    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@multiLineComments"]];
+    toks = [NSArray arrayWithArray:symTab[@"@multiLineComment"]];
+    toks = [toks arrayByAddingObjectsFromArray:symTab[@"@multiLineComments"]];
     NSAssert(0 == [toks count] % 2, @"@multiLineComments must be specified as quoted strings in multiples of 2");
-    [_productionTab removeObjectForKey:@"@multiLineComment"];
-    [_productionTab removeObjectForKey:@"@multiLineComments"];
+    [symTab removeObjectForKey:@"@multiLineComment"];
+    [symTab removeObjectForKey:@"@multiLineComments"];
     if ([toks count] > 1) {
         NSInteger i = 0;
         for ( ; i < [toks count] - 1; i++) {
@@ -470,11 +464,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     // delimited strings
-    toks = [NSArray arrayWithArray:[_productionTab objectForKey:@"@delimitedString"]];
-    toks = [toks arrayByAddingObjectsFromArray:[_productionTab objectForKey:@"@delimitedStrings"]];
+    toks = [NSArray arrayWithArray:symTab[@"@delimitedString"]];
+    toks = [toks arrayByAddingObjectsFromArray:symTab[@"@delimitedStrings"]];
     NSAssert(0 == [toks count] % 3, @"@delimitedString must be specified as quoted strings in multiples of 3");
-    [_productionTab removeObjectForKey:@"@delimitedString"];
-    [_productionTab removeObjectForKey:@"@delimitedStrings"];
+    [symTab removeObjectForKey:@"@delimitedString"];
+    [symTab removeObjectForKey:@"@delimitedStrings"];
     if ([toks count] > 1) {
         for (NSInteger i = 0; i < [toks count] - 2; i++) {
             PKToken *startTok = [toks objectAtIndex:i];
@@ -496,22 +490,22 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (BOOL)boolForTokenForKey:(NSString *)key {
+- (BOOL)boolForTokenForKey:(NSString *)key inSymbolTable:(NSMutableDictionary *)symTab {
     BOOL result = NO;
-    NSArray *toks = [_productionTab objectForKey:key];
+    NSArray *toks = symTab[key];
     if ([toks count]) {
         PKToken *tok = [toks objectAtIndex:0];
         if (tok.isWord && [tok.stringValue isEqualToString:@"YES"]) {
             result = YES;
         }
     }
-    [_productionTab removeObjectForKey:key];
+    [symTab removeObjectForKey:key];
     return result;
 }
 
 
-- (void)setTokenizerState:(PKTokenizerState *)state onTokenizer:(PKTokenizer *)t forTokensForKey:(NSString *)key {
-    NSArray *toks = [_productionTab objectForKey:key];
+- (void)setTokenizerState:(PKTokenizerState *)state onTokenizer:(PKTokenizer *)t forTokensForKey:(NSString *)key inSymbolTable:(NSMutableDictionary *)symTab {
+    NSArray *toks = symTab[key];
     for (PKToken *tok in toks) {
         if (tok.isQuotedString) {
             NSString *s = [tok.stringValue stringByTrimmingQuotes];
@@ -521,14 +515,14 @@ void PKReleaseSubparserTree(PKParser *p) {
             }
         }
     }
-    [_productionTab removeObjectForKey:key];
+    [symTab removeObjectForKey:key];
 }
 
 
-- (void)setFallbackStateOn:(PKTokenizerState *)state withTokenizer:(PKTokenizer *)t forTokensForKey:(NSString *)key {
-    NSArray *toks = [_productionTab objectForKey:key];
+- (void)setFallbackStateOn:(PKTokenizerState *)state withTokenizer:(PKTokenizer *)t forTokensForKey:(NSString *)key inSymbolTable:(NSMutableDictionary *)symTab {
+    NSArray *toks = symTab[key];
     if ([toks count]) {
-        PKToken *tok = [toks objectAtIndex:0];
+        PKToken *tok = toks[0];
         if (tok.isWord) {
             PKTokenizerState *fallbackState = [t valueForKey:tok.stringValue];
             if (state != fallbackState) {
@@ -536,45 +530,52 @@ void PKReleaseSubparserTree(PKParser *p) {
             }
         }
     }
-    [_productionTab removeObjectForKey:key];
+    [symTab removeObjectForKey:key];
 }
 
 
-- (PKParser *)parserFromAST:(PKNodeBase *)rootNode {
-    PKConstructNodeVisitor *v = [[[PKConstructNodeVisitor alloc] init] autorelease];
-    
-    NSAssert([_productionTab count], @"");
-    NSAssert(_productionTab[@"@start"], @"");
-    //NSLog(@"%@", _productionTab);
-    //NSLog(@"%@", [rootNode treeDescription]);
-    
-    v.rootNode = rootNode;
-    v.parserTable = [NSMutableDictionary dictionaryWithCapacity:[_productionTab count]];
-    v.productionTable = _productionTab;
-    v.assembler = _assembler;
-    v.preassembler = _preassembler;
+- (PKParser *)parserFromSymbolTable:(NSMutableDictionary *)symTab {
+    NSParameterAssert([symTab count]);
 
-    v.assemblerSettingBehavior = _assemblerSettingBehavior;
+    PKNodeBase *rootNode = symTab[@"@start"];
+    NSAssert(rootNode, @"");
     
-    // visit @start first
+    PKParser *result = nil;
     
-    [self visit:_productionTab[@"@start"] with:v];
-    [_productionTab removeObjectForKey:@"@start"];
-    
-    // visit others
-    for (NSString *prodName in _productionTab) {
-        PKNodeBase *node = _productionTab[prodName];
-        NSAssert([node isKindOfClass:[PKNodeDefinition class]], @"");
-        [self visit:node with:v];
+    @autoreleasepool {
+        PKConstructNodeVisitor *v = [[[PKConstructNodeVisitor alloc] init] autorelease];
+        
+        //NSLog(@"%@", symTab);
+        //NSLog(@"%@", [rootNode treeDescription]);
+        
+        v.rootNode = rootNode;
+        v.parserTable = [NSMutableDictionary dictionaryWithCapacity:[symTab count]];
+        v.productionTable = symTab;
+        v.assembler = _assembler;
+        v.preassembler = _preassembler;
+        
+        v.assemblerSettingBehavior = _assemblerSettingBehavior;
+        
+        // visit @start first
+        
+        [self visit:rootNode with:v];
+        [symTab removeObjectForKey:@"@start"];
+        
+        // visit others
+        for (NSString *prodName in symTab) {
+            PKNodeBase *node = symTab[prodName];
+            NSAssert([node isKindOfClass:[PKNodeDefinition class]], @"");
+            [self visit:node with:v];
+        }
+        
+        NSAssert([v.parserTable count], @"");
+        //NSAssert(v.symTable[@"@start"], @"");
+        
+        result = [v.rootParser retain]; // +1
+        NSAssert([result isKindOfClass:[PKParser class]], @"");
     }
-    
-    NSAssert([v.parserTable count], @"");
-    //NSAssert(v.symbolTable[@"@start"], @"");
-    
-    PKParser *p = v.rootParser;
-    NSAssert([p isKindOfClass:[PKParser class]], @"");
 
-    return p;
+    return [result autorelease]; // -1
 }
 
 
