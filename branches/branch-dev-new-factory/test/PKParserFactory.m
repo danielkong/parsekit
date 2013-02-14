@@ -538,8 +538,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (PKParser *)parserFromSymbolTable:(NSMutableDictionary *)symTab {
     NSParameterAssert([symTab count]);
-
-    PKParser *result = nil;
     
     PKNodeBase *rootNode = symTab[@"@start"];
     NSAssert(rootNode, @"");
@@ -573,10 +571,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([v.parserTable count], @"");
     //NSAssert(v.symTable[@"@start"], @"");
     
-    result = [v.rootParser retain]; // +1
-    NSAssert([result isKindOfClass:[PKParser class]], @"");
+    PKParser *p = v.rootParser;
+    NSAssert([p isKindOfClass:[PKParser class]], @"");
 
-    return [result autorelease]; // -1
+    return p;
 }
 
 
