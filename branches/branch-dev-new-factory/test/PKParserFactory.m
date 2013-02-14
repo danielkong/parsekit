@@ -295,10 +295,12 @@ void PKReleaseSubparserTree(PKParser *p) {
     [_grammarParser.parser parse:g error:outError];
     
     if (simplify) {
-        PKNodeBase *rootNode = _productionTab[@"@start"];
-
-        id <PKNodeVisitor>v = [[[PKSimplifyNodeVisitor alloc] init] autorelease];
-        [self visit:rootNode with:v];
+        @autoreleasepool {
+            PKNodeBase *rootNode = _productionTab[@"@start"];
+            
+            id <PKNodeVisitor>v = [[[PKSimplifyNodeVisitor alloc] init] autorelease];
+            [self visit:rootNode with:v];
+        }
     }
     
     NSDictionary *symTab = [[_productionTab copy] autorelease];
@@ -537,12 +539,12 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (PKParser *)parserFromSymbolTable:(NSMutableDictionary *)symTab {
     NSParameterAssert([symTab count]);
 
-    PKNodeBase *rootNode = symTab[@"@start"];
-    NSAssert(rootNode, @"");
-    
     PKParser *result = nil;
     
     @autoreleasepool {
+        PKNodeBase *rootNode = symTab[@"@start"];
+        NSAssert(rootNode, @"");
+        
         PKConstructNodeVisitor *v = [[[PKConstructNodeVisitor alloc] init] autorelease];
         
         //NSLog(@"%@", symTab);
@@ -557,7 +559,6 @@ void PKReleaseSubparserTree(PKParser *p) {
         v.assemblerSettingBehavior = _assemblerSettingBehavior;
         
         // visit @start first
-        
         [self visit:rootNode with:v];
         [symTab removeObjectForKey:@"@start"];
         
