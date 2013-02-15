@@ -58,14 +58,11 @@
     TDNotNil(p);
     TDTrue([p isKindOfClass:[PKSequence class]]);
 
-//    id seq = [p subparsers][0];
-//    TDTrue([p isKindOfClass:[PKSequence class]]);
-//    
-//    id num = [seq subparsers][0];
-//    TDTrue([num isKindOfClass:[PKNumber class]]);
-//
-//    id word = [seq subparsers][1];
-//    TDTrue([word isKindOfClass:[PKWord class]]);
+    id num = [p subparsers][0];
+    TDTrue([num isKindOfClass:[PKNumber class]]);
+
+    id word = [p subparsers][1];
+    TDTrue([word isKindOfClass:[PKWord class]]);
     
     NSString *s = @"2 foo";
     PKAssembly *a = [PKTokenAssembly assemblyWithString:s];

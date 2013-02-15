@@ -112,6 +112,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (PKTokenizer *)tokenizerForParsingGrammar;
 - (PKTokenizer *)tokenizerFromSymbolTable:(NSMutableDictionary *)symTab;
 - (PKParser *)parserFromSymbolTable:(NSMutableDictionary *)symTab;
+- (Class)nodeClassForToken:(PKToken *)tok;
 
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError;
 - (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError;
@@ -159,6 +160,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 @property (nonatomic, retain) NSMutableDictionary *productionTab;
 //@property (nonatomic, retain) NSMutableDictionary *callbackTab;
+
+@property (nonatomic, retain) NSDictionary *nodeClassForTokenTable;
 @end
 
 @implementation PKParserFactory {
@@ -186,6 +189,29 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.delimToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"DELIM" floatValue:0.0];
 
         self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
+        
+        self.nodeClassForTokenTable =
+        @{
+          //@"DEF"            : [PKNodeDefinition class],
+          //@"REF"            : [PKNodeReference class],
+          @"SEQ"            : [PKNodeCollection class],
+          @"TRACK"          : [PKNodeCollection class],
+          @"&"              : [PKNodeCollection class],
+          @"|"              : [PKNodeCollection class],
+          @"-"              : [PKNodeComposite class],
+          @"~"              : [PKNodeComposite class],
+          @"*"              : [PKNodeComposite class],
+          @"?"              : [PKNodeOptional class],
+          @"+"              : [PKNodeMultiple class],
+          @"{"              : [PKNodeCardinal class],
+          @"S"              : [PKNodeWhitespace class],
+          @"DELIM"          : [PKNodeDelimited class],
+          @"Number"         : [PKNodeConstant class],
+          @"Word"           : [PKNodeConstant class],
+          @"QuotedString"   : [PKNodeConstant class],
+          @"Symbol"         : [PKNodeConstant class],
+        };
+
     }
     return self;
 }
@@ -209,6 +235,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     self.productionTab = nil;
 //    self.callbackTab = nil;
+    
+    self.nodeClassForTokenTable = nil;
     [super dealloc];
 }
 
@@ -544,8 +572,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKConstructNodeVisitor *v = [[[PKConstructNodeVisitor alloc] init] autorelease];
     
-    //NSLog(@"%@", symTab);
-    //NSLog(@"%@", [rootNode treeDescription]);
+//    NSLog(@"symTab %@", symTab);
+//    NSLog(@"rootNode %@", [rootNode treeDescription]);
     
     v.rootNode = rootNode;
     v.parserTable = [NSMutableDictionary dictionaryWithCapacity:[symTab count]];
@@ -562,8 +590,10 @@ void PKReleaseSubparserTree(PKParser *p) {
         
         // visit others
         for (NSString *prodName in symTab) {
+            v.currentParser = nil;
             PKNodeBase *node = symTab[prodName];
-            NSAssert([node isKindOfClass:[PKNodeDefinition class]], @"");
+            NSAssert([node isKindOfClass:[PKNodeBase class]], @"");
+            NSAssert(![node isKindOfClass:[PKNodeDefinition class]], @"");
             [self visit:node with:v];
         }
     }
@@ -736,7 +766,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
-//    //NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
 
     PKToken *tok = [a pop];
     NSAssert(tok, @"");
@@ -825,11 +855,45 @@ void PKReleaseSubparserTree(PKParser *p) {
         def.token = node.token;
         nodes = node.children;
     }
+    
+    PKToken *tok = [[def.token retain] autorelease];
+    NSString *parserName = [[def.parserName retain] autorelease];
+
+    Class nodeClass = [self nodeClassForToken:tok];
+    def = (PKNodeBase *)[nodeClass ASTWithToken:tok];
+    def.parserName = parserName;
+    def.token = tok;
 
     for (PKAST *node in nodes) {
         [def addChild:node];
     }
+
+    NSAssert(![def isKindOfClass:[PKNodeDefinition class]], @"");
+    _productionTab[parserName] = def;
+    //NSLog(@"%@", _productionTab);
 }
+
+
+- (Class)nodeClassForToken:(PKToken *)tok {
+    NSString *tokStr = tok.stringValue;
+    NSAssert([tokStr length], @"");
+    
+    Class parserClass = _nodeClassForTokenTable[tokStr];
+    if (!parserClass) {
+        unichar c = [tokStr characterAtIndex:0];
+        if ('\'' == c || '"' == c) {
+            parserClass = [PKNodeLiteral class];
+        } else if ('/' == c) {
+            parserClass = [PKNodePattern class];
+        } else {
+            NSLog(@"%@", tokStr);
+        }
+    }
+    //NSAssert1(parserClass, @"unknown node type '%@'", tokStr);
+    return parserClass;
+}
+
+
 
 
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a {

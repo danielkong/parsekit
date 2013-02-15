@@ -134,6 +134,7 @@
     NSAssert([name length], @"");
     
     PKParser *p = [self parserForProductionName:name];
+    NSLog(@"%@", _currentParser);
     
     [_currentParser add:p];
     
@@ -144,15 +145,22 @@
 - (void)visitConstant:(PKNodeConstant *)node {
     PKTerminal *p = nil;
     
-    PKToken *tok = node.token;
-    NSAssert(tok.isWord, @"");
-    
-    NSString *parserClassName = tok.stringValue;
-    
-    Class parserClass = NSClassFromString([NSString stringWithFormat:@"PK%@", parserClassName]);
-    NSAssert(parserClass, @"");
-    
-    p = [[[parserClass alloc] init] autorelease];
+    NSString *parserName = node.parserName;
+    p = _parserTable[parserName];
+    if (!p) {
+        PKToken *tok = node.token;
+        NSAssert(tok.isWord, @"");
+        
+        NSString *parserClassName = tok.stringValue;
+        
+        Class parserClass = NSClassFromString([NSString stringWithFormat:@"PK%@", parserClassName]);
+        NSAssert(parserClass, @"");
+        
+        p = [[[parserClass alloc] init] autorelease];
+        if (parserName) {
+            _parserTable[parserName] = p;
+        }
+    }
     
     if (node.discard) {
         [p discard];
@@ -251,8 +259,16 @@
     }
     
     p = [[[parserClass alloc] init] autorelease];
+    NSString *name = node.parserName;
+    p.name = name;
+    _parserTable[name] = p; // todo go thru common func
     
-    [_currentParser add:p];
+//    if (_currentParser) {
+//        [_currentParser add:p];
+//    } else {
+        self.currentParser = p;
+//    }
+
     PKCompositeParser *oldParent = _currentParser;
     
     for (PKNodeBase *child in node.children) {
@@ -265,30 +281,18 @@
 
 
 - (void)visitCollection:(PKNodeCollection *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     PKCollectionParser *p = nil;
     
     PKToken *tok = node.token;
     NSAssert(tok.isSymbol, @"");
     
-    Class parserClass = [self parserClassForToken:tok];
-
-    NSString *name = node.parserName;    
-    if (name) {
-        p = _parserTable[name];
-    }
-
-    if (!p) {
-        p = [[[parserClass alloc] init] autorelease];
-        
-        if (name) {
-            p.name = name;
-            _parserTable[name] = p;
-        }
-    }
-    
+    NSString *name = node.parserName;
+    p = (PKCollectionParser *)[self parserForProductionName:name];
+    NSLog(@"%@", p);
 
     [_currentParser add:p];
+    NSLog(@"%@", _currentParser);
     self.currentParser = p;
 
     PKCompositeParser *oldParent = _currentParser;
