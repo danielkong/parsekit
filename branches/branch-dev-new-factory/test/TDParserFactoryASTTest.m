@@ -37,7 +37,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (bar:| (:SEQ (baz:SEQ :Word)) (:SEQ (bat:SEQ :Number)))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ (bar:| baz:Word bat:Number)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     //TDEqualObjects(@"(@start (foo (bar (| (baz Word) (bat Number)))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
@@ -63,7 +63,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ foo:Word)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
@@ -74,7 +74,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ :Word) (:SEQ :Number)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:| :Word :Number))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
@@ -85,7 +85,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ :Word) (:SEQ :Number :Symbol)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
@@ -96,7 +96,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ :Word :Number) (:SEQ :Symbol)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ :Word :Number) :Symbol))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
@@ -107,7 +107,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ :Word) (:SEQ :Number :Symbol :QuotedString)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol :QuotedString)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
@@ -118,40 +118,95 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:SEQ :Word :Number)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ :Word :Number))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
 - (void)testAlternationAST2_4 {
-    NSString *g = @"@start=foo;foo=(Word|Number);";
+    NSString *g = @"@start=foo;foo=(Word Number) Symbol;";
     
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:| (:SEQ :Word) (:SEQ :Number))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:SEQ :Word :Number) :Symbol))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
 - (void)testAlternationAST2_5 {
-    NSString *g = @"@start=foo;foo=(Word|Number Symbol);";
+    NSString *g = @"@start=foo;foo=Symbol (Word Number);";
     
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:| (:SEQ :Word) (:SEQ :Number :Symbol))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ :Symbol (:SEQ :Word :Number)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
 - (void)testAlternationAST2_6 {
+    NSString *g = @"@start=foo;foo=(Word|Number);";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (foo:| :Word :Number))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+}
+
+
+- (void)testAlternationAST2_7 {
+    NSString *g = @"@start=foo;foo=Symbol (Word|Number);";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ :Symbol (:| :Word :Number)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+}
+
+
+- (void)testAlternationAST2_8 {
+    NSString *g = @"@start=foo;foo=(Word|Number) Symbol;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:| :Word :Number) :Symbol))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+}
+
+
+- (void)testAlternationAST2_9 {
+    NSString *g = @"@start=foo;foo=Word|Number Symbol;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+}
+
+
+- (void)testAlternationAST2_10 {
+    NSString *g = @"@start=foo;foo=(Word|Number Symbol);";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+}
+
+
+- (void)testAlternationAST2_11 {
     NSString *g = @"@start=foo;foo=Word|(Number Symbol);";
     
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ :Word) (:SEQ (:SEQ :Number :Symbol))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
@@ -178,7 +233,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ (bar:SEQ :Word)) (:SEQ (baz:SEQ :Number))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:| bar:Word baz:Number))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     //TDEqualObjects(@"(@start (foo (bar Word) (baz Number)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
@@ -199,21 +254,21 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:SEQ :QuotedString :Number)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ :QuotedString :Number))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 
     g = @"@start=foo;foo=( QuotedString Number );";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:SEQ :QuotedString :Number)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ :QuotedString :Number))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 
     g = @"@start=foo; foo = ( QuotedString Number );";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:SEQ :QuotedString :Number)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ :QuotedString :Number))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
@@ -223,28 +278,28 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:- :Any :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:- :Any :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 
     g = @"@start=foo;foo=Any - Word;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:- :Any :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:- :Any :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 
     g = @"@start=foo;foo=Any -Word;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:- :Any :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:- :Any :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 
     g = @"@start=foo;foo=Any- Word;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:- :Any :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:- :Any :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
@@ -254,28 +309,28 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:& :Word :LowercaseWord)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
     g = @"@start=foo;foo=Word & LowercaseWord;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:& :Word :LowercaseWord)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
     g = @"@start=foo;foo=Word &LowercaseWord;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:& :Word :LowercaseWord)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
     g = @"@start=foo;foo=Word& LowercaseWord;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:& :Word :LowercaseWord)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
@@ -285,14 +340,14 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:* :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:* :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
     g = @"@start=foo;foo=Word *;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:* :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:* :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
@@ -302,14 +357,14 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:? :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:? :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
     g = @"@start=foo;foo=Word ?;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:? :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:? :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
@@ -319,14 +374,14 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:+ :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:+ :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
     g = @"@start=foo;foo=Word +;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:+ :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:+ :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
@@ -336,21 +391,21 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:~ :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:~ :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
     g = @"@start=foo;foo= ~Word;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:~ :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:~ :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 
     g = @"@start=foo;foo= ~ Word;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:~ :Word)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:~ :Word))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
@@ -360,14 +415,14 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ :/\\w/))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
     g = @"@start=foo;foo = /\\w/;";
     
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ :/\\w/))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
@@ -378,8 +433,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ :Symbol))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
-    
+    TDEqualObjects(@"(@start:SEQ foo:Symbol)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 }
 
 
@@ -390,7 +444,139 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (:* (:SEQ :Number)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:* :Number)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testSubExprAST1 {
+    NSString *g = @"@start = Number*;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:* :Number)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testSubExprAST2 {
+    NSString *g = @"@start = (Number)+;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:+ :Number)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testSubExprAST3 {
+    NSString *g = @"@start = Number+;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:+ :Number)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testSubExprAST4 {
+    NSString *g = @"@start = (Number)?;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:? :Number)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testSubExprAST5 {
+    NSString *g = @"@start = Number?;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:? :Number)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testSubExprAST6 {
+    NSString *g = @"@start = ~(Number);";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:~ :Number)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testSubExprAST7 {
+    NSString *g = @"@start = ~Number;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:~ :Number)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testSubExprAST8 {
+    NSString *g = @"@start = ~(Word Number);";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:~ (:SEQ :Word :Number))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testSubExprAST9 {
+    NSString *g = @"@start = (Word Number)+;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:+ (:SEQ :Word :Number))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testSubExprAST10 {
+    NSString *g = @"@start = (Word Number)*;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:* (:SEQ :Word :Number))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testSubExprAST11 {
+    NSString *g = @"@start = (Word Number)?;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:? (:SEQ :Word :Number))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
 }
 
@@ -402,7 +588,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (:* (:| (:SEQ :Word) (:SEQ :Number))) :QuotedString)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (:* (:| :Word :Number)) :QuotedString)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
 }
 
@@ -415,7 +601,7 @@
     
     TDNotNil(rootNode);
     //    TDEqualObjects(@"(@start (foo (* (| Word Number)) QuotedString))"), [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:* (:| (:SEQ :Word) (:SEQ :Number))) :QuotedString))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:* (:| :Word :Number)) :QuotedString))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
 }
 
@@ -428,7 +614,7 @@
     
     TDNotNil(rootNode);
     //    TDEqualObjects(@"(@start (foo (* (| Word Number)) QuotedString))"), [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
-    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:* (:| (:SEQ :Word) (:SEQ :Number))) :QuotedString :Symbol))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:* (:| :Word :Number)) :QuotedString :Symbol))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
 }
 
@@ -440,7 +626,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ :Word) (:SEQ :Number :Symbol)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
 }
 
@@ -452,7 +638,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ :Word :Number) (:SEQ :Symbol)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ :Word :Number) :Symbol))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
 }
 
@@ -476,7 +662,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (:+ (:SEQ :'$' :'%')))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:+ (:SEQ :'$' :'%'))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
 }
 
@@ -488,7 +674,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
 
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (:| (:SEQ (:* (:| (:SEQ :Word) (:SEQ :Number)))) (:SEQ (:SEQ :'$' :'%'))) (:+ :QuotedString))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (:| (:* (:| :Word :Number)) (:SEQ :'$' :'%')) (:+ :QuotedString))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
 
 }
 
@@ -512,7 +698,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (:+ :QuotedString))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:+ :QuotedString)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
 }
 
@@ -524,7 +710,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (:| (:SEQ (:* (:| (:SEQ :Word) (:SEQ :Number)))) (:SEQ (:+ (:SEQ :'$' :'%')))))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:| (:* (:| :Word :Number)) (:+ (:SEQ :'$' :'%')))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
 }
 
@@ -536,7 +722,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ (:| (:SEQ (:* (:| (:SEQ :Word) (:SEQ :Number)))) (:SEQ (:+ (:SEQ :'$' :'%')))) :QuotedString)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    TDEqualObjects(@"(@start:SEQ (:| (:* (:| :Word :Number)) (:+ (:SEQ :'$' :'%'))) :QuotedString)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
     
 }
 

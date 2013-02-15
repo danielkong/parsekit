@@ -780,9 +780,22 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKAST *lhs = [a pop];
     
     PKAST *altNode = [PKNodeCollection ASTWithToken:tok];
-    [altNode addChild:lhs];
-    [altNode addChild:rhs];
-    
+
+    for (PKNodeBase *operand in @[lhs, rhs]) {
+
+        while (_seqToken == operand.token && 1 == [operand.children count]) {
+            operand = [operand.children lastObject];
+        }
+        
+//        if (_seqToken == operand.token) {
+//            NSArray *nodes = operand.children;
+//            if (1 == [nodes count]) {
+//                operand = [nodes lastObject];
+//            }
+//        }
+        [altNode addChild:operand];
+    }
+
     [a push:altNode];
 }
 
@@ -807,6 +820,12 @@ void PKReleaseSubparserTree(PKParser *p) {
     def.token = parent.token;
     NSAssert(parent.token.isSymbol, @"");
     
+    if (1 == [nodes count] && ![nodes[0] parserName]) {
+        PKAST *node = [nodes lastObject];
+        def.token = node.token;
+        nodes = node.children;
+    }
+
     for (PKAST *node in nodes) {
         [def addChild:node];
     }
@@ -846,7 +865,13 @@ void PKReleaseSubparserTree(PKParser *p) {
         }
         [a push:seqNode];
     } else if ([objs count]) {
-        [a push:[objs objectAtIndex:0]];
+        PKNodeBase *node = objs[0];
+        
+//        while (_seqToken == node.token && 1 == [node.children count]) {
+//            node = [node.children lastObject];
+//        }
+        
+        [a push:node];
     }
 }
 
@@ -998,6 +1023,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
     PKAST *starNode = [PKNodeComposite ASTWithToken:tok];
+    
+    while (_seqToken == sub.token && 1 == [sub.children count]) {
+        sub = [sub.children lastObject];
+    }
+    
     [starNode addChild:sub];
 
     [a push:starNode];
@@ -1013,6 +1043,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
     PKAST *plusNode = [PKNodeMultiple ASTWithToken:tok];
+
+    while (_seqToken == sub.token && 1 == [sub.children count]) {
+        sub = [sub.children lastObject];
+    }
+    
     [plusNode addChild:sub];
     
     [a push:plusNode];
@@ -1028,6 +1063,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([sub isKindOfClass:[PKAST class]], @"");
     
     PKAST *qNode = [PKNodeOptional ASTWithToken:tok];
+
+    while (_seqToken == sub.token && 1 == [sub.children count]) {
+        sub = [sub.children lastObject];
+    }
+    
     [qNode addChild:sub];
     
     [a push:qNode];
@@ -1044,6 +1084,11 @@ void PKReleaseSubparserTree(PKParser *p) {
 
     //    PKAST *negNode = [PKNodeNegation ASTWithToken:tok];
     PKAST *negNode = [PKNodeComposite ASTWithToken:tok];
+
+    while (_seqToken == sub.token && 1 == [sub.children count]) {
+        sub = [sub.children lastObject];
+    }
+    
     [negNode addChild:sub];
     
     [a push:negNode];
@@ -1109,7 +1154,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     for (PKNodeBase *child in [subs reverseObjectEnumerator]) {
         [seq addChild:child];
     }
-        
+    
     [a push:seq];
 }
 

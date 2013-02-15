@@ -16,6 +16,8 @@
 @property (nonatomic, retain) NSMutableDictionary *parserTable;
 @property (nonatomic, retain) NSMutableDictionary *productionTable;
 
+@property (nonatomic, retain) NSDictionary *parserClassForTokenTable;
+
 @property (nonatomic, retain) PKParser *rootParser;
 @property (nonatomic, retain) PKCompositeParser *currentParser;
 

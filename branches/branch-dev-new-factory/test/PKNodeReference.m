@@ -25,9 +25,9 @@
     PKNodeBase *parent = symbolTab[name];
     NSAssert(parent, @"");
 
-//    if (![parent.children count]) {
-//        return [parent name];
-//    }
+    if (![parent.children count]) {
+        return [parent name];
+    }
     
     NSMutableString *ms = [NSMutableString string];
     

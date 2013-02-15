@@ -84,17 +84,12 @@
     NSMutableString *ms = [NSMutableString string];
     
     if (![self isNil]) {
-        [ms appendFormat:@"(%@ ", [self name]];
+        [ms appendFormat:@"(%@", [self name]];
     }
 
-    NSInteger i = 0;
     for (PKAST *child in _children) {
         NSAssert(child != self, @"");
-        if (i++) {
-            [ms appendFormat:@" %@", [child treeDescription]];
-        } else {
-            [ms appendFormat:@"%@", [child treeDescription]];
-        }
+        [ms appendFormat:@" %@", [child treeDescription]];
     }
     
     if (![self isNil]) {
@@ -106,24 +101,21 @@
 
 
 - (NSString *)fullTreeDescription:(NSDictionary *)symbolTab {
-    if (![_children count]) {
-        return [self name];
+    NSString *name = [self name];
+    
+    if (![self.children count]) {
+        return name;
     }
     
     NSMutableString *ms = [NSMutableString string];
     
     if (![self isNil]) {
-        [ms appendFormat:@"(%@ ", [self name]];
+        [ms appendFormat:@"(%@", name];
     }
     
-    NSInteger i = 0;
-    for (PKAST *child in _children) {
+    for (PKAST *child in self.children) {
         NSAssert(child != self, @"");
-        if (i++) {
-            [ms appendFormat:@" %@", [child fullTreeDescription:symbolTab]];
-        } else {
-            [ms appendFormat:@"%@", [child fullTreeDescription:symbolTab]];
-        }
+        [ms appendFormat:@" %@", [child fullTreeDescription:symbolTab]];
     }
     
     if (![self isNil]) {
