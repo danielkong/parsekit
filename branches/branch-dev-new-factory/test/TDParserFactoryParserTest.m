@@ -186,53 +186,53 @@
 }
 
 
-//- (void)testCardinalAST2 {
-//    NSString *g = @"@start=foo{2,4};foo=Number;";
-//    //    NSString *g = @"@start=foo foo foo? foo?;foo=Number;";
-//    
-//    NSError *err = nil;
-//    PKCollectionParser *p = (PKCollectionParser *)[_factory parserFromGrammar:g assembler:nil error:&err];
-//    
-//    TDNotNil(p);
-//    TDTrue([p isKindOfClass:[PKParser class]]);
-//    
-//    NSString *input = @"1";
-//    PKAssembly *a = [PKTokenAssembly assemblyWithString:input];
-//    a = [p completeMatchFor:a];
-//    
-//    TDNil(a);
-//    
-//    input = @"1 2";
-//    a = [PKTokenAssembly assemblyWithString:input];
-//    a = [p bestMatchFor:a];
-//    
-//    TDEqualObjects([a description], @"[1, 2]1/2^");
-//    
-//    input = @"1 2 3";
-//    a = [PKTokenAssembly assemblyWithString:input];
-//    a = [p bestMatchFor:a];
-//    
-//    TDEqualObjects([a description], @"[1, 2, 3]1/2/3^");
-//    
-//    input = @"1 2 3 4";
-//    a = [PKTokenAssembly assemblyWithString:input];
-//    a = [p bestMatchFor:a];
-//    
-//    TDEqualObjects([a description], @"[1, 2, 3, 4]1/2/3/4^");
-//    
-//    input = @"1 2 3 4 5";
-//    a = [PKTokenAssembly assemblyWithString:input];
-//    a = [p bestMatchFor:a];
-//    
-//    TDEqualObjects([a description], @"[1, 2, 3, 4]1/2/3/4^5");
-//    
-//    input = @"1 2 3 4 5 6";
-//    a = [PKTokenAssembly assemblyWithString:input];
-//    a = [p bestMatchFor:a];
-//    
-//    TDEqualObjects([a description], @"[1, 2, 3, 4]1/2/3/4^5/6");
-//    
-//}
+- (void)testCardinalAST2 {
+    NSString *g = @"@start=foo{2,4};foo=Number;";
+    //    NSString *g = @"@start=foo foo foo? foo?;foo=Number;";
+    
+    NSError *err = nil;
+    PKCollectionParser *p = (PKCollectionParser *)[_factory parserFromGrammar:g assembler:nil error:&err];
+    
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKParser class]]);
+    
+    NSString *input = @"1";
+    PKAssembly *a = [PKTokenAssembly assemblyWithString:input];
+    a = [p completeMatchFor:a];
+    
+    TDNil(a);
+    
+    input = @"1 2";
+    a = [PKTokenAssembly assemblyWithString:input];
+    a = [p bestMatchFor:a];
+    
+    TDEqualObjects([a description], @"[1, 2]1/2^");
+    
+    input = @"1 2 3";
+    a = [PKTokenAssembly assemblyWithString:input];
+    a = [p bestMatchFor:a];
+    
+    TDEqualObjects([a description], @"[1, 2, 3]1/2/3^");
+    
+    input = @"1 2 3 4";
+    a = [PKTokenAssembly assemblyWithString:input];
+    a = [p bestMatchFor:a];
+    
+    TDEqualObjects([a description], @"[1, 2, 3, 4]1/2/3/4^");
+    
+    input = @"1 2 3 4 5";
+    a = [PKTokenAssembly assemblyWithString:input];
+    a = [p bestMatchFor:a];
+    
+    TDEqualObjects([a description], @"[1, 2, 3, 4]1/2/3/4^5");
+    
+    input = @"1 2 3 4 5 6";
+    a = [PKTokenAssembly assemblyWithString:input];
+    a = [p bestMatchFor:a];
+    
+    TDEqualObjects([a description], @"[1, 2, 3, 4]1/2/3/4^5/6");
+    
+}
 
 
 - (void)testTokDirectiveAST {

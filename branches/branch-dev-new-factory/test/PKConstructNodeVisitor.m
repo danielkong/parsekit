@@ -281,7 +281,7 @@
 
 
 - (void)visitCollection:(PKNodeCollection *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     PKCollectionParser *p = nil;
     
     PKToken *tok = node.token;
@@ -289,10 +289,10 @@
     
     NSString *name = node.parserName;
     p = (PKCollectionParser *)[self parserForProductionName:name];
-    NSLog(@"%@", p);
+    //NSLog(@"%@", p);
 
     [_currentParser add:p];
-    NSLog(@"%@", _currentParser);
+    //NSLog(@"%@", _currentParser);
     self.currentParser = p;
 
     PKCompositeParser *oldParent = _currentParser;
