@@ -641,6 +641,9 @@ void PKReleaseSubparserTree(PKParser *p) {
         case PKNodeTypeMultiple:
             [v visitMultiple:(PKNodeMultiple *)node];
             break;
+        case PKNodeTypeCardinal:
+            [v visitCardinal:(PKNodeCardinal *)node];
+            break;
         default:
             NSAssert1(0, @"unknown nodeType %d", nodeType);
             break;
@@ -831,7 +834,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a {
-    //NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
+    NSLog(@"%s\n\t%@", __PRETTY_FUNCTION__, a);
     
     NSArray *nodes = [a objectsAbove:_equals];
     NSAssert(1 == [nodes count], @"");
@@ -851,25 +854,27 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert(parent.token.isSymbol, @"");
     
     if (1 == [nodes count] && ![nodes[0] parserName]) {
-        PKAST *node = [nodes lastObject];
-        def.token = node.token;
-        nodes = node.children;
+        NSString *parserName = def.parserName;
+        def = [nodes lastObject];
+        def.parserName = parserName;
+        nodes = def.children;
+    } else {
+        PKToken *tok = [[def.token retain] autorelease];
+        NSString *parserName = [[def.parserName retain] autorelease];
+        
+        Class nodeClass = [self nodeClassForToken:tok];
+        def = (PKNodeBase *)[nodeClass ASTWithToken:tok];
+        def.parserName = parserName;
+        def.token = tok;
+
+        for (PKAST *node in nodes) {
+            [def addChild:node];
+        }
     }
     
-    PKToken *tok = [[def.token retain] autorelease];
-    NSString *parserName = [[def.parserName retain] autorelease];
-
-    Class nodeClass = [self nodeClassForToken:tok];
-    def = (PKNodeBase *)[nodeClass ASTWithToken:tok];
-    def.parserName = parserName;
-    def.token = tok;
-
-    for (PKAST *node in nodes) {
-        [def addChild:node];
-    }
 
     NSAssert(![def isKindOfClass:[PKNodeDefinition class]], @"");
-    _productionTab[parserName] = def;
+    _productionTab[def.parserName] = def;
     //NSLog(@"%@", _productionTab);
 }
 

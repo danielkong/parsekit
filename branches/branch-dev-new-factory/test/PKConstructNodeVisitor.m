@@ -134,7 +134,7 @@
     NSAssert([name length], @"");
     
     PKParser *p = [self parserForProductionName:name];
-    NSLog(@"%@", _currentParser);
+    //NSLog(@"%@", _currentParser);
     
     [_currentParser add:p];
     

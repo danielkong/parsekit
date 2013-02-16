@@ -726,4 +726,28 @@
     
 }
 
+
+- (void)testCardinal {
+    NSString *g = @"@start=Number{1,2};";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:{ :Number)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
+
+- (void)testCardinal2 {
+    NSString *g = @"@start=foo{2,4};foo=Number;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(@start:{ foo:Number)", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
+    
+}
+
 @end

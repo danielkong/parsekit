@@ -206,31 +206,31 @@
     a = [PKTokenAssembly assemblyWithString:input];
     a = [p bestMatchFor:a];
     
-    TDEqualObjects([a description], @"[1, 2]1/2^");
+    TDEqualObjects(@"[1, 2]1/2^", [a description]);
     
     input = @"1 2 3";
     a = [PKTokenAssembly assemblyWithString:input];
     a = [p bestMatchFor:a];
     
-    TDEqualObjects([a description], @"[1, 2, 3]1/2/3^");
+    TDEqualObjects(@"[1, 2, 3]1/2/3^", [a description]);
     
     input = @"1 2 3 4";
     a = [PKTokenAssembly assemblyWithString:input];
     a = [p bestMatchFor:a];
     
-    TDEqualObjects([a description], @"[1, 2, 3, 4]1/2/3/4^");
+    TDEqualObjects(@"[1, 2, 3, 4]1/2/3/4^", [a description]);
     
     input = @"1 2 3 4 5";
     a = [PKTokenAssembly assemblyWithString:input];
     a = [p bestMatchFor:a];
     
-    TDEqualObjects([a description], @"[1, 2, 3, 4]1/2/3/4^5");
+    TDEqualObjects(@"[1, 2, 3, 4]1/2/3/4^5", [a description]);
     
     input = @"1 2 3 4 5 6";
     a = [PKTokenAssembly assemblyWithString:input];
     a = [p bestMatchFor:a];
     
-    TDEqualObjects([a description], @"[1, 2, 3, 4]1/2/3/4^5/6");
+    TDEqualObjects(@"[1, 2, 3, 4]1/2/3/4^5/6", [a description]);
     
 }
 
