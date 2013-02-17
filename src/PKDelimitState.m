@@ -110,9 +110,9 @@
 - (NSCharacterSet *)allowedCharacterSetForStartMarker:(NSString *)startMarker {
     NSParameterAssert([endMarkers objectForKey:startMarker]);
     NSCharacterSet *characterSet = nil;
-    id csOrNull = [characterSets objectForKey:startMarker];
-    if ([NSNull null] != csOrNull) {
-        characterSet = csOrNull;
+    id setOrNull = [characterSets objectForKey:startMarker];
+    if ([NSNull null] != setOrNull) {
+        characterSet = setOrNull;
     }
     return characterSet;
 }
