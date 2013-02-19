@@ -69,13 +69,6 @@
 @property (nonatomic) BOOL allowsScientificNotation;
 
 /*!
-    @property   allowsOctalNotation
-    @brief      If YES, supports octal numbers like <tt>020<tt> (16), or <tt>0102<tt> (66)
-    @details    default is NO
-*/
-@property (nonatomic) BOOL allowsOctalNotation;
-
-/*!
     @property   allowsFloatingPoint
     @brief      If YES, supports floating point numbers like <tt>1.0<tt> or <tt>3.14<tt>. If NO, only whole numbers are allowed.
     @details    default is YES

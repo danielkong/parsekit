@@ -341,7 +341,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     t.delimitState.balancesEOFTerminatedStrings = [self boolForTokenForKey:@"@balancesEOFTerminatedStrings"];
     t.numberState.allowsTrailingDecimalSeparator = [self boolForTokenForKey:@"@allowsTrailingDecimalSeparator"];
     t.numberState.allowsScientificNotation = [self boolForTokenForKey:@"@allowsScientificNotation"];
-    t.numberState.allowsOctalNotation = [self boolForTokenForKey:@"@allowsOctalNotation"];
+//    t.numberState.allowsOctalNotation = [self boolForTokenForKey:@"@allowsOctalNotation"];
 //    t.numberState.allowsHexadecimalNotation = [self boolForTokenForKey:@"@allowsHexadecimalNotation"];
     
     BOOL yn = YES;

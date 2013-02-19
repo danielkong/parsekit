@@ -339,7 +339,6 @@
 
 @synthesize allowsTrailingDecimalSeparator;
 @synthesize allowsScientificNotation;
-@synthesize allowsOctalNotation;
 @synthesize allowsFloatingPoint;
 @synthesize allowsGroupingSeparator;
 @synthesize positivePrefix;

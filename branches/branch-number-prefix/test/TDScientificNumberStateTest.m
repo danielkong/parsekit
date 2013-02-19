@@ -999,7 +999,6 @@
 - (void)testOctalDecimalNO {
     s = @"020.0";
     t.string = s;
-    numberState.allowsOctalNotation = NO;
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)20.0, tok.floatValue);
     TDTrue(tok.isNumber);
