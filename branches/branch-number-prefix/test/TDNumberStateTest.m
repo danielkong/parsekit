@@ -85,6 +85,20 @@
 }
 
 
+- (void)testHexPrefixFF {
+    [t.numberState addPrefix:@"$" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'$' to:'$'];
+    
+    s = @"$FF";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)255.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"$FF", tok.stringValue);
+}
+
+
 - (void)testWordFallbackState {
     s = @".";
     t.string = s;
