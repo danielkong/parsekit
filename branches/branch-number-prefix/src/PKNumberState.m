@@ -16,6 +16,7 @@
 #import <ParseKit/PKReader.h>
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
+#import <ParseKit/PKSymbolRootNode.h>
 #import <ParseKit/PKSymbolState.h>
 #import <ParseKit/PKTypes.h>
 
@@ -27,7 +28,15 @@
 - (void)resetWithReader:(PKReader *)r;
 - (PKTokenizerState *)nextTokenizerStateFor:(PKUniChar)c tokenizer:(PKTokenizer *)t;
 - (void)append:(PKUniChar)c;
+- (void)appendString:(NSString *)s;
 - (NSString *)bufferedString;
+
+- (PKFloat)radixForPrefix:(NSString *)s;
+- (PKFloat)radixForSuffix:(NSString *)s;
+@property (nonatomic, retain) PKSymbolRootNode *prefixRootNode;
+@property (nonatomic, retain) PKSymbolRootNode *suffixRootNode;
+@property (nonatomic, retain) NSMutableDictionary *radixForPrefix;
+@property (nonatomic, retain) NSMutableDictionary *radixForSuffix;
 @end
 
 @interface PKNumberState ()
@@ -46,6 +55,22 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self.prefixRootNode = [[[PKSymbolRootNode alloc] init] autorelease];
+        self.suffixRootNode = [[[PKSymbolRootNode alloc] init] autorelease];
+        self.radixForPrefix = [NSMutableDictionary dictionary];
+        self.radixForSuffix = [NSMutableDictionary dictionary];
+        
+//        [self addPrefix:@"0b" forRadix:2.0];
+//        [self addPrefix:@"0"  forRadix:8.0];
+//        [self addPrefix:@"0o" forRadix:8.0];
+//        [self addPrefix:@"0x" forRadix:16.0];
+//
+//        [self addPrefix:@"%"  forRadix:2.0];
+//        [self addPrefix:@"$"  forRadix:16.0];
+//
+//        [self addSuffix:@"b"  forRadix:2.0];
+//        [self addSuffix:@"h"  forRadix:16.0];
+
         self.allowsFloatingPoint = YES;
         self.positivePrefix = '+';
         self.negativePrefix = '-';
@@ -53,6 +78,61 @@
         self.decimalSeparator = '.';
     }
     return self;
+}
+
+
+- (void)dealloc {
+    self.prefixRootNode = nil;
+    self.suffixRootNode = nil;
+    self.radixForPrefix = nil;
+    self.radixForSuffix = nil;
+    [super dealloc];
+}
+
+
+- (void)addPrefix:(NSString *)s forRadix:(PKFloat)f {
+    NSParameterAssert([s length]);
+    NSParameterAssert(f > 0.0);
+    NSAssert(radixForPrefix, @"");
+    
+    [prefixRootNode add:s];
+    NSNumber *n = [NSNumber numberWithDouble:f];
+    radixForPrefix[s] = n;
+}
+
+
+- (void)addSuffix:(NSString *)s forRadix:(PKFloat)f {
+    NSParameterAssert([s length]);
+    NSParameterAssert(f > 0.0);
+    NSAssert(radixForSuffix, @"");
+    
+    [prefixRootNode add:s];
+    NSNumber *n = [NSNumber numberWithDouble:f];
+    radixForSuffix[s] = n;
+}
+
+
+- (PKFloat)radixForPrefix:(NSString *)s {
+    NSParameterAssert([s length]);
+    NSAssert(radixForPrefix, @"");
+    
+    NSNumber *n = radixForPrefix[s];
+    NSAssert(n, @"");
+
+    PKFloat f = [n doubleValue];
+    return f;
+}
+
+
+- (PKFloat)radixForSuffix:(NSString *)s {
+    NSParameterAssert([s length]);
+    NSAssert(radixForSuffix, @"");
+    
+    NSNumber *n = radixForSuffix[s];
+    NSAssert(n, @"");
+    
+    PKFloat f = [n doubleValue];
+    return f;
 }
 
 
@@ -64,6 +144,17 @@
     [self resetWithReader:r];
     isNegative = NO;
     originalCin = cin;
+    
+    NSString *prefix = [prefixRootNode nextSymbol:r startingWith:cin];
+    PKFloat radix = [self radixForPrefix:prefix];
+    if (radix > 0.0) {
+        [self appendString:prefix];
+        base = radix;
+        isHex = base == 16.0; // REMOVE
+        cin = [r read];
+    } else {
+        [r unread:[prefix length]];
+    }
     
     if (negativePrefix == cin) {
         isNegative = YES;
@@ -286,4 +377,8 @@
 @synthesize negativePrefix;
 @synthesize groupingSeparator;
 @synthesize decimalSeparator;
+@synthesize prefixRootNode;
+@synthesize suffixRootNode;
+@synthesize radixForPrefix;
+@synthesize radixForSuffix;
 @end

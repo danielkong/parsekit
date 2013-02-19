@@ -15,6 +15,8 @@
 #import <Foundation/Foundation.h>
 #import <ParseKit/PKTokenizerState.h>
 
+@class PKSymbolRootNode;
+
 /*!
     @class      PKNumberState 
     @brief      A number state returns a number from a reader.
@@ -47,7 +49,15 @@
     PKFloat floatValue;
     PKFloat exp;
     BOOL isNegativeExp;
+
+    PKSymbolRootNode *prefixRootNode;
+    PKSymbolRootNode *suffixRootNode;
+    NSMutableDictionary *radixForPrefix;
+    NSMutableDictionary *radixForSuffix;
 }
+
+- (void)addPrefix:(NSString *)s forRadix:(PKFloat)f;
+- (void)addSuffix:(NSString *)s forRadix:(PKFloat)f;
 
 /*!
     @property   allowsTrailingDecimalSeparator
