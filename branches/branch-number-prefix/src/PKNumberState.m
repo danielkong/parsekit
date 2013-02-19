@@ -64,7 +64,7 @@
 //        [self addPrefix:@"0b" forRadix:2.0];
 //        [self addPrefix:@"0"  forRadix:8.0];
 //        [self addPrefix:@"0o" forRadix:8.0];
-        [self addPrefix:@"0x" forRadix:16.0];
+//        [self addPrefix:@"0x" forRadix:16.0];
 //
 //        [self addPrefix:@"%"  forRadix:2.0];
 //        [self addPrefix:@"$"  forRadix:16.0];
@@ -113,6 +113,22 @@
 }
 
 
+- (void)removePrefix:(NSString *)s {
+    NSParameterAssert([s length]);
+    NSAssert(radixForPrefix, @"");
+    NSAssert(radixForPrefix[s], @"");
+    [radixForPrefix removeObjectForKey:s];
+}
+
+
+- (void)removeSuffix:(NSString *)s {
+    NSParameterAssert([s length]);
+    NSAssert(radixForSuffix, @"");
+    NSAssert(radixForSuffix[s], @"");
+    [radixForSuffix removeObjectForKey:s];
+}
+
+
 - (PKFloat)radixForPrefix:(NSString *)s {
     NSParameterAssert([s length]);
     NSAssert(radixForPrefix, @"");
@@ -142,6 +158,7 @@
     isNegative = NO;
     originalCin = cin;
     
+    // check negative, positive first
     if (negativePrefix == cin) {
         isNegative = YES;
         cin = [r read];
@@ -151,8 +168,8 @@
         [self append:positivePrefix];
     }
     
+    // then check for prefix
     NSString *prefix = nil;
-    
     if (PKEOF != cin) {
         prefix = [prefixRootNode nextSymbol:r startingWith:cin];
         PKFloat radix = [self radixForPrefix:prefix];

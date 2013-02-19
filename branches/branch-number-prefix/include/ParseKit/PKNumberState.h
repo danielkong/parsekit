@@ -54,6 +54,9 @@
 - (void)addPrefix:(NSString *)s forRadix:(PKFloat)f;
 - (void)addSuffix:(NSString *)s forRadix:(PKFloat)f;
 
+- (void)removePrefix:(NSString *)s;
+- (void)removeSuffix:(NSString *)s;
+
 /*!
     @property   allowsTrailingDecimalSeparator
     @brief      If YES, numbers are allowed to end with a trialing decimal separator, e.g. <tt>42.<tt>
