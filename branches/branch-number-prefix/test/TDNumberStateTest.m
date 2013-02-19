@@ -29,7 +29,7 @@
 }
 
 
-- (void)testHexPrefix1 {
+- (void)testHexPrefix0 {
     [t.numberState addPrefix:@"$" forRadix:16.0];
     t.numberState.allowsGroupingSeparator = YES;
     t.numberState.groupingSeparator = @"_";
@@ -42,6 +42,38 @@
     TDEquals((PKFloat)0.0, tok.floatValue);
     TDTrue(tok.isNumber);
     TDEqualObjects(@"$0", tok.stringValue);
+}
+
+
+- (void)testHexPrefix1 {
+    [t.numberState addPrefix:@"$" forRadix:16.0];
+    t.numberState.allowsGroupingSeparator = YES;
+    t.numberState.groupingSeparator = @"_";
+    [t setTokenizerState:t.numberState from:'$' to:'$'];
+    
+    s = @"$1";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)1.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"$1", tok.stringValue);
+}
+
+
+- (void)testHexPrefixA {
+    [t.numberState addPrefix:@"$" forRadix:16.0];
+    t.numberState.allowsGroupingSeparator = YES;
+    t.numberState.groupingSeparator = @"_";
+    [t setTokenizerState:t.numberState from:'$' to:'$'];
+    
+    s = @"$1";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)1.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"$1", tok.stringValue);
 }
 
 

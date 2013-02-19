@@ -62,9 +62,9 @@
         self.radixForSuffix = [NSMutableDictionary dictionary];
         
 //        [self addPrefix:@"0b" forRadix:2.0];
-        [self addPrefix:@"0"  forRadix:8.0];
+//        [self addPrefix:@"0"  forRadix:8.0];
 //        [self addPrefix:@"0o" forRadix:8.0];
-        [self addPrefix:@"0x" forRadix:16.0];
+//        [self addPrefix:@"0x" forRadix:16.0];
 //
 //        [self addPrefix:@"%"  forRadix:2.0];
 //        [self addPrefix:@"$"  forRadix:16.0];
@@ -148,6 +148,7 @@
         [self appendString:prefix];
         base = radix;
     } else {
+        base = 10.0;
         [r unread:[prefix length]];
         prefix = nil;
     }
@@ -330,7 +331,7 @@
     gotADigit = NO;
     isFraction = NO;
     len = 0;
-    base = (PKFloat)10.0;
+    //base = (PKFloat)10.0;
     floatValue = (PKFloat)0.0;
     exp = (PKFloat)0.0;
     isNegativeExp = NO;
