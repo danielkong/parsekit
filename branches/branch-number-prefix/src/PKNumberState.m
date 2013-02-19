@@ -176,7 +176,7 @@
     
     // erroneous ., +, -, or 0x
     if (!gotADigit) {
-        if ([prefix length] && '0' == [prefix characterAtIndex:0]) {
+        if (prefix && '0' == originalCin) {
             [r unread];
             return [PKToken tokenWithTokenType:PKTokenTypeNumber stringValue:@"0" floatValue:0.0];
         } else {
