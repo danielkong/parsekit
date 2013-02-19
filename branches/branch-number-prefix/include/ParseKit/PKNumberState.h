@@ -41,7 +41,6 @@
     BOOL gotADigit;
     PKFloat base;
     PKUniChar originalCin;
-    PKUniChar firstNum;
     PKUniChar c;
     PKFloat floatValue;
     PKFloat exp;

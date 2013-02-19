@@ -329,7 +329,6 @@
 
 - (void)reset:(PKUniChar)cin {
     c = cin;
-    firstNum = cin;
     gotADigit = NO;
     isFraction = NO;
     //base = (PKFloat)10.0;
@@ -337,26 +336,6 @@
     exp = (PKFloat)0.0;
     isNegativeExp = NO;
 }
-
-
-//- (void)checkForHex:(PKReader *)r {
-//    return;
-//    if ('x' == c && '0' == firstNum && !isFraction && 1 == len) {
-//        [self append:c];
-//        len++;
-//        c = [r read];
-//        base = (PKFloat)16.0;
-//        gotADigit = NO;
-//    }
-//}
-//
-//
-//- (void)checkForOctal {
-//    return;
-//    if ('0' == firstNum && !isFraction && 10. == base && 2 == len) {
-//        base = (PKFloat)8.0;
-//    }
-//}
 
 @synthesize allowsTrailingDecimalSeparator;
 @synthesize allowsScientificNotation;
