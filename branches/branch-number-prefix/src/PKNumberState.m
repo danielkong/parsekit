@@ -46,8 +46,9 @@
 - (void)parseRightSideFromReader:(PKReader *)r;
 - (void)parseExponentFromReader:(PKReader *)r;
 - (void)reset:(PKUniChar)cin;
-- (void)checkForHex:(PKReader *)r;
-- (void)checkForOctal;
+
+//- (void)checkForHex:(PKReader *)r;
+//- (void)checkForOctal;
 @end
 
 @implementation PKNumberState
@@ -223,10 +224,9 @@
     while (1) {
         isHexAlpha = NO;
         if (allowsHexadecimalNotation) {
-            [self checkForHex:r];
-//            if ((c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
-                isHexAlpha = ishexnumber(c);
-//            }
+            if ((c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
+                isHexAlpha = YES;
+            }
         }
         
         if (isdigit(c) || isHexAlpha) {
@@ -234,14 +234,10 @@
             len++;
             gotADigit = YES;
 
-            if (allowsOctalNotation) {
-                [self checkForOctal];
-            }
-            
             if (isHexAlpha) {
-//                if (c >= 'a' && c <= 'f') {
+                if (c >= 'a' && c <= 'f') {
                     c = toupper(c);
-//                }
+                }
                 c -= 7;
             }
             v = v * base + (c - '0');
@@ -341,22 +337,24 @@
 }
 
 
-- (void)checkForHex:(PKReader *)r {
-    if ('x' == c && '0' == firstNum && !isFraction && 1 == len) {
-        [self append:c];
-        len++;
-        c = [r read];
-        base = (PKFloat)16.0;
-        gotADigit = NO;
-    }
-}
-
-
-- (void)checkForOctal {
-    if ('0' == firstNum && !isFraction && 10. == base && 2 == len) {
-        base = (PKFloat)8.0;
-    }
-}
+//- (void)checkForHex:(PKReader *)r {
+//    return;
+//    if ('x' == c && '0' == firstNum && !isFraction && 1 == len) {
+//        [self append:c];
+//        len++;
+//        c = [r read];
+//        base = (PKFloat)16.0;
+//        gotADigit = NO;
+//    }
+//}
+//
+//
+//- (void)checkForOctal {
+//    return;
+//    if ('0' == firstNum && !isFraction && 10. == base && 2 == len) {
+//        base = (PKFloat)8.0;
+//    }
+//}
 
 @synthesize allowsTrailingDecimalSeparator;
 @synthesize allowsScientificNotation;
