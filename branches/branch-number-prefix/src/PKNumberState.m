@@ -40,7 +40,7 @@
 @property (nonatomic, retain) PKSymbolRootNode *suffixRootNode;
 @property (nonatomic, retain) NSMutableDictionary *radixForPrefix;
 @property (nonatomic, retain) NSMutableDictionary *radixForSuffix;
-@property (nonatomic, retain) NSMutableDictionary *radixForSeparator;
+@property (nonatomic, retain) NSMutableDictionary *separatorsForRadix;
 @end
 
 @interface PKNumberState ()
@@ -64,7 +64,7 @@
         self.suffixRootNode = [[[PKSymbolRootNode alloc] init] autorelease];
         self.radixForPrefix = [NSMutableDictionary dictionary];
         self.radixForSuffix = [NSMutableDictionary dictionary];
-        self.radixForSeparator = [NSMutableDictionary dictionary];
+        self.separatorsForRadix = [NSMutableDictionary dictionary];
         
 //        [self addPrefix:@"0b" forRadix:2.0];
 //        [self addPrefix:@"0"  forRadix:8.0];
@@ -93,28 +93,41 @@
     self.suffixRootNode = nil;
     self.radixForPrefix = nil;
     self.radixForSuffix = nil;
-    self.radixForSeparator = nil;
+    self.separatorsForRadix = nil;
     [super dealloc];
 }
 
 
 - (void)addGroupingSeparator:(PKUniChar)sepChar forRadix:(PKFloat)f {
     NSParameterAssert(f > 0.0);
-    NSAssert(radixForSeparator, @"");
-    
-    NSNumber *sepKey = [NSNumber numberWithInteger:sepChar];
-    NSNumber *radixVal = [NSNumber numberWithDouble:f];
-    radixForSeparator[sepKey] = radixVal;
+    NSAssert(separatorsForRadix, @"");
+    NSAssert(PKEOF != sepChar, @"");
+    if (PKEOF == sepChar) return;
+
+    NSNumber *radixKey = [NSNumber numberWithDouble:f];
+
+    NSMutableSet *vals = separatorsForRadix[radixKey];
+    if (!vals) {
+        vals = [NSMutableSet set];
+        separatorsForRadix[radixKey] = vals;
+    }
+
+    NSNumber *sepVal = [NSNumber numberWithInteger:sepChar];
+    if (sepVal) [vals addObject:sepVal];
 }
 
 
 - (void)removeGroupingSeparator:(PKUniChar)sepChar forRadix:(PKFloat)f {
-    NSAssert(radixForSeparator, @"");
+    NSAssert(separatorsForRadix, @"");
+    NSAssert(PKEOF != sepChar, @"");
+    if (PKEOF == sepChar) return;
 
-    NSNumber *sepKey = [NSNumber numberWithInt:sepChar];
-    NSAssert(radixForSeparator[sepKey], @"");
-    
-    [radixForSeparator removeObjectForKey:sepKey];
+    NSNumber *radixKey = [NSNumber numberWithDouble:f];
+    NSMutableSet *vals = separatorsForRadix[radixKey];
+
+    NSNumber *sepVal = [NSNumber numberWithInteger:sepChar];
+    NSAssert([vals containsObject:sepVal], @"");
+    [vals removeObject:sepVal];
 }
 
 
@@ -176,20 +189,17 @@
 }
 
 
-- (PKFloat)radixForSeparator:(PKUniChar)sepChar {
-    NSAssert(radixForSeparator, @"");
-    
-    NSNumber *sepKey = [NSNumber numberWithInteger:sepChar];
-    NSNumber *radixVal = radixForSeparator[sepKey];
-    PKFloat f = [radixVal doubleValue];
-    return f;
-}
-
-
 - (BOOL)isValidSeparator:(PKUniChar)sepChar {
     NSAssert(base > 0.0, @"");
-    PKFloat radix = [self radixForSeparator:sepChar];
-    return base == radix;
+    //NSAssert(PKEOF != sepChar, @"");
+    if (PKEOF == sepChar) return NO;
+    
+    NSNumber *radixKey = [NSNumber numberWithDouble:base];
+    NSMutableSet *vals = separatorsForRadix[radixKey];
+
+    NSNumber *sepVal = [NSNumber numberWithInteger:sepChar];
+    BOOL result = [vals containsObject:sepVal];
+    return result;
 }
 
 
@@ -407,5 +417,5 @@
 @synthesize suffixRootNode;
 @synthesize radixForPrefix;
 @synthesize radixForSuffix;
-@synthesize radixForSeparator;
+@synthesize separatorsForRadix;
 @end

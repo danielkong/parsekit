@@ -47,7 +47,7 @@
     PKSymbolRootNode *suffixRootNode;
     NSMutableDictionary *radixForPrefix;
     NSMutableDictionary *radixForSuffix;
-    NSMutableDictionary *radixForSeparator;
+    NSMutableDictionary *separatorsForRadix;
 }
 
 - (void)addPrefix:(NSString *)s forRadix:(PKFloat)f;
