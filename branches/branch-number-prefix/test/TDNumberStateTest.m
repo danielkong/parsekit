@@ -85,6 +85,20 @@
 }
 
 
+- (void)testHexPrefix10 {
+    [t.numberState addPrefix:@"$" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'$' to:'$'];
+    
+    s = @"$10";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)16.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"$10", tok.stringValue);
+}
+
+
 - (void)testHexPrefixFF {
     [t.numberState addPrefix:@"$" forRadix:16.0];
     [t setTokenizerState:t.numberState from:'$' to:'$'];
@@ -96,6 +110,48 @@
     TDEquals((PKFloat)255.0, tok.floatValue);
     TDTrue(tok.isNumber);
     TDEqualObjects(@"$FF", tok.stringValue);
+}
+
+
+- (void)testHexBinPrefix0 {
+    [t.numberState addPrefix:@"%" forRadix:2.0];
+    [t setTokenizerState:t.numberState from:'%' to:'%'];
+    
+    s = @"%0";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"%0", tok.stringValue);
+}
+
+
+- (void)testHexBinPrefix1 {
+    [t.numberState addPrefix:@"%" forRadix:2.0];
+    [t setTokenizerState:t.numberState from:'%' to:'%'];
+    
+    s = @"%1";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)1.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"%1", tok.stringValue);
+}
+
+
+- (void)testHexBinPrefix10 {
+    [t.numberState addPrefix:@"%" forRadix:2.0];
+    [t setTokenizerState:t.numberState from:'%' to:'%'];
+    
+    s = @"%10";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)2.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"%10", tok.stringValue);
 }
 
 
