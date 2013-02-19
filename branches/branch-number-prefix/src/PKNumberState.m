@@ -168,7 +168,7 @@
         }
     } else {
         [self parseLeftSideFromReader:r];
-        if (isDecimal && allowsFloatingPoint) {
+        if (10.0 == base && allowsFloatingPoint) {
             [self parseRightSideFromReader:r];
         }
     }
@@ -333,7 +333,6 @@
     firstNum = cin;
     gotADigit = NO;
     isFraction = NO;
-    isDecimal = YES;
     len = 0;
     base = (PKFloat)10.0;
     floatValue = (PKFloat)0.0;
@@ -347,7 +346,6 @@
         [self append:c];
         len++;
         c = [r read];
-        isDecimal = NO;
         base = (PKFloat)16.0;
         gotADigit = NO;
     }
@@ -355,8 +353,7 @@
 
 
 - (void)checkForOctal {
-    if ('0' == firstNum && !isFraction && isDecimal && 2 == len) {
-        isDecimal = NO;
+    if ('0' == firstNum && !isFraction && 10. == base && 2 == len) {
         base = (PKFloat)8.0;
     }
 }

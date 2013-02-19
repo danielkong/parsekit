@@ -36,7 +36,6 @@
     PKUniChar groupingSeparator;
     PKUniChar decimalSeparator;
     
-    BOOL isDecimal;
     BOOL isFraction;
     BOOL isNegative;
     BOOL gotADigit;
