@@ -236,7 +236,6 @@
         
         if (isdigit(c) || isHexAlpha) {
             [self append:c];
-            len++;
             gotADigit = YES;
 
             if (isHexAlpha) {
@@ -252,7 +251,6 @@
             }
         } else if (allowsGroupingSeparator && groupingSeparator == c) {
             [self append:c];
-            len++;
             c = [r read];
         } else {
             break;
@@ -334,7 +332,6 @@
     firstNum = cin;
     gotADigit = NO;
     isFraction = NO;
-    len = 0;
     //base = (PKFloat)10.0;
     floatValue = (PKFloat)0.0;
     exp = (PKFloat)0.0;

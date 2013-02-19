@@ -39,7 +39,6 @@
     BOOL isFraction;
     BOOL isNegative;
     BOOL gotADigit;
-    NSUInteger len;
     PKFloat base;
     PKUniChar originalCin;
     PKUniChar firstNum;
