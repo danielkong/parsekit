@@ -67,13 +67,13 @@
     t.numberState.groupingSeparator = @"_";
     [t setTokenizerState:t.numberState from:'$' to:'$'];
     
-    s = @"$1";
+    s = @"$A";
     t.string = s;
     
     PKToken *tok = [t nextToken];
-    TDEquals((PKFloat)1.0, tok.floatValue);
+    TDEquals((PKFloat)10.0, tok.floatValue);
     TDTrue(tok.isNumber);
-    TDEqualObjects(@"$1", tok.stringValue);
+    TDEqualObjects(@"$A", tok.stringValue);
 }
 
 

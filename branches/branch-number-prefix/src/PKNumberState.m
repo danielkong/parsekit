@@ -224,7 +224,7 @@
     
     while (1) {
         isHexAlpha = NO;
-        if (allowsHexadecimalNotation) {
+        if (16.0 == base) {
             if ((c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
                 isHexAlpha = YES;
             }
