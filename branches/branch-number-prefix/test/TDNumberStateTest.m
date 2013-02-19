@@ -29,7 +29,7 @@
 }
 
 
-- (void)testHexPrefix0 {
+- (void)testHexSymbolPrefix0 {
     [t.numberState addPrefix:@"$" forRadix:16.0];
     [t setTokenizerState:t.numberState from:'$' to:'$'];
     
@@ -43,7 +43,7 @@
 }
 
 
-- (void)testHexPrefix1 {
+- (void)testHexSymbolPrefix1 {
     [t.numberState addPrefix:@"$" forRadix:16.0];
     [t setTokenizerState:t.numberState from:'$' to:'$'];
     
@@ -57,7 +57,7 @@
 }
 
 
-- (void)testHexPrefixA {
+- (void)testHexSymbolPrefixA {
     [t.numberState addPrefix:@"$" forRadix:16.0];
     [t setTokenizerState:t.numberState from:'$' to:'$'];
     
@@ -71,7 +71,7 @@
 }
 
 
-- (void)testHexPrefixa {
+- (void)testHexSymbolPrefixa {
     [t.numberState addPrefix:@"$" forRadix:16.0];
     [t setTokenizerState:t.numberState from:'$' to:'$'];
     
@@ -85,7 +85,7 @@
 }
 
 
-- (void)testHexPrefix10 {
+- (void)testHexSymbolPrefix10 {
     [t.numberState addPrefix:@"$" forRadix:16.0];
     [t setTokenizerState:t.numberState from:'$' to:'$'];
     
@@ -99,7 +99,7 @@
 }
 
 
-- (void)testHexPrefixFF {
+- (void)testHexSymbolPrefixFF {
     [t.numberState addPrefix:@"$" forRadix:16.0];
     [t setTokenizerState:t.numberState from:'$' to:'$'];
     
@@ -113,7 +113,7 @@
 }
 
 
-- (void)testHexBinPrefix0 {
+- (void)testBinSymbolPrefix0 {
     [t.numberState addPrefix:@"%" forRadix:2.0];
     [t setTokenizerState:t.numberState from:'%' to:'%'];
     
@@ -127,7 +127,7 @@
 }
 
 
-- (void)testHexBinPrefix1 {
+- (void)testBinSymbolPrefix1 {
     [t.numberState addPrefix:@"%" forRadix:2.0];
     [t setTokenizerState:t.numberState from:'%' to:'%'];
     
@@ -141,7 +141,7 @@
 }
 
 
-- (void)testHexBinPrefix10 {
+- (void)testBinSymbolPrefix10 {
     [t.numberState addPrefix:@"%" forRadix:2.0];
     [t setTokenizerState:t.numberState from:'%' to:'%'];
     
