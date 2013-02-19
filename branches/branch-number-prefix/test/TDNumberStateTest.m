@@ -897,7 +897,8 @@
     t.string = s;
     r.string = s;
     t.numberState.decimalSeparator = ',';
-    t.numberState.groupingSeparator = '.';
+    [t.numberState addGroupingSeparator:'.' forRadix:10.0];
+
     PKToken *tok = [t nextToken];
     
 	TDTrue(tok.isNumber);
@@ -923,7 +924,7 @@
     s = @"2,001";
     t.string = s;
     r.string = s;
-    t.numberState.allowsGroupingSeparator = YES;
+    [t.numberState addGroupingSeparator:',' forRadix:10.0];
     PKToken *tok = [t nextToken];
     
 	TDTrue(tok.isNumber);
@@ -936,7 +937,7 @@
     s = @"2,001 5,000,000 5,000.000";
     t.string = s;
     r.string = s;
-    t.numberState.allowsGroupingSeparator = YES;
+    [t.numberState addGroupingSeparator:',' forRadix:10.0];
     PKToken *tok = [t nextToken];
     
 	TDTrue(tok.isNumber);

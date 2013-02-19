@@ -33,10 +33,14 @@
 
 - (PKFloat)radixForPrefix:(NSString *)s;
 - (PKFloat)radixForSuffix:(NSString *)s;
+- (PKFloat)radixForSeparator:(PKUniChar)c;
+- (BOOL)isValidSeparator:(PKUniChar)sepChar;
+
 @property (nonatomic, retain) PKSymbolRootNode *prefixRootNode;
 @property (nonatomic, retain) PKSymbolRootNode *suffixRootNode;
 @property (nonatomic, retain) NSMutableDictionary *radixForPrefix;
 @property (nonatomic, retain) NSMutableDictionary *radixForSuffix;
+@property (nonatomic, retain) NSMutableDictionary *radixForSeparator;
 @end
 
 @interface PKNumberState ()
@@ -60,6 +64,7 @@
         self.suffixRootNode = [[[PKSymbolRootNode alloc] init] autorelease];
         self.radixForPrefix = [NSMutableDictionary dictionary];
         self.radixForSuffix = [NSMutableDictionary dictionary];
+        self.radixForSeparator = [NSMutableDictionary dictionary];
         
 //        [self addPrefix:@"0b" forRadix:2.0];
 //        [self addPrefix:@"0"  forRadix:8.0];
@@ -75,8 +80,9 @@
         self.allowsFloatingPoint = YES;
         self.positivePrefix = '+';
         self.negativePrefix = '-';
-        self.groupingSeparator = ',';
         self.decimalSeparator = '.';
+        
+        [self addGroupingSeparator:@"," forRadix:10.0];
     }
     return self;
 }
@@ -87,7 +93,28 @@
     self.suffixRootNode = nil;
     self.radixForPrefix = nil;
     self.radixForSuffix = nil;
+    self.radixForSeparator = nil;
     [super dealloc];
+}
+
+
+- (void)addGroupingSeparator:(PKUniChar)sepChar forRadix:(PKFloat)f {
+    NSParameterAssert(f > 0.0);
+    NSAssert(radixForSeparator, @"");
+    
+    NSNumber *sepKey = [NSNumber numberWithInteger:sepChar];
+    NSNumber *radixVal = [NSNumber numberWithDouble:f];
+    radixForSeparator[sepKey] = radixVal;
+}
+
+
+- (void)removeGroupingSeparator:(PKUniChar)sepChar forRadix:(PKFloat)f {
+    NSAssert(radixForSeparator, @"");
+
+    NSNumber *sepKey = [NSNumber numberWithInt:sepChar];
+    NSAssert(radixForSeparator[sepKey], @"");
+    
+    [radixForSeparator removeObjectForKey:sepKey];
 }
 
 
@@ -149,10 +176,26 @@
 }
 
 
+- (PKFloat)radixForSeparator:(PKUniChar)sepChar {
+    NSAssert(radixForSeparator, @"");
+    
+    NSNumber *sepKey = [NSNumber numberWithInteger:sepChar];
+    NSNumber *radixVal = radixForSeparator[sepKey];
+    PKFloat f = [radixVal doubleValue];
+    return f;
+}
+
+
+- (BOOL)isValidSeparator:(PKUniChar)sepChar {
+    NSAssert(base > 0.0, @"");
+    PKFloat radix = [self radixForSeparator:sepChar];
+    return base == radix;
+}
+
+
 - (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
     NSParameterAssert(r);
     NSParameterAssert(t);
-    NSAssert1(!(allowsGroupingSeparator && (decimalSeparator == groupingSeparator)), @"You have configured your tokenizer's numberState with the same decimal and grouping separator: `%C`. You don't want to do that.", (unichar)decimalSeparator);
 
     [self resetWithReader:r];
     isNegative = NO;
@@ -266,7 +309,7 @@
             if (isFraction) {
                 divideBy *= base;
             }
-        } else if (allowsGroupingSeparator && groupingSeparator == c) {
+        } else if (gotADigit && [self isValidSeparator:c]) {
             [self append:c];
             c = [r read];
         } else {
@@ -357,13 +400,12 @@
 @synthesize allowsTrailingDecimalSeparator;
 @synthesize allowsScientificNotation;
 @synthesize allowsFloatingPoint;
-@synthesize allowsGroupingSeparator;
 @synthesize positivePrefix;
 @synthesize negativePrefix;
-@synthesize groupingSeparator;
 @synthesize decimalSeparator;
 @synthesize prefixRootNode;
 @synthesize suffixRootNode;
 @synthesize radixForPrefix;
 @synthesize radixForSuffix;
+@synthesize radixForSeparator;
 @end

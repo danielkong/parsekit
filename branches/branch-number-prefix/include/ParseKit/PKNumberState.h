@@ -28,11 +28,9 @@
     BOOL allowsScientificNotation;
     BOOL allowsOctalNotation;
     BOOL allowsFloatingPoint;
-    BOOL allowsGroupingSeparator;
     
     PKUniChar positivePrefix;
     PKUniChar negativePrefix;
-    PKUniChar groupingSeparator;
     PKUniChar decimalSeparator;
     
     BOOL isFraction;
@@ -49,13 +47,17 @@
     PKSymbolRootNode *suffixRootNode;
     NSMutableDictionary *radixForPrefix;
     NSMutableDictionary *radixForSuffix;
+    NSMutableDictionary *radixForSeparator;
 }
 
 - (void)addPrefix:(NSString *)s forRadix:(PKFloat)f;
-- (void)addSuffix:(NSString *)s forRadix:(PKFloat)f;
-
 - (void)removePrefix:(NSString *)s;
+
+- (void)addSuffix:(NSString *)s forRadix:(PKFloat)f;
 - (void)removeSuffix:(NSString *)s;
+
+- (void)addGroupingSeparator:(PKUniChar)c forRadix:(PKFloat)f;
+- (void)removeGroupingSeparator:(PKUniChar)c forRadix:(PKFloat)f;
 
 /*!
     @property   allowsTrailingDecimalSeparator
@@ -78,15 +80,7 @@
 */
 @property (nonatomic) BOOL allowsFloatingPoint;
 
-/*!
-    @property   allowsGroupingSeparator
-    @brief      If YES, supports numbers with internal grouping separators like <tt>2,001</tt>.
-    @details    default is NO
-*/
-@property (nonatomic) BOOL allowsGroupingSeparator;
-
 @property (nonatomic) PKUniChar positivePrefix;
 @property (nonatomic) PKUniChar negativePrefix;
-@property (nonatomic) PKUniChar groupingSeparator;
 @property (nonatomic) PKUniChar decimalSeparator;
 @end
