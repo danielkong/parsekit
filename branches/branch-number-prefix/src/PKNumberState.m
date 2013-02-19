@@ -149,6 +149,7 @@
         isHex = base == 16.0; // REMOVE
     } else {
         [r unread:[prefix length]];
+        prefix = nil;
     }
     cin = [r read];
     
@@ -175,7 +176,7 @@
     
     // erroneous ., +, -, or 0x
     if (!gotADigit) {
-        if (isHex) {
+        if ([prefix length] && '0' == [prefix characterAtIndex:0]) {
             [r unread];
             return [PKToken tokenWithTokenType:PKTokenTypeNumber stringValue:@"0" floatValue:0.0];
         } else {
