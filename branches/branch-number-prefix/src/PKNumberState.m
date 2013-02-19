@@ -146,7 +146,6 @@
     if (radix > 0.0) {
         [self appendString:prefix];
         base = radix;
-        isHex = base == 16.0; // REMOVE
     } else {
         [r unread:[prefix length]];
         prefix = nil;
@@ -335,7 +334,6 @@
     gotADigit = NO;
     isFraction = NO;
     isDecimal = YES;
-    isHex = NO;
     len = 0;
     base = (PKFloat)10.0;
     floatValue = (PKFloat)0.0;
@@ -351,7 +349,6 @@
         c = [r read];
         isDecimal = NO;
         base = (PKFloat)16.0;
-        isHex = YES;
         gotADigit = NO;
     }
 }
