@@ -64,7 +64,7 @@
 //        [self addPrefix:@"0b" forRadix:2.0];
 //        [self addPrefix:@"0"  forRadix:8.0];
 //        [self addPrefix:@"0o" forRadix:8.0];
-//        [self addPrefix:@"0x" forRadix:16.0];
+        [self addPrefix:@"0x" forRadix:16.0];
 //
 //        [self addPrefix:@"%"  forRadix:2.0];
 //        [self addPrefix:@"$"  forRadix:16.0];

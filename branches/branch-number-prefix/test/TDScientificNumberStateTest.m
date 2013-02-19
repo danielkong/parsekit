@@ -939,21 +939,6 @@
 }
 
 
-- (void)testMinusOctal2 {
-    s = @"-020";
-    t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
-    PKToken *tok = [t nextToken];
-    TDEquals((PKFloat)-16.0, tok.floatValue);
-    TDTrue(tok.isNumber);
-    TDEqualObjects(@"-020", tok.stringValue);
-    
-    tok = [t nextToken];
-    TDTrue([PKToken EOFToken] == tok);
-}
-
-
 - (void)testOctalDecimal {
     s = @"020.0";
     t.string = s;
@@ -1115,24 +1100,14 @@
     numberState.allowsHexadecimalNotation = NO;
     numberState.allowsHexadecimalNotation = YES;
     PKToken *tok = [t nextToken];
-    TDEquals((PKFloat)-32.0, tok.floatValue);
+    TDEquals((PKFloat)-0.0, tok.floatValue);
     TDTrue(tok.isNumber);
-    TDEqualObjects(@"-0x20", tok.stringValue);
+    TDEqualObjects(@"-0", tok.stringValue);
     
     tok = [t nextToken];
-    TDTrue([PKToken EOFToken] == tok);
-}
-
-
-- (void)testMinusHex2 {
-    s = @"-0x20";
-    t.string = s;
-    numberState.allowsHexadecimalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
-    PKToken *tok = [t nextToken];
-    TDEquals((PKFloat)-32.0, tok.floatValue);
-    TDTrue(tok.isNumber);
-    TDEqualObjects(@"-0x20", tok.stringValue);
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"x20", tok.stringValue);
     
     tok = [t nextToken];
     TDTrue([PKToken EOFToken] == tok);
