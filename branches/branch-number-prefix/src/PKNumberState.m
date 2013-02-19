@@ -142,18 +142,6 @@
     isNegative = NO;
     originalCin = cin;
     
-    NSString *prefix = [prefixRootNode nextSymbol:r startingWith:cin];
-    PKFloat radix = [self radixForPrefix:prefix];
-    if (radix > 0.0) {
-        [self appendString:prefix];
-        base = radix;
-    } else {
-        base = 10.0;
-        [r unread:[prefix length]];
-        prefix = nil;
-    }
-    cin = [r read];
-    
     if (negativePrefix == cin) {
         isNegative = YES;
         cin = [r read];
@@ -161,6 +149,22 @@
     } else if (positivePrefix == cin) {
         cin = [r read];
         [self append:positivePrefix];
+    }
+    
+    NSString *prefix = nil;
+    
+    if (PKEOF != cin) {
+        prefix = [prefixRootNode nextSymbol:r startingWith:cin];
+        PKFloat radix = [self radixForPrefix:prefix];
+        if (radix > 0.0) {
+            [self appendString:prefix];
+            base = radix;
+        } else {
+            base = 10.0;
+            [r unread:[prefix length]];
+            prefix = nil;
+        }
+        cin = [r read];
     }
     
     [self reset:cin];
