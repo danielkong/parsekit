@@ -895,12 +895,10 @@
 
 
 - (void)testOctal {
-    [t.numberState addPrefix:@"0" forRadix:8.0];
-    
     s = @"020";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = NO;
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)16.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -912,12 +910,10 @@
 
 
 - (void)testOctal2 {
-    [t.numberState addPrefix:@"0" forRadix:8.0];
-
     s = @"020";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
+    [t.numberState addPrefix:@"0" forRadix:8.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)16.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -929,12 +925,9 @@
 
 
 - (void)testMinusOctal {
-    [t.numberState addPrefix:@"0" forRadix:8.0];
-
     s = @"-020";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = NO;
+    [t.numberState addPrefix:@"0" forRadix:8.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)-16.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -946,12 +939,12 @@
 
 
 - (void)testMinusOctal2 {
-    [t.numberState addPrefix:@"0" forRadix:8.0];
-
     s = @"-020";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
+
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)-16.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -963,12 +956,11 @@
 
 
 - (void)testOctalFloat {
-    [t.numberState addPrefix:@"0" forRadix:8.0];
-
     s = @"020.0";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = NO;
+
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+    
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)16.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -985,12 +977,10 @@
 
 
 - (void)testOctalFloat2 {
-    [t.numberState addPrefix:@"0" forRadix:8.0];
-
     s = @"020.0";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)16.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1023,8 +1013,7 @@
 - (void)testHex {
     s = @"0x20";
     t.string = s;
-    numberState.allowsOctalNotation = NO;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)32.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1038,8 +1027,8 @@
 - (void)testHex2 {
     s = @"0x20";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)32.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1053,8 +1042,8 @@
 - (void)testNotHex {
     s = @"0x";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)0.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1073,8 +1062,8 @@
 - (void)testHexAlpha {
     s = @"0xA";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)10.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1085,8 +1074,8 @@
 
     s = @"0xa";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     tok = [t nextToken];
     TDEquals((PKFloat)10.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1097,8 +1086,8 @@
 
     s = @"0xB7";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     tok = [t nextToken];
     TDEquals((PKFloat)183.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1109,8 +1098,8 @@
 
     s = @"0x8EE";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     tok = [t nextToken];
     TDEquals((PKFloat)2286.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1124,8 +1113,7 @@
 - (void)testMinusHex {
     s = @"-0x20";
     t.string = s;
-    numberState.allowsHexadecimalNotation = NO;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)-32.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1139,8 +1127,8 @@
 - (void)testMinusHex2 {
     s = @"-0x20";
     t.string = s;
-    numberState.allowsHexadecimalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)-32.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1154,8 +1142,7 @@
 - (void)testHexDecimal {
     s = @"0x30.0";
     t.string = s;
-    numberState.allowsOctalNotation = NO;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)48.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1174,8 +1161,8 @@
 - (void)testHexDecimal2 {
     s = @"0x40.0";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)64.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1194,8 +1181,7 @@
 - (void)testHexDecimal3 {
     s = @"00x30.0";
     t.string = s;
-    numberState.allowsOctalNotation = NO;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)0.0, tok.floatValue);
     TDTrue(tok.isNumber);
@@ -1218,8 +1204,8 @@
 - (void)testHexDecimal4 {
     s = @"00x30.0";
     t.string = s;
-    numberState.allowsOctalNotation = YES;
-    numberState.allowsHexadecimalNotation = YES;
+    [t.numberState addPrefix:@"0" forRadix:8.0];
+    [t.numberState addPrefix:@"0x" forRadix:16.0];
     PKToken *tok = [t nextToken];
     TDEquals((PKFloat)0.0, tok.floatValue);
     TDTrue(tok.isNumber);

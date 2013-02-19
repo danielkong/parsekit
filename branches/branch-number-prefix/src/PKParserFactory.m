@@ -342,7 +342,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     t.numberState.allowsTrailingDecimalSeparator = [self boolForTokenForKey:@"@allowsTrailingDecimalSeparator"];
     t.numberState.allowsScientificNotation = [self boolForTokenForKey:@"@allowsScientificNotation"];
     t.numberState.allowsOctalNotation = [self boolForTokenForKey:@"@allowsOctalNotation"];
-    t.numberState.allowsHexadecimalNotation = [self boolForTokenForKey:@"@allowsHexadecimalNotation"];
+//    t.numberState.allowsHexadecimalNotation = [self boolForTokenForKey:@"@allowsHexadecimalNotation"];
     
     BOOL yn = YES;
     if ([parserTokensTable objectForKey:@"allowsFloatingPoint"]) {

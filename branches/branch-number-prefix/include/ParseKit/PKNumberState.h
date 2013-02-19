@@ -27,7 +27,6 @@
     BOOL allowsTrailingDecimalSeparator;
     BOOL allowsScientificNotation;
     BOOL allowsOctalNotation;
-    BOOL allowsHexadecimalNotation;
     BOOL allowsFloatingPoint;
     BOOL allowsGroupingSeparator;
     
@@ -75,13 +74,6 @@
     @details    default is NO
 */
 @property (nonatomic) BOOL allowsOctalNotation;
-
-/*!
-    @property   allowsHexidecimalNotation
-    @brief      If YES, supports hex numbers like <tt>0x20<tt> (32), or <tt>0xB7<tt> (183)
-    @details    default is NO
-*/
-@property (nonatomic) BOOL allowsHexadecimalNotation;
 
 /*!
     @property   allowsFloatingPoint
