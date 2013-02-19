@@ -61,9 +61,9 @@
         self.radixForSuffix = [NSMutableDictionary dictionary];
         
 //        [self addPrefix:@"0b" forRadix:2.0];
-//        [self addPrefix:@"0"  forRadix:8.0];
+        [self addPrefix:@"0"  forRadix:8.0];
 //        [self addPrefix:@"0o" forRadix:8.0];
-//        [self addPrefix:@"0x" forRadix:16.0];
+        [self addPrefix:@"0x" forRadix:16.0];
 //
 //        [self addPrefix:@"%"  forRadix:2.0];
 //        [self addPrefix:@"$"  forRadix:16.0];
@@ -117,8 +117,6 @@
     NSAssert(radixForPrefix, @"");
     
     NSNumber *n = radixForPrefix[s];
-    NSAssert(n, @"");
-
     PKFloat f = [n doubleValue];
     return f;
 }
@@ -129,8 +127,6 @@
     NSAssert(radixForSuffix, @"");
     
     NSNumber *n = radixForSuffix[s];
-    NSAssert(n, @"");
-    
     PKFloat f = [n doubleValue];
     return f;
 }
@@ -151,10 +147,10 @@
         [self appendString:prefix];
         base = radix;
         isHex = base == 16.0; // REMOVE
-        cin = [r read];
     } else {
         [r unread:[prefix length]];
     }
+    cin = [r read];
     
     if (negativePrefix == cin) {
         isNegative = YES;
@@ -228,9 +224,9 @@
         isHexAlpha = NO;
         if (allowsHexadecimalNotation) {
             [self checkForHex:r];
-            if ((c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
-                isHexAlpha = YES;
-            }
+//            if ((c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
+                isHexAlpha = ishexnumber(c);
+//            }
         }
         
         if (isdigit(c) || isHexAlpha) {
@@ -243,9 +239,9 @@
             }
             
             if (isHexAlpha) {
-                if (c >= 'a' && c <= 'f') {
+//                if (c >= 'a' && c <= 'f') {
                     c = toupper(c);
-                }
+//                }
                 c -= 7;
             }
             v = v * base + (c - '0');
