@@ -79,7 +79,7 @@
         self.negativePrefix = '-';
         self.decimalSeparator = '.';
         
-        [self addGroupingSeparator:@"," forRadix:10.0];
+        [self addGroupingSeparator:',' forRadix:10.0];
     }
     return self;
 }
