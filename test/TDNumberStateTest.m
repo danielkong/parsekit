@@ -43,6 +43,45 @@
 }
 
 
+- (void)testHexSymbolPrefix0_10 {
+    [t.numberState addPrefix:@"$" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'$' to:'$'];
+    
+    s = @"$0 10";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"$0", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEquals((PKFloat)10.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"10", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEqualObjects([PKToken EOFToken], tok);
+}
+
+
+- (void)testHexSymbolPrefix_10 {
+    [t.numberState addPrefix:@"$" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'$' to:'$'];
+    
+    s = @"10";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)10.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"10", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEqualObjects([PKToken EOFToken], tok);
+}
+
+
 - (void)testHexSymbolPrefix1 {
     [t.numberState addPrefix:@"$" forRadix:16.0];
     [t setTokenizerState:t.numberState from:'$' to:'$'];
