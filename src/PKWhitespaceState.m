@@ -25,6 +25,10 @@
 @property (nonatomic, readwrite) NSUInteger offset;
 @end
 
+@interface PKTokenizer ()
+@property (nonatomic, readwrite) NSUInteger lineNumber;
+@end
+
 @interface PKTokenizerState ()
 - (void)resetWithReader:(PKReader *)r;
 - (void)append:(PKUniChar)c;
@@ -87,6 +91,9 @@
     
     PKUniChar c = cin;
     while ([self isWhitespaceChar:c]) {
+        if ('\n' == c) {
+            t.lineNumber++;
+        }
         if (reportsWhitespaceTokens) {
             [self append:c];
         }

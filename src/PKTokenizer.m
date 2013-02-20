@@ -26,6 +26,7 @@
 - (PKTokenizerState *)defaultTokenizerStateFor:(PKUniChar)c;
 @property (nonatomic, retain) PKReader *reader;
 @property (nonatomic, retain) NSMutableArray *tokenizerStates;
+@property (nonatomic, readwrite) NSUInteger lineNumber;
 @end
 
 @implementation PKTokenizer
@@ -192,6 +193,7 @@
         string = [s copy];
     }
     reader.string = string;
+    self.lineNumber = 1;
 }
 
 
@@ -296,4 +298,5 @@
 @synthesize string;
 @synthesize reader;
 @synthesize tokenizerStates;
+@synthesize lineNumber;
 @end
