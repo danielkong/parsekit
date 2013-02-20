@@ -189,7 +189,7 @@
 - (void)setString:(NSString *)s {
     if (string != s) {
         [string autorelease];
-        string = [s retain];
+        string = [s copy];
     }
     reader.string = string;
 }
