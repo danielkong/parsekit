@@ -50,9 +50,6 @@
 - (void)parseRightSideFromReader:(PKReader *)r;
 - (void)parseExponentFromReader:(PKReader *)r;
 - (void)reset:(PKUniChar)cin;
-
-//- (void)checkForHex:(PKReader *)r;
-//- (void)checkForOctal;
 @end
 
 @implementation PKNumberState
@@ -208,6 +205,7 @@
     NSParameterAssert(t);
 
     [self resetWithReader:r];
+    base = 10.0;
     isNegative = NO;
     originalCin = cin;
     
