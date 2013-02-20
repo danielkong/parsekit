@@ -292,7 +292,7 @@
     PKFloat v = 0.0;
     BOOL isHexAlpha = NO;
     
-    while (1) {
+    for (;;) {
         isHexAlpha = NO;
         if (16.0 == base) {
             if ((c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
