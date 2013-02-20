@@ -169,9 +169,8 @@
     @try {
         
         PKTokenizer *t = self.tokenizer;
-        if (!t) {
-            t = [PKTokenizer tokenizer];
-        }
+        if (!t) t = [PKTokenizer tokenizer];
+
         t.string = s;
         PKAssembly *a = [self completeMatchFor:[PKTokenAssembly assemblyWithTokenizer:t]];
         if (a.target) {
