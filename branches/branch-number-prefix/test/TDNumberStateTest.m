@@ -113,6 +113,21 @@
 }
 
 
+- (void)testHexSymbolPrefixFFFF_FFFF {
+    [t.numberState addPrefix:@"$" forRadix:16.0];
+    [t.numberState addGroupingSeparator:'_' forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'$' to:'$'];
+    
+    s = @"$FFFF_FFFF";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0xFFFFFFFF, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"$FFFF_FFFF", tok.stringValue);
+}
+
+
 - (void)testBinSymbolPrefix0 {
     [t.numberState addPrefix:@"%" forRadix:2.0];
     [t setTokenizerState:t.numberState from:'%' to:'%'];
@@ -152,6 +167,35 @@
     TDEquals((PKFloat)2.0, tok.floatValue);
     TDTrue(tok.isNumber);
     TDEqualObjects(@"%10", tok.stringValue);
+}
+
+
+- (void)testBinSymbolPrefix0010 {
+    [t.numberState addPrefix:@"%" forRadix:2.0];
+    [t setTokenizerState:t.numberState from:'%' to:'%'];
+    
+    s = @"%0010";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)2.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"%0010", tok.stringValue);
+}
+
+
+- (void)testBinSymbolPrefix0001_0001 {
+    [t.numberState addPrefix:@"%" forRadix:2.0];
+    [t.numberState addGroupingSeparator:'_' forRadix:2.0];
+    [t setTokenizerState:t.numberState from:'%' to:'%'];
+    
+    s = @"%0001_0001";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)17.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"%0001_0001", tok.stringValue);
 }
 
 
