@@ -343,8 +343,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     t.numberState.allowsScientificNotation = [self boolForTokenForKey:@"@allowsScientificNotation"];
     
     BOOL yn = YES;
-    if ([parserTokensTable objectForKey:@"allowsFloatingPoint"]) {
-        yn = [self boolForTokenForKey:@"allowsFloatingPoint"];
+    if ([parserTokensTable objectForKey:@"@allowsFloatingPoint"]) {
+        yn = [self boolForTokenForKey:@"@allowsFloatingPoint"];
     }
     t.numberState.allowsFloatingPoint = yn;
     
