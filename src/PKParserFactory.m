@@ -442,9 +442,9 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     // number state prefixes
-    toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@numberPrefixForRadix"]];
-    NSAssert(0 == [toks count] % 2, @"@numberPrefixForRadix must be specified as quoted strings in multiples of 2");
-    [parserTokensTable removeObjectForKey:@"@numberPrefixForRadix"];
+    toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@prefixForRadix"]];
+    NSAssert(0 == [toks count] % 2, @"@prefixForRadix must be specified as quoted strings in multiples of 2");
+    [parserTokensTable removeObjectForKey:@"@prefixForRadix"];
     if ([toks count] > 1) {
         for (NSInteger i = 0; i < [toks count] - 1; i++) {
             PKToken *prefixTok = [toks objectAtIndex:i];
@@ -458,9 +458,9 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     // number state suffix
-    toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@numberSuffixForRadix"]];
-    NSAssert(0 == [toks count] % 2, @"@numberSuffixForRadix must be specified as quoted strings in multiples of 2");
-    [parserTokensTable removeObjectForKey:@"@numberSuffixForRadix"];
+    toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@suffixForRadix"]];
+    NSAssert(0 == [toks count] % 2, @"@suffixForRadix must be specified as quoted strings in multiples of 2");
+    [parserTokensTable removeObjectForKey:@"@suffixForRadix"];
     if ([toks count] > 1) {
         for (NSInteger i = 0; i < [toks count] - 1; i++) {
             PKToken *suffixTok = [toks objectAtIndex:i];
@@ -476,9 +476,9 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     // number grouping separator
-    toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@numberGroupingSeparatorForRadix"]];
-    NSAssert(0 == [toks count] % 2, @"@numberGroupingSeparatorForRadix must be specified as quoted strings in multiples of 2");
-    [parserTokensTable removeObjectForKey:@"@numberGroupingSeparatorForRadix"];
+    toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@groupingSeparatorForRadix"]];
+    NSAssert(0 == [toks count] % 2, @"@groupingSeparatorForRadix must be specified as quoted strings in multiples of 2");
+    [parserTokensTable removeObjectForKey:@"@groupingSeparatorForRadix"];
     if ([toks count] > 1) {
         for (NSInteger i = 0; i < [toks count] - 1; i++) {
             PKToken *sepTok = [toks objectAtIndex:i];
