@@ -91,8 +91,7 @@
                               expected, @"expected",
                               found, @"found",
                               nil];
-    //NSLog(@"%@", reason);
-    //NSLog(@"%@", userInfo);
+
     [[PKTrackException exceptionWithName:PKTrackExceptionName reason:reason userInfo:userInfo] raise];
 }
 
