@@ -21,6 +21,44 @@
 }
 
 
+- (void)testTrack {
+    g = @"@start = [Number Word]";
+    
+    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+    
+    TDNotNil(lp);
+    
+    s = @"3 foo";
+    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+    TDEqualObjects(@"[3, foo]3/foo^", [res description]);
+}
+
+
+- (void)testTrackFailure {
+    g = @"@start = [Number Word]";
+    
+    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+    
+    TDNotNil(lp);
+    
+    BOOL reachedCatch = NO;
+    
+    s = @"3";
+    @try {
+        res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+        TDTrue(0); // should not reach
+    }
+    @catch (NSException *ex) {
+        NSLog(@"%@", ex);
+        reachedCatch = YES;
+        TDEqualObjects([PKTrackException class], [ex class]);
+        TDEqualObjects(@"\n\nAfter : 3\nExpected : Word\nFound : -nothing-\n\n", [ex reason]);
+    }
+    
+    TDTrue(reachedCatch);
+}
+
+
 - (void)testOrVsAndPrecendence {
     g = @" @start ( parser:didMatchFoo: ) = foo;\n"
     @"  foo = Word & /foo/ | Number! { 1 } ( DelimitedString ( '/' , '/' ) Symbol- '%' ) * /bar/ ;";

@@ -35,6 +35,7 @@ typedef enum {
     PKToken *equals;
     PKToken *curly;
     PKToken *paren;
+    PKToken *square;
     BOOL isGatheringClasses;
 }
 
