@@ -18,7 +18,7 @@
 #define STATE_COUNT 256
 
 @interface PKToken ()
-@property (nonatomic, readwrite) NSUInteger offset;
+@property (nonatomic, readwrite) NSUInteger lineNumber;
 @end
 
 @interface PKTokenizer ()
@@ -147,6 +147,7 @@
         PKTokenizerState *state = [self tokenizerStateFor:c];
         if (state) {
             result = [state nextTokenFromReader:reader startingWith:c tokenizer:self];
+            result.lineNumber = lineNumber;
         } else {
             result = [PKToken EOFToken];
         }
