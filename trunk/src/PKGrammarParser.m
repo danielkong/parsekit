@@ -19,8 +19,9 @@
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;    
+- (void)parser:(PKParser *)p didMatchSeq:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchTrack:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a;
@@ -115,7 +116,9 @@
 // callback             = S* '(' S* selector S* ')';
 // selector             = Word ':';
 // expr                 = S* term orTerm* S*;
-// term                 = factor nextFactor*;
+// term                 = track | seq;
+// track                = '[' factor nextFactor* ']';
+// seq                  = factor nextFactor*;
 // orTerm               = S* '|' S* term;
 // factor               = phrase | phraseStar | phrasePlus | phraseQuestion | phraseCardinality;
 // nextFactor           = S factor;
@@ -229,13 +232,30 @@
 
 
 // term                = factor nextFactor*;
+
+// term                 = track | seq;
+// track                = '[' factor nextFactor* ']';
+// seq                  = factor nextFactor*;
+
 - (PKCollectionParser *)termParser {
     if (!termParser) {
-        self.termParser = [PKSequence sequence];
+        self.termParser = [PKAlternation alternation];
         termParser.name = @"term";
-        [termParser add:self.factorParser];
-        [termParser add:[PKRepetition repetitionWithSubparser:self.nextFactorParser]];
-        [termParser setAssembler:assembler selector:@selector(parser:didMatchAnd:)];
+        
+        PKCollectionParser *track = [PKTrack track];
+        [track add:[PKLiteral literalWithString:@"["]];
+        [track add:self.factorParser];
+        [track add:[PKRepetition repetitionWithSubparser:self.nextFactorParser]];
+        [track add:[[PKLiteral literalWithString:@"]"] discard]];
+        [track setAssembler:assembler selector:@selector(parser:didMatchTrack:)];
+        
+        PKCollectionParser *seq = [PKSequence sequence];
+        [seq add:self.factorParser];
+        [seq add:[PKRepetition repetitionWithSubparser:self.nextFactorParser]];
+        [seq setAssembler:assembler selector:@selector(parser:didMatchSeq:)];
+
+        [termParser add:track];
+        [termParser add:seq];
     }
     return termParser;
 }
