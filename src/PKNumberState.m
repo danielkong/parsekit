@@ -16,6 +16,7 @@
 #import <ParseKit/PKReader.h>
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
+#import <ParseKit/PKSymbolRootNode.h>
 #import <ParseKit/PKSymbolState.h>
 #import <ParseKit/PKTypes.h>
 
@@ -27,7 +28,19 @@
 - (void)resetWithReader:(PKReader *)r;
 - (PKTokenizerState *)nextTokenizerStateFor:(PKUniChar)c tokenizer:(PKTokenizer *)t;
 - (void)append:(PKUniChar)c;
+- (void)appendString:(NSString *)s;
 - (NSString *)bufferedString;
+
+- (PKFloat)radixForPrefix:(NSString *)s;
+- (PKFloat)radixForSuffix:(NSString *)s;
+- (PKFloat)radixForSeparator:(PKUniChar)c;
+- (BOOL)isValidSeparator:(PKUniChar)sepChar;
+
+@property (nonatomic, retain) PKSymbolRootNode *prefixRootNode;
+@property (nonatomic, retain) PKSymbolRootNode *suffixRootNode;
+@property (nonatomic, retain) NSMutableDictionary *radixForPrefix;
+@property (nonatomic, retain) NSMutableDictionary *radixForSuffix;
+@property (nonatomic, retain) NSMutableDictionary *separatorsForRadix;
 @end
 
 @interface PKNumberState ()
@@ -37,8 +50,6 @@
 - (void)parseRightSideFromReader:(PKReader *)r;
 - (void)parseExponentFromReader:(PKReader *)r;
 - (void)reset:(PKUniChar)cin;
-- (void)checkForHex:(PKReader *)r;
-- (void)checkForOctal;
 @end
 
 @implementation PKNumberState
@@ -46,25 +57,159 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self.prefixRootNode = [[[PKSymbolRootNode alloc] init] autorelease];
+        self.suffixRootNode = [[[PKSymbolRootNode alloc] init] autorelease];
+        self.radixForPrefix = [NSMutableDictionary dictionary];
+        self.radixForSuffix = [NSMutableDictionary dictionary];
+        self.separatorsForRadix = [NSMutableDictionary dictionary];
+        
+//        [self addPrefix:@"0b" forRadix:2.0];
+//        [self addPrefix:@"0"  forRadix:8.0];
+//        [self addPrefix:@"0o" forRadix:8.0];
+//        [self addPrefix:@"0x" forRadix:16.0];
+//
+//        [self addPrefix:@"%"  forRadix:2.0];
+//        [self addPrefix:@"$"  forRadix:16.0];
+//
+//        [self addSuffix:@"b"  forRadix:2.0];
+//        [self addSuffix:@"h"  forRadix:16.0];
+
         self.allowsFloatingPoint = YES;
         self.positivePrefix = '+';
         self.negativePrefix = '-';
-        self.groupingSeparator = ',';
         self.decimalSeparator = '.';
+        
+        [self addGroupingSeparator:@"," forRadix:10.0];
     }
     return self;
+}
+
+
+- (void)dealloc {
+    self.prefixRootNode = nil;
+    self.suffixRootNode = nil;
+    self.radixForPrefix = nil;
+    self.radixForSuffix = nil;
+    self.separatorsForRadix = nil;
+    [super dealloc];
+}
+
+
+- (void)addGroupingSeparator:(PKUniChar)sepChar forRadix:(PKFloat)f {
+    NSParameterAssert(f > 0.0);
+    NSAssert(separatorsForRadix, @"");
+    NSAssert(PKEOF != sepChar, @"");
+    if (PKEOF == sepChar) return;
+
+    NSNumber *radixKey = [NSNumber numberWithDouble:f];
+
+    NSMutableSet *vals = separatorsForRadix[radixKey];
+    if (!vals) {
+        vals = [NSMutableSet set];
+        separatorsForRadix[radixKey] = vals;
+    }
+
+    NSNumber *sepVal = [NSNumber numberWithInteger:sepChar];
+    if (sepVal) [vals addObject:sepVal];
+}
+
+
+- (void)removeGroupingSeparator:(PKUniChar)sepChar forRadix:(PKFloat)f {
+    NSAssert(separatorsForRadix, @"");
+    NSAssert(PKEOF != sepChar, @"");
+    if (PKEOF == sepChar) return;
+
+    NSNumber *radixKey = [NSNumber numberWithDouble:f];
+    NSMutableSet *vals = separatorsForRadix[radixKey];
+
+    NSNumber *sepVal = [NSNumber numberWithInteger:sepChar];
+    NSAssert([vals containsObject:sepVal], @"");
+    [vals removeObject:sepVal];
+}
+
+
+- (void)addPrefix:(NSString *)s forRadix:(PKFloat)f {
+    NSParameterAssert([s length]);
+    NSParameterAssert(f > 0.0);
+    NSAssert(radixForPrefix, @"");
+    
+    [prefixRootNode add:s];
+    NSNumber *n = [NSNumber numberWithDouble:f];
+    radixForPrefix[s] = n;
+}
+
+
+- (void)addSuffix:(NSString *)s forRadix:(PKFloat)f {
+    NSParameterAssert([s length]);
+    NSParameterAssert(f > 0.0);
+    NSAssert(radixForSuffix, @"");
+    
+    [prefixRootNode add:s];
+    NSNumber *n = [NSNumber numberWithDouble:f];
+    radixForSuffix[s] = n;
+}
+
+
+- (void)removePrefix:(NSString *)s {
+    NSParameterAssert([s length]);
+    NSAssert(radixForPrefix, @"");
+    NSAssert(radixForPrefix[s], @"");
+    [radixForPrefix removeObjectForKey:s];
+}
+
+
+- (void)removeSuffix:(NSString *)s {
+    NSParameterAssert([s length]);
+    NSAssert(radixForSuffix, @"");
+    NSAssert(radixForSuffix[s], @"");
+    [radixForSuffix removeObjectForKey:s];
+}
+
+
+- (PKFloat)radixForPrefix:(NSString *)s {
+    NSParameterAssert([s length]);
+    NSAssert(radixForPrefix, @"");
+    
+    NSNumber *n = radixForPrefix[s];
+    PKFloat f = [n doubleValue];
+    return f;
+}
+
+
+- (PKFloat)radixForSuffix:(NSString *)s {
+    NSParameterAssert([s length]);
+    NSAssert(radixForSuffix, @"");
+    
+    NSNumber *n = radixForSuffix[s];
+    PKFloat f = [n doubleValue];
+    return f;
+}
+
+
+- (BOOL)isValidSeparator:(PKUniChar)sepChar {
+    NSAssert(base > 0.0, @"");
+    //NSAssert(PKEOF != sepChar, @"");
+    if (PKEOF == sepChar) return NO;
+    
+    NSNumber *radixKey = [NSNumber numberWithDouble:base];
+    NSMutableSet *vals = separatorsForRadix[radixKey];
+
+    NSNumber *sepVal = [NSNumber numberWithInteger:sepChar];
+    BOOL result = [vals containsObject:sepVal];
+    return result;
 }
 
 
 - (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
     NSParameterAssert(r);
     NSParameterAssert(t);
-    NSAssert1(!(allowsGroupingSeparator && (decimalSeparator == groupingSeparator)), @"You have configured your tokenizer's numberState with the same decimal and grouping separator: `%C`. You don't want to do that.", (unichar)decimalSeparator);
 
     [self resetWithReader:r];
+    base = 10.0;
     isNegative = NO;
     originalCin = cin;
     
+    // check negative, positive first
     if (negativePrefix == cin) {
         isNegative = YES;
         cin = [r read];
@@ -74,6 +219,22 @@
         [self append:positivePrefix];
     }
     
+    // then check for prefix
+    NSString *prefix = nil;
+    if (PKEOF != cin) {
+        prefix = [prefixRootNode nextSymbol:r startingWith:cin];
+        PKFloat radix = [self radixForPrefix:prefix];
+        if (radix > 0.0) {
+            [self appendString:prefix];
+            base = radix;
+        } else {
+            base = 10.0;
+            [r unread:[prefix length]];
+            prefix = nil;
+        }
+        cin = [r read];
+    }
+    
     [self reset:cin];
     if (decimalSeparator == c) {
         if (allowsFloatingPoint) {
@@ -81,14 +242,14 @@
         }
     } else {
         [self parseLeftSideFromReader:r];
-        if (isDecimal && allowsFloatingPoint) {
+        if (10.0 == base && allowsFloatingPoint) {
             [self parseRightSideFromReader:r];
         }
     }
     
     // erroneous ., +, -, or 0x
     if (!gotADigit) {
-        if (isHex) {
+        if (prefix && '0' == originalCin) {
             [r unread];
             return [PKToken tokenWithTokenType:PKTokenTypeNumber stringValue:@"0" floatValue:0.0];
         } else {
@@ -135,8 +296,7 @@
     
     while (1) {
         isHexAlpha = NO;
-        if (allowsHexadecimalNotation) {
-            [self checkForHex:r];
+        if (16.0 == base) {
             if ((c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
                 isHexAlpha = YES;
             }
@@ -144,13 +304,8 @@
         
         if (isdigit(c) || isHexAlpha) {
             [self append:c];
-            len++;
             gotADigit = YES;
 
-            if (allowsOctalNotation) {
-                [self checkForOctal];
-            }
-            
             if (isHexAlpha) {
                 if (c >= 'a' && c <= 'f') {
                     c = toupper(c);
@@ -162,9 +317,8 @@
             if (isFraction) {
                 divideBy *= base;
             }
-        } else if (allowsGroupingSeparator && groupingSeparator == c) {
+        } else if (gotADigit && [self isValidSeparator:c]) {
             [self append:c];
-            len++;
             c = [r read];
         } else {
             break;
@@ -243,47 +397,23 @@
 
 - (void)reset:(PKUniChar)cin {
     c = cin;
-    firstNum = cin;
     gotADigit = NO;
     isFraction = NO;
-    isDecimal = YES;
-    isHex = NO;
-    len = 0;
-    base = (PKFloat)10.0;
+    //base = (PKFloat)10.0;
     floatValue = (PKFloat)0.0;
     exp = (PKFloat)0.0;
     isNegativeExp = NO;
 }
 
-
-- (void)checkForHex:(PKReader *)r {
-    if ('x' == c && '0' == firstNum && !isFraction && 1 == len) {
-        [self append:c];
-        len++;
-        c = [r read];
-        isDecimal = NO;
-        base = (PKFloat)16.0;
-        isHex = YES;
-        gotADigit = NO;
-    }
-}
-
-
-- (void)checkForOctal {
-    if ('0' == firstNum && !isFraction && isDecimal && 2 == len) {
-        isDecimal = NO;
-        base = (PKFloat)8.0;
-    }
-}
-
 @synthesize allowsTrailingDecimalSeparator;
 @synthesize allowsScientificNotation;
-@synthesize allowsOctalNotation;
-@synthesize allowsHexadecimalNotation;
 @synthesize allowsFloatingPoint;
-@synthesize allowsGroupingSeparator;
 @synthesize positivePrefix;
 @synthesize negativePrefix;
-@synthesize groupingSeparator;
 @synthesize decimalSeparator;
+@synthesize prefixRootNode;
+@synthesize suffixRootNode;
+@synthesize radixForPrefix;
+@synthesize radixForSuffix;
+@synthesize separatorsForRadix;
 @end
