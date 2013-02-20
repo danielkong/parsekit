@@ -1057,8 +1057,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchTrack:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
-
     NSAssert(square, @"");
     NSArray *parsers = [a objectsAbove:square];
     
@@ -1078,8 +1076,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchSeq:(PKAssembly *)a {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
-
     NSMutableArray *parsers = [NSMutableArray array];
     while (![a isStackEmpty]) {
         id obj = [a pop];
