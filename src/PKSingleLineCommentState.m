@@ -78,7 +78,7 @@
     }
     
     PKUniChar c;
-    while (1) {
+    for (;;) {
         c = [r read];
         if ('\n' == c || '\r' == c || PKEOF == c) {
             break;

@@ -104,7 +104,7 @@
     PKToken *tok = nil;
     NSArray *toks = self.tokens;
     
-    while (1) {
+    for (;;) {
         if (index >= [toks count]) {
             tok = nil;
             break;

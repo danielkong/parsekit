@@ -143,7 +143,7 @@
         endMarker = endMarkerOrNull;
         e = [endMarker characterAtIndex:0];
     }
-    while (1) {
+    for (;;) {
         c = [r read];
         if (PKEOF == c) {
             if (balancesEOFTerminatedStrings && endMarker) {

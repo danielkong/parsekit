@@ -123,7 +123,7 @@
 
 - (NSArray *)objectsAbove:(id)fence {
     NSMutableArray *result = [NSMutableArray array];
-    while (1) {
+    for (;;) {
         id obj = [stack lastObject];
         [stack removeLastObject];
         if ([obj isEqual:fence]) {
