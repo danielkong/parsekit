@@ -438,6 +438,61 @@ void PKReleaseSubparserTree(PKParser *p) {
             }
         }
     }
+    
+    // number state prefixes
+    toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@numberPrefixForRadix"]];
+    NSAssert(0 == [toks count] % 2, @"@numberPrefixForRadix must be specified as quoted strings in multiples of 2");
+    [parserTokensTable removeObjectForKey:@"@numberPrefixForRadix"];
+    if ([toks count] > 1) {
+        for (NSInteger i = 0; i < [toks count] - 1; i++) {
+            PKToken *prefixTok = [toks objectAtIndex:i];
+            PKToken *radixTok = [toks objectAtIndex:++i];
+            if (prefixTok.isQuotedString && radixTok.isNumber) {
+                NSString *prefix = [prefixTok.stringValue stringByTrimmingQuotes];
+                PKFloat radix = radixTok.floatValue;
+                [t.numberState addPrefix:prefix forRadix:radix];
+            }
+        }
+    }
+    
+    // number state suffix
+    toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@numberSuffixForRadix"]];
+    NSAssert(0 == [toks count] % 2, @"@numberSuffixForRadix must be specified as quoted strings in multiples of 2");
+    [parserTokensTable removeObjectForKey:@"@numberSuffixForRadix"];
+    if ([toks count] > 1) {
+        for (NSInteger i = 0; i < [toks count] - 1; i++) {
+            PKToken *suffixTok = [toks objectAtIndex:i];
+            PKToken *radixTok = [toks objectAtIndex:++i];
+            if (suffixTok.isQuotedString && radixTok.isNumber) {
+                NSString *suffix = [suffixTok.stringValue stringByTrimmingQuotes];
+                PKFloat radix = radixTok.floatValue;
+                if (radix > 0.0) {
+                    [t.numberState addSuffix:suffix forRadix:radix];
+                }
+            }
+        }
+    }
+    
+    // number grouping separator
+    toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@numberGroupingSeparatorForRadix"]];
+    NSAssert(0 == [toks count] % 2, @"@numberGroupingSeparatorForRadix must be specified as quoted strings in multiples of 2");
+    [parserTokensTable removeObjectForKey:@"@numberGroupingSeparatorForRadix"];
+    if ([toks count] > 1) {
+        for (NSInteger i = 0; i < [toks count] - 1; i++) {
+            PKToken *sepTok = [toks objectAtIndex:i];
+            PKToken *radixTok = [toks objectAtIndex:++i];
+            if (sepTok.isQuotedString && radixTok.isNumber) {
+                NSString *sepStr = [sepTok.stringValue stringByTrimmingQuotes];
+                if (1 == [sepStr length]) {
+                    PKFloat radix = radixTok.floatValue;
+                    if (radix > 0.0) {
+                        PKUniChar c = [sepStr characterAtIndex:0];
+                        [t.numberState addGroupingSeparator:c forRadix:radix];
+                    }
+                }
+            }
+        }
+    }
 
     // delimited strings
     toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@delimitedString"]];
