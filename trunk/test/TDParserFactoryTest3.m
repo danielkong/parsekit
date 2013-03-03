@@ -34,6 +34,19 @@
 }
 
 
+- (void)testSubTrack {
+    g = @"@start = Word [Number Word]";
+    
+    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+    
+    TDNotNil(lp);
+    
+    s = @"foo 3 bar";
+    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+    TDEqualObjects(@"[foo, 3, bar]foo/3/bar^", [res description]);
+}
+
+
 - (void)testTrackFailure {
     g = @"@start = [Number Word]";
     
@@ -53,6 +66,31 @@
         reachedCatch = YES;
         TDEqualObjects([PKTrackException class], [ex class]);
         TDEqualObjects(@"\n\nAfter : 3\nExpected : Word\nFound : -nothing-\n\n", [ex reason]);
+    }
+    
+    TDTrue(reachedCatch);
+}
+
+
+- (void)testSubTrackFailure {
+    g = @"@start = Word [Number Word]";
+    
+    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+    
+    TDNotNil(lp);
+    
+    BOOL reachedCatch = NO;
+    
+    s = @"foo 3";
+    @try {
+        res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+        TDTrue(0); // should not reach
+    }
+    @catch (NSException *ex) {
+        NSLog(@"%@", ex);
+        reachedCatch = YES;
+        TDEqualObjects([PKTrackException class], [ex class]);
+        TDEqualObjects(@"\n\nAfter : foo 3\nExpected : Word\nFound : -nothing-\n\n", [ex reason]);
     }
     
     TDTrue(reachedCatch);
