@@ -19,7 +19,7 @@
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchSeq:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchTrack:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
@@ -116,9 +116,7 @@
 // callback             = S* '(' S* selector S* ')';
 // selector             = Word ':';
 // expr                 = S* term orTerm* S*;
-// term                 = track | seq;
-// track                = '[' factor nextFactor* ']';
-// seq                  = factor nextFactor*;
+// term                 = factor nextFactor*;
 // orTerm               = S* '|' S* term;
 // factor               = phrase | phraseStar | phrasePlus | phraseQuestion | phraseCardinality;
 // nextFactor           = S factor;
@@ -136,7 +134,9 @@
 
 // primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
 // negatedPrimaryExpr   = '~' barePrimaryExpr;
-// barePrimaryExpr      = atomicValue | '(' expr ')';
+// barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
+// subSeqExpr           = '(' expr ')';
+// subTrackExpr         = '[' expr ']';
 // atomicValue          = parser discard?;
 // parser               = pattern | literal | variable | constant | delimitedString;
 // discard              = S* '!';
@@ -232,30 +232,13 @@
 
 
 // term                = factor nextFactor*;
-
-// term                 = track | seq;
-// track                = '[' factor nextFactor* ']';
-// seq                  = factor nextFactor*;
-
 - (PKCollectionParser *)termParser {
     if (!termParser) {
-        self.termParser = [PKAlternation alternation];
+        self.termParser = [PKSequence sequence];
         termParser.name = @"term";
-        
-        PKCollectionParser *track = [PKTrack track];
-        [track add:[PKLiteral literalWithString:@"["]];
-        [track add:self.factorParser];
-        [track add:[PKRepetition repetitionWithSubparser:self.nextFactorParser]];
-        [track add:[[PKLiteral literalWithString:@"]"] discard]];
-        [track setAssembler:assembler selector:@selector(parser:didMatchTrack:)];
-        
-        PKCollectionParser *seq = [PKSequence sequence];
-        [seq add:self.factorParser];
-        [seq add:[PKRepetition repetitionWithSubparser:self.nextFactorParser]];
-        [seq setAssembler:assembler selector:@selector(parser:didMatchSeq:)];
-
-        [termParser add:track];
-        [termParser add:seq];
+        [termParser add:self.factorParser];
+        [termParser add:[PKRepetition repetitionWithSubparser:self.nextFactorParser]];
+        [termParser setAssembler:assembler selector:@selector(parser:didMatchAnd:)];
     }
     return termParser;
 }
@@ -352,7 +335,9 @@
 }
 
 
-// barePrimaryExpr          = atomicValue | '(' expr ')';
+// barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
+// subSeqExpr           = '(' expr ')';
+// subTrackExpr         = '[' expr ']';
 - (PKCollectionParser *)barePrimaryExprParser {
     if (!barePrimaryExprParser) {
         self.barePrimaryExprParser = [PKAlternation alternation];
@@ -363,8 +348,13 @@
         [s add:[PKSymbol symbolWithString:@"("]];
         [s add:self.exprParser];
         [s add:[[PKSymbol symbolWithString:@")"] discard]];
-        
         [barePrimaryExprParser add:s];
+
+        PKTrack *tr = [PKTrack track];
+        [tr add:[PKSymbol symbolWithString:@"["]];
+        [tr add:self.exprParser];
+        [tr add:[[PKSymbol symbolWithString:@"]"] discard]];
+        [barePrimaryExprParser add:tr];
     }
     return barePrimaryExprParser;
 }

@@ -12,8 +12,6 @@
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
 
-#define USE_TRACK 0
-
 @interface PKParser (PKParserFactoryAdditionsFriend)
 - (void)setTokenizer:(PKTokenizer *)t;
 @end
@@ -116,8 +114,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchSeq:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchTrack:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a;
@@ -759,23 +756,49 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a {
-    NSArray *objs = [a objectsAbove:paren];
-    NSAssert([objs count], @"");
-    [a pop]; // pop '('
+    NSParameterAssert(a);
+    id obj = nil;
+    BOOL isTrack = NO;
+    NSMutableArray *objs = [NSMutableArray array];
     
+    while (![a isStackEmpty]) {
+        obj = [a pop];
+        if ([obj isEqual:square]) {
+            isTrack = YES;
+            break;
+        } else if ([obj isEqual:paren]) {
+            break;
+        } else {
+            [objs addObject:obj];
+        }
+    }
+    
+    NSAssert([objs count], @"");
+    
+    // this implements track via '[' ... ']'. It's a bit ugly. could be improved.
     if ([objs count] > 1) {
         PKSequence *seq = nil;
-#if USE_TRACK
-        seq = [PKTrack track];
-#else
-        seq = [PKSequence sequence];
-#endif
+        if (isTrack) {
+            seq = [PKTrack track];
+        } else {
+            seq = [PKSequence sequence];
+        }
+        
         for (id obj in [objs reverseObjectEnumerator]) {
             [seq add:obj];
         }
         [a push:seq];
     } else if ([objs count]) {
-        [a push:[objs objectAtIndex:0]];
+        PKParser *p = objs[0];
+        if ([p isKindOfClass:[PKSequence class]] && isTrack) {
+            PKSequence *seq = (PKSequence *)p;
+            PKTrack *tr = [PKTrack track];
+            for (PKParser *sub in seq.subparsers) {
+                [tr add:sub];
+            }
+            p = tr;
+        }
+        [a push:p];
     }
 }
 
@@ -1056,26 +1079,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchTrack:(PKAssembly *)a {
-    NSAssert(square, @"");
-    NSArray *parsers = [a objectsAbove:square];
-    
-    [a pop]; // discard '['
-    
-    if ([parsers count] > 1) {
-        PKSequence *seq = [PKTrack track];
-        for (PKParser *p in [parsers reverseObjectEnumerator]) {
-            [seq add:p];
-        }
-        
-        [a push:seq];
-    } else if (1 == [parsers count]) {
-        [a push:[parsers objectAtIndex:0]];
-    }
-}
-
-
-- (void)parser:(PKParser *)p didMatchSeq:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a {
     NSMutableArray *parsers = [NSMutableArray array];
     while (![a isStackEmpty]) {
         id obj = [a pop];
@@ -1088,12 +1092,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     if ([parsers count] > 1) {
-        PKSequence *seq = nil;
-#if USE_TRACK
-        seq = [PKTrack track];
-#else
-        seq = [PKSequence sequence];
-#endif
+        PKSequence *seq = [PKSequence sequence];
         for (PKParser *p in [parsers reverseObjectEnumerator]) {
             [seq add:p];
         }
