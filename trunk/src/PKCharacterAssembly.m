@@ -100,7 +100,7 @@
 }
 
 
-- (NSString *)lastConsumedObjects:(NSUInteger)len separatedBy:(NSString *)delimiter {
+- (NSString *)lastConsumedObjects:(NSUInteger)len joinedByString:(NSString *)delimiter {
     NSParameterAssert(delimiter);
     
     NSUInteger strLen = [string length];
