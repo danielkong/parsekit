@@ -167,7 +167,7 @@
 }
 
 
-- (NSString *)lastConsumedObjects:(NSUInteger)len separatedBy:(NSString *)delimiter {
+- (NSString *)lastConsumedObjects:(NSUInteger)len joinedByString:(NSString *)delimiter {
     NSParameterAssert(delimiter);
     
     NSArray *toks = self.tokens;
