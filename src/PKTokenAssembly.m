@@ -19,7 +19,7 @@
 @interface PKTokenAssembly ()
 - (id)initWithString:(NSString *)s tokenzier:(PKTokenizer *)t tokenArray:(NSArray *)a;
 - (void)tokenize;
-- (NSString *)objectsFrom:(PKUniChar)start to:(PKUniChar)end separatedBy:(NSString *)delimiter;
+- (NSString *)objectsFrom:(NSUInteger)start to:(NSUInteger)end separatedBy:(NSString *)delimiter;
 
 @property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, copy) NSArray *tokens;
@@ -187,7 +187,7 @@
 }
 
 
-- (NSString *)objectsFrom:(PKUniChar)start to:(PKUniChar)end separatedBy:(NSString *)delimiter {
+- (NSString *)objectsFrom:(NSUInteger)start to:(NSUInteger)end separatedBy:(NSString *)delimiter {
     NSMutableString *s = [NSMutableString string];
     NSArray *toks = self.tokens;
 
