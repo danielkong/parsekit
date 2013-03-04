@@ -14,6 +14,7 @@
 
 #import <ParseKit/PKTrack.h>
 #import <ParseKit/PKAssembly.h>
+#import <ParseKit/PKToken.h>
 #import <ParseKit/PKTrackException.h>
 
 @interface PKAssembly ()
@@ -74,7 +75,21 @@
 
 - (void)throwTrackExceptionWithPreviousState:(NSSet *)inAssemblies parser:(PKParser *)p {
     PKAssembly *best = [self best:inAssemblies];
+    
+    NSMutableString *reason = [NSMutableString stringWithString:@"\n\n"];
+    
+    NSUInteger lineNum = NSNotFound;
+    
+    id obj = [best peek];
+    if ([obj isKindOfClass:[PKToken class]]) {
+        lineNum = [obj lineNumber];
+        NSAssert(NSNotFound != lineNum, @"");
 
+        if (NSNotFound != lineNum) {
+            [reason appendFormat:@"Line number : %lu\n", lineNum];
+        }
+    }
+    
     NSString *after = [best consumedObjectsJoinedByString:@" "];
     if (![after length]) {
         after = @"-nothing-";
@@ -85,14 +100,14 @@
     id next = [best peek];
     NSString *found = next ? [next description] : @"-nothing-";
     
-    NSString *reason = [NSString stringWithFormat:@"\n\nAfter : %@\nExpected : %@\nFound : %@\n\n", after, expected, found];
+    [reason appendFormat:@"After : %@\nExpected : %@\nFound : %@\n\n", after, expected, found];
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                               after, @"after",
                               expected, @"expected",
                               found, @"found",
                               nil];
 
-    [[PKTrackException exceptionWithName:PKTrackExceptionName reason:reason userInfo:userInfo] raise];
+    [[PKTrackException exceptionWithName:PKTrackExceptionName reason:[[reason copy] autorelease] userInfo:userInfo] raise];
 }
 
 @end
