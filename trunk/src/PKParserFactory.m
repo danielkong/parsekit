@@ -123,6 +123,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchSpecificConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a;
@@ -974,6 +975,19 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     [a push:obj];
+}
+
+
+- (void)parser:(PKParser *)p didMatchSpecificConstant:(PKAssembly *)a {
+    PKToken *quoteTok = [a pop];
+    NSString *str = [quoteTok.stringValue stringByTrimmingQuotes];
+    
+    PKToken *wordTok = [a pop];
+    NSAssert([wordTok.stringValue isEqualToString:@"Symbol"], @"");
+    
+    PKParser *sym = [PKSymbol symbolWithString:str];
+    
+    [a push:sym];
 }
 
 
