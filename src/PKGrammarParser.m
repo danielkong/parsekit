@@ -29,6 +29,7 @@
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchSpecificConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a;
@@ -91,6 +92,7 @@
     self.literalParser = nil;
     self.variableParser = nil;
     self.constantParser = nil;
+    self.specificConstantParser = nil;
     [super dealloc];
 }
 
@@ -138,7 +140,7 @@
 // subSeqExpr           = '(' expr ')';
 // subTrackExpr         = '[' expr ']';
 // atomicValue          = parser discard?;
-// parser               = pattern | literal | variable | constant | delimitedString;
+// parser               = pattern | literal | variable | constant | specificConstant | delimitedString;
 // discard              = S* '!';
 // pattern              = DelimitedString('/', '/') (Word & /[imxsw]+/)?;
 // delimitedString      = 'DelimitedString' S* '(' S* QuotedString (S* ',' QuotedString)? S* ')';
@@ -508,7 +510,7 @@
 }
 
 
-// parser              = pattern | literal | variable | constant | delimitedString;
+// parser               = pattern | literal | variable | constant | specificConstant | delimitedString;
 - (PKCollectionParser *)parserParser {
     if (!parserParser) {
         self.parserParser = [PKAlternation alternation];
@@ -517,6 +519,7 @@
         [parserParser add:self.literalParser];
         [parserParser add:self.variableParser];
         [parserParser add:self.constantParser];
+        [parserParser add:self.specificConstantParser];
         [parserParser add:self.delimitedStringParser];
     }
     return parserParser;
@@ -618,6 +621,21 @@
 }
 
 
+// specificConstant      = UppercaseWord '(' QuotedString ')';
+- (PKParser *)specificConstantParser {
+    if (!specificConstantParser) {
+        self.specificConstantParser = [PKSequence sequence];
+        specificConstantParser.name = @"specificConstant";
+        [specificConstantParser add:[PKUppercaseWord word]];
+        [specificConstantParser add:[[PKSymbol symbolWithString:@"("] discard]];
+        [specificConstantParser add:[PKQuotedString quotedString]];
+        [specificConstantParser add:[[PKSymbol symbolWithString:@")"] discard]];
+        [specificConstantParser setAssembler:assembler selector:@selector(parser:didMatchSpecificConstant:)];
+    }
+    return specificConstantParser;
+}
+
+
 - (PKParser *)whitespaceParser {
     return [[PKWhitespace whitespace] discard];
 }
@@ -656,4 +674,5 @@
 @synthesize literalParser;
 @synthesize variableParser;
 @synthesize constantParser;
+@synthesize specificConstantParser;
 @end
