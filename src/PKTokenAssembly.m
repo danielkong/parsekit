@@ -167,6 +167,22 @@
 }
 
 
+- (NSString *)lastConsumedObjects:(NSUInteger)len separatedBy:(NSString *)delimiter {
+    NSParameterAssert(delimiter);
+    
+    NSArray *toks = self.tokens;
+    NSUInteger end = self.objectsConsumed;
+    
+    len = MIN(end, len);
+    
+    NSRange r = NSMakeRange(end - len, len);
+    NSArray *objs = [toks subarrayWithRange:r];
+    
+    NSString *s = [objs componentsJoinedByString:delimiter];
+    return s;
+}
+
+
 #pragma mark -
 #pragma mark Private
 
@@ -188,8 +204,13 @@
 
 
 - (NSString *)objectsFrom:(NSUInteger)start to:(NSUInteger)end separatedBy:(NSString *)delimiter {
+    NSParameterAssert(delimiter);
+    NSParameterAssert(start <= end);
+
     NSMutableString *s = [NSMutableString string];
     NSArray *toks = self.tokens;
+
+    NSParameterAssert(end <= [toks count]);
 
     for (NSInteger i = start; i < end; i++) {
         PKToken *tok = [toks objectAtIndex:i];
