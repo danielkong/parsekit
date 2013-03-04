@@ -86,7 +86,7 @@
         NSAssert(NSNotFound != lineNum, @"");
 
         if (NSNotFound != lineNum) {
-            [reason appendFormat:@"Line number : %lu\n", lineNum];
+            [reason appendFormat:@"Line : %lu\n", lineNum];
         }
     }
     
