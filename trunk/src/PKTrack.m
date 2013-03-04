@@ -76,13 +76,13 @@
 - (void)throwTrackExceptionWithPreviousState:(NSSet *)inAssemblies parser:(PKParser *)p {
     PKAssembly *best = [self best:inAssemblies];
     
+    id next = [best peek];
+    
     NSMutableString *reason = [NSMutableString stringWithString:@"\n\n"];
     
     NSUInteger lineNum = NSNotFound;
-    
-    id obj = [best peek];
-    if ([obj isKindOfClass:[PKToken class]]) {
-        lineNum = [obj lineNumber];
+    if (next && [next isKindOfClass:[PKToken class]]) {
+        lineNum = [next lineNumber];
         NSAssert(NSNotFound != lineNum, @"");
 
         if (NSNotFound != lineNum) {
@@ -97,7 +97,6 @@
     
     NSString *expected = [p description];
 
-    id next = [best peek];
     NSString *found = next ? [next description] : @"-nothing-";
     
     [reason appendFormat:@"After : %@\nExpected : %@\nFound : %@\n\n", after, expected, found];
