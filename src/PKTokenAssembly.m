@@ -172,10 +172,15 @@
     
     NSArray *toks = self.tokens;
     NSUInteger end = self.objectsConsumed;
-    
+
     len = MIN(end, len);
+    NSUInteger loc = end - len;
+
+    NSAssert(loc < [toks count], @"");
+    NSAssert(len <= [toks count], @"");
+    NSAssert(loc + len <= [toks count], @"");
     
-    NSRange r = NSMakeRange(end - len, len);
+    NSRange r = NSMakeRange(loc, len);
     NSArray *objs = [toks subarrayWithRange:r];
     
     NSString *s = [objs componentsJoinedByString:delimiter];
