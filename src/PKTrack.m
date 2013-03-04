@@ -17,6 +17,8 @@
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTrackException.h>
 
+#define NUM_DISPLAY_OBJS 6
+
 @interface PKAssembly ()
 - (id)peek;
 - (NSString *)lastConsumedObjects:(NSUInteger)len joinedByString:(NSString *)delimiter;
@@ -90,7 +92,7 @@
         }
     }
     
-    NSString *after = [best lastConsumedObjects:6 joinedByString:@" "];
+    NSString *after = [best lastConsumedObjects:NUM_DISPLAY_OBJS joinedByString:@" "];
     if (![after length]) {
         after = @"-nothing-";
     }
