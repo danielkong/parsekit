@@ -19,7 +19,7 @@
 
 @interface PKAssembly ()
 - (id)peek;
-- (NSString *)consumedObjectsJoinedByString:(NSString *)delimiter;
+- (NSString *)lastConsumedObjects:(NSUInteger)len separatedBy:(NSString *)delimiter;
 @end
 
 @interface PKParser ()
@@ -90,7 +90,7 @@
         }
     }
     
-    NSString *after = [best consumedObjectsJoinedByString:@" "];
+    NSString *after = [best lastConsumedObjects:6 separatedBy:@" "];
     if (![after length]) {
         after = @"-nothing-";
     }
