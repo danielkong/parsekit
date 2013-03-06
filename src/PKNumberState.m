@@ -319,7 +319,6 @@
 
 - (void)applySuffixFromReader:(PKReader *)r {
     NSParameterAssert(r);
-    NSAssert([suffix length], @"");
     NSUInteger len = [suffix length];
     NSAssert(len && len != NSNotFound, @"");
     for (NSUInteger i = 0; i < len; ++i) {
