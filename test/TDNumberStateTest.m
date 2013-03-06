@@ -383,6 +383,67 @@
 }
 
 
+- (void)testHexSymbolFakePrefix {
+    [t.numberState addPrefix:@"$" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'$' to:'$'];
+    
+    s = @"$";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@"$", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEqualObjects([PKToken EOFToken], tok);
+}
+
+
+- (void)testHexSymbolFakePrefix2 {
+    [t.numberState addPrefix:@"$" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'$' to:'$'];
+    
+    s = @"$ 1";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@"$", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEquals((PKFloat)1.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"1", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEqualObjects([PKToken EOFToken], tok);
+}
+
+
+- (void)testHexSymbolFakePrefix3 {
+    [t.numberState addPrefix:@"$" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'$' to:'$'];
+    
+    s = @"$ ff";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@"$", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"ff", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEqualObjects([PKToken EOFToken], tok);
+}
+
+
 - (void)testHexSymbolPrefix_10 {
     [t.numberState addPrefix:@"$" forRadix:16.0];
     [t setTokenizerState:t.numberState from:'$' to:'$'];
