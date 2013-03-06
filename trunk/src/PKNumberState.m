@@ -369,17 +369,17 @@
 
 
 - (PKFloat)value {
-    PKFloat result = (PKFloat)floatValue;
+    PKFloat result = floatValue;
     
     for (NSUInteger i = 0; i < exp; i++) {
         if (isNegativeExp) {
-            result /= (PKFloat)10.0;
+            result /= base;
         } else {
-            result *= (PKFloat)10.0;
+            result *= base;
         }
     }
     
-    return (PKFloat)result;
+    return result;
 }
 
 
@@ -423,7 +423,7 @@
         v = v / divideBy;
     }
 
-    return (PKFloat)v;
+    return v;
 }
 
 
