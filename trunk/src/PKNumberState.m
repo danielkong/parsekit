@@ -28,6 +28,8 @@
 @interface PKTokenizerState ()
 - (void)resetWithReader:(PKReader *)r;
 - (PKTokenizerState *)nextTokenizerStateFor:(PKUniChar)c tokenizer:(PKTokenizer *)t;
+- (PKUniChar)checkForSuffixFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t;
+- (PKUniChar)checkForPrefixFromReader:(PKReader *)r startingWith:(PKUniChar)cin;
 - (void)append:(PKUniChar)c;
 - (void)appendString:(NSString *)s;
 - (NSString *)bufferedString;
@@ -42,6 +44,9 @@
 @property (nonatomic, retain) NSMutableDictionary *radixForPrefix;
 @property (nonatomic, retain) NSMutableDictionary *radixForSuffix;
 @property (nonatomic, retain) NSMutableDictionary *separatorsForRadix;
+
+@property (nonatomic, retain) NSString *prefix;
+@property (nonatomic, retain) NSString *suffix;
 @end
 
 @interface PKNumberState ()
@@ -90,6 +95,8 @@
     self.radixForPrefix = nil;
     self.radixForSuffix = nil;
     self.separatorsForRadix = nil;
+    self.prefix = nil;
+    self.suffix = nil;
     [super dealloc];
 }
 
@@ -208,29 +215,9 @@
 }
 
 
-- (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
-    NSParameterAssert(r);
-    NSParameterAssert(t);
-
-    [self resetWithReader:r];
-    base = 10.0;
-    isNegative = NO;
-    originalCin = cin;
-    
-    // check negative, positive first
-    if (negativePrefix == cin) {
-        isNegative = YES;
-        cin = [r read];
-        [self append:negativePrefix];
-    } else if (positivePrefix == cin) {
-        cin = [r read];
-        [self append:positivePrefix];
-    }
-    
-    // then check for prefix
-    NSString *prefix = nil;
+- (PKUniChar)checkForPrefixFromReader:(PKReader *)r startingWith:(PKUniChar)cin {
     if (PKEOF != cin) {
-        prefix = [prefixRootNode nextSymbol:r startingWith:cin];
+        self.prefix = [prefixRootNode nextSymbol:r startingWith:cin];
         PKFloat radix = [self radixForPrefix:prefix];
         if (radix > 0.0) {
             [self appendString:prefix];
@@ -238,13 +225,16 @@
         } else {
             base = 10.0;
             [r unread:[prefix length]];
-            prefix = nil;
+            self.prefix = nil;
         }
         cin = [r read];
     }
-    
-    // then check for suffix
-    NSString *suffix = nil;
+    return cin;
+}
+
+
+- (PKUniChar)checkForSuffixFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
+    self.suffix = nil;
     if ([radixForSuffix count] && !prefix) {
         PKUniChar suffixChar = cin;
         NSUInteger len = 0;
@@ -256,7 +246,7 @@
                 if (n) {
                     base = [n doubleValue];
                 } else {
-                    suffix = nil;
+                    self.suffix = nil;
                 }
                 break;
             }
@@ -264,11 +254,41 @@
             [self append:suffixChar];
             suffixChar = [r read];
         }
-
+        
         [r unread:PKEOF == suffixChar ? len - 1 : len];
         [self resetWithReader:r];
     }
+    return cin;
+}
+
+
+- (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
+    NSParameterAssert(r);
+    NSParameterAssert(t);
+
+    // reset first
+    [self resetWithReader:r];
+    base = 10.0;
+    isNegative = NO;
+    originalCin = cin;
     
+    // then check for explicit positive, negative
+    if (negativePrefix == cin) {
+        isNegative = YES;
+        cin = [r read];
+        [self append:negativePrefix];
+    } else if (positivePrefix == cin) {
+        cin = [r read];
+        [self append:positivePrefix];
+    }
+    
+    // then check for prefix
+    cin = [self checkForPrefixFromReader:r startingWith:cin];
+    
+    // then check for suffix
+    cin = [self checkForSuffixFromReader:r startingWith:cin tokenizer:t];
+    
+    // then start absorbing digits
     [self reset:cin];
     if (decimalSeparator == c) {
         if (allowsFloatingPoint) {
@@ -281,7 +301,9 @@
         }
     }
     
-    // erroneous ., +, -, or 0x
+    // ok, we're done absorbing digits.
+    
+    // check for erroneous ., +, -, 0x, $, etc.
     if (!gotADigit) {
         if (prefix && '0' == originalCin) {
             [r unread];
@@ -298,10 +320,15 @@
         [r unread];
     }
 
+    // apply negative
     if (isNegative) {
         floatValue = -floatValue;
     }
-    
+
+    // destroy prefix
+    if (prefix) self.prefix = nil;
+
+    // apply suffix
     if (suffix) {
         NSUInteger len = [suffix length];
         NSAssert(len && len != NSNotFound, @"");
@@ -309,6 +336,9 @@
             [r read];
         }
         [self appendString:suffix];
+
+        // destroy suffix
+        self.suffix = nil;
     }
     
     PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeNumber stringValue:[self bufferedString] floatValue:[self value]];
@@ -459,4 +489,6 @@
 @synthesize radixForPrefix;
 @synthesize radixForSuffix;
 @synthesize separatorsForRadix;
+@synthesize prefix;
+@synthesize suffix;
 @end

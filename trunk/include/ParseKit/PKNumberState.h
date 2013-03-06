@@ -48,6 +48,9 @@
     NSMutableDictionary *radixForPrefix;
     NSMutableDictionary *radixForSuffix;
     NSMutableDictionary *separatorsForRadix;
+    
+    NSString *prefix;
+    NSString *suffix;
 }
 
 - (void)addPrefix:(NSString *)s forRadix:(PKFloat)f;
