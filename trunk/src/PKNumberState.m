@@ -255,28 +255,29 @@
 
 
 - (PKUniChar)checkForSuffixFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
-    self.suffix = nil;
     if ([radixForSuffix count] && !prefix) {
-        PKUniChar suffixChar = cin;
+        PKUniChar nextChar = cin;
+        PKUniChar lastChar = PKEOF;
         NSUInteger len = 0;
         for (;;) {
-            if (PKEOF == suffixChar || [t.whitespaceState isWhitespaceChar:suffixChar]) {
-                const unichar lastChar = [[self bufferedString] characterAtIndex:len - 1];
-                suffix = [NSString stringWithCharacters:&lastChar length:1];
-                NSNumber *n = [radixForSuffix objectForKey:suffix];
+            if (PKEOF == nextChar || [t.whitespaceState isWhitespaceChar:nextChar]) {
+                NSAssert(PKEOF != lastChar && '\0' != lastChar, @"");
+                NSString *str = [NSString stringWithCharacters:(const unichar *)&lastChar length:1];
+                NSAssert(str, @"");
+                NSNumber *n = [radixForSuffix objectForKey:str];
                 if (n) {
+                    self.suffix = str;
                     base = [n doubleValue];
-                } else {
-                    self.suffix = nil;
                 }
                 break;
             }
             ++len;
-            [self append:suffixChar];
-            suffixChar = [r read];
+            [self append:nextChar];
+            lastChar = nextChar;
+            nextChar = [r read];
         }
         
-        [r unread:PKEOF == suffixChar ? len - 1 : len];
+        [r unread:PKEOF == nextChar ? len - 1 : len];
         [self resetWithReader:r];
     }
     return cin;
