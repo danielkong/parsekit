@@ -29,6 +29,324 @@
 }
 
 
+- (void)testHexSuffix0 {
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    
+    s = @"0h";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"0h", tok.stringValue);
+}
+
+
+- (void)testHexSuffix00 {
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    
+    s = @"00h";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"00h", tok.stringValue);
+}
+
+
+- (void)testHexSuffix10 {
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    
+    s = @"10h";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)16.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"10h", tok.stringValue);
+}
+
+
+- (void)testHexSuffix1a {
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    
+    s = @"1ah";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)26.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"1ah", tok.stringValue);
+}
+
+
+- (void)testHexSuffixFF {
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'a' to:'f'];
+    [t setTokenizerState:t.numberState from:'A' to:'F'];
+    t.numberState.fallbackState = t.wordState;
+    
+    s = @"ffh";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)255.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"ffh", tok.stringValue);
+}
+
+
+- (void)testHexSuffixFF_FF {
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'a' to:'f'];
+    [t setTokenizerState:t.numberState from:'A' to:'F'];
+    t.numberState.fallbackState = t.wordState;
+    
+    s = @"ff ffh";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"ff", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEquals((PKFloat)255.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"ffh", tok.stringValue);
+}
+
+
+- (void)testHexSuffix12FF {
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'a' to:'f'];
+    [t setTokenizerState:t.numberState from:'A' to:'F'];
+    t.numberState.fallbackState = t.wordState;
+    
+    s = @"12 ffh";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)12.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"12", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEquals((PKFloat)255.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"ffh", tok.stringValue);
+}
+
+
+- (void)testHexSuffix12FFhF {
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'a' to:'f'];
+    [t setTokenizerState:t.numberState from:'A' to:'F'];
+    t.numberState.fallbackState = t.wordState;
+    
+    s = @"12 ffhf";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)12.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"12", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"ffhf", tok.stringValue);
+}
+
+
+- (void)testHexSuffix0000_FFFF {
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    [t.numberState addGroupingSeparator:'_' forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'a' to:'f'];
+    [t setTokenizerState:t.numberState from:'A' to:'F'];
+    t.numberState.fallbackState = t.wordState;
+    
+    s = @"0000_ffffh";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0xFFFF, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"0000_ffffh", tok.stringValue);
+}
+
+
+- (void)testHexSuffixAndPrefix0000_FFFF {
+    [t.numberState addPrefix:@"$" forRadix:16.0];
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    [t.numberState addGroupingSeparator:'_' forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'$' to:'$'];
+    [t setTokenizerState:t.numberState from:'a' to:'f'];
+    [t setTokenizerState:t.numberState from:'A' to:'F'];
+    t.numberState.fallbackState = t.wordState;
+    
+    s = @"$0000_ffff 0000_ffffh";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0xFFFF, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"$0000_ffff", tok.stringValue);
+
+    tok = [t nextToken];
+    TDEquals((PKFloat)0xFFFF, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"0000_ffffh", tok.stringValue);
+}
+
+
+- (void)testHexSuffixFFFoobar {
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'a' to:'f'];
+    [t setTokenizerState:t.numberState from:'A' to:'F'];
+    t.numberState.fallbackState = t.wordState;
+    
+    s = @"ffh foobar";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)255.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"ffh", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"foobar", tok.stringValue);
+}
+
+
+- (void)testHexSuffixFFHot {
+    [t.numberState addSuffix:@"h" forRadix:16.0];
+    [t setTokenizerState:t.numberState from:'a' to:'f'];
+    [t setTokenizerState:t.numberState from:'A' to:'F'];
+    t.numberState.fallbackState = t.wordState;
+    
+    s = @"ffh hot";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)255.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"ffh", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"hot", tok.stringValue);
+}
+
+
+- (void)testBinSuffix0 {
+    [t.numberState addSuffix:@"b" forRadix:2.0];
+    
+    s = @"0b";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"0b", tok.stringValue);
+}
+
+
+- (void)testBinSuffix00 {
+    [t.numberState addSuffix:@"b" forRadix:2.0];
+    
+    s = @"00b";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"00b", tok.stringValue);
+}
+
+
+- (void)testBinSuffix1 {
+    [t.numberState addSuffix:@"b" forRadix:2.0];
+    
+    s = @"1b";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)1.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"1b", tok.stringValue);
+}
+
+
+- (void)testBinSuffix1001 {
+    [t.numberState addSuffix:@"b" forRadix:2.0];
+    
+    s = @"1001b";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)9.0, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"1001b", tok.stringValue);
+}
+
+
+- (void)testBinSuffix1001_0000 {
+    [t.numberState addSuffix:@"b" forRadix:2.0];
+    [t.numberState addGroupingSeparator:'_' forRadix:2.0];
+    
+    s = @"1001_0000b";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0x90, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"1001_0000b", tok.stringValue);
+}
+
+
+- (void)testBinSuffix1001_0000Foobar {
+    [t.numberState addSuffix:@"b" forRadix:2.0];
+    [t.numberState addGroupingSeparator:'_' forRadix:2.0];
+    
+    s = @"1001_0000b foobar";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0x90, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"1001_0000b", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"foobar", tok.stringValue);
+}
+
+
+- (void)testBinSuffix1001_0000Bat {
+    [t.numberState addSuffix:@"b" forRadix:2.0];
+    [t.numberState addGroupingSeparator:'_' forRadix:2.0];
+    
+    s = @"1001_0000b bat";
+    t.string = s;
+    
+    PKToken *tok = [t nextToken];
+    TDEquals((PKFloat)0x90, tok.floatValue);
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"1001_0000b", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEquals((PKFloat)0.0, tok.floatValue);
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"bat", tok.stringValue);
+}
+
+
 - (void)testHexSymbolPrefix0 {
     [t.numberState addPrefix:@"$" forRadix:16.0];
     [t setTokenizerState:t.numberState from:'$' to:'$'];

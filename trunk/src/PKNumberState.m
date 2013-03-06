@@ -18,6 +18,7 @@
 #import <ParseKit/PKTokenizer.h>
 #import <ParseKit/PKSymbolRootNode.h>
 #import <ParseKit/PKSymbolState.h>
+#import <ParseKit/PKWhitespaceState.h>
 #import <ParseKit/PKTypes.h>
 
 @interface PKToken ()
@@ -94,6 +95,7 @@
 
 
 - (void)addGroupingSeparator:(PKUniChar)sepChar forRadix:(PKFloat)f {
+    PKAssertMainThread();
     NSParameterAssert(f > 0.0);
     NSAssert(separatorsForRadix, @"");
     NSAssert(PKEOF != sepChar, @"");
@@ -113,6 +115,7 @@
 
 
 - (void)removeGroupingSeparator:(PKUniChar)sepChar forRadix:(PKFloat)f {
+    PKAssertMainThread();
     NSAssert(separatorsForRadix, @"");
     NSAssert(PKEOF != sepChar, @"");
     if (PKEOF == sepChar) return;
@@ -127,6 +130,7 @@
 
 
 - (void)addPrefix:(NSString *)s forRadix:(PKFloat)f {
+    PKAssertMainThread();
     NSParameterAssert([s length]);
     NSParameterAssert(f > 0.0);
     NSAssert(radixForPrefix, @"");
@@ -138,6 +142,7 @@
 
 
 - (void)addSuffix:(NSString *)s forRadix:(PKFloat)f {
+    PKAssertMainThread();
     NSParameterAssert([s length]);
     NSParameterAssert(f > 0.0);
     NSAssert(radixForSuffix, @"");
@@ -149,6 +154,7 @@
 
 
 - (void)removePrefix:(NSString *)s {
+    PKAssertMainThread();
     NSParameterAssert([s length]);
     NSAssert(radixForPrefix, @"");
     NSAssert([radixForPrefix objectForKey:s], @"");
@@ -157,6 +163,7 @@
 
 
 - (void)removeSuffix:(NSString *)s {
+    PKAssertMainThread();
     NSParameterAssert([s length]);
     NSAssert(radixForSuffix, @"");
     NSAssert([radixForSuffix objectForKey:s], @"");
@@ -165,6 +172,7 @@
 
 
 - (PKFloat)radixForPrefix:(NSString *)s {
+    PKAssertMainThread();
     NSParameterAssert([s length]);
     NSAssert(radixForPrefix, @"");
     
@@ -175,6 +183,7 @@
 
 
 - (PKFloat)radixForSuffix:(NSString *)s {
+    PKAssertMainThread();
     NSParameterAssert([s length]);
     NSAssert(radixForSuffix, @"");
     
@@ -185,6 +194,7 @@
 
 
 - (BOOL)isValidSeparator:(PKUniChar)sepChar {
+    PKAssertMainThread();
     NSAssert(base > 0.0, @"");
     //NSAssert(PKEOF != sepChar, @"");
     if (PKEOF == sepChar) return NO;
@@ -233,6 +243,32 @@
         cin = [r read];
     }
     
+    // then check for suffix
+    NSString *suffix = nil;
+    if ([radixForSuffix count] && !prefix) {
+        PKUniChar suffixChar = cin;
+        NSUInteger len = 0;
+        for (;;) {
+            if (PKEOF == suffixChar || [t.whitespaceState isWhitespaceChar:suffixChar]) {
+                const unichar lastChar = [[self bufferedString] characterAtIndex:len - 1];
+                suffix = [NSString stringWithCharacters:&lastChar length:1];
+                NSNumber *n = [radixForSuffix objectForKey:suffix];
+                if (n) {
+                    base = [n doubleValue];
+                } else {
+                    suffix = nil;
+                }
+                break;
+            }
+            ++len;
+            [self append:suffixChar];
+            suffixChar = [r read];
+        }
+
+        [r unread:PKEOF == suffixChar ? len - 1 : len];
+        [self resetWithReader:r];
+    }
+    
     [self reset:cin];
     if (decimalSeparator == c) {
         if (allowsFloatingPoint) {
@@ -264,6 +300,15 @@
 
     if (isNegative) {
         floatValue = -floatValue;
+    }
+    
+    if (suffix) {
+        NSUInteger len = [suffix length];
+        NSAssert(len && len != NSNotFound, @"");
+        for (NSUInteger i = 0; i < len; ++i) {
+            [r read];
+        }
+        [self appendString:suffix];
     }
     
     PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeNumber stringValue:[self bufferedString] floatValue:[self value]];
