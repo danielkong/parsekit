@@ -982,8 +982,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKToken *quoteTok = [a pop];
     NSString *str = [quoteTok.stringValue stringByTrimmingQuotes];
     
-    PKToken *wordTok = [a pop];
-    NSAssert([wordTok.stringValue isEqualToString:@"Symbol"], @"");
+    [a pop]; // pop 'Symbol'
     
     PKParser *sym = [PKSymbol symbolWithString:str];
     
