@@ -40,9 +40,8 @@
 - (void)appendString:(NSString *)s;
 - (NSString *)bufferedString;
 
-- (PKFloat)radixForPrefix:(NSString *)s;
-- (PKFloat)radixForSuffix:(NSString *)s;
-- (PKFloat)radixForSeparator:(PKUniChar)c;
+- (NSUInteger)radixForPrefix:(NSString *)s;
+- (NSUInteger)radixForSuffix:(NSString *)s;
 - (BOOL)isValidSeparator:(PKUniChar)sepChar;
 
 @property (nonatomic, retain) PKSymbolRootNode *prefixRootNode;
@@ -77,16 +76,16 @@
         self.radixForSuffix = [NSMutableDictionary dictionary];
         self.separatorsForRadix = [NSMutableDictionary dictionary];
         
-//        [self addPrefix:@"0b" forRadix:2.0];
-//        [self addPrefix:@"0"  forRadix:8.0];
-//        [self addPrefix:@"0o" forRadix:8.0];
-//        [self addPrefix:@"0x" forRadix:16.0];
+//        [self addPrefix:@"0b" forRadix:2];
+//        [self addPrefix:@"0"  forRadix:8];
+//        [self addPrefix:@"0o" forRadix:8];
+//        [self addPrefix:@"0x" forRadix:16];
 //
-//        [self addPrefix:@"%"  forRadix:2.0];
-//        [self addPrefix:@"$"  forRadix:16.0];
+//        [self addPrefix:@"%"  forRadix:2];
+//        [self addPrefix:@"$"  forRadix:16];
 //
-//        [self addSuffix:@"b"  forRadix:2.0];
-//        [self addSuffix:@"h"  forRadix:16.0];
+//        [self addSuffix:@"b"  forRadix:2];
+//        [self addSuffix:@"h"  forRadix:16];
 
         self.allowsFloatingPoint = YES;
         self.positivePrefix = '+';
@@ -109,14 +108,14 @@
 }
 
 
-- (void)addGroupingSeparator:(PKUniChar)sepChar forRadix:(PKFloat)f {
+- (void)addGroupingSeparator:(PKUniChar)sepChar forRadix:(NSUInteger)r {
     PKAssertMainThread();
-    NSParameterAssert(f > 0.0);
+    NSParameterAssert(NSNotFound != r);
     NSAssert(separatorsForRadix, @"");
     NSAssert(PKEOF != sepChar, @"");
     if (PKEOF == sepChar) return;
 
-    NSNumber *radixKey = [NSNumber numberWithDouble:f];
+    NSNumber *radixKey = [NSNumber numberWithUnsignedInteger:r];
 
     NSMutableSet *vals = [separatorsForRadix objectForKey:radixKey];
     if (!vals) {
@@ -129,13 +128,14 @@
 }
 
 
-- (void)removeGroupingSeparator:(PKUniChar)sepChar forRadix:(PKFloat)f {
+- (void)removeGroupingSeparator:(PKUniChar)sepChar forRadix:(NSUInteger)r {
     PKAssertMainThread();
+    NSParameterAssert(NSNotFound != r);
     NSAssert(separatorsForRadix, @"");
     NSAssert(PKEOF != sepChar, @"");
     if (PKEOF == sepChar) return;
 
-    NSNumber *radixKey = [NSNumber numberWithDouble:f];
+    NSNumber *radixKey = [NSNumber numberWithUnsignedInteger:r];
     NSMutableSet *vals = [separatorsForRadix objectForKey:radixKey];
 
     NSNumber *sepVal = [NSNumber numberWithInteger:sepChar];
@@ -144,26 +144,26 @@
 }
 
 
-- (void)addPrefix:(NSString *)s forRadix:(PKFloat)f {
+- (void)addPrefix:(NSString *)s forRadix:(NSUInteger)r {
     PKAssertMainThread();
     NSParameterAssert([s length]);
-    NSParameterAssert(f > 0.0);
+    NSParameterAssert(NSNotFound != r);
     NSAssert(radixForPrefix, @"");
     
     [prefixRootNode add:s];
-    NSNumber *n = [NSNumber numberWithDouble:f];
+    NSNumber *n = [NSNumber numberWithUnsignedInteger:r];
     [radixForPrefix setObject:n forKey:s];
 }
 
 
-- (void)addSuffix:(NSString *)s forRadix:(PKFloat)f {
+- (void)addSuffix:(NSString *)s forRadix:(NSUInteger)r {
     PKAssertMainThread();
     NSParameterAssert([s length]);
-    NSParameterAssert(f > 0.0);
+    NSParameterAssert(NSNotFound != r);
     NSAssert(radixForSuffix, @"");
     
     [prefixRootNode add:s];
-    NSNumber *n = [NSNumber numberWithDouble:f];
+    NSNumber *n = [NSNumber numberWithUnsignedInteger:r];
     [radixForSuffix setObject:n forKey:s];
 }
 
@@ -186,35 +186,35 @@
 }
 
 
-- (PKFloat)radixForPrefix:(NSString *)s {
+- (NSUInteger)radixForPrefix:(NSString *)s {
     PKAssertMainThread();
     NSParameterAssert([s length]);
     NSAssert(radixForPrefix, @"");
     
     NSNumber *n = [radixForPrefix objectForKey:s];
-    PKFloat f = [n doubleValue];
-    return f;
+    NSUInteger r = [n unsignedIntegerValue];
+    return r;
 }
 
 
-- (PKFloat)radixForSuffix:(NSString *)s {
+- (NSUInteger)radixForSuffix:(NSString *)s {
     PKAssertMainThread();
     NSParameterAssert([s length]);
     NSAssert(radixForSuffix, @"");
     
     NSNumber *n = [radixForSuffix objectForKey:s];
-    PKFloat f = [n doubleValue];
-    return f;
+    NSUInteger r = [n unsignedIntegerValue];
+    return r;
 }
 
 
 - (BOOL)isValidSeparator:(PKUniChar)sepChar {
     PKAssertMainThread();
-    NSAssert(base > 0.0, @"");
+    NSAssert(base > 1, @"");
     //NSAssert(PKEOF != sepChar, @"");
     if (PKEOF == sepChar) return NO;
     
-    NSNumber *radixKey = [NSNumber numberWithDouble:base];
+    NSNumber *radixKey = [NSNumber numberWithUnsignedInteger:base];
     NSMutableSet *vals = [separatorsForRadix objectForKey:radixKey];
 
     NSNumber *sepVal = [NSNumber numberWithInteger:sepChar];
@@ -239,12 +239,12 @@
 - (PKUniChar)checkForPrefixFromReader:(PKReader *)r startingWith:(PKUniChar)cin {
     if (PKEOF != cin) {
         self.prefix = [prefixRootNode nextSymbol:r startingWith:cin];
-        PKFloat radix = [self radixForPrefix:prefix];
-        if (radix > 0.0) {
+        NSUInteger radix = [self radixForPrefix:prefix];
+        if (radix > 1 && NSNotFound != radix) {
             [self appendString:prefix];
             base = radix;
         } else {
-            base = 10.0;
+            base = 10;
             [r unread:[prefix length]];
             self.prefix = nil;
         }
@@ -267,7 +267,7 @@
                 NSNumber *n = [radixForSuffix objectForKey:str];
                 if (n) {
                     self.suffix = str;
-                    base = [n doubleValue];
+                    base = [n unsignedIntegerValue];
                 }
                 break;
             }
@@ -287,12 +287,12 @@
 - (void)parseAllDigitsFromReader:(PKReader *)r startingWith:(PKUniChar)cin {
     [self prepareToParseDigits:cin];
     if (decimalSeparator == c) {
-        if (10.0 == base && allowsFloatingPoint) {
+        if (10 == base && allowsFloatingPoint) {
             [self parseRightSideFromReader:r];
         }
     } else {
         [self parseLeftSideFromReader:r];
-        if (10.0 == base && allowsFloatingPoint) {
+        if (10 == base && allowsFloatingPoint) {
             [self parseRightSideFromReader:r];
         }
     }
@@ -373,9 +373,9 @@
     
     for (NSUInteger i = 0; i < exp; i++) {
         if (isNegativeExp) {
-            result /= base;
+            result /= ((PKFloat)base);
         } else {
-            result *= base;
+            result *= ((PKFloat)base);
         }
     }
     
@@ -391,7 +391,7 @@
     
     for (;;) {
         isDigit = isdigit(c);
-        isHexAlpha = (16.0 == base && !isDigit && ishexnumber(c));
+        isHexAlpha = (16 == base && !isDigit && ishexnumber(c));
         
         if (isDigit || isHexAlpha) {
             [self append:c];
@@ -489,7 +489,7 @@
     if (prefix) self.prefix = nil;
     if (suffix) self.suffix = nil;
 
-    base = 10.0;
+    base = 10;
     isNegative = NO;
     originalCin = cin;
 }
@@ -500,7 +500,7 @@
     gotADigit = NO;
     isFraction = NO;
     floatValue = (PKFloat)0.0;
-    exp = (PKFloat)0.0;
+    exp = 0;
     isNegativeExp = NO;
 }
 

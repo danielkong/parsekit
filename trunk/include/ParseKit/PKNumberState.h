@@ -36,11 +36,12 @@
     BOOL isFraction;
     BOOL isNegative;
     BOOL gotADigit;
-    PKFloat base;
+    NSUInteger base;
     PKUniChar originalCin;
     PKUniChar c;
     PKFloat floatValue;
-    PKFloat exp;
+
+    NSUInteger exp;
     BOOL isNegativeExp;
 
     PKSymbolRootNode *prefixRootNode;
@@ -53,14 +54,14 @@
     NSString *suffix;
 }
 
-- (void)addPrefix:(NSString *)s forRadix:(PKFloat)f;
+- (void)addPrefix:(NSString *)s forRadix:(NSUInteger)r;
 - (void)removePrefix:(NSString *)s;
 
-- (void)addSuffix:(NSString *)s forRadix:(PKFloat)f;
+- (void)addSuffix:(NSString *)s forRadix:(NSUInteger)r;
 - (void)removeSuffix:(NSString *)s;
 
-- (void)addGroupingSeparator:(PKUniChar)c forRadix:(PKFloat)f;
-- (void)removeGroupingSeparator:(PKUniChar)c forRadix:(PKFloat)f;
+- (void)addGroupingSeparator:(PKUniChar)c forRadix:(NSUInteger)r;
+- (void)removeGroupingSeparator:(PKUniChar)c forRadix:(NSUInteger)r;
 
 /*!
     @property   allowsTrailingDecimalSeparator
