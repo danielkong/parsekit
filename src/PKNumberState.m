@@ -101,10 +101,10 @@
 
     NSNumber *radixKey = [NSNumber numberWithDouble:f];
 
-    NSMutableSet *vals = separatorsForRadix[radixKey];
+    NSMutableSet *vals = [separatorsForRadix objectForKey:radixKey];
     if (!vals) {
         vals = [NSMutableSet set];
-        separatorsForRadix[radixKey] = vals;
+        [separatorsForRadix setObject:vals forKey:radixKey];
     }
 
     NSNumber *sepVal = [NSNumber numberWithInteger:sepChar];
@@ -118,7 +118,7 @@
     if (PKEOF == sepChar) return;
 
     NSNumber *radixKey = [NSNumber numberWithDouble:f];
-    NSMutableSet *vals = separatorsForRadix[radixKey];
+    NSMutableSet *vals = [separatorsForRadix objectForKey:radixKey];
 
     NSNumber *sepVal = [NSNumber numberWithInteger:sepChar];
     NSAssert([vals containsObject:sepVal], @"");
@@ -133,7 +133,7 @@
     
     [prefixRootNode add:s];
     NSNumber *n = [NSNumber numberWithDouble:f];
-    radixForPrefix[s] = n;
+    [radixForPrefix setObject:n forKey:s];
 }
 
 
@@ -144,14 +144,14 @@
     
     [prefixRootNode add:s];
     NSNumber *n = [NSNumber numberWithDouble:f];
-    radixForSuffix[s] = n;
+    [radixForSuffix setObject:n forKey:s];
 }
 
 
 - (void)removePrefix:(NSString *)s {
     NSParameterAssert([s length]);
     NSAssert(radixForPrefix, @"");
-    NSAssert(radixForPrefix[s], @"");
+    NSAssert([radixForPrefix objectForKey:s], @"");
     [radixForPrefix removeObjectForKey:s];
 }
 
@@ -159,7 +159,7 @@
 - (void)removeSuffix:(NSString *)s {
     NSParameterAssert([s length]);
     NSAssert(radixForSuffix, @"");
-    NSAssert(radixForSuffix[s], @"");
+    NSAssert([radixForSuffix objectForKey:s], @"");
     [radixForSuffix removeObjectForKey:s];
 }
 
@@ -168,7 +168,7 @@
     NSParameterAssert([s length]);
     NSAssert(radixForPrefix, @"");
     
-    NSNumber *n = radixForPrefix[s];
+    NSNumber *n = [radixForPrefix objectForKey:s];
     PKFloat f = [n doubleValue];
     return f;
 }
@@ -178,7 +178,7 @@
     NSParameterAssert([s length]);
     NSAssert(radixForSuffix, @"");
     
-    NSNumber *n = radixForSuffix[s];
+    NSNumber *n = [radixForSuffix objectForKey:s];
     PKFloat f = [n doubleValue];
     return f;
 }
@@ -190,7 +190,7 @@
     if (PKEOF == sepChar) return NO;
     
     NSNumber *radixKey = [NSNumber numberWithDouble:base];
-    NSMutableSet *vals = separatorsForRadix[radixKey];
+    NSMutableSet *vals = [separatorsForRadix objectForKey:radixKey];
 
     NSNumber *sepVal = [NSNumber numberWithInteger:sepChar];
     BOOL result = [vals containsObject:sepVal];
