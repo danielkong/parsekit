@@ -790,7 +790,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         }
         [a push:seq];
     } else if ([objs count]) {
-        PKParser *p = objs[0];
+        PKParser *p = [objs objectAtIndex:0];
         if ([p isKindOfClass:[PKSequence class]] && isTrack) {
             PKSequence *seq = (PKSequence *)p;
             PKTrack *tr = [PKTrack track];
