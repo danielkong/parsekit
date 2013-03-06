@@ -386,24 +386,19 @@
 - (PKFloat)absorbDigitsFromReader:(PKReader *)r {
     PKFloat divideBy = 1.0;
     PKFloat v = 0.0;
+    BOOL isDigit = NO;
     BOOL isHexAlpha = NO;
     
     for (;;) {
-        isHexAlpha = NO;
-        if (16.0 == base) {
-            if ((c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
-                isHexAlpha = YES;
-            }
-        }
+        isDigit = isdigit(c);
+        isHexAlpha = (16.0 == base && !isDigit && ishexnumber(c));
         
-        if (isdigit(c) || isHexAlpha) {
+        if (isDigit || isHexAlpha) {
             [self append:c];
             gotADigit = YES;
 
             if (isHexAlpha) {
-                if (c >= 'a' && c <= 'f') {
-                    c = toupper(c);
-                }
+                c = toupper(c);
                 c -= 7;
             }
             v = v * base + (c - '0');
