@@ -1,0 +1,94 @@
+
+@start = sqlStmtList;
+sqlStmtList = (sqlStmt ';')*;
+sqlStmt = sqlStmtPrefix? sqlStmtBody;
+
+databaseName        = Word;
+indexName           = Word;
+tableName           = Word;
+collationName       = Word; // ??
+qualifiedTableName  = (databaseName '.')? tableName (('INDEXED' 'BY' indexName) | ('NOT' 'INDEXED'))?;
+
+expr                = literalValue; // TODO
+literalValue        = Number
+                    | QuotedString
+                    | blobLiteral 
+                    | 'NULL' 
+                    | 'CURRENT_TIME' 
+                    | 'CURRENT_DATE' 
+                    | 'CURRENT_TIMESTAMP';
+                    
+blobLiteral         = Word; // ??
+
+orderingTerm        = expr ('COLLATE' collationName)? ('ASC' | 'DESC')?;
+
+sqlStmtPrefix       = 'EXPLAIN' ('QUERY' 'PLAN')?;
+sqlStmtBody         = 
+/*                      alterTableStmt
+                    | analyzeStmt
+                    | attachStmt
+                    | beginStmt
+                    | commitStmt
+                    | createIndexStmt
+                    | createTableStmt
+                    | createTriggerStmt
+                    | createViewStmt
+                    | createVirtualTableStmt
+                    | */deleteStmt
+                    | deleteStmtLimited
+                    | detachStmt
+                    | dropIndexStmt
+                    | dropTableStmt
+                    | dropTriggerStmt
+/*                    | dropViewStmt
+                    | insertStmt
+                    | pragmaStmt
+                    | reindexStmt
+                    | releaseStmt
+                    | rollbackStmt
+                    | savepointStmt
+                    | selectStmt
+                    | updateStmt
+                    | updateStmtLimited
+                    | vacuumStmt*/;
+                
+
+/*alterTableStmt          = XXX;
+analyzeStmt             = XXX;
+attachStmt              = XXX;
+beginStmt               = XXX;
+commitStmt              = XXX;
+createIndexStmt         = XXX;
+createTableStmt         = XXX;
+createTriggerStmt       = XXX;
+createViewStmt          = XXX;
+createVirtualTableStmt  = XXX;
+*/
+
+deleteStmt              = 'DELETE' 'FROM' qualifiedTableName ('WHERE' expr)?;
+
+deleteStmtLimited       = deleteStmt (
+        'ORDER' 'BY' orderingTerm (',' orderingTerm)*
+        'LIMIT' expr (('OFFSET' | ',') expr)?
+    )?;
+
+
+detachStmt              = 'DETACH' 'DATABASE'? databaseName;
+
+dropIndexStmt           = 'DROP' 'INDEX' ('IF' 'EXISTS')? (databaseName '.')? indexName;
+dropTableStmt           = 'DROP' 'TABLE' ('IF' 'EXISTS')? (databaseName '.')? tableName;
+
+dropTriggerStmt         = 'DROP' 'TRIGGER' ('IF' 'EXISTS')? (databaseName '.')? tableName;
+/*
+dropViewStmt        = XXX;
+insertStmt          = XXX;
+pragmaStmt          = XXX;
+reindexStmt         = XXX;
+releaseStmt         = XXX;
+rollbackStmt        = XXX;
+savepointStmt       = XXX;
+selectStmt          = XXX;
+updateStmt          = XXX;
+updateStmtLimited   = XXX;
+vacuumStmt;         = XXX;
+*/
