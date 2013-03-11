@@ -493,6 +493,26 @@
     
 }
 
+
+- (void)doTestSqliteGrammar {
+    
+    //    NSString *path = [[NSBundle mainBundle] pathForResource:@"date" ofType:@"grammar"];
+    NSString *path = [@"~/work/parsekit/trunk/res/sqlite.grammar" stringByExpandingTildeInPath];
+    NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    PKParser *p = [[PKParserFactory factory] parserFromGrammar:g assembler:self error:nil];
+    
+    path = [@"~/work/parsekit/trunk/res/sqlite_input.txt" stringByExpandingTildeInPath];
+    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+    //    PKAssembly *res = [p parse:s error:nil];
+    p.tokenizer.string = s;
+    PKAssembly *res = [p bestMatchFor:[PKTokenAssembly assemblyWithTokenizer:p.tokenizer]];
+    NSLog(@"p %@", p);
+    NSLog(@"res %@", res);
+    
+}
+
+
 - (void)parser:(PKParser *)p didMatchTag:(PKAssembly *)a {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     NSLog(@"%@", a);
@@ -568,7 +588,8 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     
-    [self doTestGrammar];
+//    [self doTestGrammar];
+    [self doTestSqliteGrammar];
     
 //    [self doPlistParser];
 //    [self doHtmlSyntaxHighlighter];
