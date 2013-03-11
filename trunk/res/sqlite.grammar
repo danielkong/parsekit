@@ -84,7 +84,10 @@ dropTableStmt           = 'DROP' 'TABLE'    ('IF' 'EXISTS')? (databaseName '.')?
 dropTriggerStmt         = 'DROP' 'TRIGGER'  ('IF' 'EXISTS')? (databaseName '.')? triggerName;
 dropViewStmt            = 'DROP' 'VIEW'     ('IF' 'EXISTS')? (databaseName '.')? viewName;
 
-insertStmt              = 'INSERT' ('OR' ('ROLLBACK' | 'ABORT' | 'REPLACE' | 'FAIL' | 'IGNORE'))? 'INTO' (databaseName '.')? tableName (insertStmtDefaultValues | insertStmtValues | insertStmtSelectStmt);
+insertStmt              = 'INSERT' ('OR' ('ROLLBACK' | 'ABORT' | 'REPLACE' | 'FAIL' | 'IGNORE'))? 
+                          'INTO' (databaseName '.')? tableName 
+                          (insertStmtDefaultValues | insertStmtValues | insertStmtSelectStmt);
+                          
 insertStmtDefaultValues = 'DEFAULT' 'VALUES';
 insertStmtValues        = parentheticColumnNames? 'VALUES' parentheticExprs (',' parentheticExprs)*;
 insertStmtSelectStmt    = parentheticColumnNames? Empty /*selectStmt*/;
