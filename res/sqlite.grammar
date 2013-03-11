@@ -6,6 +6,7 @@ sqlStmt = sqlStmtPrefix? sqlStmtBody;
 databaseName        = Word;
 indexName           = Word;
 tableName           = Word;
+columnName          = Word;
 triggerName         = Word;
 viewName            = Word;
 collationName       = Word; // ??
@@ -43,7 +44,8 @@ sqlStmtBody         =
                     | dropTableStmt
                     | dropTriggerStmt
                     | dropViewStmt
-/*                    | insertStmt
+                    | insertStmt
+/*
                     | pragmaStmt
                     | reindexStmt
                     | releaseStmt
@@ -81,15 +83,24 @@ dropIndexStmt           = 'DROP' 'INDEX'    ('IF' 'EXISTS')? (databaseName '.')?
 dropTableStmt           = 'DROP' 'TABLE'    ('IF' 'EXISTS')? (databaseName '.')? tableName;
 dropTriggerStmt         = 'DROP' 'TRIGGER'  ('IF' 'EXISTS')? (databaseName '.')? triggerName;
 dropViewStmt            = 'DROP' 'VIEW'     ('IF' 'EXISTS')? (databaseName '.')? viewName;
+
+insertStmt              = 'INSERT' ('OR' ('ROLLBACK' | 'ABORT' | 'REPLACE' | 'FAIL' | 'IGNORE'))? 'INTO' (databaseName '.')? tableName
+                            (
+                            'DEFAULT' 'VALUES'
+                            | ('(' columnName (',' columnName)* ')')? 
+                            ('VALUES' parentheticExpr (',' parentheticExpr)* | Empty/*selectStmt*/)
+                            )
+;
+
+parentheticExpr         = '(' expr (',' expr)* ')';
 /*
-insertStmt          = XXX;
-pragmaStmt          = XXX;
-reindexStmt         = XXX;
-releaseStmt         = XXX;
-rollbackStmt        = XXX;
-savepointStmt       = XXX;
-selectStmt          = XXX;
-updateStmt          = XXX;
-updateStmtLimited   = XXX;
-vacuumStmt;         = XXX;
+pragmaStmt              = XXX;
+reindexStmt             = XXX;
+releaseStmt             = XXX;
+rollbackStmt            = XXX;
+savepointStmt           = XXX;
+selectStmt              = XXX;
+updateStmt              = XXX;
+updateStmtLimited       = XXX;
+vacuumStmt;             = XXX;
 */
