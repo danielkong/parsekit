@@ -72,9 +72,9 @@ createVirtualTableStmt  = XXX;
 deleteStmt              = 'DELETE' 'FROM' qualifiedTableName ('WHERE' expr)?;
 
 deleteStmtLimited       = deleteStmt (
-        'ORDER' 'BY' orderingTerm (',' orderingTerm)*
-        'LIMIT' expr (('OFFSET' | ',') expr)?
-    )?;
+                            'ORDER' 'BY' orderingTerm (',' orderingTerm)*
+                            'LIMIT' expr (('OFFSET' | ',') expr)?
+                        )?;
 
 
 detachStmt              = 'DETACH' 'DATABASE'? databaseName;
