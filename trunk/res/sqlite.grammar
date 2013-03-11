@@ -1,12 +1,16 @@
+@singleLineComments = '//';
+@multiLineComments = '/*' '*/';
 
 @start = sqlStmtList;
 sqlStmtList = (sqlStmt ';')*;
 sqlStmt = sqlStmtPrefix? sqlStmtBody;
 
+star                = '*';
+
 databaseName        = Word;
 indexName           = Word;
-tableName           = Word;
-columnName          = Word;
+tableName           = Word | star;
+columnName          = Word | star;
 triggerName         = Word;
 viewName            = Word;
 collationName       = Word; // ??
