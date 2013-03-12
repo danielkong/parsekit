@@ -56,8 +56,10 @@ sqlStmtBody         =
                     | rollbackStmt
                     | savepointStmt
                     | selectStmt
+*/
                     | updateStmt
                     | updateStmtLimited
+/*
                     | vacuumStmt*/;
                 
 
@@ -105,7 +107,13 @@ releaseStmt             = XXX;
 rollbackStmt            = XXX;
 savepointStmt           = XXX;
 selectStmt              = XXX;
-updateStmt              = XXX;
-updateStmtLimited       = XXX;
+*/
+updateStmt              = 'UPDATE' ('OR' ('ROLLBACK' | 'ABORT' | 'REPLACE' | 'FAIL' | 'IGNORE'))? qualifiedTableName
+                            'SET' columnNameAssignment (',' columnNameAssignment)* ('WHERE' expr)?;
+columnNameAssignment    = (columnName '=' expr);
+
+updateStmtLimited       = updateStmt ('ORDER' 'BY' orderingTerm (',' orderingTerm)*)?
+                          'LIMIT' expr (('OFFSET' | ',') expr)?
+/*
 vacuumStmt;             = XXX;
 */
