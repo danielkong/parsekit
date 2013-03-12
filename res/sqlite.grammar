@@ -27,8 +27,6 @@ literalValue        = Number
                     
 blobLiteral         = Word; // ??
 
-orderingTerm        = expr ('COLLATE' collationName)? ('ASC' | 'DESC')?;
-
 sqlStmtPrefix       = 'EXPLAIN' ('QUERY' 'PLAN')?;
 sqlStmtBody         = 
 /*                      alterTableStmt
@@ -96,7 +94,7 @@ insertStmt              = 'INSERT' ('OR' ('ROLLBACK' | 'ABORT' | 'REPLACE' | 'FA
                           
 insertStmtDefaultValues = 'DEFAULT' 'VALUES';
 insertStmtValues        = parentheticColumnNames? 'VALUES' parentheticExprs (',' parentheticExprs)*;
-insertStmtSelectStmt    = parentheticColumnNames? Empty /*selectStmt*/;
+insertStmtSelectStmt    = parentheticColumnNames? Empty /*selectStmt*/; // TODO
 
 parentheticExprs        = '(' expr (',' expr)* ')';
 parentheticColumnNames  = '(' columnName (',' columnName)* ')';
@@ -106,10 +104,46 @@ reindexStmt             = XXX;
 releaseStmt             = XXX;
 rollbackStmt            = XXX;
 savepointStmt           = XXX;
-selectStmt              = XXX;
 */
+
+//
+// SELECT STMT
+//
+selectStmt              = selectCore (compoundOperator selectCore)*
+                          ('ORDER' 'BY' orderingTerm (',' orderingTerm)*)?
+                          ('LIMIT' expr (('OFFSET' | ',') expr)?)?;
+
+selectCore              = 'SELECT' ('DISTINCT' | 'ALL')? resultColumn (',' resultColumn)*
+                          ('FROM' joinSource)?
+                          ('WHERE' expr)?
+                          ('GROUP' 'BY' expr (',' expr)* ('HAVING' expr)?)?;
+                          
+resultColumn            = '*'
+                          | tableName '.' '*'
+                          | expr ('AS'? columnAlias)?;
+joinSource              = singleSource (joinOp singleSource joinConstraint)*;
+
+singleSource            = (databaseName '.')? tableName ('AS'? tableAlias)? ('INDEXED' 'BY' indexName | 'NOT' 'INDEXED')?
+                          | '(' selectStmt ')' ('AS'? tableAlias)?
+                          | '(' joinSource ')';
+                          
+joinOp                  = ','
+                          | 'NATURAL'? ('LEFT' 'OUTER'? | 'INNER' | 'CROSS')? 'JOIN';
+                          
+joinConstraint          = 'ON' expr
+                          | 'USING' '(' columnName (',' columnName) * ')'
+                          | Empty;
+
+orderingTerm            = expr ('COLLATE' collationName)? ('ASC' | 'DESC')?;
+                          
+compoundOperator        = 'UNION' 'ALL'? | 'INTERSECT' | 'EXCEPT';
+                          
+
+//
+// UPDATE STMT
+//
 updateStmt              = 'UPDATE' ('OR' ('ROLLBACK' | 'ABORT' | 'REPLACE' | 'FAIL' | 'IGNORE'))? qualifiedTableName
-                            'SET' columnNameAssignment (',' columnNameAssignment)* ('WHERE' expr)?;
+                          'SET' columnNameAssignment (',' columnNameAssignment)* ('WHERE' expr)?;
 columnNameAssignment    = (columnName '=' expr);
 
 updateStmtLimited       = updateStmt ('ORDER' 'BY' orderingTerm (',' orderingTerm)*)?
