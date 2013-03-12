@@ -53,8 +53,8 @@ sqlStmtBody         =
                     | releaseStmt
                     | rollbackStmt
                     | savepointStmt
-                    | selectStmt
 */
+                    | selectStmt
                     | updateStmt
                     | updateStmtLimited
 /*
