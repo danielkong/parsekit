@@ -94,7 +94,7 @@ insertStmt              = 'INSERT' ('OR' ('ROLLBACK' | 'ABORT' | 'REPLACE' | 'FA
                           
 insertStmtDefaultValues = 'DEFAULT' 'VALUES';
 insertStmtValues        = parentheticColumnNames? 'VALUES' parentheticExprs (',' parentheticExprs)*;
-insertStmtSelectStmt    = parentheticColumnNames? Empty /*selectStmt*/; // TODO
+insertStmtSelectStmt    = parentheticColumnNames? selectStmt;
 
 parentheticExprs        = '(' expr (',' expr)* ')';
 parentheticColumnNames  = '(' columnName (',' columnName)* ')';
