@@ -11,7 +11,7 @@
 @implementation PKRootNode
 
 - (void)visit:(PKNodeVisitor *)v {
-    [v visitRoot:self];
+    //[v visitRoot:self];
 }
 
 @end
