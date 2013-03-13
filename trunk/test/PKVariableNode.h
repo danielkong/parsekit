@@ -8,7 +8,7 @@
 
 #import "PKNodeTypes.h"
 
-@interface PKNodeVariable : PKNodeBase
+@interface PKVariableNode : PKBaseNode
 
 @property (nonatomic, retain) NSString *callbackName;
 @end

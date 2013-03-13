@@ -10,7 +10,7 @@
 #define ParseKit_PKASTNodeType_h
 
 #import <Foundation/Foundation.h>
-#import "PKNodeBase.h"
+#import "PKBaseNode.h"
 
 typedef enum {
     PKNodeTypeVariable = 0,
@@ -22,9 +22,6 @@ typedef enum {
     PKNodeTypeCardinal,
     PKNodeTypeOptional,
     PKNodeTypeMultiple,
-//    PKNodeTypeRepetition,
-//    PKNodeTypeDifference,
-//    PKNodeTypeNegation,
 } PKNodeType;
 
 #endif

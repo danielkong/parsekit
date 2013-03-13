@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeOptional.h"
+#import "PKOptionalNode.h"
 
-@implementation PKNodeOptional
+@implementation PKOptionalNode
 
 - (int)type {
     return PKNodeTypeOptional;

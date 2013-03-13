@@ -8,7 +8,7 @@
 
 #import "PKNodeTypes.h"
 
-@interface PKNodeDelimited : PKNodeBase
+@interface PKDelimitedNode : PKBaseNode
 @property (nonatomic, retain) NSString *startMarker;
 @property (nonatomic, retain) NSString *endMarker;
 @end

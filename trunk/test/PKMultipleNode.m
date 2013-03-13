@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeMultiple.h"
+#import "PKMultipleNode.h"
 
-@implementation PKNodeMultiple
+@implementation PKMultipleNode
 
 - (int)type {
     return PKNodeTypeMultiple;

@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeVariable.h"
+#import "PKVariableNode.h"
 
-@implementation PKNodeVariable
+@implementation PKVariableNode
 
 - (void)dealloc {
     self.callbackName = nil;

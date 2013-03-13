@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeConstant.h"
+#import "PKConstantNode.h"
 
-@implementation PKNodeConstant
+@implementation PKConstantNode
 
 - (int)type {
     return PKNodeTypeConstant;
