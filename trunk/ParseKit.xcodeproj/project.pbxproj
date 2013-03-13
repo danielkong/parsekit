@@ -204,6 +204,7 @@
 		D36E98E70E58C14000496BD3 /* DemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98E40E58C14000496BD3 /* DemoAppDelegate.m */; };
 		D36E98E80E58C14000496BD3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98E50E58C14000496BD3 /* main.m */; };
 		D36E98F80E58C1A000496BD3 /* DemoAppMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D36E98F70E58C1A000496BD3 /* DemoAppMainMenu.xib */; };
+		D373001816F0EE9000F35279 /* PKRootNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D373001716F0EE9000F35279 /* PKRootNode.m */; };
 		D377B54B16E7EE4200BDEDBA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
 		D377B54C16E7EE4200BDEDBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		D37A28671013942300E936B7 /* PKGrammarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D5810093A1600E4602E /* PKGrammarParser.m */; };
@@ -1166,6 +1167,8 @@
 		D36E9FB40E5A944A00496BD3 /* apple-boss.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "apple-boss.xml"; path = "res/apple-boss.xml"; sourceTree = "<group>"; };
 		D36E9FE40E5BA0FC00496BD3 /* SRGSGrammar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SRGSGrammar.txt; path = res/SRGSGrammar.txt; sourceTree = "<group>"; };
 		D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "small-xml-file.xml"; path = "res/small-xml-file.xml"; sourceTree = "<group>"; };
+		D373001616F0EE9000F35279 /* PKRootNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKRootNode.h; path = test/PKRootNode.h; sourceTree = "<group>"; };
+		D373001716F0EE9000F35279 /* PKRootNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKRootNode.m; path = test/PKRootNode.m; sourceTree = "<group>"; };
 		D37D8DC61571A4F700CDB822 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D37F23201453841100A98014 /* PKHashtagState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKHashtagState.m; path = src/PKHashtagState.m; sourceTree = "<group>"; };
@@ -1608,6 +1611,8 @@
 				D325FFC1161E4E9C00D4EBCC /* PKNodeTypes.h */,
 				D325FFD9161E551E00D4EBCC /* PKBaseNode.h */,
 				D325FFDA161E551E00D4EBCC /* PKBaseNode.m */,
+				D373001616F0EE9000F35279 /* PKRootNode.h */,
+				D373001716F0EE9000F35279 /* PKRootNode.m */,
 				D325FFDE161E59F000D4EBCC /* PKVariableNode.h */,
 				D325FFDF161E59F100D4EBCC /* PKVariableNode.m */,
 				D325FFC2161E4F5D00D4EBCC /* PKConstantNode.h */,
@@ -3447,6 +3452,7 @@
 				D325FFF5161F59F800D4EBCC /* PKDelimitedNode.m in Sources */,
 				D325FFF8161F681F00D4EBCC /* TDParserFactoryParserTest.m in Sources */,
 				D38395DC1620B37400F0DADE /* PKCardinalNode.m in Sources */,
+				D373001816F0EE9000F35279 /* PKRootNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
