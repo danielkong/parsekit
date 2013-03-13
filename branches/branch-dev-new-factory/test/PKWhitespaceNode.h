@@ -8,6 +8,6 @@
 
 #import "PKNodeTypes.h"
 
-@interface PKNodeWhitespace : PKNodeBase
+@interface PKWhitespaceNode : PKBaseNode
 
 @end

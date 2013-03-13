@@ -7,19 +7,19 @@
 //
 
 #import "PKConstructNodeVisitor.h"
-#import "PKNodeBase.h"
-#import "PKNodeDefinition.h"
-#import "PKNodeReference.h"
-#import "PKNodeConstant.h"
-#import "PKNodeDelimited.h"
-#import "PKNodeLiteral.h"
-#import "PKNodePattern.h"
-#import "PKNodeWhitespace.h"
-#import "PKNodeComposite.h"
-#import "PKNodeCollection.h"
-#import "PKNodeCardinal.h"
-#import "PKNodeOptional.h"
-#import "PKNodeMultiple.h"
+#import "PKBaseNode.h"
+#import "PKDefinitionNode.h"
+#import "PKReferenceNode.h"
+#import "PKConstantNode.h"
+#import "PKDelimitedNode.h"
+#import "PKLiteralNode.h"
+#import "PKPatternNode.h"
+#import "PKWhitespaceNode.h"
+#import "PKCompositeNode.h"
+#import "PKCollectionNode.h"
+#import "PKCardinalNode.h"
+#import "PKOptionalNode.h"
+#import "PKMultipleNode.h"
 #import "NSString+ParseKitAdditions.h"
 //#import "PKNodeRepetition.h"
 //#import "PKNodeDifference.h"
@@ -86,7 +86,7 @@
     PKParser *p = _parserTable[name];
 
     if (!p) {
-        PKNodeBase *node = _productionTable[name];
+        PKBaseNode *node = _productionTable[name];
         NSAssert(node, @"");
         
         PKToken *tok = node.token;
@@ -102,7 +102,7 @@
 }
 
 
-- (void)visitDefinition:(PKNodeDefinition *)node {
+- (void)visitDefinition:(PKDefinitionNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSAssert(node.token, @"");
     
@@ -116,7 +116,7 @@
     
     PKCompositeParser *oldParent = _currentParser;
     
-    for (PKNodeBase *child in node.children) {
+    for (PKBaseNode *child in node.children) {
         [child visit:self];
         self.currentParser = p;
     }
@@ -125,7 +125,7 @@
 }
 
 
-- (void)visitReference:(PKNodeReference *)node {
+- (void)visitReference:(PKReferenceNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     NSAssert(node.token.isSymbol, @"");
@@ -142,7 +142,7 @@
 }
 
 
-- (void)visitConstant:(PKNodeConstant *)node {
+- (void)visitConstant:(PKConstantNode *)node {
     PKTerminal *p = nil;
     
     NSString *parserName = node.parserName;
@@ -170,7 +170,7 @@
 }
 
 
-- (void)visitLiteral:(PKNodeLiteral *)node {
+- (void)visitLiteral:(PKLiteralNode *)node {
     PKTerminal *p = nil;
     
     PKToken *tok = node.token;
@@ -188,7 +188,7 @@
 }
 
 
-- (void)visitDelimited:(PKNodeDelimited *)node {
+- (void)visitDelimited:(PKDelimitedNode *)node {
     NSString *startMarker = nil;
     NSString *endMarker = nil;
     PKDelimitedString *p = [PKDelimitedString delimitedStringWithStartMarker:startMarker endMarker:endMarker];
@@ -201,7 +201,7 @@
 }
 
 
-- (void)visitPattern:(PKNodePattern *)node {
+- (void)visitPattern:(PKPatternNode *)node {
     PKToken *tok = node.token;
     NSAssert(tok.isDelimitedString, @"");
     
@@ -217,7 +217,7 @@
 }
 
 
-- (void)visitWhitespace:(PKNodeWhitespace *)node {
+- (void)visitWhitespace:(PKWhitespaceNode *)node {
     PKTerminal *p = [PKWhitespace whitespace];
     
     PKToken *tok = node.token;
@@ -231,7 +231,7 @@
 }
 
 
-- (void)visitComposite:(PKNodeComposite *)node {
+- (void)visitComposite:(PKCompositeNode *)node {
     PKCompositeParser *p = nil;
     
     PKToken *tok = node.token;
@@ -271,7 +271,7 @@
 
     PKCompositeParser *oldParent = _currentParser;
     
-    for (PKNodeBase *child in node.children) {
+    for (PKBaseNode *child in node.children) {
         self.currentParser = p;
         [child visit:self];
     }
@@ -280,7 +280,7 @@
 }
 
 
-- (void)visitCollection:(PKNodeCollection *)node {
+- (void)visitCollection:(PKCollectionNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     PKCollectionParser *p = nil;
     
@@ -297,7 +297,7 @@
 
     PKCompositeParser *oldParent = _currentParser;
 
-    for (PKNodeBase *child in node.children) {
+    for (PKBaseNode *child in node.children) {
         [child visit:self];
         self.currentParser = p;
     }
@@ -306,7 +306,7 @@
 }
 
 
-- (void)visitCardinal:(PKNodeCardinal *)node {
+- (void)visitCardinal:(PKCardinalNode *)node {
     PKCollectionParser *seq = [PKSequence sequence];
     
     NSAssert(node.token.isSymbol, @"");
@@ -319,7 +319,7 @@
     self.currentParser = seq;
     
     NSAssert(1 == [node.children count], @"");
-    PKNodeBase *childNode = [node.children objectAtIndex:0];
+    PKBaseNode *childNode = [node.children objectAtIndex:0];
     
     for (NSInteger i = 0; i < start; i++) {
         [childNode visit:self];
@@ -337,7 +337,7 @@
 }
 
 
-- (void)visitOptional:(PKNodeOptional *)node {
+- (void)visitOptional:(PKOptionalNode *)node {
     PKCollectionParser *alt = [PKAlternation alternation];
     [alt add:[PKEmpty empty]];
     
@@ -348,14 +348,14 @@
     [_currentParser add:alt];
     self.currentParser = alt;
     
-    for (PKNodeBase *child in node.children) {
+    for (PKBaseNode *child in node.children) {
         [child visit:self];
         self.currentParser = alt;
     }
 }
 
 
-- (void)visitMultiple:(PKNodeMultiple *)node {
+- (void)visitMultiple:(PKMultipleNode *)node {
     PKCollectionParser *seq = [PKSequence sequence];
     
     PKToken *tok = node.token;
@@ -366,7 +366,7 @@
     self.currentParser = seq;
     
     NSAssert(1 == [node.children count], @"");
-    for (PKNodeBase *childNode in node.children) {
+    for (PKBaseNode *childNode in node.children) {
         [childNode visit:self];
     }
     

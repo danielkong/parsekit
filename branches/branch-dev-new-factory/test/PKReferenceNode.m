@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeReference.h"
+#import "PKReferenceNode.h"
 
-@implementation PKNodeReference
+@implementation PKReferenceNode
 
 - (int)type {
     return PKNodeTypeReference;
@@ -22,7 +22,7 @@
 
 - (NSString *)fullTreeDescription:(NSDictionary *)symbolTab {
     NSString *name = self.parserName;
-    PKNodeBase *parent = symbolTab[name];
+    PKBaseNode *parent = symbolTab[name];
     NSAssert(parent, @"");
 
     if (![parent.children count]) {
@@ -36,7 +36,7 @@
     }
     
     NSInteger i = 0;
-    for (PKNodeBase *child in parent.children) {
+    for (PKBaseNode *child in parent.children) {
         NSAssert(child != parent, @"");
         
         if (i++) {

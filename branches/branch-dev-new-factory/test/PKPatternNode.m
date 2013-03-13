@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodePattern.h"
+#import "PKPatternNode.h"
 
-@implementation PKNodePattern
+@implementation PKPatternNode
 
 - (void)dealloc {
     self.string = nil;
@@ -17,7 +17,7 @@
 
 
 - (id)copyWithZone:(NSZone *)zone {
-    PKNodePattern *that = (PKNodePattern *)[super copyWithZone:zone];
+    PKPatternNode *that = (PKPatternNode *)[super copyWithZone:zone];
     that->_string = [_string retain];
     that->_options = _options;
     return that;
@@ -29,7 +29,7 @@
         return NO;
     }
     
-    PKNodePattern *that = (PKNodePattern *)obj;
+    PKPatternNode *that = (PKPatternNode *)obj;
     
     if (![_string isEqual:that->_string]) {
         return NO;

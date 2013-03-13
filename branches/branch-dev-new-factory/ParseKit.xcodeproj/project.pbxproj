@@ -166,10 +166,10 @@
 		D34BB1270FF9F36200D7773A /* PKJSUppercaseWord.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB1110FF9F36200D7773A /* PKJSUppercaseWord.m */; };
 		D34BB1280FF9F36200D7773A /* PKJSWord.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB1120FF9F36200D7773A /* PKJSWord.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D34BB1290FF9F36200D7773A /* PKJSWord.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB1130FF9F36200D7773A /* PKJSWord.m */; };
-		D35566A71623695500350D46 /* PKNodeWhitespace.h in Headers */ = {isa = PBXBuildFile; fileRef = D35566A51623695500350D46 /* PKNodeWhitespace.h */; };
-		D35566A81623695500350D46 /* PKNodeWhitespace.h in Headers */ = {isa = PBXBuildFile; fileRef = D35566A51623695500350D46 /* PKNodeWhitespace.h */; };
-		D35566A91623695500350D46 /* PKNodeWhitespace.m in Sources */ = {isa = PBXBuildFile; fileRef = D35566A61623695500350D46 /* PKNodeWhitespace.m */; };
-		D35566AA1623695500350D46 /* PKNodeWhitespace.m in Sources */ = {isa = PBXBuildFile; fileRef = D35566A61623695500350D46 /* PKNodeWhitespace.m */; };
+		D35566A71623695500350D46 /* PKWhitespaceNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D35566A51623695500350D46 /* PKWhitespaceNode.h */; };
+		D35566A81623695500350D46 /* PKWhitespaceNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D35566A51623695500350D46 /* PKWhitespaceNode.h */; };
+		D35566A91623695500350D46 /* PKWhitespaceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D35566A61623695500350D46 /* PKWhitespaceNode.m */; };
+		D35566AA1623695500350D46 /* PKWhitespaceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D35566A61623695500350D46 /* PKWhitespaceNode.m */; };
 		D355C62E0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D355C62C0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m */; };
 		D355C6A70FE9F704006A91A4 /* nspredicate.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D35384EC0FE9691100926552 /* nspredicate.grammar */; };
 		D35D18A315D5AD15003DF6BC /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
@@ -350,26 +350,26 @@
 		D38395E71621009F00F0DADE /* PKParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203B5161CA1A200207F4D /* PKParserFactory.m */; };
 		D38395E8162100A900F0DADE /* PKConstructNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D31D394E161DFD15002D7210 /* PKConstructNodeVisitor.m */; };
 		D38395E9162100AA00F0DADE /* PKConstructNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D31D394E161DFD15002D7210 /* PKConstructNodeVisitor.m */; };
-		D38395EA162100BC00F0DADE /* PKNodeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDA161E551E00D4EBCC /* PKNodeBase.m */; };
-		D38395EB162100BC00F0DADE /* PKNodeReference.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDF161E59F100D4EBCC /* PKNodeReference.m */; };
-		D38395EC162100BC00F0DADE /* PKNodeConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFC3161E4F5D00D4EBCC /* PKNodeConstant.m */; };
-		D38395ED162100BC00F0DADE /* PKNodePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFCC161E500600D4EBCC /* PKNodePattern.m */; };
-		D38395EE162100BC00F0DADE /* PKNodeDelimited.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF4161F59F700D4EBCC /* PKNodeDelimited.m */; };
-		D38395EF162100BC00F0DADE /* PKNodeComposite.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEB161F557C00D4EBCC /* PKNodeComposite.m */; };
-		D38395F0162100BC00F0DADE /* PKNodeCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFBF161E4E5500D4EBCC /* PKNodeCollection.m */; };
-		D38395F1162100BC00F0DADE /* PKNodeCardinal.m in Sources */ = {isa = PBXBuildFile; fileRef = D38395DB1620B37400F0DADE /* PKNodeCardinal.m */; };
-		D38395F2162100BC00F0DADE /* PKNodeOptional.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEE161F59D300D4EBCC /* PKNodeOptional.m */; };
-		D38395F3162100BC00F0DADE /* PKNodeMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF1161F59E600D4EBCC /* PKNodeMultiple.m */; };
-		D38395F4162100BD00F0DADE /* PKNodeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDA161E551E00D4EBCC /* PKNodeBase.m */; };
-		D38395F5162100BD00F0DADE /* PKNodeReference.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDF161E59F100D4EBCC /* PKNodeReference.m */; };
-		D38395F6162100BD00F0DADE /* PKNodeConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFC3161E4F5D00D4EBCC /* PKNodeConstant.m */; };
-		D38395F7162100BD00F0DADE /* PKNodePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFCC161E500600D4EBCC /* PKNodePattern.m */; };
-		D38395F8162100BD00F0DADE /* PKNodeDelimited.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF4161F59F700D4EBCC /* PKNodeDelimited.m */; };
-		D38395F9162100BD00F0DADE /* PKNodeComposite.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEB161F557C00D4EBCC /* PKNodeComposite.m */; };
-		D38395FA162100BD00F0DADE /* PKNodeCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFBF161E4E5500D4EBCC /* PKNodeCollection.m */; };
-		D38395FB162100BD00F0DADE /* PKNodeCardinal.m in Sources */ = {isa = PBXBuildFile; fileRef = D38395DB1620B37400F0DADE /* PKNodeCardinal.m */; };
-		D38395FC162100BD00F0DADE /* PKNodeOptional.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEE161F59D300D4EBCC /* PKNodeOptional.m */; };
-		D38395FD162100BD00F0DADE /* PKNodeMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF1161F59E600D4EBCC /* PKNodeMultiple.m */; };
+		D38395EA162100BC00F0DADE /* PKBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDA161E551E00D4EBCC /* PKBaseNode.m */; };
+		D38395EB162100BC00F0DADE /* PKReferenceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDF161E59F100D4EBCC /* PKReferenceNode.m */; };
+		D38395EC162100BC00F0DADE /* PKConstantNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFC3161E4F5D00D4EBCC /* PKConstantNode.m */; };
+		D38395ED162100BC00F0DADE /* PKPatternNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFCC161E500600D4EBCC /* PKPatternNode.m */; };
+		D38395EE162100BC00F0DADE /* PKDelimitedNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF4161F59F700D4EBCC /* PKDelimitedNode.m */; };
+		D38395EF162100BC00F0DADE /* PKCompositeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEB161F557C00D4EBCC /* PKCompositeNode.m */; };
+		D38395F0162100BC00F0DADE /* PKCollectionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFBF161E4E5500D4EBCC /* PKCollectionNode.m */; };
+		D38395F1162100BC00F0DADE /* PKCardinalNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D38395DB1620B37400F0DADE /* PKCardinalNode.m */; };
+		D38395F2162100BC00F0DADE /* PKOptionalNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEE161F59D300D4EBCC /* PKOptionalNode.m */; };
+		D38395F3162100BC00F0DADE /* PKMultipleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF1161F59E600D4EBCC /* PKMultipleNode.m */; };
+		D38395F4162100BD00F0DADE /* PKBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDA161E551E00D4EBCC /* PKBaseNode.m */; };
+		D38395F5162100BD00F0DADE /* PKReferenceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFDF161E59F100D4EBCC /* PKReferenceNode.m */; };
+		D38395F6162100BD00F0DADE /* PKConstantNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFC3161E4F5D00D4EBCC /* PKConstantNode.m */; };
+		D38395F7162100BD00F0DADE /* PKPatternNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFCC161E500600D4EBCC /* PKPatternNode.m */; };
+		D38395F8162100BD00F0DADE /* PKDelimitedNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF4161F59F700D4EBCC /* PKDelimitedNode.m */; };
+		D38395F9162100BD00F0DADE /* PKCompositeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEB161F557C00D4EBCC /* PKCompositeNode.m */; };
+		D38395FA162100BD00F0DADE /* PKCollectionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFBF161E4E5500D4EBCC /* PKCollectionNode.m */; };
+		D38395FB162100BD00F0DADE /* PKCardinalNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D38395DB1620B37400F0DADE /* PKCardinalNode.m */; };
+		D38395FC162100BD00F0DADE /* PKOptionalNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFEE161F59D300D4EBCC /* PKOptionalNode.m */; };
+		D38395FD162100BD00F0DADE /* PKMultipleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF1161F59E600D4EBCC /* PKMultipleNode.m */; };
 		D38395FE1621027200F0DADE /* PKAST.h in Headers */ = {isa = PBXBuildFile; fileRef = D3376D8C10096C0700E4602E /* PKAST.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D38395FF1621027300F0DADE /* PKAST.h in Headers */ = {isa = PBXBuildFile; fileRef = D3376D8C10096C0700E4602E /* PKAST.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D38396001621027C00F0DADE /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
@@ -396,10 +396,10 @@
 		D3A20248161B6B2900207F4D /* TDRegexMatcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20247161B6B2900207F4D /* TDRegexMatcherTest.m */; };
 		D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203A7161BCF6600207F4D /* TDRegexMatcher.m */; };
 		D3A203E4161CADD200207F4D /* TDParserFactoryASTTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */; };
-		D3A748B416223A8D00823607 /* PKNodeLiteral.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A748B216223A8D00823607 /* PKNodeLiteral.h */; };
-		D3A748B516223A8D00823607 /* PKNodeLiteral.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A748B216223A8D00823607 /* PKNodeLiteral.h */; };
-		D3A748B616223A8D00823607 /* PKNodeLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A748B316223A8D00823607 /* PKNodeLiteral.m */; };
-		D3A748B716223A8D00823607 /* PKNodeLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A748B316223A8D00823607 /* PKNodeLiteral.m */; };
+		D3A748B416223A8D00823607 /* PKLiteralNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A748B216223A8D00823607 /* PKLiteralNode.h */; };
+		D3A748B516223A8D00823607 /* PKLiteralNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A748B216223A8D00823607 /* PKLiteralNode.h */; };
+		D3A748B616223A8D00823607 /* PKLiteralNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A748B316223A8D00823607 /* PKLiteralNode.m */; };
+		D3A748B716223A8D00823607 /* PKLiteralNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A748B316223A8D00823607 /* PKLiteralNode.m */; };
 		D3A748BA1622437000823607 /* PKNodeVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A748B91622437000823607 /* PKNodeVisitor.h */; };
 		D3A748BB1622437000823607 /* PKNodeVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A748B91622437000823607 /* PKNodeVisitor.h */; };
 		D3A748BE1622443700823607 /* PKSimplifyNodeVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A748BC1622443600823607 /* PKSimplifyNodeVisitor.h */; };
@@ -541,8 +541,8 @@
 		D3DDDA870F0779FD00A58000 /* TDSyntaxHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DDDA860F0779FD00A58000 /* TDSyntaxHighlighter.m */; };
 		D3DDDCAE0F0880D800A58000 /* example1.srgs in Resources */ = {isa = PBXBuildFile; fileRef = D3DDDCAC0F0880D800A58000 /* example1.srgs */; };
 		D3E016D416ADB98800C6BB96 /* TDParserFactorySymbolTableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E016D316ADB98800C6BB96 /* TDParserFactorySymbolTableTest.m */; };
-		D3E016D816ADE68D00C6BB96 /* PKNodeDefinition.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E016D616ADE68D00C6BB96 /* PKNodeDefinition.h */; };
-		D3E016D916ADE68D00C6BB96 /* PKNodeDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E016D716ADE68D00C6BB96 /* PKNodeDefinition.m */; };
+		D3E016D816ADE68D00C6BB96 /* PKDefinitionNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E016D616ADE68D00C6BB96 /* PKDefinitionNode.h */; };
+		D3E016D916ADE68D00C6BB96 /* PKDefinitionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E016D716ADE68D00C6BB96 /* PKDefinitionNode.m */; };
 		D3E27A320E741DD20078CC2C /* small-xml-file.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */; };
 		D3E27A330E741DD20078CC2C /* apple-boss.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36E9FB40E5A944A00496BD3 /* apple-boss.xml */; };
 		D3E785560E53FB54008C7D61 /* apple-boss.json in Resources */ = {isa = PBXBuildFile; fileRef = D3E784BC0E53DA28008C7D61 /* apple-boss.json */; };
@@ -827,27 +827,27 @@
 		D3252F790FCE1A7F005EF059 /* TDNSPredicateBuilderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNSPredicateBuilderTest.m; path = test/TDNSPredicateBuilderTest.m; sourceTree = "<group>"; };
 		D3252F7C0FCE1A87005EF059 /* TDNSPredicateBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNSPredicateBuilder.h; path = test/TDNSPredicateBuilder.h; sourceTree = "<group>"; };
 		D3252F7D0FCE1A87005EF059 /* TDNSPredicateBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNSPredicateBuilder.m; path = test/TDNSPredicateBuilder.m; sourceTree = "<group>"; };
-		D325FFBE161E4E5500D4EBCC /* PKNodeCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeCollection.h; path = test/PKNodeCollection.h; sourceTree = "<group>"; };
-		D325FFBF161E4E5500D4EBCC /* PKNodeCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeCollection.m; path = test/PKNodeCollection.m; sourceTree = "<group>"; };
+		D325FFBE161E4E5500D4EBCC /* PKCollectionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKCollectionNode.h; path = test/PKCollectionNode.h; sourceTree = "<group>"; };
+		D325FFBF161E4E5500D4EBCC /* PKCollectionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKCollectionNode.m; path = test/PKCollectionNode.m; sourceTree = "<group>"; };
 		D325FFC1161E4E9C00D4EBCC /* PKNodeTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeTypes.h; path = test/PKNodeTypes.h; sourceTree = "<group>"; };
-		D325FFC2161E4F5D00D4EBCC /* PKNodeConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeConstant.h; path = test/PKNodeConstant.h; sourceTree = "<group>"; };
-		D325FFC3161E4F5D00D4EBCC /* PKNodeConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeConstant.m; path = test/PKNodeConstant.m; sourceTree = "<group>"; };
-		D325FFCB161E500600D4EBCC /* PKNodePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodePattern.h; path = test/PKNodePattern.h; sourceTree = "<group>"; };
-		D325FFCC161E500600D4EBCC /* PKNodePattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodePattern.m; path = test/PKNodePattern.m; sourceTree = "<group>"; };
-		D325FFD9161E551E00D4EBCC /* PKNodeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeBase.h; path = test/PKNodeBase.h; sourceTree = "<group>"; };
-		D325FFDA161E551E00D4EBCC /* PKNodeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeBase.m; path = test/PKNodeBase.m; sourceTree = "<group>"; };
-		D325FFDE161E59F000D4EBCC /* PKNodeReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeReference.h; path = test/PKNodeReference.h; sourceTree = "<group>"; };
-		D325FFDF161E59F100D4EBCC /* PKNodeReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeReference.m; path = test/PKNodeReference.m; sourceTree = "<group>"; };
+		D325FFC2161E4F5D00D4EBCC /* PKConstantNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKConstantNode.h; path = test/PKConstantNode.h; sourceTree = "<group>"; };
+		D325FFC3161E4F5D00D4EBCC /* PKConstantNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKConstantNode.m; path = test/PKConstantNode.m; sourceTree = "<group>"; };
+		D325FFCB161E500600D4EBCC /* PKPatternNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKPatternNode.h; path = test/PKPatternNode.h; sourceTree = "<group>"; };
+		D325FFCC161E500600D4EBCC /* PKPatternNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKPatternNode.m; path = test/PKPatternNode.m; sourceTree = "<group>"; };
+		D325FFD9161E551E00D4EBCC /* PKBaseNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseNode.h; path = test/PKBaseNode.h; sourceTree = "<group>"; };
+		D325FFDA161E551E00D4EBCC /* PKBaseNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKBaseNode.m; path = test/PKBaseNode.m; sourceTree = "<group>"; };
+		D325FFDE161E59F000D4EBCC /* PKReferenceNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKReferenceNode.h; path = test/PKReferenceNode.h; sourceTree = "<group>"; };
+		D325FFDF161E59F100D4EBCC /* PKReferenceNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKReferenceNode.m; path = test/PKReferenceNode.m; sourceTree = "<group>"; };
 		D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKCompositeParser.m; path = src/PKCompositeParser.m; sourceTree = "<group>"; };
 		D325FFE8161F484100D4EBCC /* PKCompositeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKCompositeParser.h; path = include/ParseKit/PKCompositeParser.h; sourceTree = "<group>"; };
-		D325FFEA161F557B00D4EBCC /* PKNodeComposite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeComposite.h; path = test/PKNodeComposite.h; sourceTree = "<group>"; };
-		D325FFEB161F557C00D4EBCC /* PKNodeComposite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeComposite.m; path = test/PKNodeComposite.m; sourceTree = "<group>"; };
-		D325FFED161F59D200D4EBCC /* PKNodeOptional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeOptional.h; path = test/PKNodeOptional.h; sourceTree = "<group>"; };
-		D325FFEE161F59D300D4EBCC /* PKNodeOptional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeOptional.m; path = test/PKNodeOptional.m; sourceTree = "<group>"; };
-		D325FFF0161F59E500D4EBCC /* PKNodeMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeMultiple.h; path = test/PKNodeMultiple.h; sourceTree = "<group>"; };
-		D325FFF1161F59E600D4EBCC /* PKNodeMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeMultiple.m; path = test/PKNodeMultiple.m; sourceTree = "<group>"; };
-		D325FFF3161F59F500D4EBCC /* PKNodeDelimited.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeDelimited.h; path = test/PKNodeDelimited.h; sourceTree = "<group>"; };
-		D325FFF4161F59F700D4EBCC /* PKNodeDelimited.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeDelimited.m; path = test/PKNodeDelimited.m; sourceTree = "<group>"; };
+		D325FFEA161F557B00D4EBCC /* PKCompositeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKCompositeNode.h; path = test/PKCompositeNode.h; sourceTree = "<group>"; };
+		D325FFEB161F557C00D4EBCC /* PKCompositeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKCompositeNode.m; path = test/PKCompositeNode.m; sourceTree = "<group>"; };
+		D325FFED161F59D200D4EBCC /* PKOptionalNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKOptionalNode.h; path = test/PKOptionalNode.h; sourceTree = "<group>"; };
+		D325FFEE161F59D300D4EBCC /* PKOptionalNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKOptionalNode.m; path = test/PKOptionalNode.m; sourceTree = "<group>"; };
+		D325FFF0161F59E500D4EBCC /* PKMultipleNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKMultipleNode.h; path = test/PKMultipleNode.h; sourceTree = "<group>"; };
+		D325FFF1161F59E600D4EBCC /* PKMultipleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKMultipleNode.m; path = test/PKMultipleNode.m; sourceTree = "<group>"; };
+		D325FFF3161F59F500D4EBCC /* PKDelimitedNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDelimitedNode.h; path = test/PKDelimitedNode.h; sourceTree = "<group>"; };
+		D325FFF4161F59F700D4EBCC /* PKDelimitedNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDelimitedNode.m; path = test/PKDelimitedNode.m; sourceTree = "<group>"; };
 		D325FFF6161F681D00D4EBCC /* TDParserFactoryParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryParserTest.h; path = test/TDParserFactoryParserTest.h; sourceTree = "<group>"; };
 		D325FFF7161F681E00D4EBCC /* TDParserFactoryParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryParserTest.m; path = test/TDParserFactoryParserTest.m; sourceTree = "<group>"; };
 		D3305C4B102F5BAD00DC4F75 /* TDGutterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGutterView.h; path = demoapp/TDGutterView.h; sourceTree = "<group>"; };
@@ -1015,8 +1015,8 @@
 		D35384EC0FE9691100926552 /* nspredicate.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nspredicate.grammar; path = res/nspredicate.grammar; sourceTree = "<group>"; };
 		D353899B0FEAC94400926552 /* c.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = c.grammar; path = res/c.grammar; sourceTree = "<group>"; };
 		D353899D0FEAC96B00926552 /* objc.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = objc.grammar; path = res/objc.grammar; sourceTree = "<group>"; };
-		D35566A51623695500350D46 /* PKNodeWhitespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeWhitespace.h; path = test/PKNodeWhitespace.h; sourceTree = "<group>"; };
-		D35566A61623695500350D46 /* PKNodeWhitespace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeWhitespace.m; path = test/PKNodeWhitespace.m; sourceTree = "<group>"; };
+		D35566A51623695500350D46 /* PKWhitespaceNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKWhitespaceNode.h; path = test/PKWhitespaceNode.h; sourceTree = "<group>"; };
+		D35566A61623695500350D46 /* PKWhitespaceNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKWhitespaceNode.m; path = test/PKWhitespaceNode.m; sourceTree = "<group>"; };
 		D355C62B0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNSPredicateEvaluator.h; path = test/TDNSPredicateEvaluator.h; sourceTree = "<group>"; };
 		D355C62C0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNSPredicateEvaluator.m; path = test/TDNSPredicateEvaluator.m; sourceTree = "<group>"; };
 		D355C62F0FE9EFEA006A91A4 /* TDNSPredicateEvaluatorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNSPredicateEvaluatorTest.h; path = test/TDNSPredicateEvaluatorTest.h; sourceTree = "<group>"; };
@@ -1094,8 +1094,8 @@
 		D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = json_with_comments.grammar; path = res/json_with_comments.grammar; sourceTree = "<group>"; };
 		D38349BB0F0C0D910055E4E0 /* json_with_comments.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = json_with_comments.css; path = res/json_with_comments.css; sourceTree = "<group>"; };
 		D3834A470F0C14B60055E4E0 /* yahoo_with_comments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = yahoo_with_comments.json; path = res/yahoo_with_comments.json; sourceTree = "<group>"; };
-		D38395DA1620B37400F0DADE /* PKNodeCardinal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeCardinal.h; path = test/PKNodeCardinal.h; sourceTree = "<group>"; };
-		D38395DB1620B37400F0DADE /* PKNodeCardinal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeCardinal.m; path = test/PKNodeCardinal.m; sourceTree = "<group>"; };
+		D38395DA1620B37400F0DADE /* PKCardinalNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKCardinalNode.h; path = test/PKCardinalNode.h; sourceTree = "<group>"; };
+		D38395DB1620B37400F0DADE /* PKCardinalNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKCardinalNode.m; path = test/PKCardinalNode.m; sourceTree = "<group>"; };
 		D38395DD1621007500F0DADE /* PKGrammarParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGrammarParser.h; path = test/PKGrammarParser.h; sourceTree = "<group>"; };
 		D38395DE1621007500F0DADE /* PKGrammarParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGrammarParser.m; path = test/PKGrammarParser.m; sourceTree = "<group>"; };
 		D385F9880F046FE900DB2946 /* TDGenericAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGenericAssembler.h; path = test/TDGenericAssembler.h; sourceTree = "<group>"; };
@@ -1139,8 +1139,8 @@
 		D3A203B5161CA1A200207F4D /* PKParserFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKParserFactory.m; path = test/PKParserFactory.m; sourceTree = "<group>"; };
 		D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryASTTest.h; path = test/TDParserFactoryASTTest.h; sourceTree = "<group>"; };
 		D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryASTTest.m; path = test/TDParserFactoryASTTest.m; sourceTree = "<group>"; };
-		D3A748B216223A8D00823607 /* PKNodeLiteral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeLiteral.h; path = test/PKNodeLiteral.h; sourceTree = "<group>"; };
-		D3A748B316223A8D00823607 /* PKNodeLiteral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeLiteral.m; path = test/PKNodeLiteral.m; sourceTree = "<group>"; };
+		D3A748B216223A8D00823607 /* PKLiteralNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKLiteralNode.h; path = test/PKLiteralNode.h; sourceTree = "<group>"; };
+		D3A748B316223A8D00823607 /* PKLiteralNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKLiteralNode.m; path = test/PKLiteralNode.m; sourceTree = "<group>"; };
 		D3A748B91622437000823607 /* PKNodeVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeVisitor.h; path = test/PKNodeVisitor.h; sourceTree = "<group>"; };
 		D3A748BC1622443600823607 /* PKSimplifyNodeVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSimplifyNodeVisitor.h; path = test/PKSimplifyNodeVisitor.h; sourceTree = "<group>"; };
 		D3A748BD1622443700823607 /* PKSimplifyNodeVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSimplifyNodeVisitor.m; path = test/PKSimplifyNodeVisitor.m; sourceTree = "<group>"; };
@@ -1249,8 +1249,8 @@
 		D3DDDCAC0F0880D800A58000 /* example1.srgs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = example1.srgs; path = res/example1.srgs; sourceTree = "<group>"; };
 		D3E016D216ADB98800C6BB96 /* TDParserFactorySymbolTableTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactorySymbolTableTest.h; path = test/TDParserFactorySymbolTableTest.h; sourceTree = "<group>"; };
 		D3E016D316ADB98800C6BB96 /* TDParserFactorySymbolTableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactorySymbolTableTest.m; path = test/TDParserFactorySymbolTableTest.m; sourceTree = "<group>"; };
-		D3E016D616ADE68D00C6BB96 /* PKNodeDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeDefinition.h; path = test/PKNodeDefinition.h; sourceTree = "<group>"; };
-		D3E016D716ADE68D00C6BB96 /* PKNodeDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNodeDefinition.m; path = test/PKNodeDefinition.m; sourceTree = "<group>"; };
+		D3E016D616ADE68D00C6BB96 /* PKDefinitionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDefinitionNode.h; path = test/PKDefinitionNode.h; sourceTree = "<group>"; };
+		D3E016D716ADE68D00C6BB96 /* PKDefinitionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDefinitionNode.m; path = test/PKDefinitionNode.m; sourceTree = "<group>"; };
 		D3E39C3D0FC5FFD10022DAB9 /* TDDelimitStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDDelimitStateTest.h; path = test/TDDelimitStateTest.h; sourceTree = "<group>"; };
 		D3E39C3E0FC5FFD10022DAB9 /* TDDelimitStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDDelimitStateTest.m; path = test/TDDelimitStateTest.m; sourceTree = "<group>"; };
 		D3E784BC0E53DA28008C7D61 /* apple-boss.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "apple-boss.json"; path = "res/apple-boss.json"; sourceTree = "<group>"; };
@@ -1521,32 +1521,32 @@
 			isa = PBXGroup;
 			children = (
 				D325FFC1161E4E9C00D4EBCC /* PKNodeTypes.h */,
-				D325FFD9161E551E00D4EBCC /* PKNodeBase.h */,
-				D325FFDA161E551E00D4EBCC /* PKNodeBase.m */,
-				D3E016D616ADE68D00C6BB96 /* PKNodeDefinition.h */,
-				D3E016D716ADE68D00C6BB96 /* PKNodeDefinition.m */,
-				D325FFDE161E59F000D4EBCC /* PKNodeReference.h */,
-				D325FFDF161E59F100D4EBCC /* PKNodeReference.m */,
-				D325FFC2161E4F5D00D4EBCC /* PKNodeConstant.h */,
-				D325FFC3161E4F5D00D4EBCC /* PKNodeConstant.m */,
-				D3A748B216223A8D00823607 /* PKNodeLiteral.h */,
-				D3A748B316223A8D00823607 /* PKNodeLiteral.m */,
-				D325FFCB161E500600D4EBCC /* PKNodePattern.h */,
-				D325FFCC161E500600D4EBCC /* PKNodePattern.m */,
-				D35566A51623695500350D46 /* PKNodeWhitespace.h */,
-				D35566A61623695500350D46 /* PKNodeWhitespace.m */,
-				D325FFF3161F59F500D4EBCC /* PKNodeDelimited.h */,
-				D325FFF4161F59F700D4EBCC /* PKNodeDelimited.m */,
-				D325FFEA161F557B00D4EBCC /* PKNodeComposite.h */,
-				D325FFEB161F557C00D4EBCC /* PKNodeComposite.m */,
-				D325FFBE161E4E5500D4EBCC /* PKNodeCollection.h */,
-				D325FFBF161E4E5500D4EBCC /* PKNodeCollection.m */,
-				D38395DA1620B37400F0DADE /* PKNodeCardinal.h */,
-				D38395DB1620B37400F0DADE /* PKNodeCardinal.m */,
-				D325FFED161F59D200D4EBCC /* PKNodeOptional.h */,
-				D325FFEE161F59D300D4EBCC /* PKNodeOptional.m */,
-				D325FFF0161F59E500D4EBCC /* PKNodeMultiple.h */,
-				D325FFF1161F59E600D4EBCC /* PKNodeMultiple.m */,
+				D325FFD9161E551E00D4EBCC /* PKBaseNode.h */,
+				D325FFDA161E551E00D4EBCC /* PKBaseNode.m */,
+				D3E016D616ADE68D00C6BB96 /* PKDefinitionNode.h */,
+				D3E016D716ADE68D00C6BB96 /* PKDefinitionNode.m */,
+				D325FFDE161E59F000D4EBCC /* PKReferenceNode.h */,
+				D325FFDF161E59F100D4EBCC /* PKReferenceNode.m */,
+				D325FFC2161E4F5D00D4EBCC /* PKConstantNode.h */,
+				D325FFC3161E4F5D00D4EBCC /* PKConstantNode.m */,
+				D3A748B216223A8D00823607 /* PKLiteralNode.h */,
+				D3A748B316223A8D00823607 /* PKLiteralNode.m */,
+				D325FFCB161E500600D4EBCC /* PKPatternNode.h */,
+				D325FFCC161E500600D4EBCC /* PKPatternNode.m */,
+				D35566A51623695500350D46 /* PKWhitespaceNode.h */,
+				D35566A61623695500350D46 /* PKWhitespaceNode.m */,
+				D325FFF3161F59F500D4EBCC /* PKDelimitedNode.h */,
+				D325FFF4161F59F700D4EBCC /* PKDelimitedNode.m */,
+				D325FFEA161F557B00D4EBCC /* PKCompositeNode.h */,
+				D325FFEB161F557C00D4EBCC /* PKCompositeNode.m */,
+				D325FFBE161E4E5500D4EBCC /* PKCollectionNode.h */,
+				D325FFBF161E4E5500D4EBCC /* PKCollectionNode.m */,
+				D38395DA1620B37400F0DADE /* PKCardinalNode.h */,
+				D38395DB1620B37400F0DADE /* PKCardinalNode.m */,
+				D325FFED161F59D200D4EBCC /* PKOptionalNode.h */,
+				D325FFEE161F59D300D4EBCC /* PKOptionalNode.m */,
+				D325FFF0161F59E500D4EBCC /* PKMultipleNode.h */,
+				D325FFF1161F59E600D4EBCC /* PKMultipleNode.m */,
 			);
 			name = "AST Nodes";
 			sourceTree = "<group>";
@@ -2602,11 +2602,11 @@
 				D38395DF1621007600F0DADE /* PKGrammarParser.h in Headers */,
 				D38395E31621008E00F0DADE /* PKParserFactory.h in Headers */,
 				D38395FE1621027200F0DADE /* PKAST.h in Headers */,
-				D3A748B416223A8D00823607 /* PKNodeLiteral.h in Headers */,
+				D3A748B416223A8D00823607 /* PKLiteralNode.h in Headers */,
 				D3A748BA1622437000823607 /* PKNodeVisitor.h in Headers */,
 				D3A748BE1622443700823607 /* PKSimplifyNodeVisitor.h in Headers */,
-				D35566A71623695500350D46 /* PKNodeWhitespace.h in Headers */,
-				D3E016D816ADE68D00C6BB96 /* PKNodeDefinition.h in Headers */,
+				D35566A71623695500350D46 /* PKWhitespaceNode.h in Headers */,
+				D3E016D816ADE68D00C6BB96 /* PKDefinitionNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2719,10 +2719,10 @@
 				D38395E01621007600F0DADE /* PKGrammarParser.h in Headers */,
 				D38395E41621009000F0DADE /* PKParserFactory.h in Headers */,
 				D38395FF1621027300F0DADE /* PKAST.h in Headers */,
-				D3A748B516223A8D00823607 /* PKNodeLiteral.h in Headers */,
+				D3A748B516223A8D00823607 /* PKLiteralNode.h in Headers */,
 				D3A748BB1622437000823607 /* PKNodeVisitor.h in Headers */,
 				D3A748BF1622443700823607 /* PKSimplifyNodeVisitor.h in Headers */,
-				D35566A81623695500350D46 /* PKNodeWhitespace.h in Headers */,
+				D35566A81623695500350D46 /* PKWhitespaceNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3111,21 +3111,21 @@
 				D38395E11621007600F0DADE /* PKGrammarParser.m in Sources */,
 				D38395E71621009F00F0DADE /* PKParserFactory.m in Sources */,
 				D38395E8162100A900F0DADE /* PKConstructNodeVisitor.m in Sources */,
-				D38395F4162100BD00F0DADE /* PKNodeBase.m in Sources */,
-				D38395F5162100BD00F0DADE /* PKNodeReference.m in Sources */,
-				D38395F6162100BD00F0DADE /* PKNodeConstant.m in Sources */,
-				D38395F7162100BD00F0DADE /* PKNodePattern.m in Sources */,
-				D38395F8162100BD00F0DADE /* PKNodeDelimited.m in Sources */,
-				D38395F9162100BD00F0DADE /* PKNodeComposite.m in Sources */,
-				D38395FA162100BD00F0DADE /* PKNodeCollection.m in Sources */,
-				D38395FB162100BD00F0DADE /* PKNodeCardinal.m in Sources */,
-				D38395FC162100BD00F0DADE /* PKNodeOptional.m in Sources */,
-				D38395FD162100BD00F0DADE /* PKNodeMultiple.m in Sources */,
+				D38395F4162100BD00F0DADE /* PKBaseNode.m in Sources */,
+				D38395F5162100BD00F0DADE /* PKReferenceNode.m in Sources */,
+				D38395F6162100BD00F0DADE /* PKConstantNode.m in Sources */,
+				D38395F7162100BD00F0DADE /* PKPatternNode.m in Sources */,
+				D38395F8162100BD00F0DADE /* PKDelimitedNode.m in Sources */,
+				D38395F9162100BD00F0DADE /* PKCompositeNode.m in Sources */,
+				D38395FA162100BD00F0DADE /* PKCollectionNode.m in Sources */,
+				D38395FB162100BD00F0DADE /* PKCardinalNode.m in Sources */,
+				D38395FC162100BD00F0DADE /* PKOptionalNode.m in Sources */,
+				D38395FD162100BD00F0DADE /* PKMultipleNode.m in Sources */,
 				D38396001621027C00F0DADE /* PKAST.m in Sources */,
-				D3A748B616223A8D00823607 /* PKNodeLiteral.m in Sources */,
+				D3A748B616223A8D00823607 /* PKLiteralNode.m in Sources */,
 				D3A748C01622443700823607 /* PKSimplifyNodeVisitor.m in Sources */,
-				D35566A91623695500350D46 /* PKNodeWhitespace.m in Sources */,
-				D3E016D916ADE68D00C6BB96 /* PKNodeDefinition.m in Sources */,
+				D35566A91623695500350D46 /* PKWhitespaceNode.m in Sources */,
+				D3E016D916ADE68D00C6BB96 /* PKDefinitionNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3419,20 +3419,20 @@
 				D38395E21621007600F0DADE /* PKGrammarParser.m in Sources */,
 				D38395E61621009E00F0DADE /* PKParserFactory.m in Sources */,
 				D38395E9162100AA00F0DADE /* PKConstructNodeVisitor.m in Sources */,
-				D38395EA162100BC00F0DADE /* PKNodeBase.m in Sources */,
-				D38395EB162100BC00F0DADE /* PKNodeReference.m in Sources */,
-				D38395EC162100BC00F0DADE /* PKNodeConstant.m in Sources */,
-				D38395ED162100BC00F0DADE /* PKNodePattern.m in Sources */,
-				D38395EE162100BC00F0DADE /* PKNodeDelimited.m in Sources */,
-				D38395EF162100BC00F0DADE /* PKNodeComposite.m in Sources */,
-				D38395F0162100BC00F0DADE /* PKNodeCollection.m in Sources */,
-				D38395F1162100BC00F0DADE /* PKNodeCardinal.m in Sources */,
-				D38395F2162100BC00F0DADE /* PKNodeOptional.m in Sources */,
-				D38395F3162100BC00F0DADE /* PKNodeMultiple.m in Sources */,
+				D38395EA162100BC00F0DADE /* PKBaseNode.m in Sources */,
+				D38395EB162100BC00F0DADE /* PKReferenceNode.m in Sources */,
+				D38395EC162100BC00F0DADE /* PKConstantNode.m in Sources */,
+				D38395ED162100BC00F0DADE /* PKPatternNode.m in Sources */,
+				D38395EE162100BC00F0DADE /* PKDelimitedNode.m in Sources */,
+				D38395EF162100BC00F0DADE /* PKCompositeNode.m in Sources */,
+				D38395F0162100BC00F0DADE /* PKCollectionNode.m in Sources */,
+				D38395F1162100BC00F0DADE /* PKCardinalNode.m in Sources */,
+				D38395F2162100BC00F0DADE /* PKOptionalNode.m in Sources */,
+				D38395F3162100BC00F0DADE /* PKMultipleNode.m in Sources */,
 				D38396011621027D00F0DADE /* PKAST.m in Sources */,
-				D3A748B716223A8D00823607 /* PKNodeLiteral.m in Sources */,
+				D3A748B716223A8D00823607 /* PKLiteralNode.m in Sources */,
 				D3A748C11622443700823607 /* PKSimplifyNodeVisitor.m in Sources */,
-				D35566AA1623695500350D46 /* PKNodeWhitespace.m in Sources */,
+				D35566AA1623695500350D46 /* PKWhitespaceNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

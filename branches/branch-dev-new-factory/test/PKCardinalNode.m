@@ -6,12 +6,12 @@
 //
 //
 
-#import "PKNodeCardinal.h"
+#import "PKCardinalNode.h"
 
-@implementation PKNodeCardinal
+@implementation PKCardinalNode
 
 - (id)copyWithZone:(NSZone *)zone {
-    PKNodeCardinal *that = (PKNodeCardinal *)[super copyWithZone:zone];
+    PKCardinalNode *that = (PKCardinalNode *)[super copyWithZone:zone];
     that->_rangeStart = _rangeStart;
     that->_rangeEnd = _rangeEnd;
     return that;
@@ -23,7 +23,7 @@
         return NO;
     }
     
-    PKNodeCardinal *that = (PKNodeCardinal *)obj;
+    PKCardinalNode *that = (PKCardinalNode *)obj;
     
     if (_rangeStart != that->_rangeStart) {
         return NO;

@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeWhitespace.h"
+#import "PKWhitespaceNode.h"
 
-@implementation PKNodeWhitespace
+@implementation PKWhitespaceNode
 
 - (int)type {
     return PKNodeTypeWhitespace;

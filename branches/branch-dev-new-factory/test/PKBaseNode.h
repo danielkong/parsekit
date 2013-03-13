@@ -10,7 +10,7 @@
 #import "PKAST.h"
 #import "PKConstructNodeVisitor.h"
 
-@interface PKNodeBase : PKAST
+@interface PKBaseNode : PKAST
 - (void)visit:(id <PKNodeVisitor>)v;
 
 @property (nonatomic, retain) NSString *parserName;

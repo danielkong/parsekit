@@ -11,6 +11,6 @@
 
 @interface PKSimplifyNodeVisitor : NSObject <PKNodeVisitor>
 
-@property (nonatomic, retain) PKNodeBase *rootNode;
-@property (nonatomic, retain) PKNodeBase *currentParent;
+@property (nonatomic, retain) PKBaseNode *rootNode;
+@property (nonatomic, retain) PKBaseNode *currentParent;
 @end

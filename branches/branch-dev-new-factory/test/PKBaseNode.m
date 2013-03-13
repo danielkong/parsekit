@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeBase.h"
+#import "PKBaseNode.h"
 
-@implementation PKNodeBase
+@implementation PKBaseNode
 
 - (void)dealloc {
     self.parserName = nil;
@@ -18,7 +18,7 @@
 
 
 - (id)copyWithZone:(NSZone *)zone {
-    PKNodeBase *that = (PKNodeBase *)[super copyWithZone:zone];
+    PKBaseNode *that = (PKBaseNode *)[super copyWithZone:zone];
     that->_parserName = [_parserName copyWithZone:zone];
     that->_callbackName = [_callbackName copyWithZone:zone];
     that->_discard = _discard;
@@ -31,7 +31,7 @@
         return NO;
     }
 
-    PKNodeBase *that = (PKNodeBase *)obj;
+    PKBaseNode *that = (PKBaseNode *)obj;
     
     if (![_parserName isEqual:that->_parserName]) {
         return NO;

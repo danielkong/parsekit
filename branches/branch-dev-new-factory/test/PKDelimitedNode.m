@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeDelimited.h"
+#import "PKDelimitedNode.h"
 
-@implementation PKNodeDelimited
+@implementation PKDelimitedNode
 
 - (void)dealloc {
     self.startMarker = nil;
@@ -18,7 +18,7 @@
 
 
 - (id)copyWithZone:(NSZone *)zone {
-    PKNodeDelimited *that = (PKNodeDelimited *)[super copyWithZone:zone];
+    PKDelimitedNode *that = (PKDelimitedNode *)[super copyWithZone:zone];
     that->_startMarker = [_startMarker retain];
     that->_endMarker = [_endMarker retain];
     return that;
@@ -30,7 +30,7 @@
         return NO;
     }
     
-    PKNodeDelimited *that = (PKNodeDelimited *)obj;
+    PKDelimitedNode *that = (PKDelimitedNode *)obj;
     
     if (![_startMarker isEqual:that->_startMarker]) {
         return NO;

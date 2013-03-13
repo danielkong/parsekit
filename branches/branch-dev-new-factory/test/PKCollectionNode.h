@@ -8,6 +8,6 @@
 
 #import "PKNodeTypes.h"
 
-@interface PKNodeCollection : PKNodeBase
+@interface PKCollectionNode : PKBaseNode
 
 @end

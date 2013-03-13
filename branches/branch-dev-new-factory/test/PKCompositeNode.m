@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeComposite.h"
+#import "PKCompositeNode.h"
 
-@implementation PKNodeComposite
+@implementation PKCompositeNode
 
 - (int)type {
     return PKNodeTypeComposite;

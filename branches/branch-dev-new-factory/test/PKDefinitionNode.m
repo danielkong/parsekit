@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeDefinition.h"
+#import "PKDefinitionNode.h"
 
-@implementation PKNodeDefinition
+@implementation PKDefinitionNode
 
 - (int)type {
     return PKNodeTypeDefinition;

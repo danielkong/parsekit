@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeLiteral.h"
+#import "PKLiteralNode.h"
 
-@implementation PKNodeLiteral
+@implementation PKLiteralNode
 
 - (int)type {
     return PKNodeTypeLiteral;

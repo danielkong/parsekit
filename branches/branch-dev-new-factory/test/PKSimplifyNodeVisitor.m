@@ -7,17 +7,17 @@
 //
 
 #import "PKSimplifyNodeVisitor.h"
-#import "PKNodeBase.h"
-#import "PKNodeReference.h"
-#import "PKNodeConstant.h"
-#import "PKNodeLiteral.h"
-#import "PKNodePattern.h"
-#import "PKNodeWhitespace.h"
-#import "PKNodeComposite.h"
-#import "PKNodeCollection.h"
-#import "PKNodeCardinal.h"
-#import "PKNodeOptional.h"
-#import "PKNodeMultiple.h"
+#import "PKBaseNode.h"
+#import "PKReferenceNode.h"
+#import "PKConstantNode.h"
+#import "PKLiteralNode.h"
+#import "PKPatternNode.h"
+#import "PKWhitespaceNode.h"
+#import "PKCompositeNode.h"
+#import "PKCollectionNode.h"
+#import "PKCardinalNode.h"
+#import "PKOptionalNode.h"
+#import "PKMultipleNode.h"
 
 @implementation PKSimplifyNodeVisitor
 
@@ -28,18 +28,18 @@
 }
 
 
-- (void)visitDefinition:(PKNodeDefinition *)node {
+- (void)visitDefinition:(PKDefinitionNode *)node {
     NSAssert(0, @"");
 }
 
 
-- (void)visitReference:(PKNodeReference *)node {
+- (void)visitReference:(PKReferenceNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     BOOL hasOnlyChild = 1 == [node.children count];
     
     BOOL isRoot = NO; // TODO remove rootNode check if remove "@start"
-    PKNodeBase *firstChild = nil;
+    PKBaseNode *firstChild = nil;
     BOOL isChildTerminal = NO;
 
     if (hasOnlyChild) {
@@ -66,7 +66,7 @@
         _currentParent.children = sibs;
         
     } else {
-        for (PKNodeBase *child in node.children) {
+        for (PKBaseNode *child in node.children) {
             self.currentParent = node;
             [child visit:self];
         }
@@ -74,65 +74,65 @@
 }
 
 
-- (void)visitConstant:(PKNodeConstant *)node {
+- (void)visitConstant:(PKConstantNode *)node {
 
 }
 
 
-- (void)visitLiteral:(PKNodeLiteral *)node {
+- (void)visitLiteral:(PKLiteralNode *)node {
 
 }
 
 
-- (void)visitDelimited:(PKNodeDelimited *)node {
+- (void)visitDelimited:(PKDelimitedNode *)node {
 
 }
 
 
-- (void)visitPattern:(PKNodePattern *)node {
+- (void)visitPattern:(PKPatternNode *)node {
     
 }
 
 
-- (void)visitWhitespace:(PKNodeWhitespace *)node {
+- (void)visitWhitespace:(PKWhitespaceNode *)node {
     
 }
 
 
-- (void)visitComposite:(PKNodeComposite *)node {
-    for (PKNodeBase *child in node.children) {
+- (void)visitComposite:(PKCompositeNode *)node {
+    for (PKBaseNode *child in node.children) {
         self.currentParent = node;
         [child visit:self];
     }
 }
 
 
-- (void)visitCollection:(PKNodeCollection *)node {
-    for (PKNodeBase *child in node.children) {
+- (void)visitCollection:(PKCollectionNode *)node {
+    for (PKBaseNode *child in node.children) {
         self.currentParent = node;
         [child visit:self];
     }
 }
 
 
-- (void)visitCardinal:(PKNodeCardinal *)node {
-    for (PKNodeBase *child in node.children) {
+- (void)visitCardinal:(PKCardinalNode *)node {
+    for (PKBaseNode *child in node.children) {
         self.currentParent = node;
         [child visit:self];
     }
 }
 
 
-- (void)visitOptional:(PKNodeOptional *)node {
-    for (PKNodeBase *child in node.children) {
+- (void)visitOptional:(PKOptionalNode *)node {
+    for (PKBaseNode *child in node.children) {
         self.currentParent = node;
         [child visit:self];
     }
 }
 
 
-- (void)visitMultiple:(PKNodeMultiple *)node {
-    for (PKNodeBase *child in node.children) {
+- (void)visitMultiple:(PKMultipleNode *)node {
+    for (PKBaseNode *child in node.children) {
         self.currentParent = node;
         [child visit:self];
     }
@@ -142,7 +142,7 @@
 #pragma mark -
 #pragma mark Properties
 
-- (void)setRootNode:(PKNodeBase *)node {
+- (void)setRootNode:(PKBaseNode *)node {
     if (node != _rootNode) {
         [_rootNode release];
         _rootNode = [node retain];
