@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeCollection.h"
+#import "PKCollectionNode.h"
 
-@interface PKNodeCardinal : PKNodeCollection
+@interface PKCardinalNode : PKCollectionNode
 @property (nonatomic, assign) NSInteger rangeStart;
 @property (nonatomic, assign) NSInteger rangeEnd;
 @end

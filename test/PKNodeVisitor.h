@@ -11,31 +11,31 @@
 //@class PKParser;
 //@class PKCollectionParser;
 
-@class PKNodeBase;
-@class PKNodeVariable;
-@class PKNodeConstant;
-@class PKNodeDelimited;
-@class PKNodePattern;
-@class PKNodeComposite;
-@class PKNodeCollection;
-@class PKNodeCardinal;
-@class PKNodeOptional;
-@class PKNodeMultiple;
+@class PKBaseNode;
+@class PKVariableNode;
+@class PKConstantNode;
+@class PKDelimitedNode;
+@class PKPatternNode;
+@class PKCompositeNode;
+@class PKCollectionNode;
+@class PKCardinalNode;
+@class PKOptionalNode;
+@class PKMultipleNode;
 //@class PKNodeRepetition;
 //@class PKNodeDifference;
 //@class PKNodeNegation;
 
 @interface PKNodeVisitor : NSObject
 
-- (void)visitVariable:(PKNodeVariable *)node;
-- (void)visitConstant:(PKNodeConstant *)node;
-- (void)visitDelimited:(PKNodeDelimited *)node;
-- (void)visitPattern:(PKNodePattern *)node;
-- (void)visitComposite:(PKNodeComposite *)node;
-- (void)visitCollection:(PKNodeCollection *)node;
-- (void)visitCardinal:(PKNodeCardinal *)node;
-- (void)visitOptional:(PKNodeOptional *)node;
-- (void)visitMultiple:(PKNodeMultiple *)node;
+- (void)visitVariable:(PKVariableNode *)node;
+- (void)visitConstant:(PKConstantNode *)node;
+- (void)visitDelimited:(PKDelimitedNode *)node;
+- (void)visitPattern:(PKPatternNode *)node;
+- (void)visitComposite:(PKCompositeNode *)node;
+- (void)visitCollection:(PKCollectionNode *)node;
+- (void)visitCardinal:(PKCardinalNode *)node;
+- (void)visitOptional:(PKOptionalNode *)node;
+- (void)visitMultiple:(PKMultipleNode *)node;
 //- (void)visitRepetition:(PKNodeRepetition *)node;
 //- (void)visitDifference:(PKNodeDifference *)node;
 //- (void)visitNegation:(PKNodeNegation *)node;

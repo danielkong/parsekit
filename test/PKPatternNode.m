@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodePattern.h"
+#import "PKPatternNode.h"
 
-@implementation PKNodePattern
+@implementation PKPatternNode
 
 - (void)dealloc {
     self.string = nil;

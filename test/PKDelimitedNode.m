@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeDelimited.h"
+#import "PKDelimitedNode.h"
 
-@implementation PKNodeDelimited
+@implementation PKDelimitedNode
 
 - (void)dealloc {
     self.startMarker = nil;

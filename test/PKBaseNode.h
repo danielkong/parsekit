@@ -10,7 +10,7 @@
 #import "PKAST.h"
 #import "PKNodeVisitor.h"
 
-@interface PKNodeBase : PKAST
+@interface PKBaseNode : PKAST
 - (void)visit:(PKNodeVisitor *)v;
 
 @property (nonatomic, assign) BOOL discard;

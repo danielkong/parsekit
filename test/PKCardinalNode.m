@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeCardinal.h"
+#import "PKCardinalNode.h"
 
-@implementation PKNodeCardinal
+@implementation PKCardinalNode
 
 - (int)type {
     return PKNodeTypeCardinal;

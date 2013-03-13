@@ -6,9 +6,9 @@
 //
 //
 
-#import "PKNodeCollection.h"
+#import "PKCollectionNode.h"
 
-@implementation PKNodeCollection
+@implementation PKCollectionNode
 
 - (int)type {
     return PKNodeTypeCollection;
