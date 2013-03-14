@@ -2,20 +2,20 @@
 //  PKNodeVisitor.h
 //  ParseKit
 //
-//  Created by Todd Ditchendorf on 10/4/12.
+//  Created by Todd Ditchendorf on 10/7/12.
 //
 //
 
-#import <ParseKit/ParseKit.h>
-#import "TDParserFactory.h" // remove
-//@class PKParser;
-//@class PKCollectionParser;
+#import <Foundation/Foundation.h>
 
 @class PKBaseNode;
-@class PKVariableNode;
+@class PKDefinitionNode;
+@class PKReferenceNode;
 @class PKConstantNode;
+@class PKLiteralNode;
 @class PKDelimitedNode;
 @class PKPatternNode;
+@class PKWhitespaceNode;
 @class PKCompositeNode;
 @class PKCollectionNode;
 @class PKCardinalNode;
@@ -25,12 +25,14 @@
 //@class PKNodeDifference;
 //@class PKNodeNegation;
 
-@interface PKNodeVisitor : NSObject
-
-- (void)visitVariable:(PKVariableNode *)node;
+@protocol PKNodeVisitor <NSObject>
+- (void)visitDefinition:(PKDefinitionNode *)node;
+- (void)visitReference:(PKReferenceNode *)node;
 - (void)visitConstant:(PKConstantNode *)node;
+- (void)visitLiteral:(PKLiteralNode *)node;
 - (void)visitDelimited:(PKDelimitedNode *)node;
 - (void)visitPattern:(PKPatternNode *)node;
+- (void)visitWhitespace:(PKWhitespaceNode *)node;
 - (void)visitComposite:(PKCompositeNode *)node;
 - (void)visitCollection:(PKCollectionNode *)node;
 - (void)visitCardinal:(PKCardinalNode *)node;
@@ -40,10 +42,5 @@
 //- (void)visitDifference:(PKNodeDifference *)node;
 //- (void)visitNegation:(PKNodeNegation *)node;
 
-@property (nonatomic, retain) PKParser *rootParser;
-@property (nonatomic, retain) PKCompositeParser *currentParser;
-
-@property (nonatomic, retain) id assembler;
-@property (nonatomic, retain) id preassembler;
-@property (nonatomic, assign) TDParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
+@property (nonatomic, retain) PKBaseNode *rootNode;
 @end

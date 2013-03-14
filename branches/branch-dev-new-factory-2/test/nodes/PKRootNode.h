@@ -7,10 +7,8 @@
 //
 
 #import "PKNodeTypes.h"
-#import "PKAST.h"
-#import "PKNodeVisitor.h"
 
-@interface PKRootNode : PKAST
-- (void)visit:(PKNodeVisitor *)v;
+@interface PKRootNode : PKBaseNode
+- (void)visit:(id <PKNodeVisitor>)v;
 
 @end
