@@ -46,10 +46,10 @@ sqlStmtPrefix       = 'EXPLAIN' ('QUERY' 'PLAN')?;
 sqlStmtBody         = 
                       alterTableStmt
                     | analyzeStmt
-                    /*                      
                     | attachStmt
                     | beginStmt
                     | commitStmt
+                    /*                      
                     | createIndexStmt
                     | createTableStmt
                     | createTriggerStmt
@@ -111,10 +111,10 @@ foreignKeyClause =     'REFERENCES' foreignTable ('(' columnName (',' columnName
 
 analyzeStmt             = 'ANALYZE' (databaseName | tableOrIndexName | databaseName '.' tableOrIndexName)?;
 
+attachStmt              = 'ATTACH' 'DATABASE'? expr 'AS' databaseName;
+beginStmt               = 'BEGIN' ('DEFERRED' | 'IMMEDIATE' | 'EXCLUSIVE')? 'TRANSACTION'?;
+commitStmt              = ('COMMIT' | 'END') 'TRANSACTION'?;
 /*
-attachStmt              = XXX;
-beginStmt               = XXX;
-commitStmt              = XXX;
 createIndexStmt         = XXX;
 createTableStmt         = XXX;
 createTriggerStmt       = XXX;
