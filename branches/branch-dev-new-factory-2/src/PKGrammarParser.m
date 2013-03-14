@@ -171,6 +171,18 @@
 }
 
 
+// statement            = tokenizerDirective | decl;
+- (PKCollectionParser *)statementParser {
+    if (!statementParser) {
+        self.statementParser = [PKAlternation alternation];
+        statementParser.name = @"statement";
+        [statementParser add:self.tokenizerDirectiveParser];
+        [statementParser add:self.declParser];
+    }
+    return statementParser;
+}
+
+
 // tokenizerDirective   = S* '@'! (Word - 'start') S* '=' (S! | ~';')+ ';'!;
 - (PKCollectionParser *)tokenizerDirectiveParser {
     if (!tokenizerDirectiveParser) {
