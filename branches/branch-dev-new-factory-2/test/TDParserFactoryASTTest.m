@@ -58,7 +58,8 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(@start:SEQ foo:Word)", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF :Word))", [rootNode treeDescription]);
+    //TDEqualObjects(@"(@start:SEQ foo:Word)", [rootNode treeDescription]);
     //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
