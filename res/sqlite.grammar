@@ -21,6 +21,8 @@ tableName           = Word | star; // ??
 newTableName        = tableName; // ??
 foreignTable        = tableName; // ??
 
+savepointName       = Word; // ?
+
 columnName          = Word | star; // ??
 triggerName         = Word; // ??
 viewName            = Word; // ??
@@ -68,7 +70,9 @@ sqlStmtBody         =
                     | pragmaStmt
                     | reindexStmt
                     | releaseStmt
+*/
                     | rollbackStmt
+/*
                     | savepointStmt
 */
                     | selectStmt
@@ -151,7 +155,9 @@ parentheticColumnNames  = '(' columnName (',' columnName)* ')';
 pragmaStmt              = XXX;
 reindexStmt             = XXX;
 releaseStmt             = XXX;
-rollbackStmt            = XXX;
+*/
+rollbackStmt            = 'ROLLBACK' 'TRANSACTION'? ('TO' 'SAVEPOINT'? savepointName)?;
+/*
 savepointStmt           = XXX;
 */
 
