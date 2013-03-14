@@ -8,6 +8,7 @@
 
 #import "PKConstructNodeVisitor.h"
 #import "PKBaseNode.h"
+#import "PKRootNode.h"
 #import "PKDefinitionNode.h"
 #import "PKReferenceNode.h"
 #import "PKConstantNode.h"
@@ -99,6 +100,11 @@
     }
     
     return p;
+}
+
+
+- (void)visitRoot:(PKRootNode *)node {
+    
 }
 
 

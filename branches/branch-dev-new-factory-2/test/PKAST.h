@@ -16,13 +16,15 @@
 
 @class PKToken;
 
-@interface PKAST : NSObject
+@interface PKAST : NSObject <NSCopying>
 
 + (PKAST *)ASTWithToken:(PKToken *)tok;
 
 - (id)initWithToken:(PKToken *)tok;
 
 - (int)type;
+
+- (NSString *)name;
 
 - (void)addChild:(PKAST *)c;
 - (BOOL)isNil;

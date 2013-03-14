@@ -10,8 +10,8 @@
 
 @implementation PKRootNode
 
-- (void)visit:(PKNodeVisitor *)v {
-    //[v visitRoot:self];
+- (void)visit:(id <PKNodeVisitor>)v {
+    [v visitRoot:self];
 }
 
 @end

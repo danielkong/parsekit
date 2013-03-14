@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class PKBaseNode;
+@class PKRootNode;
 @class PKDefinitionNode;
 @class PKReferenceNode;
 @class PKConstantNode;
@@ -26,6 +27,7 @@
 //@class PKNodeNegation;
 
 @protocol PKNodeVisitor <NSObject>
+- (void)visitRoot:(PKRootNode *)node;
 - (void)visitDefinition:(PKDefinitionNode *)node;
 - (void)visitReference:(PKReferenceNode *)node;
 - (void)visitConstant:(PKConstantNode *)node;

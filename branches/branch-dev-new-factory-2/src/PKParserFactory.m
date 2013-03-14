@@ -12,6 +12,22 @@
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
 
+#import "PKAST.h"
+#import "PKBaseNode.h"
+#import "PKRootNode.h"
+#import "PKDefinitionNode.h"
+#import "PKReferenceNode.h"
+#import "PKConstantNode.h"
+#import "PKLiteralNode.h"
+#import "PKDelimitedNode.h"
+#import "PKPatternNode.h"
+#import "PKWhitespaceNode.h"
+#import "PKCompositeNode.h"
+#import "PKCollectionNode.h"
+#import "PKCardinalNode.h"
+#import "PKOptionalNode.h"
+#import "PKMultipleNode.h"
+
 @interface PKParser (PKParserFactoryAdditionsFriend)
 - (void)setTokenizer:(PKTokenizer *)t;
 @end
@@ -199,20 +215,19 @@ void PKReleaseSubparserTree(PKParser *p) {
     @try {
         self.assembler = a;
         self.preassembler = pa;
-        self.selectorTable = [NSMutableDictionary dictionary];
-        self.parserClassTable = [NSMutableDictionary dictionary];
-        self.parserTokensTable = [self parserTokensTableFromParsingStatementsInString:g];
-
+        
+        PKRootNode *rootNode = (PKRootNode *)[self ASTFromGrammar:g error:outError];
+        
+        NSLog(@"rootNode %@", rootNode);
+        
         PKTokenizer *t = [self tokenizerFromGrammarSettings];
-
-        [self gatherParserClassNamesFromTokens];
+        PKParser *start = [self parserFromAST:rootNode];
         
-        PKParser *start = [self expandedParserForName:@"@start"];
+        NSLog(@"start %@", start);
         
-        assembler = nil;
-        self.selectorTable = nil;
-        self.parserClassTable = nil;
-        self.parserTokensTable = nil;
+        self.assembler = nil;
+        self.callbackTab = nil;
+        self.productionTab = nil;
         
         if (start && [start isKindOfClass:[PKParser class]]) {
             start.tokenizer = t;

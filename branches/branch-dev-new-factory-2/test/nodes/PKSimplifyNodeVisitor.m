@@ -8,6 +8,7 @@
 
 #import "PKSimplifyNodeVisitor.h"
 #import "PKBaseNode.h"
+#import "PKRootNode.h"
 #import "PKReferenceNode.h"
 #import "PKConstantNode.h"
 #import "PKLiteralNode.h"
@@ -25,6 +26,11 @@
     self.rootNode = nil;
     self.currentParent = nil;
     [super dealloc];
+}
+
+
+- (void)visitRoot:(PKRootNode *)node {
+    
 }
 
 

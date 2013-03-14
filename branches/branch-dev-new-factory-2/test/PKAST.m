@@ -45,6 +45,32 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    PKAST *that = [[[self class] alloc] initWithToken:_token];
+    that->_children = [_children mutableCopyWithZone:zone];
+    return that;
+}
+
+
+- (BOOL)isEqual:(id)obj {
+    if (![obj isMemberOfClass:[self class]]) {
+        return NO;
+    }
+    
+    PKAST *that = (PKAST *)obj;
+    
+    if (![_token isEqual:that->_token]) {
+        return NO;
+    }
+    
+    if (![_children isEqualToArray:that->_children]) {
+        return NO;
+    }
+    
+    return YES;
+}
+
+
 - (NSString *)description {
     return [self treeDescription];
 }
@@ -94,6 +120,11 @@
 
 - (BOOL)isNil {
     return !_token;
+}
+
+
+- (NSString *)name {
+    return [_token stringValue];
 }
 
 @end

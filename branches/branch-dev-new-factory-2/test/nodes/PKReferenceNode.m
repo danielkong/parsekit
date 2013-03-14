@@ -19,38 +19,4 @@
     [v visitReference:self];
 }
 
-
-- (NSString *)fullTreeDescription:(NSDictionary *)symbolTab {
-    NSString *name = self.parserName;
-    PKBaseNode *parent = symbolTab[name];
-    NSAssert(parent, @"");
-
-    if (![parent.children count]) {
-        return [parent name];
-    }
-    
-    NSMutableString *ms = [NSMutableString string];
-    
-    if (![parent isNil]) {
-        [ms appendFormat:@"(%@ ", [parent name]];
-    }
-    
-    NSInteger i = 0;
-    for (PKBaseNode *child in parent.children) {
-        NSAssert(child != parent, @"");
-        
-        if (i++) {
-            [ms appendFormat:@" %@", [child fullTreeDescription:symbolTab]];
-        } else {
-            [ms appendFormat:@"%@", [child fullTreeDescription:symbolTab]];
-        }
-    }
-    
-    if (![parent isNil]) {
-        [ms appendString:@")"];
-    }
-    
-    return [[ms copy] autorelease];
-}
-
 @end
