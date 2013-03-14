@@ -35,7 +35,6 @@
 		D33494720E29670B00406085 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D3376D5910093A1600E4602E /* PKGrammarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3376D5710093A1600E4602E /* PKGrammarParser.h */; };
 		D3376D5A10093A1600E4602E /* PKGrammarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D5810093A1600E4602E /* PKGrammarParser.m */; };
-		D3376D8F10096C0700E4602E /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
 		D337F07E15D5AE7B00C83AED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D337F07C15D5AE7B00C83AED /* InfoPlist.strings */; };
 		D3385FDA0FCFB1FF003BF729 /* TDPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */; };
 		D33DC1991165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
@@ -206,7 +205,6 @@
 		D37D8DE01571A57300CDB822 /* PKRuleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D369345A1038DE5300527AF3 /* PKRuleNode.m */; };
 		D37D8DE11571A57300CDB822 /* PKTokenNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D369345C1038DE5300527AF3 /* PKTokenNode.m */; };
 		D37D8DE21571A57300CDB822 /* TDParseTreeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F55F601025737D00DD6DB1 /* TDParseTreeTest.m */; };
-		D37D8DE31571A57300CDB822 /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
 		D37D8DE41571A57300CDB822 /* TDParserFactoryTest3.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAC220FF87F8600D7773A /* TDParserFactoryTest3.m */; };
 		D37D8DE51571A57300CDB822 /* TDParserFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D380BA600F0F06CD0009EC13 /* TDParserFactoryTest.m */; };
 		D37D8DE61571A57300CDB822 /* TDParserFactoryTest2.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C53780FD27F1300141CB7 /* TDParserFactoryTest2.m */; };
@@ -359,8 +357,6 @@
 		D389F5590F19B7BC00558235 /* JSDemoAppMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D389F5580F19B7BC00558235 /* JSDemoAppMainMenu.xib */; };
 		D389F5B80F19C76A00558235 /* TDJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D389F5B30F19C76A00558235 /* TDJsonParser.m */; };
 		D389FBCD0F1B25E200558235 /* ParserTest.html in Resources */ = {isa = PBXBuildFile; fileRef = D389FBCC0F1B25E200558235 /* ParserTest.html */; };
-		D395526B16F16BA600D326FD /* PKConstructNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525316F16BA600D326FD /* PKConstructNodeVisitor.m */; };
-		D395527316F16BA600D326FD /* PKSimplifyNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D395526516F16BA600D326FD /* PKSimplifyNodeVisitor.m */; };
 		D395528D16F16DA200D326FD /* PKBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395524916F16BA600D326FD /* PKBaseNode.m */; };
 		D395528E16F16DA200D326FD /* PKRootNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395527F16F16C5F00D326FD /* PKRootNode.m */; };
 		D395528F16F16DA200D326FD /* PKConstantNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525116F16BA600D326FD /* PKConstantNode.m */; };
@@ -376,6 +372,9 @@
 		D395529916F16DA200D326FD /* PKPatternNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395526116F16BA600D326FD /* PKPatternNode.m */; };
 		D39552A216F16E7200D326FD /* PKWhitespaceNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D39552A016F16E7100D326FD /* PKWhitespaceNode.h */; };
 		D39552A316F16E7200D326FD /* PKWhitespaceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D39552A116F16E7200D326FD /* PKWhitespaceNode.m */; };
+		D39552B016F171EF00D326FD /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
+		D39552B116F171FA00D326FD /* PKConstructNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525316F16BA600D326FD /* PKConstructNodeVisitor.m */; };
+		D39552B216F171FE00D326FD /* PKSimplifyNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D395526516F16BA600D326FD /* PKSimplifyNodeVisitor.m */; };
 		D398E20E0E60F86D00A1C877 /* yahoo.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B473840E48C9CF008AFBDD /* yahoo.json */; };
 		D3A20245161B6AEB00207F4D /* TDRegexAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20244161B6AEB00207F4D /* TDRegexAssembler.m */; };
 		D3A20248161B6B2900207F4D /* TDRegexMatcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20247161B6B2900207F4D /* TDRegexMatcherTest.m */; };
@@ -1616,6 +1615,8 @@
 		D325FFBC161E4E3200D4EBCC /* AST Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				D3376D8C10096C0700E4602E /* PKAST.h */,
+				D3376D8D10096C0700E4602E /* PKAST.m */,
 				D395525C16F16BA600D326FD /* PKNodeTypes.h */,
 				D395524816F16BA600D326FD /* PKBaseNode.h */,
 				D395524916F16BA600D326FD /* PKBaseNode.m */,
@@ -1719,8 +1720,6 @@
 		D3376D8B10096BEF00E4602E /* Homo */ = {
 			isa = PBXGroup;
 			children = (
-				D3376D8C10096C0700E4602E /* PKAST.h */,
-				D3376D8D10096C0700E4602E /* PKAST.m */,
 			);
 			name = Homo;
 			sourceTree = "<group>";
@@ -3290,6 +3289,9 @@
 				D395529816F16DA200D326FD /* PKDelimitedNode.m in Sources */,
 				D395529916F16DA200D326FD /* PKPatternNode.m in Sources */,
 				D39552A316F16E7200D326FD /* PKWhitespaceNode.m in Sources */,
+				D39552B016F171EF00D326FD /* PKAST.m in Sources */,
+				D39552B116F171FA00D326FD /* PKConstructNodeVisitor.m in Sources */,
+				D39552B216F171FE00D326FD /* PKSimplifyNodeVisitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3335,7 +3337,6 @@
 				D3385FDA0FCFB1FF003BF729 /* TDPredicateEvaluator.m in Sources */,
 				D355C62E0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m in Sources */,
 				D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */,
-				D3376D8F10096C0700E4602E /* PKAST.m in Sources */,
 				D319E42F106D8A31008C63DD /* TDArithmeticAssembler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3349,7 +3350,6 @@
 				D37D8DE01571A57300CDB822 /* PKRuleNode.m in Sources */,
 				D37D8DE11571A57300CDB822 /* PKTokenNode.m in Sources */,
 				D37D8DE21571A57300CDB822 /* TDParseTreeTest.m in Sources */,
-				D37D8DE31571A57300CDB822 /* PKAST.m in Sources */,
 				D37D8DE41571A57300CDB822 /* TDParserFactoryTest3.m in Sources */,
 				D37D8DE51571A57300CDB822 /* TDParserFactoryTest.m in Sources */,
 				D37D8DE61571A57300CDB822 /* TDParserFactoryTest2.m in Sources */,
@@ -3467,8 +3467,6 @@
 				D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */,
 				D3A203E4161CADD200207F4D /* TDParserFactoryASTTest.m in Sources */,
 				D325FFF8161F681F00D4EBCC /* TDParserFactoryParserTest.m in Sources */,
-				D395526B16F16BA600D326FD /* PKConstructNodeVisitor.m in Sources */,
-				D395527316F16BA600D326FD /* PKSimplifyNodeVisitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
