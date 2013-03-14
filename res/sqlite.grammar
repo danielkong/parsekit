@@ -1,3 +1,9 @@
+/*
+
+http://sqlite.org/syntaxdiagrams.html#column-def
+
+*/
+
 @singleLineComments = '//';
 @multiLineComments = '/*' '*/';
 
@@ -9,7 +15,11 @@ star                = '*';
 
 databaseName        = Word;
 indexName           = Word;
+
 tableName           = Word | star;
+newTableName        = tableName; // ??
+foreignTable        = tableName; // ??
+
 columnName          = Word | star;
 triggerName         = Word;
 viewName            = Word;
@@ -17,6 +27,8 @@ collationName       = Word; // ??
 qualifiedTableName  = (databaseName '.')? tableName (('INDEXED' 'BY' indexName) | ('NOT' 'INDEXED'))?;
 
 expr                = literalValue; // TODO
+
+signedNumber        = Number;
 literalValue        = Number
                     | QuotedString
                     | blobLiteral 
@@ -60,8 +72,37 @@ sqlStmtBody         =
 /*
                     | vacuumStmt*/;
                 
+                    /*
+alterTableStmt          = 'ALTER' 'TABLE' (databaseName '.')? tableName
+                          ('RENAME' 'TO' newTableName
+                          | 'ADD' 'COLUMN'? columnDef);
+columnDef               = columnName typeName? columnConstraint*;
 
-/*alterTableStmt          = XXX;
+typeName                = name+ ('(' signedNumber (',' signedNumber)? ')')?;
+
+columnConstraint        = ('CONSTRAINT' name)?
+                            (
+                            'PRIMARY' 'KEY' ('ASC' | 'DESC')? conflictClause 'AUTOINCREMENT'?
+                            | 'NOT' 'NULL' conflictClause
+                            | 'UNIQUE' conflictClause
+                            | 'CHECK' '(' expr ')'
+                            | 'DEFAULT' (signedNumber | literalValue | '(' expr ')')
+                            | 'COLLATE' collationName
+                            | foreignKeyClause
+                            );
+
+conflictClause = 
+
+
+foreignKeyClause =     'REFERENCES' foreignTable ('(' columnName (',' columnName)* ')')?
+                        
+;
+
+*/
+
+
+
+/*
 analyzeStmt             = XXX;
 attachStmt              = XXX;
 beginStmt               = XXX;
