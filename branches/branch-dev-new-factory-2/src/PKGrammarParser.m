@@ -149,6 +149,14 @@
 // constant             = UppercaseWord;
 
 
+- (PKCompositeParser *)parser {
+    if (!parser) {
+        self.parser = [PKRepetition repetitionWithSubparser:self.statementParser];
+    }
+    return parser;
+}
+
+
 // satement             = S* declaration S* '=' expr;
 - (PKCollectionParser *)statementParser {
     if (!statementParser) {
@@ -645,6 +653,7 @@
     return [PKRepetition repetitionWithSubparser:self.whitespaceParser];
 }
 
+@synthesize parser;
 @synthesize statementParser;
 @synthesize declarationParser;
 @synthesize callbackParser;

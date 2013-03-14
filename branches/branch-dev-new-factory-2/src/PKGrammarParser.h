@@ -13,9 +13,11 @@
 //  limitations under the License.
 
 #import <ParseKit/PKCollectionParser.h>
+#import <ParseKit/PKCompositeParser.h>
 
 @interface PKGrammarParser : NSObject {
     id assembler;
+    PKCompositeParser *parser;
     PKCollectionParser *statementParser;
     PKCollectionParser *declarationParser;
     PKCollectionParser *callbackParser;
@@ -50,6 +52,7 @@
 
 - (id)initWithAssembler:(id)a;
 
+@property (nonatomic, retain) PKCompositeParser *parser;
 @property (nonatomic, retain) PKCollectionParser *statementParser;
 @property (nonatomic, retain) PKCollectionParser *declarationParser;
 @property (nonatomic, retain) PKCollectionParser *callbackParser;

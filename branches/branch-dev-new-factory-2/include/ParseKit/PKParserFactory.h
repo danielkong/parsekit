@@ -28,6 +28,7 @@ typedef enum {
 - (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a preassembler:(id)pa error:(NSError **)outError;
 
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError;
+- (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError;
 
 @property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
 @end
