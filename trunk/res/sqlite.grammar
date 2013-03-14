@@ -73,7 +73,9 @@ sqlStmtBody         =
 /*
                     | vacuumStmt*/;
                 
-
+//
+// ALTER TABLE STMT
+//
 alterTableStmt          = 'ALTER' 'TABLE' (databaseName '.')? tableName
                           ('RENAME' 'TO' newTableName
                           | 'ADD' 'COLUMN'? columnDef);
