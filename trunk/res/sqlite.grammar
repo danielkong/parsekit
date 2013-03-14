@@ -13,22 +13,23 @@ sqlStmt = sqlStmtPrefix? sqlStmtBody;
 
 star                = '*';
 
-databaseName        = Word;
-indexName           = Word;
+name                = Word; // ??
+databaseName        = Word; // ??
+indexName           = Word; // ??
 
-tableName           = Word | star;
+tableName           = Word | star; // ??
 newTableName        = tableName; // ??
 foreignTable        = tableName; // ??
 
-columnName          = Word | star;
-triggerName         = Word;
-viewName            = Word;
+columnName          = Word | star; // ??
+triggerName         = Word; // ??
+viewName            = Word; // ??
 collationName       = Word; // ??
 qualifiedTableName  = (databaseName '.')? tableName (('INDEXED' 'BY' indexName) | ('NOT' 'INDEXED'))?;
 
 expr                = literalValue; // TODO
 
-signedNumber        = Number;
+signedNumber        = Number; // TODO
 literalValue        = Number
                     | QuotedString
                     | blobLiteral 
@@ -72,7 +73,7 @@ sqlStmtBody         =
 /*
                     | vacuumStmt*/;
                 
-                    /*
+
 alterTableStmt          = 'ALTER' 'TABLE' (databaseName '.')? tableName
                           ('RENAME' 'TO' newTableName
                           | 'ADD' 'COLUMN'? columnDef);
@@ -91,16 +92,17 @@ columnConstraint        = ('CONSTRAINT' name)?
                             | foreignKeyClause
                             );
 
-conflictClause = 
+conflictClause =        Empty | 'ON' 'CONFLICT' ('ROLLBACK' | 'ABORT' | 'FAIL' | 'IGNORE' | 'REPLACE');
 
 
 foreignKeyClause =     'REFERENCES' foreignTable ('(' columnName (',' columnName)* ')')?
-                        
-;
-
-*/
-
-
+                        (
+                            'ON' ('DELETE' | 'UPDATE') ('SET' 'NULL' | 'SET' 'DEFAULT' | 'CASCADE' | 'RESTRICT' | 'NO' 'ACTION')
+                            | 'MATCH' name
+                        )*
+                        (
+                            'NOT'? 'DEFERRABLE' ('INITIALLY' 'DEFERRED' | 'INITIALLY' 'IMMEDIATE')?
+                        )?;
 
 /*
 analyzeStmt             = XXX;
