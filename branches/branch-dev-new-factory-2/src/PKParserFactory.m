@@ -145,9 +145,11 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKGrammarParser *grammarParser;
 @property (nonatomic, assign) id assembler;
 @property (nonatomic, assign) id preassembler;
-@property (nonatomic, retain) NSMutableDictionary *parserTokensTable;
-@property (nonatomic, retain) NSMutableDictionary *parserClassTable;
-@property (nonatomic, retain) NSMutableDictionary *selectorTable;
+//@property (nonatomic, retain) NSMutableDictionary *parserTokensTable;
+//@property (nonatomic, retain) NSMutableDictionary *parserClassTable;
+//@property (nonatomic, retain) NSMutableDictionary *selectorTable;
+
+@property (nonatomic, retain) PKRootNode *rootNode;
 @property (nonatomic, assign) BOOL wantsCharacters;
 @property (nonatomic, retain) PKToken *equals;
 @property (nonatomic, retain) PKToken *curly;
@@ -180,9 +182,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.grammarParser = nil;
     self.assembler = nil;
     self.preassembler = nil;
-    self.parserTokensTable = nil;
-    self.parserClassTable = nil;
-    self.selectorTable = nil;
+//    self.parserTokensTable = nil;
+//    self.parserClassTable = nil;
+//    self.selectorTable = nil;
+    self.rootNode = nil;
     self.equals = nil;
     self.curly = nil;
     self.paren = nil;
@@ -219,7 +222,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.assembler = a;
         self.preassembler = pa;
         
-        PKRootNode *rootNode = (PKRootNode *)[self ASTFromGrammar:g error:outError];
+        self.rootNode = (PKRootNode *)[self ASTFromGrammar:g error:outError];
         
         NSLog(@"rootNode %@", rootNode);
         
@@ -270,23 +273,16 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError {
-
-//    self.callbackTab = [NSMutableDictionary dictionary];
-//    self.productionTab = [NSMutableDictionary dictionary];
-//
+    PKToken *rootTok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"ROOT" floatValue:0.0];
+    
+    self.rootNode = [[[PKRootNode alloc] initWithToken:rootTok] autorelease];
     PKTokenizer *t = [self tokenizerForParsingGrammar];
     t.string = g;
 
     grammarParser.parser.tokenizer = t;
     [grammarParser.parser parse:g error:outError];
-
-//
-//    NSLog(@"%@", _productionTab);
-//    
-//    PKAST *rootNode = [_productionTab objectForKey:@"@start"];
-//    return rootNode;
     
-    return nil;
+    return rootNode;
 }
 
 
@@ -326,13 +322,13 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (PKParser *)parserFromAST:(PKBaseNode *)rootNode {
+- (PKParser *)parserFromAST:(PKRootNode *)node {
     PKConstructNodeVisitor *v = [[[PKConstructNodeVisitor alloc] init] autorelease];
     
     v.assembler = assembler;
     v.preassembler = preassembler;
     
-    [self visit:rootNode with:v];
+    [self visit:node with:v];
     PKParser *p = v.rootParser;
     return p;
 }
@@ -385,7 +381,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);    
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    NSArray *argToks = [[self tokens:[a objectsAbove:_equals] byRemovingTokensOfType:PKTokenTypeWhitespace] reversedArray];
 //    //NSArray *argToks = [a objectsAbove:_equals];
 //    [a pop]; // discard '='
@@ -402,7 +398,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    NSString *prodName = @"@start";
 //    
 //    PKBaseNode *prodNode = _productionTab[prodName];
@@ -419,7 +415,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKToken *tok = [a pop];
 //    NSAssert(tok, @"");
 //    NSAssert([tok isKindOfClass:[PKToken class]], @"");
@@ -441,7 +437,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchSpace:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKToken *tok = [a pop];
 //    NSAssert(tok, @"");
 //    NSAssert([tok isKindOfClass:[PKToken class]], @"");
@@ -454,7 +450,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    NSArray *nodes = [a objectsAbove:_equals];
 //    NSAssert(1 == [nodes count], @"");
 //    
@@ -499,7 +495,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    
 //    NSArray *objs = [a objectsAbove:_paren];
 //    NSAssert([objs count], @"");
@@ -528,7 +524,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    NSArray *toks = [[a objectsAbove:equals] reversedArray];
 //    [a pop]; // discard '=' tok
 //
@@ -605,7 +601,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKToken *selNameTok2 = [a pop];
 //    PKToken *selNameTok1 = [a pop];
 //    NSString *selName = [NSString stringWithFormat:@"%@:%@:", selNameTok1.stringValue, selNameTok2.stringValue];
@@ -614,7 +610,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    NSParameterAssert(a);
 //    id obj = nil;
 //    BOOL isTrack = NO;
@@ -663,7 +659,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKParser *minus = [a pop];
 //    PKParser *sub = [a pop];
 //    NSAssert([minus isKindOfClass:[PKParser class]], @"");
@@ -674,7 +670,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKParser *predicate = [a pop];
 //    PKParser *sub = [a pop];
 //    NSAssert([predicate isKindOfClass:[PKParser class]], @"");
@@ -689,7 +685,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKToken *tok = [a pop];
 //    NSAssert(tok.isWord, @"");
 //
@@ -718,7 +714,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    id obj = [a pop]; // opts (as Number*) or DelimitedString('/', '/')
 //    
 //    PKPatternOptions opts = PKPatternOptionsNone;
@@ -746,7 +742,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDiscard:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    id obj = [a pop];
 //    if ([obj isKindOfClass:[PKTerminal class]]) {
 //        PKTerminal *t = (PKTerminal *)obj;
@@ -757,7 +753,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKToken *tok = [a pop];
 //
 //    NSString *s = [tok.stringValue stringByTrimmingQuotes];
@@ -775,7 +771,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKToken *tok = [a pop];
 //    NSString *parserName = tok.stringValue;
 //    
@@ -788,7 +784,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKToken *tok = [a pop];
 //    NSString *s = tok.stringValue;
 //    
@@ -835,7 +831,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchSpecificConstant:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKToken *quoteTok = [a pop];
 //    NSString *str = [quoteTok.stringValue stringByTrimmingQuotes];
 //    
@@ -848,7 +844,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    NSArray *toks = [a objectsAbove:paren];
 //    [a pop]; // discard '(' fence
 //    
@@ -866,7 +862,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKToken *tok = [a pop];
 //    
 //    if (self.wantsCharacters) {
@@ -879,7 +875,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    id top = [a pop];
 //    PKRepetition *rep = [PKRepetition repetitionWithSubparser:top];
 //    [a push:rep];
@@ -887,21 +883,21 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    id top = [a pop];
 //    [a push:[self oneOrMore:top]];
 }
 
 
 - (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    id top = [a pop];
 //    [a push:[self zeroOrOne:top]];
 }
 
 
 - (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    NSRange r = [[a pop] rangeValue];
 //    
 //    p = [a pop];
@@ -923,7 +919,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchCardinality:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    NSArray *toks = [a objectsAbove:self.curly];
 //    [a pop]; // discard '{' tok
 //
@@ -945,7 +941,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    id second = [a pop];
 //    [a pop]; // pop '|'
 //    id first = [a pop];
@@ -958,7 +954,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p willMatchAnd:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    
 //    PKBaseNode *child = [a pop];
 //    
@@ -968,7 +964,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    NSMutableArray *parsers = [NSMutableArray array];
 //    while (![a isStackEmpty]) {
 //        id obj = [a pop];
@@ -994,7 +990,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a {
-    NSLog(@"%s %@", (char*)_cmd, a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    p = [a pop];
 //    [a push:[PKNegation negationWithSubparser:p]];
 }
@@ -1002,9 +998,10 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize grammarParser;
 @synthesize assembler;
 @synthesize preassembler;
-@synthesize parserTokensTable;
-@synthesize parserClassTable;
-@synthesize selectorTable;
+//@synthesize parserTokensTable;
+//@synthesize parserClassTable;
+//@synthesize selectorTable;
+@synthesize rootNode;
 @synthesize wantsCharacters;
 @synthesize equals;
 @synthesize curly;
