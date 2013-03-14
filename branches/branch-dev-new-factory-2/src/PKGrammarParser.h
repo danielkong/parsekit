@@ -19,7 +19,11 @@
     id assembler;
     PKCompositeParser *parser;
     PKCollectionParser *statementParser;
-    PKCollectionParser *declarationParser;
+    PKCollectionParser *tokenizerDirectiveParser;
+    PKCollectionParser *declParser;
+    PKCollectionParser *productionParser;
+    PKCollectionParser *varProductionParser;
+    PKCollectionParser *startProductionParser;
     PKCollectionParser *callbackParser;
     PKCollectionParser *selectorParser;
     PKCollectionParser *exprParser;
@@ -54,7 +58,11 @@
 
 @property (nonatomic, retain) PKCompositeParser *parser;
 @property (nonatomic, retain) PKCollectionParser *statementParser;
-@property (nonatomic, retain) PKCollectionParser *declarationParser;
+@property (nonatomic, retain) PKCollectionParser *tokenizerDirectiveParser;
+@property (nonatomic, retain) PKCollectionParser *declParser;
+@property (nonatomic, retain) PKCollectionParser *productionParser;
+@property (nonatomic, retain) PKCollectionParser *varProductionParser;
+@property (nonatomic, retain) PKCollectionParser *startProductionParser;
 @property (nonatomic, retain) PKCollectionParser *callbackParser;
 @property (nonatomic, retain) PKCollectionParser *selectorParser;
 @property (nonatomic, retain) PKCollectionParser *exprParser;
