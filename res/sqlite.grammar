@@ -27,6 +27,8 @@ viewName            = Word; // ??
 collationName       = Word; // ??
 qualifiedTableName  = (databaseName '.')? tableName (('INDEXED' 'BY' indexName) | ('NOT' 'INDEXED'))?;
 
+tableOrIndexName    = tableName | indexName;
+
 expr                = literalValue; // TODO
 
 signedNumber        = Number; // TODO
@@ -42,8 +44,9 @@ blobLiteral         = Word; // ??
 
 sqlStmtPrefix       = 'EXPLAIN' ('QUERY' 'PLAN')?;
 sqlStmtBody         = 
-/*                      alterTableStmt
+                      alterTableStmt
                     | analyzeStmt
+                    /*                      
                     | attachStmt
                     | beginStmt
                     | commitStmt
@@ -52,7 +55,8 @@ sqlStmtBody         =
                     | createTriggerStmt
                     | createViewStmt
                     | createVirtualTableStmt
-                    | */deleteStmt
+*/
+                    | deleteStmt
                     | deleteStmtLimited
                     | detachStmt
                     | dropIndexStmt
@@ -96,7 +100,6 @@ columnConstraint        = ('CONSTRAINT' name)?
 
 conflictClause =        Empty | 'ON' 'CONFLICT' ('ROLLBACK' | 'ABORT' | 'FAIL' | 'IGNORE' | 'REPLACE');
 
-
 foreignKeyClause =     'REFERENCES' foreignTable ('(' columnName (',' columnName)* ')')?
                         (
                             'ON' ('DELETE' | 'UPDATE') ('SET' 'NULL' | 'SET' 'DEFAULT' | 'CASCADE' | 'RESTRICT' | 'NO' 'ACTION')
@@ -106,8 +109,9 @@ foreignKeyClause =     'REFERENCES' foreignTable ('(' columnName (',' columnName
                             'NOT'? 'DEFERRABLE' ('INITIALLY' 'DEFERRED' | 'INITIALLY' 'IMMEDIATE')?
                         )?;
 
+analyzeStmt             = 'ANALYZE' (databaseName | tableOrIndexName | databaseName '.' tableOrIndexName)?;
+
 /*
-analyzeStmt             = XXX;
 attachStmt              = XXX;
 beginStmt               = XXX;
 commitStmt              = XXX;
