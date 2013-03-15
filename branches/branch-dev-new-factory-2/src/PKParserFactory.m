@@ -987,10 +987,26 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    id second = [a pop];
-//    [a pop]; // pop '|'
-//    id first = [a pop];
-//    
+
+    PKAST *second = [a pop];
+    
+    PKToken *orTok = [a pop]; // pop '|'
+    NSAssert([orTok isKindOfClass:[PKToken class]], @"");
+    NSAssert(orTok.isSymbol, @"");
+    NSAssert([orTok.stringValue isEqualToString:@"|"], @"");
+
+    PKAST *first = [a pop];
+
+//    NSAssert([first isKindOfClass:[PKToken class]], @"");
+//    NSAssert([first isKindOfClass:[PKToken class]], @"");
+
+    PKCollectionNode *orNode = [PKCollectionNode nodeWithToken:orTok parserName:nil];
+    [orNode addChild:first];
+    [orNode addChild:second];
+    
+    [a push:orNode];
+    
+//
 //    PKAlternation *alt = [PKAlternation alternation];
 //    [alt add:first];
 //    [alt add:second];
