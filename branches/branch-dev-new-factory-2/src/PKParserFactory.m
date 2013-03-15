@@ -399,29 +399,28 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    NSString *prodName = @"@start";
-//    
-//    PKBaseNode *prodNode = _productionTab[prodName];
-//    if (!prodNode) {
-//        prodNode = (PKBaseNode *)[PKDefinitionNode ASTWithToken:_defToken];
-//        prodNode.parserName = prodName;
-//        _productionTab[prodName] = prodNode;
-//    }
-//    
-//    [a push:prodNode];
-//    
-//    a.target = prodNode;
+
+    [self parser:p didMatchVarProduction:a];
 }
 
 
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    PKToken *tok = [a pop];
-//    NSAssert(tok, @"");
-//    NSAssert([tok isKindOfClass:[PKToken class]], @"");
-//    NSAssert(tok.isWord, @"");
-//    NSAssert(islower([tok.stringValue characterAtIndex:0]), @"");
-//    
+
+    PKToken *tok = [a pop];
+    NSAssert(tok, @"");
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isWord, @"");
+    
+    NSString *parserName = tok.stringValue;
+    NSAssert([parserName length], @"");
+    NSAssert(islower([parserName characterAtIndex:0]), @"");
+
+    // parser:didMatchVarProduction: [@start, =, foo, foo]@start/=/foo/;/foo^=/Word/;
+    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:tok parserName:parserName];
+    [a push:node];
+
+//
 //    NSString *prodName = tok.stringValue;
 //    
 //    PKBaseNode *prodNode = _productionTab[prodName];
@@ -772,8 +771,20 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    PKToken *tok = [a pop];
-//    NSString *parserName = tok.stringValue;
+    // parser:didMatchVariable: [@start, =, foo]@start/=/foo^;/foo/=/Word/;
+
+    PKToken *tok = [a pop];
+    NSAssert(tok, @"");
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isWord, @"");
+    
+    NSString *parserName = tok.stringValue;
+    NSAssert([parserName length], @"");
+    NSAssert(islower([parserName characterAtIndex:0]), @"");
+
+    PKReferenceNode *node = [PKReferenceNode nodeWithToken:tok parserName:parserName];
+    [a push:node];
+    
 //    
 //    p = nil;
 //    if ([parserTokensTable objectForKey:parserName]) {
