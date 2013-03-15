@@ -400,7 +400,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 
-    PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"@start" floatValue:0.0];
+    PKToken *tok = [a pop];
     NSAssert(tok, @"");
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
     NSAssert(tok.isWord, @"");
