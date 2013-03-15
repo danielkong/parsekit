@@ -89,11 +89,8 @@
 
     NSInteger i = 0;
     for (PKAST *child in _children) {
-        if (i++) {
-            [ms appendFormat:@" %@", [child treeDescription]];
-        } else {
-            [ms appendFormat:@"%@", [child treeDescription]];
-        }
+        NSString *fmt = 0 == i++ ? @"%@" : @" %@";
+        [ms appendFormat:fmt, [child treeDescription]];
     }
     
     if (![self isNil]) {

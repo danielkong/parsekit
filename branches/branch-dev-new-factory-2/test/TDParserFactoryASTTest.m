@@ -70,11 +70,12 @@
 //    NSError *err = nil;
 //    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
 //    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (foo:| :Word :Number))", [rootNode treeDescription]);
+//    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| :Word :Number))", [rootNode treeDescription]);
+//    //TDEqualObjects(@"(@start:SEQ (foo:| :Word :Number))", [rootNode treeDescription]);
 //    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 //}
-//
-//
+
+
 //- (void)testAlternationAST2_1_0 {
 //    NSString *g = @"@start=foo;foo=Word|Number Symbol;";
 //    
