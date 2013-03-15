@@ -1028,10 +1028,16 @@ void PKReleaseSubparserTree(PKParser *p) {
 
     
     PKAST *child = [a pop];
-    NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
-
-    PKCollectionNode *seqNode = [PKCollectionNode nodeWithToken:self.seqToken];
-    [seqNode addChild:child];
+    PKCollectionNode *seqNode = nil;
+    
+    if (child.token == self.seqToken) {
+        seqNode = (id)child;
+    } else {
+        NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
+        
+        seqNode = [PKCollectionNode nodeWithToken:self.seqToken];
+        [seqNode addChild:child];
+    }
     
     [a push:seqNode];
 }
@@ -1049,47 +1055,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     [seqNode addChild:child];
     [a push:seqNode];
 
-//    NSArray *children = [a objectsAbove:self.seqToken];
-//    NSAssert([children count], @"");
-//    
-//    [a pop]; // pop 'SEQ'
-//
-//    if (1 == [children count]) {
-//        PKBaseNode *child = [children lastObject];
-//        [a push:child];
-//    } else {
-//        for (PKBaseNode *child in children) {
-//            NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
-//            
-//            [seqNode addChild:child];
-//        }
-//        [a push:seqNode];
-//    }
-    
-    
-
-    
-//    NSMutableArray *parsers = [NSMutableArray array];
-//    while (![a isStackEmpty]) {
-//        id obj = [a pop];
-//        if ([obj isKindOfClass:[PKParser class]]) {
-//            [parsers addObject:obj];
-//        } else {
-//            [a push:obj];
-//            break;
-//        }
-//    }
-//    
-//    if ([parsers count] > 1) {
-//        PKSequence *seq = [PKSequence sequence];
-//        for (PKParser *p in [parsers reverseObjectEnumerator]) {
-//            [seq add:p];
-//        }
-//        
-//        [a push:seq];
-//    } else if (1 == [parsers count]) {
-//        [a push:[parsers objectAtIndex:0]];
-//    }
 }
 
 
