@@ -10,7 +10,7 @@
 
 @implementation PKWhitespaceNode
 
-- (int)type {
+- (NSUInteger)type {
     return PKNodeTypeWhitespace;
 }
 

@@ -22,14 +22,13 @@
 
 - (id)initWithToken:(PKToken *)tok;
 
-- (int)type;
-
-- (NSString *)name;
-
 - (void)addChild:(PKAST *)c;
 - (BOOL)isNil;
 
 - (NSString *)treeDescription;
+
+@property (nonatomic, assign, readonly) NSUInteger type;
+@property (nonatomic, retain, readonly) NSString *name;
 
 @property (nonatomic, retain) PKToken *token;
 @property (nonatomic, retain) NSMutableArray *children;

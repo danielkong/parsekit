@@ -43,7 +43,7 @@
 }
 
 
-- (int)type {
+- (NSUInteger)type {
     return PKNodeTypePattern;
 }
 

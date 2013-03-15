@@ -155,6 +155,9 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *curly;
 @property (nonatomic, retain) PKToken *paren;
 @property (nonatomic, retain) PKToken *square;
+
+@property (nonatomic, retain) PKToken *defToken;
+@property (nonatomic, retain) PKToken *refToken;
 @end
 
 @implementation PKParserFactory
@@ -172,6 +175,10 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.curly   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
         self.paren   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
         self.square  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"[" floatValue:0.0];
+
+        self.defToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"DEF" floatValue:0.0];
+        self.refToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"REF" floatValue:0.0];
+        
         self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
     }
     return self;
@@ -190,6 +197,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.curly = nil;
     self.paren = nil;
     self.square = nil;
+    self.defToken = nil;
+    self.refToken = nil;
     [super dealloc];
 }
 
@@ -410,7 +419,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert('@' == [parserName characterAtIndex:0], @"");
     
     // parser:didMatchVarProduction: [@start, =, foo, foo]@start/=/foo/;/foo^=/Word/;
-    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:tok parserName:parserName];
+    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:self.defToken parserName:parserName];
     [a push:node];
 }
 
@@ -428,7 +437,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert(islower([parserName characterAtIndex:0]), @"");
 
     // parser:didMatchVarProduction: [@start, =, foo, foo]@start/=/foo/;/foo^=/Word/;
-    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:tok parserName:parserName];
+    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:self.defToken parserName:parserName];
     [a push:node];
 
 //
@@ -803,7 +812,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([parserName length], @"");
     NSAssert(islower([parserName characterAtIndex:0]), @"");
 
-    PKReferenceNode *node = [PKReferenceNode nodeWithToken:tok parserName:parserName];
+    PKReferenceNode *node = [PKReferenceNode nodeWithToken:self.refToken parserName:parserName];
     [a push:node];
     
 //    

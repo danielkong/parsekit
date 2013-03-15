@@ -78,13 +78,13 @@
 
 - (NSString *)treeDescription {
     if (![_children count]) {
-        return [_token stringValue];
+        return self.name;
     }
     
     NSMutableString *ms = [NSMutableString string];
     
     if (![self isNil]) {
-        [ms appendFormat:@"(%@ ", [_token stringValue]];
+        [ms appendFormat:@"(%@ ", self.name];
     }
 
     NSInteger i = 0;
@@ -104,7 +104,7 @@
 }
 
 
-- (int)type {
+- (NSUInteger)type {
     NSAssert2(0, @"%s is an abastract method. Must be overridden in %@", __PRETTY_FUNCTION__, NSStringFromClass([self class]));
     return -1;
 }

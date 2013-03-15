@@ -10,7 +10,7 @@
 
 @implementation PKCompositeNode
 
-- (int)type {
+- (NSUInteger)type {
     return PKNodeTypeComposite;
 }
 

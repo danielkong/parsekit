@@ -14,4 +14,9 @@
     [v visitRoot:self];
 }
 
+
+- (NSString *)name {
+    return @"ROOT";
+}
+
 @end

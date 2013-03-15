@@ -97,7 +97,9 @@
 
 
 - (NSString *)name {
-    NSString *prefix = _parserName ? _parserName : @"";
+    NSString *pname = self.parserName;
+    NSString *prefix = pname ? pname : @"";
+    
     NSString *suffix = [super name];
     
     NSString *str = [NSString stringWithFormat:@"%@:%@", prefix, suffix];

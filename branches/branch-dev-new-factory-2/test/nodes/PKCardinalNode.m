@@ -37,7 +37,7 @@
 }
 
 
-- (int)type {
+- (NSUInteger)type {
     return PKNodeTypeCardinal;
 }
 

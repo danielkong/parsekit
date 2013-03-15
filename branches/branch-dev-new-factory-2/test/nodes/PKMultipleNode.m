@@ -10,7 +10,7 @@
 
 @implementation PKMultipleNode
 
-- (int)type {
+- (NSUInteger)type {
     return PKNodeTypeMultiple;
 }
 

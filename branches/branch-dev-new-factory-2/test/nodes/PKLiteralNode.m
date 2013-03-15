@@ -10,7 +10,7 @@
 
 @implementation PKLiteralNode
 
-- (int)type {
+- (NSUInteger)type {
     return PKNodeTypeLiteral;
 }
 

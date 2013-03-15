@@ -10,7 +10,7 @@
 
 @implementation PKReferenceNode
 
-- (int)type {
+- (NSUInteger)type {
     return PKNodeTypeReference;
 }
 
