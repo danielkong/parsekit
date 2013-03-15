@@ -116,6 +116,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchTrackExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
@@ -159,6 +160,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *defToken;
 @property (nonatomic, retain) PKToken *refToken;
 @property (nonatomic, retain) PKToken *seqToken;
+@property (nonatomic, retain) PKToken *trackToken;
 @end
 
 @implementation PKParserFactory
@@ -180,6 +182,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.defToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"DEF" floatValue:0.0];
         self.refToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"REF" floatValue:0.0];
         self.seqToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"SEQ" floatValue:0.0];
+        self.trackToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"[" floatValue:0.0];
         
         self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
     }
@@ -526,33 +529,61 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchTrackExpr:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    
-//    NSArray *objs = [a objectsAbove:_paren];
-//    NSAssert([objs count], @"");
-//    [a pop]; // pop '('
-//    
-//    if ([objs count] > 1) {
-//        PKAST *seqNode = [PKCollectionNode ASTWithToken:_seqToken];
-//        for (PKAST *child in objs) {
-//            NSAssert([child isKindOfClass:[PKAST class]], @"");
-//            [seqNode addChild:child];
-//        }
-//        [a push:seqNode];
-//    } else if ([objs count]) {
-//        PKBaseNode *node = objs[0];
-//        
-//        //        while (_seqToken == node.token && 1 == [node.children count]) {
-//        //            node = [node.children lastObject];
-//        //        }
-//        
-//        [a push:node];
-//    }
+    
+    NSArray *objs = [a objectsAbove:square];
+    NSAssert([objs count], @"");
+    [a pop]; // pop '['
+    
+    PKCollectionNode *trackNode = [PKCollectionNode nodeWithToken:trackToken];
+
+    if ([objs count] > 1) {
+        for (PKAST *child in objs) {
+            NSAssert([child isKindOfClass:[PKAST class]], @"");
+            [trackNode addChild:child];
+        }
+    } else if ([objs count]) {
+        PKBaseNode *node = [objs lastObject];
+        if (seqToken == node.token) {
+            PKCollectionNode *seqNode = [objs lastObject];
+            NSAssert([seqNode isKindOfClass:[PKCollectionNode class]], @"");
+
+            for (PKBaseNode *child in seqNode.children) {
+                [trackNode addChild:child];
+            }
+        } else {
+            [trackNode addChild:node];
+        }
+        
+    }
+    [a push:trackNode];
 }
 
 
-
+- (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a {
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    NSArray *objs = [a objectsAbove:paren];
+    NSAssert([objs count], @"");
+    [a pop]; // pop '('
+    
+    if ([objs count] > 1) {
+        PKCollectionNode *seqNode = [PKCollectionNode nodeWithToken:seqToken];
+        
+        for (PKAST *child in objs) {
+            NSAssert([child isKindOfClass:[PKAST class]], @"");
+            [seqNode addChild:child];
+        }
+        
+        [a push:seqNode];
+        
+    } else if ([objs count]) {
+        PKBaseNode *node = [objs lastObject];
+        
+        [a push:node];
+    }
+}
 
 
 - (void)parser:(PKParser *)p didMatchStatement:(PKAssembly *)a {
@@ -1030,7 +1061,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     } else {
         NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
         
-        seqNode = [PKCollectionNode nodeWithToken:self.seqToken];
+        seqNode = [PKCollectionNode nodeWithToken:seqToken];
         [seqNode addChild:child];
     }
     
@@ -1075,6 +1106,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize defToken;
 @synthesize refToken;
 @synthesize seqToken;
+@synthesize trackToken;
 
 @synthesize assemblerSettingBehavior;
 @end

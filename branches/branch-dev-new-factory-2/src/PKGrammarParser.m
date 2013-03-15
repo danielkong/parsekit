@@ -20,6 +20,7 @@
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchTrackExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
@@ -440,12 +441,14 @@
         [s add:[PKSymbol symbolWithString:@"("]];
         [s add:self.exprParser];
         [s add:[[PKSymbol symbolWithString:@")"] discard]];
+        [s setAssembler:assembler selector:@selector(parser:didMatchSubExpr:)];
         [barePrimaryExprParser add:s];
 
         PKTrack *tr = [PKTrack track];
         [tr add:[PKSymbol symbolWithString:@"["]];
         [tr add:self.exprParser];
         [tr add:[[PKSymbol symbolWithString:@"]"] discard]];
+        [tr setAssembler:assembler selector:@selector(parser:didMatchTrackExpr:)];
         [barePrimaryExprParser add:tr];
     }
     return barePrimaryExprParser;
