@@ -242,7 +242,7 @@
 }
 
 
-// startProduction              = '@' 'start';
+// startProduction              = '@'! 'start'!;
 - (PKCollectionParser *)startProductionParser {
     if (!startProductionParser) {
         self.startProductionParser = [PKSequence sequence];

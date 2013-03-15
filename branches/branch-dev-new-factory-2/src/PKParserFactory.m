@@ -400,7 +400,18 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 
-    [self parser:p didMatchVarProduction:a];
+    PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"@start" floatValue:0.0];
+    NSAssert(tok, @"");
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isWord, @"");
+    
+    NSString *parserName = @"@start";
+    NSAssert([parserName length], @"");
+    NSAssert('@' == [parserName characterAtIndex:0], @"");
+    
+    // parser:didMatchVarProduction: [@start, =, foo, foo]@start/=/foo/;/foo^=/Word/;
+    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:tok parserName:parserName];
+    [a push:node];
 }
 
 
@@ -450,11 +461,21 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    NSArray *nodes = [a objectsAbove:_equals];
-//    NSAssert(1 == [nodes count], @"");
-//    
-//    [a pop]; // '='
-//    
+    NSArray *nodes = [a objectsAbove:equals];
+    NSAssert([nodes count], @"");
+
+    [a pop]; // '='
+    
+    PKDefinitionNode *defNode = [a pop];
+    NSAssert([defNode isKindOfClass:[PKDefinitionNode class]], @"");
+    
+    // parser:didMatchDecl: [@start, =, foo]@start/=/foo/;^foo/=/Word/;
+    for (PKBaseNode *child in nodes) {
+        [defNode addChild:child];
+    }
+
+    [self.rootNode addChild:defNode];
+    
 //    PKBaseNode *def = [a pop];
 //    NSAssert([def isKindOfClass:[PKDefinitionNode class]], @"");
 //    
