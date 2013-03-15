@@ -11,10 +11,17 @@
 #import "PKConstructNodeVisitor.h"
 
 @interface PKBaseNode : PKAST
++ (id)nodeWithToken:(PKToken *)tok;
++ (id)nodeWithToken:(PKToken *)tok parserName:(NSString *)pname;
++ (id)nodeWithToken:(PKToken *)tok parserName:(NSString *)pname callbackName:(NSString *)cbname;
+
+- (id)initWithToken:(PKToken *)tok parserName:(NSString *)pname;
+- (id)initWithToken:(PKToken *)tok parserName:(NSString *)pname callbackName:(NSString *)cbname;
+
 - (void)visit:(id <PKNodeVisitor>)v;
 
-@property (nonatomic, retain) NSString *parserName;
-@property (nonatomic, retain) NSString *callbackName;
+@property (nonatomic, retain, readonly) NSString *parserName;
+@property (nonatomic, retain, readonly) NSString *callbackName;
 
 @property (nonatomic, assign) BOOL discard;
 @end

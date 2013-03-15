@@ -8,7 +8,49 @@
 
 #import "PKBaseNode.h"
 
+@interface PKBaseNode ()
+@property (nonatomic, retain, readwrite) NSString *parserName;
+@property (nonatomic, retain, readwrite) NSString *callbackName;
+@end
+
 @implementation PKBaseNode
+
++ (id)nodeWithToken:(PKToken *)tok {
+    return [self nodeWithToken:tok parserName:nil];
+}
+
+
++ (id)nodeWithToken:(PKToken *)tok parserName:(NSString *)pname {
+    return [self nodeWithToken:tok parserName:pname callbackName:nil];
+}
+
+
++ (id)nodeWithToken:(PKToken *)tok parserName:(NSString *)pname callbackName:(NSString *)cbname {
+    return [[[self alloc] initWithToken:tok parserName:pname callbackName:cbname] autorelease];
+}
+
+
+- (id)initWithToken:(PKToken *)tok {
+    self = [self initWithToken:tok parserName:nil];
+    return self;
+}
+
+
+- (id)initWithToken:(PKToken *)tok parserName:(NSString *)pname {
+    self = [self initWithToken:tok parserName:pname callbackName:nil];
+    return self;
+}
+
+
+- (id)initWithToken:(PKToken *)tok parserName:(NSString *)pname callbackName:(NSString *)cbname {
+    self = [super initWithToken:tok];
+    if (self) {
+        self.parserName = pname;
+        self.callbackName = cbname;
+    }
+    return self;
+}
+
 
 - (void)dealloc {
     self.parserName = nil;

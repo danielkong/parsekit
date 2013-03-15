@@ -785,7 +785,11 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    PKToken *tok = [a pop];
+    PKToken *tok = [a pop];
+    
+    PKConstantNode *node = [PKConstantNode nodeWithToken:tok];
+    [a push:node];
+    
 //    NSString *s = tok.stringValue;
 //    
 //    id obj = nil;
