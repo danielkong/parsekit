@@ -1019,19 +1019,14 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p willMatchAnd:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-
-//    PKAST *child = [a pop];
-//    NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
-//    
-//    PKCollectionNode *seqNode = [PKCollectionNode nodeWithToken:self.seqToken];
-//    [a push:seqNode];
-
     
-    PKAST *child = [a pop];
+    PKBaseNode *child = [a pop];
     PKCollectionNode *seqNode = nil;
     
-    if (child.token == self.seqToken) {
-        seqNode = (id)child;
+    if (child.token == seqToken) {
+        NSAssert([child isKindOfClass:[PKCollectionNode class]], @"");
+
+        seqNode = (PKCollectionNode *)child;
     } else {
         NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
         
@@ -1046,7 +1041,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
-    PKAST *child = [a pop];
+    PKBaseNode *child = [a pop];
     NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
     
     PKCollectionNode *seqNode = [a pop];
@@ -1076,5 +1071,10 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize curly;
 @synthesize paren;
 @synthesize square;
+
+@synthesize defToken;
+@synthesize refToken;
+@synthesize seqToken;
+
 @synthesize assemblerSettingBehavior;
 @end
