@@ -131,7 +131,7 @@
 // varProduction        = Word - startProduction;
 // callback             = S* '(' S* selector S* ')';
 // selector             = Word ':';
-// expr                 = S* term orTerm* S*;
+// expr                 = term orTerm* S*;
 // term                 = factor nextFactor*;
 // orTerm               = S* '|' S* term;
 // factor               = phrase | phraseStar | phrasePlus | phraseQuestion | phraseCardinality;
@@ -324,7 +324,8 @@
         termParser.name = @"term";
         [termParser add:self.factorParser];
         [termParser add:[PKRepetition repetitionWithSubparser:self.nextFactorParser]];
-        [termParser setAssembler:assembler selector:@selector(parser:didMatchAnd:)];
+        
+//        [termParser setAssembler:assembler selector:@selector(parser:didMatchAnd:)];
     }
     return termParser;
 }
@@ -369,7 +370,10 @@
     if (!nextFactorParser) {
         self.nextFactorParser = [PKSequence sequence];
         nextFactorParser.name = @"nextFactor";
-        [nextFactorParser add:self.whitespaceParser];
+        
+        PKParser *space = self.whitespaceParser;
+        [space setAssembler:assembler selector:@selector(parser:willMatchAnd:)];
+        [nextFactorParser add:space];
         
         PKAlternation *a = [PKAlternation alternation];
         [a add:self.phraseParser];
@@ -379,7 +383,9 @@
         [a add:self.phraseCardinalityParser];
         
         [nextFactorParser add:a];
-    }
+
+        [nextFactorParser setAssembler:assembler selector:@selector(parser:didMatchAnd:)];
+}
     return nextFactorParser;
 }
 
