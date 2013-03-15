@@ -568,21 +568,14 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([objs count], @"");
     [a pop]; // pop '('
     
-    if ([objs count] > 1) {
-        PKCollectionNode *seqNode = [PKCollectionNode nodeWithToken:seqToken];
-        
-        for (PKAST *child in objs) {
-            NSAssert([child isKindOfClass:[PKAST class]], @"");
-            [seqNode addChild:child];
-        }
-        
-        [a push:seqNode];
-        
-    } else if ([objs count]) {
-        PKBaseNode *node = [objs lastObject];
-        
-        [a push:node];
+    PKCollectionNode *seqNode = [PKCollectionNode nodeWithToken:seqToken];
+    
+    for (PKAST *child in objs) {
+        NSAssert([child isKindOfClass:[PKAST class]], @"");
+        [seqNode addChild:child];
     }
+    
+    [a push:seqNode];
 }
 
 
