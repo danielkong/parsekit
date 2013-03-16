@@ -588,16 +588,16 @@
 }
 
 
-- (void)testSubExprAST3_3 {
-    NSString *g = @"@start = Word Number?;";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-    
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start:DEF (:SEQ :Word (:? :Number))))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:+ :Number)", [rootNode treeDescription]);
-}
+//- (void)testSubExprAST3_3 {
+//    NSString *g = @"@start = Word Number?;";
+//    
+//    NSError *err = nil;
+//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+//    
+//    TDNotNil(rootNode);
+//    TDEqualObjects(@"(ROOT (@start:DEF (:SEQ :Word (:? :Number))))", [rootNode treeDescription]);
+//    //TDEqualObjects(@"(@start:+ :Number)", [rootNode treeDescription]);
+//}
 
 
 //- (void)testSubExprAST4 {
