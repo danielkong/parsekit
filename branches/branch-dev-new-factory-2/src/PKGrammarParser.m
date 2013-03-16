@@ -15,6 +15,46 @@
 #import "PKGrammarParser.h"
 #import <ParseKit/ParseKit.h>
 
+// @start               = statement*;
+// statement            = tokenizerDirective | decl;
+// tokenizerDirective   = S* (/@.+/ - '@start') S* '=' (S! | ~';')+ ';'!;
+// decl                 = S* production S* callback? S* '=' expr ';'!;
+// production           = startProduction | varProduction;
+// startProduction      = '@start';
+// varProduction        = Word - startProduction;
+// callback             = S* '(' S* selector S* ')';
+// selector             = Word ':';
+// expr                 = term orTerm* S*;
+// term                 = factor nextFactor*;
+// orTerm               = S* '|' S* term;
+// factor               = phrase | phraseStar | phrasePlus | phraseQuestion | phraseCardinality;
+// nextFactor           = S factor;
+
+// phrase               = primaryExpr predicate*;
+// phraseStar           = phrase S* '*';
+// phrasePlus           = phrase S* '+';
+// phraseQuestion       = phrase S* '?';
+// phraseCardinality    = phrase S* cardinality;
+// cardinality          = '{' S* Number (S* ',' S* Number)? S* '}';
+
+// predicate            = S* (intersection | difference);
+// intersection         = '&' S* primaryExpr;
+// difference           = '-' S* primaryExpr;
+
+// primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
+// negatedPrimaryExpr   = '~' S* barePrimaryExpr;
+// barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
+// subSeqExpr           = '(' expr ')';
+// subTrackExpr         = '[' expr ']';
+// atomicValue          = parser discard?;
+// parser               = pattern | literal | variable | constant | specificConstant | delimitedString;
+// discard              = S* '!';
+// pattern              = DelimitedString('/', '/') (Word & /[imxsw]+/)?;
+// delimitedString      = 'DelimitedString' S* '(' S* QuotedString (S* ',' QuotedString)? S* ')';
+// literal              = QuotedString;
+// variable             = LowercaseWord;
+// constant             = UppercaseWord;
+
 @interface NSObject (PKGrammarParserAdditions)
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a;
@@ -121,47 +161,6 @@
     [s add:[PKRepetition repetitionWithSubparser:p]];
     return s;
 }
-
-
-// @start               = statement*;
-// statement            = tokenizerDirective | decl;
-// tokenizerDirective   = S* (/@.+/ - '@start') S* '=' (S! | ~';')+ ';'!;
-// decl                 = S* production S* callback? S* '=' expr ';'!;
-// production           = startProduction | varProduction;
-// startProduction      = '@start';
-// varProduction        = Word - startProduction;
-// callback             = S* '(' S* selector S* ')';
-// selector             = Word ':';
-// expr                 = term orTerm* S*;
-// term                 = factor nextFactor*;
-// orTerm               = S* '|' S* term;
-// factor               = phrase | phraseStar | phrasePlus | phraseQuestion | phraseCardinality;
-// nextFactor           = S factor;
-
-// phrase               = primaryExpr predicate*;
-// phraseStar           = phrase S* '*';
-// phrasePlus           = phrase S* '+';
-// phraseQuestion       = phrase S* '?';
-// phraseCardinality    = phrase S* cardinality;
-// cardinality          = '{' S* Number (S* ',' S* Number)? S* '}';
-
-// predicate            = S* (intersection | difference);
-// intersection         = '&' S* primaryExpr;
-// difference           = '-' S* primaryExpr;
-
-// primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
-// negatedPrimaryExpr   = '~' S* barePrimaryExpr;
-// barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
-// subSeqExpr           = '(' expr ')';
-// subTrackExpr         = '[' expr ']';
-// atomicValue          = parser discard?;
-// parser               = pattern | literal | variable | constant | specificConstant | delimitedString;
-// discard              = S* '!';
-// pattern              = DelimitedString('/', '/') (Word & /[imxsw]+/)?;
-// delimitedString      = 'DelimitedString' S* '(' S* QuotedString (S* ',' QuotedString)? S* ')';
-// literal              = QuotedString;
-// variable             = LowercaseWord;
-// constant             = UppercaseWord;
 
 
 - (PKCompositeParser *)parser {
@@ -375,15 +374,7 @@
         PKParser *space = self.whitespaceParser;
         [space setAssembler:assembler selector:@selector(parser:willMatchAnd:)];
         [nextFactorParser add:space];
-        
-        PKAlternation *a = [PKAlternation alternation];
-        [a add:self.phraseStarParser];
-        [a add:self.phrasePlusParser];
-        [a add:self.phraseQuestionParser];
-        [a add:self.phraseCardinalityParser];
-        [a add:self.phraseParser];
-        
-        [nextFactorParser add:a];
+        [nextFactorParser add:self.factorParser];
 
         [nextFactorParser setAssembler:assembler selector:@selector(parser:didMatchAnd:)];
 }
