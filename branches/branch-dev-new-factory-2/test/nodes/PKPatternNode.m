@@ -49,7 +49,26 @@
 
 
 - (NSString *)name {
-    return [NSString stringWithFormat:@"/%@/", _string];
+    NSMutableString *optsString = [NSMutableString string];
+    
+    PKPatternOptions opts = _options;
+    if (opts & PKPatternOptionsIgnoreCase) {
+        [optsString appendString:@"i"];
+    }
+    if (opts & PKPatternOptionsMultiline) {
+        [optsString appendString:@"m"];
+    }
+    if (opts & PKPatternOptionsComments) {
+        [optsString appendString:@"x"];
+    }
+    if (opts & PKPatternOptionsDotAll) {
+        [optsString appendString:@"s"];
+    }
+    if (opts & PKPatternOptionsUnicodeWordBoundaries) {
+        [optsString appendString:@"w"];
+    }
+    
+    return [NSString stringWithFormat:@"/%@/%@", _string, optsString];
 }
 
 

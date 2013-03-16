@@ -623,31 +623,30 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
-    // KEEP FOR VISITOR !!!!!!!!!!!!!!!!
-//    PKToken *tok = [a pop];
-//    NSAssert(tok.isWord, @"");
-//
-//    NSString *s = tok.stringValue;
-//    NSAssert([s length] > 0, @"");
-//
-//    PKPatternOptions opts = PKPatternOptionsNone;
-//    if (NSNotFound != [s rangeOfString:@"i"].location) {
-//        opts |= PKPatternOptionsIgnoreCase;
-//    }
-//    if (NSNotFound != [s rangeOfString:@"m"].location) {
-//        opts |= PKPatternOptionsMultiline;
-//    }
-//    if (NSNotFound != [s rangeOfString:@"x"].location) {
-//        opts |= PKPatternOptionsComments;
-//    }
-//    if (NSNotFound != [s rangeOfString:@"s"].location) {
-//        opts |= PKPatternOptionsDotAll;
-//    }
-//    if (NSNotFound != [s rangeOfString:@"w"].location) {
-//        opts |= PKPatternOptionsUnicodeWordBoundaries;
-//    }
-//    
-//    [a push:[NSNumber numberWithInteger:opts]];
+    PKToken *tok = [a pop];
+    NSAssert(tok.isWord, @"");
+
+    NSString *s = tok.stringValue;
+    NSAssert([s length] > 0, @"");
+
+    PKPatternOptions opts = PKPatternOptionsNone;
+    if (NSNotFound != [s rangeOfString:@"i"].location) {
+        opts |= PKPatternOptionsIgnoreCase;
+    }
+    if (NSNotFound != [s rangeOfString:@"m"].location) {
+        opts |= PKPatternOptionsMultiline;
+    }
+    if (NSNotFound != [s rangeOfString:@"x"].location) {
+        opts |= PKPatternOptionsComments;
+    }
+    if (NSNotFound != [s rangeOfString:@"s"].location) {
+        opts |= PKPatternOptionsDotAll;
+    }
+    if (NSNotFound != [s rangeOfString:@"w"].location) {
+        opts |= PKPatternOptionsUnicodeWordBoundaries;
+    }
+    
+    [a push:[NSNumber numberWithUnsignedInteger:opts]];
 }
 
 
@@ -657,7 +656,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKPatternOptions opts = PKPatternOptionsNone;
     if ([obj isKindOfClass:[NSNumber class]]) {
-        opts = [obj integerValue];
+        opts = [obj unsignedIntegerValue];
         obj = [a pop];
     }
     
