@@ -577,6 +577,18 @@
 
 
 - (void)testSubExprAST3_2 {
+    NSString *g = @"@start = Number+ Word;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start:DEF (:SEQ (:+ :Number) :Word)))", [rootNode treeDescription]);
+    //TDEqualObjects(@"(@start:+ :Number)", [rootNode treeDescription]);
+}
+
+
+- (void)testSubExprAST3_4 {
     NSString *g = @"@start = Word Number+;";
     
     NSError *err = nil;
