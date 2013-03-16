@@ -377,11 +377,11 @@
         [nextFactorParser add:space];
         
         PKAlternation *a = [PKAlternation alternation];
-        [a add:self.phraseParser];
         [a add:self.phraseStarParser];
         [a add:self.phrasePlusParser];
         [a add:self.phraseQuestionParser];
         [a add:self.phraseCardinalityParser];
+        [a add:self.phraseParser];
         
         [nextFactorParser add:a];
 
