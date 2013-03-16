@@ -382,6 +382,8 @@
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */; };
 		D3BBBCC10FECD477007DF30D /* xml.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8800FEB36A1006A91A4 /* xml.grammar */; };
+		D3C07E5E16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E5C16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h */; };
+		D3C07E5F16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E5D16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m */; };
 		D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C221930FFE8B8C004514FE /* PKTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221910FFE8B8C004514FE /* PKTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C221940FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1264,6 +1266,8 @@
 		D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDXMLParser.m; path = test/TDXMLParser.m; sourceTree = "<group>"; };
 		D3C031EB0EF38D2D00C5ABEB /* TDLowercaseWordTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLowercaseWordTest.h; path = test/TDLowercaseWordTest.h; sourceTree = "<group>"; };
 		D3C031EC0EF38D2D00C5ABEB /* TDLowercaseWordTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLowercaseWordTest.m; path = test/TDLowercaseWordTest.m; sourceTree = "<group>"; };
+		D3C07E5C16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDefinitionPhaseVisitor.h; path = test/nodes/PKDefinitionPhaseVisitor.h; sourceTree = "<group>"; };
+		D3C07E5D16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDefinitionPhaseVisitor.m; path = test/nodes/PKDefinitionPhaseVisitor.m; sourceTree = "<group>"; };
 		D3C2216D0FFE8A86004514FE /* PKExclusion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKExclusion.h; path = test/PKExclusion.h; sourceTree = "<group>"; };
 		D3C221900FFE8B8C004514FE /* ParseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseKit.h; path = include/ParseKit/ParseKit.h; sourceTree = "<group>"; };
 		D3C221910FFE8B8C004514FE /* PKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKTypes.h; path = include/ParseKit/PKTypes.h; sourceTree = "<group>"; };
@@ -2129,6 +2133,8 @@
 			children = (
 				D325FFBC161E4E3200D4EBCC /* AST Nodes */,
 				D395525D16F16BA600D326FD /* PKNodeVisitor.h */,
+				D3C07E5C16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h */,
+				D3C07E5D16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m */,
 				D395525216F16BA600D326FD /* PKConstructNodeVisitor.h */,
 				D395525316F16BA600D326FD /* PKConstructNodeVisitor.m */,
 				D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */,
@@ -2687,6 +2693,7 @@
 				D30805BC155ECB3F0000BC60 /* PKPattern.h in Headers */,
 				D325FFE9161F484100D4EBCC /* PKCompositeParser.h in Headers */,
 				D39552A216F16E7200D326FD /* PKWhitespaceNode.h in Headers */,
+				D3C07E5E16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3286,6 +3293,7 @@
 				D39552A316F16E7200D326FD /* PKWhitespaceNode.m in Sources */,
 				D39552B016F171EF00D326FD /* PKAST.m in Sources */,
 				D39552B116F171FA00D326FD /* PKConstructNodeVisitor.m in Sources */,
+				D3C07E5F16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

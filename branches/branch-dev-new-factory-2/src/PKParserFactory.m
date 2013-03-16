@@ -29,7 +29,6 @@
 #import "PKMultipleNode.h"
 
 #import "PKConstructNodeVisitor.h"
-#import "PKSimplifyNodeVisitor.h"
 
 @interface PKParser (PKParserFactoryAdditionsFriend)
 - (void)setTokenizer:(PKTokenizer *)t;
