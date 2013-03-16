@@ -158,6 +158,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *paren;
 @property (nonatomic, retain) PKToken *square;
 
+@property (nonatomic, retain) PKToken *rootToken;
 @property (nonatomic, retain) PKToken *defToken;
 @property (nonatomic, retain) PKToken *refToken;
 @property (nonatomic, retain) PKToken *seqToken;
@@ -191,6 +192,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.paren   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
         self.square  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"[" floatValue:0.0];
 
+        self.rootToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"ROOT" floatValue:0.0];
         self.defToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"$" floatValue:0.0];
         self.refToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"#" floatValue:0.0];
         self.seqToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"." floatValue:0.0];
@@ -225,6 +227,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.curly = nil;
     self.paren = nil;
     self.square = nil;
+    self.rootToken = nil;
     self.defToken = nil;
     self.refToken = nil;
     self.seqToken = nil;
@@ -317,14 +320,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError {
-    return [self ASTFromGrammar:g simplify:NO error:outError]; // simplify ??
-}
-
-
-- (PKAST *)ASTFromGrammar:(NSString *)g simplify:(BOOL)simplify error:(NSError **)outError {
-    PKToken *rootTok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"ROOT" floatValue:0.0];
-    
-    self.rootNode = [[[PKRootNode alloc] initWithToken:rootTok] autorelease];
+    self.rootNode = [PKRootNode nodeWithToken:rootToken];
     PKTokenizer *t = [self tokenizerForParsingGrammar];
     t.string = g;
 
@@ -1084,6 +1080,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize paren;
 @synthesize square;
 
+@synthesize rootToken;
 @synthesize defToken;
 @synthesize refToken;
 @synthesize seqToken;
