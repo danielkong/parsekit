@@ -16,7 +16,7 @@
 
 
 - (NSString *)name {
-    NSString *str = [NSString stringWithFormat:@"#%@", self.parserName];
+    NSString *str = [NSString stringWithFormat:@"%@%@", self.token.stringValue, self.parserName];
     return str;
 }
 
