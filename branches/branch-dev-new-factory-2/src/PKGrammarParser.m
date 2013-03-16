@@ -150,7 +150,7 @@
 // difference           = '-' S* primaryExpr;
 
 // primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
-// negatedPrimaryExpr   = '~' barePrimaryExpr;
+// negatedPrimaryExpr   = '~' S* barePrimaryExpr;
 // barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
 // subSeqExpr           = '(' expr ')';
 // subTrackExpr         = '[' expr ']';
@@ -415,12 +415,13 @@
 }
 
 
-// negatedPrimaryExpr   = '~' barePrimaryExpr;
+// negatedPrimaryExpr   = '~' S* barePrimaryExpr;
 - (PKCollectionParser *)negatedPrimaryExprParser {
     if (!negatedPrimaryExprParser) {
         self.negatedPrimaryExprParser = [PKSequence sequence];
         negatedPrimaryExprParser.name = @"negatedPrimaryExpr";
         [negatedPrimaryExprParser add:[[PKLiteral literalWithString:@"~"] discard]];
+        [negatedPrimaryExprParser add:self.optionalWhitespaceParser];
         [negatedPrimaryExprParser add:self.barePrimaryExprParser];
         [negatedPrimaryExprParser setAssembler:assembler selector:@selector(parser:didMatchNegation:)];
     }

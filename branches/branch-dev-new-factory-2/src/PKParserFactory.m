@@ -166,6 +166,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *optToken;
 @property (nonatomic, retain) PKToken *multiToken;
 @property (nonatomic, retain) PKToken *repToken;
+@property (nonatomic, retain) PKToken *negToken;
 @end
 
 @implementation PKParserFactory
@@ -193,6 +194,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.optToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"?" floatValue:0.0];
         self.multiToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"+" floatValue:0.0];
         self.repToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"*" floatValue:0.0];
+        self.negToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"~" floatValue:0.0];
         
         self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
     }
@@ -220,6 +222,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.optToken = nil;
     self.multiToken = nil;
     self.repToken = nil;
+    self.negToken = nil;
     [super dealloc];
 }
 
@@ -1004,6 +1007,19 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
+- (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a {
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+
+    PKBaseNode *subNode = [a pop];
+    NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
+    
+    PKCollectionNode *negNode = [PKCollectionNode nodeWithToken:negToken];
+    [negNode addChild:subNode];
+    
+    [a push:negNode];
+}
+
+
 - (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    NSRange r = [[a pop] rangeValue];
@@ -1112,13 +1128,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 }
 
-
-- (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    p = [a pop];
-//    [a push:[PKNegation negationWithSubparser:p]];
-}
-
 @synthesize grammarParser;
 @synthesize assembler;
 @synthesize preassembler;
@@ -1141,6 +1150,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize optToken;
 @synthesize multiToken;
 @synthesize repToken;
+@synthesize negToken;
 
 @synthesize assemblerSettingBehavior;
 @end
