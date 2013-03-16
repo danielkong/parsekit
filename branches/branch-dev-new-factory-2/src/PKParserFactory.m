@@ -942,7 +942,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([minusNode isKindOfClass:[PKBaseNode class]], @"");
     NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
     
-    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:self.diffToken];
+    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:diffToken];
     [diffNode addChild:subNode];
     [diffNode addChild:minusNode];
     
@@ -957,7 +957,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([predicateNode isKindOfClass:[PKBaseNode class]], @"");
     NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
     
-    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:self.intToken];
+    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:intToken];
     [diffNode addChild:subNode];
     [diffNode addChild:predicateNode];
     
@@ -971,7 +971,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKBaseNode *subNode = [a pop];
     NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
     
-    PKCollectionNode *repNode = [PKCollectionNode nodeWithToken:self.repToken];
+    PKCollectionNode *repNode = [PKCollectionNode nodeWithToken:repToken];
     [repNode addChild:subNode];
     
     [a push:repNode];
@@ -980,15 +980,27 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    id top = [a pop];
-//    [a push:[self oneOrMore:top]];
+    
+    PKBaseNode *subNode = [a pop];
+    NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
+    
+    PKCollectionNode *multiNode = [PKCollectionNode nodeWithToken:multiToken];
+    [multiNode addChild:subNode];
+    
+    [a push:multiNode];
 }
 
 
 - (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    id top = [a pop];
-//    [a push:[self zeroOrOne:top]];
+    
+    PKBaseNode *subNode = [a pop];
+    NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
+    
+    PKCollectionNode *optNode = [PKCollectionNode nodeWithToken:optToken];
+    [optNode addChild:subNode];
+    
+    [a push:optNode];
 }
 
 
