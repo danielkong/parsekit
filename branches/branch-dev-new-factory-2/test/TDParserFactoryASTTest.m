@@ -366,37 +366,41 @@
 }
 
 
-//- (void)testIntersectionAST {
-//    NSString *g = @"@start=foo;foo=Word&LowercaseWord;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
-//    
-//    g = @"@start=foo;foo=Word & LowercaseWord;";
-//    
-//    err = nil;
-//    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
-//    
-//    g = @"@start=foo;foo=Word &LowercaseWord;";
-//    
-//    err = nil;
-//    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
-//    
-//    g = @"@start=foo;foo=Word& LowercaseWord;";
-//    
-//    err = nil;
-//    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
-//}
-//
-//
+- (void)testIntersectionAST {
+    NSString *g = @"@start=foo;foo=Word&LowercaseWord;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:& :Word :LowercaseWord)))", [rootNode treeDescription]);
+    //TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
+    
+    g = @"@start=foo;foo=Word & LowercaseWord;";
+    
+    err = nil;
+    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:& :Word :LowercaseWord)))", [rootNode treeDescription]);
+    //TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
+    
+    g = @"@start=foo;foo=Word &LowercaseWord;";
+    
+    err = nil;
+    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:& :Word :LowercaseWord)))", [rootNode treeDescription]);
+    //TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
+    
+    g = @"@start=foo;foo=Word& LowercaseWord;";
+    
+    err = nil;
+    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:& :Word :LowercaseWord)))", [rootNode treeDescription]);
+    //TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
+}
+
+
 //- (void)testStarAST {
 //    NSString *g = @"@start=foo;foo=Word*;";
 //    

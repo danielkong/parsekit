@@ -741,23 +741,21 @@ void PKReleaseSubparserTree(PKParser *p) {
     [diffNode addChild:minusNode];
     
     [a push:diffNode];
-//
-//    [a push:[PKDifference differenceWithSubparser:sub minus:minus]];
 }
 
 
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    PKParser *predicate = [a pop];
-//    PKParser *sub = [a pop];
-//    NSAssert([predicate isKindOfClass:[PKParser class]], @"");
-//    NSAssert([sub isKindOfClass:[PKParser class]], @"");
-//    
-//    PKIntersection *inter = [PKIntersection intersection];
-//    [inter add:sub];
-//    [inter add:predicate];
-//    
-//    [a push:inter];
+    PKBaseNode *predicateNode = [a pop];
+    PKBaseNode *subNode = [a pop];
+    NSAssert([predicateNode isKindOfClass:[PKBaseNode class]], @"");
+    NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
+    
+    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:self.intToken];
+    [diffNode addChild:subNode];
+    [diffNode addChild:predicateNode];
+    
+    [a push:diffNode];
 }
 
 
