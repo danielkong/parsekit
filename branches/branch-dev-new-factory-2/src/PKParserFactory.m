@@ -28,6 +28,9 @@
 #import "PKOptionalNode.h"
 #import "PKMultipleNode.h"
 
+#import "PKConstructNodeVisitor.h"
+#import "PKSimplifyNodeVisitor.h"
+
 @interface PKParser (PKParserFactoryAdditionsFriend)
 - (void)setTokenizer:(PKTokenizer *)t;
 @end
@@ -452,8 +455,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([parserName length], @"");
     NSAssert('@' == [parserName characterAtIndex:0], @"");
     
-    // parser:didMatchVarProduction: [@start, =, foo, foo]@start/=/foo/;/foo^=/Word/;
-    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:self.defToken parserName:parserName];
+    PKToken *startTok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"@start" floatValue:0.0];
+    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:startTok];
     [a push:node];
 }
 
@@ -466,12 +469,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
     NSAssert(tok.isWord, @"");
     
-    NSString *parserName = tok.stringValue;
-    NSAssert([parserName length], @"");
-    NSAssert(islower([parserName characterAtIndex:0]), @"");
+    NSAssert([tok.stringValue length], @"");
+    NSAssert(islower([tok.stringValue characterAtIndex:0]), @"");
 
-    // parser:didMatchVarProduction: [@start, =, foo, foo]@start/=/foo/;/foo^=/Word/;
-    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:self.defToken parserName:parserName];
+    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:tok];
     [a push:node];
 }
 
@@ -696,14 +697,14 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     PKToken *tok = [a pop];
 
-    NSString *s = [tok.stringValue stringByTrimmingQuotes];
     PKLiteralNode *litNode = nil;
     
-    NSAssert([s length], @"");
+    NSAssert(tok.isQuotedString, @"");
+    NSAssert([tok.stringValue length], @"");
     if (self.wantsCharacters) {
-        litNode = [PKLiteralNode nodeWithToken:litToken parserName:s]; // ??
+        litNode = [PKLiteralNode nodeWithToken:tok]; // ??
     } else {
-        litNode = [PKLiteralNode nodeWithToken:litToken parserName:s];
+        litNode = [PKLiteralNode nodeWithToken:tok];
     }
 
     [a push:litNode];
@@ -719,11 +720,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
     NSAssert(tok.isWord, @"");
     
-    NSString *parserName = tok.stringValue;
-    NSAssert([parserName length], @"");
-    NSAssert(islower([parserName characterAtIndex:0]), @"");
+    NSAssert([tok.stringValue length], @"");
+    NSAssert(islower([tok.stringValue characterAtIndex:0]), @"");
 
-    PKReferenceNode *node = [PKReferenceNode nodeWithToken:self.refToken parserName:parserName];
+    PKReferenceNode *node = [PKReferenceNode nodeWithToken:tok];
     [a push:node];
 }
 
@@ -996,7 +996,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert(orTok.isSymbol, @"");
     NSAssert([orTok.stringValue isEqualToString:@"|"], @"");
 
-    PKCollectionNode *orNode = [PKCollectionNode nodeWithToken:orTok parserName:nil];
+    PKCollectionNode *orNode = [PKCollectionNode nodeWithToken:orTok];
     
     PKBaseNode *left = nil;
 

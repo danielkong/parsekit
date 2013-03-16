@@ -7,6 +7,7 @@
 //
 
 #import "PKReferenceNode.h"
+#import <ParseKit/PKToken.h>
 
 @implementation PKReferenceNode
 
@@ -16,7 +17,7 @@
 
 
 - (NSString *)name {
-    NSString *str = [NSString stringWithFormat:@"%@%@", self.token.stringValue, self.parserName];
+    NSString *str = [NSString stringWithFormat:@"#%@", self.token.stringValue];
     return str;
 }
 

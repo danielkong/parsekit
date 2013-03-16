@@ -7,6 +7,7 @@
 //
 
 #import "PKDefinitionNode.h"
+#import <ParseKit/PKToken.h>
 
 @implementation PKDefinitionNode
 
@@ -18,7 +19,7 @@
 - (NSString *)name {
     NSString *prefix = nil;
     
-    NSString *pname = self.parserName;
+    NSString *pname = self.token.stringValue;
     NSAssert([pname length], @"");
 
     if ('@' == [pname characterAtIndex:0]) {
@@ -26,7 +27,7 @@
         
         prefix = @"";
     } else {
-        prefix = self.token.stringValue;
+        prefix = @"$";
     }
     
     NSString *str = [NSString stringWithFormat:@"%@%@", prefix, pname];
@@ -37,31 +38,5 @@
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitDefinition:self];
 }
-
-
-//- (NSString *)fullTreeDescription:(NSDictionary *)symbolTab {
-//    NSString *name = [self name];
-//
-//    if (![self.children count]) {
-//        return name;
-//    }
-//    
-//    NSMutableString *ms = [NSMutableString string];
-//    
-//    if (![self isNil]) {
-//        [ms appendFormat:@"(%@", name];
-//    }
-//    
-//    for (PKAST *child in self.children) {
-//        NSAssert(child != self, @"");
-//        [ms appendFormat:@" %@", [child fullTreeDescription:symbolTab]];
-//    }
-//    
-//    if (![self isNil]) {
-//        [ms appendString:@")"];
-//    }
-//    
-//    return [[ms copy] autorelease];
-//}
 
 @end

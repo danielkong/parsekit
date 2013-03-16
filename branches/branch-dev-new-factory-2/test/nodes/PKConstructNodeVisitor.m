@@ -112,7 +112,7 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSAssert(node.token, @"");
     
-    NSString *name = node.parserName;
+    NSString *name = node.token.stringValue;
     NSAssert([name length], @"");
     
     PKCompositeParser *p = (PKCompositeParser *)[self parserForProductionName:name];
@@ -136,7 +136,7 @@
     
     NSAssert(node.token.isSymbol, @"");
     
-    NSString *name = node.parserName;
+    NSString *name = node.token.stringValue;
     NSAssert([name length], @"");
     
     PKParser *p = [self parserForProductionName:name];
@@ -151,7 +151,7 @@
 - (void)visitConstant:(PKConstantNode *)node {
     PKTerminal *p = nil;
     
-    NSString *parserName = node.parserName;
+    NSString *parserName = node.token.stringValue;
     p = _parserTable[parserName];
     if (!p) {
         PKToken *tok = node.token;
@@ -265,7 +265,7 @@
     }
     
     p = [[[parserClass alloc] init] autorelease];
-    NSString *name = node.parserName;
+    NSString *name = node.token.stringValue;
     p.name = name;
     _parserTable[name] = p; // todo go thru common func
     
@@ -293,7 +293,7 @@
     PKToken *tok = node.token;
     NSAssert(tok.isSymbol, @"");
     
-    NSString *name = node.parserName;
+    NSString *name = node.token.stringValue;
     p = (PKCollectionParser *)[self parserForProductionName:name];
     //NSLog(@"%@", p);
 

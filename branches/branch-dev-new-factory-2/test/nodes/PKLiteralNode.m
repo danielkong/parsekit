@@ -15,11 +15,6 @@
 }
 
 
-- (NSString *)name {
-    return [NSString stringWithFormat:@"'%@'", self.parserName];
-}
-
-
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitLiteral:self];
 }
