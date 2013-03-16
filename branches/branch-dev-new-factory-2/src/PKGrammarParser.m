@@ -38,8 +38,8 @@
 // cardinality          = '{' S* Number (S* ','! S* Number)? S* '}'!;
 
 // predicate            = S* (intersection | difference);
-// intersection         = '&' S* primaryExpr;
-// difference           = '-' S* primaryExpr;
+// intersection         = '&'! S* primaryExpr;
+// difference           = '-'! S* primaryExpr;
 
 // primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
 // negatedPrimaryExpr   = '~'! S* barePrimaryExpr;
@@ -464,7 +464,7 @@
 }
 
 
-// intersection         = '&' S* primaryExpr;
+// intersection         = '&'! S* primaryExpr;
 - (PKCollectionParser *)intersectionParser {
     if (!intersectionParser) {
         self.intersectionParser = [PKTrack track];
@@ -482,7 +482,7 @@
 }
 
 
-// difference            = '-' S* primaryExpr;
+// difference            = '-'! S* primaryExpr;
 - (PKCollectionParser *)differenceParser {
     if (!differenceParser) {
         self.differenceParser = [PKTrack track];
