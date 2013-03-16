@@ -62,12 +62,10 @@
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchTrackExpr:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchExpression:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
-- (void)parser:(PKParser *)p willMatchAnd:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
-//- (void)parser:(PKParser *)p didMatchTrack:(PKAssembly *)a;
+//- (void)parser:(PKParser *)p willMatchAnd:(PKAssembly *)a;
+//- (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a;
@@ -313,7 +311,6 @@
         [exprParser add:self.termParser];
         [exprParser add:[PKRepetition repetitionWithSubparser:self.orTermParser]];
         [exprParser add:self.optionalWhitespaceParser];
-        [exprParser setAssembler:assembler selector:@selector(parser:didMatchExpression:)];
     }
     return exprParser;
 }
@@ -326,8 +323,6 @@
         termParser.name = @"term";
         [termParser add:self.factorParser];
         [termParser add:[PKRepetition repetitionWithSubparser:self.nextFactorParser]];
-        
-//        [termParser setAssembler:assembler selector:@selector(parser:didMatchAnd:)];
     }
     return termParser;
 }
@@ -374,11 +369,10 @@
         nextFactorParser.name = @"nextFactor";
         
         PKParser *space = self.whitespaceParser;
-        [space setAssembler:assembler selector:@selector(parser:willMatchAnd:)];
+        //[space setAssembler:assembler selector:@selector(parser:willMatchAnd:)];
         [nextFactorParser add:space];
         [nextFactorParser add:self.factorParser];
-
-        [nextFactorParser setAssembler:assembler selector:@selector(parser:didMatchAnd:)];
+        //[nextFactorParser setAssembler:assembler selector:@selector(parser:didMatchAnd:)];
 }
     return nextFactorParser;
 }
