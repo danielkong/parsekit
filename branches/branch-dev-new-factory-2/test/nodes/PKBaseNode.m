@@ -95,15 +95,4 @@
     NSAssert2(0, @"%s is an abastract method. Must be overridden in %@", __PRETTY_FUNCTION__, NSStringFromClass([self class]));
 }
 
-
-- (NSString *)name {
-    NSString *pname = self.parserName;
-    NSString *prefix = pname ? pname : @"";
-    
-    NSString *suffix = [super name];
-    
-    NSString *str = [NSString stringWithFormat:@"%@:%@", prefix, suffix];
-    return str;
-}
-
 @end
