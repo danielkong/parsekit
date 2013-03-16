@@ -28,7 +28,7 @@
 #import "PKOptionalNode.h"
 #import "PKMultipleNode.h"
 
-#import "PKConstructNodeVisitor.h"
+#import "PKDefinitionPhaseVisitor.h"
 
 @interface PKParser (PKParserFactoryAdditionsFriend)
 - (void)setTokenizer:(PKTokenizer *)t;
@@ -603,14 +603,26 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKParser *)parserFromAST:(PKRootNode *)node {
-    PKConstructNodeVisitor *v = [[[PKConstructNodeVisitor alloc] init] autorelease];
+    PKDefinitionPhaseVisitor *defv = [[[PKDefinitionPhaseVisitor alloc] init] autorelease];
     
-    v.assembler = assembler;
-    v.preassembler = preassembler;
+    defv.assembler = assembler;
+    defv.preassembler = preassembler;
     
-    [self visit:node with:v];
-    PKParser *p = v.rootParser;
-    return p;
+    [self visit:node with:defv];
+//    PKSymbolTable *symTab = v.symbolTable;
+//
+//    PKReferencePhaseVisitor *refv = [[[PKReferencePhaseVisitor alloc] init] autorelease];
+//    
+//    refv.symbolTable = symTab;
+//    refv.assembler = assembler;
+//    refv.preassembler = preassembler;
+//    
+//    [self visit:node with:refv];
+//    symTab = refv.symbolTable;
+
+    
+
+    return nil;
 }
 
 
