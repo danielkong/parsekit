@@ -216,23 +216,6 @@
 }
 
 
-/*
- @start = foo; foo = bar|baz; bar=Word; baz=Number;
- 
- (@start (foo (| (bar Word) (baz Number))))
- (@start. (foo. (| (bar. Word) (baz. Number))))
- 
- (@start (foo bar baz))
- (@start (foo| barWord bazNumber))
- 
- (@start bar baz)
- (@start| barWord bazNumber)
- 
- (foo bar baz)
- (foo| barWord bazNumber)
- */
-
-
 - (void)testAlternationAST3 {
     NSString *g = @"@start=foo;foo=bar|baz;bar=Word;baz=Number;";
     
