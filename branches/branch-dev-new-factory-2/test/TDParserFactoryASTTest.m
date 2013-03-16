@@ -491,7 +491,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF :/))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF /\\w/))", [rootNode treeDescription]);
     //TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
     
     g = @"@start=foo;foo = /\\w/;";
@@ -499,7 +499,7 @@
     err = nil;
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF :/))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF /\\w/))", [rootNode treeDescription]);
     //TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
 }
 
@@ -722,18 +722,18 @@
 }
 
 
-//- (void)testLiteral {
-//    NSString *g = @"@start = '$' '%';";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ :'$' :'%')", [rootNode treeDescription]);
-//    
-//}
-//
-//
+- (void)testLiteral {
+    NSString *g = @"@start = '$' '%';";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start:DEF (:SEQ '$' '%')))", [rootNode treeDescription]);
+    //    TDEqualObjects(@"(@start:SEQ :'$' :'%')", [rootNode treeDescription]);
+}
+
+
 //- (void)testLiteral2 {
 //    NSString *g = @"@start = ('$' '%')+;";
 //    

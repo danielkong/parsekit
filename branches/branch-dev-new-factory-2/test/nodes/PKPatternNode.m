@@ -48,6 +48,11 @@
 }
 
 
+- (NSString *)name {
+    return [NSString stringWithFormat:@"/%@/", _string];
+}
+
+
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitPattern:self];
 }
