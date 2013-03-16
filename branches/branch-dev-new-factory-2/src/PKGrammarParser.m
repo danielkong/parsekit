@@ -31,11 +31,11 @@
 // nextFactor           = S factor;
 
 // phrase               = primaryExpr predicate*;
-// phraseStar           = phrase S* '*';
-// phrasePlus           = phrase S* '+';
-// phraseQuestion       = phrase S* '?';
+// phraseStar           = phrase S* '*'!;
+// phrasePlus           = phrase S* '+'!;
+// phraseQuestion       = phrase S* '?'!;
 // phraseCardinality    = phrase S* cardinality;
-// cardinality          = '{' S* Number (S* ',' S* Number)? S* '}';
+// cardinality          = '{' S* Number (S* ','! S* Number)? S* '}'!;
 
 // predicate            = S* (intersection | difference);
 // intersection         = '&' S* primaryExpr;
@@ -500,7 +500,7 @@
 }
 
 
-// phraseStar           = phrase S* '*';
+// phraseStar           = phrase S* '*'!;
 - (PKCollectionParser *)phraseStarParser {
     if (!phraseStarParser) {
         self.phraseStarParser = [PKSequence sequence];
@@ -514,7 +514,7 @@
 }
 
 
-// phrasePlus           = phrase S* '+';
+// phrasePlus           = phrase S* '+'!;
 - (PKCollectionParser *)phrasePlusParser {
     if (!phrasePlusParser) {
         self.phrasePlusParser = [PKSequence sequence];
@@ -528,7 +528,7 @@
 }
 
 
-// phraseQuestion       = phrase S* '?';
+// phraseQuestion       = phrase S* '?'!;
 - (PKCollectionParser *)phraseQuestionParser {
     if (!phraseQuestionParser) {
         self.phraseQuestionParser = [PKSequence sequence];
@@ -556,7 +556,7 @@
 }
 
 
-// cardinality          = '{' S* Number (S* ',' S* Number)? S* '}';
+// cardinality          = '{' S* Number (S* ','! S* Number)? S* '}'!;
 - (PKCollectionParser *)cardinalityParser {
     if (!cardinalityParser) {
         self.cardinalityParser = [PKSequence sequence];
