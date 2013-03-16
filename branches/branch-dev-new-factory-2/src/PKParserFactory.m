@@ -161,6 +161,11 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *refToken;
 @property (nonatomic, retain) PKToken *seqToken;
 @property (nonatomic, retain) PKToken *trackToken;
+@property (nonatomic, retain) PKToken *diffToken;
+@property (nonatomic, retain) PKToken *intToken;
+@property (nonatomic, retain) PKToken *optToken;
+@property (nonatomic, retain) PKToken *multiToken;
+@property (nonatomic, retain) PKToken *repToken;
 @end
 
 @implementation PKParserFactory
@@ -183,6 +188,11 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.refToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"REF" floatValue:0.0];
         self.seqToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"SEQ" floatValue:0.0];
         self.trackToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"[" floatValue:0.0];
+        self.diffToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" floatValue:0.0];
+        self.intToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"&" floatValue:0.0];
+        self.optToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"?" floatValue:0.0];
+        self.multiToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"+" floatValue:0.0];
+        self.repToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"*" floatValue:0.0];
         
         self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
     }
@@ -205,6 +215,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.defToken = nil;
     self.refToken = nil;
     self.seqToken = nil;
+    self.diffToken = nil;
+    self.intToken = nil;
+    self.optToken = nil;
+    self.multiToken = nil;
+    self.repToken = nil;
     [super dealloc];
 }
 
@@ -716,11 +731,17 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    PKParser *minus = [a pop];
-//    PKParser *sub = [a pop];
-//    NSAssert([minus isKindOfClass:[PKParser class]], @"");
-//    NSAssert([sub isKindOfClass:[PKParser class]], @"");
-//    
+    PKBaseNode *minusNode = [a pop];
+    PKBaseNode *subNode = [a pop];
+    NSAssert([minusNode isKindOfClass:[PKBaseNode class]], @"");
+    NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
+    
+    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:self.diffToken];
+    [diffNode addChild:subNode];
+    [diffNode addChild:minusNode];
+    
+    [a push:diffNode];
+//
 //    [a push:[PKDifference differenceWithSubparser:sub minus:minus]];
 }
 
@@ -1100,6 +1121,11 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize refToken;
 @synthesize seqToken;
 @synthesize trackToken;
+@synthesize diffToken;
+@synthesize intToken;
+@synthesize optToken;
+@synthesize multiToken;
+@synthesize repToken;
 
 @synthesize assemblerSettingBehavior;
 @end
