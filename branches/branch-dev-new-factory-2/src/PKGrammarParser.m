@@ -42,7 +42,7 @@
 // difference           = '-' S* primaryExpr;
 
 // primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
-// negatedPrimaryExpr   = '~' S* barePrimaryExpr;
+// negatedPrimaryExpr   = '~'! S* barePrimaryExpr;
 // barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
 // subSeqExpr           = '(' expr ')';
 // subTrackExpr         = '[' expr ']';
@@ -406,7 +406,7 @@
 }
 
 
-// negatedPrimaryExpr   = '~' S* barePrimaryExpr;
+// negatedPrimaryExpr   = '~'! S* barePrimaryExpr;
 - (PKCollectionParser *)negatedPrimaryExprParser {
     if (!negatedPrimaryExprParser) {
         self.negatedPrimaryExprParser = [PKSequence sequence];
