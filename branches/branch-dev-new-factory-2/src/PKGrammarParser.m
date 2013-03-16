@@ -44,8 +44,8 @@
 // primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
 // negatedPrimaryExpr   = '~'! S* barePrimaryExpr;
 // barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
-// subSeqExpr           = '(' expr ')';
-// subTrackExpr         = '[' expr ']';
+// subSeqExpr           = '(' expr ')'!;
+// subTrackExpr         = '[' expr ']'!;
 // atomicValue          = parser discard?;
 // parser               = pattern | literal | variable | constant | specificConstant | delimitedString;
 // discard              = S* '!';
@@ -421,8 +421,8 @@
 
 
 // barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
-// subSeqExpr           = '(' expr ')';
-// subTrackExpr         = '[' expr ']';
+// subSeqExpr           = '(' expr ')'!;
+// subTrackExpr         = '[' expr ']'!;
 - (PKCollectionParser *)barePrimaryExprParser {
     if (!barePrimaryExprParser) {
         self.barePrimaryExprParser = [PKAlternation alternation];
