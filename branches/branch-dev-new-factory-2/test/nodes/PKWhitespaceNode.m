@@ -18,4 +18,5 @@
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitWhitespace:self];
 }
+
 @end
