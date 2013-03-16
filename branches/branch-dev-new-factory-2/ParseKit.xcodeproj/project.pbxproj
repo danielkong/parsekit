@@ -374,7 +374,6 @@
 		D39552A316F16E7200D326FD /* PKWhitespaceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D39552A116F16E7200D326FD /* PKWhitespaceNode.m */; };
 		D39552B016F171EF00D326FD /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
 		D39552B116F171FA00D326FD /* PKConstructNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525316F16BA600D326FD /* PKConstructNodeVisitor.m */; };
-		D39552B216F171FE00D326FD /* PKSimplifyNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D395526516F16BA600D326FD /* PKSimplifyNodeVisitor.m */; };
 		D398E20E0E60F86D00A1C877 /* yahoo.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B473840E48C9CF008AFBDD /* yahoo.json */; };
 		D3A20245161B6AEB00207F4D /* TDRegexAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20244161B6AEB00207F4D /* TDRegexAssembler.m */; };
 		D3A20248161B6B2900207F4D /* TDRegexMatcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20247161B6B2900207F4D /* TDRegexMatcherTest.m */; };
@@ -1225,8 +1224,6 @@
 		D395526116F16BA600D326FD /* PKPatternNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKPatternNode.m; path = test/nodes/PKPatternNode.m; sourceTree = "<group>"; };
 		D395526216F16BA600D326FD /* PKReferenceNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKReferenceNode.h; path = test/nodes/PKReferenceNode.h; sourceTree = "<group>"; };
 		D395526316F16BA600D326FD /* PKReferenceNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKReferenceNode.m; path = test/nodes/PKReferenceNode.m; sourceTree = "<group>"; };
-		D395526416F16BA600D326FD /* PKSimplifyNodeVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSimplifyNodeVisitor.h; path = test/nodes/PKSimplifyNodeVisitor.h; sourceTree = "<group>"; };
-		D395526516F16BA600D326FD /* PKSimplifyNodeVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSimplifyNodeVisitor.m; path = test/nodes/PKSimplifyNodeVisitor.m; sourceTree = "<group>"; };
 		D395527E16F16C5F00D326FD /* PKRootNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKRootNode.h; path = test/nodes/PKRootNode.h; sourceTree = "<group>"; };
 		D395527F16F16C5F00D326FD /* PKRootNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKRootNode.m; path = test/nodes/PKRootNode.m; sourceTree = "<group>"; };
 		D39552A016F16E7100D326FD /* PKWhitespaceNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKWhitespaceNode.h; path = test/nodes/PKWhitespaceNode.h; sourceTree = "<group>"; };
@@ -2132,8 +2129,6 @@
 			children = (
 				D325FFBC161E4E3200D4EBCC /* AST Nodes */,
 				D395525D16F16BA600D326FD /* PKNodeVisitor.h */,
-				D395526416F16BA600D326FD /* PKSimplifyNodeVisitor.h */,
-				D395526516F16BA600D326FD /* PKSimplifyNodeVisitor.m */,
 				D395525216F16BA600D326FD /* PKConstructNodeVisitor.h */,
 				D395525316F16BA600D326FD /* PKConstructNodeVisitor.m */,
 				D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */,
@@ -3291,7 +3286,6 @@
 				D39552A316F16E7200D326FD /* PKWhitespaceNode.m in Sources */,
 				D39552B016F171EF00D326FD /* PKAST.m in Sources */,
 				D39552B116F171FA00D326FD /* PKConstructNodeVisitor.m in Sources */,
-				D39552B216F171FE00D326FD /* PKSimplifyNodeVisitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
