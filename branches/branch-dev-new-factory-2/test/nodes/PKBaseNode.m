@@ -15,15 +15,8 @@
 }
 
 
-- (void)dealloc {
-    self.callbackName = nil;
-    [super dealloc];
-}
-
-
 - (id)copyWithZone:(NSZone *)zone {
     PKBaseNode *that = (PKBaseNode *)[super copyWithZone:zone];
-    that->_callbackName = [_callbackName copyWithZone:zone];
     that->_discard = _discard;
     return that;
 }
@@ -35,10 +28,6 @@
     }
 
     PKBaseNode *that = (PKBaseNode *)obj;
-    
-    if (![_callbackName isEqual:that->_callbackName]) {
-        return NO;
-    }
     
     if (_discard != that->_discard) {
         return NO;

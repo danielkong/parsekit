@@ -10,4 +10,5 @@
 
 @interface PKConstantNode : PKBaseNode
 
+@property (nonatomic, copy) NSString *literal;
 @end

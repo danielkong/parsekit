@@ -847,10 +847,15 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    PKToken *selNameTok2 = [a pop];
-//    PKToken *selNameTok1 = [a pop];
-//    NSString *selName = [NSString stringWithFormat:@"%@:%@:", selNameTok1.stringValue, selNameTok2.stringValue];
-//    [a push:selName];
+    PKToken *selNameTok2 = [a pop];
+    PKToken *selNameTok1 = [a pop];
+    NSString *selName = [NSString stringWithFormat:@"%@:%@:", selNameTok1.stringValue, selNameTok2.stringValue];
+    
+    PKDefinitionNode *defNode = [a pop];
+    NSAssert([defNode isKindOfClass:[PKDefinitionNode class]] ,@"");
+    
+    defNode.callbackName = selName;
+    [a push:defNode];
 }
 
 
@@ -1015,14 +1020,15 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchSpecificConstant:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    PKToken *quoteTok = [a pop];
-//    NSString *str = [quoteTok.stringValue stringByTrimmingQuotes];
-//    
-//    [a pop]; // pop 'Symbol'
-//    
-//    PKParser *sym = [PKSymbol symbolWithString:str];
-//    
-//    [a push:sym];
+    PKToken *quoteTok = [a pop];
+    NSString *literal = [quoteTok.stringValue stringByTrimmingQuotes];
+    
+    PKToken *classTok = [a pop]; // pop 'Symbol'
+    
+    PKConstantNode *constNode = [PKConstantNode nodeWithToken:classTok];
+    constNode.literal = literal;
+    
+    [a push:constNode];
 }
 
 

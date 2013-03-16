@@ -11,6 +11,33 @@
 
 @implementation PKDefinitionNode
 
+- (void)dealloc {
+    self.callbackName = nil;
+    [super dealloc];
+}
+
+
+- (id)copyWithZone:(NSZone *)zone {
+    PKDefinitionNode *that = (PKDefinitionNode *)[super copyWithZone:zone];
+    that->_callbackName = [_callbackName copyWithZone:zone];
+    return that;
+}
+
+
+- (BOOL)isEqual:(id)obj {
+    if (![super isEqual:obj]) {
+        return NO;
+    }
+    
+    PKDefinitionNode *that = (PKDefinitionNode *)obj;
+    
+    if (![_callbackName isEqual:that->_callbackName]) {
+        return NO;
+    }
+    return YES;
+}
+
+
 - (NSUInteger)type {
     return PKNodeTypeDefinition;
 }
@@ -21,7 +48,7 @@
     
     NSString *pname = self.token.stringValue;
     NSAssert([pname length], @"");
-
+    
     if ('@' == [pname characterAtIndex:0]) {
         NSAssert([@"@start" isEqualToString:pname], @"");
         
@@ -31,6 +58,11 @@
     }
     
     NSString *str = [NSString stringWithFormat:@"%@%@", prefix, pname];
+    
+    if (_callbackName) {
+        str = [NSString stringWithFormat:@"%@(%@)", str, _callbackName];
+    }
+    
     return str;
 }
 

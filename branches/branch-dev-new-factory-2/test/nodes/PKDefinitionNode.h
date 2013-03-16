@@ -10,4 +10,5 @@
 
 @interface PKDefinitionNode : PKBaseNode
 
+@property (nonatomic, retain) NSString *callbackName;
 @end

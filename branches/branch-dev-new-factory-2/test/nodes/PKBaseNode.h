@@ -15,6 +15,5 @@
 
 - (void)visit:(id <PKNodeVisitor>)v;
 
-@property (nonatomic, retain) NSString *callbackName;
 @property (nonatomic, assign) BOOL discard;
 @end

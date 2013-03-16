@@ -144,7 +144,7 @@
     
     [_currentParser add:p];
     
-    [self setAssemblerForParser:p callbackName:node.callbackName];
+    //[self setAssemblerForParser:p callbackName:node.callbackName];
 }
 
 

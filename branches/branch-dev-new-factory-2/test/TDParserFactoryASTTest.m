@@ -11,8 +11,6 @@
 #import "PKAST.h"
 
 //delimited string syntax
-//specific symbol
-//callbacks
 
 @interface PKParserFactory ()
 @property (nonatomic, retain, readonly) NSDictionary *directiveTab;
@@ -838,6 +836,39 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start (* S)))", [rootNode treeDescription]);
+}
+
+
+- (void)testSepcificConstantSymbol {
+    NSString *g = @"@start=Symbol('%');";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start Symbol('%')))", [rootNode treeDescription]);
+}
+
+
+- (void)testSepcificConstantWord {
+    NSString *g = @"@start=Word('foo');";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start Word('foo')))", [rootNode treeDescription]);
+}
+
+
+- (void)testCallback {
+    NSString *g = @"@start=foo;foo(parser:didMatchSomething:)=Word;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo(parser:didMatchSomething:) Word))", [rootNode treeDescription]);
 }
 
 

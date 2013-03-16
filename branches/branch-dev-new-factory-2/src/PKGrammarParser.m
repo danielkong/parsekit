@@ -22,7 +22,7 @@
 // production           = startProduction | varProduction;
 // startProduction      = '@start';
 // varProduction        = LowercaseWord;
-// callback             = S* '(' S* selector S* ')';
+// callback             = S* '('! S* selector S* ')'!;
 // selector             = Word ':';
 // expr                 = term orTerm* S*;
 // term                 = factor nextFactor*;
@@ -266,7 +266,7 @@
 }
 
 
-// callback             = S* '(' S* selector S* ')';
+// callback             = S* '('! S* selector S* ')'!;
 - (PKCollectionParser *)callbackParser {
     if (!callbackParser) {
         self.callbackParser = [PKSequence sequence];
