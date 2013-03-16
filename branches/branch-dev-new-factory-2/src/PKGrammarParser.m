@@ -35,7 +35,8 @@
 // phrasePlus           = phrase S* '+'!;
 // phraseQuestion       = phrase S* '?'!;
 // phraseCardinality    = phrase S* cardinality;
-// cardinality          = '{' S* Number (S* ','! S* Number)? S* '}'!;
+// cardinality          = '{' S* number (S* ','! S* number)? S* '}'!;
+// number               = Number;
 
 // predicate            = S* (intersection | difference);
 // intersection         = '&'! S* primaryExpr;
@@ -142,6 +143,7 @@
     self.literalParser = nil;
     self.variableParser = nil;
     self.constantParser = nil;
+    self.numberParser = nil;
     self.specificConstantParser = nil;
     [super dealloc];
 }
@@ -556,7 +558,7 @@
 }
 
 
-// cardinality          = '{' S* Number (S* ','! S* Number)? S* '}'!;
+// cardinality          = '{' S* number (S* ','! S* number)? S* '}'!;
 - (PKCollectionParser *)cardinalityParser {
     if (!cardinalityParser) {
         self.cardinalityParser = [PKSequence sequence];
@@ -566,12 +568,12 @@
         [commaNum add:self.optionalWhitespaceParser];
         [commaNum add:[[PKSymbol symbolWithString:@","] discard]];
         [commaNum add:self.optionalWhitespaceParser];
-        [commaNum add:[PKNumber number]];
+        [commaNum add:self.numberParser];
         
         PKTrack *tr = [PKTrack track];
         [tr add:[PKSymbol symbolWithString:@"{"]]; // serves as fence. dont discard
         [tr add:self.optionalWhitespaceParser];
-        [tr add:[PKNumber number]];
+        [tr add:self.numberParser];
         [tr add:[self zeroOrOne:commaNum]];
         [tr add:self.optionalWhitespaceParser];
         [tr add:[[PKSymbol symbolWithString:@"}"] discard]];
@@ -706,6 +708,17 @@
 }
 
 
+// number               = Number;
+- (PKParser *)numberParser {
+    if (!numberParser) {
+        self.numberParser = [PKNumber number];
+        numberParser.name = @"number";
+        [numberParser setAssembler:assembler selector:@selector(parser:didMatchNum:)];
+    }
+    return numberParser;
+}
+
+
 // specificConstant      = UppercaseWord '(' QuotedString ')';
 - (PKParser *)specificConstantParser {
     if (!specificConstantParser) {
@@ -764,5 +777,6 @@
 @synthesize literalParser;
 @synthesize variableParser;
 @synthesize constantParser;
+@synthesize numberParser;
 @synthesize specificConstantParser;
 @end

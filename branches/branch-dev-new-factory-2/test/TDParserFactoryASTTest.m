@@ -836,27 +836,27 @@
 }
 
 
-//- (void)testCardinal {
-//    NSString *g = @"@start=Number{1,2};";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:{ :Number)", [rootNode treeDescription]);
-//    
-//}
-//
-//
-//- (void)testCardinal2 {
-//    NSString *g = @"@start=foo{2,4};foo=Number;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:{ foo:Number)", [rootNode treeDescription]);
-//    
-//}
+- (void)testCardinal {
+    NSString *g = @"@start=Number{1,2};";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start:DEF (:{ :Number)))", [rootNode treeDescription]);
+    
+}
+
+
+- (void)testCardinal2 {
+    NSString *g = @"@start=foo{2,4};foo=Number;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start:DEF (:{ foo:REF)) (foo:DEF :Number))", [rootNode treeDescription]);
+    
+}
 
 @end

@@ -167,6 +167,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *optToken;
 @property (nonatomic, retain) PKToken *multiToken;
 @property (nonatomic, retain) PKToken *repToken;
+@property (nonatomic, retain) PKToken *cardToken;
 @property (nonatomic, retain) PKToken *negToken;
 @property (nonatomic, retain) PKToken *patToken;
 @property (nonatomic, retain) PKToken *litToken;
@@ -198,6 +199,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.optToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"?" floatValue:0.0];
         self.multiToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"+" floatValue:0.0];
         self.repToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"*" floatValue:0.0];
+        self.cardToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
         self.negToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"~" floatValue:0.0];
         self.patToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" floatValue:0.0];
         self.litToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"'" floatValue:0.0];
@@ -229,6 +231,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.optToken = nil;
     self.multiToken = nil;
     self.repToken = nil;
+    self.cardToken = nil;
     self.negToken = nil;
     self.patToken = nil;
     self.litToken = nil;
@@ -956,14 +959,14 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    PKToken *tok = [a pop];
-//    
-//    if (self.wantsCharacters) {
-//        PKUniChar c = [tok.stringValue characterAtIndex:0];
-//        [a push:[PKSpecificChar specificCharWithChar:c]];
-//    } else {
-//        [a push:[NSNumber numberWithDouble:tok.floatValue]];
-//    }
+    PKToken *tok = [a pop];
+    
+    if (self.wantsCharacters) {
+        PKUniChar c = [tok.stringValue characterAtIndex:0];
+        [a push:[PKSpecificChar specificCharWithChar:c]];
+    } else {
+        [a push:[NSNumber numberWithDouble:tok.floatValue]];
+    }
 }
 
 
@@ -1051,45 +1054,65 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    NSRange r = [[a pop] rangeValue];
-//    
-//    p = [a pop];
-//    PKSequence *s = [PKSequence sequence];
-//    
-//    NSInteger start = r.location;
-//    NSInteger end = r.length;
-//    
-//    for (NSInteger i = 0; i < start; i++) {
-//        [s add:p];
-//    }
-//    
-//    for (NSInteger i = start ; i < end; i++) {
-//        [s add:[self zeroOrOne:p]];
-//    }
-//    
-//    [a push:s];
+    
+    // KEEP THIS FOR VISITOR!!!!!!!!!!!!!
+    //    NSRange r = [[a pop] rangeValue];
+    //
+    //    p = [a pop];
+    //    PKSequence *s = [PKSequence sequence];
+    //
+    //    NSInteger start = r.location;
+    //    NSInteger end = r.length;
+    //
+    //    for (NSInteger i = 0; i < start; i++) {
+    //        [s add:p];
+    //    }
+    //
+    //    for (NSInteger i = start ; i < end; i++) {
+    //        [s add:[self zeroOrOne:p]];
+    //    }
+    //    
+    //    [a push:s];
+
+    
+    NSRange r = [[a pop] rangeValue];
+    
+    PKBaseNode *child = [a pop];
+    NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
+    
+    PKCardinalNode *cardNode = [PKCardinalNode nodeWithToken:cardToken];
+    
+    NSInteger start = r.location;
+    NSInteger end = r.length;
+    
+    cardNode.rangeStart = start;
+    cardNode.rangeEnd = end;
+    
+    [cardNode addChild:child];
+
+    [a push:cardNode];
 }
 
 
 - (void)parser:(PKParser *)p didMatchCardinality:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    NSArray *toks = [a objectsAbove:self.curly];
-//    [a pop]; // discard '{' tok
-//
-//    NSAssert([toks count] > 0, @"");
-//    
-//    PKToken *tok = [toks lastObject];
-//    PKFloat start = tok.floatValue;
-//    PKFloat end = start;
-//    if ([toks count] > 1) {
-//        tok = [toks objectAtIndex:0];
-//        end = tok.floatValue;
-//    }
-//    
-//    NSAssert(start <= end, @"");
-//    
-//    NSRange r = NSMakeRange(start, end);
-//    [a push:[NSValue valueWithRange:r]];
+    NSArray *nums = [a objectsAbove:self.curly];
+    [a pop]; // discard '{' tok
+
+    NSAssert([nums count] > 0, @"");
+    
+    NSNumber *n = [nums lastObject];
+    PKFloat start = [n doubleValue];
+    PKFloat end = start;
+    if ([nums count] > 1) {
+        n = nums[0];
+        end = [n doubleValue];
+    }
+    
+    NSAssert(start <= end, @"");
+    
+    NSRange r = NSMakeRange(start, end);
+    [a push:[NSValue valueWithRange:r]];
 }
 
 
@@ -1221,6 +1244,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize optToken;
 @synthesize multiToken;
 @synthesize repToken;
+@synthesize cardToken;
 @synthesize negToken;
 @synthesize patToken;
 @synthesize litToken;
