@@ -33,8 +33,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF :Word))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ foo:Word)", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -45,8 +43,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| :Word :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:| :Word :Number))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -57,8 +53,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| :Word (:SEQ :Number :Symbol))))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -69,8 +63,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| (:SEQ :Word :Number) :Symbol)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ :Word :Number) :Symbol))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -81,8 +73,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| :Word (:SEQ :Number :Symbol :QuotedString))))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol :QuotedString)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -93,7 +83,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:SEQ :Word :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -104,7 +93,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:[ :Word :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -115,7 +103,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:[ :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -126,7 +113,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:[ (:| :Word :Number) :Symbol)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -137,7 +123,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:[ (:SEQ :Word :Number) :Symbol)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -148,8 +133,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:SEQ (:SEQ :Word :Number) :Symbol)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:SEQ (:SEQ :Word :Number) :Symbol))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -160,8 +143,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:SEQ :Symbol (:SEQ :Word :Number))))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:SEQ :Symbol (:SEQ :Word :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -172,8 +153,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| :Word :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:| :Word :Number))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -184,8 +163,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:SEQ :Symbol (:| :Word :Number))))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:SEQ :Symbol (:| :Word :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -196,8 +173,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:SEQ (:| :Word :Number) :Symbol)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:SEQ (:| :Word :Number) :Symbol))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -208,8 +183,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| :Word (:SEQ :Number :Symbol))))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -220,8 +193,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| :Word (:SEQ :Number :Symbol))))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -232,8 +203,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| :Word (:SEQ :Number :Symbol))))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| baz bat))))", [rootNode treeDescription]);
 }
 
 
@@ -244,8 +213,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF bar:REF) (bar:DEF (:| baz:REF bat:REF)) (baz:DEF :Word) (bat:DEF :Number))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:SEQ (bar:| baz:Word bat:Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar (| (baz Word) (bat Number)))))", [rootNode treeDescription]);
 }
 
 
@@ -273,8 +240,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| bar:REF baz:REF)) (bar:DEF :Word) (baz:DEF :Number))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:| bar:Word baz:Number))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start (foo (bar Word) (baz Number)))", [rootNode treeDescription]);
 }
 
 
@@ -285,7 +250,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:SEQ :QuotedString :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:SEQ :QuotedString :Number))", [rootNode treeDescription]);
 }
 
 
@@ -296,7 +260,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:SEQ :QuotedString :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:SEQ :QuotedString :Number))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo=( QuotedString Number );";
     
@@ -304,7 +267,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:SEQ :QuotedString :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:SEQ :QuotedString :Number))", [rootNode treeDescription]);
     
     g = @"@start=foo; foo = ( QuotedString Number );";
     
@@ -312,7 +274,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:SEQ :QuotedString :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:SEQ :QuotedString :Number))", [rootNode treeDescription]);
 }
 
 
@@ -323,7 +284,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:- :Any :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:- :Any :Word))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo=Any - Word;";
     
@@ -331,7 +291,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:- :Any :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:- :Any :Word))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo=Any -Word;";
     
@@ -339,7 +298,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:- :Any :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:- :Any :Word))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo=Any- Word;";
     
@@ -347,7 +305,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:- :Any :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:- :Any :Word))", [rootNode treeDescription]);
 }
 
 
@@ -358,7 +315,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:& :Word :LowercaseWord)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo=Word & LowercaseWord;";
     
@@ -366,7 +322,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:& :Word :LowercaseWord)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo=Word &LowercaseWord;";
     
@@ -374,7 +329,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:& :Word :LowercaseWord)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo=Word& LowercaseWord;";
     
@@ -382,7 +336,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:& :Word :LowercaseWord)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:& :Word :LowercaseWord))", [rootNode treeDescription]);
 }
 
 
@@ -393,7 +346,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:* :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:* :Word))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo=Word *;";
     
@@ -401,7 +353,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:* :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:* :Word))", [rootNode treeDescription]);
 }
 
 
@@ -412,7 +363,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:? :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:? :Word))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo=Word ?;";
     
@@ -420,7 +370,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:? :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:? :Word))", [rootNode treeDescription]);
 }
 
 
@@ -431,7 +380,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:+ :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:+ :Word))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo=Word +;";
     
@@ -439,7 +387,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:+ :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:+ :Word))", [rootNode treeDescription]);
 }
 
 
@@ -450,7 +397,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:~ :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:~ :Word))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo= ~Word;";
     
@@ -458,7 +404,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:~ :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:~ :Word))", [rootNode treeDescription]);
     
     g = @"@start=foo;foo= ~ Word;";
     
@@ -466,7 +411,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:~ :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ (foo:~ :Word))", [rootNode treeDescription]);
 }
 
 
@@ -477,7 +421,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF /\\w/))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
     
     g = @"@start=foo;foo = /\\w/;";
     
@@ -485,7 +428,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF /\\w/))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
 }
 
 
@@ -496,7 +438,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF /\\w/m))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
     
     g = @"@start=foo;foo = /\\w/m;";
     
@@ -504,7 +445,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF /\\w/m))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
 }
 
 
@@ -515,7 +455,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF /\\w/im))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
     
     g = @"@start=foo;foo = /\\w/im;";
     
@@ -523,7 +462,6 @@
     rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF /\\w/im))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
 }
 
 
@@ -535,7 +473,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF :Symbol))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:SEQ foo:Symbol)", [rootNode treeDescription]);
 }
 
 
@@ -547,7 +484,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:* :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:* :Number)", [rootNode treeDescription]);
 }
 
 
@@ -559,7 +495,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:* :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:* :Number)", [rootNode treeDescription]);
 }
 
 
@@ -571,7 +506,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:+ :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:+ :Number)", [rootNode treeDescription]);
 }
 
 
@@ -583,7 +517,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:+ :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:+ :Number)", [rootNode treeDescription]);
 }
 
 
@@ -595,7 +528,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:SEQ :Word (:~ :Number))))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:+ :Number)", [rootNode treeDescription]);
 }
 
 
@@ -607,7 +539,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:SEQ (:+ :Number) :Word)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:+ :Number)", [rootNode treeDescription]);
 }
 
 
@@ -619,7 +550,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:SEQ :Word (:+ :Number))))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:+ :Number)", [rootNode treeDescription]);
 }
 
 
@@ -631,7 +561,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:SEQ :Word (:? :Number))))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:+ :Number)", [rootNode treeDescription]);
 }
 
 
@@ -643,7 +572,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:? :Number)))", [rootNode treeDescription]);
-    //TDEqualObjects(@"(@start:? :Number)", [rootNode treeDescription]);
 }
 
 
@@ -655,7 +583,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:? :Number)))", [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:? :Number)", [rootNode treeDescription]);
 }
 
 
@@ -667,7 +594,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:~ :Number)))", [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:~ :Number)", [rootNode treeDescription]);
 }
 
 
@@ -679,7 +605,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:~ :Number)))", [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:~ :Number)", [rootNode treeDescription]);
 }
 
 
@@ -691,7 +616,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:~ (:SEQ :Word :Number))))", [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:~ (:SEQ :Word :Number))", [rootNode treeDescription]);
 }
 
 
@@ -703,7 +627,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:+ (:SEQ :Word :Number))))", [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:+ (:SEQ :Word :Number))", [rootNode treeDescription]);
 }
 
 
@@ -715,7 +638,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:* (:SEQ :Word :Number))))", [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:* (:SEQ :Word :Number))", [rootNode treeDescription]);
 }
 
 
@@ -727,7 +649,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:? (:SEQ :Word :Number))))", [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:? (:SEQ :Word :Number))", [rootNode treeDescription]);
 }
 
 
@@ -739,7 +660,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:SEQ (:* (:| :Word :Number)) :QuotedString)))", [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:SEQ (:* (:| :Word :Number)) :QuotedString)", [rootNode treeDescription]);
 }
 
 
@@ -751,8 +671,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:SEQ (:* (:| :Word :Number)) :QuotedString)))", [rootNode treeDescription]);
-    //    TDEqualObjects(@"(@start (foo (* (| Word Number)) QuotedString))"), [rootNode treeDescription]);
-    //    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:* (:| :Word :Number)) :QuotedString))", [rootNode treeDescription]);
 }
 
 
@@ -764,8 +682,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:SEQ (:* (:| :Word :Number)) :QuotedString :Symbol)))", [rootNode treeDescription]);
-    //    TDEqualObjects(@"(@start (foo (* (| Word Number)) QuotedString))"), [rootNode treeDescription]);
-    //    TDEqualObjects(@"(@start:SEQ (foo:SEQ (:* (:| :Word :Number)) :QuotedString :Symbol))", [rootNode treeDescription]);
 }
 
 
@@ -777,7 +693,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| :Word (:SEQ :Number :Symbol))))", [rootNode treeDescription]);
-    //    TDEqualObjects(@"(@start:SEQ (foo:| :Word (:SEQ :Number :Symbol)))", [rootNode treeDescription]);
 }
 
 
@@ -789,7 +704,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF (:| (:SEQ :Word :Number) :Symbol)))", [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:SEQ (foo:| (:SEQ :Word :Number) :Symbol))", [rootNode treeDescription]);
 }
 
 
@@ -801,7 +715,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:SEQ '$' '%')))", [rootNode treeDescription]);
-    //    TDEqualObjects(@"(@start:SEQ :'$' :'%')", [rootNode treeDescription]);
 }
 
 
@@ -813,7 +726,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:+ (:SEQ '$' '%'))))", [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:+ (:SEQ :'$' :'%'))", [rootNode treeDescription]);
 }
 
 
@@ -825,7 +737,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:SEQ (:| (:* (:| :Word :Number)) (:SEQ '$' '%')) (:+ :QuotedString))))", [rootNode treeDescription]);
-//    TDEqualObjects(@"(@start:SEQ (:| (:* (:| :Word :Number)) (:SEQ :'$' :'%')) (:+ :QuotedString))", [rootNode treeDescription]);
 }
 
 
@@ -837,7 +748,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:SEQ :Word (:+ :QuotedString))))", [rootNode treeDescription]);
-    
 }
 
 
@@ -882,7 +792,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:{ :Number)))", [rootNode treeDescription]);
-    
 }
 
 
@@ -894,7 +803,6 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start:DEF (:{ foo:REF)) (foo:DEF :Number))", [rootNode treeDescription]);
-    
 }
 
 @end
