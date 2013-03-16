@@ -819,6 +819,28 @@
 }
 
 
+- (void)testWhitespace {
+    NSString *g = @"@start=S;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start S))", [rootNode treeDescription]);
+}
+
+
+- (void)testWhitespaceRep {
+    NSString *g = @"@start=S*;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start (* S)))", [rootNode treeDescription]);
+}
+
+
 - (void)testDirective {
     
     // TODO
@@ -837,28 +859,6 @@
     PKToken *tok = [toks lastObject];
     TDTrue(tok.isQuotedString);
     TDEqualObjects(@"'@'", tok.stringValue);
-}
-
-
-- (void)testWhitespace {
-    NSString *g = @"@reportsWhitespaceTokens=YES;@start=S;";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start S))", [rootNode treeDescription]);
-}
-
-
-- (void)testWhitespaceRep {
-    NSString *g = @"@reportsWhitespaceTokens=YES;@start=S*;";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start (* S)))", [rootNode treeDescription]);
 }
 
 @end
