@@ -729,36 +729,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    PKBaseNode *minusNode = [a pop];
-    PKBaseNode *subNode = [a pop];
-    NSAssert([minusNode isKindOfClass:[PKBaseNode class]], @"");
-    NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
-    
-    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:self.diffToken];
-    [diffNode addChild:subNode];
-    [diffNode addChild:minusNode];
-    
-    [a push:diffNode];
-}
-
-
-- (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    PKBaseNode *predicateNode = [a pop];
-    PKBaseNode *subNode = [a pop];
-    NSAssert([predicateNode isKindOfClass:[PKBaseNode class]], @"");
-    NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
-    
-    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:self.intToken];
-    [diffNode addChild:subNode];
-    [diffNode addChild:predicateNode];
-    
-    [a push:diffNode];
-}
-
-
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 //    PKToken *tok = [a pop];
@@ -965,11 +935,46 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
+- (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a {
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    PKBaseNode *minusNode = [a pop];
+    PKBaseNode *subNode = [a pop];
+    NSAssert([minusNode isKindOfClass:[PKBaseNode class]], @"");
+    NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
+    
+    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:self.diffToken];
+    [diffNode addChild:subNode];
+    [diffNode addChild:minusNode];
+    
+    [a push:diffNode];
+}
+
+
+- (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a {
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    PKBaseNode *predicateNode = [a pop];
+    PKBaseNode *subNode = [a pop];
+    NSAssert([predicateNode isKindOfClass:[PKBaseNode class]], @"");
+    NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
+    
+    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:self.intToken];
+    [diffNode addChild:subNode];
+    [diffNode addChild:predicateNode];
+    
+    [a push:diffNode];
+}
+
+
 - (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    id top = [a pop];
-//    PKRepetition *rep = [PKRepetition repetitionWithSubparser:top];
-//    [a push:rep];
+    
+    PKBaseNode *subNode = [a pop];
+    NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
+    
+    PKCollectionNode *repNode = [PKCollectionNode nodeWithToken:self.repToken];
+    [repNode addChild:subNode];
+    
+    [a push:repNode];
 }
 
 
