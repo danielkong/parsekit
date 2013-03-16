@@ -10,6 +10,12 @@
 #import "PKParserFactory.h"
 #import "PKAST.h"
 
+//directives
+//delimited string syntax
+//specific symbol
+//whitespace
+//callbacks
+
 @interface TDParserFactoryASTTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @end
@@ -786,6 +792,28 @@
     
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start ({ #foo)) ($foo Number))", [rootNode treeDescription]);
+}
+
+
+- (void)testDelimited {
+    NSString *g = @"@start=DelimitedString('<', '>');";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start %{'<' '>'}))", [rootNode treeDescription]);
+}
+
+
+- (void)testDelimited2 {
+    NSString *g = @"@start=foo;foo=DelimitedString('<', '>');";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo %{'<' '>'}))", [rootNode treeDescription]);
 }
 
 @end

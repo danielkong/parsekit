@@ -172,6 +172,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *negToken;
 @property (nonatomic, retain) PKToken *patToken;
 @property (nonatomic, retain) PKToken *litToken;
+@property (nonatomic, retain) PKToken *delimToken;
 @end
 
 @implementation PKParserFactory
@@ -204,6 +205,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.negToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"~" floatValue:0.0];
         self.patToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" floatValue:0.0];
         self.litToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"'" floatValue:0.0];
+        self.delimToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"%" floatValue:0.0];
         
         self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
     }
@@ -236,6 +238,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.negToken = nil;
     self.patToken = nil;
     self.litToken = nil;
+    self.delimToken = nil;
     [super dealloc];
 }
 
@@ -795,19 +798,21 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    NSArray *toks = [a objectsAbove:paren];
-//    [a pop]; // discard '(' fence
-//    
-//    NSAssert([toks count] > 0 && [toks count] < 3, @"");
-//    NSString *start = [[[toks lastObject] stringValue] stringByTrimmingQuotes];
-//    NSString *end = nil;
-//    if ([toks count] > 1) {
-//        end = [[[toks objectAtIndex:0] stringValue] stringByTrimmingQuotes];
-//    }
-//
-//    PKTerminal *t = [PKDelimitedString delimitedStringWithStartMarker:start endMarker:end];
-//    
-//    [a push:t];
+    NSArray *toks = [a objectsAbove:paren];
+    [a pop]; // discard '(' fence
+    
+    NSAssert([toks count] > 0 && [toks count] < 3, @"");
+    NSString *start = [[[toks lastObject] stringValue] stringByTrimmingQuotes];
+    NSString *end = nil;
+    if ([toks count] > 1) {
+        end = [[[toks objectAtIndex:0] stringValue] stringByTrimmingQuotes];
+    }
+
+    PKDelimitedNode *delimNode = [PKDelimitedNode nodeWithToken:delimToken];
+    delimNode.startMarker = start;
+    delimNode.endMarker = end;
+    
+    [a push:delimNode];
 }
 
 
@@ -1093,6 +1098,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize negToken;
 @synthesize patToken;
 @synthesize litToken;
+@synthesize delimToken;
 
 @synthesize assemblerSettingBehavior;
 @end

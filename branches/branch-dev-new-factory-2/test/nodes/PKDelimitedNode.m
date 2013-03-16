@@ -49,6 +49,16 @@
 }
 
 
+- (NSString *)name {
+    NSMutableString *mstr = [NSMutableString stringWithFormat:@"%%{'%@' '%@'", _startMarker, _endMarker];
+    
+    // TODO add charset
+    
+    [mstr appendString:@"}"];
+    return [[mstr copy] autorelease];
+}
+
+
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitDelimited:self];
 }
