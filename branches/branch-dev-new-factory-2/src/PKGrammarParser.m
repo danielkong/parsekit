@@ -21,7 +21,7 @@
 // decl                 = S* production S* callback? S* '=' expr ';'!;
 // production           = startProduction | varProduction;
 // startProduction      = '@start';
-// varProduction        = Word - startProduction;
+// varProduction        = LowercaseWord;
 // callback             = S* '(' S* selector S* ')';
 // selector             = Word ':';
 // expr                 = term orTerm* S*;
@@ -255,12 +255,11 @@
 }
 
 
-// varProduction        = Word - startProduction;
-- (PKCollectionParser *)varProductionParser {
+// varProduction        = LowercaseWord;
+- (PKParser *)varProductionParser {
     if (!varProductionParser) {
-        self.varProductionParser = [PKSequence sequence];
+        self.varProductionParser = [PKLowercaseWord word];
         varProductionParser.name = @"varProduction";
-        [varProductionParser add:[PKDifference differenceWithSubparser:[PKWord word] minus:self.startProductionParser]];
         [varProductionParser setAssembler:assembler selector:@selector(parser:didMatchVarProduction:)];
     }
     return varProductionParser;

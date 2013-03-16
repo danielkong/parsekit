@@ -10,11 +10,13 @@
 #import "PKParserFactory.h"
 #import "PKAST.h"
 
-//directives
 //delimited string syntax
 //specific symbol
-//whitespace
 //callbacks
+
+@interface PKParserFactory ()
+@property (nonatomic, retain, readonly) NSDictionary *directiveTab;
+@end
 
 @interface TDParserFactoryASTTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
@@ -817,27 +819,46 @@
 }
 
 
+- (void)testDirective {
+    
+    // TODO
+    NSString *g = @"@wordState='@';@start=Word;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start Word))", [rootNode treeDescription]);
+    
+    NSDictionary *tab = _factory.directiveTab;
+    NSArray *toks = tab[@"@wordState"];
+    TDEquals((NSUInteger)1, [toks count]);
+    
+    PKToken *tok = [toks lastObject];
+    TDTrue(tok.isQuotedString);
+    TDEqualObjects(@"'@'", tok.stringValue);
+}
 
 
-//- (void)testWhitespace {
-//    NSString *g = @"@start=S;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-//    
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(ROOT (@start S))", [rootNode treeDescription]);
-//}
-//
-//
-//- (void)testWhitespaceRep {
-//    NSString *g = @"@start=S*;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-//    
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(ROOT (@start (* S)))", [rootNode treeDescription]);
-//}
+- (void)testWhitespace {
+    NSString *g = @"@reportsWhitespaceTokens=YES;@start=S;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start S))", [rootNode treeDescription]);
+}
+
+
+- (void)testWhitespaceRep {
+    NSString *g = @"@reportsWhitespaceTokens=YES;@start=S*;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start (* S)))", [rootNode treeDescription]);
+}
 
 @end

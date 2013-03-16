@@ -147,7 +147,9 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKGrammarParser *grammarParser;
 @property (nonatomic, assign) id assembler;
 @property (nonatomic, assign) id preassembler;
-//@property (nonatomic, retain) NSMutableDictionary *parserTokensTable;
+
+@property (nonatomic, retain) NSMutableDictionary *directiveTab;
+//@property (nonatomic, retain) NSMutableDictionary *directiveTab;
 //@property (nonatomic, retain) NSMutableDictionary *parserClassTable;
 //@property (nonatomic, retain) NSMutableDictionary *selectorTable;
 
@@ -219,7 +221,9 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.grammarParser = nil;
     self.assembler = nil;
     self.preassembler = nil;
-//    self.parserTokensTable = nil;
+    
+    self.directiveTab = nil;
+//    self.directiveTab = nil;
 //    self.parserClassTable = nil;
 //    self.selectorTable = nil;
     self.rootNode = nil;
@@ -320,7 +324,9 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError {
+    self.directiveTab = [NSMutableDictionary dictionary];
     self.rootNode = [PKRootNode nodeWithToken:rootToken];
+    
     PKTokenizer *t = [self tokenizerForParsingGrammar];
     t.string = g;
 
@@ -362,8 +368,238 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKTokenizer *)tokenizerFromGrammarSettings {
-    //TODO
-    return [PKTokenizer tokenizer];
+    self.wantsCharacters = [self boolForTokenForKey:@"@wantsCharacters"];
+    
+    PKTokenizer *t = [PKTokenizer tokenizer];
+    [t.commentState removeSingleLineStartMarker:@"//"];
+    [t.commentState removeMultiLineStartMarker:@"/*"];
+    
+    t.whitespaceState.reportsWhitespaceTokens = [self boolForTokenForKey:@"@reportsWhitespaceTokens"];
+    t.commentState.reportsCommentTokens = [self boolForTokenForKey:@"@reportsCommentTokens"];
+    t.commentState.balancesEOFTerminatedComments = [self boolForTokenForKey:@"balancesEOFTerminatedComments"];
+    t.quoteState.balancesEOFTerminatedQuotes = [self boolForTokenForKey:@"@balancesEOFTerminatedQuotes"];
+    t.delimitState.balancesEOFTerminatedStrings = [self boolForTokenForKey:@"@balancesEOFTerminatedStrings"];
+    t.numberState.allowsTrailingDecimalSeparator = [self boolForTokenForKey:@"@allowsTrailingDecimalSeparator"];
+    t.numberState.allowsScientificNotation = [self boolForTokenForKey:@"@allowsScientificNotation"];
+    
+    BOOL yn = YES;
+    if ([directiveTab objectForKey:@"@allowsFloatingPoint"]) {
+        yn = [self boolForTokenForKey:@"@allowsFloatingPoint"];
+    }
+    t.numberState.allowsFloatingPoint = yn;
+    
+    [self setTokenizerState:t.wordState onTokenizer:t forTokensForKey:@"@wordState"];
+    [self setTokenizerState:t.numberState onTokenizer:t forTokensForKey:@"@numberState"];
+    [self setTokenizerState:t.quoteState onTokenizer:t forTokensForKey:@"@quoteState"];
+    [self setTokenizerState:t.delimitState onTokenizer:t forTokensForKey:@"@delimitState"];
+    [self setTokenizerState:t.symbolState onTokenizer:t forTokensForKey:@"@symbolState"];
+    [self setTokenizerState:t.commentState onTokenizer:t forTokensForKey:@"@commentState"];
+    [self setTokenizerState:t.whitespaceState onTokenizer:t forTokensForKey:@"@whitespaceState"];
+    
+    [self setFallbackStateOn:t.commentState withTokenizer:t forTokensForKey:@"@commentState.fallbackState"];
+    [self setFallbackStateOn:t.delimitState withTokenizer:t forTokensForKey:@"@delimitState.fallbackState"];
+    
+    NSArray *toks = nil;
+    
+    // muli-char symbols
+    toks = [NSArray arrayWithArray:[directiveTab objectForKey:@"@symbol"]];
+    toks = [toks arrayByAddingObjectsFromArray:[directiveTab objectForKey:@"@symbols"]];
+    [directiveTab removeObjectForKey:@"@symbol"];
+    [directiveTab removeObjectForKey:@"@symbols"];
+    for (PKToken *tok in toks) {
+        if (tok.isQuotedString) {
+            [t.symbolState add:[tok.stringValue stringByTrimmingQuotes]];
+        }
+    }
+    
+    // wordChars
+    toks = [NSArray arrayWithArray:[directiveTab objectForKey:@"@wordChar"]];
+    toks = [toks arrayByAddingObjectsFromArray:[directiveTab objectForKey:@"@wordChars"]];
+    [directiveTab removeObjectForKey:@"@wordChar"];
+    [directiveTab removeObjectForKey:@"@wordChars"];
+    for (PKToken *tok in toks) {
+        if (tok.isQuotedString) {
+			NSString *s = [tok.stringValue stringByTrimmingQuotes];
+			if ([s length]) {
+				PKUniChar c = [s characterAtIndex:0];
+				[t.wordState setWordChars:YES from:c to:c];
+			}
+        }
+    }
+    
+    // whitespaceChars
+    toks = [NSArray arrayWithArray:[directiveTab objectForKey:@"@whitespaceChar"]];
+    toks = [toks arrayByAddingObjectsFromArray:[directiveTab objectForKey:@"@whitespaceChars"]];
+    [directiveTab removeObjectForKey:@"@whitespaceChar"];
+    [directiveTab removeObjectForKey:@"@whitespaceChars"];
+    for (PKToken *tok in toks) {
+        if (tok.isQuotedString) {
+			NSString *s = [tok.stringValue stringByTrimmingQuotes];
+			if ([s length]) {
+                PKUniChar c = 0;
+                if ([s hasPrefix:@"#x"]) {
+                    c = (PKUniChar)[s integerValue];
+                } else {
+                    c = [s characterAtIndex:0];
+                }
+                [t.whitespaceState setWhitespaceChars:YES from:c to:c];
+			}
+        }
+    }
+    
+    // single-line comments
+    toks = [NSArray arrayWithArray:[directiveTab objectForKey:@"@singleLineComment"]];
+    toks = [toks arrayByAddingObjectsFromArray:[directiveTab objectForKey:@"@singleLineComments"]];
+    [directiveTab removeObjectForKey:@"@singleLineComment"];
+    [directiveTab removeObjectForKey:@"@singleLineComments"];
+    for (PKToken *tok in toks) {
+        if (tok.isQuotedString) {
+            NSString *s = [tok.stringValue stringByTrimmingQuotes];
+            [t.commentState addSingleLineStartMarker:s];
+        }
+    }
+    
+    // multi-line comments
+    toks = [NSArray arrayWithArray:[directiveTab objectForKey:@"@multiLineComment"]];
+    toks = [toks arrayByAddingObjectsFromArray:[directiveTab objectForKey:@"@multiLineComments"]];
+    NSAssert(0 == [toks count] % 2, @"@multiLineComments must be specified as quoted strings in multiples of 2");
+    [directiveTab removeObjectForKey:@"@multiLineComment"];
+    [directiveTab removeObjectForKey:@"@multiLineComments"];
+    if ([toks count] > 1) {
+        for (NSInteger i = 0; i < [toks count] - 1; i++) {
+            PKToken *startTok = [toks objectAtIndex:i];
+            PKToken *endTok = [toks objectAtIndex:++i];
+            if (startTok.isQuotedString && endTok.isQuotedString) {
+                NSString *start = [startTok.stringValue stringByTrimmingQuotes];
+                NSString *end = [endTok.stringValue stringByTrimmingQuotes];
+                [t.commentState addMultiLineStartMarker:start endMarker:end];
+            }
+        }
+    }
+    
+    // number state prefixes
+    toks = [NSArray arrayWithArray:[directiveTab objectForKey:@"@prefixForRadix"]];
+    NSAssert(0 == [toks count] % 2, @"@prefixForRadix must be specified as quoted strings in multiples of 2");
+    [directiveTab removeObjectForKey:@"@prefixForRadix"];
+    if ([toks count] > 1) {
+        for (NSInteger i = 0; i < [toks count] - 1; i++) {
+            PKToken *prefixTok = [toks objectAtIndex:i];
+            PKToken *radixTok = [toks objectAtIndex:++i];
+            if (prefixTok.isQuotedString && radixTok.isNumber) {
+                NSString *prefix = [prefixTok.stringValue stringByTrimmingQuotes];
+                PKFloat radix = radixTok.floatValue;
+                [t.numberState addPrefix:prefix forRadix:radix];
+            }
+        }
+    }
+    
+    // number state suffix
+    toks = [NSArray arrayWithArray:[directiveTab objectForKey:@"@suffixForRadix"]];
+    NSAssert(0 == [toks count] % 2, @"@suffixForRadix must be specified as quoted strings in multiples of 2");
+    [directiveTab removeObjectForKey:@"@suffixForRadix"];
+    if ([toks count] > 1) {
+        for (NSInteger i = 0; i < [toks count] - 1; i++) {
+            PKToken *suffixTok = [toks objectAtIndex:i];
+            PKToken *radixTok = [toks objectAtIndex:++i];
+            if (suffixTok.isQuotedString && radixTok.isNumber) {
+                NSString *suffix = [suffixTok.stringValue stringByTrimmingQuotes];
+                PKFloat radix = radixTok.floatValue;
+                if (radix > 0.0) {
+                    [t.numberState addSuffix:suffix forRadix:radix];
+                }
+            }
+        }
+    }
+    
+    // number grouping separator
+    toks = [NSArray arrayWithArray:[directiveTab objectForKey:@"@groupingSeparatorForRadix"]];
+    NSAssert(0 == [toks count] % 2, @"@groupingSeparatorForRadix must be specified as quoted strings in multiples of 2");
+    [directiveTab removeObjectForKey:@"@groupingSeparatorForRadix"];
+    if ([toks count] > 1) {
+        for (NSInteger i = 0; i < [toks count] - 1; i++) {
+            PKToken *sepTok = [toks objectAtIndex:i];
+            PKToken *radixTok = [toks objectAtIndex:++i];
+            if (sepTok.isQuotedString && radixTok.isNumber) {
+                NSString *sepStr = [sepTok.stringValue stringByTrimmingQuotes];
+                if (1 == [sepStr length]) {
+                    PKFloat radix = radixTok.floatValue;
+                    if (radix > 0.0) {
+                        PKUniChar c = [sepStr characterAtIndex:0];
+                        [t.numberState addGroupingSeparator:c forRadix:radix];
+                    }
+                }
+            }
+        }
+    }
+    
+    // delimited strings
+    toks = [NSArray arrayWithArray:[directiveTab objectForKey:@"@delimitedString"]];
+    toks = [toks arrayByAddingObjectsFromArray:[directiveTab objectForKey:@"@delimitedStrings"]];
+    NSAssert(0 == [toks count] % 3, @"@delimitedString must be specified as quoted strings in multiples of 3");
+    [directiveTab removeObjectForKey:@"@delimitedString"];
+    [directiveTab removeObjectForKey:@"@delimitedStrings"];
+    if ([toks count] > 1) {
+        for (NSInteger i = 0; i < [toks count] - 2; i++) {
+            PKToken *startTok = [toks objectAtIndex:i];
+            PKToken *endTok = [toks objectAtIndex:++i];
+            PKToken *charSetTok = [toks objectAtIndex:++i];
+            if (startTok.isQuotedString && endTok.isQuotedString) {
+                NSString *start = [startTok.stringValue stringByTrimmingQuotes];
+                NSString *end = [endTok.stringValue stringByTrimmingQuotes];
+                NSCharacterSet *charSet = nil;
+                if (charSetTok.isQuotedString) {
+                    charSet = [NSCharacterSet characterSetWithCharactersInString:[charSetTok.stringValue stringByTrimmingQuotes]];
+                }
+                [t.delimitState addStartMarker:start endMarker:end allowedCharacterSet:charSet];
+            }
+        }
+    }
+    
+    return t;
+}
+
+
+- (BOOL)boolForTokenForKey:(NSString *)key {
+    BOOL result = NO;
+    NSArray *toks = [directiveTab objectForKey:key];
+    if ([toks count]) {
+        PKToken *tok = [toks objectAtIndex:0];
+        if (tok.isWord && [tok.stringValue isEqualToString:@"YES"]) {
+            result = YES;
+        }
+    }
+    [directiveTab removeObjectForKey:key];
+    return result;
+}
+
+
+- (void)setTokenizerState:(PKTokenizerState *)state onTokenizer:(PKTokenizer *)t forTokensForKey:(NSString *)key {
+    NSArray *toks = [directiveTab objectForKey:key];
+    for (PKToken *tok in toks) {
+        if (tok.isQuotedString) {
+            NSString *s = [tok.stringValue stringByTrimmingQuotes];
+            if (1 == [s length]) {
+                PKUniChar c = [s characterAtIndex:0];
+                [t setTokenizerState:state from:c to:c];
+            }
+        }
+    }
+    [directiveTab removeObjectForKey:key];
+}
+
+
+- (void)setFallbackStateOn:(PKTokenizerState *)state withTokenizer:(PKTokenizer *)t forTokensForKey:(NSString *)key {
+    NSArray *toks = [directiveTab objectForKey:key];
+    if ([toks count]) {
+        PKToken *tok = [toks objectAtIndex:0];
+        if (tok.isWord) {
+            PKTokenizerState *fallbackState = [t valueForKey:tok.stringValue];
+            if (state != fallbackState) {
+                state.fallbackState = fallbackState;
+            }
+        }
+    }
+    [directiveTab removeObjectForKey:key];
 }
 
 
@@ -425,20 +661,31 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
+- (NSArray *)tokens:(NSArray *)toks byRemovingTokensOfType:(PKTokenType)tt {
+    NSMutableArray *res = [NSMutableArray array];
+    for (PKToken *tok in toks) {
+        if (PKTokenTypeWhitespace != tok.tokenType) {
+            [res addObject:tok];
+        }
+    }
+    return res;
+}
+
+
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    NSArray *argToks = [[self tokens:[a objectsAbove:_equals] byRemovingTokensOfType:PKTokenTypeWhitespace] reversedArray];
-//    //NSArray *argToks = [a objectsAbove:_equals];
-//    [a pop]; // discard '='
-//    
-//    PKToken *nameTok = [a pop];
-//    NSAssert(nameTok, @"");
-//    NSAssert([nameTok isKindOfClass:[PKToken class]], @"");
-//    NSAssert(nameTok.isWord, @"");
-//    
-//    NSString *prodName = [NSString stringWithFormat:@"@%@", nameTok.stringValue];
-//    
-//    [_productionTab setObject:argToks forKey:prodName];
+    NSArray *argToks = [[self tokens:[a objectsAbove:equals] byRemovingTokensOfType:PKTokenTypeWhitespace] reversedArray];
+    //NSArray *argToks = [a objectsAbove:_equals];
+    [a pop]; // discard '='
+    
+    PKToken *nameTok = [a pop];
+    NSAssert(nameTok, @"");
+    NSAssert([nameTok isKindOfClass:[PKToken class]], @"");
+    NSAssert(nameTok.isWord, @"");
+    
+    NSString *prodName = [NSString stringWithFormat:@"%@", nameTok.stringValue];
+    
+    [directiveTab setObject:argToks forKey:prodName];
 }
 
 
@@ -450,12 +697,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
     NSAssert(tok.isWord, @"");
     
-    NSString *parserName = @"@start";
-    NSAssert([parserName length], @"");
-    NSAssert('@' == [parserName characterAtIndex:0], @"");
+    NSAssert([tok.stringValue length], @"");
+    NSAssert([tok.stringValue isEqualToString:@"@start"], @"");
     
-    PKToken *startTok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"@start" floatValue:0.0];
-    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:startTok];
+    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:tok];
     [a push:node];
 }
 
@@ -469,7 +714,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert(tok.isWord, @"");
     
     NSAssert([tok.stringValue length], @"");
-    NSAssert(islower([tok.stringValue characterAtIndex:0]), @"");
+    //NSAssert(islower([tok.stringValue characterAtIndex:0]), @"");
 
     PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:tok];
     [a push:node];
@@ -571,17 +816,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     [a push:node];
-}
-
-
-- (NSArray *)tokens:(NSArray *)toks byRemovingTokensOfType:(PKTokenType)tt {
-    NSMutableArray *res = [NSMutableArray array];
-    for (PKToken *tok in toks) {
-        if (PKTokenTypeWhitespace != tok.tokenType) {
-            [res addObject:tok];
-        }
-    }
-    return res;
 }
 
 
@@ -1070,7 +1304,9 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize grammarParser;
 @synthesize assembler;
 @synthesize preassembler;
-//@synthesize parserTokensTable;
+
+@synthesize directiveTab;
+//@synthesize directiveTab;
 //@synthesize parserClassTable;
 //@synthesize selectorTable;
 @synthesize rootNode;

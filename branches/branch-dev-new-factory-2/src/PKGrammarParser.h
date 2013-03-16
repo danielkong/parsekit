@@ -22,7 +22,7 @@
     PKCollectionParser *tokenizerDirectiveParser;
     PKCollectionParser *declParser;
     PKCollectionParser *productionParser;
-    PKCollectionParser *varProductionParser;
+    PKParser *varProductionParser;
     PKCollectionParser *startProductionParser;
     PKCollectionParser *callbackParser;
     PKCollectionParser *selectorParser;
@@ -62,7 +62,7 @@
 @property (nonatomic, retain) PKCollectionParser *tokenizerDirectiveParser;
 @property (nonatomic, retain) PKCollectionParser *declParser;
 @property (nonatomic, retain) PKCollectionParser *productionParser;
-@property (nonatomic, retain) PKCollectionParser *varProductionParser;
+@property (nonatomic, retain) PKParser *varProductionParser;
 @property (nonatomic, retain) PKCollectionParser *startProductionParser;
 @property (nonatomic, retain) PKCollectionParser *callbackParser;
 @property (nonatomic, retain) PKCollectionParser *selectorParser;
