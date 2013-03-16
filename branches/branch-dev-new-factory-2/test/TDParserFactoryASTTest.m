@@ -485,23 +485,25 @@
 }
 
 
-//- (void)testPatternAST {
-//    NSString *g = @"@start=foo;foo=/\\w/;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
-//    
-//    g = @"@start=foo;foo = /\\w/;";
-//    
-//    err = nil;
-//    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
-//}
-//
-//
+- (void)testPatternAST {
+    NSString *g = @"@start=foo;foo=/\\w/;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF :/))", [rootNode treeDescription]);
+    //TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
+    
+    g = @"@start=foo;foo = /\\w/;";
+    
+    err = nil;
+    rootNode = [_factory ASTFromGrammar:g simplify:NO error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start:DEF foo:REF) (foo:DEF :/))", [rootNode treeDescription]);
+    //TDEqualObjects(@"(@start:SEQ foo:/\\w/)", [rootNode treeDescription]);
+}
+
+
 //- (void)testSimplifyAST {
 //    NSString *g = @"@start=foo;foo=Symbol;";
 //    

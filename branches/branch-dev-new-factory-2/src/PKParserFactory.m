@@ -167,6 +167,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *multiToken;
 @property (nonatomic, retain) PKToken *repToken;
 @property (nonatomic, retain) PKToken *negToken;
+@property (nonatomic, retain) PKToken *patToken;
 @end
 
 @implementation PKParserFactory
@@ -195,6 +196,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.multiToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"+" floatValue:0.0];
         self.repToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"*" floatValue:0.0];
         self.negToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"~" floatValue:0.0];
+        self.patToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" floatValue:0.0];
         
         self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
     }
@@ -223,6 +225,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.multiToken = nil;
     self.repToken = nil;
     self.negToken = nil;
+    self.patToken = nil;
     [super dealloc];
 }
 
@@ -763,29 +766,31 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    id obj = [a pop]; // opts (as Number*) or DelimitedString('/', '/')
-//    
-//    PKPatternOptions opts = PKPatternOptionsNone;
-//    if ([obj isKindOfClass:[NSNumber class]]) {
-//        opts = [obj integerValue];
-//        obj = [a pop];
-//    }
-//    
-//    NSAssert([obj isMemberOfClass:[PKToken class]], @"");
-//    PKToken *tok = (PKToken *)obj;
-//    NSAssert(tok.isDelimitedString, @"");
-//
-//    NSString *s = tok.stringValue;
-//    NSAssert([s length] > 2, @"");
-//    
-//    NSAssert([s hasPrefix:@"/"], @"");
-//    NSAssert([s hasSuffix:@"/"], @"");
-//
-//    NSString *re = [s stringByTrimmingQuotes];
-//    
-//    PKTerminal *t = [PKPattern patternWithString:re options:opts];
-//    
-//    [a push:t];
+    id obj = [a pop]; // opts (as Number*) or DelimitedString('/', '/')
+    
+    PKPatternOptions opts = PKPatternOptionsNone;
+    if ([obj isKindOfClass:[NSNumber class]]) {
+        opts = [obj integerValue];
+        obj = [a pop];
+    }
+    
+    NSAssert([obj isMemberOfClass:[PKToken class]], @"");
+    PKToken *tok = (PKToken *)obj;
+    NSAssert(tok.isDelimitedString, @"");
+
+    NSString *s = tok.stringValue;
+    NSAssert([s length] > 2, @"");
+    
+    NSAssert([s hasPrefix:@"/"], @"");
+    NSAssert([s hasSuffix:@"/"], @"");
+
+    NSString *re = [s stringByTrimmingQuotes];
+    
+    PKPatternNode *patNode = [PKPatternNode nodeWithToken:patToken];
+    patNode.string = re;
+    patNode.options = opts;
+
+    [a push:patNode];
 }
 
 
@@ -1151,6 +1156,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize multiToken;
 @synthesize repToken;
 @synthesize negToken;
+@synthesize patToken;
 
 @synthesize assemblerSettingBehavior;
 @end
