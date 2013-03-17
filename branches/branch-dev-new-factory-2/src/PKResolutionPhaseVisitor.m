@@ -41,6 +41,8 @@
             @"?" : @"Sequence",
             @"{" : @"Sequence",
 
+            @"|" : @"Alternation",
+
             @"*" : @"Repetition",
             @"~" : @"Negation",
             @"&" : @"Intersection",

@@ -29,11 +29,7 @@
 - (void)testSimpleAST {
     NSString *g = @"@start=foo;foo=Word;";
     
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo Word))", [rootNode treeDescription]);
-    
+    NSError *err = nil;    
     PKSymbolTable *symTab = [_factory symbolTableFromGrammar:g error:&err];
     TDNotNil(symTab);
     
@@ -59,19 +55,49 @@
     NSString *g = @"@start=foo;foo=Word|Number;";
     
     NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| Word Number)))", [rootNode treeDescription]);
+    PKSymbolTable *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKBaseSymbol *start = [symTab resolve:@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKVariableSymbol class]]);
+    
+    TDNotNil(start.type);
+    TDTrue([start.type isKindOfClass:[PKBuiltInTypeSymbol class]]);
+    TDEqualObjects(@"Sequence", start.type.name);
+    
+    PKBaseSymbol *foo = [symTab resolve:@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKVariableSymbol class]]);
+    
+    TDNotNil(foo.type);
+    TDTrue([foo.type isKindOfClass:[PKBuiltInTypeSymbol class]]);
+    TDEqualObjects(@"Alternation", foo.type.name);
 }
 
 
-- (void)testAlternationAST1 {
-    NSString *g = @"@start=foo;foo=Word|Number Symbol;";
+- (void)testSequenceAST {
+    NSString *g = @"@start=foo;foo=(Word|Number) Symbol;";
     
     NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| Word (. Number Symbol))))", [rootNode treeDescription]);
+    PKSymbolTable *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKBaseSymbol *start = [symTab resolve:@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKVariableSymbol class]]);
+    
+    TDNotNil(start.type);
+    TDTrue([start.type isKindOfClass:[PKBuiltInTypeSymbol class]]);
+    TDEqualObjects(@"Sequence", start.type.name);
+    
+    PKBaseSymbol *foo = [symTab resolve:@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKVariableSymbol class]]);
+    
+    TDNotNil(foo.type);
+    TDTrue([foo.type isKindOfClass:[PKBuiltInTypeSymbol class]]);
+    TDEqualObjects(@"Sequence", foo.type.name);
 }
 
 @end
