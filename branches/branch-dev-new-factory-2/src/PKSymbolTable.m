@@ -7,12 +7,10 @@
 //
 
 #import "PKSymbolTable.h"
-#import "PKBaseSymbol.h"
+#import "PKGlobalScope.h"
 
 @interface PKSymbolTable ()
-@property (nonatomic, copy, readwrite) NSString *scopeName;
-@property (nonatomic, copy, readwrite) id <PKScope>enclosingScope;
-@property (nonatomic, retain) NSMutableDictionary *symbols;
+@property (nonatomic, retain) PKGlobalScope *globals;
 @end
 
 @implementation PKSymbolTable
@@ -20,40 +18,35 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.scopeName = @"global";
-        self.symbols = [NSMutableDictionary dictionary];
+        self.globals = [[[PKGlobalScope alloc] init] autorelease];
     }
     return self;
 }
 
 
 - (void)dealloc {
-    self.scopeName = nil;
-    self.enclosingScope = nil;
-    self.symbols = nil;
+    self.globals = nil;
     [super dealloc];
 }
 
 
 - (void)define:(PKBaseSymbol *)sym {
-    NSParameterAssert(sym);
-    NSParameterAssert(sym.name);
-    
-    _symbols[sym.name] = sym;
+    [_globals define:sym];
 }
 
 
 - (PKBaseSymbol *)resolve:(NSString *)name {
-    NSParameterAssert(name);
-    
-    PKBaseSymbol *sym = _symbols[name];
-    return sym;
+    return [_globals resolve:name];
+}
+
+
+- (NSString *)scopeName {
+    return [_globals scopeName];
 }
 
 
 - (id <PKScope>)enclosingScope {
-    NSAssert(!_enclosingScope, @"");
-    return nil;
+    return [_globals enclosingScope];
 }
 
 @end
