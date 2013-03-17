@@ -67,7 +67,10 @@
     PKBaseNode *child = node.children[0];
     
     Class cls = child.parserClass;
-    NSString *typeName = [NSStringFromClass(cls) substringFromIndex:2];
+    NSAssert(cls, @"");
+    NSString *clsName = NSStringFromClass(cls);
+    NSAssert([clsName length] > 2, @"");
+    NSString *typeName = [clsName substringFromIndex:2];
     
     PKBuiltInTypeSymbol *typeSym = (id)[self.currentScope resolve:typeName];
     NSAssert(typeSym, @"");
