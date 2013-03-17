@@ -41,7 +41,10 @@
     TDNotNil(foo);
     TDTrue([foo isKindOfClass:[PKVariableSymbol class]]);
     
-    
+    id <PKType>type = foo.type;
+    TDNotNil(type);
+    TDTrue([type isKindOfClass:[PKBuiltInTypeSymbol class]]);
+    TDEqualObjects(@"Word", type.name);
 }
 
 

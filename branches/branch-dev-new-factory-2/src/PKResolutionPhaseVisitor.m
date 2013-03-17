@@ -9,6 +9,7 @@
 #import "PKResolutionPhaseVisitor.h"
 #import "PKSymbolTable.h"
 #import "PKVariableSymbol.h"
+#import "PKBuiltInTypeSymbol.h"
 
 #import "PKBaseNode.h"
 #import "PKRootNode.h"
@@ -26,10 +27,38 @@
 #import "PKMultipleNode.h"
 
 @interface PKResolutionPhaseVisitor ()
-
+@property (nonatomic, retain) NSDictionary *typeTab;
 @end
 
 @implementation PKResolutionPhaseVisitor
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.typeTab = @{
+            @"." : @"Sequence",
+            @"+" : @"Sequence",
+            @"?" : @"Sequence",
+            @"{" : @"Sequence",
+
+            @"*" : @"Repetition",
+            @"~" : @"Negation",
+            @"&" : @"Intersection",
+            @"-" : @"Difference",
+
+            @"/" : @"Pattern",
+            @"%" : @"DelimitedString",
+        };
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+    self.typeTab = nil;
+    [super dealloc];
+}
+
 
 - (void)visitRoot:(PKRootNode *)node {
     NSParameterAssert(node);
@@ -47,6 +76,28 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // resolve type
+    NSAssert(1 == [node.children count], @"");
+    PKBaseNode *child = node.children[0];
+    
+    NSString *typeName = nil;
+    
+    if (PKNodeTypeReference == child.type) {
+        typeName = @"Sequence";
+    } else {
+        NSString *key = child.token.stringValue;
+        typeName = _typeTab[key];
+        if (!typeName) {
+            typeName = key;
+        }
+    }
+        
+    PKBuiltInTypeSymbol *typeSym = (id)[self.currentScope resolve:typeName];
+    NSAssert(typeSym, @"");
+
+    PKBaseSymbol *sym = node.symbol;
+    NSAssert(sym, @"");
+    
+    sym.type = typeSym;
     
     [self recurse:node];
 }

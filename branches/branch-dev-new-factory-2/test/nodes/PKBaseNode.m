@@ -7,7 +7,6 @@
 //
 
 #import "PKBaseNode.h"
-#import "PKBaseSymbol.h"
 
 @implementation PKBaseNode
 
