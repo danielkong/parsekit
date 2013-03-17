@@ -115,6 +115,32 @@
 }
 
 
+- (void)testOptionalAST {
+    NSString *g = @"@start=foo;foo=Word?;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (? Word)))", [rootNode treeDescription]);
+
+    err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKAlternation *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKAlternation class]]);
+    
+//    TDEquals(start.subparsers[0], foo);
+//    TDTrue([foo.subparsers[0] isKindOfClass:[PKWord class]]);
+//    TDTrue([foo.subparsers[1] isKindOfClass:[PKEmpty class]]);
+}
+
+
 - (void)testLiteralAST {
     NSString *g = @"@start=foo;foo='bar' Symbol;";
     

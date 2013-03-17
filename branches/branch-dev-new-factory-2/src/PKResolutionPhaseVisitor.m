@@ -143,13 +143,48 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     [self recurse:node];
+
+    // KEEP THIS FOR VISITOR!!!!!!!!!!!!!
+    //    NSRange r = [[a pop] rangeValue];
+    //
+    //    p = [a pop];
+    //    PKSequence *s = [PKSequence sequence];
+    //
+    //    NSInteger start = r.location;
+    //    NSInteger end = r.length;
+    //
+    //    for (NSInteger i = 0; i < start; i++) {
+    //        [s add:p];
+    //    }
+    //
+    //    for (NSInteger i = start ; i < end; i++) {
+    //        [s add:[self zeroOrOne:p]];
+    //    }
+    //
+    //    [a push:s];
+    
+    
 }
 
 
 - (void)visitOptional:(PKOptionalNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    [self recurse:node];
+    PKAlternation *alt = [PKAlternation alternation];
+    
+    [self.currentParser add:alt];
+    
+    PKCompositeParser *oldParser = _currentParser;
+    
+    NSAssert(1 == [node.children count], @"");
+    for (PKBaseNode *child in node.children) {
+        self.currentParser = alt;
+        [child visit:self];
+    }
+    
+    [alt add:[PKEmpty empty]];
+    
+    self.currentParser = oldParser;
 }
 
 

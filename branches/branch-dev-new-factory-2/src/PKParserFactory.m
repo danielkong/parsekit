@@ -1129,7 +1129,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKBaseNode *subNode = [a pop];
     NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
     
-    PKCollectionNode *multiNode = [PKCollectionNode nodeWithToken:multiToken];
+    PKMultipleNode *multiNode = [PKMultipleNode nodeWithToken:multiToken];
     [multiNode addChild:subNode];
     
     [a push:multiNode];
@@ -1142,7 +1142,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKBaseNode *subNode = [a pop];
     NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
     
-    PKCollectionNode *optNode = [PKCollectionNode nodeWithToken:optToken];
+    PKOptionalNode *optNode = [PKOptionalNode nodeWithToken:optToken];
     [optNode addChild:subNode];
     
     [a push:optNode];
@@ -1164,26 +1164,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    
-    // KEEP THIS FOR VISITOR!!!!!!!!!!!!!
-    //    NSRange r = [[a pop] rangeValue];
-    //
-    //    p = [a pop];
-    //    PKSequence *s = [PKSequence sequence];
-    //
-    //    NSInteger start = r.location;
-    //    NSInteger end = r.length;
-    //
-    //    for (NSInteger i = 0; i < start; i++) {
-    //        [s add:p];
-    //    }
-    //
-    //    for (NSInteger i = start ; i < end; i++) {
-    //        [s add:[self zeroOrOne:p]];
-    //    }
-    //    
-    //    [a push:s];
-
     
     NSRange r = [[a pop] rangeValue];
     

@@ -7,7 +7,7 @@
 //
 
 #import "PKOptionalNode.h"
-#import <ParseKit/PKSequence.h>
+#import <ParseKit/PKAlternation.h>
 
 @implementation PKOptionalNode
 
@@ -22,7 +22,7 @@
 
 
 - (Class)parserClass {
-    return [PKSequence class];
+    return [PKAlternation class];
 }
 
 @end
