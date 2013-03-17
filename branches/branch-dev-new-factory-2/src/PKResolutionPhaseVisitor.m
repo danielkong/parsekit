@@ -179,6 +179,13 @@
 - (void)visitLiteral:(PKLiteralNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+//    Class parserCls = [node parserClass];
+//    NSAssert(parserCls == [PKLiteral class], @"");
+    
+    NSString *literal = node.token.stringValue;
+    PKParser *p = [PKLiteral literalWithString:literal];
+    
+    [self.currentParser add:p];
 }
 
 
