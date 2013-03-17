@@ -27,7 +27,7 @@
 #import "PKMultipleNode.h"
 
 @interface PKResolutionPhaseVisitor ()
-@property (nonatomic, retain) NSDictionary *typeTab;
+
 @end
 
 @implementation PKResolutionPhaseVisitor
@@ -35,29 +35,14 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.typeTab = @{
-            @"." : @"Sequence",
-            @"+" : @"Sequence",
-            @"?" : @"Sequence",
-            @"{" : @"Sequence",
 
-            @"|" : @"Alternation",
-
-            @"*" : @"Repetition",
-            @"~" : @"Negation",
-            @"&" : @"Intersection",
-            @"-" : @"Difference",
-
-            @"/" : @"Pattern",
-            @"%" : @"DelimitedString",
-        };
     }
     return self;
 }
 
 
 - (void)dealloc {
-    self.typeTab = nil;
+
     [super dealloc];
 }
 
