@@ -12,7 +12,9 @@
 
 @interface PKBaseSymbol : NSObject
 
-- (id)initWithName:(NSString *)name type:(NSString *)type;
++ (PKBaseSymbol *)symbolWithName:(NSString *)name type:(id <PKType>)type;
+
+- (id)initWithName:(NSString *)name type:(id <PKType>)type;
 
 @property (nonatomic, copy, readonly) NSString *name;
 @property (nonatomic, retain, readonly) id <PKType>type;

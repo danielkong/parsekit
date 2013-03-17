@@ -11,6 +11,8 @@
 
 @interface PKBuiltInTypeSymbol : PKBaseSymbol <PKType>
 
++ (PKBuiltInTypeSymbol *)symbolWithName:(NSString *)name;
+
 - (id)initWithName:(NSString *)name;
 
 @end

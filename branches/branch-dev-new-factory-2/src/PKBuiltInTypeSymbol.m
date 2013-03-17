@@ -10,6 +10,11 @@
 
 @implementation PKBuiltInTypeSymbol
 
++ (PKBuiltInTypeSymbol *)symbolWithName:(NSString *)name {
+    return [[[self alloc] initWithName:name] autorelease];
+}
+
+
 - (id)initWithName:(NSString *)name {
     self = [super initWithName:name type:nil];
     if (self) {

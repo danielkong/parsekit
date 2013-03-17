@@ -15,6 +15,11 @@
 
 @implementation PKBaseSymbol
 
++ (PKBaseSymbol *)symbolWithName:(NSString *)name type:(id <PKType>)type {
+    return [[[self alloc] initWithName:name type:type] autorelease];
+}
+
+
 - (id)initWithName:(NSString *)name type:(id <PKType>)type {
     self = [super init];
     if (self) {
