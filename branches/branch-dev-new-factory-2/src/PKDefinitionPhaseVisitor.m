@@ -7,7 +7,7 @@
 //
 
 #import "PKDefinitionPhaseVisitor.h"
-#import <ParseKit/PKCollectionParser.h>
+#import <ParseKit/PKCompositeParser.h>
 
 #import "PKBaseNode.h"
 #import "PKRootNode.h"
@@ -49,14 +49,25 @@
 - (void)visitDefinition:(PKDefinitionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
-    NSString *name = node.token.stringValue;
-
+    // find only child node (which represents this parser's type)
     NSAssert(1 == [node.children count], @"");
     PKBaseNode *child = node.children[0];
+    
+    // create parser
     Class parserCls = [child parserClass];
-    PKCollectionParser *cp = [[[parserCls alloc] init] autorelease];
+    PKCompositeParser *cp = [[[parserCls alloc] init] autorelease];
+
+    // set name
+    NSString *name = node.token.stringValue;
     cp.name = name;
     
+    // set assembler callback
+    if (_assembler || _preassembler) {
+        NSString *cbname = node.callbackName;
+        [self setAssemblerForParser:cp callbackName:cbname];
+    }
+
+    // define in symbol table
     self.symbolTable[name] = cp;
     
     [self recurse:node];
@@ -137,7 +148,7 @@
 #pragma mark -
 #pragma mark Assemblers
 
-- (void)setAssemblerForParser:(PKParser *)p callbackName:(NSString *)callbackName {
+- (void)setAssemblerForParser:(PKCompositeParser *)p callbackName:(NSString *)callbackName {
     NSString *parserName = p.name;
     NSString *selName = callbackName;
     

@@ -63,6 +63,13 @@
     TDEquals(start.subparsers[0], foo);
     TDTrue([foo.subparsers[0] isKindOfClass:[PKWord class]]);
     TDTrue([foo.subparsers[1] isKindOfClass:[PKNumber class]]);
+    
+    TDNil(foo.assembler);
+    TDEquals((SEL)NULL, foo.assemblerSelector);
+    TDNil(foo.assemblerBlock);
+    TDNil(foo.preassembler);
+    TDEquals((SEL)NULL, foo.preassemblerSelector);
+    TDNil(foo.preassemblerBlock);
 }
 
 
