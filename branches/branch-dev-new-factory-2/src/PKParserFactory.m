@@ -1086,7 +1086,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([minusNode isKindOfClass:[PKBaseNode class]], @"");
     NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
     
-    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:diffToken];
+    PKCompositeNode *diffNode = [PKCompositeNode nodeWithToken:diffToken];
     [diffNode addChild:subNode];
     [diffNode addChild:minusNode];
     
@@ -1115,7 +1115,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKBaseNode *subNode = [a pop];
     NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
     
-    PKCollectionNode *repNode = [PKCollectionNode nodeWithToken:repToken];
+    PKCompositeNode *repNode = [PKCompositeNode nodeWithToken:repToken];
     [repNode addChild:subNode];
     
     [a push:repNode];
@@ -1154,7 +1154,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKBaseNode *subNode = [a pop];
     NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
     
-    PKCollectionNode *negNode = [PKCollectionNode nodeWithToken:negToken];
+    PKCompositeNode *negNode = [PKCompositeNode nodeWithToken:negToken];
     [negNode addChild:subNode];
     
     [a push:negNode];

@@ -130,7 +130,20 @@
 - (void)visitComposite:(PKCompositeNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    [self recurse:node];
+    Class parserCls = [node parserClass];
+    PKCompositeParser *cp = [[[parserCls alloc] init] autorelease];
+    NSAssert([cp isKindOfClass:[PKCompositeParser class]], @"");
+    
+    [self.currentParser add:cp];
+    
+    PKCompositeParser *oldParser = _currentParser;
+    
+    for (PKBaseNode *child in node.children) {
+        self.currentParser = cp;
+        [child visit:self];
+    }
+    
+    self.currentParser = oldParser;
 }
 
 
