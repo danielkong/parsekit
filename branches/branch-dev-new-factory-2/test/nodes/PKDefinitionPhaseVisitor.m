@@ -7,6 +7,8 @@
 //
 
 #import "PKDefinitionPhaseVisitor.h"
+#import "PKSymbolTable.h"
+
 #import "PKBaseNode.h"
 #import "PKRootNode.h"
 #import "PKDefinitionNode.h"
@@ -35,7 +37,7 @@
 
 - (void)dealloc {
     self.rootNode = nil;
-
+    self.symbolTable = nil;
     [super dealloc];
 }
 
