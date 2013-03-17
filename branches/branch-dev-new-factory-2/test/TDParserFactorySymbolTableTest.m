@@ -135,9 +135,9 @@
     TDNotNil(foo);
     TDTrue([foo isKindOfClass:[PKAlternation class]]);
     
-//    TDEquals(start.subparsers[0], foo);
-//    TDTrue([foo.subparsers[0] isKindOfClass:[PKWord class]]);
-//    TDTrue([foo.subparsers[1] isKindOfClass:[PKEmpty class]]);
+    TDEquals(start.subparsers[0], foo);
+    TDTrue([foo.subparsers[0] isKindOfClass:[PKWord class]]);
+    TDTrue([foo.subparsers[1] isKindOfClass:[PKEmpty class]]);
 }
 
 
@@ -254,8 +254,5 @@
     TDEquals(@selector(parser:willMatchFoo:), foo.preassemblerSelector);
     TDNil(foo.preassemblerBlock);
 }
-
-
-
 
 @end

@@ -82,6 +82,10 @@
             self.currentParser = cp;
             [child visit:self];
         }
+            
+        if (PKNodeTypeOptional == child.type) {
+            [cp add:[PKEmpty empty]];
+        }
     }
 }
 
