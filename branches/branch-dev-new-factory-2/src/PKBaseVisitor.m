@@ -7,9 +7,6 @@
 //
 
 #import "PKBaseVisitor.h"
-#import "PKScope.h"
-#import "PKSymbolTable.h"
-#import "PKVariableSymbol.h"
 
 #import "PKBaseNode.h"
 #import "PKRootNode.h"
@@ -40,7 +37,6 @@
 - (void)dealloc {
     self.rootNode = nil;
     self.symbolTable = nil;
-    self.currentScope = nil;
     [super dealloc];
 }
 

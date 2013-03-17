@@ -11,7 +11,6 @@
 #import "PKNodeVisitor.h" // convenience
 
 //@protocol PKNodeVisitor;
-@class PKBaseSymbol;
 
 @interface PKBaseNode : PKAST
 + (id)nodeWithToken:(PKToken *)tok;
@@ -20,5 +19,4 @@
 
 @property (nonatomic, assign) BOOL discard;
 @property (nonatomic, retain) Class parserClass;
-@property (nonatomic, retain) PKBaseSymbol *symbol;
 @end

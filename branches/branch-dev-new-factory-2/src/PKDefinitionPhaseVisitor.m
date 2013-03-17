@@ -7,8 +7,7 @@
 //
 
 #import "PKDefinitionPhaseVisitor.h"
-#import "PKSymbolTable.h"
-#import "PKVariableSymbol.h"
+#import <ParseKit/PKCollectionParser.h>
 
 #import "PKBaseNode.h"
 #import "PKRootNode.h"
@@ -31,12 +30,14 @@
 @implementation PKDefinitionPhaseVisitor
 
 - (void)visitRoot:(PKRootNode *)node {
-    self.symbolTable = [[[PKSymbolTable alloc] init] autorelease];
-    self.currentScope = self.symbolTable;
+//    self.symbolTable = [[[PKSymbolTable alloc] init] autorelease];
+//    self.currentScope = self.symbolTable;
+    
+    self.symbolTable = [NSMutableDictionary dictionary];
     
     [self recurse:node];
     
-    self.currentScope = nil;
+//    self.currentScope = nil;
 }
 
 
@@ -44,13 +45,18 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     NSString *name = node.token.stringValue;
-    PKVariableSymbol *sym = [PKVariableSymbol symbolWithName:name];
-    sym.scope = self.currentScope;
+//    PKVariableSymbol *sym = [PKVariableSymbol symbolWithName:name];
+//    sym.scope = self.currentScope;
+//    
+//    sym.def = node;
+//    node.symbol = sym;
+//    
+//    [self.currentScope define:sym];
     
-    sym.def = node;
-    node.symbol = sym;
+    Class parserCls = [node parserClass];
+    PKCollectionParser *p = [[[parserCls alloc] init] autorelease];
     
-    [self.currentScope define:sym];
+    self.symbolTable[name] = p;
     
     [self recurse:node];
 }
@@ -59,7 +65,7 @@
 - (void)visitReference:(PKReferenceNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
-    node.scope = self.currentScope;
+//    node.scope = self.currentScope;
 }
 
 

@@ -16,13 +16,6 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import <ParseKit/ParseKit.h>
 
-#import "PKScope.h"
-#import "PKType.h"
-#import "PKSymbolTable.h"
-#import "PKBaseSymbol.h"
-#import "PKVariableSymbol.h"
-#import "PKBuiltInTypeSymbol.h"
-
 #define TDTrue(e) STAssertTrue((e), @"")
 #define TDFalse(e) STAssertFalse((e), @"")
 #define TDNil(e) STAssertNil((e), @"")

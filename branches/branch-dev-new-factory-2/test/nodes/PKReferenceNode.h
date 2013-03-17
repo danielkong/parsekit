@@ -8,9 +8,6 @@
 
 #import "PKNodeTypes.h"
 
-@protocol PKScope;
-
 @interface PKReferenceNode : PKBaseNode
 
-@property (nonatomic, retain) id <PKScope>scope;
 @end

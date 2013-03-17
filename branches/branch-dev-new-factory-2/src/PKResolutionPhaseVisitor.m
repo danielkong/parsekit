@@ -7,9 +7,6 @@
 //
 
 #import "PKResolutionPhaseVisitor.h"
-#import "PKSymbolTable.h"
-#import "PKVariableSymbol.h"
-#import "PKBuiltInTypeSymbol.h"
 
 #import "PKBaseNode.h"
 #import "PKRootNode.h"
@@ -49,13 +46,13 @@
 
 - (void)visitRoot:(PKRootNode *)node {
     NSParameterAssert(node);
-    NSAssert(self.symbolTable, @"");
-
-    self.currentScope = self.symbolTable;
+//    NSAssert(self.symbolTable, @"");
+//
+//    self.currentScope = self.symbolTable;
     
     [self recurse:node];
 
-    self.currentScope = nil;
+//    self.currentScope = nil;
 }
 
 
@@ -70,15 +67,15 @@
     NSAssert(cls, @"");
     NSString *clsName = NSStringFromClass(cls);
     NSAssert([clsName length] > 2, @"");
-    NSString *typeName = [clsName substringFromIndex:2];
+//    NSString *typeName = [clsName substringFromIndex:2];
     
-    PKBuiltInTypeSymbol *typeSym = (id)[self.currentScope resolve:typeName];
-    NSAssert(typeSym, @"");
-
-    PKBaseSymbol *sym = node.symbol;
-    NSAssert(sym, @"");
-    
-    sym.type = typeSym;
+//    PKBuiltInTypeSymbol *typeSym = (id)[self.currentScope resolve:typeName];
+//    NSAssert(typeSym, @"");
+//
+//    PKBaseSymbol *sym = node.symbol;
+//    NSAssert(sym, @"");
+//    
+//    sym.type = typeSym;
     
     [self recurse:node];
 }
@@ -87,9 +84,9 @@
 - (void)visitReference:(PKReferenceNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    NSString *name = node.token.stringValue;
-    PKBaseSymbol *sym = [node.scope resolve:name];
-    node.symbol = sym;
+//    NSString *name = node.token.stringValue;
+//    PKBaseSymbol *sym = [node.scope resolve:name];
+//    node.symbol = sym;
 }
 
 

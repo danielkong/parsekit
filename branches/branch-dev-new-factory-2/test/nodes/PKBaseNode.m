@@ -16,7 +16,6 @@
 
 
 - (void)dealloc {
-    self.symbol = nil;
     [super dealloc];
 }
 
@@ -24,7 +23,6 @@
 - (id)copyWithZone:(NSZone *)zone {
     PKBaseNode *that = (PKBaseNode *)[super copyWithZone:zone];
     that->_discard = _discard;
-    that->_symbol = [_symbol copyWithZone:zone];
     return that;
 }
 
@@ -40,10 +38,6 @@
         return NO;
     }
     
-    if (![_symbol isEqual:that->_symbol]) {
-        return NO;
-    }
-
     return YES;
 }
 

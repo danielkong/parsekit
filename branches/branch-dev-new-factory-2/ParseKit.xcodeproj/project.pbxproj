@@ -30,6 +30,15 @@
 		D325FFE7161F482F00D4EBCC /* PKCompositeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */; };
 		D325FFE9161F484100D4EBCC /* PKCompositeParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D325FFE8161F484100D4EBCC /* PKCompositeParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D325FFF8161F681F00D4EBCC /* TDParserFactoryParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFF7161F681E00D4EBCC /* TDParserFactoryParserTest.m */; };
+		D326129A16F64ED50021845F /* PKDefinitionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D326129816F64ED50021845F /* PKDefinitionPhaseVisitor.h */; };
+		D326129B16F64ED50021845F /* PKDefinitionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D326129916F64ED50021845F /* PKDefinitionPhaseVisitor.m */; };
+		D326129C16F64F280021845F /* PKBaseSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E6316F53D8A000FB894 /* PKBaseSymbol.m */; };
+		D326129D16F64F280021845F /* PKVariableSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E6B16F53E42000FB894 /* PKVariableSymbol.m */; };
+		D326129E16F64F280021845F /* PKBuiltInTypeSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E6F16F53F48000FB894 /* PKBuiltInTypeSymbol.m */; };
+		D326129F16F64F280021845F /* PKSymbolTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E7416F5403E000FB894 /* PKSymbolTable.m */; };
+		D32612A016F64F280021845F /* PKBaseScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E7816F54540000FB894 /* PKBaseScope.m */; };
+		D32612A116F64F280021845F /* PKGlobalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E7C16F5459D000FB894 /* PKGlobalScope.m */; };
+		D32612A216F64F280021845F /* PKLocalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8016F545FE000FB894 /* PKLocalScope.m */; };
 		D3305C4F102F5BAE00DC4F75 /* TDGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */; };
 		D3305C50102F5BAE00DC4F75 /* TDSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4E102F5BAE00DC4F75 /* TDSourceCodeTextView.m */; };
 		D33494720E29670B00406085 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
@@ -384,24 +393,14 @@
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */; };
 		D3BBBCC10FECD477007DF30D /* xml.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8800FEB36A1006A91A4 /* xml.grammar */; };
-		D3C07E5E16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E5C16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h */; };
-		D3C07E5F16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E5D16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m */; };
 		D3C07E6416F53D8A000FB894 /* PKBaseSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */; };
-		D3C07E6516F53D8A000FB894 /* PKBaseSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E6316F53D8A000FB894 /* PKBaseSymbol.m */; };
 		D3C07E6816F53DD8000FB894 /* PKType.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6616F53DD8000FB894 /* PKType.h */; };
 		D3C07E6C16F53E42000FB894 /* PKVariableSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6A16F53E42000FB894 /* PKVariableSymbol.h */; };
-		D3C07E6D16F53E42000FB894 /* PKVariableSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E6B16F53E42000FB894 /* PKVariableSymbol.m */; };
 		D3C07E7016F53F48000FB894 /* PKBuiltInTypeSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6E16F53F48000FB894 /* PKBuiltInTypeSymbol.h */; };
-		D3C07E7116F53F48000FB894 /* PKBuiltInTypeSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E6F16F53F48000FB894 /* PKBuiltInTypeSymbol.m */; };
 		D3C07E7516F5403E000FB894 /* PKSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E7316F5403D000FB894 /* PKSymbolTable.h */; };
-		D3C07E7616F5403E000FB894 /* PKSymbolTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E7416F5403E000FB894 /* PKSymbolTable.m */; };
 		D3C07E7916F54540000FB894 /* PKBaseScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E7716F5453F000FB894 /* PKBaseScope.h */; };
-		D3C07E7A16F54540000FB894 /* PKBaseScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E7816F54540000FB894 /* PKBaseScope.m */; };
 		D3C07E7D16F5459D000FB894 /* PKGlobalScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E7B16F5459D000FB894 /* PKGlobalScope.h */; };
-		D3C07E7E16F5459D000FB894 /* PKGlobalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E7C16F5459D000FB894 /* PKGlobalScope.m */; };
 		D3C07E8116F545FF000FB894 /* PKLocalScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E7F16F545FE000FB894 /* PKLocalScope.h */; };
-		D3C07E8216F545FF000FB894 /* PKLocalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8016F545FE000FB894 /* PKLocalScope.m */; };
-		D3C07E8516F54F42000FB894 /* TDParserFactorySymbolTableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8416F54F41000FB894 /* TDParserFactorySymbolTableTest.m */; };
 		D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */; };
 		D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */; };
 		D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -945,6 +944,8 @@
 		D325FFE8161F484100D4EBCC /* PKCompositeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKCompositeParser.h; path = include/ParseKit/PKCompositeParser.h; sourceTree = "<group>"; };
 		D325FFF6161F681D00D4EBCC /* TDParserFactoryParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryParserTest.h; path = test/TDParserFactoryParserTest.h; sourceTree = "<group>"; };
 		D325FFF7161F681E00D4EBCC /* TDParserFactoryParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryParserTest.m; path = test/TDParserFactoryParserTest.m; sourceTree = "<group>"; };
+		D326129816F64ED50021845F /* PKDefinitionPhaseVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDefinitionPhaseVisitor.h; path = src/PKDefinitionPhaseVisitor.h; sourceTree = "<group>"; };
+		D326129916F64ED50021845F /* PKDefinitionPhaseVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDefinitionPhaseVisitor.m; path = src/PKDefinitionPhaseVisitor.m; sourceTree = "<group>"; };
 		D3305C4B102F5BAD00DC4F75 /* TDGutterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGutterView.h; path = demoapp/TDGutterView.h; sourceTree = "<group>"; };
 		D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGutterView.m; path = demoapp/TDGutterView.m; sourceTree = "<group>"; };
 		D3305C4D102F5BAE00DC4F75 /* TDSourceCodeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSourceCodeTextView.h; path = demoapp/TDSourceCodeTextView.h; sourceTree = "<group>"; };
@@ -1288,8 +1289,6 @@
 		D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDXMLParser.m; path = test/TDXMLParser.m; sourceTree = "<group>"; };
 		D3C031EB0EF38D2D00C5ABEB /* TDLowercaseWordTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLowercaseWordTest.h; path = test/TDLowercaseWordTest.h; sourceTree = "<group>"; };
 		D3C031EC0EF38D2D00C5ABEB /* TDLowercaseWordTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLowercaseWordTest.m; path = test/TDLowercaseWordTest.m; sourceTree = "<group>"; };
-		D3C07E5C16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDefinitionPhaseVisitor.h; path = test/nodes/PKDefinitionPhaseVisitor.h; sourceTree = "<group>"; };
-		D3C07E5D16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDefinitionPhaseVisitor.m; path = test/nodes/PKDefinitionPhaseVisitor.m; sourceTree = "<group>"; };
 		D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseSymbol.h; path = src/PKBaseSymbol.h; sourceTree = "<group>"; };
 		D3C07E6316F53D8A000FB894 /* PKBaseSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKBaseSymbol.m; path = src/PKBaseSymbol.m; sourceTree = "<group>"; };
 		D3C07E6616F53DD8000FB894 /* PKType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKType.h; path = src/PKType.h; sourceTree = "<group>"; };
@@ -2178,8 +2177,8 @@
 				D395525D16F16BA600D326FD /* PKNodeVisitor.h */,
 				D367F66916F5570500F5E9EB /* PKBaseVisitor.h */,
 				D367F66A16F5570500F5E9EB /* PKBaseVisitor.m */,
-				D3C07E5C16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h */,
-				D3C07E5D16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m */,
+				D326129816F64ED50021845F /* PKDefinitionPhaseVisitor.h */,
+				D326129916F64ED50021845F /* PKDefinitionPhaseVisitor.m */,
 				D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */,
 				D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */,
 				D395525216F16BA600D326FD /* PKConstructNodeVisitor.h */,
@@ -2765,7 +2764,6 @@
 				D30805BC155ECB3F0000BC60 /* PKPattern.h in Headers */,
 				D325FFE9161F484100D4EBCC /* PKCompositeParser.h in Headers */,
 				D39552A216F16E7200D326FD /* PKWhitespaceNode.h in Headers */,
-				D3C07E5E16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h in Headers */,
 				D3C07E6416F53D8A000FB894 /* PKBaseSymbol.h in Headers */,
 				D3C07E6816F53DD8000FB894 /* PKType.h in Headers */,
 				D3C07E6C16F53E42000FB894 /* PKVariableSymbol.h in Headers */,
@@ -2776,6 +2774,7 @@
 				D3C07E8116F545FF000FB894 /* PKLocalScope.h in Headers */,
 				D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */,
 				D367F66B16F5570500F5E9EB /* PKBaseVisitor.h in Headers */,
+				D326129A16F64ED50021845F /* PKDefinitionPhaseVisitor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3375,16 +3374,9 @@
 				D39552A316F16E7200D326FD /* PKWhitespaceNode.m in Sources */,
 				D39552B016F171EF00D326FD /* PKAST.m in Sources */,
 				D39552B116F171FA00D326FD /* PKConstructNodeVisitor.m in Sources */,
-				D3C07E5F16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m in Sources */,
-				D3C07E6516F53D8A000FB894 /* PKBaseSymbol.m in Sources */,
-				D3C07E6D16F53E42000FB894 /* PKVariableSymbol.m in Sources */,
-				D3C07E7116F53F48000FB894 /* PKBuiltInTypeSymbol.m in Sources */,
-				D3C07E7616F5403E000FB894 /* PKSymbolTable.m in Sources */,
-				D3C07E7A16F54540000FB894 /* PKBaseScope.m in Sources */,
-				D3C07E7E16F5459D000FB894 /* PKGlobalScope.m in Sources */,
-				D3C07E8216F545FF000FB894 /* PKLocalScope.m in Sources */,
 				D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */,
 				D367F66C16F5570500F5E9EB /* PKBaseVisitor.m in Sources */,
+				D326129B16F64ED50021845F /* PKDefinitionPhaseVisitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3560,7 +3552,13 @@
 				D3A203A8161BCF6700207F4D /* TDRegexMatcher.m in Sources */,
 				D3A203E4161CADD200207F4D /* TDParserFactoryASTTest.m in Sources */,
 				D325FFF8161F681F00D4EBCC /* TDParserFactoryParserTest.m in Sources */,
-				D3C07E8516F54F42000FB894 /* TDParserFactorySymbolTableTest.m in Sources */,
+				D326129C16F64F280021845F /* PKBaseSymbol.m in Sources */,
+				D326129D16F64F280021845F /* PKVariableSymbol.m in Sources */,
+				D326129E16F64F280021845F /* PKBuiltInTypeSymbol.m in Sources */,
+				D326129F16F64F280021845F /* PKSymbolTable.m in Sources */,
+				D32612A016F64F280021845F /* PKBaseScope.m in Sources */,
+				D32612A116F64F280021845F /* PKGlobalScope.m in Sources */,
+				D32612A216F64F280021845F /* PKLocalScope.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -278,7 +278,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.assembler = a;
         self.preassembler = pa;
         
-        PKSymbolTable *symTab = [self symbolTableFromGrammar:g error:outError];
+        NSDictionary *symTab = [self symbolTableFromGrammar:g error:outError];
         PKTokenizer *t = [self tokenizerFromGrammarSettings];
         PKParser *start = [self parserFromSymbolTable:symTab];
         
@@ -320,7 +320,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (PKSymbolTable *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError {
+- (NSDictionary *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError {
     self.rootNode = (PKRootNode *)[self ASTFromGrammar:g error:outError];
     
     NSLog(@"rootNode %@", rootNode);
@@ -329,7 +329,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     [self visit:rootNode with:defv];
 
-    PKSymbolTable *symTab = [[defv.symbolTable retain] autorelease];
+    NSMutableDictionary *symTab = [[defv.symbolTable retain] autorelease];
 
     PKResolutionPhaseVisitor *resv = [[[PKResolutionPhaseVisitor alloc] init] autorelease];
 
@@ -338,7 +338,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     [self visit:rootNode with:resv];
     symTab = resv.symbolTable;
 
-    return symTab;
+    return [[symTab copy] autorelease];
 }
 
 
@@ -622,7 +622,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (PKParser *)parserFromSymbolTable:(PKSymbolTable *)symTab {
+- (PKParser *)parserFromSymbolTable:(NSDictionary *)symTab {
     
 
     return nil;

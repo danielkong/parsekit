@@ -14,31 +14,25 @@
 @implementation PKReferenceNode
 
 - (void)dealloc {
-    self.scope = nil;
     [super dealloc];
 }
 
 
-- (id)copyWithZone:(NSZone *)zone {
-    PKReferenceNode *that = (PKReferenceNode *)[super copyWithZone:zone];
-    that->_scope = _scope; // don't copy, just ref
-    return that;
-}
-
-
-- (BOOL)isEqual:(id)obj {
-    if (![super isEqual:obj]) {
-        return NO;
-    }
-    
-    PKReferenceNode *that = (PKReferenceNode *)obj;
-    
-    if (![_scope isEqual:that->_scope]) {
-        return NO;
-    }
-    
-    return YES;
-}
+//- (id)copyWithZone:(NSZone *)zone {
+//    PKReferenceNode *that = (PKReferenceNode *)[super copyWithZone:zone];
+//    return that;
+//}
+//
+//
+//- (BOOL)isEqual:(id)obj {
+//    if (![super isEqual:obj]) {
+//        return NO;
+//    }
+//    
+//    PKReferenceNode *that = (PKReferenceNode *)obj;
+//    
+//    return YES;
+//}
 
 
 - (NSUInteger)type {
