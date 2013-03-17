@@ -620,9 +620,10 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKParser *)parserFromSymbolTable:(NSDictionary *)symTab {
+    PKParser *p = symTab[@"@start"];
+    NSAssert([p isKindOfClass:[PKCompositeParser class]], @"");
     
-
-    return nil;
+    return p;
 }
 
 
