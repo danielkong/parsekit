@@ -10,12 +10,4 @@
 
 @implementation PKBuiltInTypeSymbol
 
-- (id)initWithName:(NSString *)name {
-    self = [super initWithName:name type:nil];
-    if (self) {
-        
-    }
-    return self;
-}
-
 @end
