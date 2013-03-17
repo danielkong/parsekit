@@ -384,6 +384,15 @@
 		D3BBBCC10FECD477007DF30D /* xml.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8800FEB36A1006A91A4 /* xml.grammar */; };
 		D3C07E5E16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E5C16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h */; };
 		D3C07E5F16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E5D16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m */; };
+		D3C07E6416F53D8A000FB894 /* PKBaseSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */; };
+		D3C07E6516F53D8A000FB894 /* PKBaseSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E6316F53D8A000FB894 /* PKBaseSymbol.m */; };
+		D3C07E6816F53DD8000FB894 /* PKType.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6616F53DD8000FB894 /* PKType.h */; };
+		D3C07E6C16F53E42000FB894 /* PKVariableSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6A16F53E42000FB894 /* PKVariableSymbol.h */; };
+		D3C07E6D16F53E42000FB894 /* PKVariableSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E6B16F53E42000FB894 /* PKVariableSymbol.m */; };
+		D3C07E7016F53F48000FB894 /* PKBuiltInTypeSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6E16F53F48000FB894 /* PKBuiltInTypeSymbol.h */; };
+		D3C07E7116F53F48000FB894 /* PKBuiltInTypeSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E6F16F53F48000FB894 /* PKBuiltInTypeSymbol.m */; };
+		D3C07E7516F5403E000FB894 /* PKSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E7316F5403D000FB894 /* PKSymbolTable.h */; };
+		D3C07E7616F5403E000FB894 /* PKSymbolTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E7416F5403E000FB894 /* PKSymbolTable.m */; };
 		D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C221930FFE8B8C004514FE /* PKTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221910FFE8B8C004514FE /* PKTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C221940FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1268,6 +1277,16 @@
 		D3C031EC0EF38D2D00C5ABEB /* TDLowercaseWordTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLowercaseWordTest.m; path = test/TDLowercaseWordTest.m; sourceTree = "<group>"; };
 		D3C07E5C16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDefinitionPhaseVisitor.h; path = test/nodes/PKDefinitionPhaseVisitor.h; sourceTree = "<group>"; };
 		D3C07E5D16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDefinitionPhaseVisitor.m; path = test/nodes/PKDefinitionPhaseVisitor.m; sourceTree = "<group>"; };
+		D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseSymbol.h; path = src/PKBaseSymbol.h; sourceTree = "<group>"; };
+		D3C07E6316F53D8A000FB894 /* PKBaseSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKBaseSymbol.m; path = src/PKBaseSymbol.m; sourceTree = "<group>"; };
+		D3C07E6616F53DD8000FB894 /* PKType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKType.h; path = src/PKType.h; sourceTree = "<group>"; };
+		D3C07E6A16F53E42000FB894 /* PKVariableSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKVariableSymbol.h; path = src/PKVariableSymbol.h; sourceTree = "<group>"; };
+		D3C07E6B16F53E42000FB894 /* PKVariableSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKVariableSymbol.m; path = src/PKVariableSymbol.m; sourceTree = "<group>"; };
+		D3C07E6E16F53F48000FB894 /* PKBuiltInTypeSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBuiltInTypeSymbol.h; path = src/PKBuiltInTypeSymbol.h; sourceTree = "<group>"; };
+		D3C07E6F16F53F48000FB894 /* PKBuiltInTypeSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKBuiltInTypeSymbol.m; path = src/PKBuiltInTypeSymbol.m; sourceTree = "<group>"; };
+		D3C07E7216F53FA6000FB894 /* PKScope.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKScope.h; path = src/PKScope.h; sourceTree = "<group>"; };
+		D3C07E7316F5403D000FB894 /* PKSymbolTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSymbolTable.h; path = src/PKSymbolTable.h; sourceTree = "<group>"; };
+		D3C07E7416F5403E000FB894 /* PKSymbolTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSymbolTable.m; path = src/PKSymbolTable.m; sourceTree = "<group>"; };
 		D3C2216D0FFE8A86004514FE /* PKExclusion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKExclusion.h; path = test/PKExclusion.h; sourceTree = "<group>"; };
 		D3C221900FFE8B8C004514FE /* ParseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseKit.h; path = include/ParseKit/ParseKit.h; sourceTree = "<group>"; };
 		D3C221910FFE8B8C004514FE /* PKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKTypes.h; path = include/ParseKit/PKTypes.h; sourceTree = "<group>"; };
@@ -2131,6 +2150,7 @@
 		D3A203AF161CA16500207F4D /* NewFactory */ = {
 			isa = PBXGroup;
 			children = (
+				D3C07E6116F53D35000FB894 /* SymbolTable */,
 				D325FFBC161E4E3200D4EBCC /* AST Nodes */,
 				D395525D16F16BA600D326FD /* PKNodeVisitor.h */,
 				D3C07E5C16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h */,
@@ -2263,6 +2283,23 @@
 				D355C8830FEB4B94006A91A4 /* proto.grammar */,
 			);
 			name = grammar;
+			sourceTree = "<group>";
+		};
+		D3C07E6116F53D35000FB894 /* SymbolTable */ = {
+			isa = PBXGroup;
+			children = (
+				D3C07E6616F53DD8000FB894 /* PKType.h */,
+				D3C07E7216F53FA6000FB894 /* PKScope.h */,
+				D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */,
+				D3C07E6316F53D8A000FB894 /* PKBaseSymbol.m */,
+				D3C07E6A16F53E42000FB894 /* PKVariableSymbol.h */,
+				D3C07E6B16F53E42000FB894 /* PKVariableSymbol.m */,
+				D3C07E6E16F53F48000FB894 /* PKBuiltInTypeSymbol.h */,
+				D3C07E6F16F53F48000FB894 /* PKBuiltInTypeSymbol.m */,
+				D3C07E7316F5403D000FB894 /* PKSymbolTable.h */,
+				D3C07E7416F5403E000FB894 /* PKSymbolTable.m */,
+			);
+			name = SymbolTable;
 			sourceTree = "<group>";
 		};
 		D3C7D8220A411F31005DD154 /* ParseKit Tests */ = {
@@ -2694,6 +2731,11 @@
 				D325FFE9161F484100D4EBCC /* PKCompositeParser.h in Headers */,
 				D39552A216F16E7200D326FD /* PKWhitespaceNode.h in Headers */,
 				D3C07E5E16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h in Headers */,
+				D3C07E6416F53D8A000FB894 /* PKBaseSymbol.h in Headers */,
+				D3C07E6816F53DD8000FB894 /* PKType.h in Headers */,
+				D3C07E6C16F53E42000FB894 /* PKVariableSymbol.h in Headers */,
+				D3C07E7016F53F48000FB894 /* PKBuiltInTypeSymbol.h in Headers */,
+				D3C07E7516F5403E000FB894 /* PKSymbolTable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3294,6 +3336,10 @@
 				D39552B016F171EF00D326FD /* PKAST.m in Sources */,
 				D39552B116F171FA00D326FD /* PKConstructNodeVisitor.m in Sources */,
 				D3C07E5F16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m in Sources */,
+				D3C07E6516F53D8A000FB894 /* PKBaseSymbol.m in Sources */,
+				D3C07E6D16F53E42000FB894 /* PKVariableSymbol.m in Sources */,
+				D3C07E7116F53F48000FB894 /* PKBuiltInTypeSymbol.m in Sources */,
+				D3C07E7616F5403E000FB894 /* PKSymbolTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
