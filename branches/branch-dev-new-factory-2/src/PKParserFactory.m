@@ -605,9 +605,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (PKParser *)parserFromAST:(PKRootNode *)node {
     PKDefinitionPhaseVisitor *defv = [[[PKDefinitionPhaseVisitor alloc] init] autorelease];
     
-    defv.assembler = assembler;
-    defv.preassembler = preassembler;
-    
     [self visit:node with:defv];
 //    PKSymbolTable *symTab = v.symbolTable;
 //
