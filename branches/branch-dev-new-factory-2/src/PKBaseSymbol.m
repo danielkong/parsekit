@@ -33,7 +33,15 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@:%@>", _name, _type];
+    NSString *str = nil;
+
+    if (_type) {
+        str = [NSString stringWithFormat:@"<%@:%@>", _name, _type];
+    } else {
+        str = _name;
+    }
+    
+    return str;
 }
 
 @end

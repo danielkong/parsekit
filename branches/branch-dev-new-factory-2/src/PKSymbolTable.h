@@ -10,9 +10,9 @@
 
 @interface PKSymbolTable : NSObject <PKScope>
 
-- (void)define:(PKBaseSymbol *)sym;
-- (PKBaseSymbol *)resolve:(NSString *)name;
-
-@property (nonatomic, copy, readonly) NSString *scopeName;
-@property (nonatomic, copy, readonly) id <PKScope>enclosingScope;
+//- (void)define:(PKBaseSymbol *)sym;
+//- (PKBaseSymbol *)resolve:(NSString *)name;
+//
+//@property (nonatomic, copy, readonly) NSString *scopeName;
+//@property (nonatomic, copy, readonly) id <PKScope>enclosingScope;
 @end
