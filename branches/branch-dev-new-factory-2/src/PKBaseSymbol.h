@@ -12,7 +12,7 @@
 @protocol PKScope;
 @class PKDefinitionNode;
 
-@interface PKBaseSymbol : NSObject
+@interface PKBaseSymbol : NSObject <NSCopying>
 
 + (id)symbolWithName:(NSString *)name;
 + (id)symbolWithName:(NSString *)name type:(id <PKType>)type;

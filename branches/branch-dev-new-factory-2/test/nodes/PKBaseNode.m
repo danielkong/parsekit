@@ -15,12 +15,6 @@
 }
 
 
-- (void)dealloc {
-    self.symbol = nil;
-    [super dealloc];
-}
-
-
 - (id)copyWithZone:(NSZone *)zone {
     PKBaseNode *that = (PKBaseNode *)[super copyWithZone:zone];
     that->_discard = _discard;

@@ -49,6 +49,42 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    PKBaseSymbol *that = [[[self class] alloc] initWithName:_name];
+    that->_type = _type;
+    that->_def = _def;
+    that->_scope = _scope;
+    return that;
+}
+
+
+- (BOOL)isEqual:(id)obj {
+    if (![super isEqual:obj]) {
+        return NO;
+    }
+    
+    PKBaseSymbol *that = (PKBaseSymbol *)obj;
+    
+    if (![_name isEqual:that->_name]) {
+        return NO;
+    }
+    
+    if (_type != _type) {
+        return NO;
+    }
+    
+    if (_def != _def) {
+        return NO;
+    }
+    
+    if (_scope != _scope) {
+        return NO;
+    }
+    
+    return YES;
+}
+
+
 - (NSString *)description {
     NSString *str = nil;
 
