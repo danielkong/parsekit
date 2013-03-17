@@ -9,13 +9,22 @@
 #import <Foundation/Foundation.h>
 
 @protocol PKType;
+@protocol PKScope;
+@class PKDefinitionNode;
 
 @interface PKBaseSymbol : NSObject
 
-+ (PKBaseSymbol *)symbolWithName:(NSString *)name type:(id <PKType>)type;
++ (id)symbolWithName:(NSString *)name;
++ (id)symbolWithName:(NSString *)name type:(id <PKType>)type;
 
+- (id)initWithName:(NSString *)name;
 - (id)initWithName:(NSString *)name type:(id <PKType>)type;
 
 @property (nonatomic, copy, readonly) NSString *name;
-@property (nonatomic, retain, readonly) id <PKType>type;
+@property (nonatomic, retain) id <PKType>type;
+@end
+
+@interface PKBaseSymbol (ForwardReferenceSupport)
+@property (nonatomic, retain) PKDefinitionNode *def;
+@property (nonatomic, retain) id <PKScope>scope;
 @end

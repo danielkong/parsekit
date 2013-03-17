@@ -10,13 +10,23 @@
 
 @interface PKBaseSymbol ()
 @property (nonatomic, copy, readwrite) NSString *name;
-@property (nonatomic, retain, readwrite) id <PKType>type;
 @end
 
 @implementation PKBaseSymbol
 
-+ (PKBaseSymbol *)symbolWithName:(NSString *)name type:(id <PKType>)type {
++ (id)symbolWithName:(NSString *)name {
+    return [self symbolWithName:name type:nil];
+}
+
+
++ (id)symbolWithName:(NSString *)name type:(id <PKType>)type {
     return [[[self alloc] initWithName:name type:type] autorelease];
+}
+
+
+- (id)initWithName:(NSString *)name {
+    self = [self initWithName:name type:nil];
+    return self;
 }
 
 
@@ -33,6 +43,8 @@
 - (void)dealloc {
     self.name = nil;
     self.type = nil;
+    self.def = nil;
+    self.scope = nil;
     [super dealloc];
 }
 
