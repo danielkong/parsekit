@@ -53,7 +53,7 @@
 //    
 //    [self.currentScope define:sym];
     
-    NSAssert([node.children count], @"");
+    NSAssert(1 == [node.children count], @"");
     PKBaseNode *child = node.children[0];
     Class parserCls = [child parserClass];
     PKCollectionParser *p = [[[parserCls alloc] init] autorelease];

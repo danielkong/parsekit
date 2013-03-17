@@ -7,6 +7,7 @@
 //
 
 #import "PKResolutionPhaseVisitor.h"
+#import <ParseKit/ParseKit.h>
 
 #import "PKBaseNode.h"
 #import "PKRootNode.h"
@@ -39,9 +40,20 @@
 
 
 - (void)dealloc {
-
+    self.currentParser = nil;
     [super dealloc];
 }
+
+
+//- (void)recurse:(PKBaseNode *)node {
+//
+//    PKParser *p = node.parser
+//    for (PKBaseNode *child in node.children) {
+//        self.currentParser = node;
+//        [child visit:self];
+//    }
+//}
+
 
 
 - (void)visitRoot:(PKRootNode *)node {
@@ -60,13 +72,13 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // resolve type
-    NSAssert(1 == [node.children count], @"");
-    PKBaseNode *child = node.children[0];
-    
-    Class cls = child.parserClass;
-    NSAssert(cls, @"");
-    NSString *clsName = NSStringFromClass(cls);
-    NSAssert([clsName length] > 2, @"");
+//    NSAssert(1 == [node.children count], @"");
+//    PKBaseNode *child = node.children[0];
+//    
+//    Class cls = child.parserClass;
+//    NSAssert(cls, @"");
+//    NSString *clsName = NSStringFromClass(cls);
+//    NSAssert([clsName length] > 2, @"");
 //    NSString *typeName = [clsName substringFromIndex:2];
     
 //    PKBuiltInTypeSymbol *typeSym = (id)[self.currentScope resolve:typeName];
@@ -77,16 +89,33 @@
 //    
 //    sym.type = typeSym;
     
-    [self recurse:node];
+    NSString *name = node.token.stringValue;
+    PKParser *p = self.symbolTable[name];
+    NSAssert([p isKindOfClass:[PKParser class]], @"");
+    
+    if ([p isKindOfClass:[PKCompositeParser class]]) {
+        PKCompositeParser *cp = (PKCompositeParser *)p;
+
+        for (PKBaseNode *child in node.children) {
+            self.currentParser = cp;
+            [child visit:self];
+        }
+    }
 }
 
 
 - (void)visitReference:(PKReferenceNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-//    NSString *name = node.token.stringValue;
+    NSString *name = node.token.stringValue;
 //    PKBaseSymbol *sym = [node.scope resolve:name];
 //    node.symbol = sym;
+    
+    PKParser *p = self.symbolTable[name];
+    NSAssert([p isKindOfClass:[PKParser class]], @"");
+    
+    [self.currentParser add:p];
+    
 }
 
 
@@ -128,6 +157,17 @@
 - (void)visitConstant:(PKConstantNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    Class parserCls = [node parserClass];
+    PKParser *p = nil;
+    
+    NSString *literal = node.literal;
+    if (literal) {
+        p = [[[parserCls alloc] initWithString:literal] autorelease];
+    } else {
+        p = [[[parserCls alloc] init] autorelease];
+    }
+
+    [self.currentParser add:p];
 }
 
 

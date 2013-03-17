@@ -8,6 +8,9 @@
 
 #import "PKBaseVisitor.h"
 
+@class PKCompositeParser;
+
 @interface PKResolutionPhaseVisitor : PKBaseVisitor
 
+@property (nonatomic, retain) PKCompositeParser *currentParser;
 @end
