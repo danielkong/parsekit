@@ -54,10 +54,10 @@
 - (void)visitReference:(PKReferenceNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-//    NSString *name = node.token.stringValue;
-//    PKBaseSymbol *sym = [self.currentScope resolve:name];
-//    
-//    node.symbol = sym;
+    NSString *name = node.token.stringValue;
+    PKBaseSymbol *sym = [self.currentScope resolve:name];
+    
+    node.symbol = sym;
 }
 
 

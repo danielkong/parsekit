@@ -8,10 +8,7 @@
 
 #import "PKNodeTypes.h"
 
-@class PKBaseSymbol;
-
 @interface PKDefinitionNode : PKBaseNode
 
 @property (nonatomic, retain) NSString *callbackName;
-@property (nonatomic, retain) PKBaseSymbol *symbol;
 @end

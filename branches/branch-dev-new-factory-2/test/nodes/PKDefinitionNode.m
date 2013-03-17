@@ -13,7 +13,6 @@
 
 - (void)dealloc {
     self.callbackName = nil;
-    self.symbol = nil;
     [super dealloc];
 }
 
@@ -21,7 +20,6 @@
 - (id)copyWithZone:(NSZone *)zone {
     PKDefinitionNode *that = (PKDefinitionNode *)[super copyWithZone:zone];
     that->_callbackName = [_callbackName copyWithZone:zone];
-    that->_symbol = [_symbol copyWithZone:zone];
     return that;
 }
 
@@ -37,10 +35,6 @@
         return NO;
     }
 
-    if (![_symbol isEqual:that->_symbol]) {
-        return NO;
-    }
-    
     return YES;
 }
 
