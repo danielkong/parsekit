@@ -7,6 +7,7 @@
 //
 
 #import "PKWhitespaceNode.h"
+#import <ParseKit/PKWhitespace.h>
 
 @implementation PKWhitespaceNode
 
@@ -17,6 +18,11 @@
 
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitWhitespace:self];
+}
+
+
+- (Class)parserClass {
+    return [PKWhitespace class];
 }
 
 @end

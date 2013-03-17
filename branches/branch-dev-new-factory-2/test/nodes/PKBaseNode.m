@@ -52,4 +52,10 @@
     NSAssert2(0, @"%s is an abastract method. Must be overridden in %@", __PRETTY_FUNCTION__, NSStringFromClass([self class]));
 }
 
+
+- (Class)parserClass {
+    NSAssert2(0, @"%s is an abastract method. Must be overridden in %@", __PRETTY_FUNCTION__, NSStringFromClass([self class]));
+    return Nil;
+}
+
 @end

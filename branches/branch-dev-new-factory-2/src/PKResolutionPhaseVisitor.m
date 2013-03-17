@@ -81,18 +81,9 @@
     NSAssert(1 == [node.children count], @"");
     PKBaseNode *child = node.children[0];
     
-    NSString *typeName = nil;
+    Class cls = child.parserClass;
+    NSString *typeName = [NSStringFromClass(cls) substringFromIndex:2];
     
-    if (PKNodeTypeReference == child.type) {
-        typeName = @"Sequence";
-    } else {
-        NSString *key = child.token.stringValue;
-        typeName = _typeTab[key];
-        if (!typeName) {
-            typeName = key;
-        }
-    }
-        
     PKBuiltInTypeSymbol *typeSym = (id)[self.currentScope resolve:typeName];
     NSAssert(typeSym, @"");
 

@@ -7,9 +7,27 @@
 //
 
 #import "PKConstantNode.h"
-#import <ParseKit/PKToken.h>
+#import <ParseKit/ParseKit.h>
+
+static NSDictionary *sClassTab = nil;
 
 @implementation PKConstantNode
+
++ (void)initialize {
+    if ([PKConstantNode class] == self) {
+        sClassTab = [@{
+            @"Word" : [PKWord class],
+            @"LowercaseWord" : [PKLowercaseWord class],
+            @"UppercaseWord" : [PKUppercaseWord class],
+            @"Number" : [PKNumber class],
+            @"QuotedString" : [PKQuotedString class],
+            @"Symbol" : [PKSymbol class],
+            @"Comment" : [PKComment class],
+            @"Whitespace" : [PKWhitespace class],
+        } retain];
+    }
+}
+
 
 - (void)dealloc {
     self.literal = nil;
@@ -36,6 +54,16 @@
 
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitConstant:self];
+}
+
+
+- (Class)parserClass {
+    Class cls = Nil;
+
+    NSString *typeName = self.token.stringValue;
+    cls = sClassTab[typeName];
+
+    return cls;
 }
 
 @end

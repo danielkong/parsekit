@@ -19,5 +19,6 @@
 - (void)visit:(id <PKNodeVisitor>)v;
 
 @property (nonatomic, assign) BOOL discard;
+@property (nonatomic, retain) Class parserClass;
 @property (nonatomic, retain) PKBaseSymbol *symbol;
 @end

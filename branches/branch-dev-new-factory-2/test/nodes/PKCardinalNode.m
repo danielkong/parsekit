@@ -7,6 +7,7 @@
 //
 
 #import "PKCardinalNode.h"
+#import <ParseKit/PKSequence.h>
 
 @implementation PKCardinalNode
 
@@ -44,6 +45,11 @@
 
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitCardinal:self];
+}
+
+
+- (Class)parserClass {
+    return [PKSequence class];
 }
 
 @end

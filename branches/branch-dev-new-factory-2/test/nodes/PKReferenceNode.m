@@ -9,6 +9,7 @@
 #import "PKReferenceNode.h"
 #import "PKScope.h"
 #import <ParseKit/PKToken.h>
+#import <ParseKit/PKSequence.h>
 
 @implementation PKReferenceNode
 
@@ -53,6 +54,11 @@
 
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitReference:self];
+}
+
+
+- (Class)parserClass {
+    return [PKSequence class];
 }
 
 @end

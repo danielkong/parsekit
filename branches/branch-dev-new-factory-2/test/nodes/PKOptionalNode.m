@@ -7,6 +7,7 @@
 //
 
 #import "PKOptionalNode.h"
+#import <ParseKit/PKSequence.h>
 
 @implementation PKOptionalNode
 
@@ -17,6 +18,11 @@
 
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitOptional:self];
+}
+
+
+- (Class)parserClass {
+    return [PKSequence class];
 }
 
 @end

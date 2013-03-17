@@ -7,6 +7,7 @@
 //
 
 #import "PKDelimitedNode.h"
+#import <ParseKit/PKDelimitedString.h>
 
 @implementation PKDelimitedNode
 
@@ -61,6 +62,11 @@
 
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitDelimited:self];
+}
+
+
+- (Class)parserClass {
+    return [PKDelimitedString class];
 }
 
 @end

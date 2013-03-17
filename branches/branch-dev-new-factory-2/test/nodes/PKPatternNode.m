@@ -7,6 +7,7 @@
 //
 
 #import "PKPatternNode.h"
+#import <ParseKit/PKPattern.h>
 
 @implementation PKPatternNode
 
@@ -74,6 +75,11 @@
 
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitPattern:self];
+}
+
+
+- (Class)parserClass {
+    return [PKPattern class];
 }
 
 @end

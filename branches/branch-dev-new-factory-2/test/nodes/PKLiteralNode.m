@@ -7,6 +7,7 @@
 //
 
 #import "PKLiteralNode.h"
+#import <ParseKit/PKLiteral.h>
 
 @implementation PKLiteralNode
 
@@ -17,6 +18,11 @@
 
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitLiteral:self];
+}
+
+
+- (Class)parserClass {
+    return [PKLiteral class];
 }
 
 @end
