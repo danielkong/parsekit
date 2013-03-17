@@ -40,6 +40,8 @@
     PKParser *foo = symTab[@"foo"];
     TDNotNil(foo);
     TDTrue([foo isKindOfClass:[PKWord class]]);
+    
+    TDEquals(start.subparsers[0], foo);
 }
 
 
