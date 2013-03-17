@@ -45,6 +45,7 @@
 
     NSString *name = node.token.stringValue;
     PKVariableSymbol *sym = [PKVariableSymbol symbolWithName:name];
+    sym.scope = self.currentScope;
     
     sym.def = node;
     node.symbol = sym;

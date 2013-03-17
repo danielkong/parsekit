@@ -56,8 +56,7 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     NSString *name = node.token.stringValue;
-    PKBaseSymbol *sym = [self.currentScope resolve:name];
-    
+    PKBaseSymbol *sym = [node.scope resolve:name];
     node.symbol = sym;
 }
 
