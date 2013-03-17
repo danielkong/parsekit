@@ -53,7 +53,9 @@
 //    
 //    [self.currentScope define:sym];
     
-    Class parserCls = [node parserClass];
+    NSAssert([node.children count], @"");
+    PKBaseNode *child = node.children[0];
+    Class parserCls = [child parserClass];
     PKCollectionParser *p = [[[parserCls alloc] init] autorelease];
     
     self.symbolTable[name] = p;

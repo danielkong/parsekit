@@ -30,24 +30,16 @@
     NSString *g = @"@start=foo;foo=Word;";
     
     NSError *err = nil;    
-    PKSymbolTable *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
     TDNotNil(symTab);
     
     PKCollectionParser *start = symTab[@"@start"];
     TDNotNil(start);
-    TDTrue([start isKindOfClass:[PKVariableSymbol class]]);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
     
-    TDNotNil(start.type);
-    TDTrue([start.type isKindOfClass:[PKBuiltInTypeSymbol class]]);
-    TDEqualObjects(@"Sequence", start.type.name);
-
-    PKBaseSymbol *foo = [symTab resolve:@"foo"];
+    PKParser *foo = symTab[@"foo"];
     TDNotNil(foo);
-    TDTrue([foo isKindOfClass:[PKVariableSymbol class]]);
-    
-    TDNotNil(foo.type);
-    TDTrue([foo.type isKindOfClass:[PKBuiltInTypeSymbol class]]);
-    TDEqualObjects(@"Word", foo.type.name);
+    TDTrue([foo isKindOfClass:[PKWord class]]);
 }
 
 

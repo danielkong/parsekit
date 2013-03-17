@@ -39,6 +39,7 @@
 		D32612A016F64F280021845F /* PKBaseScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E7816F54540000FB894 /* PKBaseScope.m */; };
 		D32612A116F64F280021845F /* PKGlobalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E7C16F5459D000FB894 /* PKGlobalScope.m */; };
 		D32612A216F64F280021845F /* PKLocalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8016F545FE000FB894 /* PKLocalScope.m */; };
+		D32612A316F651F90021845F /* TDParserFactorySymbolTableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8416F54F41000FB894 /* TDParserFactorySymbolTableTest.m */; };
 		D3305C4F102F5BAE00DC4F75 /* TDGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */; };
 		D3305C50102F5BAE00DC4F75 /* TDSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4E102F5BAE00DC4F75 /* TDSourceCodeTextView.m */; };
 		D33494720E29670B00406085 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
@@ -3559,6 +3560,7 @@
 				D32612A016F64F280021845F /* PKBaseScope.m in Sources */,
 				D32612A116F64F280021845F /* PKGlobalScope.m in Sources */,
 				D32612A216F64F280021845F /* PKLocalScope.m in Sources */,
+				D32612A316F651F90021845F /* TDParserFactorySymbolTableTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
