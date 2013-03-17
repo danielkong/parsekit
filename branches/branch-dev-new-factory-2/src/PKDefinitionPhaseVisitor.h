@@ -7,7 +7,11 @@
 //
 
 #import "PKBaseVisitor.h"
+#import "PKParserFactory.h" // remove
 
 @interface PKDefinitionPhaseVisitor : PKBaseVisitor
 
+@property (nonatomic, retain) id assembler;
+@property (nonatomic, retain) id preassembler;
+@property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
 @end
