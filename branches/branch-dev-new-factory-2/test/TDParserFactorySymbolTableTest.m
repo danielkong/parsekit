@@ -133,6 +133,9 @@
     TDEquals(start.subparsers[0], foo);
     TDTrue([foo.subparsers[0] isKindOfClass:[PKLiteral class]]);
     TDTrue([foo.subparsers[1] isKindOfClass:[PKSymbol class]]);
+    
+    PKLiteral *lit = foo.subparsers[0];
+    TDEqualObjects(@"bar", lit.string);
 }
 
 
