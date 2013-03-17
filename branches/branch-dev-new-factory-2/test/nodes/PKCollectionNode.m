@@ -38,10 +38,8 @@ static NSDictionary *sClassTab = nil;
 
 
 - (Class)parserClass {
-    Class cls = Nil;
-    
     NSString *typeName = self.token.stringValue;
-    cls = sClassTab[typeName];
+    Class cls = sClassTab[typeName];
     
     return cls;
 }
