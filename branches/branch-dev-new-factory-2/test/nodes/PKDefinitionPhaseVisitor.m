@@ -26,38 +26,13 @@
 #import "PKMultipleNode.h"
 
 @interface PKDefinitionPhaseVisitor ()
-@property (nonatomic, retain) id <PKScope>currentScope;
 @end
 
 @implementation PKDefinitionPhaseVisitor
 
-- (id)init {
-    self = [super init];
-    if (self) {
-
-    }
-    return self;
-}
-
-
-- (void)dealloc {
-    self.rootNode = nil;
-    self.symbolTable = nil;
-    self.currentScope = nil;
-    [super dealloc];
-}
-
-
-- (void)recurse:(PKBaseNode *)node {
-    for (PKBaseNode *child in node.children) {
-        [child visit:self];
-    }
-}
-
-
 - (void)visitRoot:(PKRootNode *)node {
     self.symbolTable = [[[PKSymbolTable alloc] init] autorelease];
-    self.currentScope = _symbolTable;
+    self.currentScope = self.symbolTable;
     
     [self recurse:node];
     

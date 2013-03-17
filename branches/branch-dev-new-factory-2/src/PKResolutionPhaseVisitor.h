@@ -6,13 +6,8 @@
 //
 //
 
-#import "PKNodeVisitor.h"
+#import "PKBaseVisitor.h"
 
-@class PKSymbolTable;
+@interface PKResolutionPhaseVisitor : PKBaseVisitor
 
-@interface PKResolutionPhaseVisitor : NSObject <PKNodeVisitor>
-
-@property (nonatomic, retain) PKBaseNode *rootNode;
-@property (nonatomic, retain) PKSymbolTable *symbolTable;
-@property (nonatomic, retain) NSDictionary *parserClassForTokenTable;
 @end

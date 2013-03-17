@@ -26,42 +26,16 @@
 #import "PKMultipleNode.h"
 
 @interface PKResolutionPhaseVisitor ()
-@property (nonatomic, retain) id <PKScope>currentScope;
+
 @end
 
 @implementation PKResolutionPhaseVisitor
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
-
-
-- (void)dealloc {
-    self.rootNode = nil;
-    self.symbolTable = nil;
-    self.currentScope = nil;
-    [super dealloc];
-}
-
-
-- (void)recurse:(PKBaseNode *)node {
-    NSParameterAssert(node);
-
-    for (PKBaseNode *child in node.children) {
-        [child visit:self];
-    }
-}
-
-
 - (void)visitRoot:(PKRootNode *)node {
     NSParameterAssert(node);
-    NSAssert(_symbolTable, @"");
+    NSAssert(self.symbolTable, @"");
 
-    self.currentScope = _symbolTable;
+    self.currentScope = self.symbolTable;
     
     [self recurse:node];
 

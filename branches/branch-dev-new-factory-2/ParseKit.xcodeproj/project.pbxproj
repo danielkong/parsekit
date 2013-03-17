@@ -181,6 +181,8 @@
 		D35F4A8F11643662003811F3 /* PKEmailState.h in Headers */ = {isa = PBXBuildFile; fileRef = D35F4A8B11643662003811F3 /* PKEmailState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D35F4A9011643662003811F3 /* PKURLState.h in Headers */ = {isa = PBXBuildFile; fileRef = D35F4A8C11643662003811F3 /* PKURLState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3668293101D2C000008632C /* erb.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3668291101D2BFA0008632C /* erb.grammar */; };
+		D367F66B16F5570500F5E9EB /* PKBaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D367F66916F5570500F5E9EB /* PKBaseVisitor.h */; };
+		D367F66C16F5570500F5E9EB /* PKBaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D367F66A16F5570500F5E9EB /* PKBaseVisitor.m */; };
 		D36934721038E28300527AF3 /* PKParseTree.m in Sources */ = {isa = PBXBuildFile; fileRef = D36934561038DE5300527AF3 /* PKParseTree.m */; };
 		D36934731038E28700527AF3 /* PKParseTreeAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D36934581038DE5300527AF3 /* PKParseTreeAssembler.m */; };
 		D36934741038E28B00527AF3 /* PKRuleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D369345A1038DE5300527AF3 /* PKRuleNode.m */; };
@@ -1132,6 +1134,8 @@
 		D3668291101D2BFA0008632C /* erb.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = erb.grammar; path = res/erb.grammar; sourceTree = "<group>"; };
 		D3668294101D2C200008632C /* ERBTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ERBTest.h; path = test/ERBTest.h; sourceTree = "<group>"; };
 		D3668295101D2C200008632C /* ERBTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ERBTest.m; path = test/ERBTest.m; sourceTree = "<group>"; };
+		D367F66916F5570500F5E9EB /* PKBaseVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseVisitor.h; path = src/PKBaseVisitor.h; sourceTree = "<group>"; };
+		D367F66A16F5570500F5E9EB /* PKBaseVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKBaseVisitor.m; path = src/PKBaseVisitor.m; sourceTree = "<group>"; };
 		D36934551038DE5300527AF3 /* PKParseTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKParseTree.h; path = test/PKParseTree.h; sourceTree = "<group>"; };
 		D36934561038DE5300527AF3 /* PKParseTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKParseTree.m; path = test/PKParseTree.m; sourceTree = "<group>"; };
 		D36934571038DE5300527AF3 /* PKParseTreeAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKParseTreeAssembler.h; path = test/PKParseTreeAssembler.h; sourceTree = "<group>"; };
@@ -2172,6 +2176,8 @@
 				D3C07E6116F53D35000FB894 /* SymbolTable */,
 				D325FFBC161E4E3200D4EBCC /* AST Nodes */,
 				D395525D16F16BA600D326FD /* PKNodeVisitor.h */,
+				D367F66916F5570500F5E9EB /* PKBaseVisitor.h */,
+				D367F66A16F5570500F5E9EB /* PKBaseVisitor.m */,
 				D3C07E5C16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h */,
 				D3C07E5D16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m */,
 				D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */,
@@ -2769,6 +2775,7 @@
 				D3C07E7D16F5459D000FB894 /* PKGlobalScope.h in Headers */,
 				D3C07E8116F545FF000FB894 /* PKLocalScope.h in Headers */,
 				D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */,
+				D367F66B16F5570500F5E9EB /* PKBaseVisitor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3377,6 +3384,7 @@
 				D3C07E7E16F5459D000FB894 /* PKGlobalScope.m in Sources */,
 				D3C07E8216F545FF000FB894 /* PKLocalScope.m in Sources */,
 				D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */,
+				D367F66C16F5570500F5E9EB /* PKBaseVisitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
