@@ -95,8 +95,16 @@
     
     if ([p isKindOfClass:[PKCompositeParser class]]) {
         PKCompositeParser *cp = (PKCompositeParser *)p;
+        
+        PKBaseNode *parent = node;
+        
+        NSAssert(1 == [parent.children count], @"");
+        PKBaseNode *child = parent.children[0];
+        if (PKNodeTypeReference != child.type) {
+            parent = child;
+        }
 
-        for (PKBaseNode *child in node.children) {
+        for (PKBaseNode *child in parent.children) {
             self.currentParser = cp;
             [child visit:self];
         }
@@ -129,7 +137,20 @@
 - (void)visitCollection:(PKCollectionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    [self recurse:node];
+    Class parserCls = [node parserClass];
+    PKCollectionParser *cp = [[[parserCls alloc] init] autorelease];
+    NSAssert([cp isKindOfClass:[PKCollectionParser class]], @"");
+    
+    [self.currentParser add:cp];
+    
+    PKCompositeParser *oldParser = _currentParser;
+
+    for (PKBaseNode *child in node.children) {
+        self.currentParser = cp;
+        [child visit:self];
+    }
+    
+    self.currentParser = oldParser;
 }
 
 

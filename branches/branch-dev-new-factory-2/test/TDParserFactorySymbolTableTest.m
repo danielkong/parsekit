@@ -66,28 +66,24 @@
 }
 
 
-//- (void)testSequenceAST {
-//    NSString *g = @"@start=foo;foo=(Word|Number) Symbol;";
-//    
-//    NSError *err = nil;
-//    PKSymbolTable *symTab = [_factory symbolTableFromGrammar:g error:&err];
-//    TDNotNil(symTab);
-//    
-//    PKBaseSymbol *start = [symTab resolve:@"@start"];
-//    TDNotNil(start);
-//    TDTrue([start isKindOfClass:[PKVariableSymbol class]]);
-//    
-//    TDNotNil(start.type);
-//    TDTrue([start.type isKindOfClass:[PKBuiltInTypeSymbol class]]);
-//    TDEqualObjects(@"Sequence", start.type.name);
-//    
-//    PKBaseSymbol *foo = [symTab resolve:@"foo"];
-//    TDNotNil(foo);
-//    TDTrue([foo isKindOfClass:[PKVariableSymbol class]]);
-//    
-//    TDNotNil(foo.type);
-//    TDTrue([foo.type isKindOfClass:[PKBuiltInTypeSymbol class]]);
-//    TDEqualObjects(@"Sequence", foo.type.name);
-//}
+- (void)testSequenceAST {
+    NSString *g = @"@start=foo;foo=(Word|Number) Symbol;";
+    
+    NSError *err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKSequence *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKSequence class]]);
+    
+    TDEquals(start.subparsers[0], foo);
+    TDTrue([foo.subparsers[0] isKindOfClass:[PKAlternation class]]);
+    TDTrue([foo.subparsers[1] isKindOfClass:[PKSymbol class]]);
+}
 
 @end

@@ -44,7 +44,7 @@
 - (void)visitDefinition:(PKDefinitionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
-    NSString *name = node.token.stringValue;
+//    NSString *name = node.token.stringValue;
 //    PKVariableSymbol *sym = [PKVariableSymbol symbolWithName:name];
 //    sym.scope = self.currentScope;
 //    
@@ -53,12 +53,15 @@
 //    
 //    [self.currentScope define:sym];
     
+    NSString *name = node.token.stringValue;
+
     NSAssert(1 == [node.children count], @"");
     PKBaseNode *child = node.children[0];
     Class parserCls = [child parserClass];
-    PKCollectionParser *p = [[[parserCls alloc] init] autorelease];
+    PKCollectionParser *cp = [[[parserCls alloc] init] autorelease];
+    cp.name = name;
     
-    self.symbolTable[name] = p;
+    self.symbolTable[name] = cp;
     
     [self recurse:node];
 }
