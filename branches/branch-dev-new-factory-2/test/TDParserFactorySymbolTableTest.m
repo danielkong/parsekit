@@ -33,6 +33,15 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start #foo) ($foo Word))", [rootNode treeDescription]);
+    
+    PKSymbolTable *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKBaseSymbol *foo = [symTab resolve:@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKVariableSymbol class]]);
+    
+    
 }
 
 

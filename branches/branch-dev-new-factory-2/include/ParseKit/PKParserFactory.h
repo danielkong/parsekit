@@ -10,6 +10,7 @@
 
 @class PKParser;
 @class PKAST;
+@class PKSymbolTable;
 
 void PKReleaseSubparserTree(PKParser *p);
 
@@ -28,6 +29,7 @@ typedef enum {
 - (PKParser *)parserFromGrammar:(NSString *)g assembler:(id)a preassembler:(id)pa error:(NSError **)outError;
 
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError;
+- (PKSymbolTable *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError;
 
 @property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
 @end

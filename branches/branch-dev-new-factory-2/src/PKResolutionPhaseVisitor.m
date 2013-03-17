@@ -1,12 +1,12 @@
 //
-//  PKDefinitionPhaseVisitor.m
+//  PKReferencePhaseVisitor.m
 //  ParseKit
 //
-//  Created by Todd Ditchendorf on 10/4/12.
+//  Created by Todd Ditchendorf on 3/16/13.
 //
 //
 
-#import "PKDefinitionPhaseVisitor.h"
+#import "PKResolutionPhaseVisitor.h"
 #import "PKSymbolTable.h"
 #import "PKVariableSymbol.h"
 
@@ -25,16 +25,16 @@
 #import "PKOptionalNode.h"
 #import "PKMultipleNode.h"
 
-@interface PKDefinitionPhaseVisitor ()
+@interface PKResolutionPhaseVisitor ()
 @property (nonatomic, retain) id <PKScope>currentScope;
 @end
 
-@implementation PKDefinitionPhaseVisitor
+@implementation PKResolutionPhaseVisitor
 
 - (id)init {
     self = [super init];
     if (self) {
-
+        
     }
     return self;
 }
@@ -49,6 +49,8 @@
 
 
 - (void)recurse:(PKBaseNode *)node {
+    NSParameterAssert(node);
+
     for (PKBaseNode *child in node.children) {
         [child visit:self];
     }
@@ -56,25 +58,20 @@
 
 
 - (void)visitRoot:(PKRootNode *)node {
-    self.symbolTable = [[[PKSymbolTable alloc] init] autorelease];
+    NSParameterAssert(node);
+    NSAssert(_symbolTable, @"");
+
     self.currentScope = _symbolTable;
     
     [self recurse:node];
-    
+
     self.currentScope = nil;
 }
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-
-    NSString *name = node.token.stringValue;
-    PKVariableSymbol *sym = [PKVariableSymbol symbolWithName:name];
     
-    sym.def = node;
-    node.symbol = sym;
-    
-    [self.currentScope define:sym];
     
     [self recurse:node];
 }
@@ -82,45 +79,41 @@
 
 - (void)visitReference:(PKReferenceNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-
-    NSString *name = node.token.stringValue;
-    PKBaseSymbol *sym = [self.currentScope resolve:name];
     
-    sym.scope = self.currentScope;
 }
 
 
 - (void)visitComposite:(PKCompositeNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-
+    
     [self recurse:node];
 }
 
 
 - (void)visitCollection:(PKCollectionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-
+    
     [self recurse:node];
 }
 
 
 - (void)visitCardinal:(PKCardinalNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-
+    
     [self recurse:node];
 }
 
 
 - (void)visitOptional:(PKOptionalNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-
+    
     [self recurse:node];
 }
 
 
 - (void)visitMultiple:(PKMultipleNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-
+    
     [self recurse:node];
 }
 

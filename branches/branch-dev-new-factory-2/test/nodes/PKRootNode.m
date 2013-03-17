@@ -10,6 +10,11 @@
 
 @implementation PKRootNode
 
+- (NSUInteger)type {
+    return PKNodeTypeRoot;
+}
+
+
 - (void)visit:(id <PKNodeVisitor>)v {
     [v visitRoot:self];
 }

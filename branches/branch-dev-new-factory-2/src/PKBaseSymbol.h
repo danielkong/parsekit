@@ -22,9 +22,8 @@
 
 @property (nonatomic, copy, readonly) NSString *name;
 @property (nonatomic, retain) id <PKType>type;
-@end
 
-@interface PKBaseSymbol (ForwardReferenceSupport)
+// Forward Reference Support
 @property (nonatomic, retain) PKDefinitionNode *def;
 @property (nonatomic, retain) id <PKScope>scope;
 @end

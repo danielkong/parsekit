@@ -277,12 +277,9 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.assembler = a;
         self.preassembler = pa;
         
-        self.rootNode = (PKRootNode *)[self ASTFromGrammar:g error:outError];
-        
-        NSLog(@"rootNode %@", rootNode);
-        
+        PKSymbolTable *symTab = [self symbolTableFromGrammar:g error:outError];
         PKTokenizer *t = [self tokenizerFromGrammarSettings];
-        PKParser *start = [self parserFromAST:rootNode];
+        PKParser *start = [self parserFromSymbolTable:symTab];
         
         NSLog(@"start %@", start);
         
@@ -319,6 +316,29 @@ void PKReleaseSubparserTree(PKParser *p) {
             [ex raise];
         }
     }
+}
+
+
+- (PKSymbolTable *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError {
+    self.rootNode = (PKRootNode *)[self ASTFromGrammar:g error:outError];
+    
+    NSLog(@"rootNode %@", rootNode);
+
+    PKDefinitionPhaseVisitor *defv = [[[PKDefinitionPhaseVisitor alloc] init] autorelease];
+    
+    [self visit:rootNode with:defv];
+
+    PKSymbolTable *symTab = defv.symbolTable;
+
+    //    PKReferencePhaseVisitor *refv = [[[PKReferencePhaseVisitor alloc] init] autorelease];
+    //
+    //    refv.symbolTable = symTab;
+    //    refv.assembler = assembler;
+    //    refv.preassembler = preassembler;
+    //
+    //    [self visit:node with:refv];
+    //    symTab = refv.symbolTable;
+    return symTab;
 }
 
 
@@ -602,21 +622,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (PKParser *)parserFromAST:(PKRootNode *)node {
-    PKDefinitionPhaseVisitor *defv = [[[PKDefinitionPhaseVisitor alloc] init] autorelease];
-    
-    [self visit:node with:defv];
-//    PKSymbolTable *symTab = v.symbolTable;
-//
-//    PKReferencePhaseVisitor *refv = [[[PKReferencePhaseVisitor alloc] init] autorelease];
-//    
-//    refv.symbolTable = symTab;
-//    refv.assembler = assembler;
-//    refv.preassembler = preassembler;
-//    
-//    [self visit:node with:refv];
-//    symTab = refv.symbolTable;
-
+- (PKParser *)parserFromSymbolTable:(PKSymbolTable *)symTab {
     
 
     return nil;

@@ -400,6 +400,8 @@
 		D3C07E8116F545FF000FB894 /* PKLocalScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E7F16F545FE000FB894 /* PKLocalScope.h */; };
 		D3C07E8216F545FF000FB894 /* PKLocalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8016F545FE000FB894 /* PKLocalScope.m */; };
 		D3C07E8516F54F42000FB894 /* TDParserFactorySymbolTableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8416F54F41000FB894 /* TDParserFactorySymbolTableTest.m */; };
+		D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */; };
+		D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */; };
 		D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C221930FFE8B8C004514FE /* PKTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221910FFE8B8C004514FE /* PKTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C221940FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1302,6 +1304,8 @@
 		D3C07E8016F545FE000FB894 /* PKLocalScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKLocalScope.m; path = src/PKLocalScope.m; sourceTree = "<group>"; };
 		D3C07E8316F54F41000FB894 /* TDParserFactorySymbolTableTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactorySymbolTableTest.h; path = test/TDParserFactorySymbolTableTest.h; sourceTree = "<group>"; };
 		D3C07E8416F54F41000FB894 /* TDParserFactorySymbolTableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactorySymbolTableTest.m; path = test/TDParserFactorySymbolTableTest.m; sourceTree = "<group>"; };
+		D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKResolutionPhaseVisitor.h; path = src/PKResolutionPhaseVisitor.h; sourceTree = "<group>"; };
+		D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKResolutionPhaseVisitor.m; path = src/PKResolutionPhaseVisitor.m; sourceTree = "<group>"; };
 		D3C2216D0FFE8A86004514FE /* PKExclusion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKExclusion.h; path = test/PKExclusion.h; sourceTree = "<group>"; };
 		D3C221900FFE8B8C004514FE /* ParseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseKit.h; path = include/ParseKit/ParseKit.h; sourceTree = "<group>"; };
 		D3C221910FFE8B8C004514FE /* PKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKTypes.h; path = include/ParseKit/PKTypes.h; sourceTree = "<group>"; };
@@ -2170,6 +2174,8 @@
 				D395525D16F16BA600D326FD /* PKNodeVisitor.h */,
 				D3C07E5C16F53C2B000FB894 /* PKDefinitionPhaseVisitor.h */,
 				D3C07E5D16F53C2B000FB894 /* PKDefinitionPhaseVisitor.m */,
+				D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */,
+				D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */,
 				D395525216F16BA600D326FD /* PKConstructNodeVisitor.h */,
 				D395525316F16BA600D326FD /* PKConstructNodeVisitor.m */,
 				D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */,
@@ -2762,6 +2768,7 @@
 				D3C07E7916F54540000FB894 /* PKBaseScope.h in Headers */,
 				D3C07E7D16F5459D000FB894 /* PKGlobalScope.h in Headers */,
 				D3C07E8116F545FF000FB894 /* PKLocalScope.h in Headers */,
+				D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3369,6 +3376,7 @@
 				D3C07E7A16F54540000FB894 /* PKBaseScope.m in Sources */,
 				D3C07E7E16F5459D000FB894 /* PKGlobalScope.m in Sources */,
 				D3C07E8216F545FF000FB894 /* PKLocalScope.m in Sources */,
+				D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
