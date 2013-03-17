@@ -37,14 +37,21 @@
     PKSymbolTable *symTab = [_factory symbolTableFromGrammar:g error:&err];
     TDNotNil(symTab);
     
+    PKBaseSymbol *start = [symTab resolve:@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKVariableSymbol class]]);
+    
+    TDNotNil(start.type);
+    TDTrue([start.type isKindOfClass:[PKBuiltInTypeSymbol class]]);
+    TDEqualObjects(@"Sequence", start.type.name);
+
     PKBaseSymbol *foo = [symTab resolve:@"foo"];
     TDNotNil(foo);
     TDTrue([foo isKindOfClass:[PKVariableSymbol class]]);
     
-    id <PKType>type = foo.type;
-    TDNotNil(type);
-    TDTrue([type isKindOfClass:[PKBuiltInTypeSymbol class]]);
-    TDEqualObjects(@"Word", type.name);
+    TDNotNil(foo.type);
+    TDTrue([foo.type isKindOfClass:[PKBuiltInTypeSymbol class]]);
+    TDEqualObjects(@"Word", foo.type.name);
 }
 
 
