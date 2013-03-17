@@ -46,6 +46,7 @@
 - (void)visitDefinition:(PKDefinitionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    // resolve type
     
     [self recurse:node];
 }
