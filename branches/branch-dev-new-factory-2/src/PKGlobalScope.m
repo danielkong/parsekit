@@ -37,8 +37,11 @@
 - (void)setUpBuiltInTypes {
     [self define:[PKBuiltInTypeSymbol symbolWithName:@"Number"]];
     [self define:[PKBuiltInTypeSymbol symbolWithName:@"Word"]];
+    [self define:[PKBuiltInTypeSymbol symbolWithName:@"LowercaseWord"]];
+    [self define:[PKBuiltInTypeSymbol symbolWithName:@"UppercaseWord"]];
     [self define:[PKBuiltInTypeSymbol symbolWithName:@"QuotedString"]];
     [self define:[PKBuiltInTypeSymbol symbolWithName:@"Symbol"]];
+    [self define:[PKBuiltInTypeSymbol symbolWithName:@"Literal"]];
     [self define:[PKBuiltInTypeSymbol symbolWithName:@"Comment"]];
     [self define:[PKBuiltInTypeSymbol symbolWithName:@"Whitespace"]];
     [self define:[PKBuiltInTypeSymbol symbolWithName:@"Pattern"]];
