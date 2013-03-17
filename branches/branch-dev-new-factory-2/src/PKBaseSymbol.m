@@ -51,7 +51,7 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     PKBaseSymbol *that = [[[self class] alloc] initWithName:_name];
-    that->_type = _type;
+    that->_type = _type; // don't copy, just ref
     that->_def = _def;
     that->_scope = _scope;
     return that;
