@@ -16,14 +16,14 @@ static NSDictionary *sClassTab = nil;
 + (void)initialize {
     if ([PKConstantNode class] == self) {
         sClassTab = [@{
-            @"Word" : [PKWord class],
-            @"LowercaseWord" : [PKLowercaseWord class],
-            @"UppercaseWord" : [PKUppercaseWord class],
-            @"Number" : [PKNumber class],
-            @"QuotedString" : [PKQuotedString class],
-            @"Symbol" : [PKSymbol class],
-            @"Comment" : [PKComment class],
-            @"Whitespace" : [PKWhitespace class],
+            @"Word"             : [PKWord class],
+            @"LowercaseWord"    : [PKLowercaseWord class],
+            @"UppercaseWord"    : [PKUppercaseWord class],
+            @"Number"           : [PKNumber class],
+            @"QuotedString"     : [PKQuotedString class],
+            @"Symbol"           : [PKSymbol class],
+            @"Comment"          : [PKComment class],
+            @"Whitespace"       : [PKWhitespace class],
         } retain];
     }
 }
