@@ -8,6 +8,7 @@
 
 #import "PKResolutionPhaseVisitor.h"
 #import <ParseKit/ParseKit.h>
+#import "NSString+ParseKitAdditions.h"
 
 #import "PKBaseNode.h"
 #import "PKRootNode.h"
@@ -179,10 +180,9 @@
 - (void)visitLiteral:(PKLiteralNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-//    Class parserCls = [node parserClass];
-//    NSAssert(parserCls == [PKLiteral class], @"");
-    
-    NSString *literal = node.token.stringValue;
+    NSAssert(node.token.isQuotedString, @"");
+    NSString *literal = [node.token.stringValue stringByTrimmingQuotes];
+    NSAssert([literal length], @"");
     PKParser *p = [PKLiteral literalWithString:literal];
     
     [self.currentParser add:p];
