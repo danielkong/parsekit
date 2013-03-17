@@ -30,29 +30,18 @@
 @implementation PKDefinitionPhaseVisitor
 
 - (void)visitRoot:(PKRootNode *)node {
-//    self.symbolTable = [[[PKSymbolTable alloc] init] autorelease];
-//    self.currentScope = self.symbolTable;
-    
-    self.symbolTable = [NSMutableDictionary dictionary];
+    NSParameterAssert(node);
+    NSAssert(self.symbolTable, @"");
     
     [self recurse:node];
     
-//    self.currentScope = nil;
+    self.symbolTable = nil;
 }
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
-//    NSString *name = node.token.stringValue;
-//    PKVariableSymbol *sym = [PKVariableSymbol symbolWithName:name];
-//    sym.scope = self.currentScope;
-//    
-//    sym.def = node;
-//    node.symbol = sym;
-//    
-//    [self.currentScope define:sym];
-    
     NSString *name = node.token.stringValue;
 
     NSAssert(1 == [node.children count], @"");
@@ -70,7 +59,6 @@
 - (void)visitReference:(PKReferenceNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
-//    node.scope = self.currentScope;
 }
 
 

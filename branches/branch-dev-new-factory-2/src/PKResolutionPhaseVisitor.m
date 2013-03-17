@@ -46,49 +46,22 @@
 
 
 //- (void)recurse:(PKBaseNode *)node {
-//
-//    PKParser *p = node.parser
-//    for (PKBaseNode *child in node.children) {
-//        self.currentParser = node;
-//        [child visit:self];
-//    }
 //}
-
 
 
 - (void)visitRoot:(PKRootNode *)node {
     NSParameterAssert(node);
-//    NSAssert(self.symbolTable, @"");
-//
-//    self.currentScope = self.symbolTable;
-    
-    [self recurse:node];
+    NSAssert(self.symbolTable, @"");
 
-//    self.currentScope = nil;
+    [self recurse:node];
+    
+    self.symbolTable = nil;
 }
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-    
-    // resolve type
-//    NSAssert(1 == [node.children count], @"");
-//    PKBaseNode *child = node.children[0];
-//    
-//    Class cls = child.parserClass;
-//    NSAssert(cls, @"");
-//    NSString *clsName = NSStringFromClass(cls);
-//    NSAssert([clsName length] > 2, @"");
-//    NSString *typeName = [clsName substringFromIndex:2];
-    
-//    PKBuiltInTypeSymbol *typeSym = (id)[self.currentScope resolve:typeName];
-//    NSAssert(typeSym, @"");
-//
-//    PKBaseSymbol *sym = node.symbol;
-//    NSAssert(sym, @"");
-//    
-//    sym.type = typeSym;
-    
+        
     NSString *name = node.token.stringValue;
     PKParser *p = self.symbolTable[name];
     NSAssert([p isKindOfClass:[PKParser class]], @"");
@@ -116,8 +89,6 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     NSString *name = node.token.stringValue;
-//    PKBaseSymbol *sym = [node.scope resolve:name];
-//    node.symbol = sym;
     
     PKParser *p = self.symbolTable[name];
     NSAssert([p isKindOfClass:[PKParser class]], @"");

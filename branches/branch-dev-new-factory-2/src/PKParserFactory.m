@@ -325,18 +325,15 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     NSLog(@"rootNode %@", rootNode);
 
-    PKDefinitionPhaseVisitor *defv = [[[PKDefinitionPhaseVisitor alloc] init] autorelease];
+    NSMutableDictionary *symTab = [NSMutableDictionary dictionary];
     
+    PKDefinitionPhaseVisitor *defv = [[[PKDefinitionPhaseVisitor alloc] init] autorelease];
+    defv.symbolTable = symTab;
     [self visit:rootNode with:defv];
 
-    NSMutableDictionary *symTab = [[defv.symbolTable retain] autorelease];
-
     PKResolutionPhaseVisitor *resv = [[[PKResolutionPhaseVisitor alloc] init] autorelease];
-
     resv.symbolTable = symTab;
-
     [self visit:rootNode with:resv];
-    symTab = resv.symbolTable;
 
     return [[symTab copy] autorelease];
 }
