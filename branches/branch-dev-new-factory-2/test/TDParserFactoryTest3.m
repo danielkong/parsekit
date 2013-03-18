@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "TDParserFactoryTest3.h"
+#import "PKAST.h"
 
 @implementation TDParserFactoryTest3
 
@@ -50,6 +51,9 @@
 - (void)testTrack {
     g = @"@start = [Number Word]";
     
+    PKAST *root = [factory ASTFromGrammar:g error:nil];
+    TDEqualObjects(@"(ROOT (@start ([ Number Word)))", [root treeDescription]);
+
     lp = [factory parserFromGrammar:g assembler:nil error:nil];
     
     TDNotNil(lp);
@@ -62,6 +66,9 @@
 
 - (void)testSubTrack {
     g = @"@start = Word [Number Word]";
+    
+    PKAST *root = [factory ASTFromGrammar:g error:nil];
+    TDEqualObjects(@"(ROOT (@start (. Word ([ Number Word))))", [root treeDescription]);
     
     lp = [factory parserFromGrammar:g assembler:nil error:nil];
     
