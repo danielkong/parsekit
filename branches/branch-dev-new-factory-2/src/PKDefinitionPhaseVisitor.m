@@ -117,9 +117,19 @@
 
     NSAssert(2 == [node.children count], @"");
     
-    for (PKBaseNode *child in [[node.children copy] autorelease]) {
+    BOOL simplify = NO;
+    for (PKBaseNode *child in node.children) {
         if (PKNodeTypeAlternation == child.type) {
-            [node replaceChild:child withChildren:child.children];
+            simplify = YES;
+            break;
+        }
+    }
+
+    if (simplify) {
+        for (PKBaseNode *child in [[node.children copy] autorelease]) {
+            if (PKNodeTypeAlternation == child.type) {
+                [node replaceChild:child withChildren:child.children];
+            }
         }
     }
 
