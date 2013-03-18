@@ -7,7 +7,8 @@
 //
 
 #import "PKNodeTypes.h"
+#import "PKCollectionNode.h"
 
-@interface PKMultipleNode : PKBaseNode
+@interface PKMultipleNode : PKCollectionNode
 
 @end

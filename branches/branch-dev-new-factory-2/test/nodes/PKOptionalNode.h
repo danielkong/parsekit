@@ -7,7 +7,8 @@
 //
 
 #import "PKNodeTypes.h"
+#import "PKAlternationNode.h"
 
-@interface PKOptionalNode : PKBaseNode
+@interface PKOptionalNode : PKAlternationNode
 
 @end
