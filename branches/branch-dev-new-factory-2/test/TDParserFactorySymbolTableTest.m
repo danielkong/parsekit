@@ -149,6 +149,83 @@
 }
 
 
+- (void)testNegationAST {
+    NSString *g = @"@start=foo;foo=~Word;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (~ Word)))", [rootNode treeDescription]);
+    
+    err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKNegation *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKNegation class]]);
+    
+    TDEquals(start.subparsers[0], foo);
+    TDTrue([foo.subparser isKindOfClass:[PKWord class]]);
+}
+
+
+- (void)testDifferenceAST {
+    NSString *g = @"@start=foo;foo=Word - 'foo';";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (- Word 'foo')))", [rootNode treeDescription]);
+    
+    err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKDifference *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKDifference class]]);
+    
+    TDEquals(start.subparsers[0], foo);
+    TDTrue([foo.subparser isKindOfClass:[PKWord class]]);
+    TDTrue([foo.minus isKindOfClass:[PKLiteral class]]);
+}
+
+
+- (void)testIntersectionAST {
+    NSString *g = @"@start=foo;foo=Word & 'foo';";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (& Word 'foo')))", [rootNode treeDescription]);
+    
+    err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKIntersection *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKIntersection class]]);
+    
+    TDEquals(start.subparsers[0], foo);
+    TDTrue([foo.subparsers[0] isKindOfClass:[PKWord class]]);
+    TDTrue([foo.subparsers[1] isKindOfClass:[PKLiteral class]]);
+}
+
+
 - (void)testOptionalAST {
     NSString *g = @"@start=foo;foo=Word?;";
     
