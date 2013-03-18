@@ -33,7 +33,7 @@
 - (void)dealloc {
     self.assembler = nil;
     self.preassembler = nil;
-    self.currentNode = nil;
+//    self.currentNode = nil;
     [super dealloc];
 }
 
