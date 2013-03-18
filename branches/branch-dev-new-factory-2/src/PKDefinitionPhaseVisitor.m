@@ -119,8 +119,8 @@
     NSAssert(2 == [children count], @"");
     
     PKBaseNode *lhs = children[0];
-    PKBaseNode *rhs = children[1];
-    BOOL simplify = PKNodeTypeAlternation == lhs.type || PKNodeTypeAlternation == rhs.type;
+    BOOL simplify = PKNodeTypeAlternation == lhs.type;
+    NSAssert(PKNodeTypeAlternation != [(PKBaseNode *)children[1] type], @"");
 
     if (simplify) {
         for (PKBaseNode *child in [[children copy] autorelease]) {
