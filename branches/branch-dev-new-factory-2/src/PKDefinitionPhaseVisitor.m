@@ -43,6 +43,8 @@
     
     [self recurse:node];
     
+//    node.children = [NSMutableArray arrayWithObject:node.children[0]];
+    
     self.symbolTable = nil;
 }
 
@@ -82,6 +84,8 @@
 
     // define in symbol table
     self.symbolTable[name] = cp;
+    
+//    [self.currentNode replaceChild:node withChild:child];
     
     [self recurse:node];
 }
