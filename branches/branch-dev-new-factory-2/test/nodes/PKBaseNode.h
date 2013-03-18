@@ -17,6 +17,8 @@
 
 - (void)visit:(id <PKNodeVisitor>)v;
 
+- (void)replaceChild:(PKBaseNode *)oldChild withChild:(PKBaseNode *)newChild;
+
 @property (nonatomic, assign) BOOL discard;
 @property (nonatomic, retain) Class parserClass;
 @end

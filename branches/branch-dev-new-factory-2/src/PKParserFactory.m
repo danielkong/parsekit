@@ -332,11 +332,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     defv.assembler = self.assembler;
     defv.preassembler = self.preassembler;
     defv.assemblerSettingBehavior = self.assemblerSettingBehavior;
-    [self visit:rootNode with:defv];
+    [self visit:rootNode with:defv]; // TODO
 
     PKResolutionPhaseVisitor *resv = [[[PKResolutionPhaseVisitor alloc] init] autorelease];
     resv.symbolTable = symTab;
-    [self visit:rootNode with:resv];
+    [self visit:rootNode with:resv]; // TODO
 
     return [[symTab copy] autorelease];
 }

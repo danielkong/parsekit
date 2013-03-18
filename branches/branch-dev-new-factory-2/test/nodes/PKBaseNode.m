@@ -42,6 +42,15 @@
 }
 
 
+- (void)replaceChild:(PKBaseNode *)oldChild withChild:(PKBaseNode *)newChild {
+    NSParameterAssert(oldChild);
+    NSParameterAssert(newChild);
+    NSUInteger idx = [self.children indexOfObject:oldChild];
+    NSAssert(NSNotFound != idx, @"");
+    [self.children replaceObjectAtIndex:idx withObject:newChild];
+}
+
+
 - (void)visit:(id <PKNodeVisitor>)v; {
     NSAssert2(0, @"%s is an abastract method. Must be overridden in %@", __PRETTY_FUNCTION__, NSStringFromClass([self class]));
 }

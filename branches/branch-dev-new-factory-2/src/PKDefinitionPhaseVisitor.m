@@ -32,6 +32,7 @@
 - (void)dealloc {
     self.assembler = nil;
     self.preassembler = nil;
+    self.currentNode = nil;
     [super dealloc];
 }
 
@@ -44,6 +45,18 @@
     
     self.symbolTable = nil;
 }
+
+
+//- (void)recurse:(PKBaseNode *)node {
+//    PKBaseNode *oldNode = _currentNode;
+//    
+//    for (PKBaseNode *child in [[node.children copy] autorelease]) {
+//        self.currentNode = node;
+//        [child visit:self];
+//    }
+//    
+//    self.currentNode = oldNode;
+//}
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
