@@ -21,6 +21,7 @@
 #import "PKWhitespaceNode.h"
 #import "PKCompositeNode.h"
 #import "PKCollectionNode.h"
+#import "PKAlternationNode.h"
 #import "PKCardinalNode.h"
 #import "PKOptionalNode.h"
 #import "PKMultipleNode.h"
@@ -135,13 +136,20 @@
     [self.currentParser add:cp];
     
     PKCompositeParser *oldParser = _currentParser;
-
+    
     for (PKBaseNode *child in node.children) {
         self.currentParser = cp;
         [child visit:self];
     }
     
     self.currentParser = oldParser;
+}
+
+
+- (void)visitAlternation:(PKAlternationNode *)node {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    
+    [self visitCollection:node];
 }
 
 

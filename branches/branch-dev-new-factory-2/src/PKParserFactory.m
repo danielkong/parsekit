@@ -1255,13 +1255,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSArray *lhsNodes = [self objectsAbove:paren or:equals in:a];
     if (1 == [lhsNodes count]) {
         left = [lhsNodes lastObject];
-//        // coallesce multiple OR's into a single PKAlternation with a list of children
-//        if (PKNodeTypeAlternation == left.type) {
-//            //NSLog(@"%@", a);
-//            orNode = (id)left;
-//        } else {
-            [orNode addChild:left];
-//        }
     } else {
         PKCollectionNode *seqNode = [PKCollectionNode nodeWithToken:seqToken];
         for (PKBaseNode *child in [lhsNodes reverseObjectEnumerator]) {
@@ -1269,8 +1262,8 @@ void PKReleaseSubparserTree(PKParser *p) {
             [seqNode addChild:child];
         }
         left = seqNode;
-        [orNode addChild:left];
     }
+    [orNode addChild:left];
 
     PKBaseNode *right = nil;
 

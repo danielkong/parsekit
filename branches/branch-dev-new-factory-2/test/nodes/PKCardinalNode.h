@@ -6,6 +6,7 @@
 //
 //
 
+#import "PKNodeTypes.h"
 #import "PKCollectionNode.h"
 
 @interface PKCardinalNode : PKCollectionNode
