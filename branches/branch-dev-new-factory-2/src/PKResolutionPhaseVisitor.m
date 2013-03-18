@@ -26,6 +26,10 @@
 #import "PKOptionalNode.h"
 #import "PKMultipleNode.h"
 
+@interface PKTerminal ()
+@property (nonatomic, readwrite, copy) NSString *string;
+@end
+
 @interface PKResolutionPhaseVisitor ()
 
 @end
@@ -77,38 +81,42 @@
         
         NSAssert(1 == [parent.children count], @"");
         PKBaseNode *child = parent.children[0];
-        if (PKNodeTypeReference != child.type) {
-            parent = child;
-        }
-
-        for (PKBaseNode *child in parent.children) {
+        if (PKNodeTypeReference == child.type) {
             self.currentParser = cp;
-            [child visit:self];
+        } else {
+            parent = child;
+            child.parser = cp;
         }
         
-        // TODO remove
-        switch (child.type) {
-            case PKNodeTypeOptional: {
-                [cp add:[PKEmpty empty]];
-            } break;
-            case PKNodeTypeMultiple: {
-                NSAssert([cp isKindOfClass:[PKSequence class]], @"");
-                PKSequence *seq = (PKSequence *)cp;
-                NSAssert(1 == [seq.subparsers count], @"");
-                PKParser *sub = seq.subparsers[0];
-                [seq add:[PKRepetition repetitionWithSubparser:sub]];
-            } break;
-//            case PKNodeTypeCardinal: {
+        [child visit:self];
+//        for (PKBaseNode *child in parent.children) {
+//            self.currentParser = cp;
+//            [child visit:self];
+//        }
+//        
+//        // TODO remove
+//        switch (child.type) {
+//            case PKNodeTypeOptional: {
+//                [cp add:[PKEmpty empty]];
+//            } break;
+//            case PKNodeTypeMultiple: {
 //                NSAssert([cp isKindOfClass:[PKSequence class]], @"");
 //                PKSequence *seq = (PKSequence *)cp;
 //                NSAssert(1 == [seq.subparsers count], @"");
 //                PKParser *sub = seq.subparsers[0];
 //                [seq add:[PKRepetition repetitionWithSubparser:sub]];
 //            } break;
-            default:
-                break;
-        }
-            
+////            case PKNodeTypeCardinal: {
+////                NSAssert([cp isKindOfClass:[PKSequence class]], @"");
+////                PKSequence *seq = (PKSequence *)cp;
+////                NSAssert(1 == [seq.subparsers count], @"");
+////                PKParser *sub = seq.subparsers[0];
+////                [seq add:[PKRepetition repetitionWithSubparser:sub]];
+////            } break;
+//            default:
+//                break;
+//        }
+        
     }
 }
 
@@ -129,9 +137,12 @@
 - (void)visitComposite:(PKCompositeNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    Class parserCls = [node parserClass];
-    PKCompositeParser *cp = [[[parserCls alloc] init] autorelease];
-    NSAssert([cp isKindOfClass:[PKCompositeParser class]], @"");
+    PKCompositeParser *cp = node.parser;
+    if (!cp) {
+        Class parserCls = [node parserClass];
+        cp = [[[parserCls alloc] init] autorelease];
+        NSAssert([cp isKindOfClass:[PKCompositeParser class]], @"");
+    }
     
     [self.currentParser add:cp];
     
@@ -149,9 +160,12 @@
 - (void)visitCollection:(PKCollectionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    Class parserCls = [node parserClass];
-    PKCollectionParser *cp = [[[parserCls alloc] init] autorelease];
-    NSAssert([cp isKindOfClass:[PKCollectionParser class]], @"");
+    PKCompositeParser *cp = node.parser;
+    if (!cp) {
+        Class parserCls = [node parserClass];
+        cp = [[[parserCls alloc] init] autorelease];
+        NSAssert([cp isKindOfClass:[PKCollectionParser class]], @"");
+    }
     
     [self.currentParser add:cp];
     
@@ -177,7 +191,12 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // create cardinal parser
-    PKSequence *seq = [PKSequence sequence];
+    PKSequence *seq = (PKSequence *)node.parser;
+    if (!seq) {
+        Class parserCls = [node parserClass];
+        seq = [[[parserCls alloc] init] autorelease];
+        NSAssert([seq isKindOfClass:[PKSequence class]], @"");
+    }
     
     // add to parser tree
     [self.currentParser add:seq];
@@ -221,7 +240,12 @@
 - (void)visitOptional:(PKOptionalNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    PKAlternation *alt = [PKAlternation alternation];
+    PKCompositeParser *alt = node.parser;
+    if (!alt) {
+        Class parserCls = [node parserClass];
+        alt = [[[parserCls alloc] init] autorelease];
+        NSAssert([alt isKindOfClass:[PKAlternation class]], @"");
+    }
     
     [self.currentParser add:alt];
     
@@ -242,7 +266,12 @@
 - (void)visitMultiple:(PKMultipleNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    PKSequence *seq = [PKSequence sequence];
+    PKSequence *seq = (PKSequence *)node.parser;
+    if (!seq) {
+        Class parserCls = [node parserClass];
+        seq = [[[parserCls alloc] init] autorelease];
+        NSAssert([seq isKindOfClass:[PKSequence class]], @"");
+    }
     
     [self.currentParser add:seq];
     
@@ -264,16 +293,18 @@
 - (void)visitConstant:(PKConstantNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    Class parserCls = [node parserClass];
-    PKParser *p = nil;
-    
+    PKTerminal *p = (PKTerminal *)node.parser;
+    if (!p) {
+        Class parserCls = [node parserClass];
+        p = [[[parserCls alloc] init] autorelease];
+        NSAssert([p isKindOfClass:[PKTerminal class]], @"");
+    }
     NSString *literal = node.literal;
     if (literal) {
-        p = [[[parserCls alloc] initWithString:literal] autorelease];
-    } else {
-        p = [[[parserCls alloc] init] autorelease];
+        p.string = literal;
     }
-
+    NSAssert(!literal || [p.string isEqualToString:literal], @"");
+    
     [self.currentParser add:p];
 }
 
@@ -281,10 +312,20 @@
 - (void)visitLiteral:(PKLiteralNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    PKLiteral *p = (PKLiteral *)node.parser;
+    if (!p) {
+        Class parserCls = [node parserClass];
+        p = [[[parserCls alloc] init] autorelease];
+        NSAssert([p isKindOfClass:[PKLiteral class]], @"");
+    }
+
     NSAssert(node.token.isQuotedString, @"");
     NSString *literal = [node.token.stringValue stringByTrimmingQuotes];
     NSAssert([literal length], @"");
-    PKParser *p = [PKLiteral literalWithString:literal];
+    if (literal) {
+        p.string = literal;
+    }
+    NSAssert(!literal || [p.string isEqualToString:literal], @"");
     
     [self.currentParser add:p];
 }

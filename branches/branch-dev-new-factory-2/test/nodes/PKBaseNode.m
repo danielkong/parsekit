@@ -16,6 +16,7 @@
 
 
 - (void)dealloc {
+    self.parser = nil;
     [super dealloc];
 }
 
@@ -23,6 +24,7 @@
 - (id)copyWithZone:(NSZone *)zone {
     PKBaseNode *that = (PKBaseNode *)[super copyWithZone:zone];
     that->_discard = _discard;
+    that->_parser = _parser;
     return that;
 }
 
@@ -35,6 +37,10 @@
     PKBaseNode *that = (PKBaseNode *)obj;
     
     if (_discard != that->_discard) {
+        return NO;
+    }
+    
+    if (_parser != that->_parser) {
         return NO;
     }
     
