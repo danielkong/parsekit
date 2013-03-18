@@ -140,7 +140,7 @@
 
 // [28]       doctypedecl       ::=       '<!DOCTYPE' S Name (S ExternalID)? S? ('[' intSubset ']' S?)? '>'
     
-    doctypedecl = '<!DOCTYPE' S name (S externaID)? S? ('[' intSubset ']' S?)? '>';
+    doctypedecl = '<!DOCTYPE' S name (S externalID)? S? ('[' intSubset ']' S?)? '>';
 
 
 // [28a]       DeclSep       ::=        PEReference | S
