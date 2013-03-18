@@ -85,10 +85,23 @@
             self.currentParser = cp;
             [child visit:self];
         }
-            
-        if (PKNodeTypeOptional == child.type) {
-            [cp add:[PKEmpty empty]];
+        
+        // TODO remove
+        switch (child.type) {
+            case PKNodeTypeOptional: {
+                [cp add:[PKEmpty empty]];
+            } break;
+            case PKNodeTypeMultiple: {
+                NSAssert([cp isKindOfClass:[PKSequence class]], @"");
+                PKSequence *seq = (PKSequence *)cp;
+                NSAssert(1 == [seq.subparsers count], @"");
+                PKParser *sub = seq.subparsers[0];
+                [seq add:[PKRepetition repetitionWithSubparser:sub]];
+            } break;
+            default:
+                break;
         }
+            
     }
 }
 
@@ -205,7 +218,22 @@
 - (void)visitMultiple:(PKMultipleNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    [self recurse:node];
+    PKSequence *seq = [PKSequence sequence];
+    
+    [self.currentParser add:seq];
+    
+    PKCompositeParser *oldParser = _currentParser;
+    
+    NSAssert(1 == [node.children count], @"");
+    PKBaseNode *child = node.children[0];
+    self.currentParser = seq;
+    [child visit:self];
+    
+    NSAssert(1 == [seq.subparsers count], @"");
+    PKParser *sub = seq.subparsers[0];
+    [seq add:[PKRepetition repetitionWithSubparser:sub]];
+    
+    self.currentParser = oldParser;
 }
 
 

@@ -122,7 +122,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start #foo) ($foo (? Word)))", [rootNode treeDescription]);
-
+    
     err = nil;
     NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
     TDNotNil(symTab);
@@ -138,6 +138,98 @@
     TDEquals(start.subparsers[0], foo);
     TDTrue([foo.subparsers[0] isKindOfClass:[PKWord class]]);
     TDTrue([foo.subparsers[1] isKindOfClass:[PKEmpty class]]);
+}
+
+
+- (void)testOptionalAST2 {
+    NSString *g = @"@start=foo;foo=Symbol Word?;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. Symbol (? Word))))", [rootNode treeDescription]);
+    
+    err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKSequence *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKSequence class]]);
+    
+    TDEquals(start.subparsers[0], foo);
+    TDTrue([foo.subparsers[0] isKindOfClass:[PKSymbol class]]);
+    TDTrue([foo.subparsers[1] isKindOfClass:[PKAlternation class]]);
+    
+    PKAlternation *alt = foo.subparsers[1];
+    TDTrue([alt.subparsers[0] isKindOfClass:[PKWord class]]);
+    TDTrue([alt.subparsers[1] isKindOfClass:[PKEmpty class]]);
+}
+
+
+- (void)testMultiAST1 {
+    NSString *g = @"@start=foo;foo=Word+;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (+ Word)))", [rootNode treeDescription]);
+    
+    err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKSequence *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKSequence class]]);
+    
+    TDEquals(start.subparsers[0], foo);
+    TDTrue([foo.subparsers[0] isKindOfClass:[PKWord class]]);
+    TDTrue([foo.subparsers[1] isKindOfClass:[PKRepetition class]]);
+
+    PKRepetition *rep = foo.subparsers[1];
+    TDTrue([rep.subparser isKindOfClass:[PKWord class]]);
+}
+
+
+- (void)testMultiAST2 {
+    NSString *g = @"@start=foo;foo=Symbol Word+;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. Symbol (+ Word))))", [rootNode treeDescription]);
+    
+    err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKSequence *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKSequence class]]);
+    
+    TDEquals(start.subparsers[0], foo);
+    TDTrue([foo.subparsers[0] isKindOfClass:[PKSymbol class]]);
+    TDTrue([foo.subparsers[1] isKindOfClass:[PKSequence class]]);
+    
+    PKSequence *seq = foo.subparsers[1];
+    TDTrue([seq.subparsers[0] isKindOfClass:[PKWord class]]);
+    TDTrue([seq.subparsers[1] isKindOfClass:[PKRepetition class]]);
+    
+    PKRepetition *rep = seq.subparsers[1];
+    TDTrue([rep.subparser isKindOfClass:[PKWord class]]);
 }
 
 
