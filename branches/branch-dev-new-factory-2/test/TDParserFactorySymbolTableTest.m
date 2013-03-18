@@ -297,7 +297,22 @@
 }
 
 
-- (void)testLiteralAST {
+- (void)testLiteralAST1 {
+    NSString *g = @"@start='bar';";
+    
+    NSError *err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKLiteral *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKLiteral class]]);
+    
+    TDEqualObjects(@"bar", start.string);
+}
+
+
+- (void)testLiteralAST2 {
     NSString *g = @"@start=foo;foo='bar' Symbol;";
     
     NSError *err = nil;
@@ -319,6 +334,53 @@
     PKLiteral *lit = foo.subparsers[0];
     TDEqualObjects(@"bar", lit.string);
 }
+
+
+//- (void)testSimpleAST {
+//    NSString *g = @"@start=foo;foo=Word;";
+//    
+//    NSError *err = nil;
+//    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+//    TDNotNil(symTab);
+//    
+//    PKCollectionParser *start = symTab[@"@start"];
+//    TDNotNil(start);
+//    TDTrue([start isKindOfClass:[PKSequence class]]);
+//    
+//    PKParser *foo = symTab[@"foo"];
+//    TDNotNil(foo);
+//    TDTrue([foo isKindOfClass:[PKWord class]]);
+//    
+//    TDEquals(start.subparsers[0], foo);
+//    
+//    TDNil(foo.assembler);
+//    TDEquals((SEL)NULL, foo.assemblerSelector);
+//    TDNil(foo.assemblerBlock);
+//    TDNil(foo.preassembler);
+//    TDEquals((SEL)NULL, foo.preassemblerSelector);
+//    TDNil(foo.preassemblerBlock);
+//}
+//
+//
+//- (void)testAlternationAST {
+//    NSString *g = @"@start=foo;foo=Word|Number;";
+//    
+//    NSError *err = nil;
+//    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+//    TDNotNil(symTab);
+//    
+//    PKCollectionParser *start = symTab[@"@start"];
+//    TDNotNil(start);
+//    TDTrue([start isKindOfClass:[PKSequence class]]);
+//    
+//    PKAlternation *foo = symTab[@"foo"];
+//    TDNotNil(foo);
+//    TDTrue([foo isKindOfClass:[PKAlternation class]]);
+//    
+//    TDEquals(start.subparsers[0], foo);
+//    TDTrue([foo.subparsers[0] isKindOfClass:[PKWord class]]);
+//    TDTrue([foo.subparsers[1] isKindOfClass:[PKNumber class]]);
+//}
 
 
 - (void)parser:(PKParser *)p didMatchFoo:(PKAssembly *)a {}

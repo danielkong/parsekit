@@ -10,7 +10,7 @@
 #import "PKAST.h"
 #import "PKNodeVisitor.h" // convenience
 
-@class PKCompositeParser;
+@class PKParser;
 //@protocol PKNodeVisitor;
 
 @interface PKBaseNode : PKAST
@@ -23,5 +23,5 @@
 
 @property (nonatomic, assign) BOOL discard;
 @property (nonatomic, retain) Class parserClass;
-@property (nonatomic, retain) PKCompositeParser *parser;
+@property (nonatomic, retain) PKParser *parser;
 @end

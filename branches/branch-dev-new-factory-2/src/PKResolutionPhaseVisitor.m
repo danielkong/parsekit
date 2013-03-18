@@ -30,6 +30,11 @@
 @property (nonatomic, readwrite, copy) NSString *string;
 @end
 
+@interface PKDelimitedString ()
+@property (nonatomic, retain) NSString *startMarker;
+@property (nonatomic, retain) NSString *endMarker;
+@end
+
 @interface PKResolutionPhaseVisitor ()
 
 @end
@@ -52,11 +57,13 @@
 
 
 - (id)parserFromNode:(PKBaseNode *)node {
-    PKCompositeParser *cp = node.parser;
+    PKParser *cp = node.parser;
     if (!cp) {
         Class parserCls = [node parserClass];
         cp = [[[parserCls alloc] init] autorelease];
     }
+    NSAssert([cp isKindOfClass:[PKParser class]], @"");
+    
     return cp;
 }
 
@@ -80,22 +87,18 @@
     PKParser *p = self.symbolTable[name];
     NSAssert([p isKindOfClass:[PKParser class]], @"");
     
-    if ([p isKindOfClass:[PKCompositeParser class]]) {
-        PKCompositeParser *cp = (PKCompositeParser *)p;
-        
-        PKBaseNode *parent = node;
-        
-        NSAssert(1 == [parent.children count], @"");
-        PKBaseNode *child = parent.children[0];
-        if (PKNodeTypeReference == child.type) {
-            self.currentParser = cp;
-        } else {
-            parent = child;
-            child.parser = cp;
-        }
-        
-        [child visit:self];        
+    PKBaseNode *parent = node;
+    
+    NSAssert(1 == [parent.children count], @"");
+    PKBaseNode *child = parent.children[0];
+    if (PKNodeTypeReference == child.type) {
+        self.currentParser = p;
+    } else {
+        parent = child;
+        child.parser = p;
     }
+    
+    [child visit:self];        
 }
 
 
@@ -258,6 +261,9 @@
     if (literal) {
         p.string = literal;
     }
+ 
+    if (node.discard) [p discard];
+    
     NSAssert(!literal || [p.string isEqualToString:literal], @"");
     
     [self.currentParser add:p];
@@ -278,12 +284,27 @@
     }
     NSAssert(!literal || [p.string isEqualToString:literal], @"");
     
+    if (node.discard) [p discard];
+
     [self.currentParser add:p];
 }
 
 
 - (void)visitDelimited:(PKDelimitedNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+
+    PKDelimitedString *p = [self parserFromNode:node];
+    NSAssert([p isKindOfClass:[PKLiteral class]], @"");
+
+    NSString *startMarker = node.startMarker;
+    NSString *endMarker = node.endMarker;
+    
+    p.startMarker = startMarker;
+    p.endMarker = endMarker;
+    
+    if (node.discard) [p discard];
+
+    [self.currentParser add:p];
     
 }
 
