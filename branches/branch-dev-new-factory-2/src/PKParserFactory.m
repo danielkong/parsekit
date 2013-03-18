@@ -947,12 +947,10 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchDiscard:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 
-//    id obj = [a pop];
-//    if ([obj isKindOfClass:[PKTerminal class]]) {
-//        PKTerminal *t = (PKTerminal *)obj;
-//        [t discard];
-//    }
-//    [a push:obj];
+    PKBaseNode *node = [a pop];
+    NSAssert([node isKindOfClass:[PKBaseNode class]], @"");
+    node.discard = YES;
+    [a push:node];
 }
 
 
