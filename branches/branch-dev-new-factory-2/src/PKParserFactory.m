@@ -12,7 +12,6 @@
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
 
-#import "PKAST.h"
 #import "PKBaseNode.h"
 #import "PKRootNode.h"
 #import "PKDefinitionNode.h"
@@ -24,6 +23,7 @@
 #import "PKWhitespaceNode.h"
 #import "PKCompositeNode.h"
 #import "PKCollectionNode.h"
+#import "PKAlternationNode.h"
 #import "PKCardinalNode.h"
 #import "PKOptionalNode.h"
 #import "PKMultipleNode.h"
@@ -1248,7 +1248,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert(orTok.isSymbol, @"");
     NSAssert([orTok.stringValue isEqualToString:@"|"], @"");
 
-    PKCollectionNode *orNode = [PKCollectionNode nodeWithToken:orTok];
+    PKAlternationNode *orNode = [PKAlternationNode nodeWithToken:orTok];
     
     PKBaseNode *left = nil;
 

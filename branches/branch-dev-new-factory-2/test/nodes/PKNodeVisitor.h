@@ -19,6 +19,7 @@
 @class PKWhitespaceNode;
 @class PKCompositeNode;
 @class PKCollectionNode;
+@class PKAlternationNode;
 @class PKCardinalNode;
 @class PKOptionalNode;
 @class PKMultipleNode;
@@ -37,6 +38,7 @@
 - (void)visitWhitespace:(PKWhitespaceNode *)node;
 - (void)visitComposite:(PKCompositeNode *)node;
 - (void)visitCollection:(PKCollectionNode *)node;
+- (void)visitAlternation:(PKAlternationNode *)node;
 - (void)visitCardinal:(PKCardinalNode *)node;
 - (void)visitOptional:(PKOptionalNode *)node;
 - (void)visitMultiple:(PKMultipleNode *)node;

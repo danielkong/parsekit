@@ -40,6 +40,8 @@
 		D32612A116F64F280021845F /* PKGlobalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E7C16F5459D000FB894 /* PKGlobalScope.m */; };
 		D32612A216F64F280021845F /* PKLocalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8016F545FE000FB894 /* PKLocalScope.m */; };
 		D32612A316F651F90021845F /* TDParserFactorySymbolTableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8416F54F41000FB894 /* TDParserFactorySymbolTableTest.m */; };
+		D32612B016F6A0940021845F /* PKAlternationNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D32612AE16F6A0930021845F /* PKAlternationNode.h */; };
+		D32612B116F6A0940021845F /* PKAlternationNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D32612AF16F6A0940021845F /* PKAlternationNode.m */; };
 		D3305C4F102F5BAE00DC4F75 /* TDGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */; };
 		D3305C50102F5BAE00DC4F75 /* TDSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4E102F5BAE00DC4F75 /* TDSourceCodeTextView.m */; };
 		D33494720E29670B00406085 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
@@ -385,7 +387,6 @@
 		D39552A216F16E7200D326FD /* PKWhitespaceNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D39552A016F16E7100D326FD /* PKWhitespaceNode.h */; };
 		D39552A316F16E7200D326FD /* PKWhitespaceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D39552A116F16E7200D326FD /* PKWhitespaceNode.m */; };
 		D39552B016F171EF00D326FD /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
-		D39552B116F171FA00D326FD /* PKConstructNodeVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525316F16BA600D326FD /* PKConstructNodeVisitor.m */; };
 		D398E20E0E60F86D00A1C877 /* yahoo.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B473840E48C9CF008AFBDD /* yahoo.json */; };
 		D3A20245161B6AEB00207F4D /* TDRegexAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20244161B6AEB00207F4D /* TDRegexAssembler.m */; };
 		D3A20248161B6B2900207F4D /* TDRegexMatcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20247161B6B2900207F4D /* TDRegexMatcherTest.m */; };
@@ -947,6 +948,8 @@
 		D325FFF7161F681E00D4EBCC /* TDParserFactoryParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryParserTest.m; path = test/TDParserFactoryParserTest.m; sourceTree = "<group>"; };
 		D326129816F64ED50021845F /* PKDefinitionPhaseVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDefinitionPhaseVisitor.h; path = src/PKDefinitionPhaseVisitor.h; sourceTree = "<group>"; };
 		D326129916F64ED50021845F /* PKDefinitionPhaseVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDefinitionPhaseVisitor.m; path = src/PKDefinitionPhaseVisitor.m; sourceTree = "<group>"; };
+		D32612AE16F6A0930021845F /* PKAlternationNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKAlternationNode.h; path = test/nodes/PKAlternationNode.h; sourceTree = "<group>"; };
+		D32612AF16F6A0940021845F /* PKAlternationNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKAlternationNode.m; path = test/nodes/PKAlternationNode.m; sourceTree = "<group>"; };
 		D3305C4B102F5BAD00DC4F75 /* TDGutterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGutterView.h; path = demoapp/TDGutterView.h; sourceTree = "<group>"; };
 		D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGutterView.m; path = demoapp/TDGutterView.m; sourceTree = "<group>"; };
 		D3305C4D102F5BAE00DC4F75 /* TDSourceCodeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSourceCodeTextView.h; path = demoapp/TDSourceCodeTextView.h; sourceTree = "<group>"; };
@@ -1677,6 +1680,8 @@
 				D395524F16F16BA600D326FD /* PKCompositeNode.m */,
 				D395524C16F16BA600D326FD /* PKCollectionNode.h */,
 				D395524D16F16BA600D326FD /* PKCollectionNode.m */,
+				D32612AE16F6A0930021845F /* PKAlternationNode.h */,
+				D32612AF16F6A0940021845F /* PKAlternationNode.m */,
 				D395525A16F16BA600D326FD /* PKMultipleNode.h */,
 				D395525B16F16BA600D326FD /* PKMultipleNode.m */,
 				D395525E16F16BA600D326FD /* PKOptionalNode.h */,
@@ -2776,6 +2781,7 @@
 				D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */,
 				D367F66B16F5570500F5E9EB /* PKBaseVisitor.h in Headers */,
 				D326129A16F64ED50021845F /* PKDefinitionPhaseVisitor.h in Headers */,
+				D32612B016F6A0940021845F /* PKAlternationNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3374,10 +3380,10 @@
 				D395529916F16DA200D326FD /* PKPatternNode.m in Sources */,
 				D39552A316F16E7200D326FD /* PKWhitespaceNode.m in Sources */,
 				D39552B016F171EF00D326FD /* PKAST.m in Sources */,
-				D39552B116F171FA00D326FD /* PKConstructNodeVisitor.m in Sources */,
 				D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */,
 				D367F66C16F5570500F5E9EB /* PKBaseVisitor.m in Sources */,
 				D326129B16F64ED50021845F /* PKDefinitionPhaseVisitor.m in Sources */,
+				D32612B116F6A0940021845F /* PKAlternationNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

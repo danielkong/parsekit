@@ -20,6 +20,7 @@
 #import "PKWhitespaceNode.h"
 #import "PKCompositeNode.h"
 #import "PKCollectionNode.h"
+#import "PKAlternationNode.h"
 #import "PKCardinalNode.h"
 #import "PKOptionalNode.h"
 #import "PKMultipleNode.h"
@@ -106,14 +107,19 @@
 
 - (void)visitCollection:(PKCollectionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    
+    [self recurse:node];
+}
 
-    if ('|' == [node.token.stringValue characterAtIndex:0]) {
-        NSAssert(2 == [node.children count], @"");
-        
-        for (PKBaseNode *child in [[node.children copy] autorelease]) {
-            if ('|' == [child.token.stringValue characterAtIndex:0]) {
-                [node replaceChild:child withChildren:child.children];
-            }
+
+- (void)visitAlternation:(PKAlternationNode *)node {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+
+    NSAssert(2 == [node.children count], @"");
+    
+    for (PKBaseNode *child in [[node.children copy] autorelease]) {
+        if (PKNodeTypeAlternation == child.type) {
+            [node replaceChild:child withChildren:child.children];
         }
     }
 

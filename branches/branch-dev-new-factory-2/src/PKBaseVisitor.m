@@ -19,6 +19,7 @@
 #import "PKWhitespaceNode.h"
 #import "PKCompositeNode.h"
 #import "PKCollectionNode.h"
+#import "PKAlternationNode.h"
 #import "PKCardinalNode.h"
 #import "PKOptionalNode.h"
 #import "PKMultipleNode.h"
@@ -73,6 +74,12 @@
 
 
 - (void)visitCollection:(PKCollectionNode *)node {
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    
+}
+
+
+- (void)visitAlternation:(PKAlternationNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
 }

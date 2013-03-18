@@ -23,6 +23,7 @@ typedef enum {
     PKNodeTypeWhitespace,
     PKNodeTypeComposite,
     PKNodeTypeCollection,
+    PKNodeTypeAlternation,
     PKNodeTypeCardinal,
     PKNodeTypeOptional,
     PKNodeTypeMultiple,
