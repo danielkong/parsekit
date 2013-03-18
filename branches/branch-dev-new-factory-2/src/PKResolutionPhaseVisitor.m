@@ -102,7 +102,7 @@
         child.parser = p;
         
         // this is ugly
-        if (PKNodeTypeConstant == child.type || PKNodeTypeLiteral == child.type) {
+        if (1 ||PKNodeTypeConstant == child.type || PKNodeTypeLiteral == child.type) {
             self.currentParser = nil;
         }
     }
