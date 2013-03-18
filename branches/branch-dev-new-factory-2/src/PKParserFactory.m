@@ -173,7 +173,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *repToken;
 @property (nonatomic, retain) PKToken *cardToken;
 @property (nonatomic, retain) PKToken *negToken;
-@property (nonatomic, retain) PKToken *patToken;
 @property (nonatomic, retain) PKToken *litToken;
 @property (nonatomic, retain) PKToken *delimToken;
 @end
@@ -207,7 +206,6 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.repToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"*" floatValue:0.0];
         self.cardToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
         self.negToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"~" floatValue:0.0];
-        self.patToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" floatValue:0.0];
         self.litToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"'" floatValue:0.0];
         self.delimToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"%" floatValue:0.0];
         
@@ -243,7 +241,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.repToken = nil;
     self.cardToken = nil;
     self.negToken = nil;
-    self.patToken = nil;
     self.litToken = nil;
     self.delimToken = nil;
     [super dealloc];
@@ -940,10 +937,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([s hasPrefix:@"/"], @"");
     NSAssert([s hasSuffix:@"/"], @"");
 
-    NSString *re = [s stringByTrimmingQuotes];
-    
-    PKPatternNode *patNode = [PKPatternNode nodeWithToken:patToken];
-    patNode.string = re;
+    PKPatternNode *patNode = [PKPatternNode nodeWithToken:tok];
     patNode.options = opts;
 
     [a push:patNode];
@@ -1346,7 +1340,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize repToken;
 @synthesize cardToken;
 @synthesize negToken;
-@synthesize patToken;
 @synthesize litToken;
 @synthesize delimToken;
 

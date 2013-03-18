@@ -11,15 +11,8 @@
 
 @implementation PKPatternNode
 
-- (void)dealloc {
-    self.string = nil;
-    [super dealloc];
-}
-
-
 - (id)copyWithZone:(NSZone *)zone {
     PKPatternNode *that = (PKPatternNode *)[super copyWithZone:zone];
-    that->_string = [_string retain];
     that->_options = _options;
     return that;
 }
@@ -31,10 +24,6 @@
     }
     
     PKPatternNode *that = (PKPatternNode *)obj;
-    
-    if (![_string isEqual:that->_string]) {
-        return NO;
-    }
     
     if (_options != that->_options) {
         return NO;
@@ -69,7 +58,7 @@
         [optsString appendString:@"w"];
     }
     
-    return [NSString stringWithFormat:@"/%@/%@", _string, optsString];
+    return [NSString stringWithFormat:@"%@%@", self.token.stringValue, optsString];
 }
 
 

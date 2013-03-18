@@ -10,6 +10,10 @@
 #import "PKParserFactory.h"
 #import "PKAST.h"
 
+@interface PKPattern ()
+@property (nonatomic, assign) PKPatternOptions options;
+@end
+
 @interface PKDelimitedString ()
 @property (nonatomic, retain) NSString *startMarker;
 @property (nonatomic, retain) NSString *endMarker;
@@ -362,25 +366,26 @@
 }
 
 
-//- (void)testAlternationAST {
-//    NSString *g = @"@start=foo;foo=Word|Number;";
-//    
-//    NSError *err = nil;
-//    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
-//    TDNotNil(symTab);
-//    
-//    PKCollectionParser *start = symTab[@"@start"];
-//    TDNotNil(start);
-//    TDTrue([start isKindOfClass:[PKSequence class]]);
-//    
-//    PKAlternation *foo = symTab[@"foo"];
-//    TDNotNil(foo);
-//    TDTrue([foo isKindOfClass:[PKAlternation class]]);
-//    
-//    TDEquals(start.subparsers[0], foo);
-//    TDTrue([foo.subparsers[0] isKindOfClass:[PKWord class]]);
-//    TDTrue([foo.subparsers[1] isKindOfClass:[PKNumber class]]);
-//}
+- (void)testPatternAST1 {
+    NSString *g = @"@start=foo;foo=/\\w+/im;";
+    
+    NSError *err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKPattern *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKPattern class]]);
+    
+    TDEquals(start.subparsers[0], foo);
+    TDEqualObjects(@"\\w+", foo.string);
+    TDTrue(foo.options & PKPatternOptionsMultiline);
+    TDTrue(foo.options & PKPatternOptionsIgnoreCase);
+}
 
 
 - (void)parser:(PKParser *)p didMatchFoo:(PKAssembly *)a {}

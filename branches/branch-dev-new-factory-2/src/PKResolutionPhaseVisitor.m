@@ -35,6 +35,10 @@
 @property (nonatomic, retain) NSString *endMarker;
 @end
 
+@interface PKPattern ()
+@property (nonatomic, assign) PKPatternOptions options;
+@end
+
 @interface PKResolutionPhaseVisitor ()
 
 @end
@@ -309,6 +313,26 @@
 - (void)visitPattern:(PKPatternNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    PKPattern *p = [self parserFromNode:node];
+    NSAssert([p isKindOfClass:[PKPattern class]], @"");
+    
+    PKToken *tok = node.token;
+    NSAssert(tok.isDelimitedString, @"");
+    
+    PKPatternOptions opts = node.options;
+    
+    NSString *str = tok.stringValue;
+    NSAssert([str hasPrefix:@"/"], @"");
+    NSAssert([str hasSuffix:@"/"], @"");
+
+    NSString *regex = [str stringByTrimmingQuotes];
+    
+    p.string = regex;
+    p.options = opts;
+    
+    if (node.discard) [p discard];
+    
+    [self.currentParser add:p];
 }
 
 
