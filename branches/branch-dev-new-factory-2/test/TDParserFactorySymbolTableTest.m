@@ -45,6 +45,7 @@
     PKCollectionParser *start = symTab[@"@start"];
     TDNotNil(start);
     TDTrue([start isKindOfClass:[PKSequence class]]);
+    TDTrue(1 == [start.subparsers count]);
     
     PKParser *foo = symTab[@"foo"];
     TDNotNil(foo);
@@ -58,6 +59,45 @@
     TDNil(foo.preassembler);
     TDEquals((SEL)NULL, foo.preassemblerSelector);
     TDNil(foo.preassemblerBlock);
+    
+    NSString *input = @"hello";
+    PKAssembly *a = [PKTokenAssembly assemblyWithString:input];
+    PKAssembly *res = [start completeMatchFor:a];
+    
+    TDEqualObjects(@"[hello]hello^", [res description]);
+}
+
+
+- (void)testLiteralStringAST {
+    NSString *g = @"@start=foo;foo='bar';";
+    
+    NSError *err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    TDTrue(1 == [start.subparsers count]);
+    
+    PKParser *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKLiteral class]]);
+    
+    TDEquals(start.subparsers[0], foo);
+    
+    TDNil(foo.assembler);
+    TDEquals((SEL)NULL, foo.assemblerSelector);
+    TDNil(foo.assemblerBlock);
+    TDNil(foo.preassembler);
+    TDEquals((SEL)NULL, foo.preassemblerSelector);
+    TDNil(foo.preassemblerBlock);
+    
+    NSString *input = @"bar";
+    PKAssembly *a = [PKTokenAssembly assemblyWithString:input];
+    PKAssembly *res = [start completeMatchFor:a];
+    
+    TDEqualObjects(@"[bar]bar^", [res description]);
 }
 
 
