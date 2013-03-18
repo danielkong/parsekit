@@ -35,10 +35,10 @@
 }
 
 
-- (void)testSimpleAST {
+- (void)testWordAST {
     NSString *g = @"@start=foo;foo=Word;";
     
-    NSError *err = nil;    
+    NSError *err = nil;
     NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
     TDNotNil(symTab);
     
@@ -49,6 +49,32 @@
     PKParser *foo = symTab[@"foo"];
     TDNotNil(foo);
     TDTrue([foo isKindOfClass:[PKWord class]]);
+    
+    TDEquals(start.subparsers[0], foo);
+    
+    TDNil(foo.assembler);
+    TDEquals((SEL)NULL, foo.assemblerSelector);
+    TDNil(foo.assemblerBlock);
+    TDNil(foo.preassembler);
+    TDEquals((SEL)NULL, foo.preassemblerSelector);
+    TDNil(foo.preassemblerBlock);
+}
+
+
+- (void)testEmptyAST {
+    NSString *g = @"@start=foo;foo=Empty;";
+    
+    NSError *err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKParser *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKEmpty class]]);
     
     TDEquals(start.subparsers[0], foo);
     
