@@ -50,16 +50,16 @@
 }
 
 
-- (void)recurse:(PKBaseNode *)node {
-    PKBaseNode *oldNode = _currentNode;
-    
-    for (PKBaseNode *child in [[node.children copy] autorelease]) {
-        self.currentNode = node;
-        [child visit:self];
-    }
-    
-    self.currentNode = oldNode;
-}
+//- (void)recurse:(PKBaseNode *)node {
+//    PKBaseNode *oldNode = _currentNode;
+//    
+//    for (PKBaseNode *child in [[node.children copy] autorelease]) {
+//        self.currentNode = node;
+//        [child visit:self];
+//    }
+//    
+//    self.currentNode = oldNode;
+//}
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
