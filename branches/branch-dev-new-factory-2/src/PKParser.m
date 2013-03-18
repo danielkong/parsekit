@@ -110,7 +110,7 @@
     }
 
     NSSet *outAssemblies = [self allMatchesFor:inAssemblies];
-    NSLog(@"%@ %@", self, outAssemblies);
+    NSLog(@"%@ %p %@", self, self, outAssemblies);
 
     if (assemblerBlock) {
         for (PKAssembly *a in outAssemblies) {
