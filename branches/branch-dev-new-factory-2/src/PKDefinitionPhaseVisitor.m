@@ -49,16 +49,16 @@
 }
 
 
-//- (void)recurse:(PKBaseNode *)node {
-//    PKBaseNode *oldNode = _currentNode;
-//    
-//    for (PKBaseNode *child in [[node.children copy] autorelease]) {
-//        self.currentNode = node;
-//        [child visit:self];
-//    }
-//    
-//    self.currentNode = oldNode;
-//}
+- (void)recurse:(PKBaseNode *)node {
+    PKBaseNode *oldNode = _currentNode;
+    
+    for (PKBaseNode *child in [[node.children copy] autorelease]) {
+        self.currentNode = node;
+        [child visit:self];
+    }
+    
+    self.currentNode = oldNode;
+}
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
@@ -99,13 +99,23 @@
 
 - (void)visitComposite:(PKCompositeNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-
+    
     [self recurse:node];
 }
 
 
 - (void)visitCollection:(PKCollectionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+
+    if ('|' == [node.token.stringValue characterAtIndex:0]) {
+        NSAssert(2 == [node.children count], @"");
+        
+        for (PKBaseNode *child in [[node.children copy] autorelease]) {
+            if ('|' == [child.token.stringValue characterAtIndex:0]) {
+                [node replaceChild:child withChildren:child.children];
+            }
+        }
+    }
 
     [self recurse:node];
 }

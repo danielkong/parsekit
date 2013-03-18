@@ -321,7 +321,14 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (NSDictionary *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError {
-    self.rootNode = (PKRootNode *)[self ASTFromGrammar:g error:outError];
+    self.directiveTab = [NSMutableDictionary dictionary];
+    self.rootNode = [PKRootNode nodeWithToken:rootToken];
+    
+    PKTokenizer *t = [self tokenizerForParsingGrammar];
+    t.string = g;
+    
+    grammarParser.parser.tokenizer = t;
+    [grammarParser.parser parse:g error:outError];
     
     NSLog(@"rootNode %@", rootNode);
 
@@ -352,6 +359,15 @@ void PKReleaseSubparserTree(PKParser *p) {
     grammarParser.parser.tokenizer = t;
     [grammarParser.parser parse:g error:outError];
     
+    NSMutableDictionary *symTab = [NSMutableDictionary dictionary];
+    
+    PKDefinitionPhaseVisitor *defv = [[[PKDefinitionPhaseVisitor alloc] init] autorelease];
+    defv.symbolTable = symTab;
+    defv.assembler = self.assembler;
+    defv.preassembler = self.preassembler;
+    defv.assemblerSettingBehavior = self.assemblerSettingBehavior;
+    [self visit:rootNode with:defv]; // TODO
+
     return rootNode;
 }
 
@@ -1239,13 +1255,13 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSArray *lhsNodes = [self objectsAbove:paren or:equals in:a];
     if (1 == [lhsNodes count]) {
         left = [lhsNodes lastObject];
-        // coallesce multiple OR's into a single PKAlternation with a list of children
-        if ('|' == [left.token.stringValue characterAtIndex:0]) {
-            //NSLog(@"%@", a);
-            orNode = (id)left;
-        } else {
+//        // coallesce multiple OR's into a single PKAlternation with a list of children
+//        if ('|' == [left.token.stringValue characterAtIndex:0]) {
+//            //NSLog(@"%@", a);
+//            orNode = (id)left;
+//        } else {
             [orNode addChild:left];
-        }
+//        }
     } else {
         PKCollectionNode *seqNode = [PKCollectionNode nodeWithToken:seqToken];
         for (PKBaseNode *child in [lhsNodes reverseObjectEnumerator]) {
