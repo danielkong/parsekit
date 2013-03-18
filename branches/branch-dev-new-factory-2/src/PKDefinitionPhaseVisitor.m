@@ -115,18 +115,15 @@
 - (void)visitAlternation:(PKAlternationNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
-    NSAssert(2 == [node.children count], @"");
+    NSArray *children = node.children;
+    NSAssert(2 == [children count], @"");
     
-    BOOL simplify = NO;
-    for (PKBaseNode *child in node.children) {
-        if (PKNodeTypeAlternation == child.type) {
-            simplify = YES;
-            break;
-        }
-    }
+    PKBaseNode *lhs = children[0];
+    PKBaseNode *rhs = children[1];
+    BOOL simplify = PKNodeTypeAlternation == lhs.type || PKNodeTypeAlternation == rhs.type;
 
     if (simplify) {
-        for (PKBaseNode *child in [[node.children copy] autorelease]) {
+        for (PKBaseNode *child in [[children copy] autorelease]) {
             if (PKNodeTypeAlternation == child.type) {
                 [node replaceChild:child withChildren:child.children];
             }
