@@ -241,7 +241,7 @@
 
 - (void)testStartLiteralNonReserved2 {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start = (foo|baz)*; foo = 'bar'; baz = 'bat'";
+    s = @"@start = (foo|baz)*; foo = 'bar'; baz = 'bat';";
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
     TDTrue([lp isKindOfClass:[PKParser class]]);
@@ -264,7 +264,7 @@
 
 - (void)testStartLiteralNonReserved3 {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start = (foo|baz)+; foo = 'bar'; baz = 'bat'";
+    s = @"@start = (foo|baz)+; foo = 'bar'; baz = 'bat';";
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
     TDTrue([lp isKindOfClass:[PKParser class]]);
@@ -286,7 +286,7 @@
 
 - (void)testStartLiteralNonReserved4 {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start = (foo|baz)+; foo = 'bar'; baz = 'bat'";
+    s = @"@start = (foo|baz)+; foo = 'bar'; baz = 'bat';";
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
     TDTrue([lp isKindOfClass:[PKParser class]]);
@@ -310,7 +310,7 @@
 
 - (void)testAssemblerSettingBehaviorDefault {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start = foo|baz; foo = 'bar'; baz = 'bat'";
+    s = @"@start = foo|baz; foo = 'bar'; baz = 'bat';";
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
     TDTrue([lp isKindOfClass:[PKParser class]]);
@@ -330,7 +330,7 @@
 
 - (void)testAssemblerSettingBehaviorOnAll {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start = foo|baz; foo = 'bar'; baz = 'bat'";
+    s = @"@start = foo|baz; foo = 'bar'; baz = 'bat';";
     factory.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
@@ -351,7 +351,7 @@
 
 - (void)testAssemblerSettingBehaviorOnTerminals {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start = foo|baz; foo = 'bar'; baz = 'bat'";
+    s = @"@start = foo|baz; foo = 'bar'; baz = 'bat';";
     factory.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnTerminals;
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
@@ -371,7 +371,7 @@
 
 - (void)testAssemblerSettingBehaviorOnExplicit {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start = foo|baz; foo (parser:didMatchFoo:) = 'bar'; baz (parser:didMatchBaz:) = 'bat'";
+    s = @"@start = foo|baz; foo (parser:didMatchFoo:) = 'bar'; baz (parser:didMatchBaz:) = 'bat';";
     factory.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnExplicit;
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
@@ -391,7 +391,7 @@
 
 - (void)testAssemblerSettingBehaviorOnExplicitNone {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start = foo|baz; foo = 'bar'; baz = 'bat'";
+    s = @"@start = foo|baz; foo = 'bar'; baz = 'bat';";
     factory.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnExplicit;
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
@@ -410,7 +410,7 @@
 
 - (void)testAssemblerSettingBehaviorOnExplicitOrTerminal {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start = (foo|baz)+; foo (parser:didMatchFoo:) = 'bar'; baz = 'bat'";
+    s = @"@start = (foo|baz)+; foo (parser:didMatchFoo:) = 'bar'; baz = 'bat';";
     factory.assemblerSettingBehavior = (PKParserFactoryAssemblerSettingBehaviorOnExplicit | PKParserFactoryAssemblerSettingBehaviorOnTerminals);
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
