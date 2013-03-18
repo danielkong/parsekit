@@ -372,21 +372,21 @@ void PKReleaseSubparserTree(PKParser *p) {
 #pragma mark -
 #pragma mark Private
 
-// this is just a utility for unit-testing
-- (PKCollectionParser *)exprParser {
-    return self.grammarParser.exprParser;
-}
-
-
-// this is just a utility for unit-testing
-- (PKSequence *)parserFromExpression:(NSString *)s {
-    PKTokenizer *t = [self tokenizerForParsingGrammar];
-    t.string = s;
-    PKAssembly *a = [PKTokenAssembly assemblyWithTokenizer:t];
-    a.target = [NSMutableDictionary dictionary]; // setup the variable lookup table
-    a = [grammarParser.exprParser completeMatchFor:a];
-    return [a pop];
-}
+//// this is just a utility for unit-testing
+//- (PKCollectionParser *)exprParser {
+//    return self.grammarParser.exprParser;
+//}
+//
+//
+//// this is just a utility for unit-testing
+//- (PKSequence *)parserFromExpression:(NSString *)s {
+//    PKTokenizer *t = [self tokenizerForParsingGrammar];
+//    t.string = s;
+//    PKAssembly *a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    a.target = [NSMutableDictionary dictionary]; // setup the variable lookup table
+//    a = [grammarParser.exprParser completeMatchFor:a];
+//    return [a pop];
+//}
 
 
 - (PKTokenizer *)tokenizerForParsingGrammar {
@@ -719,7 +719,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     NSArray *argToks = [[self tokens:[a objectsAbove:equals] byRemovingTokensOfType:PKTokenTypeWhitespace] reversedArray];
     //NSArray *argToks = [a objectsAbove:_equals];
     [a pop]; // discard '='
