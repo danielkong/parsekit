@@ -98,6 +98,13 @@
                 PKParser *sub = seq.subparsers[0];
                 [seq add:[PKRepetition repetitionWithSubparser:sub]];
             } break;
+//            case PKNodeTypeCardinal: {
+//                NSAssert([cp isKindOfClass:[PKSequence class]], @"");
+//                PKSequence *seq = (PKSequence *)cp;
+//                NSAssert(1 == [seq.subparsers count], @"");
+//                PKParser *sub = seq.subparsers[0];
+//                [seq add:[PKRepetition repetitionWithSubparser:sub]];
+//            } break;
             default:
                 break;
         }
@@ -169,28 +176,45 @@
 - (void)visitCardinal:(PKCardinalNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    [self recurse:node];
+    // create cardinal parser
+    PKSequence *seq = [PKSequence sequence];
+    
+    // add to parser tree
+    [self.currentParser add:seq];
+    
+    // prepare for recursion
+    PKCompositeParser *oldParser = _currentParser;
 
-    // KEEP THIS FOR VISITOR!!!!!!!!!!!!!
-    //    NSRange r = [[a pop] rangeValue];
-    //
-    //    p = [a pop];
-    //    PKSequence *s = [PKSequence sequence];
-    //
-    //    NSInteger start = r.location;
-    //    NSInteger end = r.length;
-    //
-    //    for (NSInteger i = 0; i < start; i++) {
-    //        [s add:p];
-    //    }
-    //
-    //    for (NSInteger i = start ; i < end; i++) {
-    //        [s add:[self zeroOrOne:p]];
-    //    }
-    //
-    //    [a push:s];
+    // recurse
+    NSAssert(1 == [node.children count], @"");
+    PKBaseNode *child = node.children[0];
     
+    self.currentParser = seq;
+    [child visit:self];
     
+    // get result sub parser
+    NSAssert(1 == [seq.subparsers count], @"");
+    PKParser *sub = seq.subparsers[0];
+    
+    // duplicate sub parser specified number of times
+    {
+        NSUInteger start = node.rangeStart;
+        NSUInteger end = node.rangeEnd;
+        
+        NSAssert(start >= 1 && NSNotFound != start, @"");
+        NSAssert(end >= 1 && NSNotFound != end, @"");
+        for (NSUInteger i = 1; i < start; i++) {
+            [seq add:sub];
+        }
+        
+        for (NSInteger i = start ; i < end; i++) {
+            PKAlternation *alt = [PKAlternation alternationWithSubparsers:sub, [PKEmpty empty], nil];
+            [seq add:alt];
+        }
+    }
+    
+    // restore from recursion
+    self.currentParser = oldParser;
 }
 
 

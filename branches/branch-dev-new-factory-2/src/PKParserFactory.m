@@ -1179,7 +1179,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     NSRange r = [[a pop] rangeValue];
     

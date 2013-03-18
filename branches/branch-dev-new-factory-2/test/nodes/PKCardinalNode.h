@@ -10,6 +10,6 @@
 #import "PKCollectionNode.h"
 
 @interface PKCardinalNode : PKCollectionNode
-@property (nonatomic, assign) NSInteger rangeStart;
-@property (nonatomic, assign) NSInteger rangeEnd;
+@property (nonatomic, assign) NSUInteger rangeStart;
+@property (nonatomic, assign) NSUInteger rangeEnd;
 @end
