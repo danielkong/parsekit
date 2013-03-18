@@ -380,7 +380,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (PKTokenizer *)tokenizerForParsingGrammar {
     PKTokenizer *t = [PKTokenizer tokenizer];
     
-    t.whitespaceState.reportsWhitespaceTokens = NO;
+    t.whitespaceState.reportsWhitespaceTokens = YES;
     
     // customize tokenizer to find tokenizer customization directives
     [t setTokenizerState:t.wordState from:'@' to:'@'];
