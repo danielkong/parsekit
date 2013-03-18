@@ -380,7 +380,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (PKTokenizer *)tokenizerForParsingGrammar {
     PKTokenizer *t = [PKTokenizer tokenizer];
     
-    t.whitespaceState.reportsWhitespaceTokens = YES;
+    t.whitespaceState.reportsWhitespaceTokens = NO;
     
     // customize tokenizer to find tokenizer customization directives
     [t setTokenizerState:t.wordState from:'@' to:'@'];
@@ -1237,7 +1237,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 
     NSArray *rhsNodes = [a objectsAbove:orToken];
     
