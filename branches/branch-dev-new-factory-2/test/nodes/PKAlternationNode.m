@@ -7,7 +7,7 @@
 //
 
 #import "PKAlternationNode.h"
-#import <ParseKit/ParseKit.h>
+#import <ParseKit/PKAlternation.h>
 
 @implementation PKAlternationNode
 
