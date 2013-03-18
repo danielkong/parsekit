@@ -23,7 +23,7 @@ static NSDictionary *sClassTab = nil;
             @"QuotedString"     : [PKQuotedString class],
             @"Symbol"           : [PKSymbol class],
             @"Comment"          : [PKComment class],
-            @"Whitespace"       : [PKWhitespace class],
+            @"S"                : [PKWhitespace class],
         } retain];
     }
 }
