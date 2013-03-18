@@ -115,19 +115,16 @@
 - (void)visitAlternation:(PKAlternationNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
-    NSArray *children = node.children;
-    NSAssert(2 == [children count], @"");
+    NSAssert(2 == [node.children count], @"");
     
-    PKBaseNode *lhs = children[0];
+    PKBaseNode *lhs = node.children[0];
     BOOL simplify = PKNodeTypeAlternation == lhs.type;
-    NSAssert(PKNodeTypeAlternation != [(PKBaseNode *)children[1] type], @"");
+    
+    // nested Alts should always be on the lhs. never on rhs.
+    NSAssert(PKNodeTypeAlternation != [(PKBaseNode *)node.children[1] type], @"");
 
     if (simplify) {
-        for (PKBaseNode *child in [[children copy] autorelease]) {
-            if (PKNodeTypeAlternation == child.type) {
-                [node replaceChild:child withChildren:child.children];
-            }
-        }
+        [node replaceChild:lhs withChildren:lhs.children];
     }
 
     [self recurse:node];
