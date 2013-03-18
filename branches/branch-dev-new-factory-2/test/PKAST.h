@@ -22,7 +22,7 @@
 
 - (id)initWithToken:(PKToken *)tok;
 
-- (void)addChild:(PKAST *)c;
+- (void)addChild:(PKAST *)a;
 - (BOOL)isNil;
 
 - (NSString *)treeDescription;

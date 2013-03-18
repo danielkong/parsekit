@@ -107,11 +107,11 @@
 }
 
 
-- (void)addChild:(PKAST *)c {
+- (void)addChild:(PKAST *)a {
     if (!_children) {
         self.children = [NSMutableArray array];
     }
-    [_children addObject:c];
+    [_children addObject:a];
 }
 
 
