@@ -1256,7 +1256,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     if (1 == [lhsNodes count]) {
         left = [lhsNodes lastObject];
 //        // coallesce multiple OR's into a single PKAlternation with a list of children
-//        if ('|' == [left.token.stringValue characterAtIndex:0]) {
+//        if (PKNodeTypeAlternation == left.type) {
 //            //NSLog(@"%@", a);
 //            orNode = (id)left;
 //        } else {
