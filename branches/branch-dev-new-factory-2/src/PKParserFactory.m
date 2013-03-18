@@ -372,6 +372,11 @@ void PKReleaseSubparserTree(PKParser *p) {
 #pragma mark -
 #pragma mark Private
 
+- (PKCollectionParser *)exprParser {
+    return self.grammarParser.exprParser;
+}
+
+
 - (PKTokenizer *)tokenizerForParsingGrammar {
     PKTokenizer *t = [PKTokenizer tokenizer];
     
@@ -595,6 +600,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     BOOL result = NO;
     NSArray *toks = [directiveTab objectForKey:key];
     if ([toks count]) {
+        NSAssert(1 == [toks count], @"");
         PKToken *tok = [toks objectAtIndex:0];
         if (tok.isWord && [tok.stringValue isEqualToString:@"YES"]) {
             result = YES;
@@ -637,7 +643,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (PKParser *)parserFromSymbolTable:(NSDictionary *)symTab {
     PKParser *p = symTab[@"@start"];
-    NSAssert([p isKindOfClass:[PKCompositeParser class]], @"");
+    NSAssert([p isKindOfClass:[PKParser class]], @"");
     
     return p;
 }
