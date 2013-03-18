@@ -294,13 +294,10 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     PKDelimitedString *p = [self parserFromNode:node];
-    NSAssert([p isKindOfClass:[PKLiteral class]], @"");
+    NSAssert([p isKindOfClass:[PKDelimitedString class]], @"");
 
-    NSString *startMarker = node.startMarker;
-    NSString *endMarker = node.endMarker;
-    
-    p.startMarker = startMarker;
-    p.endMarker = endMarker;
+    p.startMarker = node.startMarker;
+    p.endMarker = node.endMarker;
     
     if (node.discard) [p discard];
 

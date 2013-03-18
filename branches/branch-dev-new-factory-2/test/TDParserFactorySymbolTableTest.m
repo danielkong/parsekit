@@ -10,6 +10,11 @@
 #import "PKParserFactory.h"
 #import "PKAST.h"
 
+@interface PKDelimitedString ()
+@property (nonatomic, retain) NSString *startMarker;
+@property (nonatomic, retain) NSString *endMarker;
+@end
+
 @interface TDParserFactorySymbolTableTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @end
@@ -336,32 +341,27 @@
 }
 
 
-//- (void)testSimpleAST {
-//    NSString *g = @"@start=foo;foo=Word;";
-//    
-//    NSError *err = nil;
-//    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
-//    TDNotNil(symTab);
-//    
-//    PKCollectionParser *start = symTab[@"@start"];
-//    TDNotNil(start);
-//    TDTrue([start isKindOfClass:[PKSequence class]]);
-//    
-//    PKParser *foo = symTab[@"foo"];
-//    TDNotNil(foo);
-//    TDTrue([foo isKindOfClass:[PKWord class]]);
-//    
-//    TDEquals(start.subparsers[0], foo);
-//    
-//    TDNil(foo.assembler);
-//    TDEquals((SEL)NULL, foo.assemblerSelector);
-//    TDNil(foo.assemblerBlock);
-//    TDNil(foo.preassembler);
-//    TDEquals((SEL)NULL, foo.preassemblerSelector);
-//    TDNil(foo.preassemblerBlock);
-//}
-//
-//
+- (void)testDelimitedAST1 {
+    NSString *g = @"@start=foo;foo=DelimitedString('<', '>');";
+    
+    NSError *err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKDelimitedString *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKDelimitedString class]]);
+        
+    TDEquals(start.subparsers[0], foo);
+    TDEqualObjects(@"<", foo.startMarker);
+    TDEqualObjects(@">", foo.endMarker);
+}
+
+
 //- (void)testAlternationAST {
 //    NSString *g = @"@start=foo;foo=Word|Number;";
 //    
