@@ -27,6 +27,18 @@
         @"expr = addExpr;"
         @"addExpr = atom (('+'|'-') atom)*;"
         @"atom = Number;";
+    
+    PKAST *root = [factory ASTFromGrammar:g error:nil];
+    TDEqualObjects(@"(ROOT (@start #expr) ($expr #addExpr) ($addExpr (. #atom (* (. (| '+' '-') #atom)))) ($atom Number))", [root treeDescription]);
+    
+    NSDictionary *symTab = [factory symbolTableFromGrammar:g error:nil];
+    TDNotNil(symTab);
+    TDEquals((NSUInteger)4, [symTab count]);
+    
+    PKSequence *addExprParser = [symTab objectForKey:@"addExprParser"];
+    TDTrue([addExprParser isKindOfClass:[PKSequence class]]);
+    TDTrue(2 == [addExprParser.subparsers count]);
+    
     lp = [factory parserFromGrammar:g assembler:as preassembler:as error:nil];
     
     lp.tokenizer.string = @"1 + 2";
