@@ -100,6 +100,11 @@
     } else {
         parent = child;
         child.parser = p;
+        
+        // this is ugly
+        if (PKNodeTypeConstant == child.type || PKNodeTypeLiteral == child.type) {
+            self.currentParser = nil;
+        }
     }
     
     [child visit:self];        
