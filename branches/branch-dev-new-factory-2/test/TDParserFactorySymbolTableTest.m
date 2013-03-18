@@ -388,6 +388,23 @@
 }
 
 
+- (void)testWhitespaceAST1 {
+    NSString *g = @"@start=foo;foo=S;";
+    
+    NSError *err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKWhitespace *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKWhitespace class]]);
+}
+
+
 - (void)parser:(PKParser *)p didMatchFoo:(PKAssembly *)a {}
 - (void)testDefaultAssemblerSetting {
     NSString *g = @"@start=foo;foo=Word;";
