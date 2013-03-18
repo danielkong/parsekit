@@ -40,7 +40,7 @@ static NSDictionary *sClassTab = nil;
 - (Class)parserClass {
     NSString *typeName = self.token.stringValue;
     Class cls = sClassTab[typeName];
-    
+    NSAssert1(cls, @"missing collection class for token %@", typeName);
     return cls;
 }
 

@@ -24,6 +24,7 @@ static NSDictionary *sClassTab = nil;
             @"Symbol"           : [PKSymbol class],
             @"Comment"          : [PKComment class],
             @"Empty"            : [PKEmpty class],
+            @"Any"              : [PKAny class],
             @"S"                : [PKWhitespace class],
         } retain];
     }
@@ -53,6 +54,7 @@ static NSDictionary *sClassTab = nil;
     return  res;
 }
 
+
 - (void)visit:(id <PKNodeVisitor>)v; {
     [v visitConstant:self];
 }
@@ -61,7 +63,7 @@ static NSDictionary *sClassTab = nil;
 - (Class)parserClass {
     NSString *typeName = self.token.stringValue;
     Class cls = sClassTab[typeName];
-
+    NSAssert1(cls, @"missing constant class for token %@", typeName);
     return cls;
 }
 
