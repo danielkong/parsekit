@@ -51,7 +51,7 @@
 // parser               = pattern | literal | variable | constant | specificConstant | delimitedString;
 // discard              = '!';
 // pattern              = %{'/', '/'};
-// delimitedString      = '%{' QuotedString (',' QuotedString)? '}';
+// delimitedString      = '%{' QuotedString (',' QuotedString)? '}'!;
 // literal              = QuotedString;
 // variable             = LowercaseWord;
 // constant             = UppercaseWord;
@@ -611,7 +611,7 @@
 }
 
 
-// delimitedString      = '%{' QuotedString (',' QuotedString)? '}';
+// delimitedString      = '%{' QuotedString (',' QuotedString)? '}'!;
 - (PKCollectionParser *)delimitedStringParser {
     if (!delimitedStringParser) {
         self.delimitedStringParser = [PKTrack track];
