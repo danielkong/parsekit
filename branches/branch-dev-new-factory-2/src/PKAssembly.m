@@ -128,7 +128,6 @@ static NSString * const PKAssemblyDefaultDelimiter = @"/";
 //    }
     
     return YES;
-//    return [[self description] isEqualToString:[a description]];
 }
 
 
