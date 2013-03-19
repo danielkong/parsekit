@@ -15,7 +15,6 @@
 #import "PKDelimitedNode.h"
 #import "PKLiteralNode.h"
 #import "PKPatternNode.h"
-#import "PKWhitespaceNode.h"
 #import "PKCompositeNode.h"
 #import "PKCollectionNode.h"
 #import "PKCardinalNode.h"
@@ -214,20 +213,6 @@
     PKPatternOptions opts = node.options;
     NSString *regex = [tok.stringValue stringByTrimmingQuotes];
     PKPattern *p = [PKPattern patternWithString:regex options:opts];
-    
-    if (node.discard) {
-        [p discard];
-    }
-    
-    [_currentParser add:p];
-}
-
-
-- (void)visitWhitespace:(PKWhitespaceNode *)node {
-    PKTerminal *p = [PKWhitespace whitespace];
-    
-    PKToken *tok = node.token;
-    NSAssert(tok.isWord, @"");
     
     if (node.discard) {
         [p discard];

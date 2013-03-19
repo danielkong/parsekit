@@ -20,7 +20,6 @@
 #import "PKLiteralNode.h"
 #import "PKDelimitedNode.h"
 #import "PKPatternNode.h"
-#import "PKWhitespaceNode.h"
 #import "PKCompositeNode.h"
 #import "PKCollectionNode.h"
 #import "PKAlternationNode.h"

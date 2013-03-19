@@ -16,7 +16,6 @@
 @class PKLiteralNode;
 @class PKDelimitedNode;
 @class PKPatternNode;
-@class PKWhitespaceNode;
 @class PKCompositeNode;
 @class PKCollectionNode;
 @class PKAlternationNode;
@@ -35,7 +34,6 @@
 - (void)visitLiteral:(PKLiteralNode *)node;
 - (void)visitDelimited:(PKDelimitedNode *)node;
 - (void)visitPattern:(PKPatternNode *)node;
-- (void)visitWhitespace:(PKWhitespaceNode *)node;
 - (void)visitComposite:(PKCompositeNode *)node;
 - (void)visitCollection:(PKCollectionNode *)node;
 - (void)visitAlternation:(PKAlternationNode *)node;

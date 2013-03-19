@@ -18,7 +18,6 @@
 #import "PKDelimitedNode.h"
 #import "PKLiteralNode.h"
 #import "PKPatternNode.h"
-#import "PKWhitespaceNode.h"
 #import "PKCompositeNode.h"
 #import "PKCollectionNode.h"
 #import "PKAlternationNode.h"
@@ -292,7 +291,6 @@
     if (node.discard) [p discard];
 
     [self.currentParser add:p];
-    
 }
 
 
@@ -319,12 +317,6 @@
     if (node.discard) [p discard];
     
     [self.currentParser add:p];
-}
-
-
-- (void)visitWhitespace:(PKWhitespaceNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-    
 }
 
 @end
