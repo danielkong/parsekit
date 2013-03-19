@@ -800,7 +800,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start %{'<' '>'}))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start %{'<', '>'}))", [rootNode treeDescription]);
 }
 
 
@@ -811,7 +811,7 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo %{'<' '>'}))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo %{'<', '>'}))", [rootNode treeDescription]);
 }
 
 
