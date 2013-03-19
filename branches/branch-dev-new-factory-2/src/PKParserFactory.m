@@ -888,10 +888,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     id obj = [a pop]; // opts (as Number*) or %{'/', '/'}
     
     PKPatternOptions opts = PKPatternOptionsNone;
-//    if ([obj isKindOfClass:[NSNumber class]]) {
-//        opts = [obj unsignedIntegerValue];
-//        obj = [a pop];
-//    }
+    if ([obj isKindOfClass:[NSNumber class]]) {
+        opts = [obj unsignedIntegerValue];
+        obj = [a pop];
+    }
     
     NSAssert([obj isMemberOfClass:[PKToken class]], @"");
     PKToken *tok = (PKToken *)obj;
