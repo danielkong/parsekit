@@ -1564,6 +1564,7 @@
 				D3C7D8740A411F8E005DD154 /* tokens */,
 				D3E785F10E550F63008C7D61 /* chars */,
 				D34BAC0F0FF87ED200D7773A /* grammar */,
+				D3A1492B16F8C7D600770DEE /* AppKit categories */,
 			);
 			name = "ParseKit Framework";
 			sourceTree = "<group>";
@@ -1644,7 +1645,7 @@
 			name = predicate;
 			sourceTree = "<group>";
 		};
-		D325FFBC161E4E3200D4EBCC /* AST Nodes */ = {
+		D325FFBC161E4E3200D4EBCC /* ast */ = {
 			isa = PBXGroup;
 			children = (
 				D3A1492816F8C6BD00770DEE /* PKAST.h */,
@@ -1678,7 +1679,7 @@
 				D395526016F16BA600D326FD /* PKPatternNode.h */,
 				D395526116F16BA600D326FD /* PKPatternNode.m */,
 			);
-			name = "AST Nodes";
+			name = ast;
 			sourceTree = "<group>";
 		};
 		D3305C52102F5BB300DC4F75 /* Trees */ = {
@@ -1794,10 +1795,8 @@
 				D34BAFD80FF9E95500D7773A /* PKParserFactory.m */,
 				D3376D5710093A1600E4602E /* PKGrammarParser.h */,
 				D3376D5810093A1600E4602E /* PKGrammarParser.m */,
-				D34BAFD30FF9E95500D7773A /* NSArray+ParseKitAdditions.h */,
-				D34BAFD40FF9E95500D7773A /* NSArray+ParseKitAdditions.m */,
-				D34BAFD50FF9E95500D7773A /* NSString+ParseKitAdditions.h */,
-				D34BAFD60FF9E95500D7773A /* NSString+ParseKitAdditions.m */,
+				D3A1492A16F8C79600770DEE /* visitor */,
+				D325FFBC161E4E3200D4EBCC /* ast */,
 			);
 			name = grammar;
 			sourceTree = "<group>";
@@ -2158,11 +2157,9 @@
 			name = "Char Terminals";
 			sourceTree = "<group>";
 		};
-		D3A203AF161CA16500207F4D /* NewFactory */ = {
+		D3A1492A16F8C79600770DEE /* visitor */ = {
 			isa = PBXGroup;
 			children = (
-				D3C07E6116F53D35000FB894 /* SymbolTable */,
-				D325FFBC161E4E3200D4EBCC /* AST Nodes */,
 				D395525D16F16BA600D326FD /* PKNodeVisitor.h */,
 				D367F66916F5570500F5E9EB /* PKBaseVisitor.h */,
 				D367F66A16F5570500F5E9EB /* PKBaseVisitor.m */,
@@ -2170,6 +2167,25 @@
 				D326129916F64ED50021845F /* PKDefinitionPhaseVisitor.m */,
 				D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */,
 				D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */,
+			);
+			name = visitor;
+			sourceTree = "<group>";
+		};
+		D3A1492B16F8C7D600770DEE /* AppKit categories */ = {
+			isa = PBXGroup;
+			children = (
+				D34BAFD30FF9E95500D7773A /* NSArray+ParseKitAdditions.h */,
+				D34BAFD40FF9E95500D7773A /* NSArray+ParseKitAdditions.m */,
+				D34BAFD50FF9E95500D7773A /* NSString+ParseKitAdditions.h */,
+				D34BAFD60FF9E95500D7773A /* NSString+ParseKitAdditions.m */,
+			);
+			name = "AppKit categories";
+			sourceTree = "<group>";
+		};
+		D3A203AF161CA16500207F4D /* NewFactory */ = {
+			isa = PBXGroup;
+			children = (
+				D3C07E6116F53D35000FB894 /* SymbolTable */,
 				D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */,
 				D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */,
 				D3C07E8316F54F41000FB894 /* TDParserFactorySymbolTableTest.h */,
