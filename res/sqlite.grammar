@@ -176,6 +176,9 @@ selectCore              = 'SELECT' ('DISTINCT' | 'ALL')? resultColumn (',' resul
 resultColumn            = '*'
                           | tableName '.' '*'
                           | expr ('AS'? columnAlias)?;
+
+columnAlias				= Any; // TODO!!!
+tableAlias				= Any; // TODO!!!
 joinSource              = singleSource (joinOp singleSource joinConstraint)*;
 
 singleSource            = (databaseName '.')? tableName ('AS'? tableAlias)? ('INDEXED' 'BY' indexName | 'NOT' 'INDEXED')?
@@ -202,7 +205,7 @@ updateStmt              = 'UPDATE' ('OR' ('ROLLBACK' | 'ABORT' | 'REPLACE' | 'FA
 columnNameAssignment    = (columnName '=' expr);
 
 updateStmtLimited       = updateStmt ('ORDER' 'BY' orderingTerm (',' orderingTerm)*)?
-                          'LIMIT' expr (('OFFSET' | ',') expr)?
+                          'LIMIT' expr (('OFFSET' | ',') expr)?;
 /*
 vacuumStmt;             = XXX;
 */
