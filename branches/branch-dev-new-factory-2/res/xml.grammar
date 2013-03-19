@@ -100,7 +100,7 @@
 // [17]       PITarget       ::=        Name - (('X' | 'x') ('M' | 'm') ('L' | 'l'))
     
     pi = '<?' piTarget ~/?>/* '?>';
-    piTarget = name - /xml/i;
+    piTarget = name - /[xX][mM][lL]/;
 
 
 // [18]       CDSect       ::=        CDStart CData CDEnd
