@@ -83,7 +83,7 @@
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
 //    NSAssert(0, @"should not reach");
     
@@ -112,7 +112,7 @@
 
 
 - (void)visitReference:(PKReferenceNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     NSString *name = node.token.stringValue;
     
@@ -124,7 +124,7 @@
 
 
 - (void)visitComposite:(PKCompositeNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     PKCompositeParser *cp = [self parserFromNode:node];
     NSAssert([cp isKindOfClass:[PKCompositeParser class]], @"");
@@ -143,7 +143,7 @@
 
 
 - (void)visitCollection:(PKCollectionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     PKCompositeParser *cp = [self parserFromNode:node];
     NSAssert([cp isKindOfClass:[PKCollectionParser class]], @"");
@@ -162,14 +162,14 @@
 
 
 - (void)visitAlternation:(PKAlternationNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     [self visitCollection:node];
 }
 
 
 - (void)visitCardinal:(PKCardinalNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // create cardinal parser
     PKSequence *seq = [self parserFromNode:node];
@@ -215,7 +215,7 @@
 
 
 - (void)visitOptional:(PKOptionalNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     PKAlternation *alt = [self parserFromNode:node];
     NSAssert([alt isKindOfClass:[PKAlternation class]], @"");
@@ -238,7 +238,7 @@
 
 
 - (void)visitMultiple:(PKMultipleNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     PKSequence *seq = [self parserFromNode:node];
     NSAssert([seq isKindOfClass:[PKSequence class]], @"");
@@ -261,7 +261,7 @@
 
 
 - (void)visitConstant:(PKConstantNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     PKTerminal *p = [self parserFromNode:node];
     NSAssert([p isKindOfClass:[PKTerminal class]], @"");
@@ -280,7 +280,7 @@
 
 
 - (void)visitLiteral:(PKLiteralNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     PKLiteral *p = [self parserFromNode:node];
     NSAssert([p isKindOfClass:[PKLiteral class]], @"");
@@ -300,7 +300,7 @@
 
 
 - (void)visitDelimited:(PKDelimitedNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     PKDelimitedString *p = [self parserFromNode:node];
     NSAssert([p isKindOfClass:[PKDelimitedString class]], @"");
@@ -316,7 +316,7 @@
 
 
 - (void)visitPattern:(PKPatternNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     PKPattern *p = [self parserFromNode:node];
     NSAssert([p isKindOfClass:[PKPattern class]], @"");
@@ -342,7 +342,7 @@
 
 
 - (void)visitWhitespace:(PKWhitespaceNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
 }
 

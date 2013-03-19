@@ -278,7 +278,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         PKTokenizer *t = [self tokenizerFromGrammarSettings];
         PKParser *start = [self parserFromSymbolTable:symTab];
         
-        NSLog(@"start %@", start);
+        //NSLog(@"start %@", start);
         
         self.assembler = nil;
 //        self.callbackTab = nil;
@@ -326,7 +326,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     grammarParser.parser.tokenizer = t;
     [grammarParser.parser parse:g error:outError];
     
-    NSLog(@"rootNode %@", rootNode);
+    //NSLog(@"rootNode %@", rootNode);
 
     NSMutableDictionary *symTab = [NSMutableDictionary dictionary];
     
@@ -707,7 +707,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     NSArray *argToks = [[a objectsAbove:equals] reversedArray];
     //NSArray *argToks = [a objectsAbove:_equals];
     [a pop]; // discard '='
@@ -898,7 +898,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKToken *tok = [a pop];
     NSAssert(tok.isWord, @"");
@@ -1066,7 +1066,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKToken *dtok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"%{" floatValue:0.0];
     NSArray *toks = [a objectsAbove:dtok];
@@ -1183,7 +1183,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     NSRange r = [[a pop] rangeValue];
     

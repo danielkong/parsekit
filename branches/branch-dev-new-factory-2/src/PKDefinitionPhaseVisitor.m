@@ -63,7 +63,7 @@
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     // find only child node (which represents this parser's type)
     NSAssert(1 == [node.children count], @"");
@@ -93,27 +93,27 @@
 
 
 - (void)visitReference:(PKReferenceNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
 }
 
 
 - (void)visitComposite:(PKCompositeNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     [self recurse:node];
 }
 
 
 - (void)visitCollection:(PKCollectionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     [self recurse:node];
 }
 
 
 - (void)visitAlternation:(PKAlternationNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     NSAssert(2 == [node.children count], @"");
     
@@ -132,52 +132,52 @@
 
 
 - (void)visitCardinal:(PKCardinalNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     [self recurse:node];
 }
 
 
 - (void)visitOptional:(PKOptionalNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     [self recurse:node];
 }
 
 
 - (void)visitMultiple:(PKMultipleNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     [self recurse:node];
 }
 
 
 - (void)visitConstant:(PKConstantNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
 }
 
 
 - (void)visitLiteral:(PKLiteralNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
 }
 
 
 - (void)visitDelimited:(PKDelimitedNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
 }
 
 
 - (void)visitPattern:(PKPatternNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
 }
 
 
 - (void)visitWhitespace:(PKWhitespaceNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
 }
 
