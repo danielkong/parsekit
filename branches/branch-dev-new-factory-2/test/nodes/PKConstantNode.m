@@ -26,6 +26,11 @@ static NSDictionary *sClassTab = nil;
             @"Empty"            : [PKEmpty class],
             @"Any"              : [PKAny class],
             @"S"                : [PKWhitespace class],
+                     
+            @"Digit"            : [PKDigit class],
+            @"Letter"           : [PKLetter class],
+            @"Char"             : [PKChar class],
+            @"SpecificChar"     : [PKSpecificChar class],
         } retain];
     }
 }
