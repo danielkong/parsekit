@@ -6,9 +6,25 @@
 //
 //
 
-#import "PKNodeTypes.h"
 #import "PKAST.h"
 #import "PKNodeVisitor.h" // convenience
+
+typedef enum {
+    PKNodeTypeRoot = 0,
+    PKNodeTypeDefinition,
+    PKNodeTypeReference,
+    PKNodeTypeConstant,
+    PKNodeTypeLiteral,
+    PKNodeTypeDelimited,
+    PKNodeTypePattern,
+    PKNodeTypeWhitespace,
+    PKNodeTypeComposite,
+    PKNodeTypeCollection,
+    PKNodeTypeAlternation,
+    PKNodeTypeCardinal,
+    PKNodeTypeOptional,
+    PKNodeTypeMultiple,
+} PKNodeType;
 
 @class PKParser;
 

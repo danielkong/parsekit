@@ -6,7 +6,7 @@
 //
 //
 
-#import "PKNodeTypes.h"
+#import "PKBaseNode.h"
 
 @interface PKDefinitionNode : PKBaseNode
 

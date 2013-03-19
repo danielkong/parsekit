@@ -1233,7 +1233,6 @@
 		D395525916F16BA600D326FD /* PKLiteralNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKLiteralNode.m; path = test/nodes/PKLiteralNode.m; sourceTree = "<group>"; };
 		D395525A16F16BA600D326FD /* PKMultipleNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKMultipleNode.h; path = test/nodes/PKMultipleNode.h; sourceTree = "<group>"; };
 		D395525B16F16BA600D326FD /* PKMultipleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKMultipleNode.m; path = test/nodes/PKMultipleNode.m; sourceTree = "<group>"; };
-		D395525C16F16BA600D326FD /* PKNodeTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeTypes.h; path = test/nodes/PKNodeTypes.h; sourceTree = "<group>"; };
 		D395525D16F16BA600D326FD /* PKNodeVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKNodeVisitor.h; path = test/nodes/PKNodeVisitor.h; sourceTree = "<group>"; };
 		D395525E16F16BA600D326FD /* PKOptionalNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKOptionalNode.h; path = test/nodes/PKOptionalNode.h; sourceTree = "<group>"; };
 		D395525F16F16BA600D326FD /* PKOptionalNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKOptionalNode.m; path = test/nodes/PKOptionalNode.m; sourceTree = "<group>"; };
@@ -1647,7 +1646,6 @@
 		D325FFBC161E4E3200D4EBCC /* AST Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				D395525C16F16BA600D326FD /* PKNodeTypes.h */,
 				D3376D8C10096C0700E4602E /* PKAST.h */,
 				D3376D8D10096C0700E4602E /* PKAST.m */,
 				D395524816F16BA600D326FD /* PKBaseNode.h */,

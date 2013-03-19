@@ -588,8 +588,8 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     
-    [self doTestGrammar];
-//    [self doTestSqliteGrammar];
+    //[self doTestGrammar];
+    //[self doTestSqliteGrammar];
     
 //    [self doPlistParser];
 //    [self doHtmlSyntaxHighlighter];
@@ -598,7 +598,7 @@
 
 //    [self doJSParser];
     
-    //    [self doProf];
+    [self doProf];
 
     //[self doJavaScriptGrammarParser];
     
