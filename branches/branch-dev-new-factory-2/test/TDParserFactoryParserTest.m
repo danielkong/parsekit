@@ -212,7 +212,6 @@
     a = [p bestMatchFor:a];
     
     TDEqualObjects(@"[1, 2, 3, 4]1/2/3/4^5/6", [a description]);
-    
 }
 
 
@@ -233,63 +232,4 @@
     TDEqualObjects([a description], @"[!==]!==^");
 }
 
-
-
-////- (void)testAlternationAST {
-////    NSString *g = @"@start=foo;foo=bar;bar=baz|bat;baz=Word;bat=Number;";
-////
-////    PKAST *rootNode = [_factory ASTFromGrammar:g simplify:NO error:nil];
-////    TDNotNil(rootNode);
-////    TDEqualObjects(@"(@start:SEQ (foo:SEQ (bar:| baz:Word bat:Number)))", [rootNode fullTreeDescription:[_factory symbolTableFromGrammar:g error:nil]]);
-////
-////    NSError *err = nil;
-////    PKCollectionParser *p = (PKCollectionParser *)[_factory parserFromGrammar:g assembler:nil error:&err];
-////
-////    TDNotNil(p);
-////    TDTrue([p isKindOfClass:[PKSequence class]]);
-////
-////    TDTrue(1 == [p.subparsers count]);
-////    PKCollectionParser *foo = [p.subparsers objectAtIndex:0];
-////    TDTrue([foo isKindOfClass:[PKCollectionParser class]]);
-////
-////    TDTrue(1 == [foo.subparsers count]);
-////    PKCollectionParser *bar = [foo.subparsers objectAtIndex:0];
-////    TDTrue([bar isKindOfClass:[PKCollectionParser class]]);
-////
-//////    TDTrue(1 == [bar.subparsers count]);
-//////    PKAlternation *alt = [bar.subparsers objectAtIndex:0];
-//////    TDTrue(2 == [alt.subparsers count]);
-//////
-//////    PKCollectionParser *baz = [alt.subparsers objectAtIndex:0];
-//////    TDTrue([baz isKindOfClass:[PKCollectionParser class]]);
-//////
-//////    PKCollectionParser *bat = [alt.subparsers objectAtIndex:1];
-//////    TDTrue([bat isKindOfClass:[PKCollectionParser class]]);
-////
-////    NSString *input = @"hello";
-////    PKAssembly *a = [PKTokenAssembly assemblyWithString:input];
-////    a = [p completeMatchFor:a];
-////
-////    TDEqualObjects(@"[hello]hello^", [a description]);
-////
-////    input = @"22.3";
-////    a = [PKTokenAssembly assemblyWithString:input];
-////    a = [p completeMatchFor:a];
-////
-////    TDEqualObjects(@"[22.3]22.3^", [a description]);
-////
-////    input = @"##";
-////    a = [PKTokenAssembly assemblyWithString:input];
-////    a = [p completeMatchFor:a];
-////
-////    TDNil(a);
-////
-////    input = @"'asdf'";
-////    a = [PKTokenAssembly assemblyWithString:input];
-////    a = [p completeMatchFor:a];
-////
-////    TDNil(a);
-////
-////}
-//
 @end

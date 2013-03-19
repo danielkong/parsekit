@@ -1233,8 +1233,6 @@
 		D395524F16F16BA600D326FD /* PKCompositeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKCompositeNode.m; path = test/nodes/PKCompositeNode.m; sourceTree = "<group>"; };
 		D395525016F16BA600D326FD /* PKConstantNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKConstantNode.h; path = test/nodes/PKConstantNode.h; sourceTree = "<group>"; };
 		D395525116F16BA600D326FD /* PKConstantNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKConstantNode.m; path = test/nodes/PKConstantNode.m; sourceTree = "<group>"; };
-		D395525216F16BA600D326FD /* PKConstructNodeVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKConstructNodeVisitor.h; path = test/nodes/PKConstructNodeVisitor.h; sourceTree = "<group>"; };
-		D395525316F16BA600D326FD /* PKConstructNodeVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKConstructNodeVisitor.m; path = test/nodes/PKConstructNodeVisitor.m; sourceTree = "<group>"; };
 		D395525416F16BA600D326FD /* PKDefinitionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDefinitionNode.h; path = test/nodes/PKDefinitionNode.h; sourceTree = "<group>"; };
 		D395525516F16BA600D326FD /* PKDefinitionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDefinitionNode.m; path = test/nodes/PKDefinitionNode.m; sourceTree = "<group>"; };
 		D395525616F16BA600D326FD /* PKDelimitedNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDelimitedNode.h; path = test/nodes/PKDelimitedNode.h; sourceTree = "<group>"; };
@@ -2181,8 +2179,6 @@
 				D326129916F64ED50021845F /* PKDefinitionPhaseVisitor.m */,
 				D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */,
 				D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */,
-				D395525216F16BA600D326FD /* PKConstructNodeVisitor.h */,
-				D395525316F16BA600D326FD /* PKConstructNodeVisitor.m */,
 				D3A203E2161CADD200207F4D /* TDParserFactoryASTTest.h */,
 				D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */,
 				D3C07E8316F54F41000FB894 /* TDParserFactorySymbolTableTest.h */,
