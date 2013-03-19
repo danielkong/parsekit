@@ -11,7 +11,6 @@
 #import "PKNodeVisitor.h" // convenience
 
 @class PKParser;
-//@protocol PKNodeVisitor;
 
 @interface PKBaseNode : PKAST
 + (id)nodeWithToken:(PKToken *)tok;
