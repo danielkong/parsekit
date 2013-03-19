@@ -9,7 +9,7 @@
 #import "PKAST.h"
 #import "PKNodeVisitor.h" // convenience
 
-typedef enum {
+typedef enum NSUInteger {
     PKNodeTypeRoot = 0,
     PKNodeTypeDefinition,
     PKNodeTypeReference,

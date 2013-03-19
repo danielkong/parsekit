@@ -660,8 +660,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)visit:(PKBaseNode *)node with:(id <PKNodeVisitor>)v {
-    PKNodeType nodeType = node.type;
-    switch (nodeType) {
+    switch (node.type) {
         case PKNodeTypeRoot:
             [v visitRoot:(PKRootNode *)node];
             break;
@@ -699,7 +698,7 @@ void PKReleaseSubparserTree(PKParser *p) {
             [v visitCardinal:(PKCardinalNode *)node];
             break;
         default:
-            NSAssert1(0, @"unknown nodeType %d", nodeType);
+            NSAssert(0, @"unknown nodeType");
             break;
     }
 }
@@ -708,7 +707,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     NSArray *argToks = [[a objectsAbove:equals] reversedArray];
-    //NSArray *argToks = [a objectsAbove:_equals];
     [a pop]; // discard '='
     
     PKToken *nameTok = [a pop];
