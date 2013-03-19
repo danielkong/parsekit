@@ -120,8 +120,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchTrackExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
-//- (void)parser:(PKParser *)p willMatchAnd:(PKAssembly *)a;
-//- (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a;
@@ -130,7 +128,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchSpace:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSpecificConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a;
@@ -147,9 +144,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, assign) id preassembler;
 
 @property (nonatomic, retain) NSMutableDictionary *directiveTab;
-//@property (nonatomic, retain) NSMutableDictionary *directiveTab;
-//@property (nonatomic, retain) NSMutableDictionary *parserClassTable;
-//@property (nonatomic, retain) NSMutableDictionary *selectorTable;
 
 @property (nonatomic, retain) PKRootNode *rootNode;
 @property (nonatomic, assign) BOOL wantsCharacters;
@@ -219,9 +213,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.preassembler = nil;
     
     self.directiveTab = nil;
-//    self.directiveTab = nil;
-//    self.parserClassTable = nil;
-//    self.selectorTable = nil;
     self.rootNode = nil;
     self.equals = nil;
     self.curly = nil;
@@ -280,8 +271,6 @@ void PKReleaseSubparserTree(PKParser *p) {
         //NSLog(@"start %@", start);
         
         self.assembler = nil;
-//        self.callbackTab = nil;
-//        self.productionTab = nil;
         
         if (start && [start isKindOfClass:[PKParser class]]) {
             start.tokenizer = t;
@@ -756,19 +745,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchSpace:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//    PKToken *tok = [a pop];
-//    NSAssert(tok, @"");
-//    NSAssert([tok isKindOfClass:[PKToken class]], @"");
-//    NSAssert(tok.isWord, @"");
-//    NSAssert([tok.stringValue isEqualToString:@"S"], @"");
-//    
-//    PKAST *parserNode = [PKWhitespaceNode ASTWithToken:tok];
-//    [a push:parserNode];
-}
-
-
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     NSArray *nodes = [a objectsAbove:equals];
@@ -999,49 +975,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKConstantNode *node = [PKConstantNode nodeWithToken:tok];
     [a push:node];
-    
-    // KEEP FOR VISITOR!!!!!!!!!!!!!
-//    NSString *s = tok.stringValue;
-//    
-//    id obj = nil;
-//    if ([s isEqualToString:@"Word"]) {
-//        obj = [PKWord word];
-//    } else if ([s isEqualToString:@"LowercaseWord"]) {
-//        obj = [PKLowercaseWord word];
-//    } else if ([s isEqualToString:@"UppercaseWord"]) {
-//        obj = [PKUppercaseWord word];
-//    } else if ([s isEqualToString:@"Number"]) {
-//        obj = [PKNumber number];
-//    } else if ([s isEqualToString:@"S"]) {
-//        obj = [PKWhitespace whitespace];
-//    } else if ([s isEqualToString:@"QuotedString"]) {
-//        obj = [PKQuotedString quotedString];
-//    } else if ([s isEqualToString:@"Symbol"]) {
-//        obj = [PKSymbol symbol];
-//    } else if ([s isEqualToString:@"Comment"]) {
-//        obj = [PKComment comment];
-//    } else if ([s isEqualToString:@"Any"]) {
-//        obj = [PKAny any];
-//    } else if ([s isEqualToString:@"Empty"]) {
-//        obj = [PKEmpty empty];
-//    } else if ([s isEqualToString:@"Char"]) {
-//        obj = [PKChar char];
-//    } else if ([s isEqualToString:@"Letter"]) {
-//        obj = [PKLetter letter];
-//    } else if ([s isEqualToString:@"Digit"]) {
-//        obj = [PKDigit digit];
-//    } else if ([s isEqualToString:@"Pattern"]) {
-//        obj = tok;
-//    } else if ([s isEqualToString:@"DelimitedString"]) {
-//        obj = tok;
-//    } else if ([s isEqualToString:@"YES"] || [s isEqualToString:@"NO"]) {
-//        obj = tok;
-//    } else {
-//        [NSException raise:@"Grammar Exception" format:
-//         @"User Grammar referenced a constant parser name (uppercase word) which is not supported: %@. Must be one of: Word, LowercaseWord, UppercaseWord, QuotedString, Number, Symbol, Empty.", s];
-//    }
-//    
-//    [a push:obj];
 }
 
 
@@ -1279,50 +1212,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     [a push:orNode];
 }
 
-
-//- (void)parser:(PKParser *)p willMatchAnd:(PKAssembly *)a {
-//    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//
-//    PKBaseNode *child = [a pop];
-//    PKCollectionNode *seqNode = nil;
-//    
-//    if (child.token == seqToken) {
-//        NSAssert([child isKindOfClass:[PKCollectionNode class]], @"");
-//
-//        seqNode = (PKCollectionNode *)child;
-//    } else {
-//        NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
-//        
-//        seqNode = [PKCollectionNode nodeWithToken:seqToken];
-//        [seqNode addChild:child];
-//    }
-//    
-//    [a push:seqNode];
-//}
-//
-//
-//- (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a {
-//    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-//
-//    PKBaseNode *child = [a pop];
-//    NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
-//    
-//    PKCollectionNode *seqNode = [a pop];
-//    NSAssert([seqNode isKindOfClass:[PKCollectionNode class]], @"");
-//
-//    [seqNode addChild:child];
-//    [a push:seqNode];
-//
-//}
-
 @synthesize grammarParser;
 @synthesize assembler;
 @synthesize preassembler;
 
 @synthesize directiveTab;
-//@synthesize directiveTab;
-//@synthesize parserClassTable;
-//@synthesize selectorTable;
 @synthesize rootNode;
 @synthesize wantsCharacters;
 @synthesize equals;

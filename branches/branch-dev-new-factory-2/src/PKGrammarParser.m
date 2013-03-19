@@ -64,8 +64,6 @@
 - (void)parser:(PKParser *)p didMatchTrackExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
-//- (void)parser:(PKParser *)p willMatchAnd:(PKAssembly *)a;
-//- (void)parser:(PKParser *)p didMatchAnd:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a;
@@ -74,7 +72,6 @@
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchSpace:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSpecificConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a;
