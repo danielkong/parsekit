@@ -39,20 +39,7 @@
 @property (nonatomic, assign) PKPatternOptions options;
 @end
 
-@interface PKResolutionPhaseVisitor ()
-
-@end
-
 @implementation PKResolutionPhaseVisitor
-
-- (id)init {
-    self = [super init];
-    if (self) {
-
-    }
-    return self;
-}
-
 
 - (void)dealloc {
     self.currentParser = nil;
@@ -84,9 +71,7 @@
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-    
-//    NSAssert(0, @"should not reach");
-    
+
     NSString *name = node.token.stringValue;
     PKParser *p = self.symbolTable[name];
     NSAssert([p isKindOfClass:[PKParser class]], @"");
