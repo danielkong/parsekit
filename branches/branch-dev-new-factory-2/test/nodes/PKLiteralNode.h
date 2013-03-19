@@ -10,4 +10,5 @@
 
 @interface PKLiteralNode : PKBaseNode
 
+@property (nonatomic, assign) BOOL wantsCharacters;
 @end
