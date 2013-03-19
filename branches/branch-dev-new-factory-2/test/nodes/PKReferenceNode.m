@@ -18,23 +18,6 @@
 }
 
 
-//- (id)copyWithZone:(NSZone *)zone {
-//    PKReferenceNode *that = (PKReferenceNode *)[super copyWithZone:zone];
-//    return that;
-//}
-//
-//
-//- (BOOL)isEqual:(id)obj {
-//    if (![super isEqual:obj]) {
-//        return NO;
-//    }
-//    
-//    PKReferenceNode *that = (PKReferenceNode *)obj;
-//    
-//    return YES;
-//}
-
-
 - (NSUInteger)type {
     return PKNodeTypeReference;
 }
