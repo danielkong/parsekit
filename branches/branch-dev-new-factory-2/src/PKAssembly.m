@@ -117,15 +117,15 @@ static NSString * const PKAssemblyDefaultDelimiter = @"/";
         return NO;
     }
     
-//    NSAssert([[self description] isEqualToString:[a description]], @"");
+    NSAssert([[self description] isEqualToString:[a description]], @"");
 
-    if (![[self consumedObjectsJoinedByString:@""] isEqualToString:[a consumedObjectsJoinedByString:@""]]) {
-        return NO;
-    }
-    
-    if (![[self remainingObjectsJoinedByString:@""] isEqualToString:[a remainingObjectsJoinedByString:@""]]) {
-        return NO;
-    }
+//    if (![[self consumedObjectsJoinedByString:@""] isEqualToString:[a consumedObjectsJoinedByString:@""]]) {
+//        return NO;
+//    }
+//    
+//    if (![[self remainingObjectsJoinedByString:@""] isEqualToString:[a remainingObjectsJoinedByString:@""]]) {
+//        return NO;
+//    }
     
     return YES;
 //    return [[self description] isEqualToString:[a description]];
