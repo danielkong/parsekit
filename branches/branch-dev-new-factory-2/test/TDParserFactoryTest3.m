@@ -49,7 +49,7 @@
 
 
 - (void)testTrack {
-    g = @"@start = [Number Word]";
+    g = @"@start = [Number Word];";
     
     PKAST *root = [factory ASTFromGrammar:g error:nil];
     TDEqualObjects(@"(ROOT (@start ([ Number Word)))", [root treeDescription]);
@@ -65,7 +65,7 @@
 
 
 - (void)testSubTrack {
-    g = @"@start = Word [Number Word]";
+    g = @"@start = Word [Number Word];";
     
     PKAST *root = [factory ASTFromGrammar:g error:nil];
     TDEqualObjects(@"(ROOT (@start (. Word ([ Number Word))))", [root treeDescription]);
@@ -81,7 +81,7 @@
 
 
 - (void)testTrackFailure {
-    g = @"@start = [Number Word]";
+    g = @"@start = [Number Word];";
     
     lp = [factory parserFromGrammar:g assembler:nil error:nil];
     
@@ -106,7 +106,7 @@
 
 
 - (void)testTrackFailure2 {
-    g = @"@start = [Number Symbol('{')]";
+    g = @"@start = [Number Symbol('{')];";
     
     lp = [factory parserFromGrammar:g assembler:nil error:nil];
     
@@ -131,7 +131,7 @@
 
 
 - (void)testSubTrackFailure {
-    g = @"@start = Word [Number Word]";
+    g = @"@start = Word [Number Word];";
     
     lp = [factory parserFromGrammar:g assembler:nil error:nil];
     
