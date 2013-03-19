@@ -98,13 +98,9 @@
     if (PKNodeTypeReference == child.type) {
         self.currentParser = p;
     } else {
+        self.currentParser = nil;
         parent = child;
         child.parser = p;
-        
-        // this is ugly
-        if (1 ||PKNodeTypeConstant == child.type || PKNodeTypeLiteral == child.type) {
-            self.currentParser = nil;
-        }
     }
     
     [child visit:self];        
