@@ -205,7 +205,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.cardToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
         self.negToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"~" floatValue:0.0];
         self.litToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"'" floatValue:0.0];
-        self.delimToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"%" floatValue:0.0];
+        self.delimToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"%{" floatValue:0.0];
         
         self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
     }
@@ -1064,8 +1064,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
-    PKToken *dtok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"%{" floatValue:0.0];
-    NSArray *toks = [a objectsAbove:dtok];
+    NSArray *toks = [a objectsAbove:delimToken];
     [a pop]; // discard '(' fence
     
     NSAssert([toks count] > 0 && [toks count] < 3, @"");

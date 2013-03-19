@@ -393,14 +393,6 @@
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */; };
 		D3BBBCC10FECD477007DF30D /* xml.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8800FEB36A1006A91A4 /* xml.grammar */; };
-		D3C07E6416F53D8A000FB894 /* PKBaseSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */; };
-		D3C07E6816F53DD8000FB894 /* PKType.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6616F53DD8000FB894 /* PKType.h */; };
-		D3C07E6C16F53E42000FB894 /* PKVariableSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6A16F53E42000FB894 /* PKVariableSymbol.h */; };
-		D3C07E7016F53F48000FB894 /* PKBuiltInTypeSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E6E16F53F48000FB894 /* PKBuiltInTypeSymbol.h */; };
-		D3C07E7516F5403E000FB894 /* PKSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E7316F5403D000FB894 /* PKSymbolTable.h */; };
-		D3C07E7916F54540000FB894 /* PKBaseScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E7716F5453F000FB894 /* PKBaseScope.h */; };
-		D3C07E7D16F5459D000FB894 /* PKGlobalScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E7B16F5459D000FB894 /* PKGlobalScope.h */; };
-		D3C07E8116F545FF000FB894 /* PKLocalScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E7F16F545FE000FB894 /* PKLocalScope.h */; };
 		D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */; };
 		D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */; };
 		D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2759,14 +2751,6 @@
 				D33DC1A111656952004CE58C /* PKTwitterState.h in Headers */,
 				D30805BC155ECB3F0000BC60 /* PKPattern.h in Headers */,
 				D325FFE9161F484100D4EBCC /* PKCompositeParser.h in Headers */,
-				D3C07E6416F53D8A000FB894 /* PKBaseSymbol.h in Headers */,
-				D3C07E6816F53DD8000FB894 /* PKType.h in Headers */,
-				D3C07E6C16F53E42000FB894 /* PKVariableSymbol.h in Headers */,
-				D3C07E7016F53F48000FB894 /* PKBuiltInTypeSymbol.h in Headers */,
-				D3C07E7516F5403E000FB894 /* PKSymbolTable.h in Headers */,
-				D3C07E7916F54540000FB894 /* PKBaseScope.h in Headers */,
-				D3C07E7D16F5459D000FB894 /* PKGlobalScope.h in Headers */,
-				D3C07E8116F545FF000FB894 /* PKLocalScope.h in Headers */,
 				D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */,
 				D367F66B16F5570500F5E9EB /* PKBaseVisitor.h in Headers */,
 				D326129A16F64ED50021845F /* PKDefinitionPhaseVisitor.h in Headers */,
