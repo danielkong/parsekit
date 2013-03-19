@@ -718,8 +718,12 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert(nameTok.isWord, @"");
     
     NSString *prodName = [NSString stringWithFormat:@"%@", nameTok.stringValue];
-    
-    [directiveTab setObject:argToks forKey:prodName];
+    NSMutableArray *allToks = directiveTab[prodName];
+    if (!allToks) {
+        allToks = [NSMutableArray arrayWithCapacity:[argToks count]];
+    }
+    [allToks addObjectsFromArray:argToks];
+    directiveTab[prodName] = allToks;
 }
 
 
