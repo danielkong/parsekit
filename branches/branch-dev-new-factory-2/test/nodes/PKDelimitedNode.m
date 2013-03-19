@@ -51,7 +51,7 @@
 
 
 - (NSString *)name {
-    NSMutableString *mstr = [NSMutableString stringWithFormat:@"%%{'%@' '%@'", _startMarker, _endMarker];
+    NSMutableString *mstr = [NSMutableString stringWithFormat:@"%%{'%@', '%@'", _startMarker, _endMarker];
     
     // TODO add charset
     
