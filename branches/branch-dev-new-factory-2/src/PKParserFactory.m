@@ -108,7 +108,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 @interface PKParserFactory ()
 - (PKTokenizer *)tokenizerForParsingGrammar;
 //- (void)setAssemblerForParser:(PKParser *)p;
-- (NSArray *)tokens:(NSArray *)toks byRemovingTokensOfType:(PKTokenType)tt;
 - (NSString *)defaultAssemblerSelectorNameForParserName:(NSString *)parserName;
 - (NSString *)defaultPreassemblerSelectorNameForParserName:(NSString *)parserName;
 
@@ -392,7 +391,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (PKTokenizer *)tokenizerForParsingGrammar {
     PKTokenizer *t = [PKTokenizer tokenizer];
     
-    t.whitespaceState.reportsWhitespaceTokens = YES;
+    [t.symbolState add:@"%{"];
     
     // customize tokenizer to find tokenizer customization directives
     [t setTokenizerState:t.wordState from:'@' to:'@'];
@@ -707,20 +706,9 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (NSArray *)tokens:(NSArray *)toks byRemovingTokensOfType:(PKTokenType)tt {
-    NSMutableArray *res = [NSMutableArray array];
-    for (PKToken *tok in toks) {
-        if (PKTokenTypeWhitespace != tok.tokenType) {
-            [res addObject:tok];
-        }
-    }
-    return res;
-}
-
-
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    NSArray *argToks = [[self tokens:[a objectsAbove:equals] byRemovingTokensOfType:PKTokenTypeWhitespace] reversedArray];
+    NSArray *argToks = [[a objectsAbove:equals] reversedArray];
     //NSArray *argToks = [a objectsAbove:_equals];
     [a pop]; // discard '='
     
@@ -906,7 +894,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKToken *tok = [a pop];
     NSAssert(tok.isWord, @"");
@@ -937,13 +925,13 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    id obj = [a pop]; // opts (as Number*) or DelimitedString('/', '/')
+    id obj = [a pop]; // opts (as Number*) or %{'/', '/'}
     
     PKPatternOptions opts = PKPatternOptionsNone;
-    if ([obj isKindOfClass:[NSNumber class]]) {
-        opts = [obj unsignedIntegerValue];
-        obj = [a pop];
-    }
+//    if ([obj isKindOfClass:[NSNumber class]]) {
+//        opts = [obj unsignedIntegerValue];
+//        obj = [a pop];
+//    }
     
     NSAssert([obj isMemberOfClass:[PKToken class]], @"");
     PKToken *tok = (PKToken *)obj;
@@ -953,7 +941,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([s length] > 2, @"");
     
     NSAssert([s hasPrefix:@"/"], @"");
-    NSAssert([s hasSuffix:@"/"], @"");
+    //NSAssert([s hasSuffix:@"/"], @"");
 
     PKPatternNode *patNode = [PKPatternNode nodeWithToken:tok];
     patNode.options = opts;
@@ -1074,8 +1062,10 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    NSArray *toks = [a objectsAbove:paren];
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    PKToken *dtok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"%{" floatValue:0.0];
+    NSArray *toks = [a objectsAbove:dtok];
     [a pop]; // discard '(' fence
     
     NSAssert([toks count] > 0 && [toks count] < 3, @"");

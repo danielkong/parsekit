@@ -547,10 +547,10 @@
 
 
 - (void)testDelimitedStringTrackException {
-    s = @"@start=DelimitedString('/';";
+    s = @"@start=%{'/';";
     STAssertThrowsSpecificNamed([factory parserFromGrammar:s assembler:nil], PKTrackException, PKTrackExceptionName, @"");
 
-    s = @"@start=DelimitedString('/', ;";
+    s = @"@start=%{'/', ;";
     STAssertThrowsSpecificNamed([factory parserFromGrammar:s assembler:nil], PKTrackException, PKTrackExceptionName, @"");
 }
 

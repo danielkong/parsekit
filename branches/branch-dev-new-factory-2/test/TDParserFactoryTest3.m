@@ -22,30 +22,30 @@
 }
 
 
-- (void)testSpecificSymbol {
-    g = @"@start = Symbol('-');";
-    
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    
-    TDNotNil(lp);
-    
-    s = @"-";
-    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[-]-^", [res description]);
-}
-
-
-- (void)testSpecificSymbol2 {
-    g = @"@start = Symbol('<=');";
-    
-    lp = [factory parserFromGrammar:g assembler:nil error:nil];
-    
-    TDNotNil(lp);
-    
-    s = @"<=";
-    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
-    TDEqualObjects(@"[<=]<=^", [res description]);
-}
+//- (void)testSpecificSymbol {
+//    g = @"@start = Symbol('-');";
+//    
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    
+//    TDNotNil(lp);
+//    
+//    s = @"-";
+//    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[-]-^", [res description]);
+//}
+//
+//
+//- (void)testSpecificSymbol2 {
+//    g = @"@start = Symbol('<=');";
+//    
+//    lp = [factory parserFromGrammar:g assembler:nil error:nil];
+//    
+//    TDNotNil(lp);
+//    
+//    s = @"<=";
+//    res = [lp completeMatchFor:[PKTokenAssembly assemblyWithString:s]];
+//    TDEqualObjects(@"[<=]<=^", [res description]);
+//}
 
 
 - (void)testTrack {
@@ -106,7 +106,7 @@
 
 
 - (void)testTrackFailure2 {
-    g = @"@start = [Number Symbol('{')];";
+    g = @"@start = [Number Symbol];";
     
     lp = [factory parserFromGrammar:g assembler:nil error:nil];
     
@@ -123,7 +123,7 @@
         NSLog(@"%@", ex);
         reachedCatch = YES;
         TDEqualObjects([PKTrackException class], [ex class]);
-        TDEqualObjects(@"\n\nAfter : 3\nExpected : Symbol {\nFound : -nothing-\n\n", [ex reason]);
+        TDEqualObjects(@"\n\nAfter : 3\nExpected : Symbol\nFound : -nothing-\n\n", [ex reason]);
     }
     
     TDTrue(reachedCatch);
@@ -157,7 +157,7 @@
 
 - (void)testOrVsAndPrecendence {
     g = @" @start ( parser:didMatchFoo: ) = foo;\n"
-    @"  foo = Word & /foo/ | Number! { 1 } ( DelimitedString ( '/' , '/' ) Symbol- '%' ) * /bar/ ;";
+    @"  foo = Word & /foo/ | Number! { 1 } ( %{ '/' , '/' } Symbol- '%' ) * /bar/ ;";
     lp = [factory parserFromGrammar:g assembler:nil error:nil];
     TDNotNil(lp);
     

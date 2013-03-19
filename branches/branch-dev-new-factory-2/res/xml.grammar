@@ -93,7 +93,7 @@
 
 // [15]       Comment       ::=       '<!--' ((Char - '-') | ('-' (Char - '-')))* '-->'
     
-    comment = DelimitedString('<!--', '-->');
+    comment = %{'<!--', '-->'};
 
 
 // [16]       PI       ::=       '<?' PITarget (S (Char* - (Char* '?>' Char*)))? '?>'
@@ -108,7 +108,7 @@
 // [20]       CData       ::=       (Char* - (Char* ']]>' Char*))
 // [21]       CDEnd       ::=       ']]>'
     
-    cdSect = DelimitedString('<![CDATA[', ']]>');
+    cdSect = %{'<![CDATA[', ']]>'};
 
 
 // [22]       prolog       ::=        XMLDecl? Misc* (doctypedecl Misc*)?

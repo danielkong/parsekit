@@ -10,8 +10,6 @@
 #import "PKParserFactory.h"
 #import "PKAST.h"
 
-//delimited string syntax
-
 @interface PKParserFactory ()
 @property (nonatomic, retain, readonly) NSDictionary *directiveTab;
 @end
@@ -29,56 +27,6 @@
 
 - (void)tearDown {
     self.factory = nil;
-}
-
-
-- (void)testMultiAlternationAST0 {
-    NSString *g = @"@start=foo;foo=Word|Number|Symbol;"; // problem????
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| Word Number Symbol)))", [rootNode treeDescription]);
-}
-
-
-- (void)testMultiAlternationAST1 {
-    NSString *g = @"@start=foo;foo=QuotedString Word|Number|Symbol;";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| (. QuotedString Word) Number Symbol)))", [rootNode treeDescription]);
-}
-
-
-- (void)testMultiAlternationAST2 {
-    NSString *g = @"@start=foo;foo=Number|QuotedString Word|Symbol;";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| Number (. QuotedString Word) Symbol)))", [rootNode treeDescription]);
-}
-
-
-- (void)testMultiAlternationAST3 {
-    NSString *g = @"@start=foo;foo=QuotedString|Number|(Word Symbol);";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| QuotedString Number (. Word Symbol))))", [rootNode treeDescription]);
-}
-
-
-- (void)testMultiAlternationAST4 {
-    NSString *g = @"@start=foo;foo=QuotedString|Number|Word Symbol;";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| QuotedString Number (. Word Symbol))))", [rootNode treeDescription]);
 }
 
 
@@ -470,38 +418,38 @@
 }
 
 
-- (void)testPatternOptsAST {
-    NSString *g = @"@start=foo;foo=/\\w/m;";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/m))", [rootNode treeDescription]);
-    
-    g = @"@start=foo;foo = /\\w/m;";
-    
-    err = nil;
-    rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/m))", [rootNode treeDescription]);
-}
-
-
-- (void)testPatternMultiOptsAST {
-    NSString *g = @"@start=foo;foo=/\\w/im;";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/im))", [rootNode treeDescription]);
-    
-    g = @"@start=foo;foo = /\\w/im;";
-    
-    err = nil;
-    rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/im))", [rootNode treeDescription]);
-}
+//- (void)testPatternOptsAST {
+//    NSString *g = @"@start=foo;foo=/\\w/m;";
+//    
+//    NSError *err = nil;
+//    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+//    TDNotNil(rootNode);
+//    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/m))", [rootNode treeDescription]);
+//    
+//    g = @"@start=foo;foo = /\\w/m;";
+//    
+//    err = nil;
+//    rootNode = [_factory ASTFromGrammar:g error:&err];
+//    TDNotNil(rootNode);
+//    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/m))", [rootNode treeDescription]);
+//}
+//
+//
+//- (void)testPatternMultiOptsAST {
+//    NSString *g = @"@start=foo;foo=/\\w/im;";
+//    
+//    NSError *err = nil;
+//    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+//    TDNotNil(rootNode);
+//    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/im))", [rootNode treeDescription]);
+//    
+//    g = @"@start=foo;foo = /\\w/im;";
+//    
+//    err = nil;
+//    rootNode = [_factory ASTFromGrammar:g error:&err];
+//    TDNotNil(rootNode);
+//    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/im))", [rootNode treeDescription]);
+//}
 
 
 - (void)testSimplifyAST {
@@ -846,7 +794,7 @@
 
 
 - (void)testDelimited {
-    NSString *g = @"@start=DelimitedString('<', '>');";
+    NSString *g = @"@start=%{'<', '>'};";
     
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
@@ -857,7 +805,7 @@
 
 
 - (void)testDelimited2 {
-    NSString *g = @"@start=foo;foo=DelimitedString('<', '>');";
+    NSString *g = @"@start=foo;foo=%{'<', '>'};";
     
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
@@ -889,28 +837,29 @@
 }
 
 
-- (void)testSepcificConstantSymbol {
-    NSString *g = @"@start=Symbol('%');";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start Symbol('%')))", [rootNode treeDescription]);
-}
-
-
-- (void)testSepcificConstantWord {
-    NSString *g = @"@start=Word('foo');";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start Word('foo')))", [rootNode treeDescription]);
-}
-
-
+//
+//- (void)testSepcificConstantSymbol {
+//    NSString *g = @"@start=Symbol('%');";
+//    
+//    NSError *err = nil;
+//    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+//    
+//    TDNotNil(rootNode);
+//    TDEqualObjects(@"(ROOT (@start Symbol('%')))", [rootNode treeDescription]);
+//}
+//
+//
+//- (void)testSepcificConstantWord {
+//    NSString *g = @"@start=Word('foo');";
+//    
+//    NSError *err = nil;
+//    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+//    
+//    TDNotNil(rootNode);
+//    TDEqualObjects(@"(ROOT (@start Word('foo')))", [rootNode treeDescription]);
+//}
+//
+//
 - (void)testCallback {
     NSString *g = @"@start=foo;foo(parser:didMatchSomething:)=Word;";
     
@@ -940,6 +889,56 @@
     PKToken *tok = [toks lastObject];
     TDTrue(tok.isQuotedString);
     TDEqualObjects(@"'@'", tok.stringValue);
+}
+
+
+- (void)testMultiAlternationAST0 {
+    NSString *g = @"@start=foo;foo=Word|Number|Symbol;"; // problem????
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| Word Number Symbol)))", [rootNode treeDescription]);
+}
+
+
+- (void)testMultiAlternationAST1 {
+    NSString *g = @"@start=foo;foo=QuotedString Word|Number|Symbol;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| (. QuotedString Word) Number Symbol)))", [rootNode treeDescription]);
+}
+
+
+- (void)testMultiAlternationAST2 {
+    NSString *g = @"@start=foo;foo=Number|QuotedString Word|Symbol;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| Number (. QuotedString Word) Symbol)))", [rootNode treeDescription]);
+}
+
+
+- (void)testMultiAlternationAST3 {
+    NSString *g = @"@start=foo;foo=QuotedString|Number|(Word Symbol);";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| QuotedString Number (. Word Symbol))))", [rootNode treeDescription]);
+}
+
+
+- (void)testMultiAlternationAST4 {
+    NSString *g = @"@start=foo;foo=QuotedString|Number|Word Symbol;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| QuotedString Number (. Word Symbol))))", [rootNode treeDescription]);
 }
 
 @end

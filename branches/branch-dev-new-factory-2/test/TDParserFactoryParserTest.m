@@ -74,6 +74,24 @@
 }
 
 
+- (void)testDelimitAST {
+    NSString *g = @"@symbols='<?=';@start=%{'<?=', '>'};";
+    //    NSString *g = @"@start=foo foo foo? foo?;foo=Number;";
+    
+    NSError *err = nil;
+    PKCollectionParser *p = (PKCollectionParser *)[_factory parserFromGrammar:g assembler:nil error:&err];
+    
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKParser class]]);
+    
+    NSString *input = @"<?= foobar baz >";
+    PKAssembly *a = [PKTokenAssembly assemblyWithString:input];
+    a = [p completeMatchFor:a];
+
+    TDEqualObjects(@"[<?=, foobar, baz, >]<?=/foobar/baz/>^", [a description]);
+}
+
+
 - (void)testCardinalAST {
     NSString *g = @"@start=Word|foo{2,4};foo=Number;";
     //    NSString *g = @"@start=foo foo foo? foo?;foo=Number;";

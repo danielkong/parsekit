@@ -17,41 +17,41 @@
 
 // @start               = statement*;
 // statement            = tokenizerDirective | decl;
-// tokenizerDirective   = S* (/@.+/ - '@start') S* '=' (S! | ~';')+ ';'!;
-// decl                 = S* production S* callback? S* '=' expr ';'!;
+// tokenizerDirective   = (/@.+/ - '@start') '=' (~';')+ ';'!;
+// decl                 = production callback? '=' expr ';'!;
 // production           = startProduction | varProduction;
 // startProduction      = '@start';
 // varProduction        = LowercaseWord;
-// callback             = S* '('! S* selector S* ')'!;
+// callback             = '('! selector ')'!;
 // selector             = Word ':';
-// expr                 = term orTerm* S*;
+// expr                 = term orTerm*;
 // term                 = factor nextFactor*;
-// orTerm               = S* '|' S* term;
+// orTerm               = '|' term;
 // factor               = phrase | phraseStar | phrasePlus | phraseQuestion | phraseCardinality;
-// nextFactor           = S factor;
+// nextFactor           = factor;
 
 // phrase               = primaryExpr predicate*;
-// phraseStar           = phrase S* '*'!;
-// phrasePlus           = phrase S* '+'!;
-// phraseQuestion       = phrase S* '?'!;
-// phraseCardinality    = phrase S* cardinality;
-// cardinality          = '{' S* number (S* ','! S* number)? S* '}'!;
+// phraseStar           = phrase '*'!;
+// phrasePlus           = phrase '+'!;
+// phraseQuestion       = phrase '?'!;
+// phraseCardinality    = phrase cardinality;
+// cardinality          = '{' number (','! number)? '}'!;
 // number               = Number;
 
-// predicate            = S* (intersection | difference);
-// intersection         = '&'! S* primaryExpr;
-// difference           = '-'! S* primaryExpr;
+// predicate            = (intersection | difference);
+// intersection         = '&'! primaryExpr;
+// difference           = '-'! primaryExpr;
 
 // primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
-// negatedPrimaryExpr   = '~'! S* barePrimaryExpr;
+// negatedPrimaryExpr   = '~'! barePrimaryExpr;
 // barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
 // subSeqExpr           = '(' expr ')'!;
 // subTrackExpr         = '[' expr ']'!;
 // atomicValue          = parser discard?;
 // parser               = pattern | literal | variable | constant | specificConstant | delimitedString;
-// discard              = S* '!';
-// pattern              = DelimitedString('/', '/') (Word & /[imxsw]+/)?;
-// delimitedString      = 'DelimitedString' S* '(' S* QuotedString (S* ',' QuotedString)? S* ')';
+// discard              = '!';
+// pattern              = %{'/', '/'};
+// delimitedString      = '%{' QuotedString (',' QuotedString)? '}';
 // literal              = QuotedString;
 // variable             = LowercaseWord;
 // constant             = UppercaseWord;
@@ -183,23 +183,20 @@
 }
 
 
-// tokenizerDirective   = S* ((Word & /@.+/) - '@start') S* '=' (S! | ~';')+ ';'!;
+// tokenizerDirective   = ((Word & /@.+/) - '@start') '=' (~';')+ ';'!;
 - (PKCollectionParser *)tokenizerDirectiveParser {
     if (!tokenizerDirectiveParser) {
         self.tokenizerDirectiveParser = [PKSequence sequence];
         tokenizerDirectiveParser.name = @"tokenizerDirective";
-        [tokenizerDirectiveParser add:self.optionalWhitespaceParser];
         
         PKPattern *regex = [PKPattern patternWithString:@"@.+"];
         PKIntersection *dir = [PKIntersection intersectionWithSubparsers:[PKWord word], regex, nil];
         PKParser *notStart = [PKDifference differenceWithSubparser:dir minus:[PKLiteral literalWithString:@"@start"]];
         [tokenizerDirectiveParser add:notStart];
-        [tokenizerDirectiveParser add:self.optionalWhitespaceParser];
         [tokenizerDirectiveParser add:[PKSymbol symbolWithString:@"="]];
         
         PKParser *notSemi = [PKNegation negationWithSubparser:[PKSymbol symbolWithString:@";"]];
         PKAlternation *alt = [PKAlternation alternation];
-        [alt add:[[PKWhitespace whitespace] discard]];
         [alt add:notSemi];
         
         [tokenizerDirectiveParser add:[self oneOrMore:alt]];
@@ -211,16 +208,13 @@
 }
 
 
-// decl                 = S* production S* callback? S* '=' expr ';'!;
+// decl                 = production callback? '=' expr ';'!;
 - (PKCollectionParser *)declParser {
     if (!declParser) {
         self.declParser = [PKSequence sequence];
         declParser.name = @"decl";
-        [declParser add:self.optionalWhitespaceParser];
         [declParser add:self.productionParser];
-        [declParser add:self.optionalWhitespaceParser];
         [declParser add:[self zeroOrOne:self.callbackParser]];
-        [declParser add:self.optionalWhitespaceParser];
         [declParser add:[PKSymbol symbolWithString:@"="]];
         [declParser add:self.exprParser];
         [declParser add:[[PKSymbol symbolWithString:@";"] discard]];
@@ -266,18 +260,15 @@
 }
 
 
-// callback             = S* '('! S* selector S* ')'!;
+// callback             = '('! selector ')'!;
 - (PKCollectionParser *)callbackParser {
     if (!callbackParser) {
         self.callbackParser = [PKSequence sequence];
         callbackParser.name = @"callback";
-        [callbackParser add:self.optionalWhitespaceParser];
         
         PKTrack *tr = [PKTrack track];
         [tr add:[[PKSymbol symbolWithString:@"("] discard]];
-        [tr add:self.optionalWhitespaceParser];
         [tr add:self.selectorParser];
-        [tr add:self.optionalWhitespaceParser];
         [tr add:[[PKSymbol symbolWithString:@")"] discard]];
         
         [callbackParser add:tr];
@@ -301,15 +292,13 @@
 }
 
 
-// expr        = S* term orTerm* S*;
+// expr        = term orTerm*;
 - (PKCollectionParser *)exprParser {
     if (!exprParser) {
         self.exprParser = [PKSequence sequence];
         exprParser.name = @"expr";
-        [exprParser add:self.optionalWhitespaceParser];
         [exprParser add:self.termParser];
         [exprParser add:[PKRepetition repetitionWithSubparser:self.orTermParser]];
-        [exprParser add:self.optionalWhitespaceParser];
     }
     return exprParser;
 }
@@ -327,16 +316,14 @@
 }
 
 
-// orTerm               = S* '|' S* term;
+// orTerm               = '|' term;
 - (PKCollectionParser *)orTermParser {
     if (!orTermParser) {
         self.orTermParser = [PKSequence sequence];
         orTermParser.name = @"orTerm";
-        [orTermParser add:self.optionalWhitespaceParser];
         
         PKTrack *tr = [PKTrack track];
         [tr add:[PKSymbol symbolWithString:@"|"]]; // preserve as fence
-        [tr add:self.optionalWhitespaceParser];
         [tr add:self.termParser];
         
         [orTermParser add:tr];
@@ -361,15 +348,11 @@
 }
 
 
-// nextFactor           = S factor;
+// nextFactor           = factor;
 - (PKCollectionParser *)nextFactorParser {
     if (!nextFactorParser) {
         self.nextFactorParser = [PKSequence sequence];
         nextFactorParser.name = @"nextFactor";
-        
-        PKParser *space = self.whitespaceParser;
-        //[space setAssembler:assembler selector:@selector(parser:willMatchAnd:)];
-        [nextFactorParser add:space];
         [nextFactorParser add:self.factorParser];
         //[nextFactorParser setAssembler:assembler selector:@selector(parser:didMatchAnd:)];
 }
@@ -401,13 +384,12 @@
 }
 
 
-// negatedPrimaryExpr   = '~'! S* barePrimaryExpr;
+// negatedPrimaryExpr   = '~'! barePrimaryExpr;
 - (PKCollectionParser *)negatedPrimaryExprParser {
     if (!negatedPrimaryExprParser) {
         self.negatedPrimaryExprParser = [PKSequence sequence];
         negatedPrimaryExprParser.name = @"negatedPrimaryExpr";
         [negatedPrimaryExprParser add:[[PKLiteral literalWithString:@"~"] discard]];
-        [negatedPrimaryExprParser add:self.optionalWhitespaceParser];
         [negatedPrimaryExprParser add:self.barePrimaryExprParser];
         [negatedPrimaryExprParser setAssembler:assembler selector:@selector(parser:didMatchNegation:)];
     }
@@ -442,12 +424,11 @@
 }
 
 
-// predicate            = S* (intersection | difference);
+// predicate            = (intersection | difference);
 - (PKCollectionParser *)predicateParser {
     if (!predicateParser) {
         self.predicateParser = [PKSequence sequence];
         predicateParser.name = @"predicate";
-        [predicateParser add:self.optionalWhitespaceParser];
         
         PKAlternation *a = [PKAlternation alternation];
         [a add:self.intersectionParser];
@@ -459,7 +440,7 @@
 }
 
 
-// intersection         = '&'! S* primaryExpr;
+// intersection         = '&'! primaryExpr;
 - (PKCollectionParser *)intersectionParser {
     if (!intersectionParser) {
         self.intersectionParser = [PKTrack track];
@@ -467,7 +448,6 @@
         
         PKTrack *tr = [PKTrack track];
         [tr add:[[PKSymbol symbolWithString:@"&"] discard]];
-        [tr add:self.optionalWhitespaceParser];
         [tr add:self.primaryExprParser];
         
         [intersectionParser add:tr];
@@ -477,7 +457,7 @@
 }
 
 
-// difference            = '-'! S* primaryExpr;
+// difference            = '-'! primaryExpr;
 - (PKCollectionParser *)differenceParser {
     if (!differenceParser) {
         self.differenceParser = [PKTrack track];
@@ -485,7 +465,6 @@
         
         PKTrack *tr = [PKTrack track];
         [tr add:[[PKSymbol symbolWithString:@"-"] discard]];
-        [tr add:self.optionalWhitespaceParser];
         [tr add:self.primaryExprParser];
         
         [differenceParser add:tr];
@@ -495,13 +474,12 @@
 }
 
 
-// phraseStar           = phrase S* '*'!;
+// phraseStar           = phrase '*'!;
 - (PKCollectionParser *)phraseStarParser {
     if (!phraseStarParser) {
         self.phraseStarParser = [PKSequence sequence];
         phraseStarParser.name = @"phraseStar";
         [phraseStarParser add:self.phraseParser];
-        [phraseStarParser add:self.optionalWhitespaceParser];
         [phraseStarParser add:[[PKSymbol symbolWithString:@"*"] discard]];
         [phraseStarParser setAssembler:assembler selector:@selector(parser:didMatchStar:)];
     }
@@ -509,13 +487,12 @@
 }
 
 
-// phrasePlus           = phrase S* '+'!;
+// phrasePlus           = phrase '+'!;
 - (PKCollectionParser *)phrasePlusParser {
     if (!phrasePlusParser) {
         self.phrasePlusParser = [PKSequence sequence];
         phrasePlusParser.name = @"phrasePlus";
         [phrasePlusParser add:self.phraseParser];
-        [phrasePlusParser add:self.optionalWhitespaceParser];
         [phrasePlusParser add:[[PKSymbol symbolWithString:@"+"] discard]];
         [phrasePlusParser setAssembler:assembler selector:@selector(parser:didMatchPlus:)];
     }
@@ -523,13 +500,12 @@
 }
 
 
-// phraseQuestion       = phrase S* '?'!;
+// phraseQuestion       = phrase '?'!;
 - (PKCollectionParser *)phraseQuestionParser {
     if (!phraseQuestionParser) {
         self.phraseQuestionParser = [PKSequence sequence];
         phraseQuestionParser.name = @"phraseQuestion";
         [phraseQuestionParser add:self.phraseParser];
-        [phraseQuestionParser add:self.optionalWhitespaceParser];
         [phraseQuestionParser add:[[PKSymbol symbolWithString:@"?"] discard]];
         [phraseQuestionParser setAssembler:assembler selector:@selector(parser:didMatchQuestion:)];
     }
@@ -537,13 +513,12 @@
 }
 
 
-// phraseCardinality    = phrase S* cardinality;
+// phraseCardinality    = phrase cardinality;
 - (PKCollectionParser *)phraseCardinalityParser {
     if (!phraseCardinalityParser) {
         self.phraseCardinalityParser = [PKSequence sequence];
         phraseCardinalityParser.name = @"phraseCardinality";
         [phraseCardinalityParser add:self.phraseParser];
-        [phraseCardinalityParser add:self.optionalWhitespaceParser];
         [phraseCardinalityParser add:self.cardinalityParser];
         [phraseCardinalityParser setAssembler:assembler selector:@selector(parser:didMatchPhraseCardinality:)];
     }
@@ -551,24 +526,20 @@
 }
 
 
-// cardinality          = '{' S* number (S* ','! S* number)? S* '}'!;
+// cardinality          = '{' number (','! number)? '}'!;
 - (PKCollectionParser *)cardinalityParser {
     if (!cardinalityParser) {
         self.cardinalityParser = [PKSequence sequence];
         cardinalityParser.name = @"cardinality";
         
         PKSequence *commaNum = [PKSequence sequence];
-        [commaNum add:self.optionalWhitespaceParser];
         [commaNum add:[[PKSymbol symbolWithString:@","] discard]];
-        [commaNum add:self.optionalWhitespaceParser];
         [commaNum add:self.numberParser];
         
         PKTrack *tr = [PKTrack track];
         [tr add:[PKSymbol symbolWithString:@"{"]]; // serves as fence. dont discard
-        [tr add:self.optionalWhitespaceParser];
         [tr add:self.numberParser];
         [tr add:[self zeroOrOne:commaNum]];
-        [tr add:self.optionalWhitespaceParser];
         [tr add:[[PKSymbol symbolWithString:@"}"] discard]];
         
         [cardinalityParser add:tr];
@@ -606,12 +577,11 @@
 }
 
 
-// discard              = S* '!';
+// discard              = '!';
 - (PKCollectionParser *)discardParser {
     if (!discardParser) {
         self.discardParser = [PKSequence sequence];
         discardParser.name = @"discard";
-        [discardParser add:self.optionalWhitespaceParser];
         [discardParser add:[[PKSymbol symbolWithString:@"!"] discard]];
         [discardParser setAssembler:assembler selector:@selector(parser:didMatchDiscard:)];
     }
@@ -619,49 +589,48 @@
 }
 
 
-// pattern              = DelimitedString('/', '/') (Word & /[imxsw]+/)?;
+// pattern              = %{'/', '/'} (Word & /[imxsw]+/)?;
+// pattern              = %{'/', '/'};
 - (PKCollectionParser *)patternParser {
     if (!patternParser) {
+        self.patternParser = [PKAlternation alternation];
         patternParser.name = @"pattern";
-        self.patternParser = [PKSequence sequence];
         [patternParser add:[PKDelimitedString delimitedStringWithStartMarker:@"/" endMarker:@"/"]];
+//        [patternParser add:[PKDelimitedString delimitedStringWithStartMarker:@"/" endMarker:@"/i"]];
+//        [patternParser add:[PKDelimitedString delimitedStringWithStartMarker:@"/" endMarker:@"/im"]];
+//        [patternParser add:[PKDelimitedString delimitedStringWithStartMarker:@"/" endMarker:@"/m"]];
+//        [patternParser add:[PKDelimitedString delimitedStringWithStartMarker:@"/" endMarker:@"/mi"]];
         
-        PKParser *opts = [PKPattern patternWithString:@"[imxsw]+" options:PKPatternOptionsNone];
-        PKIntersection *inter = [PKIntersection intersection];
-        [inter add:[PKWord word]];
-        [inter add:opts];
-        [inter setAssembler:assembler selector:@selector(parser:didMatchPatternOptions:)];
+//        PKParser *opts = [PKPattern patternWithString:@"[imxsw]+" options:PKPatternOptionsNone];
+//        PKIntersection *inter = [PKIntersection intersection];
+//        [inter add:[PKWord word]];
+//        [inter add:opts];
+//        [inter setAssembler:assembler selector:@selector(parser:didMatchPatternOptions:)];
+//        [patternParser add:[self zeroOrOne:inter]];
         
-        [patternParser add:[self zeroOrOne:inter]];
         [patternParser setAssembler:assembler selector:@selector(parser:didMatchPattern:)];
     }
     return patternParser;
 }
 
 
-// delimitedString      = 'DelimitedString' S* '(' S* QuotedString (S* ',' QuotedString)? S* ')';
+// delimitedString      = '%{' QuotedString (',' QuotedString)? '}';
 - (PKCollectionParser *)delimitedStringParser {
     if (!delimitedStringParser) {
         self.delimitedStringParser = [PKTrack track];
         delimitedStringParser.name = @"delimitedString";
         
         PKSequence *secondArg = [PKSequence sequence];
-        [secondArg add:self.optionalWhitespaceParser];
         
         PKTrack *tr = [PKTrack track];
         [tr add:[[PKSymbol symbolWithString:@","] discard]];
-        [tr add:self.optionalWhitespaceParser];
         [tr add:[PKQuotedString quotedString]]; // endMarker
         [secondArg add:tr];
         
-        [delimitedStringParser add:[[PKLiteral literalWithString:@"DelimitedString"] discard]];
-        [delimitedStringParser add:self.optionalWhitespaceParser];
-        [delimitedStringParser add:[PKSymbol symbolWithString:@"("]]; // preserve as fence
-        [delimitedStringParser add:self.optionalWhitespaceParser];
+        [delimitedStringParser add:[PKSymbol symbolWithString:@"%{"]]; // preserve as fence
         [delimitedStringParser add:[PKQuotedString quotedString]]; // startMarker
         [delimitedStringParser add:[self zeroOrOne:secondArg]];
-        [delimitedStringParser add:self.optionalWhitespaceParser];
-        [delimitedStringParser add:[[PKSymbol symbolWithString:@")"] discard]];
+        [delimitedStringParser add:[[PKSymbol symbolWithString:@"}"] discard]];
         
         [delimitedStringParser setAssembler:assembler selector:@selector(parser:didMatchDelimitedString:)];
     }
@@ -724,16 +693,6 @@
         [specificConstantParser setAssembler:assembler selector:@selector(parser:didMatchSpecificConstant:)];
     }
     return specificConstantParser;
-}
-
-
-- (PKParser *)whitespaceParser {
-    return [[PKWhitespace whitespace] discard];
-}
-
-
-- (PKParser *)optionalWhitespaceParser {
-    return [PKRepetition repetitionWithSubparser:self.whitespaceParser];
 }
 
 @synthesize parser;

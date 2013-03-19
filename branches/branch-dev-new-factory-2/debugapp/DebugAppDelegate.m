@@ -399,7 +399,7 @@
 ////    TDEqualObjects(@"[bar, bat]bar/bat^", [res description]);
 ////    [mock verify];
     
-//    NSString *g = @"@delimitState = '$'; @delimitedString = '$' '%' nil; @start = DelimitedString('$', '%');";
+//    NSString *g = @"@delimitState = '$'; @delimitedString = '$' '%' nil; @start = %{'$', '%'};";
 //    PKParser *lp = [[PKParserFactory factory] parserFromGrammar:g assembler:nil];
 //
 //    NSString *s = @"$foo%";

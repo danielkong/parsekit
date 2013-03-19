@@ -93,6 +93,4 @@
 @property (nonatomic, retain) PKParser *constantParser;
 @property (nonatomic, retain) PKParser *numberParser;
 @property (nonatomic, retain) PKCollectionParser *specificConstantParser;
-@property (nonatomic, retain, readonly) PKParser *whitespaceParser;
-@property (nonatomic, retain, readonly) PKParser *optionalWhitespaceParser;
 @end
