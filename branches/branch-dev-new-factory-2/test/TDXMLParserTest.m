@@ -355,7 +355,7 @@
 // [16]       PI       ::=       '<?' PITarget (S (Char* - (Char* '?>' Char*)))? '?>'
 // [17]       PITarget       ::=        Name - (('X' | 'x') ('M' | 'm') ('L' | 'l'))
 // pi = '<?' piTarget ~/?>/* '?>';
-// piTarget = name - /xml/i;
+// piTarget = name - /[xX][mM][lL]/;
 
 - (void)testPI {
     NSString *gram = 
@@ -363,7 +363,7 @@
         @"@symbols='<?' '?>';"
         @"@symbolState = '<';"
         @"name=/[^-:\\.]\\w+/;"
-        @"piTarget = name - /xml/i;"
+        @"piTarget = name - /[xX][mM][lL]/;"
         @"@wordState = ':' '.' '-' '_';"
         @"@wordChars = ':' '.' '-' '_';"
         @"pi = '<?' piTarget ~/?>/* '?>';"
