@@ -1559,10 +1559,11 @@
 				D3FDC8DB0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch */,
 				D3C221900FFE8B8C004514FE /* ParseKit.h */,
 				D3C221910FFE8B8C004514FE /* PKTypes.h */,
-				D3C7D8710A411F6B005DD154 /* io */,
+				D3C221990FFE8B9D004514FE /* PKAssembly.h */,
+				D34BADA00FF9C9B000D7773A /* PKAssembly.m */,
+				D324B77E16F8C8F9005FE823 /* tokenize */,
 				D3C7D8720A411F81005DD154 /* parse */,
-				D3C7D8740A411F8E005DD154 /* tokens */,
-				D3E785F10E550F63008C7D61 /* chars */,
+				D324B77D16F8C892005FE823 /* ast */,
 				D34BAC0F0FF87ED200D7773A /* grammar */,
 				D3A1492B16F8C7D600770DEE /* AppKit categories */,
 			);
@@ -1625,6 +1626,25 @@
 			name = javascript;
 			sourceTree = "<group>";
 		};
+		D324B77D16F8C892005FE823 /* ast */ = {
+			isa = PBXGroup;
+			children = (
+				D3A1492816F8C6BD00770DEE /* PKAST.h */,
+				D3376D8D10096C0700E4602E /* PKAST.m */,
+			);
+			name = ast;
+			sourceTree = "<group>";
+		};
+		D324B77E16F8C8F9005FE823 /* tokenize */ = {
+			isa = PBXGroup;
+			children = (
+				D3C7D8710A411F6B005DD154 /* io */,
+				D3C7D8740A411F8E005DD154 /* tokens */,
+				D3E785F10E550F63008C7D61 /* chars */,
+			);
+			name = tokenize;
+			sourceTree = "<group>";
+		};
 		D3252F670FCE171D005EF059 /* predicate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1648,8 +1668,6 @@
 		D325FFBC161E4E3200D4EBCC /* ast */ = {
 			isa = PBXGroup;
 			children = (
-				D3A1492816F8C6BD00770DEE /* PKAST.h */,
-				D3376D8D10096C0700E4602E /* PKAST.m */,
 				D395524816F16BA600D326FD /* PKBaseNode.h */,
 				D395524916F16BA600D326FD /* PKBaseNode.m */,
 				D395527E16F16C5F00D326FD /* PKRootNode.h */,
@@ -2381,9 +2399,32 @@
 		D3C7D8720A411F81005DD154 /* parse */ = {
 			isa = PBXGroup;
 			children = (
-				D3C221990FFE8B9D004514FE /* PKAssembly.h */,
-				D34BADA00FF9C9B000D7773A /* PKAssembly.m */,
-				D3D63EA90E2A7A5C009BF5CD /* parsers */,
+				D3C2219C0FFE8BA6004514FE /* PKParser.h */,
+				D34BADD60FF9CBFB00D7773A /* PKParser.m */,
+				D3C2219F0FFE8BAE004514FE /* PKRepetition.h */,
+				D34BAE130FF9CE0E00D7773A /* PKRepetition.m */,
+				D325FFE8161F484100D4EBCC /* PKCompositeParser.h */,
+				D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */,
+				D3C221A20FFE8BBA004514FE /* PKCollectionParser.h */,
+				D34BAE010FF9CCAE00D7773A /* PKCollectionParser.m */,
+				D3C221A50FFE8BC1004514FE /* PKAlternation.h */,
+				D34BAE0B0FF9CE0E00D7773A /* PKAlternation.m */,
+				D3C221A80FFE8BC9004514FE /* PKSequence.h */,
+				D34BAE150FF9CE0E00D7773A /* PKSequence.m */,
+				D3C221AB0FFE8BCF004514FE /* PKTrack.h */,
+				D34BAE190FF9CE0E00D7773A /* PKTrack.m */,
+				D3C221AE0FFE8BD4004514FE /* PKTrackException.h */,
+				D34BAE1B0FF9CE0E00D7773A /* PKTrackException.m */,
+				D3C221B10FFE8BDB004514FE /* PKIntersection.h */,
+				D34BAE110FF9CE0E00D7773A /* PKIntersection.m */,
+				D3C221B40FFE8BE2004514FE /* PKDifference.h */,
+				D34BAE0F0FF9CE0E00D7773A /* PKDifference.m */,
+				D3C221B70FFE8BE8004514FE /* PKNegation.h */,
+				D3126D040FFD9BA700CBF4C4 /* PKNegation.m */,
+				D3C221BA0FFE8BEF004514FE /* PKTerminal.h */,
+				D34BAE170FF9CE0E00D7773A /* PKTerminal.m */,
+				D3C221BD0FFE8BF7004514FE /* PKEmpty.h */,
+				D34BAE0D0FF9CE0E00D7773A /* PKEmpty.m */,
 			);
 			name = parse;
 			sourceTree = "<group>";
@@ -2432,39 +2473,6 @@
 				D3EADD8C0E75EAA400F78584 /* TDHtmlSyntaxHighlighter.m */,
 			);
 			name = html;
-			sourceTree = "<group>";
-		};
-		D3D63EA90E2A7A5C009BF5CD /* parsers */ = {
-			isa = PBXGroup;
-			children = (
-				D3C2219C0FFE8BA6004514FE /* PKParser.h */,
-				D34BADD60FF9CBFB00D7773A /* PKParser.m */,
-				D3C2219F0FFE8BAE004514FE /* PKRepetition.h */,
-				D34BAE130FF9CE0E00D7773A /* PKRepetition.m */,
-				D325FFE8161F484100D4EBCC /* PKCompositeParser.h */,
-				D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */,
-				D3C221A20FFE8BBA004514FE /* PKCollectionParser.h */,
-				D34BAE010FF9CCAE00D7773A /* PKCollectionParser.m */,
-				D3C221A50FFE8BC1004514FE /* PKAlternation.h */,
-				D34BAE0B0FF9CE0E00D7773A /* PKAlternation.m */,
-				D3C221A80FFE8BC9004514FE /* PKSequence.h */,
-				D34BAE150FF9CE0E00D7773A /* PKSequence.m */,
-				D3C221AB0FFE8BCF004514FE /* PKTrack.h */,
-				D34BAE190FF9CE0E00D7773A /* PKTrack.m */,
-				D3C221AE0FFE8BD4004514FE /* PKTrackException.h */,
-				D34BAE1B0FF9CE0E00D7773A /* PKTrackException.m */,
-				D3C221B10FFE8BDB004514FE /* PKIntersection.h */,
-				D34BAE110FF9CE0E00D7773A /* PKIntersection.m */,
-				D3C221B40FFE8BE2004514FE /* PKDifference.h */,
-				D34BAE0F0FF9CE0E00D7773A /* PKDifference.m */,
-				D3C221B70FFE8BE8004514FE /* PKNegation.h */,
-				D3126D040FFD9BA700CBF4C4 /* PKNegation.m */,
-				D3C221BA0FFE8BEF004514FE /* PKTerminal.h */,
-				D34BAE170FF9CE0E00D7773A /* PKTerminal.m */,
-				D3C221BD0FFE8BF7004514FE /* PKEmpty.h */,
-				D34BAE0D0FF9CE0E00D7773A /* PKEmpty.m */,
-			);
-			name = parsers;
 			sourceTree = "<group>";
 		};
 		D3D63F560E2A8538009BF5CD /* tokens */ = {
