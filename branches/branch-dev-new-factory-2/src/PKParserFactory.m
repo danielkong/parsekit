@@ -359,23 +359,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 #pragma mark -
 #pragma mark Private
 
-//// this is just a utility for unit-testing
-//- (PKCollectionParser *)exprParser {
-//    return self.grammarParser.exprParser;
-//}
-//
-//
-//// this is just a utility for unit-testing
-//- (PKSequence *)parserFromExpression:(NSString *)s {
-//    PKTokenizer *t = [self tokenizerForParsingGrammar];
-//    t.string = s;
-//    PKAssembly *a = [PKTokenAssembly assemblyWithTokenizer:t];
-//    a.target = [NSMutableDictionary dictionary]; // setup the variable lookup table
-//    a = [grammarParser.exprParser completeMatchFor:a];
-//    return [a pop];
-//}
-
-
 - (PKTokenizer *)tokenizerForParsingGrammar {
     PKTokenizer *t = [PKTokenizer tokenizer];
     

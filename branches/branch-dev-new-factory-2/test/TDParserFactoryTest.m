@@ -9,6 +9,23 @@
 #import "TDParserFactoryTest.h"
 #import <OCMock/OCMock.h>
 
+//// this is just a utility for unit-testing
+//- (PKCollectionParser *)exprParser {
+//    return self.grammarParser.exprParser;
+//}
+//
+//
+//// this is just a utility for unit-testing
+//- (PKSequence *)parserFromExpression:(NSString *)s {
+//    PKTokenizer *t = [self tokenizerForParsingGrammar];
+//    t.string = s;
+//    PKAssembly *a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    a.target = [NSMutableDictionary dictionary]; // setup the variable lookup table
+//    a = [grammarParser.exprParser completeMatchFor:a];
+//    return [a pop];
+//}
+
+
 @interface PKParserFactory ()
 - (PKTokenizer *)tokenizerForParsingGrammar;
 //- (PKSequence *)parserFromExpression:(NSString *)s;
