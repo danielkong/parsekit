@@ -283,7 +283,7 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     PKLiteral *p = [self parserFromNode:node];
-    NSAssert([p isKindOfClass:[PKLiteral class]], @"");
+    NSAssert([p isKindOfClass:[PKLiteral class]] || [p isKindOfClass:[PKSpecificChar class]], @"");
 
     NSAssert(node.token.isQuotedString, @"");
     NSString *literal = [node.token.stringValue stringByTrimmingQuotes];

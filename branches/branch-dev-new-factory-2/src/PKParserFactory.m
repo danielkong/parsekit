@@ -972,11 +972,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     NSAssert(tok.isQuotedString, @"");
     NSAssert([tok.stringValue length], @"");
-    if (self.wantsCharacters) {
-        litNode = [PKLiteralNode nodeWithToken:tok]; // ??
-    } else {
-        litNode = [PKLiteralNode nodeWithToken:tok];
-    }
+    litNode = [PKLiteralNode nodeWithToken:tok];
+    litNode.wantsCharacters = self.wantsCharacters;
 
     [a push:litNode];
 }
