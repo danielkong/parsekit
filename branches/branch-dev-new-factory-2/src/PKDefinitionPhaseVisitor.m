@@ -9,21 +9,6 @@
 #import "PKDefinitionPhaseVisitor.h"
 #import <ParseKit/PKCompositeParser.h>
 
-#import "PKBaseNode.h"
-#import "PKRootNode.h"
-#import "PKDefinitionNode.h"
-#import "PKReferenceNode.h"
-#import "PKConstantNode.h"
-#import "PKDelimitedNode.h"
-#import "PKLiteralNode.h"
-#import "PKPatternNode.h"
-#import "PKCompositeNode.h"
-#import "PKCollectionNode.h"
-#import "PKAlternationNode.h"
-#import "PKCardinalNode.h"
-#import "PKOptionalNode.h"
-#import "PKMultipleNode.h"
-
 @interface PKDefinitionPhaseVisitor ()
 @end
 
@@ -69,9 +54,7 @@
 
     // define in symbol table
     self.symbolTable[name] = cp;
-    
-//    [self.currentNode replaceChild:node withChild:child];
-    
+        
     [self recurse:node];
 }
 

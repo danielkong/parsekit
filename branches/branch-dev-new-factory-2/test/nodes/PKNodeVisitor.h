@@ -22,9 +22,6 @@
 @class PKCardinalNode;
 @class PKOptionalNode;
 @class PKMultipleNode;
-//@class PKNodeRepetition;
-//@class PKNodeDifference;
-//@class PKNodeNegation;
 
 @protocol PKNodeVisitor <NSObject>
 - (void)visitRoot:(PKRootNode *)node;
@@ -40,9 +37,6 @@
 - (void)visitCardinal:(PKCardinalNode *)node;
 - (void)visitOptional:(PKOptionalNode *)node;
 - (void)visitMultiple:(PKMultipleNode *)node;
-//- (void)visitRepetition:(PKNodeRepetition *)node;
-//- (void)visitDifference:(PKNodeDifference *)node;
-//- (void)visitNegation:(PKNodeNegation *)node;
 
 @property (nonatomic, retain) PKBaseNode *rootNode;
 @end
