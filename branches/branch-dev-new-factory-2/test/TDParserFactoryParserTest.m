@@ -10,6 +10,11 @@
 #import "PKParserFactory.h"
 #import "PKAST.h"
 
+@interface PKDelimitedString ()
+@property (nonatomic, retain) NSString *startMarker;
+@property (nonatomic, retain) NSString *endMarker;
+@end
+
 @interface TDParserFactoryParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @end
@@ -75,20 +80,41 @@
 
 
 - (void)testDelimitAST {
-    NSString *g = @"@symbols='<?=';@start=%{'<?=', '>'};";
-    //    NSString *g = @"@start=foo foo foo? foo?;foo=Number;";
+    NSString *g = @"@symbols='<?=';@delimitState='<';@delimitedString='<?=' '>' nil;@start=%{'<?=', '>'};";
     
     NSError *err = nil;
-    PKCollectionParser *p = (PKCollectionParser *)[_factory parserFromGrammar:g assembler:nil error:&err];
+    PKAST *root = [_factory ASTFromGrammar:g error:nil];
+    TDEqualObjects(@"(ROOT (@start %{'<?=', '>'}))", [root treeDescription]);
+    
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:nil];
+    PKDelimitedString *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKDelimitedString class]]);
+    
+    TDEqualObjects(@"<?=", start.startMarker);
+    TDEqualObjects(@">", start.endMarker);
+    
+    PKDelimitedString *p = (id)[_factory parserFromGrammar:g assembler:nil error:&err];
     
     TDNotNil(p);
-    TDTrue([p isKindOfClass:[PKParser class]]);
     
+    TDNotNil(p);
+    TDTrue([p isKindOfClass:[PKDelimitedString class]]);
+    
+    TDEqualObjects(@"<?=", p.startMarker);
+    TDEqualObjects(@">", p.endMarker);
+
     NSString *input = @"<?= foobar baz >";
-    PKAssembly *a = [PKTokenAssembly assemblyWithString:input];
+    
+    PKTokenizer *t = p.tokenizer;
+    t.string = input;
+    PKAssembly *a = [PKTokenAssembly assemblyWithTokenizer:t];
+    
+    TDEqualObjects(@"[]^<?= foobar baz >", [a description]);
+    
     a = [p completeMatchFor:a];
 
-    TDEqualObjects(@"[<?=, foobar, baz, >]<?=/foobar/baz/>^", [a description]);
+    TDEqualObjects(@"[<?= foobar baz >]<?= foobar baz >^", [a description]);
 }
 
 
