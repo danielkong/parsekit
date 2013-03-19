@@ -25,15 +25,6 @@
 
 @implementation PKBaseVisitor
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
-
-
 - (void)dealloc {
     self.rootNode = nil;
     self.symbolTable = nil;
