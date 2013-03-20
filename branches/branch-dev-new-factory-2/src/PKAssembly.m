@@ -117,15 +117,17 @@ static NSString * const PKAssemblyDefaultDelimiter = @"/";
         return NO;
     }
     
-//    NSAssert([[self description] isEqualToString:[a description]], @"");
+    // this assert will (And should) pass. but it massively slows down performance.
+    //NSAssert([[self description] isEqualToString:[a description]], @"");
 
-//    if (![[self consumedObjectsJoinedByString:@""] isEqualToString:[a consumedObjectsJoinedByString:@""]]) {
-//        return NO;
-//    }
-//    
-//    if (![[self remainingObjectsJoinedByString:@""] isEqualToString:[a remainingObjectsJoinedByString:@""]]) {
-//        return NO;
-//    }
+    // These are cheaper ways (2-step) of acheiving the same check. but are apparently unnecessary.
+    //    if (![[self consumedObjectsJoinedByString:@""] isEqualToString:[a consumedObjectsJoinedByString:@""]]) {
+    //        return NO;
+    //    }
+    //    
+    //    if (![[self remainingObjectsJoinedByString:@""] isEqualToString:[a remainingObjectsJoinedByString:@""]]) {
+    //        return NO;
+    //    }
     
     return YES;
 }
