@@ -228,25 +228,21 @@ static NSString * const PKAssemblyDefaultDelimiter = @"/";
 
 
 - (NSString *)description {
-    NSMutableString *s = [NSMutableString string];
-    [s appendString:@"["];
+    NSMutableString *s = [NSMutableString stringWithString:@"["];
     
     NSUInteger i = 0;
     NSUInteger len = [stack count];
     
+    NSString *fmt = @"%@, ";
     for (id obj in stack) {
-        [s appendString:[obj description]];
-        if (len - 1 != i++) {
-            [s appendString:@", "];
+        if (len - 1 == i++) {
+            fmt = @"%@";
         }
+        [s appendFormat:fmt, obj];
     }
-    
-    [s appendString:@"]"];
-    
+
     NSString *d = defaultDelimiter ? defaultDelimiter : PKAssemblyDefaultDelimiter;
-    [s appendString:[self consumedObjectsJoinedByString:d]];
-    [s appendString:@"^"];
-    [s appendString:[self remainingObjectsJoinedByString:d]];
+    [s appendFormat:@"]%@^%@",[self consumedObjectsJoinedByString:d], [self remainingObjectsJoinedByString:d]];
     
     return [[s copy] autorelease];
 }
