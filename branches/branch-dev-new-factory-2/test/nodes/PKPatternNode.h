@@ -11,6 +11,5 @@
 
 @interface PKPatternNode : PKBaseNode
 
-@property (nonatomic, assign) NSString *string;
 @property (nonatomic, assign) PKPatternOptions options;
 @end
