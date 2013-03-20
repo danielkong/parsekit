@@ -588,11 +588,12 @@
 
 // pattern              = %{'/', '/'} (Word & /[imxsw]+/)?;
 // pattern              = %{'/', '/'};
-- (PKCollectionParser *)patternParser {
+- (PKParser *)patternParser {
     if (!patternParser) {
-        self.patternParser = [PKAlternation alternation];
+//        self.patternParser = [PKPattern patternWithString:@"/.+?/[imxsw]*"];
+//        self.patternParser = [PKPattern patternWithString:@"/[^/]+/[imxsw]*"];
+        self.patternParser = [PKDelimitedString delimitedStringWithStartMarker:@"/" endMarker:@"/"];
         patternParser.name = @"pattern";
-        [patternParser add:[PKDelimitedString delimitedStringWithStartMarker:@"/" endMarker:@"/"]];
 //        [patternParser add:[PKDelimitedString delimitedStringWithStartMarker:@"/" endMarker:@"/i"]];
 //        [patternParser add:[PKDelimitedString delimitedStringWithStartMarker:@"/" endMarker:@"/im"]];
 //        [patternParser add:[PKDelimitedString delimitedStringWithStartMarker:@"/" endMarker:@"/m"]];

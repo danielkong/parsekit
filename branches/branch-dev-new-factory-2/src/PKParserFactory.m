@@ -896,12 +896,40 @@ void PKReleaseSubparserTree(PKParser *p) {
     //NSAssert([s hasSuffix:@"/"], @"");
     
     PKPatternOptions opts = PKPatternOptionsNone;
-    if ([s hasSuffix:@"/i"]) {
-        opts = PKPatternOptionsIgnoreCase;
+    NSString *optStr = nil;
+    
+    NSUInteger len = [s length];
+    NSRange r = [s rangeOfString:@"/" options:NSBackwardsSearch];
+    NSAssert(r.length, @"");
+    NSAssert(len > 2, @"");
+    
+    if (r.location < len - 1) {
+        NSUInteger loc = r.location + 1;
+        r = NSMakeRange(loc, len - loc);
+        optStr = [s substringWithRange:r];
+        s = [s substringWithRange:NSMakeRange(0, loc)];
+        
+        if (NSNotFound != [optStr rangeOfString:@"i"].location) {
+            opts |= PKPatternOptionsIgnoreCase;
+        }
+        if (NSNotFound != [optStr rangeOfString:@"m"].location) {
+            opts |= PKPatternOptionsMultiline;
+        }
+        if (NSNotFound != [optStr rangeOfString:@"x"].location) {
+            opts |= PKPatternOptionsComments;
+        }
+        if (NSNotFound != [optStr rangeOfString:@"s"].location) {
+            opts |= PKPatternOptionsDotAll;
+        }
+        if (NSNotFound != [optStr rangeOfString:@"w"].location) {
+            opts |= PKPatternOptionsUnicodeWordBoundaries;
+        }
+    } else {
+        s = [s stringByTrimmingQuotes];
     }
 
     PKPatternNode *patNode = [PKPatternNode nodeWithToken:tok];
-    patNode.string = [s stringByTrimmingQuotes];
+    patNode.string = s;
     patNode.options = opts;
 
     [a push:patNode];
