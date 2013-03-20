@@ -117,7 +117,7 @@ static NSString * const PKAssemblyDefaultDelimiter = @"/";
         return NO;
     }
     
-    NSAssert([[self description] isEqualToString:[a description]], @"");
+//    NSAssert([[self description] isEqualToString:[a description]], @"");
 
 //    if (![[self consumedObjectsJoinedByString:@""] isEqualToString:[a consumedObjectsJoinedByString:@""]]) {
 //        return NO;
