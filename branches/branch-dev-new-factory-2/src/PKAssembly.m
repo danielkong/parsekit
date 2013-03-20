@@ -242,7 +242,7 @@ static NSString * const PKAssemblyDefaultDelimiter = @"/";
     }
 
     NSString *d = defaultDelimiter ? defaultDelimiter : PKAssemblyDefaultDelimiter;
-    [s appendFormat:@"]%@^%@",[self consumedObjectsJoinedByString:d], [self remainingObjectsJoinedByString:d]];
+    [s appendFormat:@"]%@^%@", [self consumedObjectsJoinedByString:d], [self remainingObjectsJoinedByString:d]];
     
     return [[s copy] autorelease];
 }
