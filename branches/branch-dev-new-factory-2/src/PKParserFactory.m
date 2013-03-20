@@ -885,25 +885,23 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    id obj = [a pop]; // opts (as Number*) or %{'/', '/'}
-    
-    PKPatternOptions opts = PKPatternOptionsNone;
-    if ([obj isKindOfClass:[NSNumber class]]) {
-        opts = [obj unsignedIntegerValue];
-        obj = [a pop];
-    }
-    
-    NSAssert([obj isMemberOfClass:[PKToken class]], @"");
-    PKToken *tok = (PKToken *)obj;
+    PKToken *tok = [a pop]; // opts (as Number*) or %{'/', '/'}
+    NSAssert([tok isMemberOfClass:[PKToken class]], @"");
     NSAssert(tok.isDelimitedString, @"");
-
+    
     NSString *s = tok.stringValue;
     NSAssert([s length] > 2, @"");
     
     NSAssert([s hasPrefix:@"/"], @"");
     //NSAssert([s hasSuffix:@"/"], @"");
+    
+    PKPatternOptions opts = PKPatternOptionsNone;
+    if ([s hasSuffix:@"/i"]) {
+        opts = PKPatternOptionsIgnoreCase;
+    }
 
     PKPatternNode *patNode = [PKPatternNode nodeWithToken:tok];
+    patNode.string = [s stringByTrimmingQuotes];
     patNode.options = opts;
 
     [a push:patNode];
