@@ -20,6 +20,9 @@
 #import <ParseKit/PKSymbolRootNode.h>
 #import <ParseKit/PKTypes.h>
 
+#import "PKDelimitDescriptorCollection.h"
+#import "PKDelimitDescriptor.h"
+
 @interface PKToken ()
 @property (nonatomic, readwrite) NSUInteger offset;
 @end
@@ -36,6 +39,7 @@
 - (NSString *)endMarkerForStartMarker:(NSString *)startMarker;
 - (NSCharacterSet *)allowedCharacterSetForStartMarker:(NSString *)startMarker;
 @property (nonatomic, retain) PKSymbolRootNode *rootNode;
+@property (nonatomic, retain) PKDelimitDescriptorCollection *collection;
 @property (nonatomic, retain) NSMutableDictionary *endMarkers;
 @property (nonatomic, retain) NSMutableDictionary *characterSets;
 @end
@@ -46,6 +50,7 @@
     self = [super init];
     if (self) {
         self.rootNode = [[[PKSymbolRootNode alloc] init] autorelease];
+        self.collection = [[[PKDelimitDescriptorCollection alloc] init] autorelease];
         self.endMarkers = [NSMutableDictionary dictionary];
         self.characterSets = [NSMutableDictionary dictionary];
     }
@@ -55,6 +60,7 @@
 
 - (void)dealloc {
     self.rootNode = nil;
+    self.collection = nil;
     self.endMarkers = nil;
     self.characterSets = nil;
     [super dealloc];
@@ -206,6 +212,7 @@
 @synthesize rootNode;
 @synthesize balancesEOFTerminatedStrings;
 @synthesize allowsUnbalancedStrings;
+@synthesize collection;
 @synthesize endMarkers;
 @synthesize characterSets;
 @end

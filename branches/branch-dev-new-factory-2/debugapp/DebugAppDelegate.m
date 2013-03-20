@@ -485,9 +485,9 @@
     path = [@"~/Desktop/input.txt" stringByExpandingTildeInPath];
     NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     
-    PKAssembly *res = [p parse:s error:nil];
-//    p.tokenizer.string = s;
-//    PKAssembly *res = [p bestMatchFor:[PKTokenAssembly assemblyWithTokenizer:p.tokenizer]];
+//    PKAssembly *res = [p parse:s error:nil];
+    p.tokenizer.string = s;
+    PKAssembly *res = [p bestMatchFor:[PKTokenAssembly assemblyWithTokenizer:p.tokenizer]];
     NSLog(@"p %@", p);
     NSLog(@"res %@", res);
     
@@ -520,18 +520,18 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchExpr:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
-    NSArray *toks = [a objectsAbove:nil];
-    
-    double total = 0.0;
-    for (PKToken *tok in toks) {
-        double n = tok.floatValue;
-        total += n;
-    }
-    
-    a.target = [NSNumber numberWithDouble:total];
-}
+//- (void)parser:(PKParser *)p didMatchExpr:(PKAssembly *)a {
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+//    NSArray *toks = [a objectsAbove:nil];
+//    
+//    double total = 0.0;
+//    for (PKToken *tok in toks) {
+//        double n = tok.floatValue;
+//        total += n;
+//    }
+//    
+//    a.target = [NSNumber numberWithDouble:total];
+//}
 
 //- (void)parser:(PKParser *)p didMatchTerm:(PKAssembly *)a {
 //    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
@@ -588,7 +588,7 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     
-    //[self doTestGrammar];
+    [self doTestGrammar];
     //[self doTestSqliteGrammar];
     
 //    [self doPlistParser];
@@ -598,7 +598,7 @@
 
 //    [self doJSParser];
     
-    [self doProf];
+//    [self doProf];
 
     //[self doJavaScriptGrammarParser];
     

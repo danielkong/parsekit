@@ -131,6 +131,18 @@
 		D3305C4F102F5BAE00DC4F75 /* TDGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */; };
 		D3305C50102F5BAE00DC4F75 /* TDSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4E102F5BAE00DC4F75 /* TDSourceCodeTextView.m */; };
 		D33494720E29670B00406085 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
+		D33724DA16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D33724D816FA62D400D30459 /* PKDelimitDescriptor.h */; };
+		D33724DB16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D33724D816FA62D400D30459 /* PKDelimitDescriptor.h */; };
+		D33724DC16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D33724D816FA62D400D30459 /* PKDelimitDescriptor.h */; };
+		D33724DD16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D33724D916FA62D400D30459 /* PKDelimitDescriptor.m */; };
+		D33724DE16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D33724D916FA62D400D30459 /* PKDelimitDescriptor.m */; };
+		D33724DF16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D33724D916FA62D400D30459 /* PKDelimitDescriptor.m */; };
+		D33724EA16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = D33724E816FA635700D30459 /* PKDelimitDescriptorCollection.h */; };
+		D33724EB16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = D33724E816FA635700D30459 /* PKDelimitDescriptorCollection.h */; };
+		D33724EC16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = D33724E816FA635700D30459 /* PKDelimitDescriptorCollection.h */; };
+		D33724ED16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D33724E916FA635700D30459 /* PKDelimitDescriptorCollection.m */; };
+		D33724EE16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D33724E916FA635700D30459 /* PKDelimitDescriptorCollection.m */; };
+		D33724EF16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D33724E916FA635700D30459 /* PKDelimitDescriptorCollection.m */; };
 		D3376D5910093A1600E4602E /* PKGrammarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3376D5710093A1600E4602E /* PKGrammarParser.h */; };
 		D3376D5A10093A1600E4602E /* PKGrammarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D5810093A1600E4602E /* PKGrammarParser.m */; };
 		D337F07E15D5AE7B00C83AED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D337F07C15D5AE7B00C83AED /* InfoPlist.strings */; };
@@ -1032,6 +1044,10 @@
 		D3305C4D102F5BAE00DC4F75 /* TDSourceCodeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSourceCodeTextView.h; path = demoapp/TDSourceCodeTextView.h; sourceTree = "<group>"; };
 		D3305C4E102F5BAE00DC4F75 /* TDSourceCodeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSourceCodeTextView.m; path = demoapp/TDSourceCodeTextView.m; sourceTree = "<group>"; };
 		D33494100E2963FD00406085 /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D33724D816FA62D400D30459 /* PKDelimitDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDelimitDescriptor.h; path = src/PKDelimitDescriptor.h; sourceTree = "<group>"; };
+		D33724D916FA62D400D30459 /* PKDelimitDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDelimitDescriptor.m; path = src/PKDelimitDescriptor.m; sourceTree = "<group>"; };
+		D33724E816FA635700D30459 /* PKDelimitDescriptorCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDelimitDescriptorCollection.h; path = src/PKDelimitDescriptorCollection.h; sourceTree = "<group>"; };
+		D33724E916FA635700D30459 /* PKDelimitDescriptorCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDelimitDescriptorCollection.m; path = src/PKDelimitDescriptorCollection.m; sourceTree = "<group>"; };
 		D3376D5710093A1600E4602E /* PKGrammarParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGrammarParser.h; path = src/PKGrammarParser.h; sourceTree = "<group>"; };
 		D3376D5810093A1600E4602E /* PKGrammarParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGrammarParser.m; path = src/PKGrammarParser.m; sourceTree = "<group>"; };
 		D3376D8D10096C0700E4602E /* PKAST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKAST.m; path = test/PKAST.m; sourceTree = "<group>"; };
@@ -1920,6 +1936,10 @@
 				D34BAED20FF9D56400D7773A /* PKWhitespaceState.m */,
 				D3C221DE0FFE8C49004514FE /* PKDelimitState.h */,
 				D34BAEC60FF9D56400D7773A /* PKDelimitState.m */,
+				D33724E816FA635700D30459 /* PKDelimitDescriptorCollection.h */,
+				D33724E916FA635700D30459 /* PKDelimitDescriptorCollection.m */,
+				D33724D816FA62D400D30459 /* PKDelimitDescriptor.h */,
+				D33724D916FA62D400D30459 /* PKDelimitDescriptor.m */,
 				D3C221E10FFE8C4E004514FE /* PKCommentState.h */,
 				D34BAEC40FF9D56400D7773A /* PKCommentState.m */,
 				D3C221E40FFE8C56004514FE /* PKSingleLineCommentState.h */,
@@ -2879,6 +2899,8 @@
 				D324B79216F8CAEF005FE823 /* PKCardinalNode.h in Headers */,
 				D324B79316F8CAEF005FE823 /* PKDelimitedNode.h in Headers */,
 				D324B79416F8CAEF005FE823 /* PKPatternNode.h in Headers */,
+				D33724DA16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
+				D33724EA16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3009,6 +3031,8 @@
 				D324B7A016F8CAF0005FE823 /* PKCardinalNode.h in Headers */,
 				D324B7A116F8CAF0005FE823 /* PKDelimitedNode.h in Headers */,
 				D324B7A216F8CAF0005FE823 /* PKPatternNode.h in Headers */,
+				D33724DB16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
+				D33724EB16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3094,6 +3118,8 @@
 				D324B7AE16F8CAF0005FE823 /* PKCardinalNode.h in Headers */,
 				D324B7AF16F8CAF0005FE823 /* PKDelimitedNode.h in Headers */,
 				D324B7B016F8CAF0005FE823 /* PKPatternNode.h in Headers */,
+				D33724DC16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
+				D33724EC16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3516,6 +3542,8 @@
 				D367F66C16F5570500F5E9EB /* PKBaseVisitor.m in Sources */,
 				D326129B16F64ED50021845F /* PKDefinitionPhaseVisitor.m in Sources */,
 				D32612B116F6A0940021845F /* PKAlternationNode.m in Sources */,
+				D33724DD16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,
+				D33724ED16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3834,6 +3862,8 @@
 				D324B7C416F8CB17005FE823 /* PKCardinalNode.m in Sources */,
 				D324B7C516F8CB17005FE823 /* PKDelimitedNode.m in Sources */,
 				D324B7C616F8CB17005FE823 /* PKPatternNode.m in Sources */,
+				D33724DE16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,
+				D33724EE16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3916,6 +3946,8 @@
 				D324B7D216F8CB17005FE823 /* PKCardinalNode.m in Sources */,
 				D324B7D316F8CB17005FE823 /* PKDelimitedNode.m in Sources */,
 				D324B7D416F8CB17005FE823 /* PKPatternNode.m in Sources */,
+				D33724DF16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,
+				D33724EF16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

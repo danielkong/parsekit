@@ -15,6 +15,7 @@
 #import <ParseKit/PKTokenizerState.h>
 
 @class PKSymbolRootNode;
+@class PKDelimitDescriptorCollection;
 
 /*!
     @class      PKDelimitState 
@@ -26,6 +27,7 @@
     BOOL balancesEOFTerminatedStrings;
     BOOL allowsUnbalancedStrings;
 
+    PKDelimitDescriptorCollection *collection;
     NSMutableDictionary *endMarkers;
     NSMutableDictionary *characterSets;
 }
