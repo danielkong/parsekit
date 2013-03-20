@@ -11,8 +11,15 @@
 
 @implementation PKPatternNode
 
+- (void)dealloc {
+    self.string = nil;
+    [super dealloc];
+}
+
+
 - (id)copyWithZone:(NSZone *)zone {
     PKPatternNode *that = (PKPatternNode *)[super copyWithZone:zone];
+    that->_string = [_string retain];
     that->_options = _options;
     return that;
 }
@@ -24,6 +31,10 @@
     }
     
     PKPatternNode *that = (PKPatternNode *)obj;
+    
+    if (![_string isEqualToString:that->_string]) {
+        return NO;
+    }
     
     if (_options != that->_options) {
         return NO;
@@ -38,28 +49,28 @@
 }
 
 
-- (NSString *)name {
-    NSMutableString *optsString = [NSMutableString string];
-    
-    PKPatternOptions opts = _options;
-    if (opts & PKPatternOptionsIgnoreCase) {
-        [optsString appendString:@"i"];
-    }
-    if (opts & PKPatternOptionsMultiline) {
-        [optsString appendString:@"m"];
-    }
-    if (opts & PKPatternOptionsComments) {
-        [optsString appendString:@"x"];
-    }
-    if (opts & PKPatternOptionsDotAll) {
-        [optsString appendString:@"s"];
-    }
-    if (opts & PKPatternOptionsUnicodeWordBoundaries) {
-        [optsString appendString:@"w"];
-    }
-    
-    return [NSString stringWithFormat:@"%@%@", self.token.stringValue, optsString];
-}
+//- (NSString *)name {
+//    NSMutableString *optsString = [NSMutableString string];
+//    
+//    PKPatternOptions opts = _options;
+//    if (opts & PKPatternOptionsIgnoreCase) {
+//        [optsString appendString:@"i"];
+//    }
+//    if (opts & PKPatternOptionsMultiline) {
+//        [optsString appendString:@"m"];
+//    }
+//    if (opts & PKPatternOptionsComments) {
+//        [optsString appendString:@"x"];
+//    }
+//    if (opts & PKPatternOptionsDotAll) {
+//        [optsString appendString:@"s"];
+//    }
+//    if (opts & PKPatternOptionsUnicodeWordBoundaries) {
+//        [optsString appendString:@"w"];
+//    }
+//    
+//    return [NSString stringWithFormat:@"%@%@", self.token.stringValue, optsString];
+//}
 
 
 - (void)visit:(id <PKNodeVisitor>)v; {
