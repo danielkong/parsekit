@@ -163,34 +163,34 @@
 }
 
 
-- (void)testLtFooGtWithFAllowedAndRemove {
-    s = @"<foo>";
-    t.string = s;
-    NSCharacterSet *cs = nil;
-    
-    [t setTokenizerState:delimitState from:'<' to:'<'];
-    [delimitState addStartMarker:@"<" endMarker:@">" allowedCharacterSet:cs];
-    [delimitState removeStartMarker:@"<"];
-    
-    tok = [t nextToken];
-    
-    TDTrue(tok.isSymbol);
-    TDEqualObjects(tok.stringValue, @"<");
-    TDEquals(tok.floatValue, (double)0.0);
-    
-    tok = [t nextToken];
-    TDTrue(tok.isWord);
-    TDEqualObjects(tok.stringValue, @"foo");
-    TDEquals(tok.floatValue, (double)0.0);
-    
-    tok = [t nextToken];
-    TDTrue(tok.isSymbol);
-    TDEqualObjects(tok.stringValue, @">");
-    TDEquals(tok.floatValue, (double)0.0);
-    
-    tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
-}
+//- (void)testLtFooGtWithFAllowedAndRemove {
+//    s = @"<foo>";
+//    t.string = s;
+//    NSCharacterSet *cs = nil;
+//    
+//    [t setTokenizerState:delimitState from:'<' to:'<'];
+//    [delimitState addStartMarker:@"<" endMarker:@">" allowedCharacterSet:cs];
+//    [delimitState removeStartMarker:@"<"];
+//    
+//    tok = [t nextToken];
+//    
+//    TDTrue(tok.isSymbol);
+//    TDEqualObjects(tok.stringValue, @"<");
+//    TDEquals(tok.floatValue, (double)0.0);
+//    
+//    tok = [t nextToken];
+//    TDTrue(tok.isWord);
+//    TDEqualObjects(tok.stringValue, @"foo");
+//    TDEquals(tok.floatValue, (double)0.0);
+//    
+//    tok = [t nextToken];
+//    TDTrue(tok.isSymbol);
+//    TDEqualObjects(tok.stringValue, @">");
+//    TDEquals(tok.floatValue, (double)0.0);
+//    
+//    tok = [t nextToken];
+//    TDEqualObjects(tok, [PKToken EOFToken]);
+//}
 
 
 - (void)testLtHashFooGt {

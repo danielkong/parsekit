@@ -58,4 +58,10 @@
     return YES;
 }
 
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p %@ %@>", [self class], self, _startMarker, _endMarker];
+}
+
+
 @end

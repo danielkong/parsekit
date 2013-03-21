@@ -39,6 +39,7 @@
     NSMutableSet *existing = _descTab[key];
     if (!existing) {
         existing = [NSMutableSet set];
+        _descTab[key] = existing;
     }
     [existing addObject:desc];
 }

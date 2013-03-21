@@ -28,8 +28,6 @@
     BOOL allowsUnbalancedStrings;
 
     PKDelimitDescriptorCollection *collection;
-    NSMutableDictionary *endMarkers;
-    NSMutableDictionary *characterSets;
 }
 
 /*!

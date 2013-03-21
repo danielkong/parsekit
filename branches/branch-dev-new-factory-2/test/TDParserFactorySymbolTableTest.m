@@ -35,6 +35,24 @@
 }
 
 
+- (void)testDelimitState {
+    //NSString *g = @"@delimitState='[';@delimitedString='[' ']' nil; @start=%{'[', ']'};";
+    NSString *g = @"@symbols='<?=';@delimitState='<';@delimitedString='<?=' '>' nil;@start=%{'<?=', '>'};";
+    
+    PKCollectionParser *start = (id)[_factory parserFromGrammar:g assembler:nil error:nil];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKDelimitedString class]]);
+    
+    NSString *input = @"<?= foobar >";
+    PKTokenizer *t = start.tokenizer;
+    TDNotNil(t);
+    t.string = input;
+    PKAssembly *a = [PKTokenAssembly assemblyWithTokenizer:t];
+    a = [start bestMatchFor:a];
+    TDEqualObjects(@"[<?= foobar >]<?= foobar >^", [a description]);
+}
+
+    
 - (void)testWordAST {
     NSString *g = @"@start=foo;foo=Word;";
     
