@@ -36,12 +36,12 @@
 @end
 
 @interface PKDelimitState ()
-- (NSString *)endMarkerForStartMarker:(NSString *)startMarker;
-- (NSCharacterSet *)allowedCharacterSetForStartMarker:(NSString *)startMarker;
+//- (NSString *)endMarkerForStartMarker:(NSString *)startMarker;
+//- (NSCharacterSet *)allowedCharacterSetForStartMarker:(NSString *)startMarker;
 @property (nonatomic, retain) PKSymbolRootNode *rootNode;
 @property (nonatomic, retain) PKDelimitDescriptorCollection *collection;
-@property (nonatomic, retain) NSMutableDictionary *endMarkers;
-@property (nonatomic, retain) NSMutableDictionary *characterSets;
+//@property (nonatomic, retain) NSMutableDictionary *endMarkers;
+//@property (nonatomic, retain) NSMutableDictionary *characterSets;
 @end
 
 @implementation PKDelimitState
@@ -51,8 +51,8 @@
     if (self) {
         self.rootNode = [[[PKSymbolRootNode alloc] init] autorelease];
         self.collection = [[[PKDelimitDescriptorCollection alloc] init] autorelease];
-        self.endMarkers = [NSMutableDictionary dictionary];
-        self.characterSets = [NSMutableDictionary dictionary];
+//        self.endMarkers = [NSMutableDictionary dictionary];
+//        self.characterSets = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -61,68 +61,61 @@
 - (void)dealloc {
     self.rootNode = nil;
     self.collection = nil;
-    self.endMarkers = nil;
-    self.characterSets = nil;
+//    self.endMarkers = nil;
+//    self.characterSets = nil;
     [super dealloc];
 }
 
 
 - (void)addStartMarker:(NSString *)start endMarker:(NSString *)end allowedCharacterSet:(NSCharacterSet *)set {
     NSParameterAssert([start length]);
-    [rootNode add:start];
 
-    id endObj = nil;
+    // add markers to root node
+    [rootNode add:start];
     if ([end length]) {
         [rootNode add:end];
-        endObj = end;
-    } else {
-        endObj = [NSNull null];
     }
-    [endMarkers setObject:endObj forKey:start];
-
-    id setObj = nil;
-    if (set) {
-        setObj = set;
-    } else {
-        setObj = [NSNull null];
-    }
-    [characterSets setObject:setObj forKey:start];
-}
-
-
-- (void)removeStartMarker:(NSString *)start {
-    NSParameterAssert([start length]);
-    [rootNode remove:start];
     
-    NSString *end = [endMarkers objectForKey:start];
-    if (end) {
-        [characterSets removeObjectForKey:start];
-        
-        id endOrNull = [endMarkers objectForKey:start];
-        if ([NSNull null] != endOrNull) {
-            [rootNode remove:endOrNull];
-        }
-        [endMarkers removeObjectForKey:start];
-    }
+    // add descriptor to collection
+    PKDelimitDescriptor *desc = [PKDelimitDescriptor descriptorWithStartMarker:start endMarker:end characterSet:set];
+    NSAssert(collection, @"");
+    [collection add:desc];
+    
+//    id endObj = nil;
+//    if ([end length]) {
+//        [rootNode add:end];
+//        endObj = end;
+//    } else {
+//        endObj = [NSNull null];
+//    }
+//    [endMarkers setObject:endObj forKey:start];
+//
+//    id setObj = nil;
+//    if (set) {
+//        setObj = set;
+//    } else {
+//        setObj = [NSNull null];
+//    }
+//    [characterSets setObject:setObj forKey:start];        
 }
 
 
-- (NSString *)endMarkerForStartMarker:(NSString *)startMarker {
-    NSParameterAssert([endMarkers objectForKey:startMarker]);
-    return [endMarkers objectForKey:startMarker];
-}
-
-
-- (NSCharacterSet *)allowedCharacterSetForStartMarker:(NSString *)startMarker {
-    NSParameterAssert([endMarkers objectForKey:startMarker]);
-    NSCharacterSet *characterSet = nil;
-    id setOrNull = [characterSets objectForKey:startMarker];
-    if ([NSNull null] != setOrNull) {
-        characterSet = setOrNull;
-    }
-    return characterSet;
-}
-
+//- (NSString *)endMarkerForStartMarker:(NSString *)startMarker {
+//    NSParameterAssert([endMarkers objectForKey:startMarker]);
+//    return [endMarkers objectForKey:startMarker];
+//}
+//
+//
+//- (NSCharacterSet *)allowedCharacterSetForStartMarker:(NSString *)startMarker {
+//    NSParameterAssert([endMarkers objectForKey:startMarker]);
+//    NSCharacterSet *characterSet = nil;
+//    id setOrNull = [characterSets objectForKey:startMarker];
+//    if ([NSNull null] != setOrNull) {
+//        characterSet = setOrNull;
+//    }
+//    return characterSet;
+//}
+//
 
 - (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
     NSParameterAssert(r);
@@ -138,16 +131,17 @@
     [self resetWithReader:r];
     [self appendString:startMarker];
 
-    id endMarkerOrNull = [self endMarkerForStartMarker:startMarker];
-    NSString *endMarker = nil;
-    NSCharacterSet *characterSet = [self allowedCharacterSetForStartMarker:startMarker];
+    NSArray *descs = [collection descriptorsForStartMarker:startMarker];
+    PKDelimitDescriptor *desc = [descs lastObject];
+    
+    NSString *endMarker = desc.endMarker;
+    NSCharacterSet *characterSet = desc.characterSet;
     
     PKUniChar c, e;
-    if ([NSNull null] == endMarkerOrNull) {
-        e = PKEOF;
-    } else {
-        endMarker = endMarkerOrNull;
+    if (endMarker) {
         e = [endMarker characterAtIndex:0];
+    } else {
+        e = PKEOF;
     }
     for (;;) {
         c = [r read];
@@ -213,6 +207,6 @@
 @synthesize balancesEOFTerminatedStrings;
 @synthesize allowsUnbalancedStrings;
 @synthesize collection;
-@synthesize endMarkers;
-@synthesize characterSets;
+//@synthesize endMarkers;
+//@synthesize characterSets;
 @end

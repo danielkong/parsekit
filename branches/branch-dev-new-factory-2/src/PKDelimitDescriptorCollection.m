@@ -55,4 +55,10 @@
     [existing removeObject:desc];
 }
 
+
+- (NSArray *)descriptorsForStartMarker:(NSString *)startMarker {
+    NSParameterAssert(startMarker);
+    return [_descTab[startMarker] allObjects];
+}
+
 @end

@@ -14,4 +14,6 @@
 
 - (void)add:(PKDelimitDescriptor *)desc;
 - (void)remove:(PKDelimitDescriptor *)desc;
+
+- (NSArray *)descriptorsForStartMarker:(NSString *)startMarker;
 @end

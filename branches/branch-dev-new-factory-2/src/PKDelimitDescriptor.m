@@ -10,6 +10,15 @@
 
 @implementation PKDelimitDescriptor
 
++ (PKDelimitDescriptor *)descriptorWithStartMarker:(NSString *)start endMarker:(NSString *)end characterSet:(NSCharacterSet *)cs {
+    PKDelimitDescriptor *desc = [[[[self class] alloc] init] autorelease];
+    desc.startMarker = start;
+    desc.endMarker = end;
+    desc.characterSet = cs;
+    return desc;
+}
+
+
 - (void)dealloc {
     self.startMarker = nil;
     self.endMarker = nil;

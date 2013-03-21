@@ -42,13 +42,6 @@
 - (void)addStartMarker:(NSString *)start endMarker:(NSString *)end allowedCharacterSet:(NSCharacterSet *)set;
 
 /*!
-    @brief      Removes <tt>start</tt> and its orignal <tt>end</tt> counterpart as a delimited string start and end markers.
-    @details    If <tt>start</tt> was never added as a delimited string start marker, this has no effect.
-    @param      start a single- or multi-character marker that should no longer be recognized as the start of a delimited string
-*/
-- (void)removeStartMarker:(NSString *)start;
-
-/*!
     @property   balancesEOFTerminatedStrings
     @brief      if YES, this state will append a matching end delimiter marker (e.g. <tt>--></tt> or <tt>%></tt>) to strings terminated by EOF. 
     @details	Default is NO.
