@@ -113,12 +113,11 @@
     PKUniChar c;
     for (;;) {
         c = [r read];
-        NSLog(@"%C", (UniChar)c);
+        //NSLog(@"%C", (UniChar)c);
         if (PKEOF == c) {
-//            if (balancesEOFTerminatedStrings && hasEndMarkers) {
-//                [self appendString:endMarkers[0]];
-//            } else
-            if (hasEndMarkers && !allowsUnbalancedStrings) {
+            if (hasEndMarkers && balancesEOFTerminatedStrings) {
+                [self appendString:[descs[0] endMarker]];
+            } else if (hasEndMarkers) {
                 [r unread:[[self bufferedString] length] - 1];
                 return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
             }
@@ -174,13 +173,9 @@
 
                     // check if char is not in allowed character set (if given)
                     if (![charSet characterIsMember:c]) {
-                        if (allowsUnbalancedStrings) {
-                            break;
-                        } else {
-                            // if not, unwind and return a symbol tok for cin
-                            [r unread:[[self bufferedString] length] - 1];
-                            return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
-                        }
+                        // if not, unwind and return a symbol tok for cin
+                        [r unread:[[self bufferedString] length] - 1];
+                        return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
                     }
                 }
             }
@@ -203,6 +198,5 @@
 
 @synthesize rootNode;
 @synthesize balancesEOFTerminatedStrings;
-@synthesize allowsUnbalancedStrings;
 @synthesize collection;
 @end

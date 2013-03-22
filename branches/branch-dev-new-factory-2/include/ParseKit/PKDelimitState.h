@@ -25,7 +25,6 @@
 @interface PKDelimitState : PKTokenizerState {
     PKSymbolRootNode *rootNode;
     BOOL balancesEOFTerminatedStrings;
-    BOOL allowsUnbalancedStrings;
 
     PKDelimitDescriptorCollection *collection;
 }
@@ -45,6 +44,4 @@
     @details	Default is NO.
 */
 @property (nonatomic) BOOL balancesEOFTerminatedStrings;
-
-@property (nonatomic) BOOL allowsUnbalancedStrings;
 @end
