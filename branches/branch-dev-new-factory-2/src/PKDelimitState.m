@@ -93,30 +93,38 @@
     
     [self resetWithReader:r];
     [self appendString:startMarker];
-
-    PKDelimitDescriptor *desc = [descs lastObject];
-    NSString *endMarker = desc.endMarker;
-    NSCharacterSet *characterSet = desc.characterSet;
     
-    PKUniChar c, e;
-    if (endMarker) {
-        e = [endMarker characterAtIndex:0];
-    } else {
-        e = PKEOF;
+    NSUInteger count = [descs count];
+    BOOL hasEndMarkers = NO;
+    PKUniChar endChars[count];
+
+    NSUInteger i = 0;
+    for (PKDelimitDescriptor *desc in descs) {
+        NSString *endMarker = desc.endMarker;
+        PKUniChar e = PKEOF;
+        
+        if ([endMarker length]) {
+            e = [endMarker characterAtIndex:0];
+            hasEndMarkers = YES;
+        }
+        endChars[i++] = e;
     }
+    
+    PKUniChar c;
     for (;;) {
         c = [r read];
         if (PKEOF == c) {
-            if (balancesEOFTerminatedStrings && endMarker) {
-                [self appendString:endMarker];
-            } else if (endMarker && !allowsUnbalancedStrings) {
+//            if (balancesEOFTerminatedStrings && hasEndMarkers) {
+//                [self appendString:endMarkers[0]];
+//            } else
+            if (hasEndMarkers && !allowsUnbalancedStrings) {
                 [r unread:[[self bufferedString] length] - 1];
                 return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
             }
             break;
         }
         
-        if (!endMarker && [t.whitespaceState isWhitespaceChar:c]) {
+        if (!hasEndMarkers && [t.whitespaceState isWhitespaceChar:c]) {
             // if only the start marker was matched, dont return delimited string token. instead, defer tokenization
             if ([startMarker isEqualToString:[self bufferedString]]) {
                 [r unread:[startMarker length] - 1];
@@ -125,24 +133,36 @@
             // else, return delimited string tok
             break;
         }
-        
-        if (e == c) {
-            NSString *peek = [rootNode nextSymbol:r startingWith:e];
-            if (endMarker && [endMarker isEqualToString:peek]) {
-                [self appendString:endMarker];
-                c = [r read];
-                break;
-            } else {
-                [r unread:[peek length] - 1];
-                if (e != [peek characterAtIndex:0]) {
-                    [self append:c];
+
+        BOOL done = NO;
+        NSCharacterSet *charSet = nil;
+        for (NSUInteger i = 0; i < count; ++i) {
+            PKUniChar e = endChars[i];
+            
+            if (e == c) {
+                NSString *endMarker = [descs[i] endMarker];
+                charSet = [descs[i] characterSet];
+                
+                NSString *peek = [rootNode nextSymbol:r startingWith:e];
+                if (endMarker && [endMarker isEqualToString:peek]) {
+                    [self appendString:endMarker];
                     c = [r read];
+                    done = YES;
+                    break;
+                } else {
+                    [r unread:[peek length] - 1];
+                    if (e != [peek characterAtIndex:0]) {
+                        [self append:c];
+                        c = [r read];
+                    }
                 }
             }
         }
 
+        if (done) break;
+        
         // check if char is not in allowed character set (if given)
-        if (characterSet && ![characterSet characterIsMember:c]) {
+        if (charSet && ![charSet characterIsMember:c]) {
             if (allowsUnbalancedStrings) {
                 break;
             } else {
