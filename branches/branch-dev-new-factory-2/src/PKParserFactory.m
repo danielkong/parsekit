@@ -119,7 +119,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDiscard:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a;
@@ -823,36 +822,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     defNode.callbackName = selName;
     [a push:defNode];
-}
-
-
-- (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    
-    PKToken *tok = [a pop];
-    NSAssert(tok.isWord, @"");
-
-    NSString *s = tok.stringValue;
-    NSAssert([s length] > 0, @"");
-
-    PKPatternOptions opts = PKPatternOptionsNone;
-    if (NSNotFound != [s rangeOfString:@"i"].location) {
-        opts |= PKPatternOptionsIgnoreCase;
-    }
-    if (NSNotFound != [s rangeOfString:@"m"].location) {
-        opts |= PKPatternOptionsMultiline;
-    }
-    if (NSNotFound != [s rangeOfString:@"x"].location) {
-        opts |= PKPatternOptionsComments;
-    }
-    if (NSNotFound != [s rangeOfString:@"s"].location) {
-        opts |= PKPatternOptionsDotAll;
-    }
-    if (NSNotFound != [s rangeOfString:@"w"].location) {
-        opts |= PKPatternOptionsUnicodeWordBoundaries;
-    }
-    
-    [a push:[NSNumber numberWithUnsignedInteger:opts]];
 }
 
 

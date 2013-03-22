@@ -66,7 +66,6 @@
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchPatternOptions:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDiscard:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a;
