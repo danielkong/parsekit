@@ -113,6 +113,7 @@
     PKUniChar c;
     for (;;) {
         c = [r read];
+        NSLog(@"%C", (UniChar)c);
         if (PKEOF == c) {
 //            if (balancesEOFTerminatedStrings && hasEndMarkers) {
 //                [self appendString:endMarkers[0]];
@@ -135,12 +136,14 @@
         }
 
         BOOL done = NO;
+        NSString *endMarker = nil;
         NSCharacterSet *charSet = nil;
+        
         for (NSUInteger i = 0; i < count; ++i) {
             PKUniChar e = endChars[i];
             
             if (e == c) {
-                NSString *endMarker = [descs[i] endMarker];
+                endMarker = [descs[i] endMarker];
                 charSet = [descs[i] characterSet];
                 
                 NSString *peek = [rootNode nextSymbol:r startingWith:e];
@@ -159,18 +162,32 @@
             }
         }
 
-        if (done) break;
-        
-        // check if char is not in allowed character set (if given)
-        if (charSet && ![charSet characterIsMember:c]) {
-            if (allowsUnbalancedStrings) {
-                break;
-            } else {
-                // if not, unwind and return a symbol tok for cin
-                [r unread:[[self bufferedString] length]];
-                return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
+        if (done) {
+            if (charSet) {
+                NSString *contents = [self bufferedString];
+                NSUInteger loc = [startMarker length];
+                NSUInteger len = [contents length] - (loc + [endMarker length]);
+                contents = [contents substringWithRange:NSMakeRange(loc, len)];
+                
+                for (NSUInteger i = 0; i < len; ++i) {
+                    PKUniChar c = [contents characterAtIndex:i];
+
+                    // check if char is not in allowed character set (if given)
+                    if (![charSet characterIsMember:c]) {
+                        if (allowsUnbalancedStrings) {
+                            break;
+                        } else {
+                            // if not, unwind and return a symbol tok for cin
+                            [r unread:[[self bufferedString] length]];
+                            return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
+                        }
+                    }
+                }
             }
+
+            break;
         }
+        
         
         [self append:c];
     }
