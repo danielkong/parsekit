@@ -60,8 +60,8 @@
 
 
 - (void)parser:(PKParser *)p didMatchLiteralChar:(PKAssembly *)a {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    NSLog(@"a: %@", a);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"a: %@", a);
 
     NSNumber *n = [a pop];
     PKUniChar c = [n intValue];
