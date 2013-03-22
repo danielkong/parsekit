@@ -926,9 +926,8 @@ void PKReleaseSubparserTree(PKParser *p) {
         if (NSNotFound != [optStr rangeOfString:@"w"].location) {
             opts |= PKPatternOptionsUnicodeWordBoundaries;
         }
-    } else {
-        s = [s stringByTrimmingQuotes];
     }
+    s = [s stringByTrimmingQuotes];
 
     PKPatternNode *patNode = [PKPatternNode nodeWithToken:tok];
     patNode.string = s;
