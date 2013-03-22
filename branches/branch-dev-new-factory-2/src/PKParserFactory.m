@@ -106,9 +106,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 @interface PKParserFactory ()
 - (PKTokenizer *)tokenizerForParsingGrammar;
-//- (void)setAssemblerForParser:(PKParser *)p;
-- (NSString *)defaultAssemblerSelectorNameForParserName:(NSString *)parserName;
-- (NSString *)defaultPreassemblerSelectorNameForParserName:(NSString *)parserName;
 
 - (PKAlternation *)zeroOrOne:(PKParser *)p;
 - (PKSequence *)oneOrMore:(PKParser *)p;
@@ -812,32 +809,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     [a push:node];
-}
-
-
-- (NSString *)defaultAssemblerSelectorNameForParserName:(NSString *)parserName {
-    NSString *prefix = nil;
-    if ([parserName hasPrefix:@"@"]) {
-        //        parserName = [parserName substringFromIndex:1];
-        //        prefix = @"parser:didMatch_";
-        return nil;
-    } else {
-        prefix = @"parser:didMatch";
-    }
-    NSString *s = [NSString stringWithFormat:@"%@%@", [[parserName substringToIndex:1] uppercaseString], [parserName substringFromIndex:1]]; 
-    return [NSString stringWithFormat:@"%@%@:", prefix, s];
-}
-
-
-- (NSString *)defaultPreassemblerSelectorNameForParserName:(NSString *)parserName {
-    NSString *prefix = nil;
-    if ([parserName hasPrefix:@"@"]) {
-        return nil;
-    } else {
-        prefix = @"parser:willMatch";
-    }
-    NSString *s = [NSString stringWithFormat:@"%@%@", [[parserName substringToIndex:1] uppercaseString], [parserName substringFromIndex:1]]; 
-    return [NSString stringWithFormat:@"%@%@:", prefix, s];
 }
 
 
