@@ -35,7 +35,7 @@
     
     //NSLog(@"\n\n starting!!! \n\n");
     while ((tok = [t nextToken]) != eof) {
-        NSLog(@"(%@)", tok.stringValue);
+//        NSLog(@"(%@)", tok.stringValue);
     }
     //NSLog(@"\n\n done!!! \n\n");
     
