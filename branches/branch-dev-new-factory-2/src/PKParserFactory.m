@@ -303,35 +303,26 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (NSDictionary *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError {
-    self.directiveTab = [NSMutableDictionary dictionary];
-    self.rootNode = [PKRootNode nodeWithToken:rootToken];
-    
-    PKTokenizer *t = [self tokenizerForParsingGrammar];
-    t.string = g;
-    
-    grammarParser.parser.tokenizer = t;
-    [grammarParser.parser parse:g error:outError];
-    
-    //NSLog(@"rootNode %@", rootNode);
-
     NSMutableDictionary *symTab = [NSMutableDictionary dictionary];
-    
-    PKDefinitionPhaseVisitor *defv = [[[PKDefinitionPhaseVisitor alloc] init] autorelease];
-    defv.symbolTable = symTab;
-    defv.assembler = self.assembler;
-    defv.preassembler = self.preassembler;
-    defv.assemblerSettingBehavior = self.assemblerSettingBehavior;
-    [self visit:rootNode with:defv]; // TODO
+    [self ASTFromGrammar:g symbolTable:symTab error:outError];
+
+    //NSLog(@"rootNode %@", rootNode);
 
     PKResolutionPhaseVisitor *resv = [[[PKResolutionPhaseVisitor alloc] init] autorelease];
     resv.symbolTable = symTab;
-    [self visit:rootNode with:resv]; // TODO
+    [rootNode visit:resv];
 
     return [[symTab copy] autorelease];
 }
 
 
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError {
+    NSMutableDictionary *symTab = [NSMutableDictionary dictionary];
+    return [self ASTFromGrammar:g symbolTable:symTab error:outError];
+}
+
+
+- (PKAST *)ASTFromGrammar:(NSString *)g symbolTable:(NSMutableDictionary *)symTab error:(NSError **)outError {
     self.directiveTab = [NSMutableDictionary dictionary];
     self.rootNode = [PKRootNode nodeWithToken:rootToken];
     
@@ -340,15 +331,13 @@ void PKReleaseSubparserTree(PKParser *p) {
 
     grammarParser.parser.tokenizer = t;
     [grammarParser.parser parse:g error:outError];
-    
-    NSMutableDictionary *symTab = [NSMutableDictionary dictionary];
-    
+        
     PKDefinitionPhaseVisitor *defv = [[[PKDefinitionPhaseVisitor alloc] init] autorelease];
     defv.symbolTable = symTab;
     defv.assembler = self.assembler;
     defv.preassembler = self.preassembler;
     defv.assemblerSettingBehavior = self.assemblerSettingBehavior;
-    [self visit:rootNode with:defv]; // TODO
+    [rootNode visit:defv];
 
     return rootNode;
 }
@@ -628,51 +617,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([p isKindOfClass:[PKParser class]], @"");
     
     return p;
-}
-
-
-- (void)visit:(PKBaseNode *)node with:(id <PKNodeVisitor>)v {
-    switch (node.type) {
-        case PKNodeTypeRoot:
-            [v visitRoot:(PKRootNode *)node];
-            break;
-        case PKNodeTypeDefinition:
-            [v visitDefinition:(PKDefinitionNode *)node];
-            break;
-        case PKNodeTypeReference:
-            [v visitReference:(PKReferenceNode *)node];
-            break;
-        case PKNodeTypeConstant:
-            [v visitConstant:(PKConstantNode *)node];
-            break;
-        case PKNodeTypeLiteral:
-            [v visitLiteral:(PKLiteralNode *)node];
-            break;
-        case PKNodeTypeDelimited:
-            [v visitDelimited:(PKDelimitedNode *)node];
-            break;
-        case PKNodeTypePattern:
-            [v visitPattern:(PKPatternNode *)node];
-            break;
-        case PKNodeTypeComposite:
-            [v visitComposite:(PKCompositeNode *)node];
-            break;
-        case PKNodeTypeCollection:
-            [v visitCollection:(PKCollectionNode *)node];
-            break;
-        case PKNodeTypeOptional:
-            [v visitOptional:(PKOptionalNode *)node];
-            break;
-        case PKNodeTypeMultiple:
-            [v visitMultiple:(PKMultipleNode *)node];
-            break;
-        case PKNodeTypeCardinal:
-            [v visitCardinal:(PKCardinalNode *)node];
-            break;
-        default:
-            NSAssert(0, @"unknown nodeType");
-            break;
-    }
 }
 
 
