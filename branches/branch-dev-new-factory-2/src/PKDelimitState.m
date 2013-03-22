@@ -178,7 +178,7 @@
                             break;
                         } else {
                             // if not, unwind and return a symbol tok for cin
-                            [r unread:[[self bufferedString] length]];
+                            [r unread:[[self bufferedString] length] - 1];
                             return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
                         }
                     }

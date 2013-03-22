@@ -315,7 +315,7 @@
     lp = [factory parserFromGrammar:g assembler:nil error:nil];
     TDNotNil(lp);
     
-    s = @"$foo%";
+    s = @"$fo%";
     t = lp.tokenizer;
     t.string = s;
     res = [lp bestMatchFor:[PKTokenAssembly assemblyWithTokenizer:t]];
