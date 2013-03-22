@@ -176,10 +176,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     self = [super init];
     if (self) {
         self.grammarParser = [[[PKGrammarParser alloc] initWithAssembler:self] autorelease];
-        self.equals  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"=" floatValue:0.0];
-        self.curly   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
-        self.paren   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
-        self.square  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"[" floatValue:0.0];
+        self.equals     = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"=" floatValue:0.0];
+        self.curly      = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
+        self.paren      = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
+        self.square     = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"[" floatValue:0.0];
 
         self.rootToken  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"ROOT" floatValue:0.0];
         self.defToken   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"$" floatValue:0.0];
