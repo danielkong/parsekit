@@ -10,6 +10,10 @@
 #import "PKParserFactory.h"
 #import "PKAST.h"
 
+@interface PKParserFactory ()
+- (NSDictionary *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError;
+@end
+
 @interface PKDelimitedString ()
 @property (nonatomic, retain) NSString *startMarker;
 @property (nonatomic, retain) NSString *endMarker;

@@ -10,6 +10,10 @@
 #import "PKParserFactory.h"
 #import "PKAST.h"
 
+@interface PKParserFactory ()
+- (NSDictionary *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError;
+@end
+
 @interface PKPattern ()
 @property (nonatomic, assign) PKPatternOptions options;
 @end

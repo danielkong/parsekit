@@ -105,6 +105,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 @interface PKParserFactory ()
+- (NSDictionary *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError;
+
 - (PKTokenizer *)tokenizerForParsingGrammar;
 
 - (PKAlternation *)zeroOrOne:(PKParser *)p;

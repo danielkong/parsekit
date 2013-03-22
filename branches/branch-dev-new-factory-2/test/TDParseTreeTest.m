@@ -14,6 +14,10 @@
 
 #import "TDParseTreeTest.h"
 
+@interface PKParserFactory ()
+- (NSDictionary *)symbolTableFromGrammar:(NSString *)g error:(NSError **)outError;
+@end
+
 @implementation TDParseTreeTest
 
 - (void)setUp {
