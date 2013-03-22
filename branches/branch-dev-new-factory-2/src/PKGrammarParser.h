@@ -46,7 +46,7 @@
     PKCollectionParser *atomicValueParser;
     PKCollectionParser *parserParser;
     PKCollectionParser *discardParser;
-    PKParser *patternParser;
+    PKCollectionParser *patternParser;
     PKCollectionParser *delimitedStringParser;
     PKParser *literalParser;
     PKParser *variableParser;
@@ -86,7 +86,7 @@
 @property (nonatomic, retain) PKCollectionParser *atomicValueParser;
 @property (nonatomic, retain) PKCollectionParser *parserParser;
 @property (nonatomic, retain) PKCollectionParser *discardParser;
-@property (nonatomic, retain) PKParser *patternParser;
+@property (nonatomic, retain) PKCollectionParser *patternParser;
 @property (nonatomic, retain) PKCollectionParser *delimitedStringParser;
 @property (nonatomic, retain) PKParser *literalParser;
 @property (nonatomic, retain) PKParser *variableParser;

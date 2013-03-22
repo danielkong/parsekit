@@ -363,6 +363,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKTokenizer *t = [PKTokenizer tokenizer];
     
     [t.symbolState add:@"%{"];
+    [t.symbolState add:@"/i"];
     
     // customize tokenizer to find tokenizer customization directives
     [t setTokenizerState:t.wordState from:'@' to:'@'];
@@ -381,6 +382,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     // regex delimited strings
     [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]];
+    [t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]];
     
     return t;
 }

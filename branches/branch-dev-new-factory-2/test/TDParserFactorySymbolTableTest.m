@@ -552,26 +552,25 @@
 }
 
 
-//- (void)testPatternAST1 {
-//    NSString *g = @"@start=foo;foo=/\\w+/im;";
-//    
-//    NSError *err = nil;
-//    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
-//    TDNotNil(symTab);
-//    
-//    PKCollectionParser *start = symTab[@"@start"];
-//    TDNotNil(start);
-//    TDTrue([start isKindOfClass:[PKSequence class]]);
-//    
-//    PKPattern *foo = symTab[@"foo"];
-//    TDNotNil(foo);
-//    TDTrue([foo isKindOfClass:[PKPattern class]]);
-//    
-//    TDEquals(start.subparsers[0], foo);
-//    TDEqualObjects(@"\\w+", foo.string);
-//    TDTrue(foo.options & PKPatternOptionsMultiline);
-//    TDTrue(foo.options & PKPatternOptionsIgnoreCase);
-//}
+- (void)testPatternAST1 {
+    NSString *g = @"@start=foo;foo=/\\w+/i;";
+    
+    NSError *err = nil;
+    NSDictionary *symTab = [_factory symbolTableFromGrammar:g error:&err];
+    TDNotNil(symTab);
+    
+    PKCollectionParser *start = symTab[@"@start"];
+    TDNotNil(start);
+    TDTrue([start isKindOfClass:[PKSequence class]]);
+    
+    PKPattern *foo = symTab[@"foo"];
+    TDNotNil(foo);
+    TDTrue([foo isKindOfClass:[PKPattern class]]);
+    
+    TDEquals(start.subparsers[0], foo);
+    TDEqualObjects(@"\\w+", foo.string);
+    TDTrue(foo.options & PKPatternOptionsIgnoreCase);
+}
 
 
 - (void)testWhitespaceAST1 {

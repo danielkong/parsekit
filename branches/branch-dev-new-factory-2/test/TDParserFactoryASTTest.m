@@ -418,23 +418,23 @@
 }
 
 
-//- (void)testPatternOptsAST {
-//    NSString *g = @"@start=foo;foo=/\\w/m;";
-//    
-//    NSError *err = nil;
-//    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/m))", [rootNode treeDescription]);
-//    
-//    g = @"@start=foo;foo = /\\w/m;";
-//    
-//    err = nil;
-//    rootNode = [_factory ASTFromGrammar:g error:&err];
-//    TDNotNil(rootNode);
-//    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/m))", [rootNode treeDescription]);
-//}
-//
-//
+- (void)testPatternOptsAST {
+    NSString *g = @"@start=foo;foo=/\\w/i;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/i))", [rootNode treeDescription]);
+    
+    g = @"@start=foo;foo = /\\w/i;";
+    
+    err = nil;
+    rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo /\\w/i))", [rootNode treeDescription]);
+}
+
+
 //- (void)testPatternMultiOptsAST {
 //    NSString *g = @"@start=foo;foo=/\\w/im;";
 //    
