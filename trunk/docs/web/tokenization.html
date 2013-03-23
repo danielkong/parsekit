@@ -264,6 +264,7 @@ t.numberState.allowsScentificNotation = YES;
 <div class="code">
 <pre>
 ...
+[t setTokenizerState:t.numberState from:'%' to:'%'];
 [t.numberState addPrefix:@"%" forRadix:2];
 [t.numberState addGroupingSeparator:'_' forRadix:2];
 ...</pre>
