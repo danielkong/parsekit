@@ -248,9 +248,9 @@ t.numberState.allowsScentificNotation = YES;
 ...</pre>
 </div>
 
-<p>The resulting <tt>PKToken</tt> objects will have a <tt>tokenType</tt> of <tt>PKTokenTypeNumber</tt>, <tt>stringValue</tt> of <tt>&laquo;20h&raquo;</tt>, and a <tt>floatValue</tt> of 32.</p>
+<p>The resulting <tt>PKToken</tt> object will have a <tt>tokenType</tt> of <tt>PKTokenTypeNumber</tt>, <tt>stringValue</tt> of <tt>&laquo;20h&raquo;</tt>, and a <tt>floatValue</tt> of 32.</p>
 
-<p><b>Grouping Separators</b> are also supported on a per-radix basis. To support decimal numbers with a <tt>&laquo;,&raquo;</tt> grouping separator (like <tt>&laquo;1,024&raquo;</tt>):</p>
+<p><b>Grouping Separators</b> are also supported on a per-radix basis. To recognize <tt>&laquo;1,024&raquo;</tt> as a single decimal number token (rather than as a <tt>&laquo;1&raquo;</tt> number token followed by a <tt>&laquo;,&raquo;</tt> symbol token followed by a <tt>&laquo;024&raquo;</tt> number token), use the <tt>-[PKNumberState addGroupingSeparator:forRadix:]</tt> method:</p>
 
 <div class="code">
 <pre>
@@ -259,7 +259,7 @@ t.numberState.allowsScentificNotation = YES;
 ...</pre>
 </div>
 
-<p>As another example, support for <a href="http://en.wikipedia.org/wiki/High_Level_Assembly">HLA</a>-style binary numbers like <tt>&laquo;%0001_0101&raquo;</tt> (decimal 21 in binary) with a <tt>&laquo;%&raquo;</tt> prefix and a <tt>&laquo;_&raquo;</tt> grouping separator:</p>
+<p>As another example, consider <a href="http://en.wikipedia.org/wiki/High_Level_Assembly">HLA</a>-style binary numbers like <tt>&laquo;%0001_0101&raquo;</tt> (decimal 21 in binary). To support this style, add a <tt>&laquo;%&raquo;</tt> prefix and a <tt>&laquo;_&raquo;</tt> grouping separator for the base-2 radix:</p>
 
 <div class="code">
 <pre>
@@ -269,6 +269,7 @@ t.numberState.allowsScentificNotation = YES;
 ...</pre>
 </div>
 
+<p>The resulting <tt>PKToken</tt> object will have a <tt>tokenType</tt> of <tt>PKTokenTypeNumber</tt>, <tt>stringValue</tt> of <tt>&laquo;%0001_0101&raquo;</tt>, and a <tt>floatValue</tt> of 21.</p>
 
 <p>You can also configure which characters are recognized as whitespace within a whitespace token. To treat digits as whitespace characters within whitespace tokens:</p>
 
