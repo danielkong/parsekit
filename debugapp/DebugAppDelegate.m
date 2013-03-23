@@ -399,7 +399,7 @@
 ////    TDEqualObjects(@"[bar, bat]bar/bat^", [res description]);
 ////    [mock verify];
     
-//    NSString *g = @"@delimitState = '$'; @delimitedString = '$' '%' nil; @start = DelimitedString('$', '%');";
+//    NSString *g = @"@delimitState = '$'; @delimitedString = '$' '%' nil; @start = %{'$', '%'};";
 //    PKParser *lp = [[PKParserFactory factory] parserFromGrammar:g assembler:nil];
 //
 //    NSString *s = @"$foo%";
@@ -485,9 +485,9 @@
     path = [@"~/Desktop/input.txt" stringByExpandingTildeInPath];
     NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     
-    PKAssembly *res = [p parse:s error:nil];
-//    p.tokenizer.string = s;
-//    PKAssembly *res = [p bestMatchFor:[PKTokenAssembly assemblyWithTokenizer:p.tokenizer]];
+//    PKAssembly *res = [p parse:s error:nil];
+    p.tokenizer.string = s;
+    PKAssembly *res = [p bestMatchFor:[PKTokenAssembly assemblyWithTokenizer:p.tokenizer]];
     NSLog(@"p %@", p);
     NSLog(@"res %@", res);
     
@@ -532,7 +532,8 @@
 //    
 //    a.target = [NSNumber numberWithDouble:total];
 //}
-//
+
+
 //- (void)parser:(PKParser *)p didMatchTerm:(PKAssembly *)a {
 //    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
 ////    PKToken *tok = [a pop];
@@ -589,7 +590,7 @@
     
     
     [self doTestGrammar];
-//    [self doTestSqliteGrammar];
+    //[self doTestSqliteGrammar];
     
 //    [self doPlistParser];
 //    [self doHtmlSyntaxHighlighter];
@@ -598,7 +599,7 @@
 
 //    [self doJSParser];
     
-    //    [self doProf];
+//    [self doProf];
 
     //[self doJavaScriptGrammarParser];
     
