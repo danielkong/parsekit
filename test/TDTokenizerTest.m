@@ -61,14 +61,14 @@
     
     NSUInteger idx = 0;
     NSArray *results = @[
-        @"(2) (2.0) : <Number «2»>",
-        @"(!=) (0.0) : <Symbol «!=»>",
-        @"(47) (47.0) : <Number «47»>",
-        @"(.) (0.0) : <Symbol «.»>",
-        @"(Blast-off) (0.0) : <Word «Blast-off»>",
-        @"(!) (0.0) : <Symbol «!»>",
-        @"(!) (0.0) : <Symbol «!»>",
-        @"('Woo-hoo!') (0.0) : <Quoted String «'Woo-hoo!'»>",
+    @"(2) (2.0) : <Number «2»>",
+    @"(!=) (0.0) : <Symbol «!=»>",
+    @"(47) (47.0) : <Number «47»>",
+    @"(.) (0.0) : <Symbol «.»>",
+    @"(Blast-off) (0.0) : <Word «Blast-off»>",
+    @"(!) (0.0) : <Symbol «!»>",
+    @"(!) (0.0) : <Symbol «!»>",
+    @"('Woo-hoo!') (0.0) : <Quoted String «'Woo-hoo!'»>",
     ];
     
     for (PKToken *tok in t) {
@@ -77,9 +77,39 @@
         NSLog(@"%@", actual);
         TDEqualObjects(expected, actual);
     }
-
+    
     TDEquals([results count], idx);
 }
+
+
+//- (void)testStuffWithFastEnumeration2 {
+//    s = @"2 != 47. Blast-off!! 'Woo-hoo!'";
+//    t = [PKTokenizer tokenizerWithString:s];
+//    [t.numberState addPrefix:@"$" forRadix:16];
+//    [t.numberState addGroupingSeparator:'_' forRadix:16];
+//    
+//    
+//    NSUInteger idx = 0;
+//    NSArray *results = @[
+//    @"(2) (2.0) : <Number «2»>",
+//    @"(!=) (0.0) : <Symbol «!=»>",
+//    @"(47) (47.0) : <Number «47»>",
+//    @"(.) (0.0) : <Symbol «.»>",
+//    @"(Blast-off) (0.0) : <Word «Blast-off»>",
+//    @"(!) (0.0) : <Symbol «!»>",
+//    @"(!) (0.0) : <Symbol «!»>",
+//    @"('Woo-hoo!') (0.0) : <Quoted String «'Woo-hoo!'»>",
+//    ];
+//    
+//    for (PKToken *tok in t) {
+//        NSString *expected = results[idx++];
+//        NSString *actual = [NSString stringWithFormat:@"(%@) (%.1f) : %@", tok.stringValue, tok.floatValue, [tok debugDescription]];
+//        NSLog(@"%@", actual);
+//        TDEqualObjects(expected, actual);
+//    }
+//    
+//    TDEquals([results count], idx);
+//}
 
 
 - (void)testStuff2 {
