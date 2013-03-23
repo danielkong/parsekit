@@ -41,6 +41,7 @@
     
 }
 
+
 - (void)testStuff {
     s = @"2 != 47. Blast-off!! 'Woo-hoo!'";
     t = [PKTokenizer tokenizerWithString:s];
@@ -51,6 +52,33 @@
     while ((tok = [t nextToken]) != eof) {
         //NSLog(@"(%@) (%.1f) : %@", tok.stringValue, tok.floatValue, [tok debugDescription]);
     }
+}
+
+
+- (void)testStuffWithFastEnumeration {
+    s = @"2 != 47. Blast-off!! 'Woo-hoo!'";
+    t = [PKTokenizer tokenizerWithString:s];
+    
+    NSUInteger idx = 0;
+    NSArray *results = @[
+        @"(2) (2.0) : <Number «2»>",
+        @"(!=) (0.0) : <Symbol «!=»>",
+        @"(47) (47.0) : <Number «47»>",
+        @"(.) (0.0) : <Symbol «.»>",
+        @"(Blast-off) (0.0) : <Word «Blast-off»>",
+        @"(!) (0.0) : <Symbol «!»>",
+        @"(!) (0.0) : <Symbol «!»>",
+        @"('Woo-hoo!') (0.0) : <Quoted String «'Woo-hoo!'»>",
+    ];
+    
+    for (PKToken *tok in t) {
+        NSString *expected = results[idx++];
+        NSString *actual = [NSString stringWithFormat:@"(%@) (%.1f) : %@", tok.stringValue, tok.floatValue, [tok debugDescription]];
+        NSLog(@"%@", actual);
+        TDEqualObjects(expected, actual);
+    }
+
+    TDEquals([results count], idx);
 }
 
 
