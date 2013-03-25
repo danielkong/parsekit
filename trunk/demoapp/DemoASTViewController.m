@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "DemoASTViewController.h"
-#import "PKParseTreeView.h"
+#import "PKASTView.h"
 #import "PKParseTree.h"
 #import "PKRuleNode.h"
 #import "PKTokenNode.h"
@@ -31,7 +31,7 @@
 
 
 - (void)dealloc {
-    self.parseTreeView = nil;
+    self.ASTView = nil;
     [super dealloc];
 }
 
@@ -60,7 +60,7 @@
     PKParser *p = [[PKParserFactory factory] parserFromGrammar:self.grammarString assembler:as preassembler:as error:nil];
     PKParseTree *tr = [p parse:self.inputString error:nil];
     if ([tr isKindOfClass:[PKParseTree class]]) {
-        [_parseTreeView drawParseTree:tr];
+        [_ASTView drawParseTree:tr];
     }
     
     // release
