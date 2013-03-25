@@ -22,6 +22,9 @@
 #define ROW_HEIGHT 50.0
 #define CELL_WIDTH 55.0
 
+#define FUDGE 0.5
+#define PKAlign(x) (floor((x)) + FUDGE)
+
 @interface PKParseTreeView ()
 - (void)drawTree:(PKParseTree *)n atPoint:(NSPoint)p;
 - (void)drawParentNode:(PKParseTree *)n atPoint:(NSPoint)p;
@@ -114,7 +117,7 @@
     // draw children
     NSPoint points[c];
     if (1 == c) {
-        points[0] = NSMakePoint(p.x, p.y + ROW_HEIGHT);
+        points[0] = NSMakePoint((p.x), (p.y + ROW_HEIGHT));
         [self drawTree:[[n children] objectAtIndex:0] atPoint:points[0]];
     } else {
         PKFloat x = 0.0;
@@ -123,7 +126,7 @@
             x = p.x - (totalWidth / 2.0) + buff + (widths[i] / 2.0);
             buff += widths[i];
 
-            points[i] = NSMakePoint(x, p.y + ROW_HEIGHT);
+            points[i] = NSMakePoint((x), (p.y + ROW_HEIGHT));
             [self drawTree:[[n children] objectAtIndex:i] atPoint:points[i]];
         }
     }
@@ -133,8 +136,8 @@
     
     for (i = 0; i < c; i++) {
         CGContextBeginPath(ctx);
-        CGContextMoveToPoint(ctx, p.x, p.y + 15.0);
-        CGContextAddLineToPoint(ctx, points[i].x, points[i].y - 4.0);
+        CGContextMoveToPoint(ctx, PKAlign(p.x), PKAlign(p.y + 15.0));
+        CGContextAddLineToPoint(ctx, PKAlign(points[i].x), PKAlign(points[i].y - 4.0));
         CGContextClosePath(ctx);
         CGContextStrokePath(ctx);
     }
