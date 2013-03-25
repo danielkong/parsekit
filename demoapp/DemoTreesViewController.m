@@ -153,7 +153,7 @@
 
 - (CGFloat)splitView:(NSSplitView *)sv constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)i {
     if (0 == i) {
-        return 200;
+        return 200.0;
     } else {
         return proposedMin;
     }
