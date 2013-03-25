@@ -45,8 +45,11 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.grammarTextView = nil;
+    self.inputTextView = nil;
+    self.parseTreeView = nil;
     self.grammarString = nil;
-    self.inString = nil;
+    self.inputString = nil;
     [super dealloc];
 }
 
@@ -63,7 +66,7 @@
 //    self.inString = @"4.0*.4 + 2e-12/-47 +3";
 //    self.inString = @"[1,2]";
 //    self.inString = @"foo";
-    self.inString = @"foo or bar.baz('hello', yes, 10.1)";
+    self.inputString = @"foo or bar.baz('hello', yes, 10.1)";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:[[self view] window]];
 }
@@ -75,41 +78,42 @@
 
 
 - (void)renderGutters {
-    [grammarTextView renderGutter];
-    [inputTextView renderGutter];
+    [_grammarTextView renderGutter];
+    [_inputTextView renderGutter];
 }
 
 
 - (IBAction)parse:(id)sender {
     PKAssertMainThread();
-    if (self.busy || ![inString length] || ![grammarString length]) {
+    if (self.busy || ![_inputString length] || ![_grammarString length]) {
         NSBeep();
         return;
     }
     
     self.busy = YES;
     
-    [NSThread detachNewThreadSelector:@selector(doParse) toTarget:self withObject:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self doParse];
+    });
 }
 
 
 - (void)doParse {
     PKAssertNotMainThread();
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
+
     PKParseTreeAssembler *as = [[[PKParseTreeAssembler alloc] init] autorelease];
-    PKParser *p = [[PKParserFactory factory] parserFromGrammar:grammarString assembler:as preassembler:as error:nil];
-    PKParseTree *tr = [p parse:inString error:nil];
+    PKParser *p = [[PKParserFactory factory] parserFromGrammar:_grammarString assembler:as preassembler:as error:nil];
+    PKParseTree *tr = [p parse:_inputString error:nil];
     if ([tr isKindOfClass:[PKParseTree class]]) {
-        [parseTreeView drawParseTree:tr];
+        [_parseTreeView drawParseTree:tr];
     }
     
     // release
     PKReleaseSubparserTree(p);
 
-    [self performSelectorOnMainThread:@selector(done) withObject:nil waitUntilDone:NO];
-    
-    [pool drain];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self done];
+    });
 }
 
 
@@ -166,8 +170,5 @@
     return proposedMax;
 }
 
-@synthesize grammarString;
-@synthesize inString;
-@synthesize busy;
 @end
 
