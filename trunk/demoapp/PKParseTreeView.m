@@ -79,9 +79,9 @@
     h = h < minSize.height ? minSize.height : h;
     [self setFrame:NSMakeRect(0.0, 0.0, w, h)];
     
-    NSRect visRect = [self visibleRect];
-    visRect.origin.x = w / 2.0 - visRect.size.width / 2.0;
-    [self scrollRectToVisible:visRect];
+//    NSRect visRect = [self visibleRect];
+//    visRect.origin.x = w / 2.0 - visRect.size.width / 2.0;
+//    [self scrollRectToVisible:visRect];
     
     [self setNeedsDisplay:YES];
 }
