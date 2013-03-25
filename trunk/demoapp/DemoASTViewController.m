@@ -56,16 +56,9 @@
 - (void)doParse {
     PKAssertNotMainThread();
 
-    PKParseTreeAssembler *as = [[[PKParseTreeAssembler alloc] init] autorelease];
-    PKParser *p = [[PKParserFactory factory] parserFromGrammar:self.grammarString assembler:as preassembler:as error:nil];
-    PKParseTree *tr = [p parse:self.inputString error:nil];
-    if ([tr isKindOfClass:[PKParseTree class]]) {
-        [_ASTView drawParseTree:tr];
-    }
+    PKAST *root = [[PKParserFactory factory] ASTFromGrammar:self.grammarString error:nil];
+    [_ASTView drawAST:root];
     
-    // release
-    PKReleaseSubparserTree(p);
-
     dispatch_async(dispatch_get_main_queue(), ^{
         [self done];
     });

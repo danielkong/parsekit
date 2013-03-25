@@ -14,13 +14,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class PKParseTree;
+@class PKAST;
 
 @interface PKASTView : NSView
 
-- (void)drawParseTree:(PKParseTree *)t;
+- (void)drawAST:(PKAST *)a;
 
-@property (nonatomic, retain) PKParseTree *parseTree;
+@property (nonatomic, retain) PKAST *root;
 @property (nonatomic, retain) NSDictionary *leafAttrs;
 @property (nonatomic, retain) NSDictionary *parentAttrs;
 @end
