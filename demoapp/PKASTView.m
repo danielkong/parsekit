@@ -14,10 +14,7 @@
 
 #import "PKASTView.h"
 #import <ParseKit/ParseKit.h>
-#import "PKParseTree.h"
-#import "PKRuleNode.h"
-#import "PKTokenNode.h"
-#import "PKParseTreeAssembler.h"
+#import "PKAST.h"
 
 #define ROW_HEIGHT 50.0
 #define CELL_WIDTH 55.0
@@ -28,13 +25,13 @@
 #define PKAlign(x) (floor((x)) + FUDGE)
 
 @interface PKASTView ()
-- (void)drawTree:(PKParseTree *)n atPoint:(NSPoint)p;
-- (void)drawParentNode:(PKParseTree *)n atPoint:(NSPoint)p;
-- (void)drawLeafNode:(PKTokenNode *)n atPoint:(NSPoint)p;
+- (void)drawTree:(PKAST *)n atPoint:(NSPoint)p;
+- (void)drawParentNode:(PKAST *)n atPoint:(NSPoint)p;
+- (void)drawLeafNode:(PKAST *)n atPoint:(NSPoint)p;
 
-- (PKFloat)widthForNode:(PKParseTree *)n;
-- (PKFloat)depthForNode:(PKParseTree *)n;
-- (NSString *)labelFromNode:(PKParseTree *)n;
+- (PKFloat)widthForNode:(PKAST *)n;
+- (PKFloat)depthForNode:(PKAST *)n;
+- (NSString *)labelFromNode:(PKAST *)n;
 - (void)drawLabel:(NSString *)label atPoint:(NSPoint)p withAttrs:(NSDictionary *)attrs;
 @end
 
@@ -56,7 +53,7 @@
 
 
 - (void)dealloc {
-    self.parseTree = nil;
+    self.root = nil;
     self.leafAttrs = nil;
     self.parentAttrs = nil;
     [super dealloc];
@@ -68,11 +65,11 @@
 }
 
 
-- (void)drawParseTree:(PKParseTree *)t {
-    self.parseTree = t;
+- (void)drawAST:(PKAST *)t {
+    self.root = t;
     
-    PKFloat w = [self widthForNode:_parseTree] * CELL_WIDTH;
-    PKFloat h = [self depthForNode:_parseTree] * ROW_HEIGHT + 120.0;
+    PKFloat w = [self widthForNode:_root] * CELL_WIDTH;
+    PKFloat h = [self depthForNode:_root] * ROW_HEIGHT + 120.0;
     
     NSSize minSize = [[self superview] bounds].size;
     w = w < minSize.width ? minSize.width : w;
@@ -83,24 +80,28 @@
 }
 
 
-- (void)drawRect:(NSRect)r {
-    [[NSColor whiteColor] set];
-    NSRectFill(r);
+- (void)drawRect:(NSRect)dirtyRect {
+    NSRect bounds = [self bounds];
     
-    [self drawTree:_parseTree atPoint:NSMakePoint(r.size.width / 2.0, 20.0)];
-}
-
-
-- (void)drawTree:(PKParseTree *)n atPoint:(NSPoint)p {
-    if ([n isKindOfClass:[PKTokenNode class]]) {
-        [self drawLeafNode:(id)n atPoint:p];
-    } else {
-        [self drawParentNode:n atPoint:p];
+    [[NSColor whiteColor] set];
+    NSRectFill(dirtyRect);
+    
+    if (_root) {
+        [self drawTree:_root atPoint:NSMakePoint(bounds.size.width / 2.0, 20.0)];
     }
 }
 
 
-- (void)drawParentNode:(PKParseTree *)n atPoint:(NSPoint)p {
+- (void)drawTree:(PKAST *)n atPoint:(NSPoint)p {
+    if ([n.children count]) {
+        [self drawParentNode:n atPoint:p];
+    } else {
+        [self drawLeafNode:n atPoint:p];
+    }
+}
+
+
+- (void)drawParentNode:(PKAST *)n atPoint:(NSPoint)p {
     // draw own label
     [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y) withAttrs:_parentAttrs];
 
@@ -110,7 +111,7 @@
     // get total width
     PKFloat widths[c];
     PKFloat totalWidth = 0.0;
-    for (PKParseTree *child in [n children]) {
+    for (PKAST *child in [n children]) {
         widths[i] = [self widthForNode:child] * CELL_WIDTH;
         totalWidth += widths[i++];
     }
@@ -146,23 +147,23 @@
 }
 
 
-- (void)drawLeafNode:(PKTokenNode *)n atPoint:(NSPoint)p {
+- (void)drawLeafNode:(PKAST *)n atPoint:(NSPoint)p {
     [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y) withAttrs:_leafAttrs];
 }
 
 
-- (PKFloat)widthForNode:(PKParseTree *)n {
+- (PKFloat)widthForNode:(PKAST *)n {
     PKFloat res = 0.0;
-    for (PKParseTree *child in [n children]) {
+    for (PKAST *child in [n children]) {
         res += [self widthForNode:child];
     }
     return res ? res : 1.0;
 }
     
     
-- (PKFloat)depthForNode:(PKParseTree *)n {
+- (PKFloat)depthForNode:(PKAST *)n {
     PKFloat res = 0.0;
-    for (PKParseTree *child in [n children]) {
+    for (PKAST *child in [n children]) {
         PKFloat n = [self depthForNode:child];
         res = n > res ? n : res;
     }
@@ -170,14 +171,13 @@
 }
 
 
-- (NSString *)labelFromNode:(PKParseTree *)n {
-    if ([n isKindOfClass:[PKTokenNode class]]) {
-        return [[(PKTokenNode *)n token] stringValue];
-    } else if ([n isKindOfClass:[PKRuleNode class]]) {
-        return [(PKRuleNode *)n name];
-    } else {
-        return @"root";
-    }
+- (NSString *)labelFromNode:(PKAST *)n {
+    return [n name];
+//    if ([n isKindOfClass:[PKAST class]]) {
+//        return [n name];
+//    } else {
+//        return @"root";
+//    }
 }
 
 
