@@ -56,7 +56,7 @@
 
 
 - (void)dealloc {
-    self.parseTree = nil;
+    self.root = nil;
     self.leafAttrs = nil;
     self.parentAttrs = nil;
     [super dealloc];
@@ -69,25 +69,33 @@
 
 
 - (void)drawParseTree:(PKParseTree *)t {
-    self.parseTree = t;
+    self.root = t;
     
-    PKFloat w = [self widthForNode:_parseTree] * CELL_WIDTH;
-    PKFloat h = [self depthForNode:_parseTree] * ROW_HEIGHT + 120.0;
+    PKFloat w = [self widthForNode:_root] * CELL_WIDTH;
+    PKFloat h = [self depthForNode:_root] * ROW_HEIGHT + 120.0;
     
     NSSize minSize = [[self superview] bounds].size;
     w = w < minSize.width ? minSize.width : w;
     h = h < minSize.height ? minSize.height : h;
     [self setFrame:NSMakeRect(0.0, 0.0, w, h)];
     
+    NSRect visRect = [self visibleRect];
+    visRect.origin.x = w / 2.0 - visRect.size.width / 2.0;
+    [self scrollRectToVisible:visRect];
+    
     [self setNeedsDisplay:YES];
 }
 
 
-- (void)drawRect:(NSRect)r {
-    [[NSColor whiteColor] set];
-    NSRectFill(r);
+- (void)drawRect:(NSRect)dirtyRect {
+    NSRect bounds = [self bounds];
     
-    [self drawTree:_parseTree atPoint:NSMakePoint(r.size.width / 2.0, 20.0)];
+    [[NSColor whiteColor] set];
+    NSRectFill(dirtyRect);
+    
+    if (_root) {
+        [self drawTree:_root atPoint:NSMakePoint(bounds.size.width / 2.0, 20.0)];
+    }
 }
 
 
