@@ -71,8 +71,8 @@
 - (void)drawParseTree:(PKParseTree *)t {
     self.parseTree = t;
     
-    PKFloat w = [self widthForNode:parseTree] * CELL_WIDTH;
-    PKFloat h = [self depthForNode:parseTree] * ROW_HEIGHT + 120.0;
+    PKFloat w = [self widthForNode:_parseTree] * CELL_WIDTH;
+    PKFloat h = [self depthForNode:_parseTree] * ROW_HEIGHT + 120.0;
     
     NSSize minSize = [[self superview] bounds].size;
     w = w < minSize.width ? minSize.width : w;
@@ -87,7 +87,7 @@
     [[NSColor whiteColor] set];
     NSRectFill(r);
     
-    [self drawTree:parseTree atPoint:NSMakePoint(r.size.width / 2.0, 20.0)];
+    [self drawTree:_parseTree atPoint:NSMakePoint(r.size.width / 2.0, 20.0)];
 }
 
 
@@ -102,7 +102,7 @@
 
 - (void)drawParentNode:(PKParseTree *)n atPoint:(NSPoint)p {
     // draw own label
-    [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y) withAttrs:parentAttrs];
+    [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y) withAttrs:_parentAttrs];
 
     NSUInteger i = 0;
     NSUInteger c = [[n children] count];
@@ -147,7 +147,7 @@
 
 
 - (void)drawLeafNode:(PKTokenNode *)n atPoint:(NSPoint)p {
-    [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y) withAttrs:leafAttrs];
+    [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y) withAttrs:_leafAttrs];
 }
 
 
@@ -195,7 +195,4 @@
     [label drawWithRect:r options:opts attributes:attrs];
 }
 
-@synthesize parseTree;
-@synthesize leafAttrs;
-@synthesize parentAttrs;
 @end
