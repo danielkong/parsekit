@@ -100,7 +100,9 @@
     PKParseTreeAssembler *as = [[[PKParseTreeAssembler alloc] init] autorelease];
     PKParser *p = [[PKParserFactory factory] parserFromGrammar:grammarString assembler:as preassembler:as error:nil];
     PKParseTree *tr = [p parse:inString error:nil];
-    [parseTreeView drawParseTree:tr];
+    if ([tr isKindOfClass:[PKParseTree class]]) {
+        [parseTreeView drawParseTree:tr];
+    }
     
     // release
     PKReleaseSubparserTree(p);
