@@ -20,7 +20,7 @@
 
 - (void)drawParseTree:(PKParseTree *)t;
 
-@property (nonatomic, retain) PKParseTree *parseTree;
+@property (nonatomic, retain) PKParseTree *root;
 @property (nonatomic, retain) NSDictionary *leafAttrs;
 @property (nonatomic, retain) NSDictionary *parentAttrs;
 @end
