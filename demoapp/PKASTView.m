@@ -26,12 +26,9 @@
 
 @interface PKASTView ()
 - (void)drawTree:(PKAST *)n atPoint:(NSPoint)p;
-- (void)drawParentNode:(PKAST *)n atPoint:(NSPoint)p;
-- (void)drawLeafNode:(PKAST *)n atPoint:(NSPoint)p;
 
 - (PKFloat)widthForNode:(PKAST *)n;
 - (PKFloat)depthForNode:(PKAST *)n;
-- (NSString *)labelFromNode:(PKAST *)n;
 - (void)drawLabel:(NSString *)label atPoint:(NSPoint)p withAttrs:(NSDictionary *)attrs;
 @end
 
@@ -93,17 +90,10 @@
 
 
 - (void)drawTree:(PKAST *)n atPoint:(NSPoint)p {
-    if ([n.children count]) {
-        [self drawParentNode:n atPoint:p];
-    } else {
-        [self drawLeafNode:n atPoint:p];
-    }
-}
-
-
-- (void)drawParentNode:(PKAST *)n atPoint:(NSPoint)p {
     // draw own label
-    [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y) withAttrs:_parentAttrs];
+    NSString *label = [n name];
+    NSDictionary *attrs = [label hasPrefix:@"$"] || [label hasPrefix:@"@"] ? _parentAttrs : _leafAttrs;
+    [self drawLabel:label atPoint:NSMakePoint(p.x, p.y) withAttrs:attrs];
 
     NSUInteger i = 0;
     NSUInteger c = [[n children] count];
@@ -147,11 +137,6 @@
 }
 
 
-- (void)drawLeafNode:(PKAST *)n atPoint:(NSPoint)p {
-    [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y) withAttrs:_leafAttrs];
-}
-
-
 - (PKFloat)widthForNode:(PKAST *)n {
     PKFloat res = 0.0;
     for (PKAST *child in [n children]) {
@@ -171,16 +156,6 @@
 }
 
 
-- (NSString *)labelFromNode:(PKAST *)n {
-    return [n name];
-//    if ([n isKindOfClass:[PKAST class]]) {
-//        return [n name];
-//    } else {
-//        return @"root";
-//    }
-}
-
-
 - (void)drawLabel:(NSString *)label atPoint:(NSPoint)p withAttrs:(NSDictionary *)attrs {
     NSSize labelSize = [label sizeWithAttributes:attrs];
     NSRect maxRect = NSMakeRect(p.x - CELL_WIDTH / 2.0, p.y, CELL_WIDTH, labelSize.height);
@@ -190,7 +165,7 @@
     }
     
     p.x -= labelSize.width / 2.0;
-    NSRect r = NSMakeRect(p.x, p.y + LABEL_MARGIN_Y, labelSize.width, labelSize.height);
+    NSRect r = NSMakeRect(floor(p.x), floor(p.y) + LABEL_MARGIN_Y, labelSize.width, labelSize.height);
     NSUInteger opts = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin;
     [label drawWithRect:r options:opts attributes:attrs];
 }
