@@ -14,14 +14,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class DemoTokensViewController;
-@class DemoTreesViewController;
-@class DemoASTViewController;
+@class PKParseTree;
 
-@interface DemoAppDelegate : NSObject
+@interface PKASTView : NSView
 
-@property (nonatomic, retain) IBOutlet NSTabView *tabView;
-@property (nonatomic, retain) DemoTokensViewController *tokensViewController;
-@property (nonatomic, retain) DemoTreesViewController *treesViewController;
-@property (nonatomic, retain) DemoASTViewController *ASTViewController;
+- (void)drawParseTree:(PKParseTree *)t;
+
+@property (nonatomic, retain) PKParseTree *parseTree;
+@property (nonatomic, retain) NSDictionary *leafAttrs;
+@property (nonatomic, retain) NSDictionary *parentAttrs;
 @end
