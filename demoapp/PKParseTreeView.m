@@ -45,7 +45,7 @@
                            [NSColor blackColor], NSForegroundColorAttributeName,
                            nil];
         self.parentAttrs = [NSDictionary dictionaryWithObjectsAndKeys:
-                           [NSFont fontWithName:@"Helvetica Neue Italic" size:10.0], NSFontAttributeName,
+                           [NSFont fontWithName:@"Helvetica Neue Italic" size:11.0], NSFontAttributeName,
                            [NSColor blackColor], NSForegroundColorAttributeName,
                            nil];
     }
