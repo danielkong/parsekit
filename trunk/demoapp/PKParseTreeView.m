@@ -30,15 +30,19 @@
 - (PKFloat)widthForNode:(PKParseTree *)n;
 - (PKFloat)depthForNode:(PKParseTree *)n;
 - (NSString *)labelFromNode:(PKParseTree *)n;
-- (void)drawLabel:(NSString *)label atPoint:(NSPoint)p;
+- (void)drawLabel:(NSString *)label atPoint:(NSPoint)p withAttrs:(NSDictionary *)attrs;
 @end
 
 @implementation PKParseTreeView
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.labelAttrs = [NSDictionary dictionaryWithObjectsAndKeys:
+        self.leafAttrs = [NSDictionary dictionaryWithObjectsAndKeys:
                            [NSFont boldSystemFontOfSize:10.0], NSFontAttributeName,
+                           [NSColor blackColor], NSForegroundColorAttributeName,
+                           nil];
+        self.parentAttrs = [NSDictionary dictionaryWithObjectsAndKeys:
+                           [NSFont fontWithName:@"Helvetica Neue Italic" size:10.0], NSFontAttributeName,
                            [NSColor blackColor], NSForegroundColorAttributeName,
                            nil];
     }
@@ -48,7 +52,8 @@
 
 - (void)dealloc {
     self.parseTree = nil;
-    self.labelAttrs = nil;
+    self.leafAttrs = nil;
+    self.parentAttrs = nil;
     [super dealloc];
 }
 
@@ -92,7 +97,7 @@
 
 - (void)drawParentNode:(PKParseTree *)n atPoint:(NSPoint)p {
     // draw own label
-    [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y)];
+    [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y) withAttrs:parentAttrs];
 
     NSUInteger i = 0;
     NSUInteger c = [[n children] count];
@@ -137,7 +142,7 @@
 
 
 - (void)drawLeafNode:(PKTokenNode *)n atPoint:(NSPoint)p {
-    [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y)];
+    [self drawLabel:[self labelFromNode:n] atPoint:NSMakePoint(p.x, p.y) withAttrs:leafAttrs];
 }
 
 
@@ -171,8 +176,8 @@
 }
 
 
-- (void)drawLabel:(NSString *)label atPoint:(NSPoint)p {
-    NSSize labelSize = [label sizeWithAttributes:labelAttrs];
+- (void)drawLabel:(NSString *)label atPoint:(NSPoint)p withAttrs:(NSDictionary *)attrs {
+    NSSize labelSize = [label sizeWithAttributes:attrs];
     NSRect maxRect = NSMakeRect(p.x - CELL_WIDTH / 2.0, p.y, CELL_WIDTH, labelSize.height);
     
     if (!NSContainsRect(maxRect, NSMakeRect(maxRect.origin.x, maxRect.origin.y, labelSize.width, labelSize.height))) {
@@ -182,9 +187,10 @@
     p.x -= labelSize.width / 2.0;
     NSRect r = NSMakeRect(p.x, p.y, labelSize.width, labelSize.height);
     NSUInteger opts = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin;
-    [label drawWithRect:r options:opts attributes:labelAttrs];
+    [label drawWithRect:r options:opts attributes:attrs];
 }
 
 @synthesize parseTree;
-@synthesize labelAttrs;
+@synthesize leafAttrs;
+@synthesize parentAttrs;
 @end

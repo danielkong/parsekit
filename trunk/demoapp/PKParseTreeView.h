@@ -18,10 +18,12 @@
 
 @interface PKParseTreeView : NSView {
     PKParseTree *parseTree;
-    NSDictionary *labelAttrs;
+    NSDictionary *leafAttrs;
+    NSDictionary *parentAttrs;
 }
 - (void)drawParseTree:(PKParseTree *)t;
 
 @property (nonatomic, retain) PKParseTree *parseTree;
-@property (nonatomic, retain) NSDictionary *labelAttrs;
+@property (nonatomic, retain) NSDictionary *leafAttrs;
+@property (nonatomic, retain) NSDictionary *parentAttrs;
 @end

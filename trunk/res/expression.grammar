@@ -12,10 +12,10 @@ andTerm = 'and' relExpr;
 relExpr = callExpr (relOp callExpr)*;
 relOp = '<' | '>' | '=' | '!=' | '<=' | '>=';
  
-callExpr = primaryExpr ('(' argList ')')?;
+callExpr = primary ('(' argList ')')?;
 argList = Empty | atom (',' atom)*;
  
-primaryExpr = atom | '(' expr ')';
+primary = atom | '(' expr ')';
 atom = obj | literal;
  
 obj = id member*;
