@@ -12,9 +12,8 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "DemoTreesViewController.h"
+#import "DemoASTViewController.h"
 #import "PKParseTreeView.h"
-#import "TDSourceCodeTextView.h"
 #import "PKParseTree.h"
 #import "PKRuleNode.h"
 #import "PKTokenNode.h"
@@ -24,10 +23,10 @@
 #define PKAssertMainThread() NSAssert1([NSThread isMainThread], @"%s should be called on the main thread only.", __PRETTY_FUNCTION__);
 #define PKAssertNotMainThread() NSAssert1(![NSThread isMainThread], @"%s should be called on the main thread only.", __PRETTY_FUNCTION__);
 
-@implementation DemoTreesViewController
+@implementation DemoASTViewController
 
 - (id)init {
-    return [self initWithNibName:@"TreesView" bundle:nil];
+    return [self initWithNibName:@"ASTView" bundle:nil];
 }
 
 
