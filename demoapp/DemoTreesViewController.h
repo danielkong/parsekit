@@ -17,19 +17,15 @@
 @class PKParseTreeView;
 @class TDSourceCodeTextView;
 
-@interface DemoTreesViewController : NSViewController {
-    IBOutlet TDSourceCodeTextView *grammarTextView;
-    IBOutlet TDSourceCodeTextView *inputTextView;
-    IBOutlet PKParseTreeView *parseTreeView;    
-
-    NSString *grammarString;
-    NSString *inString;
-    BOOL busy;
-}
+@interface DemoTreesViewController : NSViewController
 
 - (IBAction)parse:(id)sender;
 
+@property (retain) IBOutlet TDSourceCodeTextView *grammarTextView;
+@property (retain) IBOutlet TDSourceCodeTextView *inputTextView;
+@property (retain) IBOutlet PKParseTreeView *parseTreeView;
+
 @property (retain) NSString *grammarString;
-@property (retain) NSString *inString;
+@property (retain) NSString *inputString;
 @property BOOL busy;
 @end
