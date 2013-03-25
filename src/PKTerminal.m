@@ -56,10 +56,15 @@
     NSParameterAssert(inAssemblies);
     NSMutableSet *outAssemblies = [NSMutableSet set];
     
+    NSUInteger longest = 0;
     for (PKAssembly *a in inAssemblies) {
         PKAssembly *b = [self matchOneAssembly:a];
         if (b) {
-            [outAssemblies addObject:b];
+            NSUInteger len = [b.stack count];
+            if (len >= longest) {
+                longest = len;
+                [outAssemblies addObject:b];
+            }
         }
     }
     
