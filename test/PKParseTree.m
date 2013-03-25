@@ -55,7 +55,11 @@
         t->children = [children mutableCopyWithZone:zone];
     }
     
-    t->userInfo = [userInfo copyWithZone:zone];
+    if ([userInfo conformsToProtocol:@protocol(NSMutableCopying)]) {
+        t->userInfo = [userInfo mutableCopyWithZone:zone];
+    } else {
+        t->userInfo = [userInfo copyWithZone:zone];
+    }
     return t;
 }
 
