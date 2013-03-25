@@ -22,6 +22,8 @@
 #define ROW_HEIGHT 50.0
 #define CELL_WIDTH 55.0
 
+#define LABEL_MARGIN_Y -2.0
+
 #define FUDGE 0.5
 #define PKAlign(x) (floor((x)) + FUDGE)
 
@@ -188,7 +190,7 @@
     }
     
     p.x -= labelSize.width / 2.0;
-    NSRect r = NSMakeRect(p.x, p.y, labelSize.width, labelSize.height);
+    NSRect r = NSMakeRect(p.x, p.y + LABEL_MARGIN_Y, labelSize.width, labelSize.height);
     NSUInteger opts = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin;
     [label drawWithRect:r options:opts attributes:attrs];
 }
