@@ -21,6 +21,9 @@
 #import "PKParseTreeAssembler.h"
 #import <ParseKit/ParseKit.h>
 
+#define PKAssertMainThread() NSAssert1([NSThread isMainThread], @"%s should be called on the main thread only.", __PRETTY_FUNCTION__);
+#define PKAssertNotMainThread() NSAssert1(![NSThread isMainThread], @"%s should be called on the main thread only.", __PRETTY_FUNCTION__);
+
 @interface DemoTreesViewController ()
 - (void)renderGutters;
 @end
@@ -52,13 +55,15 @@
 //    self.grammarString = @"@allowsScientificNotation=YES;\n@start = expr;\nexpr = addExpr;\naddExpr = multExpr (('+'|'-') multExpr)*;\nmultExpr = atom (('*'|'/') atom)*;\natom = Number;";
 //    self.grammarString = @"@start = array;array = '[' Number (commaNumber)* ']';commaNumber = ',' Number;";
 //    self.grammarString = @"@start = array;array = foo | Word; foo = 'foo';";
-    self.grammarString = @"@allowsScientificNotation = YES;     @start        = Empty | array | object;          object        = '{' (Empty | property (',' property)*) '}';     property      = name ':' value;     name  = QuotedString;          array         = '[' (Empty | value (',' value)*) ']';          value         = 'null' | boolean | array | object | number | string;          string        = QuotedString;     number        = Number;     boolean       = 'true' | 'false';";
+//    self.grammarString = @"@allowsScientificNotation = YES;     @start        = Empty | array | object;          object        = '{' (Empty | property (',' property)*) '}';     property      = name ':' value;     name  = QuotedString;          array         = '[' (Empty | value (',' value)*) ']';          value         = 'null' | boolean | array | object | number | string;          string        = QuotedString;     number        = Number;     boolean       = 'true' | 'false';";
     
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"expression" ofType:@"grammar"];
+    self.grammarString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 
 //    self.inString = @"4.0*.4 + 2e-12/-47 +3";
 //    self.inString = @"[1,2]";
 //    self.inString = @"foo";
-    self.inString = @"[42e-12, null,{'foo':false}]";
+    self.inString = @"foo or bar.baz('hello', yes, 10.1)";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:[[self view] window]];
 }
@@ -76,7 +81,8 @@
 
 
 - (IBAction)parse:(id)sender {
-    if (![inString length] || ![grammarString length]) {
+    PKAssertMainThread();
+    if (self.busy || ![inString length] || ![grammarString length]) {
         NSBeep();
         return;
     }
@@ -88,6 +94,7 @@
 
 
 - (void)doParse {
+    PKAssertNotMainThread();
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     PKParseTreeAssembler *as = [[[PKParseTreeAssembler alloc] init] autorelease];
@@ -105,6 +112,7 @@
 
 
 - (void)done {
+    PKAssertMainThread();
     self.busy = NO;
 }    
 
