@@ -115,6 +115,7 @@
 - (void)didMatchRuleNamed:(NSString *)name assembly:(PKAssembly *)a {
     //NSLog(@"%s %@ %@", __PRETTY_FUNCTION__, name, a);
     PKParseTree *current = [self currentFrom:a];
+    NSAssert([current isKindOfClass:[PKParseTree class]], @"");
 
     NSArray *origChildren = [[[current children] mutableCopy] autorelease];
 

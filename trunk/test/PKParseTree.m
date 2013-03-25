@@ -54,7 +54,40 @@
     if (children) {
         t->children = [children mutableCopyWithZone:zone];
     }
+    
+    t->userInfo = [userInfo copyWithZone:zone];
     return t;
+}
+
+
+- (BOOL)isEqual:(id)obj {
+    if (![obj isMemberOfClass:[self class]]) {
+        return NO;
+    }
+    
+    PKParseTree *that = (PKParseTree *)obj;
+    
+    if (![self->parent isEqual:that->parent]) {
+        return NO;
+    }
+    
+    if (![self->children isEqual:that->children]) {
+        return NO;
+    }
+    
+    if (userInfo && !that->userInfo) {
+        return NO;
+    }
+    
+    if (!userInfo && that->userInfo) {
+        return NO;
+    }
+    
+    if (userInfo && that->userInfo && ![self->userInfo isEqual:that->userInfo]) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 
