@@ -14,9 +14,9 @@
 
 #import "DemoBaseViewController.h"
 
-@class PKParseTreeView;
+@class PKASTView;
 
 @interface DemoASTViewController : DemoBaseViewController
 
-@property (retain) IBOutlet PKParseTreeView *parseTreeView;
+@property (retain) IBOutlet PKASTView *ASTView;
 @end
