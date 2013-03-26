@@ -1883,16 +1883,8 @@
 			children = (
 				D3F5619C1026374400DD6DB1 /* ir */,
 				D3376D1110091C6C00E4602E /* ParseTree */,
-				D3376D8B10096BEF00E4602E /* Homo */,
 			);
 			name = IR;
-			sourceTree = "<group>";
-		};
-		D3376D8B10096BEF00E4602E /* Homo */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Homo;
 			sourceTree = "<group>";
 		};
 		D3407DCF1701091D0047F5FC /* AST */ = {
@@ -2793,7 +2785,6 @@
 			isa = PBXGroup;
 			children = (
 				D3F5619D1026375100DD6DB1 /* syntax tree */,
-				D3F561B61026379700DD6DB1 /* ast */,
 			);
 			name = ir;
 			sourceTree = "<group>";
@@ -2811,13 +2802,6 @@
 				D369345C1038DE5300527AF3 /* PKTokenNode.m */,
 			);
 			name = "syntax tree";
-			sourceTree = "<group>";
-		};
-		D3F561B61026379700DD6DB1 /* ast */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = ast;
 			sourceTree = "<group>";
 		};
 		D3F823560F57859900B7DC48 /* factory */ = {
