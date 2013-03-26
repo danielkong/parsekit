@@ -46,11 +46,23 @@
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"expression" ofType:@"grammar"];
     self.grammarString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+//    self.grammarString =
+//    @"@start    = expr;\n"
+//    @"expr      = orExpr;\n"
+//    @"orExpr    = andExpr orTerm*;\n"
+//    @"orTerm    = 'or' andExpr;\n"
+//    @"andExpr   = atom andTerm*;\n"
+//    @"andTerm   = 'and' atom;\n"
+//    @"atom      = Word;\n";
+
+
 
 //    self.inString = @"4.0*.4 + 2e-12/-47 +3";
 //    self.inString = @"[1,2]";
 //    self.inString = @"foo";
     self.inputString = @"foo or bar.baz('hello', yes, 10.1)";
+//    self.inputString = @"foo or bar";
 }
 
 
