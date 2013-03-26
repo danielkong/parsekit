@@ -8,7 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class PKTokenizer;
+@class PKToken;
+
 @interface PKSParser : NSObject
+
+@property (nonatomic, retain) PKTokenizer *tokenizer;
+@property (nonatomic, retain) PKToken *lookahead;
+
+- (void)match:(NSInteger)x;
+- (void)consume;
 
 - (void)Any;
 - (void)Empty;

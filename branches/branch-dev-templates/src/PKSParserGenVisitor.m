@@ -16,6 +16,7 @@
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
 #define METHOD @"method"
+#define TOKEN_USER_TYPE @"tokenUserType"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSString *)mstr;
@@ -224,6 +225,17 @@
 - (void)visitLiteral:(PKLiteralNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    // stup vars
+    id vars = [NSMutableDictionary dictionary];
+    NSNumber *t = @(node.token.userType);
+    vars[TOKEN_USER_TYPE] = t;
+    
+    // merge
+    NSString *template = [self templateStringNamed:@"PKSMatchCallTemplate"];
+    NSString *output = [_engine processTemplate:template withVariables:vars];
+    
+    // push
+    [self push:output];
 }
 
 

@@ -7,8 +7,33 @@
 //
 
 #import "PKSParser.h"
+#import <ParseKit/PKToken.h>
+#import <ParseKit/PKTokenizer.h>
 
 @implementation PKSParser
+
+- (void)dealloc {
+    self.tokenizer = nil;
+    self.lookahead = nil;
+    [super dealloc];
+}
+
+
+- (void)match:(NSInteger)x {
+    NSAssert(_lookahead, @"");
+    
+    if (_lookahead.userType == x) {
+        [self consume];
+    } else {
+        [NSException raise:@"PKRecongitionException" format:@"expecting %ld; found %@", x, _lookahead];
+    }
+}
+
+
+- (void)consume {
+    self.lookahead = [_tokenizer nextToken];
+}
+
 
 - (void)Any {
 
