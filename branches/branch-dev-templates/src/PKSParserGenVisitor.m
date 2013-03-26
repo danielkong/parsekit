@@ -31,6 +31,7 @@
     self.variables = nil;
     self.methods = nil;
     self.methodsString = nil;
+    self.methodString = nil;
     [super dealloc];
 }
 
@@ -88,23 +89,29 @@
 - (void)visitDefinition:(PKDefinitionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    NSString *methodName = node.token.stringValue;
+    if ([methodName isEqualToString:@"@start"]) {
+        methodName = @"_start";
+    }
+    
     NSString *template = [self templateStringNamed:@"PKSMethodTemplate"];
-    id vars = @{@"methodNode": node};
+    id vars = [NSMutableDictionary dictionary];
+    vars[@"methodName"] = methodName;
+    
+    self.methodString = [NSMutableString string];
+
+    [self recurse:node];
+    
+    vars[@"method"] = _methodString;
 
     NSString *output = [_engine processTemplate:template withVariables:vars];
     [_methodsString appendString:output];
-
-//    NSString *methodName = node.token.stringValue;
-//    if ([methodName isEqualToString:@"@start"]) {
-//        methodName = @"_start";
-//    }
-//    
-//    [_methods addObject:node];
 }
 
 
 - (void)visitReference:(PKReferenceNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    
     
 }
 

@@ -21,4 +21,5 @@
 
 
 @property (nonatomic, retain) NSMutableString *methodsString;
+@property (nonatomic, retain) NSMutableString *methodString;
 @end
