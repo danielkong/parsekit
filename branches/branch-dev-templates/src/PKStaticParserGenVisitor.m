@@ -14,6 +14,15 @@
 
 @implementation PKStaticParserGenVisitor
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        [self setUpTemplateEngine];
+    }
+    return self;
+}
+
+
 - (void)dealloc {
 //    self.interfaceString = nil;
 //    self.implString = nil;
@@ -21,6 +30,23 @@
     self.outputString = nil;
     self.variables = nil;
     [super dealloc];
+}
+
+
+- (void)setUpTemplateEngine {
+    NSError *err = nil;
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"PKSParserTemplate" ofType:@"txt"];
+    NSString *template = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
+    NSAssert([template length], @"");
+    if (!template) {
+        if (err) NSLog(@"%@", err);
+    }
+
+    self.outputString = template;
+    
+    self.engine = [MGTemplateEngine templateEngine];
+    _engine.delegate = self;
+    _engine.matcher = [ICUTemplateMatcher matcherWithTemplateEngine:_engine];
 }
 
 
@@ -53,29 +79,12 @@
     NSParameterAssert(node);
     //NSAssert(self.symbolTable, @"");
     
-    NSError *err = nil;
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"PKSParserTemplate" ofType:@"txt"];
-    NSString *template = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
-    NSAssert([template length], @"");
-    if (!template) {
-        if (err) NSLog(@"%@", err);
-        return;
-    }
-
     self.variables = [[@{@"className": @"MyParser"} mutableCopy] autorelease];
-    
-    self.engine = [MGTemplateEngine templateEngine];
-    _engine.delegate = self;
-    _engine.matcher = [ICUTemplateMatcher matcherWithTemplateEngine:_engine];
-    
-    NSString *str = [_engine processTemplate:template withVariables:_variables];
+
+    NSString *str = [_engine processTemplate:_outputString withVariables:_variables];
     NSAssert([str length], @"");
     
     self.outputString = str;
-    
-    
-//    self.interfaceString = [NSMutableString string];
-//    self.implString = [NSMutableString string];
 }
 
 
