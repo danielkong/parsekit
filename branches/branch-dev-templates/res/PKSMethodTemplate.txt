@@ -1,6 +1,6 @@
+
 - (void){{methodName}} {
 	NSLog(@"{{methodName}}");
 
     {{method}}
 }
-

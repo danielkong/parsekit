@@ -16,6 +16,5 @@
 	
 	[super dealloc];
 }
-
 {{methods}}
 @end

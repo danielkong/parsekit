@@ -11,15 +11,6 @@
 
 @interface PKSParserGenVisitor : PKBaseVisitor <MGTemplateEngineDelegate>
 
-//@property (nonatomic, retain) NSMutableString *interfaceString;
-//@property (nonatomic, retain) NSMutableString *implString;
-
 @property (nonatomic, retain) MGTemplateEngine *engine;
 @property (nonatomic, retain) NSString *outputString;
-@property (nonatomic, retain) NSMutableDictionary *variables;
-@property (nonatomic, retain) NSMutableArray *methods;
-
-
-@property (nonatomic, retain) NSMutableString *allMethodsString;
-@property (nonatomic, retain) NSMutableString *currentMethodString;
 @end

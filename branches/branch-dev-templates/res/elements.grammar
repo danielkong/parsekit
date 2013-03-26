@@ -1,0 +1,5 @@
+@start = list;
+list = Word;
+//list = '[' elements ']';
+//elements = element (',' element)*;
+//element = Word | list;

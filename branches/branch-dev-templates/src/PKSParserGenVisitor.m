@@ -12,6 +12,18 @@
 #import "MGTemplateEngine.h"
 #import "ICUTemplateMatcher.h"
 
+#define CLASS_NAME @"className"
+#define METHODS @"methods"
+#define METHOD_NAME @"methodName"
+#define METHOD @"method"
+
+@interface PKSParserGenVisitor ()
+- (void)push:(NSString *)mstr;
+- (NSString *)pop;
+
+@property (nonatomic, retain) NSMutableArray *outputStringStack;
+@end
+
 @implementation PKSParserGenVisitor
 
 - (id)init {
@@ -24,14 +36,9 @@
 
 
 - (void)dealloc {
-//    self.interfaceString = nil;
-//    self.implString = nil;
     self.engine = nil;
     self.outputString = nil;
-    self.variables = nil;
-    self.methods = nil;
-    self.allMethodsString = nil;
-    self.currentMethodString = nil;
+    self.outputStringStack = nil;
     [super dealloc];
 }
 
@@ -49,13 +56,29 @@
 
 
 - (void)setUpTemplateEngine {
-    NSString *template = [self templateStringNamed:@"PKSClassTemplate"];
-    self.outputString = template;
-    
     self.engine = [MGTemplateEngine templateEngine];
     _engine.delegate = self;
     _engine.matcher = [ICUTemplateMatcher matcherWithTemplateEngine:_engine];
+}
+
+
+- (void)push:(NSString *)mstr {
+    NSParameterAssert([mstr isKindOfClass:[NSString class]]);
     
+    [_outputStringStack addObject:mstr];
+}
+
+
+- (NSString *)pop {
+    NSAssert([_outputStringStack count], @"");
+    NSString *pop = [[[_outputStringStack lastObject] retain] autorelease];
+    [_outputStringStack removeLastObject];
+    return pop;
+    
+//    NSMutableString *peek = [_outputStringStack lastObject];
+//    NSAssert([peek isKindOfClass:[NSMutableString class]], @"");
+//    
+//    [peek appendString:pop];
 }
 
 
@@ -66,60 +89,82 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSParameterAssert(node);
     
-    self.methods = [NSMutableArray array];
-    self.variables = [NSMutableDictionary dictionary];
-    self.allMethodsString = [NSMutableString string];
-    
+    // setup stack
+    self.outputStringStack = [NSMutableArray array];
+
+    // setup vars
     id vars = [NSMutableDictionary dictionary];
-    vars[@"className"] = @"MyParser";
+    vars[CLASS_NAME] = @"MyParser";
     
-    [self recurse:node];
-
-    vars[@"methods"] = _allMethodsString;
+    // setup child str buffer
+    NSMutableString *childStr = [NSMutableString string];
     
-    NSString *str = [_engine processTemplate:_outputString withVariables:vars];
-    NSAssert([str length], @"");
+    // recurse
+    for (PKBaseNode *child in node.children) {
+        [child visit:self];
+        
+        // pop
+        [childStr appendString:[self pop]];
+    }
+    
+    // merge
+    vars[METHODS] = childStr;
+    NSString *template = [self templateStringNamed:@"PKSClassTemplate"];
+    NSString *outStr = [_engine processTemplate:template withVariables:vars];
 
-    NSLog(@"%@", str);
+    // cleanup
+    self.outputString = outStr;
 
-    self.outputString = str;
+    NSLog(@"%@", outStr);
 }
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    // setup vars
+    id vars = [NSMutableDictionary dictionary];
     NSString *methodName = node.token.stringValue;
     if ([methodName isEqualToString:@"@start"]) {
         methodName = @"_start";
     }
+    vars[METHOD_NAME] = methodName;
     
+    // setup child str buffer
+    NSMutableString *childStr = [NSMutableString string];
+
+    // recurse
+    for (PKBaseNode *child in node.children) {
+        [child visit:self];
+
+        // pop
+        [childStr appendString:[self pop]];
+    }
+
+    // merge
+    vars[METHOD] = childStr;
     NSString *template = [self templateStringNamed:@"PKSMethodTemplate"];
-    id vars = [NSMutableDictionary dictionary];
-    vars[@"methodName"] = methodName;
-    
-    self.currentMethodString = [NSMutableString string];
-
-    [self recurse:node];
-    
-    vars[@"method"] = _currentMethodString;
-
     NSString *output = [_engine processTemplate:template withVariables:vars];
-    [_allMethodsString appendString:output];
+
+    // push
+    [self push:output];
 }
 
 
 - (void)visitReference:(PKReferenceNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    NSString *methodName = node.token.stringValue;
-
-    NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
+    // stup vars
     id vars = [NSMutableDictionary dictionary];
-    vars[@"methodName"] = methodName;
-        
+    NSString *methodName = node.token.stringValue;
+    vars[METHOD_NAME] = methodName;
+
+    // merge
+    NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];
-    [_currentMethodString appendString:output];
+    
+    // push
+    [self push:output];
 }
 
 
@@ -161,7 +206,18 @@
 
 - (void)visitConstant:(PKConstantNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+   
+    // stup vars
+    id vars = [NSMutableDictionary dictionary];
+    NSString *methodName = node.token.stringValue;
+    vars[METHOD_NAME] = methodName;
     
+    // merge
+    NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
+    NSString *output = [_engine processTemplate:template withVariables:vars];
+    
+    // push
+    [self push:output];
 }
 
 

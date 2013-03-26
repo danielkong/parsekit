@@ -23,7 +23,7 @@
 - (void)setUp {
     self.factory = [PKParserFactory factory];
     
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"expression" ofType:@"grammar"];
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"elements" ofType:@"grammar"];
     NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     
     self.root = (id)[_factory ASTFromGrammar:g error:nil];
