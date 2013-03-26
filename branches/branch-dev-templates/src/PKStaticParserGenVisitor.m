@@ -10,14 +10,40 @@
 #import <ParseKit/ParseKit.h>
 #import "NSString+ParseKitAdditions.h"
 #import "MGTemplateEngine.h"
+#import "ICUTemplateMatcher.h"
 
 @implementation PKStaticParserGenVisitor
 
 - (void)dealloc {
-    self.interfaceString = nil;
-    self.implString = nil;
+//    self.interfaceString = nil;
+//    self.implString = nil;
     self.engine = nil;
+    self.outputString = nil;
+    self.variables = nil;
     [super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark MGTemplateEngineDelegate
+
+- (void)templateEngine:(MGTemplateEngine *)engine blockStarted:(NSDictionary *)blockInfo {
+    
+}
+
+
+- (void)templateEngine:(MGTemplateEngine *)engine blockEnded:(NSDictionary *)blockInfo {
+    
+}
+
+
+- (void)templateEngineFinishedProcessingTemplate:(MGTemplateEngine *)engine {
+    
+}
+
+
+- (void)templateEngine:(MGTemplateEngine *)engine encounteredError:(NSError *)error isContinuing:(BOOL)continuing {
+    NSLog(@"%@", error);
 }
 
 
@@ -27,11 +53,25 @@
     NSParameterAssert(node);
     //NSAssert(self.symbolTable, @"");
     
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"PKSParserTemplate" ofType:@"m"];
-    NSString *template = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    NSError *err = nil;
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"PKSParserTemplate" ofType:@"txt"];
+    NSString *template = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
+    NSAssert([template length], @"");
+    if (!template) {
+        if (err) NSLog(@"%@", err);
+        return;
+    }
+
+    self.variables = [[@{@"className": @"MyParser"} mutableCopy] autorelease];
     
     self.engine = [MGTemplateEngine templateEngine];
+    _engine.delegate = self;
+    _engine.matcher = [ICUTemplateMatcher matcherWithTemplateEngine:_engine];
     
+    NSString *str = [_engine processTemplate:template withVariables:_variables];
+    NSAssert([str length], @"");
+    
+    self.outputString = str;
     
     
 //    self.interfaceString = [NSMutableString string];

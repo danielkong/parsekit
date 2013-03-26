@@ -7,13 +7,14 @@
 //
 
 #import "PKBaseVisitor.h"
+#import "MGTemplateEngine.h"
 
-@class MGTemplateEngine;
+@interface PKStaticParserGenVisitor : PKBaseVisitor <MGTemplateEngineDelegate>
 
-@interface PKStaticParserGenVisitor : PKBaseVisitor
-
-@property (nonatomic, retain) NSMutableString *interfaceString;
-@property (nonatomic, retain) NSMutableString *implString;
+//@property (nonatomic, retain) NSMutableString *interfaceString;
+//@property (nonatomic, retain) NSMutableString *implString;
 
 @property (nonatomic, retain) MGTemplateEngine *engine;
+@property (nonatomic, retain) NSString *outputString;
+@property (nonatomic, retain) NSMutableDictionary *variables;
 @end
