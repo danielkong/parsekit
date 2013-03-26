@@ -20,6 +20,6 @@
 @property (nonatomic, retain) NSMutableArray *methods;
 
 
-@property (nonatomic, retain) NSMutableString *methodsString;
-@property (nonatomic, retain) NSMutableString *methodString;
+@property (nonatomic, retain) NSMutableString *allMethodsString;
+@property (nonatomic, retain) NSMutableString *currentMethodString;
 @end

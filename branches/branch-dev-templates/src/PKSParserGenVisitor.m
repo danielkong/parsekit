@@ -30,8 +30,8 @@
     self.outputString = nil;
     self.variables = nil;
     self.methods = nil;
-    self.methodsString = nil;
-    self.methodString = nil;
+    self.allMethodsString = nil;
+    self.currentMethodString = nil;
     [super dealloc];
 }
 
@@ -68,14 +68,14 @@
     
     self.methods = [NSMutableArray array];
     self.variables = [NSMutableDictionary dictionary];
-    self.methodsString = [NSMutableString string];
+    self.allMethodsString = [NSMutableString string];
     
     id vars = [NSMutableDictionary dictionary];
     vars[@"className"] = @"MyParser";
     
     [self recurse:node];
 
-    vars[@"methods"] = _methodsString;
+    vars[@"methods"] = _allMethodsString;
     
     NSString *str = [_engine processTemplate:_outputString withVariables:vars];
     NSAssert([str length], @"");
@@ -98,21 +98,28 @@
     id vars = [NSMutableDictionary dictionary];
     vars[@"methodName"] = methodName;
     
-    self.methodString = [NSMutableString string];
+    self.currentMethodString = [NSMutableString string];
 
     [self recurse:node];
     
-    vars[@"method"] = _methodString;
+    vars[@"method"] = _currentMethodString;
 
     NSString *output = [_engine processTemplate:template withVariables:vars];
-    [_methodsString appendString:output];
+    [_allMethodsString appendString:output];
 }
 
 
 - (void)visitReference:(PKReferenceNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    
+    NSString *methodName = node.token.stringValue;
+
+    NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
+    id vars = [NSMutableDictionary dictionary];
+    vars[@"methodName"] = methodName;
+        
+    NSString *output = [_engine processTemplate:template withVariables:vars];
+    [_currentMethodString appendString:output];
 }
 
 
