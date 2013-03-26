@@ -30,6 +30,17 @@
 }
 
 
+- (void)matchString:(NSString *)s {
+    NSAssert(_lookahead, @"");
+    
+    if ([_lookahead.stringValue isEqualToString:@"s"]) {
+        [self consume];
+    } else {
+        [NSException raise:@"PKRecongitionException" format:@"expecting '%@'; found %@", s, _lookahead];
+    }
+}
+
+
 - (void)consume {
     self.lookahead = [_tokenizer nextToken];
 }

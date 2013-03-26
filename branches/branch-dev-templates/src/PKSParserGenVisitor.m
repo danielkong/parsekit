@@ -227,7 +227,8 @@
     
     // stup vars
     id vars = [NSMutableDictionary dictionary];
-    NSNumber *t = @(node.token.userType);
+    //NSNumber *t = @(node.token.userType);
+    NSString *t = [node.token.stringValue stringByTrimmingQuotes];
     vars[TOKEN_USER_TYPE] = t;
     
     // merge
