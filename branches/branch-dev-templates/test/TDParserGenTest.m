@@ -8,13 +8,13 @@
 
 #import "TDParserGenTest.h"
 #import "PKParserFactory.h"
-#import "PKStaticParserGenVisitor.h"
+#import "PKSParserGenVisitor.h"
 #import "PKBaseNode.h"
 
 @interface TDParserGenTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKBaseNode *root;
-@property (nonatomic, retain) PKStaticParserGenVisitor *visitor;
+@property (nonatomic, retain) PKSParserGenVisitor *visitor;
 @property (nonatomic, retain) NSString *output;
 @end
 
@@ -28,7 +28,7 @@
     
     self.root = (id)[_factory ASTFromGrammar:g error:nil];
     
-    self.visitor = [[[PKStaticParserGenVisitor alloc] init] autorelease];
+    self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     [_root visit:_visitor];
     
     self.output = _visitor.outputString;

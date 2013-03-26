@@ -12,10 +12,10 @@
 	return self;
 }
 
-
 - (void)dealloc {
 	
 	[super dealloc];
 }
 
+{{methods}}
 @end

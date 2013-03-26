@@ -1,0 +1,8 @@
+- (void){{methodNode.token.stringValue}} {
+	NSLog(@"{{methodNode.token.stringValue}}");
+	
+	{%for childNode in methodNode.children %}
+	[self {{childNode.token.stringValue}}];
+	{%/for %}
+}
+
