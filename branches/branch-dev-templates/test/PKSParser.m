@@ -20,6 +20,7 @@
 
 
 - (void)match:(NSInteger)x {
+    NSParameterAssert(x != TOKEN_TYPE_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
     if (_lookahead.userType == x || TOKEN_TYPE_BUILTIN_ANY == x) {
@@ -43,62 +44,62 @@
 
 
 - (void)Any {
-	NSLog(@"Word");
+	NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self match:TOKEN_TYPE_BUILTIN_ANY];
 }
 
 
 - (void)Empty {
-	NSLog(@"Word");
+	NSLog(@"%s", __PRETTY_FUNCTION__);
     
 }
 
 
 - (void)Word {
-	NSLog(@"Word");
+	NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self match:TOKEN_TYPE_BUILTIN_WORD];
 }
 
 
 - (void)Number {
-	NSLog(@"Word");
+	NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self match:TOKEN_TYPE_BUILTIN_NUMBER];
 }
 
 
 - (void)Symbol {
-	NSLog(@"Word");
+	NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self match:TOKEN_TYPE_BUILTIN_SYMBOL];
 }
 
 
 - (void)Comment {
-	NSLog(@"Word");
+	NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self match:TOKEN_TYPE_BUILTIN_COMMENT];
 }
 
 
 - (void)Whitespace {
-	NSLog(@"Word");
+	NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self match:TOKEN_TYPE_BUILTIN_WHITESPACE];
 }
 
 
 - (void)QuotedString {
-	NSLog(@"Word");
+	NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self match:TOKEN_TYPE_BUILTIN_QUOTED_STRING];
 }
 
 
 - (void)DelimitedString {
-	NSLog(@"Word");
+	NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self match:TOKEN_TYPE_BUILTIN_DELIMITED_STRING];
 }
