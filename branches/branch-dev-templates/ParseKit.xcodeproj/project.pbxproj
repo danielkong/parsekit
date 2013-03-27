@@ -513,6 +513,7 @@
 		D3B22A4017026FBE00446945 /* PKSPredictElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3D17026FBE00446945 /* PKSPredictElseIfTemplate.txt */; };
 		D3B22A4117026FBE00446945 /* PKSPredictElseTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3E17026FBE00446945 /* PKSPredictElseTemplate.txt */; };
 		D3B22A4217026FBE00446945 /* PKSPredictIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3F17026FBE00446945 /* PKSPredictIfTemplate.txt */; };
+		D3B22A441702993B00446945 /* PKSOptionalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A431702993B00446945 /* PKSOptionalTemplate.txt */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3B986AE1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
@@ -1439,6 +1440,7 @@
 		D3B22A3D17026FBE00446945 /* PKSPredictElseIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPredictElseIfTemplate.txt; path = res/PKSPredictElseIfTemplate.txt; sourceTree = "<group>"; };
 		D3B22A3E17026FBE00446945 /* PKSPredictElseTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPredictElseTemplate.txt; path = res/PKSPredictElseTemplate.txt; sourceTree = "<group>"; };
 		D3B22A3F17026FBE00446945 /* PKSPredictIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPredictIfTemplate.txt; path = res/PKSPredictIfTemplate.txt; sourceTree = "<group>"; };
+		D3B22A431702993B00446945 /* PKSOptionalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSOptionalTemplate.txt; path = res/PKSOptionalTemplate.txt; sourceTree = "<group>"; };
 		D3B43FB50F76E99C0072AF40 /* TDJavaScriptParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDJavaScriptParserTest.h; path = test/TDJavaScriptParserTest.h; sourceTree = "<group>"; };
 		D3B43FB60F76E99C0072AF40 /* TDJavaScriptParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDJavaScriptParserTest.m; path = test/TDJavaScriptParserTest.m; sourceTree = "<group>"; };
 		D3B473840E48C9CF008AFBDD /* yahoo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = yahoo.json; path = res/yahoo.json; sourceTree = "<group>"; };
@@ -1846,6 +1848,7 @@
 				D3B22A3F17026FBE00446945 /* PKSPredictIfTemplate.txt */,
 				D3B22A3D17026FBE00446945 /* PKSPredictElseIfTemplate.txt */,
 				D3B22A3E17026FBE00446945 /* PKSPredictElseTemplate.txt */,
+				D3B22A431702993B00446945 /* PKSOptionalTemplate.txt */,
 			);
 			name = ParserGen;
 			sourceTree = "<group>";
@@ -3573,6 +3576,7 @@
 				D3B22A4017026FBE00446945 /* PKSPredictElseIfTemplate.txt in Resources */,
 				D3B22A4117026FBE00446945 /* PKSPredictElseTemplate.txt in Resources */,
 				D3B22A4217026FBE00446945 /* PKSPredictIfTemplate.txt in Resources */,
+				D3B22A441702993B00446945 /* PKSOptionalTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

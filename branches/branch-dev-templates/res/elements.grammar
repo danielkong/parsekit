@@ -2,7 +2,7 @@
 list = lbracket | foo;
 foo = id | num;
 id = Word;
-num = Number;
+num = Number?;
 lbracket = '[';
 rbracket = ']';
 //list = '[' elements ']';

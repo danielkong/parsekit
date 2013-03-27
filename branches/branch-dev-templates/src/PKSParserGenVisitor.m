@@ -21,6 +21,7 @@
 #define CHILD_NAME @"childName"
 #define DEPTH @"depth"
 #define LOOKAHEAD_SET @"lookaheadSet"
+#define OPT_BODY @"optBody"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSString *)mstr;
@@ -301,7 +302,27 @@
 
 - (void)visitOptional:(PKOptionalNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+
+    // setup vars
+    id vars = [NSMutableDictionary dictionary];
+
+    // recurse
+    NSAssert(1 == [node.children count], @"");
+    PKBaseNode *child = node.children[0];
     
+    NSSet *set = [self lookaheadSetForNode:child];
+    vars[LOOKAHEAD_SET] = set;
+    
+    [child visit:self];
+        
+    // pop
+    NSString *childStr = [self pop];
+    
+    vars[OPT_BODY] = childStr;
+    NSString *output = [_engine processTemplate:[self templateStringNamed:@"PKSOptionalTemplate"] withVariables:vars];
+    
+    // push
+    [self push:output];
 }
 
 
