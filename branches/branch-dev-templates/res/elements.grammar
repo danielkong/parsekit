@@ -1,6 +1,10 @@
 @start = list;
-list = '[' | name;
-name = Word;
+list = lbracket | foo;
+foo = id | num;
+id = Word;
+num = Number;
+lbracket = '[';
+rbracket = ']';
 //list = '[' elements ']';
 //elements = element (',' element)*;
 //element = Word | list;

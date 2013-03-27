@@ -1,2 +1,3 @@
+
     } else if ([predicts:[NSSet setWithObjects:{%for tokenUserType in lookaheadSet%}@({{tokenUserType}}), {%/for%}nil]]) {
     
