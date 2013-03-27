@@ -235,6 +235,44 @@
 - (void)visitComposite:(PKCompositeNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    NSAssert(1 == [node.token.stringValue length], @"");
+    PKUniChar c = [node.token.stringValue characterAtIndex:0];
+    switch (c) {
+        case '*':
+            [self visitRepetition:node];
+            break;
+        default:
+            break;
+    }
+}
+
+
+- (void)visitRepetition:(PKCompositeNode *)node {
+    // setup vars
+    id vars = [NSMutableDictionary dictionary];
+    vars[DEPTH] = @(_depth);
+    
+    // recurse
+    NSAssert(1 == [node.children count], @"");
+    PKBaseNode *child = node.children[0];
+    
+    NSSet *set = [self lookaheadSetForNode:child];
+    vars[LOOKAHEAD_SET] = set;
+    NSMutableString *output = [NSMutableString string];
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionStartTemplate"] withVariables:vars]];
+    
+    self.depth++;
+    [child visit:self];
+    self.depth--;
+    
+    // pop
+    NSString *childStr = [self pop];
+    [output appendString:childStr];
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionEndTemplate"] withVariables:vars]];
+    
+    // push
+    [self push:output];
+
 }
 
 
@@ -332,6 +370,30 @@
 - (void)visitMultiple:(PKMultipleNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    // setup vars
+    id vars = [NSMutableDictionary dictionary];
+    vars[DEPTH] = @(_depth);
+    
+    // recurse
+    NSAssert(1 == [node.children count], @"");
+    PKBaseNode *child = node.children[0];
+    
+    NSSet *set = [self lookaheadSetForNode:child];
+    vars[LOOKAHEAD_SET] = set;
+    NSMutableString *output = [NSMutableString string];
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSMultipleStartTemplate"] withVariables:vars]];
+    
+    self.depth++;
+    [child visit:self];
+    self.depth--;
+    
+    // pop
+    NSString *childStr = [self pop];
+    [output appendString:childStr];
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSMultipleEndTemplate"] withVariables:vars]];
+    
+    // push
+    [self push:output];
 }
 
 

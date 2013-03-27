@@ -1,0 +1,2 @@
+
+{%for 1 to depth %}    {%/for%}} while ([predicts:[NSSet setWithObjects:{%for tokenUserType in lookaheadSet%}@({{tokenUserType}}), {%/for%}nil]]);

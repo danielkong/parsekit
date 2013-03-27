@@ -1,5 +1,5 @@
 @start = list;
-list = lbracket | foo?;
+list = lbracket | foo+;
 foo = id | num;
 id = Word;
 num = Number?;
