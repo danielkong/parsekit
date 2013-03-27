@@ -17,7 +17,6 @@
 @property (nonatomic, retain) PKToken *lookahead;
 
 - (void)match:(NSInteger)x;
-- (void)matchString:(NSString *)s;
 - (void)consume;
 - (BOOL)predicts:(NSIndexSet *)set;
 
