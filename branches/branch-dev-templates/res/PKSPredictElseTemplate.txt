@@ -1,4 +1,4 @@
 
-} else {
-    [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in {{methodName}}"];
-}
+    } else {
+        [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in {{methodName}}"];
+    }

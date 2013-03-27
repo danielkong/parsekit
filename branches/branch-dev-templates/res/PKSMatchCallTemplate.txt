@@ -1,1 +1,1 @@
-[self matchString:@"{{tokenUserType}}"];
+    [self matchString:@"{{tokenUserType}}"];

@@ -18,6 +18,7 @@
 #define METHOD_BODY @"methodBody"
 #define TOKEN_USER_TYPE @"tokenUserType"
 #define CHILD_NAME @"childName"
+#define DEPTH @"depth"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSString *)mstr;
@@ -124,6 +125,8 @@
 - (void)visitDefinition:(PKDefinitionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    self.depth = 0;
+
     // setup vars
     id vars = [NSMutableDictionary dictionary];
     NSString *methodName = node.token.stringValue;
@@ -137,6 +140,7 @@
 
     // recurse
     for (PKBaseNode *child in node.children) {
+        self.depth = 1;
         [child visit:self];
 
         // pop
@@ -155,7 +159,7 @@
 
 - (void)visitReference:(PKReferenceNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-    
+        
     // stup vars
     id vars = [NSMutableDictionary dictionary];
     NSString *methodName = node.token.stringValue;
@@ -185,6 +189,8 @@
 - (void)visitAlternation:(PKAlternationNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    self.depth++;
+
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
     
@@ -193,6 +199,7 @@
     for (PKBaseNode *child in node.children) {
         id predictVars = [NSMutableDictionary dictionary];
         predictVars[CHILD_NAME] = child.token.stringValue;
+        predictVars[DEPTH] = @(_depth);
         
         NSString *templateName = nil;
         
@@ -217,8 +224,11 @@
     
     id predictVars = [NSMutableDictionary dictionary];
     predictVars[METHOD_NAME] = node.token.stringValue;
+    predictVars[DEPTH] = @(_depth);
     NSString *output = [_engine processTemplate:[self templateStringNamed:@"PKSPredictElseTemplate"] withVariables:predictVars];
     [childStr appendString:output];
+
+    self.depth--;
 
     // push
     [self push:childStr];
