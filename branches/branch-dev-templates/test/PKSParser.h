@@ -35,7 +35,7 @@ enum {
 
 - (void)match:(NSInteger)x;
 - (void)consume;
-- (BOOL)predicts:(NSIndexSet *)set;
+- (BOOL)predicts:(NSSet *)set;
 
 - (void)Any;
 - (void)Empty;

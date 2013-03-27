@@ -20,6 +20,7 @@
 
 
 - (void)match:(NSInteger)x {
+    NSParameterAssert(x != TOKEN_TYPE_BUILTIN_EOF);
     NSParameterAssert(x != TOKEN_TYPE_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
@@ -36,9 +37,9 @@
 }
 
 
-- (BOOL)predicts:(NSIndexSet *)set {
+- (BOOL)predicts:(NSSet *)set {
     NSInteger x = _lookahead.userType;
-    BOOL result = [set containsIndex:x];
+    BOOL result = [set containsObject:@(x)];
     return result;
 }
 
