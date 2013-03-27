@@ -1,5 +1,5 @@
 typedef enum {
-    TOKEN_TYPE_EOF = -1,
+    TOKEN_TYPE_BUILTIN_EOF = -1,
 {%for userType in tokenUserTypes %}    {{userType}} = {{currentLoop.currentIndex}},
 {%/for%}};
 

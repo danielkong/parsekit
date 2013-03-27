@@ -123,9 +123,6 @@
 }
 
 
-
-
-
 #pragma mark -
 #pragma mark PKVisitor
 
@@ -133,7 +130,7 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSParameterAssert(node);
     
-    NSArray *tokenUserTypes = @[
+    NSArray *builtInUserTypes = @[
       @"TOKEN_TYPE_BUILTIN_INVALID",
       @"TOKEN_TYPE_BUILTIN_NUMBER",
       @"TOKEN_TYPE_BUILTIN_QUOTED_STRING",
@@ -149,7 +146,7 @@
       @"TOKEN_TYPE_BUILTIN_HASHTAG",
     ];
     
-    self.tokenUserTypes = [tokenUserTypes arrayByAddingObjectsFromArray:node.tokenUserTypes];
+    self.tokenUserTypes = [builtInUserTypes arrayByAddingObjectsFromArray:node.tokenUserTypes];
     
     // setup stack
     self.outputStringStack = [NSMutableArray array];
@@ -157,7 +154,7 @@
     // setup vars
     id vars = [NSMutableDictionary dictionary];
     vars[CLASS_NAME] = @"MyParser";
-    vars[TOKEN_USER_TYPES] = tokenUserTypes;
+    vars[TOKEN_USER_TYPES] = _tokenUserTypes;
     
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
@@ -255,15 +252,17 @@
     id vars = [NSMutableDictionary dictionary];
     vars[DEPTH] = @(_depth);
     
-    // recurse
     NSAssert(1 == [node.children count], @"");
     PKBaseNode *child = node.children[0];
     
     NSSet *set = [self lookaheadSetForNode:child];
+
+    // setup template
     vars[LOOKAHEAD_SET] = set;
     NSMutableString *output = [NSMutableString string];
     [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionStartTemplate"] withVariables:vars]];
     
+    // recurse
     self.depth++;
     [child visit:self];
     self.depth--;

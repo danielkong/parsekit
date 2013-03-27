@@ -2,5 +2,4 @@
 - (void){{methodName}} {
 	NSLog(@"{{methodName}}");
 
-{{methodBody}}
-}
+{{methodBody}}}
