@@ -140,7 +140,7 @@
     // setup vars
     id vars = [NSMutableDictionary dictionary];
     vars[CLASS_NAME] = @"MyParser";
-    vars[TOKEN_USER_TYPES_START_INDEX] = @(TOKEN_TYPE_BUILTIN_HASHTAG + 1);
+    vars[TOKEN_USER_TYPES_START_INDEX] = @(TOKEN_TYPE_BUILTIN_ANY + 1);
     vars[TOKEN_USER_TYPES] = node.tokenUserTypes;
     
     // setup child str buffer

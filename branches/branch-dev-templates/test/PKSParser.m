@@ -22,7 +22,7 @@
 - (void)match:(NSInteger)x {
     NSAssert(_lookahead, @"");
     
-    if (_lookahead.userType == x) {
+    if (_lookahead.userType == x || TOKEN_TYPE_BUILTIN_ANY == x) {
         [self consume];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"expecting %ld; found %@", x, _lookahead];
@@ -43,54 +43,64 @@
 
 
 - (void)Any {
-
+	NSLog(@"Word");
+    
+    [self match:TOKEN_TYPE_BUILTIN_ANY];
 }
 
 
 - (void)Empty {
-
+	NSLog(@"Word");
+    
 }
 
 
 - (void)Word {
-	NSLog(@"rbracket");
+	NSLog(@"Word");
     
     [self match:TOKEN_TYPE_BUILTIN_WORD];
 }
 
 
 - (void)Number {
-
+	NSLog(@"Word");
+    
+    [self match:TOKEN_TYPE_BUILTIN_NUMBER];
 }
 
 
 - (void)Symbol {
-
+	NSLog(@"Word");
+    
+    [self match:TOKEN_TYPE_BUILTIN_SYMBOL];
 }
 
 
 - (void)Comment {
-
+	NSLog(@"Word");
+    
+    [self match:TOKEN_TYPE_BUILTIN_COMMENT];
 }
 
 
 - (void)Whitespace {
-
+	NSLog(@"Word");
+    
+    [self match:TOKEN_TYPE_BUILTIN_WHITESPACE];
 }
 
 
 - (void)QuotedString {
-
+	NSLog(@"Word");
+    
+    [self match:TOKEN_TYPE_BUILTIN_QUOTED_STRING];
 }
 
 
 - (void)DelimitedString {
-
-}
-
-
-- (void)Pattern {
-
+	NSLog(@"Word");
+    
+    [self match:TOKEN_TYPE_BUILTIN_DELIMITED_STRING];
 }
 
 @end
