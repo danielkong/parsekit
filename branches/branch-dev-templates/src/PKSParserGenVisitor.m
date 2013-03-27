@@ -8,7 +8,10 @@
 
 #import "PKSParserGenVisitor.h"
 #import <ParseKit/ParseKit.h>
+
+#import "PKSParser.h"
 #import "NSString+ParseKitAdditions.h"
+
 #import "MGTemplateEngine.h"
 #import "ICUTemplateMatcher.h"
 
@@ -137,7 +140,7 @@
     // setup vars
     id vars = [NSMutableDictionary dictionary];
     vars[CLASS_NAME] = @"MyParser";
-    vars[TOKEN_USER_TYPES_START_INDEX] = @13;
+    vars[TOKEN_USER_TYPES_START_INDEX] = @(TOKEN_TYPE_BUILTIN_HASHTAG + 1);
     vars[TOKEN_USER_TYPES] = node.tokenUserTypes;
     
     // setup child str buffer
