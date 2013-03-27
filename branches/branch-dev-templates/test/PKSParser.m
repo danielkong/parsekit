@@ -46,6 +46,11 @@
 }
 
 
+- (BOOL)lookaheadPredicts:(id)obj {
+    return NO;
+}
+
+
 - (void)Any {
 
 }

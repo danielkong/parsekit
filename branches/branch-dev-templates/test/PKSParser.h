@@ -19,6 +19,7 @@
 - (void)match:(NSInteger)x;
 - (void)matchString:(NSString *)s;
 - (void)consume;
+- (BOOL)lookaheadPredicts:(id)obj;
 
 - (void)Any;
 - (void)Empty;

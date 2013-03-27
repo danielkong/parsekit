@@ -15,8 +15,9 @@
 #define CLASS_NAME @"className"
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
-#define METHOD @"method"
+#define METHOD_BODY @"methodBody"
 #define TOKEN_USER_TYPE @"tokenUserType"
+#define CHILD_NAME @"childName"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSString *)mstr;
@@ -143,7 +144,7 @@
     }
 
     // merge
-    vars[METHOD] = childStr;
+    vars[METHOD_BODY] = childStr;
     NSString *template = [self templateStringNamed:@"PKSMethodTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];
 
@@ -184,6 +185,43 @@
 - (void)visitAlternation:(PKAlternationNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    // setup child str buffer
+    NSMutableString *childStr = [NSMutableString string];
+    
+    // recurse
+    NSUInteger idx = 0;
+    for (PKBaseNode *child in node.children) {
+        id predictVars = [NSMutableDictionary dictionary];
+        predictVars[CHILD_NAME] = child.token.stringValue;
+        
+        NSString *templateName = nil;
+        
+        switch (idx) {
+            case 0:
+                templateName = @"PKSPredictIfTemplate";
+                break;
+            default:
+                templateName = @"PKSPredictElseIfTemplate";
+                break;
+        }
+
+        NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:predictVars];
+        [childStr appendString:output];
+
+        [child visit:self];
+        
+        // pop
+        [childStr appendString:[self pop]];
+        ++idx;
+    }
+    
+    id predictVars = [NSMutableDictionary dictionary];
+    predictVars[METHOD_NAME] = node.token.stringValue;
+    NSString *output = [_engine processTemplate:[self templateStringNamed:@"PKSPredictElseTemplate"] withVariables:predictVars];
+    [childStr appendString:output];
+
+    // push
+    [self push:childStr];
 }
 
 
