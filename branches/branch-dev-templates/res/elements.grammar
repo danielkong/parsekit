@@ -1,10 +1,9 @@
 @start = list;
-list = lbracket | foo+;
-foo = id | num;
-id = Word;
-num = Number?;
+
+list = lbracket elements rbracket;
+elements = element (comma element)*;
+element = Word | list;
+
 lbracket = '[';
-//rbracket = ']';
-//list = '[' elements ']';
-//elements = element (',' element)*;
-//element = Word | list;
+rbracket = ']';
+comma = ',';

@@ -107,11 +107,13 @@
         case PKNodeTypeAlternation: {
             for (PKBaseNode *child in node.children) {
                 [set unionSet:[self lookaheadSetForNode:child]];
+                break; // single look ahead
             }
         } break;
         default: {
             for (PKBaseNode *child in node.children) {
                 [set unionSet:[self lookaheadSetForNode:child]];
+                break; // single look ahead
             }
         } break;
     }
@@ -242,6 +244,7 @@
             [self visitRepetition:node];
             break;
         default:
+            NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
             break;
     }
 }
@@ -278,6 +281,40 @@
 
 - (void)visitCollection:(PKCollectionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    
+    NSAssert(1 == [node.token.stringValue length], @"");
+    PKUniChar c = [node.token.stringValue characterAtIndex:0];
+    switch (c) {
+        case '.':
+            [self visitSequence:node];
+            break;
+        default:
+            NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+            break;
+    }
+}
+
+
+- (void)visitSequence:(PKCollectionNode *)node {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    
+    // setup vars
+    id vars = [NSMutableDictionary dictionary];
+    vars[DEPTH] = @(_depth);
+    
+    // setup child str buffer
+    NSMutableString *childStr = [NSMutableString string];
+    
+    // recurse
+    for (PKBaseNode *child in node.children) {
+        [child visit:self];
+        
+        // pop
+        [childStr appendString:[self pop]];
+    }
+    
+    // push
+    [self push:childStr];
     
 }
 
@@ -333,7 +370,8 @@
 
 - (void)visitCardinal:(PKCardinalNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-    
+ 
+    NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
 
@@ -436,12 +474,14 @@
 - (void)visitDelimited:(PKDelimitedNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
 
 - (void)visitPattern:(PKPatternNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
 
