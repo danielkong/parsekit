@@ -1,5 +1,5 @@
 
-- (void){{methodName}} {
+- (void){{methodName}}:(BOOL)discard {
 	NSLog(@"{{methodName}} %@", self.assembly);
     
     if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatch{{methodName | capitalized}}:)]) {

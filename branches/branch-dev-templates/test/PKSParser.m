@@ -45,8 +45,8 @@
     @try {
 
         @autoreleasepool {
-            [self consume];
-            [self _start];
+            [self consume]; // get a lookahead token
+            [self _start:NO];
             
             result = [_target retain]; // +1
             self.target = nil;
@@ -78,13 +78,19 @@
 }
 
 
-- (void)match:(NSInteger)x {
+- (void)match:(NSInteger)x andDiscard:(BOOL)discard {
     NSParameterAssert(x != TOKEN_TYPE_BUILTIN_EOF);
     NSParameterAssert(x != TOKEN_TYPE_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
-    NSLog(@"%@", [_lookahead debugDescription]);
+    NSLog(@"lookahead %@", [_lookahead debugDescription]);
+    NSLog(@"assembly %@", [_assembly description]);
+    
     if (_lookahead.userType == x || TOKEN_TYPE_BUILTIN_ANY == x) {
+        if (!discard) {
+            [_assembly push:_lookahead];
+        }
+
         [self consume];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"expecting %ld; found %@", x, _lookahead];
@@ -97,12 +103,7 @@
         
         // advance
         self.lookahead = [_assembly next];
-        
-        BOOL discard = NO; // TODO
-        if (!discard) {
-            [_assembly push:_lookahead];
-        }
-
+                
         // set token user type
         _lookahead.userType = [self tokenUserTypeForToken:_lookahead];
     }
@@ -133,70 +134,70 @@
 }
 
 
-- (void)_start {
+- (void)_start:(BOOL)discard {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
 
-- (void)Any {
+- (void)Any:(BOOL)discard {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_TYPE_BUILTIN_ANY];
+    [self match:TOKEN_TYPE_BUILTIN_ANY andDiscard:discard];
 }
 
 
-- (void)Empty {
+- (void)Empty:(BOOL)discard {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
 }
 
 
-- (void)Word {
+- (void)Word:(BOOL)discard {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_TYPE_BUILTIN_WORD];
+    [self match:TOKEN_TYPE_BUILTIN_WORD andDiscard:discard];
 }
 
 
-- (void)Number {
+- (void)Number:(BOOL)discard {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_TYPE_BUILTIN_NUMBER];
+    [self match:TOKEN_TYPE_BUILTIN_NUMBER andDiscard:discard];
 }
 
 
-- (void)Symbol {
+- (void)Symbol:(BOOL)discard {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_TYPE_BUILTIN_SYMBOL];
+    [self match:TOKEN_TYPE_BUILTIN_SYMBOL andDiscard:discard];
 }
 
 
-- (void)Comment {
+- (void)Comment:(BOOL)discard {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_TYPE_BUILTIN_COMMENT];
+    [self match:TOKEN_TYPE_BUILTIN_COMMENT andDiscard:discard];
 }
 
 
-- (void)Whitespace {
+- (void)Whitespace:(BOOL)discard {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_TYPE_BUILTIN_WHITESPACE];
+    [self match:TOKEN_TYPE_BUILTIN_WHITESPACE andDiscard:discard];
 }
 
 
-- (void)QuotedString {
+- (void)QuotedString:(BOOL)discard {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_TYPE_BUILTIN_QUOTED_STRING];
+    [self match:TOKEN_TYPE_BUILTIN_QUOTED_STRING andDiscard:discard];
 }
 
 
-- (void)DelimitedString {
+- (void)DelimitedString:(BOOL)discard {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_TYPE_BUILTIN_DELIMITED_STRING];
+    [self match:TOKEN_TYPE_BUILTIN_DELIMITED_STRING andDiscard:discard];
 }
 
 @end

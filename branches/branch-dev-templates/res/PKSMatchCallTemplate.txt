@@ -1,1 +1,1 @@
-{%for 1 to depth %}    {%/for%}[self match:{{tokenUserType.source}}];
+{%for 1 to depth %}    {%/for%}[self match:{{tokenUserType.source}} andDiscard:{%if discard %}YES{% else %}NO{%/if%}];

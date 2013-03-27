@@ -26,6 +26,7 @@
 #define DEPTH @"depth"
 #define LOOKAHEAD_SET @"lookaheadSet"
 #define OPT_BODY @"optBody"
+#define DISCARD @"discard"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSString *)mstr;
@@ -211,6 +212,7 @@
     NSString *methodName = node.token.stringValue;
     vars[METHOD_NAME] = methodName;
     vars[DEPTH] = @(_depth);
+    vars[DISCARD] = @(node.discard);
 
     // merge
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
@@ -432,6 +434,7 @@
     NSString *methodName = node.token.stringValue;
     vars[METHOD_NAME] = methodName;
     vars[DEPTH] = @(_depth);
+    vars[DISCARD] = @(node.discard);
 
     // merge
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
@@ -450,6 +453,7 @@
     NSDictionary *t = node.tokenUserType;
     vars[TOKEN_USER_TYPE] = t;
     vars[DEPTH] = @(_depth);
+    vars[DISCARD] = @(node.discard);
 
     // merge
     NSString *template = [self templateStringNamed:@"PKSMatchCallTemplate"];

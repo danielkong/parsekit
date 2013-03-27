@@ -51,8 +51,13 @@
     TDTrue([_output length]);
     
     MyParser *p = [[[MyParser alloc] init] autorelease];
+    p.assembler = self;
     
     [p parse:@"[1, [2,3],4]" error:nil];
 }
 
+- (void)parser:(PKSParser *)p didMatchList:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    
+}
 @end

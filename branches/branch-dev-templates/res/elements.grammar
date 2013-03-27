@@ -4,6 +4,6 @@ list = lbracket elements rbracket;
 elements = element (comma element)*;
 element = Number | list;
 
-lbracket = '[';
-rbracket = ']';
-comma = ',';
+lbracket = '['; // fence
+rbracket = ']'!;
+comma = ','!;
