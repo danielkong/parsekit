@@ -1,4 +1,4 @@
 
-    } else {
-        [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in {{methodName}}"];
-    }
+{%for 1 to depth %}    {%/for%}} else {
+{%for 1 to depth %}    {%/for%}    [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in {{methodName}}"];
+{%for 1 to depth %}    {%/for%}}

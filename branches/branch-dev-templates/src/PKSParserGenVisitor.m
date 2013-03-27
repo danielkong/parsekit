@@ -183,7 +183,7 @@
 - (void)visitDefinition:(PKDefinitionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    self.depth = 0;
+    self.depth = 1;
 
     // setup vars
     id vars = [NSMutableDictionary dictionary];
@@ -198,7 +198,6 @@
 
     // recurse
     for (PKBaseNode *child in node.children) {
-        self.depth = 1;
         [child visit:self];
 
         // pop
@@ -222,6 +221,7 @@
     id vars = [NSMutableDictionary dictionary];
     NSString *methodName = node.token.stringValue;
     vars[METHOD_NAME] = methodName;
+    vars[DEPTH] = @(_depth);
 
     // merge
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
@@ -247,8 +247,6 @@
 - (void)visitAlternation:(PKAlternationNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    self.depth++;
-
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
     
@@ -259,7 +257,8 @@
 
         NSSet *set = [self lookaheadSetForNode:child];
         predictVars[LOOKAHEAD_SET] = set;
-        
+        predictVars[DEPTH] = @(_depth);
+
         NSString *templateName = nil;
         
         switch (idx) {
@@ -274,7 +273,9 @@
         NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:predictVars];
         [childStr appendString:output];
 
+        self.depth++;
         [child visit:self];
+        self.depth--;
         
         // pop
         [childStr appendString:[self pop]];
@@ -286,8 +287,6 @@
     predictVars[DEPTH] = @(_depth);
     NSString *output = [_engine processTemplate:[self templateStringNamed:@"PKSPredictElseTemplate"] withVariables:predictVars];
     [childStr appendString:output];
-
-    self.depth--;
 
     // push
     [self push:childStr];
@@ -305,6 +304,7 @@
 
     // setup vars
     id vars = [NSMutableDictionary dictionary];
+    vars[DEPTH] = @(_depth);
 
     // recurse
     NSAssert(1 == [node.children count], @"");
@@ -312,14 +312,17 @@
     
     NSSet *set = [self lookaheadSetForNode:child];
     vars[LOOKAHEAD_SET] = set;
+    NSMutableString *output = [NSMutableString string];
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSOptionalStartTemplate"] withVariables:vars]];
     
+    self.depth++;
     [child visit:self];
-        
+    self.depth--;
+    
     // pop
     NSString *childStr = [self pop];
-    
-    vars[OPT_BODY] = childStr;
-    NSString *output = [_engine processTemplate:[self templateStringNamed:@"PKSOptionalTemplate"] withVariables:vars];
+    [output appendString:childStr];
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSOptionalEndTemplate"] withVariables:vars]];
     
     // push
     [self push:output];
@@ -339,7 +342,8 @@
     id vars = [NSMutableDictionary dictionary];
     NSString *methodName = node.token.stringValue;
     vars[METHOD_NAME] = methodName;
-    
+    vars[DEPTH] = @(_depth);
+
     // merge
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];
@@ -356,7 +360,8 @@
     id vars = [NSMutableDictionary dictionary];
     NSString *t = node.tokenUserType;
     vars[TOKEN_USER_TYPE] = t;
-    
+    vars[DEPTH] = @(_depth);
+
     // merge
     NSString *template = [self templateStringNamed:@"PKSMatchCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];

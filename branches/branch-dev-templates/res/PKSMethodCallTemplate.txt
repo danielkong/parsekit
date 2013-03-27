@@ -1,1 +1,1 @@
-    [self {{methodName}}];
+{%for 1 to depth %}    {%/for%}[self {{methodName}}];
