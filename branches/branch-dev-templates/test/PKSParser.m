@@ -53,7 +53,9 @@
 
 
 - (void)Word {
-
+	NSLog(@"rbracket");
+    
+    [self match:TOKEN_TYPE_BUILTIN_WORD];
 }
 
 

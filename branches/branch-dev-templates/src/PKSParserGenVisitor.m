@@ -13,6 +13,7 @@
 #import "ICUTemplateMatcher.h"
 
 #define CLASS_NAME @"className"
+#define TOKEN_USER_TYPES_START_INDEX @"startIndex"
 #define TOKEN_USER_TYPES @"tokenUserTypes"
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
@@ -129,32 +130,15 @@
 - (void)visitRoot:(PKRootNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSParameterAssert(node);
-    
-    NSArray *builtInUserTypes = @[
-      @"TOKEN_TYPE_BUILTIN_INVALID",
-      @"TOKEN_TYPE_BUILTIN_NUMBER",
-      @"TOKEN_TYPE_BUILTIN_QUOTED_STRING",
-      @"TOKEN_TYPE_BUILTIN_SYMBOL",
-      @"TOKEN_TYPE_BUILTIN_WORD",
-      @"TOKEN_TYPE_BUILTIN_WHITESPACE",
-      @"TOKEN_TYPE_BUILTIN_COMMENT",
-      @"TOKEN_TYPE_BUILTIN_DELIMITED_STRING",
-      @"TOKEN_TYPE_BUILTIN_ANY",
-      @"TOKEN_TYPE_BUILTIN_URL",
-      @"TOKEN_TYPE_BUILTIN_EMAIL",
-      @"TOKEN_TYPE_BUILTIN_TWITTER",
-      @"TOKEN_TYPE_BUILTIN_HASHTAG",
-    ];
-    
-    self.tokenUserTypes = [builtInUserTypes arrayByAddingObjectsFromArray:node.tokenUserTypes];
-    
+        
     // setup stack
     self.outputStringStack = [NSMutableArray array];
 
     // setup vars
     id vars = [NSMutableDictionary dictionary];
     vars[CLASS_NAME] = @"MyParser";
-    vars[TOKEN_USER_TYPES] = _tokenUserTypes;
+    vars[TOKEN_USER_TYPES_START_INDEX] = @13;
+    vars[TOKEN_USER_TYPES] = node.tokenUserTypes;
     
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];

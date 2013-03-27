@@ -14,5 +14,4 @@
 @property (nonatomic, retain) MGTemplateEngine *engine;
 @property (nonatomic, retain) NSString *outputString;
 @property (nonatomic, assign) NSUInteger depth;
-@property (nonatomic, retain) NSArray *tokenUserTypes;
 @end
