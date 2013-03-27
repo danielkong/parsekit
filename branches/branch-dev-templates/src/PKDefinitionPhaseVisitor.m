@@ -37,7 +37,7 @@
     NSAssert(self.symbolTable, @"");
     
     if (_collectTokenUserTypes) {
-        self.tokenUserTypes = [NSMutableArray arrayWithObject:@"TOKEN_TYPE_INVALID"];
+        self.tokenUserTypes = [NSMutableArray array];
     }
     
     [self recurse:node];

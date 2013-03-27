@@ -94,6 +94,19 @@
     NSParameterAssert(node);
     
     NSLog(@"%@", node.tokenUserTypes);
+    NSArray *tokenUserTypes = @[
+      @"TOKEN_TYPE_BUILTIN_INVALID",
+      @"TOKEN_TYPE_BUILTIN_WORD",
+      @"TOKEN_TYPE_BUILTIN_NUMBER",
+      @"TOKEN_TYPE_BUILTIN_SYMBOL",
+      @"TOKEN_TYPE_BUILTIN_QUOTED_STRING",
+      @"TOKEN_TYPE_BUILTIN_COMMENT",
+      @"TOKEN_TYPE_BUILTIN_WHITESPACE",
+      @"TOKEN_TYPE_BUILTIN_ANY",
+      @"TOKEN_TYPE_BUILTIN_EMPTY",
+    ];
+    
+    tokenUserTypes = [tokenUserTypes arrayByAddingObjectsFromArray:node.tokenUserTypes];
     
     // setup stack
     self.outputStringStack = [NSMutableArray array];
@@ -101,7 +114,7 @@
     // setup vars
     id vars = [NSMutableDictionary dictionary];
     vars[CLASS_NAME] = @"MyParser";
-    vars[TOKEN_USER_TYPES] = node.tokenUserTypes;
+    vars[TOKEN_USER_TYPES] = tokenUserTypes;
     
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];

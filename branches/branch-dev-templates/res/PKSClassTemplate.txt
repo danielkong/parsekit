@@ -1,5 +1,6 @@
 typedef enum {
-{%for userType in tokenUserTypes %}{{userType}} = {{currentLoop.currentIndex}},
+    TOKEN_TYPE_EOF = -1,
+{%for userType in tokenUserTypes %}    {{userType}} = {{currentLoop.currentIndex}},
 {%/for%}};
 
 @interface {{className}} : PKSParser
