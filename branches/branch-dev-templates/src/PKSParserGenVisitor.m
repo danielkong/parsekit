@@ -20,10 +20,12 @@
 #define TOKEN_USER_TYPE @"tokenUserType"
 #define CHILD_NAME @"childName"
 #define DEPTH @"depth"
+#define LOOKAHEAD_SET @"lookaheadSet"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSString *)mstr;
 - (NSString *)pop;
+- (NSSet *)lookaheadSetForNode:(PKBaseNode *)node;
 
 @property (nonatomic, retain) NSMutableArray *outputStringStack;
 @end
@@ -78,12 +80,33 @@
     NSString *pop = [[[_outputStringStack lastObject] retain] autorelease];
     [_outputStringStack removeLastObject];
     return pop;
-    
-//    NSMutableString *peek = [_outputStringStack lastObject];
-//    NSAssert([peek isKindOfClass:[NSMutableString class]], @"");
-//    
-//    [peek appendString:pop];
 }
+
+
+- (NSSet *)lookaheadSetForNode:(PKBaseNode *)node {
+    NSMutableSet *set = [NSMutableSet set];
+    
+    for (PKBaseNode *child in node.children) {
+        switch (child.type) {
+            case PKNodeTypeConstant: {
+                [set addObject:_tokenUserTypes[child.token.tokenType]];
+            } break;
+            case PKNodeTypeLiteral: {
+                PKLiteralNode *litNode = (PKLiteralNode *)child;
+                [set addObject:litNode.tokenUserType];
+            } break;
+            default: {
+                NSAssert(0, @"");
+            } break;
+        }
+        
+    }
+    
+    return set;
+}
+
+
+
 
 
 #pragma mark -
@@ -93,20 +116,23 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSParameterAssert(node);
     
-    NSLog(@"%@", node.tokenUserTypes);
     NSArray *tokenUserTypes = @[
       @"TOKEN_TYPE_BUILTIN_INVALID",
-      @"TOKEN_TYPE_BUILTIN_WORD",
       @"TOKEN_TYPE_BUILTIN_NUMBER",
-      @"TOKEN_TYPE_BUILTIN_SYMBOL",
       @"TOKEN_TYPE_BUILTIN_QUOTED_STRING",
-      @"TOKEN_TYPE_BUILTIN_COMMENT",
+      @"TOKEN_TYPE_BUILTIN_SYMBOL",
+      @"TOKEN_TYPE_BUILTIN_WORD",
       @"TOKEN_TYPE_BUILTIN_WHITESPACE",
+      @"TOKEN_TYPE_BUILTIN_COMMENT",
+      @"TOKEN_TYPE_BUILTIN_DELIMITED_STRING",
       @"TOKEN_TYPE_BUILTIN_ANY",
-      @"TOKEN_TYPE_BUILTIN_EMPTY",
+      @"TOKEN_TYPE_BUILTIN_URL",
+      @"TOKEN_TYPE_BUILTIN_EMAIL",
+      @"TOKEN_TYPE_BUILTIN_TWITTER",
+      @"TOKEN_TYPE_BUILTIN_HASHTAG",
     ];
     
-    tokenUserTypes = [tokenUserTypes arrayByAddingObjectsFromArray:node.tokenUserTypes];
+    self.tokenUserTypes = [tokenUserTypes arrayByAddingObjectsFromArray:node.tokenUserTypes];
     
     // setup stack
     self.outputStringStack = [NSMutableArray array];
@@ -215,8 +241,11 @@
     NSUInteger idx = 0;
     for (PKBaseNode *child in node.children) {
         id predictVars = [NSMutableDictionary dictionary];
-        predictVars[CHILD_NAME] = child.token.stringValue;
-        predictVars[DEPTH] = @(_depth);
+//        predictVars[CHILD_NAME] = child.token.stringValue;
+//        predictVars[DEPTH] = @(_depth);
+
+        NSSet *set = [self lookaheadSetForNode:node];
+        predictVars[LOOKAHEAD_SET] = set;
         
         NSString *templateName = nil;
         

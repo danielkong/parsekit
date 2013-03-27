@@ -28,7 +28,8 @@
     @var        PKTokenTypeDelimtedString A constant indicating that a token is a delimitedString, like <tt><#foo></tt>.
 */
 typedef enum {
-    PKTokenTypeEOF,
+    PKTokenTypeEOF = -1,
+    PKTokenTypeInvalid = 0,
     PKTokenTypeNumber,
     PKTokenTypeQuotedString,
     PKTokenTypeSymbol,
