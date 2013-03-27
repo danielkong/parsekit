@@ -10,6 +10,7 @@
 #import "PKParserFactory.h"
 #import "PKSParserGenVisitor.h"
 #import "PKBaseNode.h"
+#import "MyParser.h"
 
 @interface TDParserGenTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
@@ -48,6 +49,10 @@
 
 - (void)testFoo {
     TDTrue([_output length]);
+    
+    MyParser *p = [[[MyParser alloc] init] autorelease];
+    
+    [p parse:@"[1, [2,3],4]" error:nil];
 }
 
 @end

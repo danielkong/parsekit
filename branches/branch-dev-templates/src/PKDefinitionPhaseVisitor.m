@@ -8,6 +8,7 @@
 
 #import "PKDefinitionPhaseVisitor.h"
 #import <ParseKit/PKCompositeParser.h>
+#import "NSString+ParseKitAdditions.h"
 
 @interface PKDefinitionPhaseVisitor ()
 @end
@@ -158,9 +159,11 @@
     if (_collectTokenUserTypes) {
         NSAssert(_tokenUserTypes, @"");
         NSAssert(_currentDefName, @"");
-        NSString *s = [NSString stringWithFormat:@"TOKEN_TYPE_%@", [_currentDefName uppercaseString]];
-        [_tokenUserTypes addObject:s];
-        node.tokenUserType = s;
+        NSString *key = [node.token.stringValue stringByTrimmingQuotes];
+        NSString *source = [NSString stringWithFormat:@"TOKEN_TYPE_%@", [_currentDefName uppercaseString]];
+        id d = @{@"key": key, @"source": source};
+        [_tokenUserTypes addObject:d];
+        node.tokenUserType = d;
         self.currentDefName = nil;
     }
 }

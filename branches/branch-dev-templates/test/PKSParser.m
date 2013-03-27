@@ -31,10 +31,12 @@
     PKTokenizer *t = self.tokenizer;
     if (!t) t = [PKTokenizer tokenizer];
     t.string = s;
+    self.tokenizer = t;
 
     @try {
 
         @autoreleasepool {
+            [self consume];
             [self _start];
             
             result = [_target retain]; // +1
@@ -72,6 +74,7 @@
     NSParameterAssert(x != TOKEN_TYPE_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
+    NSLog(@"%@", [_lookahead debugDescription]);
     if (_lookahead.userType == x || TOKEN_TYPE_BUILTIN_ANY == x) {
         [self consume];
     } else {
@@ -82,6 +85,8 @@
 
 - (void)consume {
     self.lookahead = [_tokenizer nextToken];
+    NSInteger x = [self userTypeForString:_lookahead.stringValue];
+    _lookahead.userType = x;
 }
 
 
@@ -89,6 +94,40 @@
     NSInteger x = _lookahead.userType;
     BOOL result = [set containsObject:@(x)];
     return result;
+}
+
+
+- (NSInteger)builtInUserTypeForString:(NSString *)name {
+    static NSDictionary *d = nil;
+    if (!d) {
+        d = [@{
+			@"NUMBER": @(TOKEN_TYPE_BUILTIN_NUMBER),
+			@"QUOTED_STRING": @(TOKEN_TYPE_BUILTIN_QUOTED_STRING),
+			@"SYMBOL": @(TOKEN_TYPE_BUILTIN_SYMBOL),
+			@"WORD": @(TOKEN_TYPE_BUILTIN_WORD),
+			@"WHITESPACE": @(TOKEN_TYPE_BUILTIN_WHITESPACE),
+			@"COMMENT": @(TOKEN_TYPE_BUILTIN_COMMENT),
+			@"DELIMITED_STRING": @(TOKEN_TYPE_BUILTIN_DELIMITED_STRING),
+			@"URL": @(TOKEN_TYPE_BUILTIN_URL),
+			@"EMAIL": @(TOKEN_TYPE_BUILTIN_EMAIL),
+			@"TWITTER": @(TOKEN_TYPE_BUILTIN_TWITTER),
+			@"HASHTAG": @(TOKEN_TYPE_BUILTIN_HASHTAG),
+			@"ANY": @(TOKEN_TYPE_BUILTIN_ANY),
+        } retain];
+    }
+    
+    NSInteger x = TOKEN_TYPE_BUILTIN_INVALID;
+    id obj = d[[name uppercaseString]];
+    if (obj) {
+        x = [obj integerValue];
+    }
+    return x;
+}
+
+
+- (NSInteger)userTypeForString:(NSString *)name {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return TOKEN_TYPE_BUILTIN_INVALID;
 }
 
 

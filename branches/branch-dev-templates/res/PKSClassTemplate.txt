@@ -1,15 +1,19 @@
+#import "PKSParser.h"
+
 enum {
-{%for userType in tokenUserTypes %}    {{userType}}{%if 0 = currentLoop.currentIndex %} = {{startIndex}}{%/if%},
+{%for userType in tokenUserTypes %}    {{userType.source}}{%if 0 = currentLoop.currentIndex %} = {{startIndex}}{%/if%},
 {%/for%}};
 
 @interface {{className}} : PKSParser
 
 @end
 
+#import "{{className}}.h"
+
 @implementation {{className}}
 
 - (id)init {
-	self = [super init]
+	self = [super init];
 	if (self) {
 		
 	}
@@ -20,5 +24,24 @@ enum {
 	
 	[super dealloc];
 }
+
+- (NSInteger)userTypeForString:(NSString *)name {
+    static NSDictionary *d = nil;
+    if (!d) {
+        d = [@{
+{%for userType in tokenUserTypes %}           @"{{userType.key}}" : @({{userType.source}}),
+{%/for%}        } retain];
+    }
+    
+    NSInteger x = [super builtInUserTypeForString:name];
+    if (TOKEN_TYPE_BUILTIN_INVALID == x) {
+        id obj = d[[name uppercaseString]];
+        if (obj) {
+            x = [obj integerValue];
+        }
+    }
+    return x;
+}
+
 {{methods}}
 @end

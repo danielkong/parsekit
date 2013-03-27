@@ -97,7 +97,7 @@
     switch (node.type) {
         case PKNodeTypeConstant: {
             //[set addObject:_tokenUserTypes[node.token.tokenType]];
-            [set addObject:[NSString stringWithFormat:@"TOKEN_TYPE_BUILTIN_%@", [node.token.stringValue uppercaseString]]];
+            [set addObject:@{@"source": [NSString stringWithFormat:@"TOKEN_TYPE_BUILTIN_%@", [node.token.stringValue uppercaseString]]}];
         } break;
         case PKNodeTypeLiteral: {
             PKLiteralNode *litNode = (PKLiteralNode *)node;
@@ -444,7 +444,7 @@
     
     // stup vars
     id vars = [NSMutableDictionary dictionary];
-    NSString *t = node.tokenUserType;
+    NSDictionary *t = node.tokenUserType;
     vars[TOKEN_USER_TYPE] = t;
     vars[DEPTH] = @(_depth);
 

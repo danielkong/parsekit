@@ -1,1 +1,1 @@
-{%for 1 to depth %}    {%/for%}[self match:{{tokenUserType}}];
+{%for 1 to depth %}    {%/for%}[self match:{{tokenUserType.source}}];

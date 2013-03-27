@@ -1,1 +1,1 @@
-{%for 1 to depth %}    {%/for%}if ([predicts:[NSSet setWithObjects:{%for tokenUserType in lookaheadSet%}@({{tokenUserType}}), {%/for%}nil]]) {
+{%for 1 to depth %}    {%/for%}if ([self predicts:[NSSet setWithObjects:{%for tokenUserType in lookaheadSet%}@({{tokenUserType.source}}), {%/for%}nil]]) {
