@@ -91,7 +91,8 @@
     
     switch (node.type) {
         case PKNodeTypeConstant: {
-            [set addObject:_tokenUserTypes[node.token.tokenType]];
+            //[set addObject:_tokenUserTypes[node.token.tokenType]];
+            [set addObject:[NSString stringWithFormat:@"TOKEN_TYPE_BUILTIN_%@", [node.token.stringValue uppercaseString]]];
         } break;
         case PKNodeTypeLiteral: {
             PKLiteralNode *litNode = (PKLiteralNode *)node;
@@ -101,6 +102,11 @@
             NSString *name = node.token.stringValue;
             PKDefinitionNode *defNode = self.symbolTable[name];
             [set unionSet:[self lookaheadSetForNode:defNode]];
+        } break;
+        case PKNodeTypeAlternation: {
+            for (PKBaseNode *child in node.children) {
+                [set unionSet:[self lookaheadSetForNode:child]];
+            }
         } break;
         default: {
             for (PKBaseNode *child in node.children) {
