@@ -86,6 +86,9 @@
 - (void)consume {
     self.lookahead = [_tokenizer nextToken];
     NSInteger x = [self userTypeForString:_lookahead.stringValue];
+    if (TOKEN_TYPE_BUILTIN_INVALID == x) {
+        x = _lookahead.tokenType;
+    }
     _lookahead.userType = x;
 }
 
@@ -97,32 +100,32 @@
 }
 
 
-- (NSInteger)builtInUserTypeForString:(NSString *)name {
-    static NSDictionary *d = nil;
-    if (!d) {
-        d = [@{
-			@"NUMBER": @(TOKEN_TYPE_BUILTIN_NUMBER),
-			@"QUOTED_STRING": @(TOKEN_TYPE_BUILTIN_QUOTED_STRING),
-			@"SYMBOL": @(TOKEN_TYPE_BUILTIN_SYMBOL),
-			@"WORD": @(TOKEN_TYPE_BUILTIN_WORD),
-			@"WHITESPACE": @(TOKEN_TYPE_BUILTIN_WHITESPACE),
-			@"COMMENT": @(TOKEN_TYPE_BUILTIN_COMMENT),
-			@"DELIMITED_STRING": @(TOKEN_TYPE_BUILTIN_DELIMITED_STRING),
-			@"URL": @(TOKEN_TYPE_BUILTIN_URL),
-			@"EMAIL": @(TOKEN_TYPE_BUILTIN_EMAIL),
-			@"TWITTER": @(TOKEN_TYPE_BUILTIN_TWITTER),
-			@"HASHTAG": @(TOKEN_TYPE_BUILTIN_HASHTAG),
-			@"ANY": @(TOKEN_TYPE_BUILTIN_ANY),
-        } retain];
-    }
-    
-    NSInteger x = TOKEN_TYPE_BUILTIN_INVALID;
-    id obj = d[[name uppercaseString]];
-    if (obj) {
-        x = [obj integerValue];
-    }
-    return x;
-}
+//- (NSInteger)builtInUserTypeForString:(NSString *)name {
+//    static NSDictionary *d = nil;
+//    if (!d) {
+//        d = [@{
+//			@"NUMBER": @(TOKEN_TYPE_BUILTIN_NUMBER),
+//			@"QUOTED_STRING": @(TOKEN_TYPE_BUILTIN_QUOTED_STRING),
+//			@"SYMBOL": @(TOKEN_TYPE_BUILTIN_SYMBOL),
+//			@"WORD": @(TOKEN_TYPE_BUILTIN_WORD),
+//			@"WHITESPACE": @(TOKEN_TYPE_BUILTIN_WHITESPACE),
+//			@"COMMENT": @(TOKEN_TYPE_BUILTIN_COMMENT),
+//			@"DELIMITED_STRING": @(TOKEN_TYPE_BUILTIN_DELIMITED_STRING),
+//			@"URL": @(TOKEN_TYPE_BUILTIN_URL),
+//			@"EMAIL": @(TOKEN_TYPE_BUILTIN_EMAIL),
+//			@"TWITTER": @(TOKEN_TYPE_BUILTIN_TWITTER),
+//			@"HASHTAG": @(TOKEN_TYPE_BUILTIN_HASHTAG),
+//			@"ANY": @(TOKEN_TYPE_BUILTIN_ANY),
+//        } retain];
+//    }
+//    
+//    NSInteger x = TOKEN_TYPE_BUILTIN_INVALID;
+//    id obj = d[[name uppercaseString]];
+//    if (obj) {
+//        x = [obj integerValue];
+//    }
+//    return x;
+//}
 
 
 - (NSInteger)userTypeForString:(NSString *)name {

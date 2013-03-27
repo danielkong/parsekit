@@ -40,7 +40,7 @@ enum {
 - (BOOL)predicts:(NSSet *)set;
 
 - (NSInteger)userTypeForString:(NSString *)name;
-- (NSInteger)builtInUserTypeForString:(NSString *)name;
+//- (NSInteger)builtInUserTypeForString:(NSString *)name;
 
 - (void)Any;
 - (void)Empty;

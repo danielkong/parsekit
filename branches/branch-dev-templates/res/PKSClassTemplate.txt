@@ -33,12 +33,10 @@ enum {
 {%/for%}        } retain];
     }
     
-    NSInteger x = [super builtInUserTypeForString:name];
-    if (TOKEN_TYPE_BUILTIN_INVALID == x) {
-        id obj = d[[name uppercaseString]];
-        if (obj) {
-            x = [obj integerValue];
-        }
+    NSInteger x = TOKEN_TYPE_BUILTIN_INVALID;
+    id obj = d[name];
+    if (obj) {
+        x = [obj integerValue];
     }
     return x;
 }

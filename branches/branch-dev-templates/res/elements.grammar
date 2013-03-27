@@ -2,7 +2,7 @@
 
 list = lbracket elements rbracket;
 elements = element (comma element)*;
-element = Word | list;
+element = Number | list;
 
 lbracket = '[';
 rbracket = ']';
