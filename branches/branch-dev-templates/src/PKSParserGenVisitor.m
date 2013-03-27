@@ -33,6 +33,7 @@
 - (NSSet *)lookaheadSetForNode:(PKBaseNode *)node;
 
 @property (nonatomic, retain) NSMutableArray *outputStringStack;
+@property (nonatomic, retain) NSString *currentDefName;
 @end
 
 @implementation PKSParserGenVisitor
@@ -50,6 +51,7 @@
     self.engine = nil;
     self.outputString = nil;
     self.outputStringStack = nil;
+    self.currentDefName = nil;
     [super dealloc];
 }
 
@@ -178,7 +180,8 @@
         methodName = @"_start";
     }
     vars[METHOD_NAME] = methodName;
-    
+    self.currentDefName = methodName;
+
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
 
@@ -344,7 +347,7 @@
     }
     
     id predictVars = [NSMutableDictionary dictionary];
-    predictVars[METHOD_NAME] = node.token.stringValue;
+    predictVars[METHOD_NAME] = _currentDefName;
     predictVars[DEPTH] = @(_depth);
     NSString *output = [_engine processTemplate:[self templateStringNamed:@"PKSPredictElseTemplate"] withVariables:predictVars];
     [childStr appendString:output];

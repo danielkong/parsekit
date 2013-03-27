@@ -25,7 +25,7 @@ enum {
 	[super dealloc];
 }
 
-- (NSInteger)userTypeForString:(NSString *)name {
+- (NSInteger)tokenUserTypeForString:(NSString *)name {
     static NSDictionary *d = nil;
     if (!d) {
         d = [@{
@@ -40,6 +40,5 @@ enum {
     }
     return x;
 }
-
 {{methods}}
 @end

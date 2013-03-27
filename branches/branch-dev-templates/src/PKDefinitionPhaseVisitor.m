@@ -18,7 +18,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.collectTokenUserTypes = YES;
+        self.collectTokenUserTypes = YES; // TODO
     }
     return self;
 }

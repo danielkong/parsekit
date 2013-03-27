@@ -15,7 +15,7 @@
 	[super dealloc];
 }
 
-- (NSInteger)userTypeForString:(NSString *)name {
+- (NSInteger)tokenUserTypeForString:(NSString *)name {
     static NSDictionary *d = nil;
     if (!d) {
         d = [@{
@@ -32,7 +32,6 @@
     }
     return x;
 }
-
 
 - (void)_start {
 	NSLog(@"_start");
@@ -66,7 +65,7 @@
     } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_LBRACKET), nil]]) {
         [self list];
     } else {
-        [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in |"];
+        [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in element"];
     }
 }
 
