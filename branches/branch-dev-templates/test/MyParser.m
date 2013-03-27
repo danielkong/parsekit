@@ -144,7 +144,7 @@
     }
 
     [self callExpr:NO];
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_LT), nil]]) {
+    while ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_GE), @(TOKEN_TYPE_LT), @(TOKEN_TYPE_GT), @(TOKEN_TYPE_EQ), @(TOKEN_TYPE_NE), @(TOKEN_TYPE_LE), nil]]) {
         [self relOp:NO];
         [self callExpr:NO];
     }
@@ -192,7 +192,9 @@
     [self primary:NO];
     if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_OPENPAREN), nil]]) {
         [self openParen:NO];
-        [self argList:NO];
+        if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_NUMBER), @(TOKEN_TYPE_BUILTIN_WORD), @(TOKEN_TYPE_NO), @(TOKEN_TYPE_BUILTIN_QUOTEDSTRING), @(TOKEN_TYPE_YES), nil]]) {
+            [self argList:NO];
+        }
         [self closeParen:NO];
     }
 
@@ -208,16 +210,10 @@
         [self.preassembler performSelector:@selector(parser:willMatchArglist:) withObject:self withObject:self.assembly];
     }
 
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_EMPTY), nil]]) {
-        [self Empty:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_WORD), nil]]) {
+    [self atom:NO];
+    while ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_COMMA), nil]]) {
+        [self comma:NO];
         [self atom:NO];
-        while ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_COMMA), nil]]) {
-            [self comma:NO];
-            [self atom:NO];
-        }
-    } else {
-        [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in argList"];
     }
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchArglist:)]) {
@@ -232,7 +228,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchPrimary:) withObject:self withObject:self.assembly];
     }
 
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_WORD), nil]]) {
+    if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_NUMBER), @(TOKEN_TYPE_NO), @(TOKEN_TYPE_BUILTIN_WORD), @(TOKEN_TYPE_BUILTIN_QUOTEDSTRING), @(TOKEN_TYPE_YES), nil]]) {
         [self atom:NO];
     } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_OPENPAREN), nil]]) {
         [self openParen:NO];
@@ -256,7 +252,7 @@
 
     if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_WORD), nil]]) {
         [self obj:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_QUOTEDSTRING), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_NUMBER), @(TOKEN_TYPE_NO), @(TOKEN_TYPE_BUILTIN_QUOTEDSTRING), @(TOKEN_TYPE_YES), nil]]) {
         [self literal:NO];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in atom"];
@@ -324,7 +320,7 @@
         [self QuotedString:NO];
     } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_NUMBER), nil]]) {
         [self Number:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_YES), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_YES), @(TOKEN_TYPE_NO), nil]]) {
         [self bool:NO];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in literal"];

@@ -85,6 +85,9 @@
     
     NSLog(@"lookahead %@", [_lookahead debugDescription]);
     NSLog(@"assembly %@", [_assembly description]);
+
+    // handle empty
+    if (TOKEN_TYPE_BUILTIN_EMPTY == x) return;
     
     if (_lookahead.userType == x || TOKEN_TYPE_BUILTIN_ANY == x) {
         if (!discard) {

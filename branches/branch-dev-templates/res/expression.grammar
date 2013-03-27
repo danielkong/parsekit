@@ -12,8 +12,8 @@ andTerm = and relExpr;
 relExpr = callExpr (relOp callExpr)*;
 relOp = lt | gt | eq | ne | le | ge;
 
-callExpr = primary (openParen argList closeParen)?;
-argList = Empty | atom (comma atom)*;
+callExpr = primary (openParen argList? closeParen)?;
+argList = atom (comma atom)*;
  
 primary = atom | openParen expr closeParen;
 atom = obj | literal;

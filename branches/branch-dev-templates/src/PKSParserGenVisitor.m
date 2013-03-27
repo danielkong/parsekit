@@ -114,7 +114,7 @@
         case PKNodeTypeAlternation: {
             for (PKBaseNode *child in node.children) {
                 [set unionSet:[self lookaheadSetForNode:child]];
-                break; // single look ahead
+                //break; // single look ahead
             }
         } break;
         default: {

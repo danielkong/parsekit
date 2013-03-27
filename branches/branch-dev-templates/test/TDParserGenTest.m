@@ -54,11 +54,11 @@
     p.assembler = self;
     
     //    [p parse:@"[1, [2,3],4]" error:nil];
-    [p parse:@"foo or bar" error:nil];
+    [p parse:@"foo.bar('hello') or bar" error:nil];
 }
 
 
-- (void)parser:(PKSParser *)p didMatchPrimary:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchCallexpr:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
