@@ -10,12 +10,60 @@
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
 
+@interface PKSParser ()
+@property (nonatomic, retain) PKToken *lookahead;
+@property (nonatomic, retain) id target;
+@end
+
 @implementation PKSParser
 
 - (void)dealloc {
     self.tokenizer = nil;
     self.lookahead = nil;
+    self.target = nil;
     [super dealloc];
+}
+
+
+- (id)parse:(NSString *)s error:(NSError **)outError {
+    id result = nil;
+    
+    PKTokenizer *t = self.tokenizer;
+    if (!t) t = [PKTokenizer tokenizer];
+    t.string = s;
+
+    @try {
+
+        @autoreleasepool {
+            [self _start];
+            
+            result = [_target retain]; // +1
+            self.target = nil;
+        }
+        [result autorelease]; // -1
+
+    }
+    @catch (NSException *ex) {
+        if (outError) {
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
+            
+            // get reason
+            NSString *reason = [ex reason];
+            if ([reason length]) [userInfo setObject:reason forKey:NSLocalizedFailureReasonErrorKey];
+            
+            // get domain
+            NSString *exName = [ex name];
+            NSString *domain = exName ? exName : @"PKParseException";
+            
+            // convert to NSError
+            NSError *err = [NSError errorWithDomain:domain code:47 userInfo:[[userInfo copy] autorelease]];
+            *outError = err;
+        } else {
+            [ex raise];
+        }
+    }
+    
+    return result;
 }
 
 
@@ -41,6 +89,11 @@
     NSInteger x = _lookahead.userType;
     BOOL result = [set containsObject:@(x)];
     return result;
+}
+
+
+- (void)_start {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
 

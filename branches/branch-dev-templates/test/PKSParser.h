@@ -30,9 +30,11 @@ enum {
 
 @interface PKSParser : NSObject
 
-@property (nonatomic, retain) PKTokenizer *tokenizer;
-@property (nonatomic, retain) PKToken *lookahead;
+- (id)parse:(NSString *)input error:(NSError **)outErr;
 
+@property (nonatomic, retain) PKTokenizer *tokenizer;
+
+// for subclasses
 - (void)match:(NSInteger)x;
 - (void)consume;
 - (BOOL)predicts:(NSSet *)set;
