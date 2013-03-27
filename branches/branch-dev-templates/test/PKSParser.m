@@ -190,14 +190,14 @@
 - (void)QuotedString:(BOOL)discard {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_TYPE_BUILTIN_QUOTED_STRING andDiscard:discard];
+    [self match:TOKEN_TYPE_BUILTIN_QUOTEDSTRING andDiscard:discard];
 }
 
 
 - (void)DelimitedString:(BOOL)discard {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_TYPE_BUILTIN_DELIMITED_STRING andDiscard:discard];
+    [self match:TOKEN_TYPE_BUILTIN_DELIMITEDSTRING andDiscard:discard];
 }
 
 @end

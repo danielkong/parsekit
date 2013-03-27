@@ -24,7 +24,7 @@
 - (void)setUp {
     self.factory = [PKParserFactory factory];
     
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"elements" ofType:@"grammar"];
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"expression" ofType:@"grammar"];
     NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     
     self.root = (id)[_factory ASTFromGrammar:g error:nil];
@@ -53,10 +53,12 @@
     MyParser *p = [[[MyParser alloc] init] autorelease];
     p.assembler = self;
     
-    [p parse:@"[1, [2,3],4]" error:nil];
+    //    [p parse:@"[1, [2,3],4]" error:nil];
+    [p parse:@"foo or bar" error:nil];
 }
 
-- (void)parser:(PKSParser *)p didMatchList:(PKAssembly *)a {
+
+- (void)parser:(PKSParser *)p didMatchPrimary:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
