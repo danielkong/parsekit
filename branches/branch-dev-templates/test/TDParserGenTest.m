@@ -28,7 +28,13 @@
     
     self.root = (id)[_factory ASTFromGrammar:g error:nil];
     
+    NSMutableDictionary *symTab = [NSMutableDictionary dictionaryWithCapacity:[_root.children count]];
+    for (PKBaseNode *child in _root.children) {
+        symTab[child.token.stringValue] = child;
+    }
+    
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
+    _visitor.symbolTable = symTab;
     [_root visit:_visitor];
     
     self.output = _visitor.outputString;

@@ -84,6 +84,9 @@
 
 
 - (NSSet *)lookaheadSetForNode:(PKBaseNode *)node {
+    NSParameterAssert(node);
+    NSAssert(self.symbolTable, @"");
+
     NSMutableSet *set = [NSMutableSet set];
     
     switch (node.type) {
@@ -93,6 +96,11 @@
         case PKNodeTypeLiteral: {
             PKLiteralNode *litNode = (PKLiteralNode *)node;
             [set addObject:litNode.tokenUserType];
+        } break;
+        case PKNodeTypeReference: {
+            NSString *name = node.token.stringValue;
+            PKDefinitionNode *defNode = self.symbolTable[name];
+            [set unionSet:[self lookaheadSetForNode:defNode]];
         } break;
         default: {
             for (PKBaseNode *child in node.children) {
@@ -241,8 +249,6 @@
     NSUInteger idx = 0;
     for (PKBaseNode *child in node.children) {
         id predictVars = [NSMutableDictionary dictionary];
-//        predictVars[CHILD_NAME] = child.token.stringValue;
-//        predictVars[DEPTH] = @(_depth);
 
         NSSet *set = [self lookaheadSetForNode:child];
         predictVars[LOOKAHEAD_SET] = set;

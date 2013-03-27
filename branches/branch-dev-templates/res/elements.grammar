@@ -1,5 +1,6 @@
 @start = list;
-list = '[' | Word;
+list = '[' | name;
+name = Word;
 //list = '[' elements ']';
 //elements = element (',' element)*;
 //element = Word | list;
