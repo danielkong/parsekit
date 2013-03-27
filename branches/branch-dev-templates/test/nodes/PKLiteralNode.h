@@ -11,4 +11,5 @@
 @interface PKLiteralNode : PKBaseNode
 
 @property (nonatomic, assign) BOOL wantsCharacters;
+@property (nonatomic, assign) NSString *tokenUserType;
 @end

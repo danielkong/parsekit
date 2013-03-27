@@ -12,6 +12,12 @@
 
 @implementation PKLiteralNode
 
+- (void)dealloc {
+    self.tokenUserType = nil;
+    [super dealloc];
+}
+
+
 - (NSUInteger)type {
     return PKNodeTypeLiteral;
 }

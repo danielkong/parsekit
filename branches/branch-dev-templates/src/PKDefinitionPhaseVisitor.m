@@ -14,9 +14,20 @@
 
 @implementation PKDefinitionPhaseVisitor
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.collectTokenUserTypes = YES;
+    }
+    return self;
+}
+
+
 - (void)dealloc {
     self.assembler = nil;
     self.preassembler = nil;
+    self.tokenUserTypes = nil;
+    self.currentDefName = nil;
     [super dealloc];
 }
 
@@ -25,7 +36,16 @@
     NSParameterAssert(node);
     NSAssert(self.symbolTable, @"");
     
+    if (_collectTokenUserTypes) {
+        self.tokenUserTypes = [NSMutableArray arrayWithObject:@"TOKEN_TYPE_INVALID"];
+    }
+    
     [self recurse:node];
+
+    if (_collectTokenUserTypes) {
+        node.tokenUserTypes = _tokenUserTypes;
+        self.tokenUserTypes = nil;
+    }
 
     self.symbolTable = nil;
 }
@@ -45,6 +65,9 @@
     // set name
     NSString *name = node.token.stringValue;
     cp.name = name;
+    if (_collectTokenUserTypes) {
+        self.currentDefName = name;
+    }
     
     // set assembler callback
     if (_assembler || _preassembler) {
@@ -131,7 +154,15 @@
 
 - (void)visitLiteral:(PKLiteralNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-    
+ 
+    if (_collectTokenUserTypes) {
+        NSAssert(_tokenUserTypes, @"");
+        NSAssert(_currentDefName, @"");
+        NSString *s = [NSString stringWithFormat:@"TOKEN_TYPE_%@", [_currentDefName uppercaseString]];
+        [_tokenUserTypes addObject:s];
+        node.tokenUserType = s;
+        self.currentDefName = nil;
+    }
 }
 
 

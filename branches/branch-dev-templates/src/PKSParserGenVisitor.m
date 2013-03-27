@@ -13,6 +13,7 @@
 #import "ICUTemplateMatcher.h"
 
 #define CLASS_NAME @"className"
+#define TOKEN_USER_TYPES @"tokenUserTypes"
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
 #define METHOD_BODY @"methodBody"
@@ -92,12 +93,15 @@
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSParameterAssert(node);
     
+    NSLog(@"%@", node.tokenUserTypes);
+    
     // setup stack
     self.outputStringStack = [NSMutableArray array];
 
     // setup vars
     id vars = [NSMutableDictionary dictionary];
     vars[CLASS_NAME] = @"MyParser";
+    vars[TOKEN_USER_TYPES] = node.tokenUserTypes;
     
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
@@ -275,8 +279,7 @@
     
     // stup vars
     id vars = [NSMutableDictionary dictionary];
-    //NSNumber *t = @(node.token.userType);
-    NSString *t = [node.token.stringValue stringByTrimmingQuotes];
+    NSString *t = node.tokenUserType;
     vars[TOKEN_USER_TYPE] = t;
     
     // merge

@@ -14,4 +14,8 @@
 @property (nonatomic, retain) id assembler;
 @property (nonatomic, retain) id preassembler;
 @property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
+
+@property (nonatomic, retain) NSMutableArray *tokenUserTypes;
+@property (nonatomic, retain) NSString *currentDefName;
+@property (nonatomic, assign) BOOL collectTokenUserTypes;
 @end

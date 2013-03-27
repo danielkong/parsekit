@@ -10,6 +10,12 @@
 
 @implementation PKRootNode
 
+- (void)dealloc {
+    self.tokenUserTypes = nil;
+    [super dealloc];
+}
+
+
 - (NSUInteger)type {
     return PKNodeTypeRoot;
 }

@@ -46,8 +46,10 @@
 }
 
 
-- (BOOL)lookaheadPredicts:(id)obj {
-    return NO;
+- (BOOL)predicts:(NSIndexSet *)set {
+    NSInteger x = _lookahead.userType;
+    BOOL result = [set containsIndex:x];
+    return result;
 }
 
 

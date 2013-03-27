@@ -1,2 +1,2 @@
-    if ([lookaheadPredicts:{{childName}}]) {
+    if ([predicts:{{childName}}]) {
     

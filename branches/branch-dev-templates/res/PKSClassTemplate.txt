@@ -1,3 +1,7 @@
+typedef enum {
+{%for userType in tokenUserTypes %}{{userType}} = {{currentLoop.currentIndex}},
+{%/for%}};
+
 @interface {{className}} : PKSParser
 
 @end

@@ -10,4 +10,5 @@
 
 @interface PKRootNode : PKBaseNode
 
+@property (nonatomic, retain) NSMutableArray *tokenUserTypes;
 @end
