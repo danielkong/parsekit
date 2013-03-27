@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class PKAssembly;
 @class PKTokenizer;
 @class PKToken;
 
@@ -33,6 +34,9 @@ enum {
 - (id)parse:(NSString *)input error:(NSError **)outErr;
 
 @property (nonatomic, retain) PKTokenizer *tokenizer;
+@property (nonatomic, retain) PKAssembly *assembly;
+@property (nonatomic, assign) id assembler;
+@property (nonatomic, assign) id preassembler;
 
 // for subclasses
 - (void)match:(NSInteger)x;

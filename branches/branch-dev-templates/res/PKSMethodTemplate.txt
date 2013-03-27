@@ -1,5 +1,13 @@
 
 - (void){{methodName}} {
-	NSLog(@"{{methodName}}");
+	NSLog(@"{{methodName}} %@", self.assembly);
+    
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatch{{methodName | capitalized}}:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatch{{methodName | capitalized}}:) withObject:self withObject:self.assembly];
+    }
 
-{{methodBody}}}
+{{methodBody}}
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatch{{methodName | capitalized}}:)]) {
+        [self.assembler performSelector:@selector(parser:didMatch{{methodName | capitalized}}:) withObject:self withObject:self.assembly];
+    }
+}

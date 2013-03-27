@@ -9,6 +9,14 @@
 #import "PKSParser.h"
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
+#import <ParseKit/PKTokenAssembly.h>
+
+@interface PKAssembly ()
+//- (id)peek;
+- (id)next;
+- (BOOL)hasMore;
+//@property (nonatomic, readonly) NSUInteger objectsConsumed;
+@end
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKToken *lookahead;
@@ -32,6 +40,7 @@
     if (!t) t = [PKTokenizer tokenizer];
     t.string = s;
     self.tokenizer = t;
+    self.assembly = [PKTokenAssembly assemblyWithTokenizer:t];
 
     @try {
 
@@ -84,12 +93,19 @@
 
 
 - (void)consume {
-    self.lookahead = [_tokenizer nextToken];
-    NSInteger x = [self tokenUserTypeForString:_lookahead.stringValue];
-    if (TOKEN_TYPE_BUILTIN_INVALID == x) {
-        x = _lookahead.tokenType;
+    if ([_assembly hasMore]) {
+        
+        // advance
+        self.lookahead = [_assembly next];
+        
+        BOOL discard = NO; // TODO
+        if (!discard) {
+            [_assembly push:_lookahead];
+        }
+
+        // set token user type
+        _lookahead.userType = [self tokenUserTypeForToken:_lookahead];
     }
-    _lookahead.userType = x;
 }
 
 
@@ -97,6 +113,17 @@
     NSInteger x = _lookahead.userType;
     BOOL result = [set containsObject:@(x)];
     return result;
+}
+
+
+- (NSInteger)tokenUserTypeForToken:(PKToken *)tok {
+    NSInteger x = [self tokenUserTypeForString:tok.stringValue];
+    
+    if (TOKEN_TYPE_BUILTIN_INVALID == x) {
+        x = tok.tokenType;
+    }
+    
+    return x;
 }
 
 
