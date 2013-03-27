@@ -86,21 +86,21 @@
 - (NSSet *)lookaheadSetForNode:(PKBaseNode *)node {
     NSMutableSet *set = [NSMutableSet set];
     
-    for (PKBaseNode *child in node.children) {
-        switch (child.type) {
-            case PKNodeTypeConstant: {
-                [set addObject:_tokenUserTypes[child.token.tokenType]];
-            } break;
-            case PKNodeTypeLiteral: {
-                PKLiteralNode *litNode = (PKLiteralNode *)child;
-                [set addObject:litNode.tokenUserType];
-            } break;
-            default: {
-                NSAssert(0, @"");
-            } break;
-        }
-        
+    switch (node.type) {
+        case PKNodeTypeConstant: {
+            [set addObject:_tokenUserTypes[node.token.tokenType]];
+        } break;
+        case PKNodeTypeLiteral: {
+            PKLiteralNode *litNode = (PKLiteralNode *)node;
+            [set addObject:litNode.tokenUserType];
+        } break;
+        default: {
+            for (PKBaseNode *child in node.children) {
+                [set unionSet:[self lookaheadSetForNode:child]];
+            }
+        } break;
     }
+
     
     return set;
 }
@@ -244,7 +244,7 @@
 //        predictVars[CHILD_NAME] = child.token.stringValue;
 //        predictVars[DEPTH] = @(_depth);
 
-        NSSet *set = [self lookaheadSetForNode:node];
+        NSSet *set = [self lookaheadSetForNode:child];
         predictVars[LOOKAHEAD_SET] = set;
         
         NSString *templateName = nil;

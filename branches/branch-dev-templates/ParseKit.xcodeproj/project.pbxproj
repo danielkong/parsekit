@@ -1831,6 +1831,7 @@
 			children = (
 				D302272617020A6E00594F16 /* TDParserGenTest.h */,
 				D302272717020A6E00594F16 /* TDParserGenTest.m */,
+				D3B22A3917025EA300446945 /* elements.grammar */,
 				D3022704170208BB00594F16 /* MGTemplateEngine */,
 				D30226FB170205D200594F16 /* PKSParser.h */,
 				D30226FC170205D200594F16 /* PKSParser.m */,
@@ -2563,7 +2564,6 @@
 			isa = PBXGroup;
 			children = (
 				D3B986AD1700D3A9000CBCAE /* expression.grammar */,
-				D3B22A3917025EA300446945 /* elements.grammar */,
 				D380B5370F0D7DDE0009EC13 /* css.css */,
 				D380B5080F0D71A90009EC13 /* css.grammar */,
 				D380B5930F0D82F60009EC13 /* example.css */,
