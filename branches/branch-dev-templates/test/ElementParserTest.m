@@ -58,6 +58,9 @@
     p.assembler = self;
     
     [p parse:@"[1, [2,3],4]" error:nil];
+    PKAssembly *res = p.assembly;
+    
+    TDEqualObjects(@"[[, 1, [, 2, 3, 4][/1/,/[/2/,/3/]/,/4/]^", [res description]);
 }
 
 
