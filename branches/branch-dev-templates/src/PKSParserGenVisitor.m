@@ -50,7 +50,8 @@
 
 - (void)dealloc {
     self.engine = nil;
-    self.outputString = nil;
+    self.interfaceOutputString = nil;
+    self.implementationOutputString = nil;
     self.outputStringStack = nil;
     self.currentDefName = nil;
     [super dealloc];
@@ -160,10 +161,15 @@
 
     // setup vars
     id vars = [NSMutableDictionary dictionary];
-    vars[CLASS_NAME] = @"MyParser";
+    vars[CLASS_NAME] = [NSString stringWithFormat:@"%@Parser", node.grammarName];
     vars[TOKEN_USER_TYPES_START_INDEX] = @(TOKEN_TYPE_BUILTIN_ANY + 1);
     vars[TOKEN_USER_TYPES] = node.tokenUserTypes;
     
+    // do interface (header)
+    NSString *intTemplate = [self templateStringNamed:@"PKSClassInterfaceTemplate"];
+    self.interfaceOutputString = [_engine processTemplate:intTemplate withVariables:vars];
+    
+    // do impl (.m)
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
     
@@ -177,13 +183,11 @@
     
     // merge
     vars[METHODS] = childStr;
-    NSString *template = [self templateStringNamed:@"PKSClassTemplate"];
-    NSString *outStr = [_engine processTemplate:template withVariables:vars];
+    NSString *implTemplate = [self templateStringNamed:@"PKSClassImplementationTemplate"];
+    self.implementationOutputString = [_engine processTemplate:implTemplate withVariables:vars];
 
-    // cleanup
-    self.outputString = outStr;
-
-    NSLog(@"%@", outStr);
+    NSLog(@"%@", _interfaceOutputString);
+    NSLog(@"%@", _implementationOutputString);
 }
 
 

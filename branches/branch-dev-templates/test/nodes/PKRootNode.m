@@ -11,6 +11,7 @@
 @implementation PKRootNode
 
 - (void)dealloc {
+    self.grammarName = nil;
     self.tokenUserTypes = nil;
     [super dealloc];
 }

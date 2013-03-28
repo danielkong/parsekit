@@ -12,6 +12,7 @@
 @interface PKSParserGenVisitor : PKBaseVisitor <MGTemplateEngineDelegate>
 
 @property (nonatomic, retain) MGTemplateEngine *engine;
-@property (nonatomic, retain) NSString *outputString;
+@property (nonatomic, retain) NSString *interfaceOutputString;
+@property (nonatomic, retain) NSString *implementationOutputString;
 @property (nonatomic, assign) NSUInteger depth;
 @end

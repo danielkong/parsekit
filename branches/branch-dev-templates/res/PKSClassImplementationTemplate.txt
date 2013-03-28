@@ -1,13 +1,3 @@
-#import "PKSParser.h"
-
-enum {
-{%for userType in tokenUserTypes %}    {{userType.source}}{%if 0 = currentLoop.currentIndex %} = {{startIndex}}{%/if%},
-{%/for%}};
-
-@interface {{className}} : PKSParser
-
-@end
-
 #import "{{className}}.h"
 
 @implementation {{className}}

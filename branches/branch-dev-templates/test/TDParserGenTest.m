@@ -21,39 +21,39 @@
 
 @implementation TDParserGenTest
 
-- (void)setUp {
-    self.factory = [PKParserFactory factory];
-    
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"elements" ofType:@"grammar"];
-    NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    
-    self.root = (id)[_factory ASTFromGrammar:g error:nil];
-    
-    self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
-    [_root visit:_visitor];
-    
-    self.output = _visitor.outputString;
-}
-
-
-- (void)tearDown {
-    self.factory = nil;
-}
-
-
-- (void)testFoo {
-    TDTrue([_output length]);
-    
-    ElementParser *p = [[[ElementParser alloc] init] autorelease];
-    p.assembler = self;
-    
-    [p parse:@"[1, [2,3],4]" error:nil];
-//    [p parse:@"foo.bar('hello') or bar" error:nil];
-}
-
-
-- (void)parser:(PKSParser *)p didMatchArgList:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
-    
-}
+//- (void)setUp {
+//    self.factory = [PKParserFactory factory];
+//    
+//    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"elements" ofType:@"grammar"];
+//    NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    
+//    self.root = (id)[_factory ASTFromGrammar:g error:nil];
+//    
+//    self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
+//    [_root visit:_visitor];
+//    
+//    self.output = _visitor.outputString;
+//}
+//
+//
+//- (void)tearDown {
+//    self.factory = nil;
+//}
+//
+//
+//- (void)testFoo {
+//    TDTrue([_output length]);
+//    
+//    ElementParser *p = [[[ElementParser alloc] init] autorelease];
+//    p.assembler = self;
+//    
+//    [p parse:@"[1, [2,3],4]" error:nil];
+////    [p parse:@"foo.bar('hello') or bar" error:nil];
+//}
+//
+//
+//- (void)parser:(PKSParser *)p didMatchArgList:(PKAssembly *)a {
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+//    
+//}
 @end
