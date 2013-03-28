@@ -519,7 +519,7 @@
 		D3B22A4A1702A11600446945 /* PKSMultipleStartTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A481702A11600446945 /* PKSMultipleStartTemplate.txt */; };
 		D3B22A4D1702A1F800446945 /* PKSRepetitionEndTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A4B1702A1F700446945 /* PKSRepetitionEndTemplate.txt */; };
 		D3B22A4E1702A1F800446945 /* PKSRepetitionStartTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A4C1702A1F800446945 /* PKSRepetitionStartTemplate.txt */; };
-		D3B22A521702B04300446945 /* MyParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A4F1702AFB500446945 /* MyParser.m */; };
+		D3B22A521702B04300446945 /* ElementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A4F1702AFB500446945 /* ElementParser.m */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3B986AE1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
@@ -1452,8 +1452,8 @@
 		D3B22A481702A11600446945 /* PKSMultipleStartTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSMultipleStartTemplate.txt; path = res/PKSMultipleStartTemplate.txt; sourceTree = "<group>"; };
 		D3B22A4B1702A1F700446945 /* PKSRepetitionEndTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSRepetitionEndTemplate.txt; path = res/PKSRepetitionEndTemplate.txt; sourceTree = "<group>"; };
 		D3B22A4C1702A1F800446945 /* PKSRepetitionStartTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSRepetitionStartTemplate.txt; path = res/PKSRepetitionStartTemplate.txt; sourceTree = "<group>"; };
-		D3B22A4F1702AFB500446945 /* MyParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyParser.m; path = test/MyParser.m; sourceTree = "<group>"; };
-		D3B22A531702B14000446945 /* MyParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyParser.h; path = test/MyParser.h; sourceTree = "<group>"; };
+		D3B22A4F1702AFB500446945 /* ElementParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ElementParser.m; path = test/ElementParser.m; sourceTree = "<group>"; };
+		D3B22A531702B14000446945 /* ElementParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ElementParser.h; path = test/ElementParser.h; sourceTree = "<group>"; };
 		D3B43FB50F76E99C0072AF40 /* TDJavaScriptParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDJavaScriptParserTest.h; path = test/TDJavaScriptParserTest.h; sourceTree = "<group>"; };
 		D3B43FB60F76E99C0072AF40 /* TDJavaScriptParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDJavaScriptParserTest.m; path = test/TDJavaScriptParserTest.m; sourceTree = "<group>"; };
 		D3B473840E48C9CF008AFBDD /* yahoo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = yahoo.json; path = res/yahoo.json; sourceTree = "<group>"; };
@@ -1850,8 +1850,8 @@
 				D3022704170208BB00594F16 /* MGTemplateEngine */,
 				D30226FB170205D200594F16 /* PKSParser.h */,
 				D30226FC170205D200594F16 /* PKSParser.m */,
-				D3B22A531702B14000446945 /* MyParser.h */,
-				D3B22A4F1702AFB500446945 /* MyParser.m */,
+				D3B22A531702B14000446945 /* ElementParser.h */,
+				D3B22A4F1702AFB500446945 /* ElementParser.m */,
 				D30226F8170202DD00594F16 /* PKSParserGenVisitor.h */,
 				D30226F9170202DD00594F16 /* PKSParserGenVisitor.m */,
 				D3B22A3217023BEB00446945 /* PKSMethod.h */,
@@ -3934,7 +3934,7 @@
 				D302271F170208C800594F16 /* RegexKitLite.m in Sources */,
 				D302272817020A6E00594F16 /* TDParserGenTest.m in Sources */,
 				D3B22A3417023BEB00446945 /* PKSMethod.m in Sources */,
-				D3B22A521702B04300446945 /* MyParser.m in Sources */,
+				D3B22A521702B04300446945 /* ElementParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

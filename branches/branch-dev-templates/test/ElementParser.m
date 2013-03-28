@@ -1,6 +1,6 @@
-#import "MyParser.h"
+#import "ElementParser.h"
 
-@implementation MyParser
+@implementation ElementParser
 
 - (id)init {
 	self = [super init];
@@ -47,14 +47,14 @@
 - (void)_start:(BOOL)discard {
 	NSLog(@"_start %@", self.assembly);
     
-    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatch_Start:)]) {
-        [self.preassembler performSelector:@selector(parser:willMatch_Start:) withObject:self withObject:self.assembly];
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatch_start:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatch_start:) withObject:self withObject:self.assembly];
     }
 
     [self expr:NO];
 
-    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatch_Start:)]) {
-        [self.assembler performSelector:@selector(parser:didMatch_Start:) withObject:self withObject:self.assembly];
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatch_start:)]) {
+        [self.assembler performSelector:@selector(parser:didMatch_start:) withObject:self withObject:self.assembly];
     }
 }
 
@@ -75,8 +75,8 @@
 - (void)orExpr:(BOOL)discard {
 	NSLog(@"orExpr %@", self.assembly);
     
-    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchOrexpr:)]) {
-        [self.preassembler performSelector:@selector(parser:willMatchOrexpr:) withObject:self withObject:self.assembly];
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchOrExpr:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatchOrExpr:) withObject:self withObject:self.assembly];
     }
 
     [self andExpr:NO];
@@ -84,31 +84,31 @@
         [self orTerm:NO];
     }
 
-    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchOrexpr:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchOrexpr:) withObject:self withObject:self.assembly];
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchOrExpr:)]) {
+        [self.assembler performSelector:@selector(parser:didMatchOrExpr:) withObject:self withObject:self.assembly];
     }
 }
 
 - (void)orTerm:(BOOL)discard {
 	NSLog(@"orTerm %@", self.assembly);
     
-    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchOrterm:)]) {
-        [self.preassembler performSelector:@selector(parser:willMatchOrterm:) withObject:self withObject:self.assembly];
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchOrTerm:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatchOrTerm:) withObject:self withObject:self.assembly];
     }
 
     [self or:NO];
     [self andExpr:NO];
 
-    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchOrterm:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchOrterm:) withObject:self withObject:self.assembly];
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchOrTerm:)]) {
+        [self.assembler performSelector:@selector(parser:didMatchOrTerm:) withObject:self withObject:self.assembly];
     }
 }
 
 - (void)andExpr:(BOOL)discard {
 	NSLog(@"andExpr %@", self.assembly);
     
-    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchAndexpr:)]) {
-        [self.preassembler performSelector:@selector(parser:willMatchAndexpr:) withObject:self withObject:self.assembly];
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchAndExpr:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatchAndExpr:) withObject:self withObject:self.assembly];
     }
 
     [self relExpr:NO];
@@ -116,31 +116,31 @@
         [self andTerm:NO];
     }
 
-    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchAndexpr:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchAndexpr:) withObject:self withObject:self.assembly];
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchAndExpr:)]) {
+        [self.assembler performSelector:@selector(parser:didMatchAndExpr:) withObject:self withObject:self.assembly];
     }
 }
 
 - (void)andTerm:(BOOL)discard {
 	NSLog(@"andTerm %@", self.assembly);
     
-    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchAndterm:)]) {
-        [self.preassembler performSelector:@selector(parser:willMatchAndterm:) withObject:self withObject:self.assembly];
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchAndTerm:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatchAndTerm:) withObject:self withObject:self.assembly];
     }
 
     [self and:NO];
     [self relExpr:NO];
 
-    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchAndterm:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchAndterm:) withObject:self withObject:self.assembly];
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchAndTerm:)]) {
+        [self.assembler performSelector:@selector(parser:didMatchAndTerm:) withObject:self withObject:self.assembly];
     }
 }
 
 - (void)relExpr:(BOOL)discard {
 	NSLog(@"relExpr %@", self.assembly);
     
-    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchRelexpr:)]) {
-        [self.preassembler performSelector:@selector(parser:willMatchRelexpr:) withObject:self withObject:self.assembly];
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchRelExpr:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatchRelExpr:) withObject:self withObject:self.assembly];
     }
 
     [self callExpr:NO];
@@ -149,16 +149,16 @@
         [self callExpr:NO];
     }
 
-    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchRelexpr:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchRelexpr:) withObject:self withObject:self.assembly];
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchRelExpr:)]) {
+        [self.assembler performSelector:@selector(parser:didMatchRelExpr:) withObject:self withObject:self.assembly];
     }
 }
 
 - (void)relOp:(BOOL)discard {
 	NSLog(@"relOp %@", self.assembly);
     
-    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchRelop:)]) {
-        [self.preassembler performSelector:@selector(parser:willMatchRelop:) withObject:self withObject:self.assembly];
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchRelOp:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatchRelOp:) withObject:self withObject:self.assembly];
     }
 
     if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_LT), nil]]) {
@@ -177,16 +177,16 @@
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in relOp"];
     }
 
-    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchRelop:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchRelop:) withObject:self withObject:self.assembly];
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchRelOp:)]) {
+        [self.assembler performSelector:@selector(parser:didMatchRelOp:) withObject:self withObject:self.assembly];
     }
 }
 
 - (void)callExpr:(BOOL)discard {
 	NSLog(@"callExpr %@", self.assembly);
     
-    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchCallexpr:)]) {
-        [self.preassembler performSelector:@selector(parser:willMatchCallexpr:) withObject:self withObject:self.assembly];
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchCallExpr:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatchCallExpr:) withObject:self withObject:self.assembly];
     }
 
     [self primary:NO];
@@ -198,16 +198,16 @@
         [self closeParen:NO];
     }
 
-    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchCallexpr:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchCallexpr:) withObject:self withObject:self.assembly];
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchCallExpr:)]) {
+        [self.assembler performSelector:@selector(parser:didMatchCallExpr:) withObject:self withObject:self.assembly];
     }
 }
 
 - (void)argList:(BOOL)discard {
 	NSLog(@"argList %@", self.assembly);
     
-    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchArglist:)]) {
-        [self.preassembler performSelector:@selector(parser:willMatchArglist:) withObject:self withObject:self.assembly];
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchArgList:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatchArgList:) withObject:self withObject:self.assembly];
     }
 
     [self atom:NO];
@@ -216,8 +216,8 @@
         [self atom:NO];
     }
 
-    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchArglist:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchArglist:) withObject:self withObject:self.assembly];
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchArgList:)]) {
+        [self.assembler performSelector:@selector(parser:didMatchArgList:) withObject:self withObject:self.assembly];
     }
 }
 
@@ -438,28 +438,28 @@
 - (void)openParen:(BOOL)discard {
 	NSLog(@"openParen %@", self.assembly);
     
-    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchOpenparen:)]) {
-        [self.preassembler performSelector:@selector(parser:willMatchOpenparen:) withObject:self withObject:self.assembly];
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchOpenParen:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatchOpenParen:) withObject:self withObject:self.assembly];
     }
 
     [self match:TOKEN_TYPE_OPENPAREN andDiscard:NO];
 
-    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchOpenparen:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchOpenparen:) withObject:self withObject:self.assembly];
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchOpenParen:)]) {
+        [self.assembler performSelector:@selector(parser:didMatchOpenParen:) withObject:self withObject:self.assembly];
     }
 }
 
 - (void)closeParen:(BOOL)discard {
 	NSLog(@"closeParen %@", self.assembly);
     
-    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchCloseparen:)]) {
-        [self.preassembler performSelector:@selector(parser:willMatchCloseparen:) withObject:self withObject:self.assembly];
+    if (self.preassembler && [self.preassembler respondsToSelector:@selector(parser:willMatchCloseParen:)]) {
+        [self.preassembler performSelector:@selector(parser:willMatchCloseParen:) withObject:self withObject:self.assembly];
     }
 
     [self match:TOKEN_TYPE_CLOSEPAREN andDiscard:NO];
 
-    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchCloseparen:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchCloseparen:) withObject:self withObject:self.assembly];
+    if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchCloseParen:)]) {
+        [self.assembler performSelector:@selector(parser:didMatchCloseParen:) withObject:self withObject:self.assembly];
     }
 }
 

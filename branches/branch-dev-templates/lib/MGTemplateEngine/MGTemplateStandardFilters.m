@@ -36,7 +36,14 @@
 		return [[NSString stringWithFormat:@"%@", value] lowercaseString];
 		
 	} else if ([filter isEqualToString:CAPITALIZED]) {
-		return [[NSString stringWithFormat:@"%@", value] capitalizedString];
+        NSString *str = [NSString stringWithFormat:@"%@", value];
+        NSAssert([str length], @"");
+        unichar c = toupper([str characterAtIndex:0]);
+        if ([str length] > 1) {
+            return [NSString stringWithFormat:@"%C%@", c, [str substringFromIndex:1]];
+        } else {
+            return [NSString stringWithFormat:@"%C", c];
+        }
 		
 	} else if ([filter isEqualToString:DATE_FORMAT]) {
 		// Formats NSDates according to Unicode syntax: 

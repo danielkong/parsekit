@@ -10,7 +10,7 @@
 #import "PKParserFactory.h"
 #import "PKSParserGenVisitor.h"
 #import "PKBaseNode.h"
-#import "MyParser.h"
+#import "ElementParser.h"
 
 @interface TDParserGenTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
@@ -50,15 +50,15 @@
 - (void)testFoo {
     TDTrue([_output length]);
     
-    MyParser *p = [[[MyParser alloc] init] autorelease];
+    ElementParser *p = [[[ElementParser alloc] init] autorelease];
     p.assembler = self;
     
-    //    [p parse:@"[1, [2,3],4]" error:nil];
+//    [p parse:@"[1, [2,3],4]" error:nil];
     [p parse:@"foo.bar('hello') or bar" error:nil];
 }
 
 
-- (void)parser:(PKSParser *)p didMatchCallexpr:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchArgList:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
