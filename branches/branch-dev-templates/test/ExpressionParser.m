@@ -15,28 +15,28 @@
 	[super dealloc];
 }
 
-- (NSInteger)tokenUserTypeForString:(NSString *)name {
+- (NSInteger)tokenKindForString:(NSString *)name {
     static NSDictionary *d = nil;
     if (!d) {
         d = [@{
-           @"<" : @(TOKEN_TYPE_LT),
-           @">" : @(TOKEN_TYPE_GT),
-           @"=" : @(TOKEN_TYPE_EQ),
-           @"!=" : @(TOKEN_TYPE_NE),
-           @"<=" : @(TOKEN_TYPE_LE),
-           @">=" : @(TOKEN_TYPE_GE),
-           @"(" : @(TOKEN_TYPE_OPENPAREN),
-           @")" : @(TOKEN_TYPE_CLOSEPAREN),
-           @"yes" : @(TOKEN_TYPE_YES),
-           @"no" : @(TOKEN_TYPE_NO),
-           @"." : @(TOKEN_TYPE_DOT),
-           @"," : @(TOKEN_TYPE_COMMA),
-           @"or" : @(TOKEN_TYPE_OR),
-           @"and" : @(TOKEN_TYPE_AND),
+           @"<" : @(TOKEN_KIND_LT),
+           @">" : @(TOKEN_KIND_GT),
+           @"=" : @(TOKEN_KIND_EQ),
+           @"!=" : @(TOKEN_KIND_NE),
+           @"<=" : @(TOKEN_KIND_LE),
+           @">=" : @(TOKEN_KIND_GE),
+           @"(" : @(TOKEN_KIND_OPENPAREN),
+           @")" : @(TOKEN_KIND_CLOSEPAREN),
+           @"yes" : @(TOKEN_KIND_YES),
+           @"no" : @(TOKEN_KIND_NO),
+           @"." : @(TOKEN_KIND_DOT),
+           @"," : @(TOKEN_KIND_COMMA),
+           @"or" : @(TOKEN_KIND_OR),
+           @"and" : @(TOKEN_KIND_AND),
         } retain];
     }
     
-    NSInteger x = TOKEN_TYPE_BUILTIN_INVALID;
+    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
     id obj = d[name];
     if (obj) {
         x = [obj integerValue];
@@ -80,7 +80,7 @@
     }
 
     [self andExpr:NO];
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_OR), nil]]) {
+    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OR), nil]]) {
         [self orTerm:NO];
     }
 
@@ -112,7 +112,7 @@
     }
 
     [self relExpr:NO];
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_AND), nil]]) {
+    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_AND), nil]]) {
         [self andTerm:NO];
     }
 
@@ -144,7 +144,7 @@
     }
 
     [self callExpr:NO];
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_GE), @(TOKEN_TYPE_LT), @(TOKEN_TYPE_GT), @(TOKEN_TYPE_EQ), @(TOKEN_TYPE_NE), @(TOKEN_TYPE_LE), nil]]) {
+    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_NE), @(TOKEN_KIND_GE), @(TOKEN_KIND_GT), @(TOKEN_KIND_LE), @(TOKEN_KIND_EQ), @(TOKEN_KIND_LT), nil]]) {
         [self relOp:NO];
         [self callExpr:NO];
     }
@@ -161,17 +161,17 @@
         [self.preassembler performSelector:@selector(parser:willMatchRelOp:) withObject:self withObject:self.assembly];
     }
 
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_LT), nil]]) {
+    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_LT), nil]]) {
         [self lt:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_GT), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_GT), nil]]) {
         [self gt:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_EQ), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_EQ), nil]]) {
         [self eq:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_NE), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_NE), nil]]) {
         [self ne:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_LE), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_LE), nil]]) {
         [self le:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_GE), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_GE), nil]]) {
         [self ge:NO];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in relOp"];
@@ -190,9 +190,9 @@
     }
 
     [self primary:NO];
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_OPENPAREN), nil]]) {
+    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen:NO];
-        if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_NUMBER), @(TOKEN_TYPE_BUILTIN_WORD), @(TOKEN_TYPE_NO), @(TOKEN_TYPE_BUILTIN_QUOTEDSTRING), @(TOKEN_TYPE_YES), nil]]) {
+        if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
             [self argList:NO];
         }
         [self closeParen:NO];
@@ -211,7 +211,7 @@
     }
 
     [self atom:NO];
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_COMMA), nil]]) {
+    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_COMMA), nil]]) {
         [self comma:NO];
         [self atom:NO];
     }
@@ -228,9 +228,9 @@
         [self.preassembler performSelector:@selector(parser:willMatchPrimary:) withObject:self withObject:self.assembly];
     }
 
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_NUMBER), @(TOKEN_TYPE_NO), @(TOKEN_TYPE_BUILTIN_WORD), @(TOKEN_TYPE_BUILTIN_QUOTEDSTRING), @(TOKEN_TYPE_YES), nil]]) {
+    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), @(TOKEN_KIND_NO), nil]]) {
         [self atom:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_OPENPAREN), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen:NO];
         [self expr:NO];
         [self closeParen:NO];
@@ -250,9 +250,9 @@
         [self.preassembler performSelector:@selector(parser:willMatchAtom:) withObject:self withObject:self.assembly];
     }
 
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_WORD), nil]]) {
+    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), nil]]) {
         [self obj:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_NUMBER), @(TOKEN_TYPE_NO), @(TOKEN_TYPE_BUILTIN_QUOTEDSTRING), @(TOKEN_TYPE_YES), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_NO), nil]]) {
         [self literal:NO];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in atom"];
@@ -271,7 +271,7 @@
     }
 
     [self id:NO];
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_DOT), nil]]) {
+    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_DOT), nil]]) {
         [self member:NO];
     }
 
@@ -316,11 +316,11 @@
         [self.preassembler performSelector:@selector(parser:willMatchLiteral:) withObject:self withObject:self.assembly];
     }
 
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_QUOTEDSTRING), nil]]) {
+    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), nil]]) {
         [self QuotedString:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_BUILTIN_NUMBER), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self Number:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_YES), @(TOKEN_TYPE_NO), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_NO), nil]]) {
         [self bool:NO];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in literal"];
@@ -338,9 +338,9 @@
         [self.preassembler performSelector:@selector(parser:willMatchBool:) withObject:self withObject:self.assembly];
     }
 
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_YES), nil]]) {
+    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), nil]]) {
         [self yes:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_TYPE_NO), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), nil]]) {
         [self no:NO];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in bool"];
@@ -358,7 +358,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchLt:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_LT andDiscard:NO];
+    [self match:TOKEN_KIND_LT andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchLt:)]) {
         [self.assembler performSelector:@selector(parser:didMatchLt:) withObject:self withObject:self.assembly];
@@ -372,7 +372,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchGt:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_GT andDiscard:NO];
+    [self match:TOKEN_KIND_GT andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchGt:)]) {
         [self.assembler performSelector:@selector(parser:didMatchGt:) withObject:self withObject:self.assembly];
@@ -386,7 +386,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchEq:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_EQ andDiscard:NO];
+    [self match:TOKEN_KIND_EQ andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchEq:)]) {
         [self.assembler performSelector:@selector(parser:didMatchEq:) withObject:self withObject:self.assembly];
@@ -400,7 +400,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchNe:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_NE andDiscard:NO];
+    [self match:TOKEN_KIND_NE andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchNe:)]) {
         [self.assembler performSelector:@selector(parser:didMatchNe:) withObject:self withObject:self.assembly];
@@ -414,7 +414,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchLe:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_LE andDiscard:NO];
+    [self match:TOKEN_KIND_LE andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchLe:)]) {
         [self.assembler performSelector:@selector(parser:didMatchLe:) withObject:self withObject:self.assembly];
@@ -428,7 +428,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchGe:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_GE andDiscard:NO];
+    [self match:TOKEN_KIND_GE andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchGe:)]) {
         [self.assembler performSelector:@selector(parser:didMatchGe:) withObject:self withObject:self.assembly];
@@ -442,7 +442,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchOpenParen:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_OPENPAREN andDiscard:NO];
+    [self match:TOKEN_KIND_OPENPAREN andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchOpenParen:)]) {
         [self.assembler performSelector:@selector(parser:didMatchOpenParen:) withObject:self withObject:self.assembly];
@@ -456,7 +456,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchCloseParen:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_CLOSEPAREN andDiscard:YES];
+    [self match:TOKEN_KIND_CLOSEPAREN andDiscard:YES];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchCloseParen:)]) {
         [self.assembler performSelector:@selector(parser:didMatchCloseParen:) withObject:self withObject:self.assembly];
@@ -470,7 +470,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchYes:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_YES andDiscard:NO];
+    [self match:TOKEN_KIND_YES andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchYes:)]) {
         [self.assembler performSelector:@selector(parser:didMatchYes:) withObject:self withObject:self.assembly];
@@ -484,7 +484,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchNo:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_NO andDiscard:NO];
+    [self match:TOKEN_KIND_NO andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchNo:)]) {
         [self.assembler performSelector:@selector(parser:didMatchNo:) withObject:self withObject:self.assembly];
@@ -498,7 +498,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchDot:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_DOT andDiscard:NO];
+    [self match:TOKEN_KIND_DOT andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchDot:)]) {
         [self.assembler performSelector:@selector(parser:didMatchDot:) withObject:self withObject:self.assembly];
@@ -512,7 +512,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchComma:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_COMMA andDiscard:NO];
+    [self match:TOKEN_KIND_COMMA andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchComma:)]) {
         [self.assembler performSelector:@selector(parser:didMatchComma:) withObject:self withObject:self.assembly];
@@ -526,7 +526,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchOr:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_OR andDiscard:NO];
+    [self match:TOKEN_KIND_OR andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchOr:)]) {
         [self.assembler performSelector:@selector(parser:didMatchOr:) withObject:self withObject:self.assembly];
@@ -540,7 +540,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchAnd:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_AND andDiscard:NO];
+    [self match:TOKEN_KIND_AND andDiscard:NO];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchAnd:)]) {
         [self.assembler performSelector:@selector(parser:didMatchAnd:) withObject:self withObject:self.assembly];

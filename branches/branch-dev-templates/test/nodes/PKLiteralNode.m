@@ -13,7 +13,7 @@
 @implementation PKLiteralNode
 
 - (void)dealloc {
-    self.tokenUserType = nil;
+    self.tokenKind = nil;
     [super dealloc];
 }
 

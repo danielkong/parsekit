@@ -10,6 +10,8 @@
 
 @interface PKSTokenKind : NSObject
 
++ (PKSTokenKind *)tokenKindWithStringValue:(NSString *)s name:(NSString *)name;
+
 @property (nonatomic, copy) NSString *stringValue;
-@property (nonatomic, assign) NSInteger integerValue;
+@property (nonatomic, copy) NSString *name;
 @end

@@ -522,7 +522,13 @@
 		D3B22A5D1703DA8000446945 /* ElementParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A5C1703DA8000446945 /* ElementParserTest.m */; };
 		D3B22A5F1703DB9700446945 /* PKSClassInterfaceTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A5E1703DB9700446945 /* PKSClassInterfaceTemplate.txt */; };
 		D3B22A621703DE2000446945 /* ExpressionParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A611703DE2000446945 /* ExpressionParserTest.m */; };
-		D3B22A651703E0A400446945 /* PKSTokenKind.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A641703E0A300446945 /* PKSTokenKind.m */; };
+		D3B22A661703E3EA00446945 /* PKSTokenKind.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A641703E0A300446945 /* PKSTokenKind.m */; };
+		D3B22A671703E3EC00446945 /* PKSTokenKind.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A641703E0A300446945 /* PKSTokenKind.m */; };
+		D3B22A681703E3ED00446945 /* PKSTokenKind.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A641703E0A300446945 /* PKSTokenKind.m */; };
+		D3B22A691703E3ED00446945 /* PKSTokenKind.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A641703E0A300446945 /* PKSTokenKind.m */; };
+		D3B22A6A1703E3F700446945 /* PKSTokenKind.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B22A631703E0A300446945 /* PKSTokenKind.h */; settings = {ATTRIBUTES = (); }; };
+		D3B22A6C1703E3FB00446945 /* PKSTokenKind.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B22A631703E0A300446945 /* PKSTokenKind.h */; settings = {ATTRIBUTES = (); }; };
+		D3B22A6D1703E3FC00446945 /* PKSTokenKind.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B22A631703E0A300446945 /* PKSTokenKind.h */; settings = {ATTRIBUTES = (); }; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3B986AE1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
@@ -3120,6 +3126,7 @@
 				D324B79416F8CAEF005FE823 /* PKPatternNode.h in Headers */,
 				D33724DA16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
 				D33724EA16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */,
+				D3B22A6A1703E3F700446945 /* PKSTokenKind.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3252,6 +3259,7 @@
 				D324B7A216F8CAF0005FE823 /* PKPatternNode.h in Headers */,
 				D33724DB16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
 				D33724EB16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */,
+				D3B22A6C1703E3FB00446945 /* PKSTokenKind.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3339,6 +3347,7 @@
 				D324B7B016F8CAF0005FE823 /* PKPatternNode.h in Headers */,
 				D33724DC16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
 				D33724EC16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */,
+				D3B22A6D1703E3FC00446945 /* PKSTokenKind.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3783,6 +3792,7 @@
 				D32612B116F6A0940021845F /* PKAlternationNode.m in Sources */,
 				D33724DD16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,
 				D33724ED16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */,
+				D3B22A691703E3ED00446945 /* PKSTokenKind.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3982,7 +3992,6 @@
 				D3B22A561703D03900446945 /* ExpressionParser.m in Sources */,
 				D3B22A5D1703DA8000446945 /* ElementParserTest.m in Sources */,
 				D3B22A621703DE2000446945 /* ExpressionParserTest.m in Sources */,
-				D3B22A651703E0A400446945 /* PKSTokenKind.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4027,6 +4036,7 @@
 				D34BB1250FF9F36200D7773A /* PKJSSymbol.m in Sources */,
 				D34BB1270FF9F36200D7773A /* PKJSUppercaseWord.m in Sources */,
 				D34BB1290FF9F36200D7773A /* PKJSWord.m in Sources */,
+				D3B22A681703E3ED00446945 /* PKSTokenKind.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4120,6 +4130,7 @@
 				D324B7C616F8CB17005FE823 /* PKPatternNode.m in Sources */,
 				D33724DE16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,
 				D33724EE16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */,
+				D3B22A671703E3EC00446945 /* PKSTokenKind.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4204,6 +4215,7 @@
 				D324B7D416F8CB17005FE823 /* PKPatternNode.m in Sources */,
 				D33724DF16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,
 				D33724EF16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */,
+				D3B22A661703E3EA00446945 /* PKSTokenKind.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

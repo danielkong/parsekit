@@ -12,7 +12,7 @@
 
 - (void)dealloc {
     self.grammarName = nil;
-    self.tokenUserTypes = nil;
+    self.tokenKinds = nil;
     [super dealloc];
 }
 

@@ -9,6 +9,7 @@
 #import "PKDefinitionPhaseVisitor.h"
 #import <ParseKit/PKCompositeParser.h>
 #import "NSString+ParseKitAdditions.h"
+#import "PKSTokenKind.h"
 
 @interface PKDefinitionPhaseVisitor ()
 @end
@@ -18,7 +19,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.collectTokenUserTypes = YES; // TODO
+        self.collectTokenKinds = YES; // TODO
     }
     return self;
 }
@@ -27,7 +28,7 @@
 - (void)dealloc {
     self.assembler = nil;
     self.preassembler = nil;
-    self.tokenUserTypes = nil;
+    self.tokenKinds = nil;
     self.currentDefName = nil;
     [super dealloc];
 }
@@ -37,15 +38,15 @@
     NSParameterAssert(node);
     NSAssert(self.symbolTable, @"");
     
-    if (_collectTokenUserTypes) {
-        self.tokenUserTypes = [NSMutableArray array];
+    if (_collectTokenKinds) {
+        self.tokenKinds = [NSMutableArray array];
     }
     
     [self recurse:node];
 
-    if (_collectTokenUserTypes) {
-        node.tokenUserTypes = _tokenUserTypes;
-        self.tokenUserTypes = nil;
+    if (_collectTokenKinds) {
+        node.tokenKinds = _tokenKinds;
+        self.tokenKinds = nil;
     }
 
     self.symbolTable = nil;
@@ -66,7 +67,7 @@
     // set name
     NSString *name = node.token.stringValue;
     cp.name = name;
-    if (_collectTokenUserTypes) {
+    if (_collectTokenKinds) {
         self.currentDefName = name;
     }
     
@@ -156,14 +157,17 @@
 - (void)visitLiteral:(PKLiteralNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
  
-    if (_collectTokenUserTypes) {
-        NSAssert(_tokenUserTypes, @"");
+    if (_collectTokenKinds) {
+        NSAssert(_tokenKinds, @"");
         NSAssert(_currentDefName, @"");
-        NSString *key = [node.token.stringValue stringByTrimmingQuotes];
-        NSString *source = [NSString stringWithFormat:@"TOKEN_TYPE_%@", [_currentDefName uppercaseString]];
-        id d = @{@"key": key, @"source": source};
-        [_tokenUserTypes addObject:d];
-        node.tokenUserType = d;
+        
+        NSString *s = [node.token.stringValue stringByTrimmingQuotes];
+        NSString *name = [NSString stringWithFormat:@"TOKEN_KIND_%@", [_currentDefName uppercaseString]];
+        PKSTokenKind *kind = [PKSTokenKind tokenKindWithStringValue:s name:name];
+        
+        [_tokenKinds addObject:kind];
+        node.tokenKind = kind;
+
         self.currentDefName = nil;
     }
 }

@@ -10,18 +10,19 @@
 #import <ParseKit/ParseKit.h>
 
 #import "PKSParser.h"
+#import "PKSTokenKind.h"
 #import "NSString+ParseKitAdditions.h"
 
 #import "MGTemplateEngine.h"
 #import "ICUTemplateMatcher.h"
 
 #define CLASS_NAME @"className"
-#define TOKEN_USER_TYPES_START_INDEX @"startIndex"
-#define TOKEN_USER_TYPES @"tokenUserTypes"
+#define TOKEN_KINDS_START_INDEX @"startIndex"
+#define TOKEN_KINDS @"tokenKinds"
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
 #define METHOD_BODY @"methodBody"
-#define TOKEN_USER_TYPE @"tokenUserType"
+#define TOKEN_KIND @"tokenKind"
 #define CHILD_NAME @"childName"
 #define DEPTH @"depth"
 #define LOOKAHEAD_SET @"lookaheadSet"
@@ -100,12 +101,14 @@
     
     switch (node.type) {
         case PKNodeTypeConstant: {
-            //[set addObject:_tokenUserTypes[node.token.tokenType]];
-            [set addObject:@{@"source": [NSString stringWithFormat:@"TOKEN_TYPE_BUILTIN_%@", [node.token.stringValue uppercaseString]]}];
+            //[set addObject:_tokenKinds[node.token.tokenType]];
+            NSString *name = [NSString stringWithFormat:@"TOKEN_KIND_BUILTIN_%@", [node.token.stringValue uppercaseString]];
+            PKSTokenKind *kind = [PKSTokenKind tokenKindWithStringValue:nil name:name];
+            [set addObject:kind];
         } break;
         case PKNodeTypeLiteral: {
             PKLiteralNode *litNode = (PKLiteralNode *)node;
-            [set addObject:litNode.tokenUserType];
+            [set addObject:litNode.tokenKind];
         } break;
         case PKNodeTypeReference: {
             NSString *name = node.token.stringValue;
@@ -162,8 +165,8 @@
     // setup vars
     id vars = [NSMutableDictionary dictionary];
     vars[CLASS_NAME] = [NSString stringWithFormat:@"%@Parser", node.grammarName];
-    vars[TOKEN_USER_TYPES_START_INDEX] = @(TOKEN_TYPE_BUILTIN_ANY + 1);
-    vars[TOKEN_USER_TYPES] = node.tokenUserTypes;
+    vars[TOKEN_KINDS_START_INDEX] = @(TOKEN_KIND_BUILTIN_ANY + 1);
+    vars[TOKEN_KINDS] = node.tokenKinds;
     
     // do interface (header)
     NSString *intTemplate = [self templateStringNamed:@"PKSClassInterfaceTemplate"];
@@ -472,8 +475,7 @@
     
     // stup vars
     id vars = [NSMutableDictionary dictionary];
-    NSDictionary *t = node.tokenUserType;
-    vars[TOKEN_USER_TYPE] = t;
+    vars[TOKEN_KIND] = node.tokenKind;
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
 

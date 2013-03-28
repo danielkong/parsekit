@@ -8,8 +8,10 @@
 
 #import "PKBaseNode.h"
 
+@class PKSTokenKind;
+
 @interface PKLiteralNode : PKBaseNode
 
 @property (nonatomic, assign) BOOL wantsCharacters;
-@property (nonatomic, retain) NSDictionary *tokenUserType;
+@property (nonatomic, retain) PKSTokenKind *tokenKind;
 @end

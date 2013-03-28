@@ -15,15 +15,15 @@
 	[super dealloc];
 }
 
-- (NSInteger)tokenUserTypeForString:(NSString *)name {
+- (NSInteger)tokenKindForString:(NSString *)name {
     static NSDictionary *d = nil;
     if (!d) {
         d = [@{
-{%for userType in tokenUserTypes %}           @"{{userType.key}}" : @({{userType.source}}),
+{%for kind in tokenKinds %}           @"{{kind.stringValue}}" : @({{kind.name}}),
 {%/for%}        } retain];
     }
     
-    NSInteger x = TOKEN_TYPE_BUILTIN_INVALID;
+    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
     id obj = d[name];
     if (obj) {
         x = [obj integerValue];
