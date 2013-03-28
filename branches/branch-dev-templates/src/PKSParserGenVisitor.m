@@ -130,13 +130,31 @@
 }
 
 
+- (void)setUpSymbolTableFromRoot:(PKRootNode *)node {
+    
+    NSUInteger c = [node.children count];
+    
+    NSMutableDictionary *symTab = [NSMutableDictionary dictionaryWithCapacity:c];
+    
+    for (PKBaseNode *child in node.children) {
+        NSString *key = child.token.stringValue;
+        symTab[key] = child;
+    }
+    
+    self.symbolTable = symTab;
+}
+
+
 #pragma mark -
 #pragma mark PKVisitor
 
 - (void)visitRoot:(PKRootNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSParameterAssert(node);
-        
+    
+    // setup symbol table
+    [self setUpSymbolTableFromRoot:node];
+    
     // setup stack
     self.outputStringStack = [NSMutableArray array];
 

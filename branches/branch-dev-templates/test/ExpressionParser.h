@@ -17,6 +17,6 @@ enum {
     TOKEN_TYPE_AND,
 };
 
-@interface ElementParser : PKSParser
+@interface ExpressionParser : PKSParser
 
 @end
