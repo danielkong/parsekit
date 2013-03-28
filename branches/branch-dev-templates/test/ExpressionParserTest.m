@@ -1,46 +1,46 @@
 //
-//  ElementParserTest.m
+//  ExpressionParserTest.m
 //  ParseKit
 //
 //  Created by Todd Ditchendorf on 3/27/13.
 //
 //
 
-#import "ElementParserTest.h"
+#import "ExpressionParserTest.h"
 #import "PKParserFactory.h"
 #import "PKSParserGenVisitor.h"
 #import "PKRootNode.h"
-#import "ElementParser.h"
+#import "ExpressionParser.h"
 
-@interface ElementParserTest ()
+@interface ExpressionParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;
 @property (nonatomic, retain) PKSParserGenVisitor *visitor;
 @end
 
-@implementation ElementParserTest
+@implementation ExpressionParserTest
 
 - (void)setUp {
     self.factory = [PKParserFactory factory];
     
     NSError *err = nil;
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"elements" ofType:@"grammar"];
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"expression" ofType:@"grammar"];
     NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
     
     err = nil;
     self.root = (id)[_factory ASTFromGrammar:g error:&err];
-    _root.grammarName = @"Element";
+    _root.grammarName = @"Expression";
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     [_root visit:_visitor];
     
-    path = [@"~/work/parsekit/trunk/test/ElementParser.h" stringByExpandingTildeInPath];
+    path = [@"~/work/parsekit/trunk/test/ExpressionParser.h" stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
     }
 
-    path = [@"~/work/parsekit/trunk/test/ElementParser.m" stringByExpandingTildeInPath];
+    path = [@"~/work/parsekit/trunk/test/ExpressionParser.m" stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
@@ -54,14 +54,14 @@
 
 
 - (void)testFoo {    
-    ElementParser *p = [[[ElementParser alloc] init] autorelease];
+    ExpressionParser *p = [[[ExpressionParser alloc] init] autorelease];
     p.assembler = self;
     
-    [p parse:@"[1, [2,3],4]" error:nil];
+    [p parse:@"foo.bar('hello') or bar" error:nil];
 }
 
 
-- (void)parser:(PKSParser *)p didMatchList:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchArgList:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
