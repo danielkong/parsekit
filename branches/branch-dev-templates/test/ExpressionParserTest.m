@@ -58,6 +58,9 @@
     p.assembler = self;
     
     [p parse:@"foo.bar('hello') or bar" error:nil];
+    PKAssembly *res = p.assembly;
+    
+    TDEqualObjects(@"[foo, ., bar, (, 'hello', or, bar]foo/./bar/(/'hello'/)/or/bar^", [res description]);
 }
 
 

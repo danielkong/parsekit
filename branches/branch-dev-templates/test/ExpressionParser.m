@@ -456,7 +456,7 @@
         [self.preassembler performSelector:@selector(parser:willMatchCloseParen:) withObject:self withObject:self.assembly];
     }
 
-    [self match:TOKEN_TYPE_CLOSEPAREN andDiscard:NO];
+    [self match:TOKEN_TYPE_CLOSEPAREN andDiscard:YES];
 
     if (self.assembler && [self.assembler respondsToSelector:@selector(parser:didMatchCloseParen:)]) {
         [self.assembler performSelector:@selector(parser:didMatchCloseParen:) withObject:self withObject:self.assembly];

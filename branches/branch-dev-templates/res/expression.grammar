@@ -35,7 +35,7 @@ le = '<=';
 ge = '>=';
 
 openParen = '(';
-closeParen = ')';
+closeParen = ')'!;
 yes = 'yes';
 no = 'no';
 
