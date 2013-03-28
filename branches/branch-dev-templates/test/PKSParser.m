@@ -89,7 +89,7 @@
     // handle empty
     if (TOKEN_TYPE_BUILTIN_EMPTY == x) return;
     
-    if (_lookahead.userType == x || TOKEN_TYPE_BUILTIN_ANY == x) {
+    if (_lookahead.tokenKind == x || TOKEN_TYPE_BUILTIN_ANY == x) {
         if (!discard) {
             [_assembly push:_lookahead];
         }
@@ -108,13 +108,13 @@
         self.lookahead = [_assembly next];
                 
         // set token user type
-        _lookahead.userType = [self tokenUserTypeForToken:_lookahead];
+        _lookahead.tokenKind = [self tokenUserTypeForToken:_lookahead];
     }
 }
 
 
 - (BOOL)predicts:(NSSet *)set {
-    NSInteger x = _lookahead.userType;
+    NSInteger x = _lookahead.tokenKind;
     BOOL result = [set containsObject:@(x)];
     return result;
 }

@@ -231,7 +231,7 @@ static PKTokenEOF *EOFToken = nil;
 @synthesize floatValue;
 @synthesize stringValue;
 @synthesize tokenType;
-@synthesize userType;
+@synthesize tokenKind;
 @synthesize value;
 @synthesize offset;
 @synthesize lineNumber;

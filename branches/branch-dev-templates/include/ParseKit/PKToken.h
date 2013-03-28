@@ -55,7 +55,7 @@ typedef enum {
     PKFloat floatValue;
     NSString *stringValue;
     PKTokenType tokenType;
-    NSInteger userType;
+    NSInteger tokenKind;
     
     BOOL number;
     BOOL quotedString;
@@ -225,8 +225,8 @@ typedef enum {
 @property (nonatomic, readonly) NSUInteger lineNumber;
 
 /*!
-    @property   userType
-    @brief      The user type of this token.
+    @property   tokenKind
+    @brief      The kind of this token.
 */
-@property (nonatomic) NSInteger userType;
+@property (nonatomic) NSInteger tokenKind;
 @end
