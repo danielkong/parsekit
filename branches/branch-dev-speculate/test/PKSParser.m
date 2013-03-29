@@ -157,8 +157,7 @@
 
 
 - (BOOL)_predicts:(NSSet *)set {
-    PKToken *lt = [self _lt:1];
-    NSInteger x = lt.tokenKind;
+    NSInteger x = [self _la:1];
     BOOL result = [set containsObject:@(x)];
     return result;
 }
