@@ -12,7 +12,7 @@
 #import "PKRootNode.h"
 #import "ElementParser.h"
 
-#define EMIT 0
+#define EMIT 1
 
 @interface ElementParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;

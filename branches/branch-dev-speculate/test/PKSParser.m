@@ -41,13 +41,11 @@
     id result = nil;
     
     // setup tokenizer
-    PKTokenizer *t = self.tokenizer;
-    if (!t) t = [PKTokenizer tokenizer];
-    t.string = s;
-    self.tokenizer = t;
+    if (!_tokenizer) self.tokenizer = [PKTokenizer tokenizer];
+    _tokenizer.string = s;
 
     // setup assembly
-    self.assembly = [PKTokenAssembly assemblyWithTokenizer:t];
+    self.assembly = [PKTokenAssembly assemblyWithTokenizer:_tokenizer];
 
     // setup speculation
     self.p = 0;
@@ -57,8 +55,10 @@
     @try {
 
         @autoreleasepool {
-            [self __start];
+            // parse
+            [self _start];
             
+            // get result
             if (_assembly.target) {
                 result = _assembly.target;
             } else {
@@ -94,22 +94,22 @@
 }
 
 
-- (void)__match:(NSInteger)x {
+- (void)_match:(NSInteger)x {
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_EOF);
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
-    //NSLog(@"lookahead %@", [_lookahead debugDescription]);
+    //NSLog(@"lookahead %@", _lookahead);
     //NSLog(@"assembly %@", [_assembly description]);
 
     // always match empty
     if (TOKEN_KIND_BUILTIN_EMPTY == x) return;
     
-    PKToken *lt = [self __lt:1];
+    PKToken *lt = [self _lt:1];
     if (lt.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
         [_assembly push:lt];
         
-        [self __consume];
+        [self _consume];
     } else {
         // This is a "Runtime" (rather than "checked" exception) in Java parlance.
         // An obvious programmer error has been made and must be fixed.
@@ -118,7 +118,7 @@
 }
 
 
-- (void)__consume {
+- (void)_consume {
     self.p++;
     
     // have we hit end of buffer when not backtracking?
@@ -128,25 +128,25 @@
         [_lookahead removeAllObjects]; // size goes to 0, but retains memory on heap
     }
 
-    [self __sync:1];
+    [self _sync:1];
 }
 
 
-- (void)__discard {
+- (void)_discard {
     NSAssert(![_assembly isStackEmpty], @"");
     [_assembly pop];
 }
 
 
-- (BOOL)__predicts:(NSSet *)set {
-    PKToken *lt = [self __lt:1];
+- (BOOL)_predicts:(NSSet *)set {
+    PKToken *lt = [self _lt:1];
     NSInteger x = lt.tokenKind;
     BOOL result = [set containsObject:@(x)];
     return result;
 }
 
 
-- (void)__fireAssemblerSelector:(SEL)sel {
+- (void)_fireAssemblerSelector:(SEL)sel {
     if (self.isSpeculating) return;
     
     if (_assembler && [_assembler respondsToSelector:sel]) {
@@ -155,8 +155,8 @@
 }
 
 
-- (PKToken *)__lt:(NSInteger)i {
-    [self __sync:i];
+- (PKToken *)_lt:(NSInteger)i {
+    [self _sync:i];
     
     NSUInteger idx = _p + i - 1;
     NSAssert(idx < [_lookahead count], @"");
@@ -166,26 +166,26 @@
 }
 
 
-- (NSInteger)__la:(NSInteger)i {
-    return [[self __lt:i] tokenKind];
+- (NSInteger)_la:(NSInteger)i {
+    return [[self _lt:i] tokenKind];
 }
 
 
-- (NSInteger)__mark {
+- (NSInteger)_mark {
     [_markers addObject:_p];
     return _p;
 }
 
 
-- (void)__unmark {
+- (void)_unmark {
     NSInteger pop = [_markers count] - 1;
     NSInteger marker = _markers[pop];
     [_markers removeLastObject];
-    [self __seek:marker];
+    [self _seek:marker];
 }
 
 
-- (void)__seek:(NSInteger)index {
+- (void)_seek:(NSInteger)index {
     self.p = index;
 }
 
@@ -195,19 +195,19 @@
 }
 
 
-- (void)__sync:(NSInteger)i {
+- (void)_sync:(NSInteger)i {
     NSInteger lastNeededIndex = _p + i - 1;
     NSInteger lastFullIndex = [_lookahead count] - 1;
     
     if (lastNeededIndex > lastFullIndex) { // out of tokens ?
         NSInteger n = lastNeededIndex - lastFullIndex; // get n tokens
-        [self __fill:n];
+        [self _fill:n];
     }
 }
 
 
-- (void)__fill:(NSInteger)n {
-    for (NSUInteger i = 0; i <= n; ++i) { // <= ?? fetches 2 toks instead of 1
+- (void)_fill:(NSInteger)n {
+    for (NSUInteger i = 0; i <= n; ++i) { // <= ?? fetches an extra lookahead tok
         PKToken *tok = nil;
         if ([_assembly hasMore]) {
             tok = [_assembly next];
@@ -216,7 +216,7 @@
         }
 
         // set token kind
-        tok.tokenKind = [self __tokenKindForToken:tok];
+        tok.tokenKind = [self _tokenKindForToken:tok];
         
         // buffer in lookahead
         NSAssert(tok, @"");
@@ -225,8 +225,8 @@
 }
 
 
-- (NSInteger)__tokenKindForToken:(PKToken *)tok {
-    NSInteger x = [self __tokenKindForString:tok.stringValue];
+- (NSInteger)_tokenKindForToken:(PKToken *)tok {
+    NSInteger x = [self _tokenKindForString:tok.stringValue];
     
     if (TOKEN_KIND_BUILTIN_INVALID == x) {
         x = tok.tokenType;
@@ -236,15 +236,15 @@
 }
 
 
-- (NSInteger)__tokenKindForString:(NSString *)name {
+- (NSInteger)_tokenKindForString:(NSString *)name {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return TOKEN_KIND_BUILTIN_INVALID;
 }
 
 
-- (BOOL)__speculate:(SEL)sel {
+- (BOOL)_speculate:(SEL)sel {
     BOOL success = YES;
-    [self __mark];
+    [self _mark];
     
     @try {
         [self performSelector:sel];
@@ -253,75 +253,75 @@
         success = NO;
     }
     
-    [self __unmark];
+    [self _unmark];
     return success;
 }
 
 
-- (void)__start {
+- (void)_start {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
 
 - (void)Any {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_ANY];
+    [self _match:TOKEN_KIND_BUILTIN_ANY];
 }
 
 
 - (void)Empty {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
 }
 
 
 - (void)Word {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_WORD];
+    [self _match:TOKEN_KIND_BUILTIN_WORD];
 }
 
 
 - (void)Number {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_NUMBER];
+    [self _match:TOKEN_KIND_BUILTIN_NUMBER];
 }
 
 
 - (void)Symbol {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_SYMBOL];
+    [self _match:TOKEN_KIND_BUILTIN_SYMBOL];
 }
 
 
 - (void)Comment {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_COMMENT];
+    [self _match:TOKEN_KIND_BUILTIN_COMMENT];
 }
 
 
 - (void)Whitespace {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_WHITESPACE];
+    [self _match:TOKEN_KIND_BUILTIN_WHITESPACE];
 }
 
 
 - (void)QuotedString {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
+    [self _match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
 }
 
 
 - (void)DelimitedString {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
+    [self _match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
 }
 
 @end

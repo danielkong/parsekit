@@ -28,7 +28,7 @@
 	[super dealloc];
 }
 
-- (NSInteger)__tokenKindForString:(NSString *)name {
+- (NSInteger)_tokenKindForString:(NSString *)name {
     NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
 
     id obj = _tokenKindTab[name];

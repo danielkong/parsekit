@@ -30,7 +30,7 @@
 	[super dealloc];
 }
 
-- (NSInteger)__tokenKindForString:(NSString *)name {
+- (NSInteger)_tokenKindForString:(NSString *)name {
     NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
 
     id obj = _tokenKindTab[name];
@@ -41,12 +41,12 @@
     return x;
 }
 
-- (void)__start {
-	//NSLog(@"__start %@", self.assembly);
+- (void)_start {
+	//NSLog(@"_start %@", self.assembly);
     
     [self list]; 
 
-    [self __fireAssemblerSelector:@selector(parser:didMatch__start:)];
+    [self _fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)list {
@@ -56,57 +56,57 @@
     [self elements]; 
     [self rbracket]; 
 
-    [self __fireAssemblerSelector:@selector(parser:didMatchList:)];
+    [self _fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 
 - (void)elements {
 	//NSLog(@"elements %@", self.assembly);
     
     [self element]; 
-    while ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_COMMA), nil]]) {
+    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_COMMA), nil]]) {
         [self comma]; 
         [self element]; 
     }
 
-    [self __fireAssemblerSelector:@selector(parser:didMatchElements:)];
+    [self _fireAssemblerSelector:@selector(parser:didMatchElements:)];
 }
 
 - (void)element {
 	//NSLog(@"element %@", self.assembly);
     
-    if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
+    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self Number]; 
-    } else if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
+    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
         [self list]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in element"];
     }
 
-    [self __fireAssemblerSelector:@selector(parser:didMatchElement:)];
+    [self _fireAssemblerSelector:@selector(parser:didMatchElement:)];
 }
 
 - (void)lbracket {
 	//NSLog(@"lbracket %@", self.assembly);
     
-    [self __match:TOKEN_KIND_LBRACKET]; 
+    [self _match:TOKEN_KIND_LBRACKET]; 
 
-    [self __fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
+    [self _fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
 
 - (void)rbracket {
 	//NSLog(@"rbracket %@", self.assembly);
     
-    [self __match:TOKEN_KIND_RBRACKET]; [self __discard];
+    [self _match:TOKEN_KIND_RBRACKET]; [self _discard];
 
-    [self __fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
+    [self _fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
 
 - (void)comma {
 	//NSLog(@"comma %@", self.assembly);
     
-    [self __match:TOKEN_KIND_COMMA]; [self __discard];
+    [self _match:TOKEN_KIND_COMMA]; [self _discard];
 
-    [self __fireAssemblerSelector:@selector(parser:didMatchComma:)];
+    [self _fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
 @end
