@@ -12,10 +12,8 @@
 #import <ParseKit/PKTokenAssembly.h>
 
 @interface PKAssembly ()
-//- (id)peek;
 - (id)next;
 - (BOOL)hasMore;
-//@property (nonatomic, readonly) NSUInteger objectsConsumed;
 @end
 
 @interface PKSParser ()
