@@ -9,24 +9,19 @@
 #import "PKSParser.h"
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
-#import <ParseKit/PKTokenAssembly.h>
+#import "PKSTokenAssembly.h"
 #import "PKSRecognitionException.h"
 
-@interface PKTokenAssembly ()
-- (id)next;
-- (BOOL)hasMore;
-@property (nonatomic, readonly) NSUInteger objectsConsumed;
-@property (nonatomic, copy) NSArray *tokens;
+@interface PKSTokenAssembly ()
+//- (id)next;
 @end
 
 @interface PKSParser ()
-@property (nonatomic, retain) PKTokenAssembly *assembly;
-@property (nonatomic, retain) NSArray *tokens;
+@property (nonatomic, retain) PKSTokenAssembly *assembly;
 @property (nonatomic, retain) NSMutableArray *lookahead;
 @property (nonatomic, retain) NSMutableArray *markers;
 @property (nonatomic, retain) NSMutableArray *assemblies;
 @property (nonatomic, assign) NSInteger p;
-@property (nonatomic, assign) NSInteger t;
 @property (nonatomic, assign, readonly) BOOL isSpeculating;
 
 - (NSInteger)_mark;
@@ -42,7 +37,6 @@
     self.tokenizer = nil;
     self.assembler = nil;
     self.assembly = nil;
-    self.tokens = nil;
     self.lookahead = nil;
     self.markers = nil;
     self.assemblies = nil;
@@ -58,13 +52,10 @@
     _tokenizer.string = s;
 
     // setup assembly
-    self.assembly = [PKTokenAssembly assemblyWithTokenizer:_tokenizer];
+    self.assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
     
-    self.tokens = _assembly.tokens;
-
     // setup speculation
     self.p = 0;
-    self.t = 0;
     self.lookahead = [NSMutableArray array];
     self.markers = [NSMutableArray array];
     self.assemblies = [NSMutableArray array];
@@ -125,8 +116,7 @@
     PKToken *lt = [self _lt:1];
     if (lt.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
         if (!self.isSpeculating) {
-            [_assembly push:lt];
-            [_assembly next];
+            [_assembly consume:lt];
         }
         
         [self _consume];
@@ -233,13 +223,7 @@
     for (NSUInteger i = 0; i <= n; ++i) { // <= ?? fetches an extra lookahead tok
         
         // -nextToken
-        PKToken *tok = nil;
-        if (_t < [_tokens count]) {
-            tok = _tokens[_t];
-            self.t++;
-        } else {
-            tok = [PKToken EOFToken];
-        }
+        PKToken *tok = [_tokenizer nextToken];
 
         // set token kind
         tok.tokenKind = [self _tokenKindForToken:tok];

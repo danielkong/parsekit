@@ -71,7 +71,7 @@
 - (void)parser:(PKSParser *)p didMatchList:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
-    TDTrue([[a description] isEqualToString:@"[[, 1][/1/]^=/[/2/]"] ||
+    TDTrue([[a description] isEqualToString:@"[[, 1][/1/]^"] ||
            [[a description] isEqualToString:@"[[, 1, =, [, 2][/1/]/=/[/2/]^"]);
 }
 
