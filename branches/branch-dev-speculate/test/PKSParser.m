@@ -20,7 +20,6 @@
 @property (nonatomic, retain) PKSTokenAssembly *assembly;
 @property (nonatomic, retain) NSMutableArray *lookahead;
 @property (nonatomic, retain) NSMutableArray *markers;
-@property (nonatomic, retain) NSMutableArray *assemblies;
 @property (nonatomic, assign) NSInteger p;
 @property (nonatomic, assign, readonly) BOOL isSpeculating;
 
@@ -39,7 +38,6 @@
     self.assembly = nil;
     self.lookahead = nil;
     self.markers = nil;
-    self.assemblies = nil;
     [super dealloc];
 }
 
@@ -63,7 +61,6 @@
     self.p = 0;
     self.lookahead = [NSMutableArray array];
     self.markers = [NSMutableArray array];
-    self.assemblies = [NSMutableArray array];
 
     @try {
 
@@ -226,8 +223,6 @@
 
 - (void)_fill:(NSInteger)n {
     for (NSUInteger i = 0; i <= n; ++i) { // <= ?? fetches an extra lookahead tok
-        
-        // -nextToken
         PKToken *tok = [_tokenizer nextToken];
 
         // set token kind
