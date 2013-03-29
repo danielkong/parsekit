@@ -4,7 +4,7 @@
 #import "PKSNoViableException.h"
 
 @interface PKSParser ()
-@property (nonatomic, retain) PKAssembly *assembly;
+@property (nonatomic, retain) PKAssembly *_assembly;
 @end
 
 @interface {{className}} ()

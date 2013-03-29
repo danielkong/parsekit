@@ -46,8 +46,8 @@ enum {
 - (NSInteger)_tokenKindForString:(NSString *)name;
 
 // speculation
-- (PKToken *)_lt;
-- (NSInteger)_la;
+- (PKToken *)_lt:(NSInteger)i;
+- (NSInteger)_la:(NSInteger)i;
 - (BOOL)_speculate:(SEL)sel;
 
 // builtin token types
