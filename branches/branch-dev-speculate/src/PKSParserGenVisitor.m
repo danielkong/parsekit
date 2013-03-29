@@ -362,7 +362,7 @@
     
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
-    self.isSpeculating = YES;
+    self.isSpeculating = needsBacktrack;
     
     // recurse
     NSUInteger idx = 0;
@@ -487,8 +487,6 @@
     vars[DISCARD] = @(node.discard);
 
     // merge
-//    NSString *templateName = self.isSpeculating ? @"PKSMethodSpeculateTemplate" : @"PKSMethodCallTemplate";
-//    NSString *template = [self templateStringNamed:templateName];
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];
     
