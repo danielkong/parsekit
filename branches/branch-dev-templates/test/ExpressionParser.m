@@ -116,7 +116,7 @@
 	NSLog(@"relExpr %@", self.assembly);
     
     [self callExpr:NO];
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_LT), @(TOKEN_KIND_GT), @(TOKEN_KIND_GE), @(TOKEN_KIND_NE), @(TOKEN_KIND_LE), @(TOKEN_KIND_EQ), nil]]) {
+    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_GT), @(TOKEN_KIND_GE), @(TOKEN_KIND_LE), @(TOKEN_KIND_NE), @(TOKEN_KIND_EQ), @(TOKEN_KIND_LT), nil]]) {
         [self relOp:NO];
         [self callExpr:NO];
     }
@@ -156,7 +156,7 @@
     [self primary:NO];
     if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen:NO];
-        if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), nil]]) {
+        if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
             [self argList:NO];
         }
         [self closeParen:NO];
@@ -184,7 +184,7 @@
 - (void)primary:(BOOL)discard {
 	NSLog(@"primary %@", self.assembly);
     
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_WORD), nil]]) {
+    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
         [self atom:NO];
     } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen:NO];
@@ -204,7 +204,7 @@
     
     if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), nil]]) {
         [self obj:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
         [self literal:NO];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in atom"];
@@ -256,7 +256,7 @@
         [self QuotedString:NO];
     } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self Number:NO];
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_NO), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_YES), nil]]) {
         [self bool:NO];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in literal"];
