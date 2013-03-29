@@ -69,7 +69,7 @@
 
 
 - (void)parser:(PKSParser *)p didMatchArgList:(PKAssembly *)a {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
 

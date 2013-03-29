@@ -51,7 +51,7 @@ enum {
 - (PKToken *)__lt;
 - (NSInteger)__la;
 - (BOOL)__speculate:(SEL)sel;
-- (NSUInteger)__mark;
+- (NSInteger)__mark;
 - (void)__unmark;
 - (void)__seek:(NSInteger)index;
 - (void)__sync:(NSInteger)i;

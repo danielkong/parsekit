@@ -21,7 +21,7 @@
 @property (nonatomic, retain) PKAssembly *assembly;
 @property (nonatomic, retain) NSMutableArray *lookahead;
 @property (nonatomic, retain) NSMutableArray *markers;
-@property (nonatomic, assign) NSUInteger p;
+@property (nonatomic, assign) NSInteger p;
 @property (nonatomic, assign, readonly) BOOL isSpeculating;
 @end
 
@@ -57,7 +57,7 @@
     @try {
 
         @autoreleasepool {
-            [self __consume]; // prime the lookahead token
+//            [self __consume]; // prime the lookahead token
             [self __start];
             
             if (_assembly.target) {
@@ -120,15 +120,16 @@
 
 
 - (void)__consume {
-    if ([_assembly hasMore]) {
-        
-        // advance
-        PKToken *lt = [_assembly next];
-        _lookahead[_p] = lt; // TODO
-        
-        // set token kind
-        lt.tokenKind = [self __tokenKindForToken:lt];
+    self.p++;
+    
+    // have we hit end of buffer when not backtracking?
+    if (_p == [_lookahead count] && !self.isSpeculating) {
+        // if so, it's an opp to start filling at index 0 again
+        self.p = 0;
+        [_lookahead removeAllObjects]; // size goes to 0, but retains memory on heap
     }
+
+    [self __sync:1];
 }
 
 
@@ -158,7 +159,13 @@
 - (PKToken *)__lt:(NSInteger)i {
     [self __sync:i];
     
-    return _lookahead[_p + i - 1];
+    PKToken *tok = nil;
+    NSUInteger idx = _p + i - 1;
+    if (idx < [_lookahead count]) {
+        tok = _lookahead[idx];
+    }
+    
+    return tok;
 }
 
 
@@ -167,15 +174,15 @@
 }
 
 
-- (NSUInteger)__mark {
+- (NSInteger)__mark {
     [_markers addObject:_p];
     return _p;
 }
 
 
 - (void)__unmark {
-    NSUInteger pop = [_markers count] - 1;
-    NSUInteger marker = _markers[pop];
+    NSInteger pop = [_markers count] - 1;
+    NSInteger marker = _markers[pop];
     [_markers removeLastObject];
     [self __seek:marker];
 }
@@ -192,28 +199,25 @@
 
 
 - (void)__sync:(NSInteger)i {
-    return; // TODO
-    
-    NSUInteger lastNeededIndex = _p + i - 1;
-    NSUInteger lastFullIndex = [_lookahead count] - 1;
+    NSInteger lastNeededIndex = _p + i - 1;
+    NSInteger lastFullIndex = [_lookahead count] - 1;
     
     if (lastNeededIndex > lastFullIndex) { // out of tokens ?
-        NSUInteger n = lastNeededIndex - lastFullIndex; // get n tokens
+        NSInteger n = lastNeededIndex - lastFullIndex; // get n tokens
         [self __fill:n];
     }
 }
 
 
 - (void)__fill:(NSInteger)n {
-    return; // TODO
-
-    for (NSUInteger i = 0; i <= n; ++i) {
+    for (NSUInteger i = 0; i <= n && [_assembly hasMore]; ++i) {
         PKToken *tok = [_assembly next];
 
         // set token kind
         tok.tokenKind = [self __tokenKindForToken:tok];
         
         // buffer in lookahead
+        NSAssert(tok, @"");
         [_lookahead addObject:tok];
     }
 }
