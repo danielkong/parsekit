@@ -35,6 +35,7 @@
 - (PKToken *)_LT:(NSInteger)i;
 - (NSInteger)_LA:(NSInteger)i;
 
+- (void)_consume;
 - (NSInteger)_mark;
 - (void)_unmark;
 - (void)_seek:(NSInteger)index;
