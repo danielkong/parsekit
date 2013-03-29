@@ -26,6 +26,7 @@
 		D3083AB61705F05C00DA6F95 /* elementsAssign.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3083AB51705F05C00DA6F95 /* elementsAssign.grammar */; };
 		D3083AB91705F09B00DA6F95 /* ElementAssignParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3083AB81705F09B00DA6F95 /* ElementAssignParserTest.m */; };
 		D3083ABC1705F16000DA6F95 /* ElementAssignParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3083ABB1705F16000DA6F95 /* ElementAssignParser.m */; };
+		D3083ABE1705F73600DA6F95 /* PKSMethodSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3083ABD1705F73500DA6F95 /* PKSMethodSpeculateTemplate.txt */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
@@ -972,6 +973,7 @@
 		D3083AB81705F09B00DA6F95 /* ElementAssignParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ElementAssignParserTest.m; path = test/ElementAssignParserTest.m; sourceTree = "<group>"; };
 		D3083ABA1705F16000DA6F95 /* ElementAssignParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ElementAssignParser.h; path = test/ElementAssignParser.h; sourceTree = "<group>"; };
 		D3083ABB1705F16000DA6F95 /* ElementAssignParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ElementAssignParser.m; path = test/ElementAssignParser.m; sourceTree = "<group>"; };
+		D3083ABD1705F73500DA6F95 /* PKSMethodSpeculateTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSMethodSpeculateTemplate.txt; path = res/PKSMethodSpeculateTemplate.txt; sourceTree = "<group>"; };
 		D3126D040FFD9BA700CBF4C4 /* PKNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNegation.m; path = src/PKNegation.m; sourceTree = "<group>"; };
 		D3126D090FFD9E4B00CBF4C4 /* TDNegationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNegationTest.h; path = test/TDNegationTest.h; sourceTree = "<group>"; };
 		D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationTest.m; path = test/TDNegationTest.m; sourceTree = "<group>"; };
@@ -2576,6 +2578,7 @@
 				D302272A17020F9400594F16 /* PKSClassImplementationTemplate.txt */,
 				D3B22A3517023F1200446945 /* PKSMethodTemplate.txt */,
 				D3B22A37170241F500446945 /* PKSMethodCallTemplate.txt */,
+				D3083ABD1705F73500DA6F95 /* PKSMethodSpeculateTemplate.txt */,
 				D3B22A3B170264FD00446945 /* PKSMatchCallTemplate.txt */,
 				D3B22A3F17026FBE00446945 /* PKSPredictIfTemplate.txt */,
 				D3B22A3D17026FBE00446945 /* PKSPredictElseIfTemplate.txt */,
@@ -3689,6 +3692,7 @@
 				D3B22A4E1702A1F800446945 /* PKSRepetitionStartTemplate.txt in Resources */,
 				D3B22A5F1703DB9700446945 /* PKSClassInterfaceTemplate.txt in Resources */,
 				D3083AB61705F05C00DA6F95 /* elementsAssign.grammar in Resources */,
+				D3083ABE1705F73600DA6F95 /* PKSMethodSpeculateTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

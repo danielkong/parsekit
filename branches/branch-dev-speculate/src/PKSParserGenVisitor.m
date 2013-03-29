@@ -28,6 +28,7 @@
 #define LOOKAHEAD_SET @"lookaheadSet"
 #define OPT_BODY @"optBody"
 #define DISCARD @"discard"
+#define NEEDS_BACKTRACK @"needsBacktrack"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSString *)mstr;
@@ -240,7 +241,9 @@
     vars[DISCARD] = @(node.discard);
 
     // merge
-    NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
+    NSString *templateName = self.isSpeculating ? @"PKSMethodSpeculateTemplate" : @"PKSMethodCallTemplate";
+    NSString *template = [self templateStringNamed:templateName];
+//    NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];
     
     // push
@@ -355,10 +358,12 @@
     }
     
     NSLog(@"%@", lookaheadSets);
+    BOOL needsBacktrack = [overlap count];
     //NSAssert(0 == [overlap count], @"");
     
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
+    self.isSpeculating = YES;
     
     // recurse
     NSUInteger idx = 0;
@@ -368,6 +373,7 @@
         NSSet *set = lookaheadSets[idx];
         predictVars[LOOKAHEAD_SET] = set;
         predictVars[DEPTH] = @(_depth);
+        predictVars[NEEDS_BACKTRACK] = @(needsBacktrack);
 
         NSString *templateName = nil;
         
@@ -391,7 +397,8 @@
         [childStr appendString:[self pop]];
         ++idx;
     }
-    
+    self.isSpeculating = NO;
+
     id predictVars = [NSMutableDictionary dictionary];
     predictVars[METHOD_NAME] = _currentDefName;
     predictVars[DEPTH] = @(_depth);
@@ -481,6 +488,8 @@
     vars[DISCARD] = @(node.discard);
 
     // merge
+//    NSString *templateName = self.isSpeculating ? @"PKSMethodSpeculateTemplate" : @"PKSMethodCallTemplate";
+//    NSString *template = [self templateStringNamed:templateName];
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];
     

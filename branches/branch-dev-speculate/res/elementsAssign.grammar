@@ -1,6 +1,6 @@
 @start = stat;
 
-stat = list | assign;
+stat = assign | list;
 
 assign = list eq list;
 

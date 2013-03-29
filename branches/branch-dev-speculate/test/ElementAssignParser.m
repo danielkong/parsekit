@@ -51,12 +51,16 @@
 }
 
 - (void)stat {
-	//NSLog(@"stat %@", self.assembly);
+	NSLog(@"stat %@", self.assembly);
     
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
-        [self list]; 
+        if ([self _speculate:@selector(assign)]) {
+            [self assign]; 
+        }
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
-        [self assign]; 
+        if ([self _speculate:@selector(list)]) {
+            [self list]; 
+        }
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in stat"];
     }
@@ -97,12 +101,14 @@
 }
 
 - (void)element {
-	//NSLog(@"element %@", self.assembly);
+	NSLog(@"element %@", self.assembly);
     
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self Number]; 
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
-        [self list]; 
+        if ([self _speculate:@selector(list)]) {
+            [self list]; 
+        }
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in element"];
     }

@@ -178,14 +178,14 @@
 
 
 - (NSInteger)_mark {
-    [_markers addObject:_p];
+    [_markers addObject:@(_p)];
     return _p;
 }
 
 
 - (void)_unmark {
     NSInteger pop = [_markers count] - 1;
-    NSInteger marker = _markers[pop];
+    NSInteger marker = [_markers[pop] integerValue];
     [_markers removeLastObject];
     [self _seek:marker];
 }
