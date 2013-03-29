@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class PKAssembly;
 @class PKTokenizer;
 @class PKToken;
 
