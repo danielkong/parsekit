@@ -58,19 +58,30 @@
 }
 
 
-- (void)testFoo {
-    ElementAssignParser *p = [[[ElementAssignParser alloc] init] autorelease];
-    p.assembler = self;
-    
-    PKAssembly *res = [p parse:@"[1, [2,3],4]" error:nil];
-    
-    TDEqualObjects(@"[[, 1, [, 2, 3, 4][/1/,/[/2/,/3/]/,/4/]^", [res description]);
-}
+//- (void)testFoo {
+//    ElementAssignParser *p = [[[ElementAssignParser alloc] init] autorelease];
+//    p.assembler = self;
+//    
+//    PKAssembly *res = [p parse:@"[1, [2,3],4]" error:nil];
+//    
+//    TDEqualObjects(@"[[, 1, [, 2, 3, 4][/1/,/[/2/,/3/]/,/4/]^", [res description]);
+//}
 
 
 - (void)parser:(PKSParser *)p didMatchList:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
+
+
+- (void)testAssign {
+    ElementAssignParser *p = [[[ElementAssignParser alloc] init] autorelease];
+    p.assembler = self;
+    
+    PKAssembly *res = [p parse:@"[1]=[2]" error:nil];
+    
+    TDEqualObjects(@"[[, 1, =, [, 2][/1/]/=/[/2/]^", [res description]);
+}
+
 
 @end
