@@ -18,7 +18,8 @@
 @end
 
 @interface PKSParser ()
-@property (nonatomic, retain) PKToken *lookahead;
+@property (nonatomic, retain) NSMutableArray *lookahead;
+@property (nonatomic, assign) NSUInteger p;
 @property (nonatomic, assign) BOOL speculating;
 @property (nonatomic, retain) PKAssembly *assembly;
 @end
@@ -37,16 +38,23 @@
 - (id)parse:(NSString *)s error:(NSError **)outError {
     id result = nil;
     
+    // setup tokenizer
     PKTokenizer *t = self.tokenizer;
     if (!t) t = [PKTokenizer tokenizer];
     t.string = s;
     self.tokenizer = t;
+
+    // setup assembly
     self.assembly = [PKTokenAssembly assemblyWithTokenizer:t];
+
+    // setup speculation
+    self.p = 0;
+    self.lookahead = [NSMutableArray arrayWithCapacity:5];
 
     @try {
 
         @autoreleasepool {
-            [self __consume]; // get a lookahead token
+            [self __consume]; // prime the lookahead token
             [self __start];
             
             if (_assembly.target) {
@@ -95,14 +103,15 @@
     // always match empty
     if (TOKEN_KIND_BUILTIN_EMPTY == x) return;
     
-    if (_lookahead.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
-        [_assembly push:_lookahead];
+    PKToken *lt = [self __lt:1];
+    if (lt.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
+        [_assembly push:lt];
         
         [self __consume];
     } else {
         // This is a "Runtime" (rather than "checked" exception) in Java parlance.
         // An obvious programmer error has been made and must be fixed.
-        [NSException raise:@"PKRuntimeException" format:@"expecting %ld; found %@", x, _lookahead];
+        [NSException raise:@"PKRuntimeException" format:@"expecting %ld; found %@", x, lt];
     }
 }
 
@@ -111,10 +120,11 @@
     if ([_assembly hasMore]) {
         
         // advance
-        self.lookahead = [_assembly next];
-                
+        PKToken *lt = [_assembly next];
+        _lookahead[_p] = lt; // TODO
+        
         // set token kind
-        _lookahead.tokenKind = [self __tokenKindForToken:_lookahead];
+        lt.tokenKind = [self __tokenKindForToken:lt];
     }
 }
 
@@ -126,7 +136,8 @@
 
 
 - (BOOL)__predicts:(NSSet *)set {
-    NSInteger x = _lookahead.tokenKind;
+    PKToken *lt = [self __lt:1];
+    NSInteger x = lt.tokenKind;
     BOOL result = [set containsObject:@(x)];
     return result;
 }
@@ -138,6 +149,18 @@
     if (_assembler && [_assembler respondsToSelector:sel]) {
         [_assembler performSelector:sel withObject:self withObject:_assembly];
     }
+}
+
+
+- (PKToken *)__lt:(NSInteger)i {
+    [self __sync:i];
+    
+    return _lookahead[_p + i - 1];
+}
+
+
+- (NSInteger)__la:(NSInteger)i {
+    return [[self __lt:i] tokenKind];
 }
 
 
@@ -164,6 +187,27 @@
 
 - (void)__unmark {
     
+}
+
+
+- (void)__sync:(NSInteger)i {
+    return; // TODO
+    
+}
+
+
+- (void)__fill:(NSInteger)n {
+    return; // TODO
+
+    for (NSUInteger i = 0; i <= n; ++i) {
+        PKToken *tok = [_assembly next];
+
+        // set token kind
+        tok.tokenKind = [self __tokenKindForToken:tok];
+        
+        // buffer in lookahead
+        [_lookahead addObject:tok];
+    }
 }
 
 

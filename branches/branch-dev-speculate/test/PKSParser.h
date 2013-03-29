@@ -48,9 +48,13 @@ enum {
 - (NSInteger)__tokenKindForString:(NSString *)name;
 
 // speculation
+- (PKToken *)__lt;
+- (NSInteger)__la;
 - (BOOL)__speculate:(SEL)sel;
 - (void)__mark;
 - (void)__unmark;
+- (void)__sync:(NSInteger)i;
+- (void)__fill:(NSInteger)n;
 
 // builtin token types
 - (void)Any;
