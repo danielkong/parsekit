@@ -229,12 +229,6 @@
     if (lastNeededIndex > lastFullIndex) { // out of tokens ?
         NSInteger n = lastNeededIndex - lastFullIndex; // get n tokens
         [self _fill:n];
-    } else {
-        // fast-forward assembly
-//        NSInteger n = lastFullIndex - lastNeededIndex; // get n tokens
-//        while (n >= 0) {
-//            --n;
-//        }
     }
 }
 
