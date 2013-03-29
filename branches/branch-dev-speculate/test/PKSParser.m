@@ -15,6 +15,7 @@
 @interface PKAssembly ()
 - (id)next;
 - (BOOL)hasMore;
+@property (nonatomic, readonly) NSUInteger objectsConsumed;
 @end
 
 @interface PKSParser ()
@@ -22,7 +23,6 @@
 @property (nonatomic, retain) NSMutableArray *lookahead;
 @property (nonatomic, retain) NSMutableArray *markers;
 @property (nonatomic, retain) NSMutableArray *assemblies;
-@property (nonatomic, retain) NSMutableArray *lookaheads;
 @property (nonatomic, assign) NSInteger p;
 @property (nonatomic, assign, readonly) BOOL isSpeculating;
 
@@ -42,7 +42,6 @@
     self.lookahead = nil;
     self.markers = nil;
     self.assemblies = nil;
-    self.lookaheads = nil;
     [super dealloc];
 }
 
@@ -62,7 +61,6 @@
     self.lookahead = [NSMutableArray array];
     self.markers = [NSMutableArray array];
     self.assemblies = [NSMutableArray array];
-    self.lookaheads = [NSMutableArray array];
 
     @try {
 
@@ -188,7 +186,6 @@
     NSAssert([_markers count] == [_assemblies count],  @"");
     NSLog(@"marking: %@", _assembly);
     [_assemblies addObject:[[_assembly copy] autorelease]];
-    [_lookaheads addObject:[[_lookahead mutableCopy] autorelease]];
     [_markers addObject:@(_p)];
     return _p;
 }
@@ -197,13 +194,17 @@
 - (void)_unmark {
     NSAssert([_markers count] == [_assemblies count],  @"");
 
+    NSUInteger n = _assembly.objectsConsumed;
+    
     self.assembly = [_assemblies lastObject];
     [_assemblies removeLastObject];
     NSLog(@"unmarked to: %@", _assembly);
-
-    self.lookahead = [_lookaheads lastObject];
-    [_lookaheads removeLastObject];
-
+    
+    // fast-forward assembly
+    while (_assembly.objectsConsumed < n) {
+        [_assembly next];
+    }
+    
     NSInteger marker = [[_markers lastObject] integerValue];
     [_markers removeLastObject];
     
