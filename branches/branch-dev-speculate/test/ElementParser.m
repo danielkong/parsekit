@@ -4,11 +4,11 @@
 #import "PKSNoViableException.h"
 
 @interface PKSParser ()
-@property (nonatomic, retain) PKAssembly *assembly;
+@property (nonatomic, retain) PKAssembly *_assembly;
 @end
 
 @interface ElementParser ()
-@property (nonatomic, retain) NSDictionary *tokenKindTab;
+@property (nonatomic, retain) NSDictionary *_tokenKindTab;
 @end
 
 @implementation ElementParser
@@ -16,7 +16,7 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self.tokenKindTab = @{
+		self._tokenKindTab = @{
            @"[" : @(TOKEN_KIND_LBRACKET),
            @"]" : @(TOKEN_KIND_RBRACKET),
            @"," : @(TOKEN_KIND_COMMA),
@@ -26,7 +26,7 @@
 }
 
 - (void)dealloc {
-	self.tokenKindTab = nil;
+	self._tokenKindTab = nil;
 	[super dealloc];
 }
 
@@ -42,7 +42,7 @@
 }
 
 - (void)_start {
-	//NSLog(@"_start %@", self.assembly);
+	//NSLog(@"_start %@", self._assembly);
     
     [self list]; 
 
@@ -50,7 +50,7 @@
 }
 
 - (void)list {
-	//NSLog(@"list %@", self.assembly);
+	//NSLog(@"list %@", self._assembly);
     
     [self lbracket]; 
     [self elements]; 
@@ -60,7 +60,7 @@
 }
 
 - (void)elements {
-	//NSLog(@"elements %@", self.assembly);
+	//NSLog(@"elements %@", self._assembly);
     
     [self element]; 
     while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_COMMA), nil]]) {
@@ -72,7 +72,7 @@
 }
 
 - (void)element {
-	//NSLog(@"element %@", self.assembly);
+	//NSLog(@"element %@", self._assembly);
     
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self Number]; 
@@ -88,7 +88,7 @@
 }
 
 - (void)lbracket {
-	//NSLog(@"lbracket %@", self.assembly);
+	//NSLog(@"lbracket %@", self._assembly);
     
     [self _match:TOKEN_KIND_LBRACKET]; 
 
@@ -96,7 +96,7 @@
 }
 
 - (void)rbracket {
-	//NSLog(@"rbracket %@", self.assembly);
+	//NSLog(@"rbracket %@", self._assembly);
     
     [self _match:TOKEN_KIND_RBRACKET]; [self _discard];
 
@@ -104,11 +104,12 @@
 }
 
 - (void)comma {
-	//NSLog(@"comma %@", self.assembly);
+	//NSLog(@"comma %@", self._assembly);
     
     [self _match:TOKEN_KIND_COMMA]; [self _discard];
 
     [self _fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
+@synthesize _tokenKindTab = _tokenKindTab;
 @end

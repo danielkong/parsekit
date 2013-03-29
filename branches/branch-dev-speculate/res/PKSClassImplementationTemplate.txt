@@ -8,7 +8,7 @@
 @end
 
 @interface {{className}} ()
-@property (nonatomic, retain) NSDictionary *tokenKindTab;
+@property (nonatomic, retain) NSDictionary *_tokenKindTab;
 @end
 
 @implementation {{className}}
@@ -16,7 +16,7 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self.tokenKindTab = @{
+		self._tokenKindTab = @{
 {%for kind in tokenKinds %}           @"{{kind.stringValue}}" : @({{kind.name}}),
 {%/for%}        };
 	}
@@ -24,7 +24,7 @@
 }
 
 - (void)dealloc {
-	self.tokenKindTab = nil;
+	self._tokenKindTab = nil;
 	[super dealloc];
 }
 
@@ -39,4 +39,5 @@
     return x;
 }
 {{methods}}
+@synthesize _tokenKindTab = _tokenKindTab;
 @end
