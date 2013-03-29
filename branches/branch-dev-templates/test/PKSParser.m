@@ -20,15 +20,16 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKToken *lookahead;
-@property (nonatomic, retain) id target;
+@property (nonatomic, assign) BOOL speculating;
 @end
 
 @implementation PKSParser
 
 - (void)dealloc {
     self.tokenizer = nil;
+    self.assembler = nil;
+    self.assembly = nil;
     self.lookahead = nil;
-    self.target = nil;
     [super dealloc];
 }
 
@@ -48,8 +49,13 @@
             [self _consume]; // get a lookahead token
             [self _start];
             
-            result = [_target retain]; // +1
-            self.target = nil;
+            if (_assembly.target) {
+                result = _assembly.target;
+            } else {
+                result = _assembly;
+            }
+
+            [result retain]; // +1
         }
         [result autorelease]; // -1
 
@@ -121,6 +127,15 @@
     NSInteger x = _lookahead.tokenKind;
     BOOL result = [set containsObject:@(x)];
     return result;
+}
+
+
+- (void)_fireAssemblerSelector:(SEL)sel {
+    if (_speculating) return;
+    
+    if (_assembler && [_assembler respondsToSelector:sel]) {
+        [_assembler performSelector:sel withObject:self withObject:_assembly];
+    }
 }
 
 

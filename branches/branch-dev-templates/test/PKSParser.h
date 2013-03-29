@@ -35,15 +35,16 @@ enum {
 - (id)parse:(NSString *)input error:(NSError **)outErr;
 
 @property (nonatomic, retain) PKTokenizer *tokenizer;
-@property (nonatomic, retain) PKAssembly *assembly;
-@property (nonatomic, assign) id assembler;
-@property (nonatomic, assign) id preassembler;
+@property (nonatomic, assign) id assembler; // weak ref
+
+@property (nonatomic, retain) PKAssembly *assembly; // TODO hide this.
 
 // for subclasses. underscores prevent name clash with grammar production names.
 - (void)_match:(NSInteger)x;
 - (void)_consume;
 - (void)_discard;
 - (BOOL)_predicts:(NSSet *)set;
+- (void)_fireAssemblerSelector:(SEL)sel;
 
 - (NSInteger)tokenKindForString:(NSString *)name;
 
