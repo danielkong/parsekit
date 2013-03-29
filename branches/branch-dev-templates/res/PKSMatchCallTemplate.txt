@@ -1,1 +1,1 @@
-{%for 1 to depth %}    {%/for%}[self match:{{tokenKind.name}} andDiscard:{%if discard %}YES{% else %}NO{%/if%}];
+{%for 1 to depth %}    {%/for%}[self match:{{tokenKind.name}}]; {%if discard %}[self discard];{%/if%}

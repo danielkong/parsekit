@@ -40,19 +40,20 @@ enum {
 @property (nonatomic, assign) id preassembler;
 
 // for subclasses
-- (void)match:(NSInteger)x andDiscard:(BOOL)discard;
+- (void)match:(NSInteger)x;
 - (void)consume;
+- (void)discard;
 - (BOOL)predicts:(NSSet *)set;
 
 - (NSInteger)tokenKindForString:(NSString *)name;
 
-- (void)Any:(BOOL)discard;
-- (void)Empty:(BOOL)discard;
-- (void)Word:(BOOL)discard;
-- (void)Number:(BOOL)discard;
-- (void)Symbol:(BOOL)discard;
-- (void)Comment:(BOOL)discard;
-- (void)Whitespace:(BOOL)discard;
-- (void)QuotedString:(BOOL)discard;
-- (void)DelimitedString:(BOOL)discard;
+- (void)Any;
+- (void)Empty;
+- (void)Word;
+- (void)Number;
+- (void)Symbol;
+- (void)Comment;
+- (void)Whitespace;
+- (void)QuotedString;
+- (void)DelimitedString;
 @end

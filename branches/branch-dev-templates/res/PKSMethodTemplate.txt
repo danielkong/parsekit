@@ -1,5 +1,5 @@
 
-- (void){{methodName}}:(BOOL)discard {
+- (void){{methodName}} {
 	NSLog(@"{{methodName}} %@", self.assembly);
     
 {{methodBody}}
