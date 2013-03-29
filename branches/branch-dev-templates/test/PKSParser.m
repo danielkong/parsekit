@@ -88,10 +88,10 @@
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
-    NSLog(@"lookahead %@", [_lookahead debugDescription]);
-    NSLog(@"assembly %@", [_assembly description]);
+    //NSLog(@"lookahead %@", [_lookahead debugDescription]);
+    //NSLog(@"assembly %@", [_assembly description]);
 
-    // handle empty
+    // always match empty
     if (TOKEN_KIND_BUILTIN_EMPTY == x) return;
     
     if (_lookahead.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
@@ -110,7 +110,7 @@
         // advance
         self.lookahead = [_assembly next];
                 
-        // set token user type
+        // set token kind
         _lookahead.tokenKind = [self tokenKindForToken:_lookahead];
     }
 }
