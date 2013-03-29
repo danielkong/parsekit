@@ -339,7 +339,7 @@
 
 
 - (void)visitAlternation:(PKAlternationNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // first fetch all child lookahead sets
     NSMutableArray *lookaheadSets = [NSMutableArray arrayWithCapacity:[node.children count]];
@@ -357,9 +357,8 @@
         }
     }
     
-    NSLog(@"%@", lookaheadSets);
+    //NSLog(@"%@", lookaheadSets);
     BOOL needsBacktrack = [overlap count];
-    //NSAssert(0 == [overlap count], @"");
     
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];

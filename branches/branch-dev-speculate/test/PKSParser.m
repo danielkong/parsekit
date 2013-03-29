@@ -21,6 +21,8 @@
 @property (nonatomic, retain) PKAssembly *assembly;
 @property (nonatomic, retain) NSMutableArray *lookahead;
 @property (nonatomic, retain) NSMutableArray *markers;
+@property (nonatomic, retain) NSMutableArray *assemblies;
+@property (nonatomic, retain) NSMutableArray *lookaheads;
 @property (nonatomic, assign) NSInteger p;
 @property (nonatomic, assign, readonly) BOOL isSpeculating;
 
@@ -39,6 +41,8 @@
     self.assembly = nil;
     self.lookahead = nil;
     self.markers = nil;
+    self.assemblies = nil;
+    self.lookaheads = nil;
     [super dealloc];
 }
 
@@ -57,6 +61,8 @@
     self.p = 0;
     self.lookahead = [NSMutableArray array];
     self.markers = [NSMutableArray array];
+    self.assemblies = [NSMutableArray array];
+    self.lookaheads = [NSMutableArray array];
 
     @try {
 
@@ -168,6 +174,7 @@
     NSAssert(idx < [_lookahead count], @"");
 
     PKToken *tok = _lookahead[idx];
+    NSLog(@"lt : %@", [tok debugDescription]);
     return tok;
 }
 
@@ -178,15 +185,28 @@
 
 
 - (NSInteger)_mark {
+    NSAssert([_markers count] == [_assemblies count],  @"");
+    NSLog(@"marking: %@", _assembly);
+    [_assemblies addObject:[[_assembly copy] autorelease]];
+    [_lookaheads addObject:[[_lookahead mutableCopy] autorelease]];
     [_markers addObject:@(_p)];
     return _p;
 }
 
 
 - (void)_unmark {
-    NSInteger pop = [_markers count] - 1;
-    NSInteger marker = [_markers[pop] integerValue];
+    NSAssert([_markers count] == [_assemblies count],  @"");
+
+    self.assembly = [_assemblies lastObject];
+    [_assemblies removeLastObject];
+    NSLog(@"unmarked to: %@", _assembly);
+
+    self.lookahead = [_lookaheads lastObject];
+    [_lookaheads removeLastObject];
+
+    NSInteger marker = [[_markers lastObject] integerValue];
     [_markers removeLastObject];
+    
     [self _seek:marker];
 }
 
@@ -208,6 +228,12 @@
     if (lastNeededIndex > lastFullIndex) { // out of tokens ?
         NSInteger n = lastNeededIndex - lastFullIndex; // get n tokens
         [self _fill:n];
+    } else {
+        // fast-forward assembly
+//        NSInteger n = lastFullIndex - lastNeededIndex; // get n tokens
+//        while (n >= 0) {
+//            --n;
+//        }
     }
 }
 
@@ -226,6 +252,7 @@
         
         // buffer in lookahead
         NSAssert(tok, @"");
+        NSLog(@"next: %@", [tok debugDescription]);
         [_lookahead addObject:tok];
     }
 }
