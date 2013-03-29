@@ -111,7 +111,7 @@
         self.lookahead = [_assembly next];
                 
         // set token kind
-        _lookahead.tokenKind = [self tokenKindForToken:_lookahead];
+        _lookahead.tokenKind = [self __tokenKindForToken:_lookahead];
     }
 }
 
@@ -138,7 +138,7 @@
 }
 
 
-- (NSInteger)tokenKindForToken:(PKToken *)tok {
+- (NSInteger)__tokenKindForToken:(PKToken *)tok {
     NSInteger x = [self __tokenKindForString:tok.stringValue];
     
     if (TOKEN_KIND_BUILTIN_INVALID == x) {
