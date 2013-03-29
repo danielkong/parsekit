@@ -51,11 +51,6 @@ enum {
 - (PKToken *)_lt;
 - (NSInteger)_la;
 - (BOOL)_speculate:(SEL)sel;
-- (NSInteger)_mark;
-- (void)_unmark;
-- (void)_seek:(NSInteger)index;
-- (void)_sync:(NSInteger)i;
-- (void)_fill:(NSInteger)n;
 
 // builtin token types
 - (void)Any;
