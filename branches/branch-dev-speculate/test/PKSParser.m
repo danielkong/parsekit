@@ -42,18 +42,27 @@
 }
 
 
-- (id)parseStream:(NSInputStream *)input error:(NSError **)outErr {
-    return nil; // TODO
+- (id)parseStream:(NSInputStream *)input error:(NSError **)outError {
+    // setup tokenizer
+    if (!_tokenizer) self.tokenizer = [PKTokenizer tokenizer];
+    _tokenizer.stream = input;
+
+    return [self _doParse:outError];
 }
 
 
-- (id)parseString:(NSString *)s error:(NSError **)outError {
-    id result = nil;
-    
+- (id)parseString:(NSString *)input error:(NSError **)outError {
     // setup tokenizer
     if (!_tokenizer) self.tokenizer = [PKTokenizer tokenizer];
-    _tokenizer.string = s;
+    _tokenizer.string = input;
+    
+    return [self _doParse:outError];
+}
 
+
+- (id)_doParse:(NSError **)outError {
+    id result = nil;
+    
     // setup assembly
     self.assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
     
@@ -109,9 +118,6 @@
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
-    //NSLog(@"lookahead %@", _lookahead);
-    //NSLog(@"assembly %@", [_assembly description]);
-
     // always match empty without consuming
     if (TOKEN_KIND_BUILTIN_EMPTY == x) return;
     
@@ -123,8 +129,6 @@
         
         [self _consume];
     } else {
-        // This is a "Runtime" (rather than "checked" exception) in Java parlance.
-        // An obvious programmer error has been made and must be fixed.
         [NSException raise:@"PKRuntimeException" format:@"expecting %ld; found %@", x, lt];
     }
 }
