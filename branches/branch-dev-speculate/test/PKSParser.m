@@ -44,7 +44,12 @@
 }
 
 
-- (id)parse:(NSString *)s error:(NSError **)outError {
+- (id)parseStream:(NSInputStream *)input error:(NSError **)outErr {
+    return nil; // TODO
+}
+
+
+- (id)parseString:(NSString *)s error:(NSError **)outError {
     id result = nil;
     
     // setup tokenizer

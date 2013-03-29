@@ -69,7 +69,7 @@
 
 
 - (void)parser:(PKSParser *)p didMatchList:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
     TDTrue([[a description] isEqualToString:@"[[, 1][/1/]^"] ||
            [[a description] isEqualToString:@"[[, 1, =, [, 2][/1/]/=/[/2/]^"]);
@@ -81,7 +81,7 @@
     ElementAssignParser *p = [[[ElementAssignParser alloc] init] autorelease];
     p.assembler = self;
     
-    PKAssembly *res = [p parse:@"[1]=[2]" error:nil];
+    PKAssembly *res = [p parseString:@"[1]=[2]" error:nil];
     
     TDEqualObjects(@"[[, 1, =, [, 2][/1/]/=/[/2/]^", [res description]);
 }

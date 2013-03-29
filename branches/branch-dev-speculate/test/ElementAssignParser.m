@@ -43,7 +43,7 @@
 }
 
 - (void)_start {
-	NSLog(@"_start %@", self.assembly);
+	//NSLog(@"_start %@", self.assembly);
     
     [self stat]; 
 
@@ -51,7 +51,7 @@
 }
 
 - (void)stat {
-	NSLog(@"stat %@", self.assembly);
+	//NSLog(@"stat %@", self.assembly);
     
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
         if ([self _speculate:@selector(assign)]) {
@@ -69,7 +69,7 @@
 }
 
 - (void)assign {
-    NSLog(@"assign %@", self.assembly);
+    //NSLog(@"assign %@", self.assembly);
     
     [self list]; 
     [self eq]; 
@@ -79,7 +79,7 @@
 }
 
 - (void)list {
-	NSLog(@"list %@", self.assembly);
+	//NSLog(@"list %@", self.assembly);
     
     [self lbracket]; 
     [self elements]; 
@@ -89,7 +89,7 @@
 }
 
 - (void)elements {
-	NSLog(@"elements %@", self.assembly);
+	//NSLog(@"elements %@", self.assembly);
     
     [self element]; 
     while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_COMMA), nil]]) {
@@ -101,7 +101,7 @@
 }
 
 - (void)element {
-	NSLog(@"element %@", self.assembly);
+	//NSLog(@"element %@", self.assembly);
     
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self Number]; 
@@ -117,7 +117,7 @@
 }
 
 - (void)lbracket {
-	NSLog(@"lbracket %@", self.assembly);
+	//NSLog(@"lbracket %@", self.assembly);
     
     [self _match:TOKEN_KIND_LBRACKET]; 
 
@@ -125,7 +125,7 @@
 }
 
 - (void)rbracket {
-	NSLog(@"rbracket %@", self.assembly);
+	//NSLog(@"rbracket %@", self.assembly);
     
     [self _match:TOKEN_KIND_RBRACKET]; [self _discard];
 
@@ -133,7 +133,7 @@
 }
 
 - (void)comma {
-	NSLog(@"comma %@", self.assembly);
+	//NSLog(@"comma %@", self.assembly);
     
     [self _match:TOKEN_KIND_COMMA]; [self _discard];
 
@@ -141,7 +141,7 @@
 }
 
 - (void)eq {
-	NSLog(@"eq %@", self.assembly);
+	//NSLog(@"eq %@", self.assembly);
     
     [self _match:TOKEN_KIND_EQ]; 
 

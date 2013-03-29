@@ -62,14 +62,14 @@
     ExpressionParser *p = [[[ExpressionParser alloc] init] autorelease];
     p.assembler = self;
     
-    PKAssembly *res = [p parse:@"foo.bar('hello') or bar" error:nil];
+    PKAssembly *res = [p parseString:@"foo.bar('hello') or bar" error:nil];
     
     TDEqualObjects(@"[foo, ., bar, (, 'hello', or, bar]foo/./bar/(/'hello'/)/or/bar^", [res description]);
 }
 
 
 - (void)parser:(PKSParser *)p didMatchArgList:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
 
