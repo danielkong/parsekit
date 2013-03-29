@@ -1,1 +1,1 @@
-{%for 1 to depth %}    {%/for%}[self _match:{{tokenKind.name}}]; {%if discard %}[self _discard];{%/if%}
+{%for 1 to depth %}    {%/for%}[self __match:{{tokenKind.name}}]; {%if discard %}[self __discard];{%/if%}

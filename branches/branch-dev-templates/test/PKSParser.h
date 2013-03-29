@@ -40,12 +40,12 @@ enum {
 
 @interface PKSParser (Subclass)
 // underscores prevent name clash with grammar production names.
-- (void)_match:(NSInteger)x;
-- (void)_consume;
-- (void)_discard;
-- (BOOL)_predicts:(NSSet *)set;
-- (void)_fireAssemblerSelector:(SEL)sel;
-- (NSInteger)_tokenKindForString:(NSString *)name;
+- (void)__match:(NSInteger)x;
+- (void)__consume;
+- (void)__discard;
+- (BOOL)__predicts:(NSSet *)set;
+- (void)__fireAssemblerSelector:(SEL)sel;
+- (NSInteger)__tokenKindForString:(NSString *)name;
 
 // builtin token types
 - (void)Any;

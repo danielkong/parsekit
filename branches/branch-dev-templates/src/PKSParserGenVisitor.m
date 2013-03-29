@@ -203,7 +203,7 @@
     id vars = [NSMutableDictionary dictionary];
     NSString *methodName = node.token.stringValue;
     if ([methodName isEqualToString:@"@start"]) {
-        methodName = @"_start";
+        methodName = @"__start";
     }
     vars[METHOD_NAME] = methodName;
     self.currentDefName = methodName;

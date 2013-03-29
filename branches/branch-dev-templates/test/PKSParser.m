@@ -45,8 +45,8 @@
     @try {
 
         @autoreleasepool {
-            [self _consume]; // get a lookahead token
-            [self _start];
+            [self __consume]; // get a lookahead token
+            [self __start];
             
             if (_assembly.target) {
                 result = _assembly.target;
@@ -83,7 +83,7 @@
 }
 
 
-- (void)_match:(NSInteger)x {
+- (void)__match:(NSInteger)x {
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_EOF);
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
@@ -97,14 +97,14 @@
     if (_lookahead.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
         [_assembly push:_lookahead];
         
-        [self _consume];
+        [self __consume];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"expecting %ld; found %@", x, _lookahead];
     }
 }
 
 
-- (void)_consume {
+- (void)__consume {
     if ([_assembly hasMore]) {
         
         // advance
@@ -116,20 +116,20 @@
 }
 
 
-- (void)_discard {
+- (void)__discard {
     NSAssert(![_assembly isStackEmpty], @"");
     [_assembly pop];
 }
 
 
-- (BOOL)_predicts:(NSSet *)set {
+- (BOOL)__predicts:(NSSet *)set {
     NSInteger x = _lookahead.tokenKind;
     BOOL result = [set containsObject:@(x)];
     return result;
 }
 
 
-- (void)_fireAssemblerSelector:(SEL)sel {
+- (void)__fireAssemblerSelector:(SEL)sel {
     if (_speculating) return;
     
     if (_assembler && [_assembler respondsToSelector:sel]) {
@@ -139,7 +139,7 @@
 
 
 - (NSInteger)tokenKindForToken:(PKToken *)tok {
-    NSInteger x = [self _tokenKindForString:tok.stringValue];
+    NSInteger x = [self __tokenKindForString:tok.stringValue];
     
     if (TOKEN_KIND_BUILTIN_INVALID == x) {
         x = tok.tokenType;
@@ -149,13 +149,13 @@
 }
 
 
-- (NSInteger)_tokenKindForString:(NSString *)name {
+- (NSInteger)__tokenKindForString:(NSString *)name {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return TOKEN_KIND_BUILTIN_INVALID;
 }
 
 
-- (void)_start {
+- (void)__start {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
@@ -163,7 +163,7 @@
 - (void)Any {
 	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self _match:TOKEN_KIND_BUILTIN_ANY];
+    [self __match:TOKEN_KIND_BUILTIN_ANY];
 }
 
 
@@ -176,49 +176,49 @@
 - (void)Word {
 	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self _match:TOKEN_KIND_BUILTIN_WORD];
+    [self __match:TOKEN_KIND_BUILTIN_WORD];
 }
 
 
 - (void)Number {
 	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self _match:TOKEN_KIND_BUILTIN_NUMBER];
+    [self __match:TOKEN_KIND_BUILTIN_NUMBER];
 }
 
 
 - (void)Symbol {
 	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self _match:TOKEN_KIND_BUILTIN_SYMBOL];
+    [self __match:TOKEN_KIND_BUILTIN_SYMBOL];
 }
 
 
 - (void)Comment {
 	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self _match:TOKEN_KIND_BUILTIN_COMMENT];
+    [self __match:TOKEN_KIND_BUILTIN_COMMENT];
 }
 
 
 - (void)Whitespace {
 	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self _match:TOKEN_KIND_BUILTIN_WHITESPACE];
+    [self __match:TOKEN_KIND_BUILTIN_WHITESPACE];
 }
 
 
 - (void)QuotedString {
 	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self _match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
+    [self __match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
 }
 
 
 - (void)DelimitedString {
 	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self _match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
+    [self __match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
 }
 
 @end
