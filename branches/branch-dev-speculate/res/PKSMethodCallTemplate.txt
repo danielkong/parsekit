@@ -1,1 +1,1 @@
-{%for 1 to depth %}    {%/for%}[self {{methodName}}]; {%if discard %}[self _discard];{%/if%}
+{%for 1 to depth %}    {%/for%}[self {{methodName}}]; {%if discard %}[self discard:1];{%/if%}

@@ -1,1 +1,1 @@
-{%for 1 to depth %}    {%/for%}} else if ([self _speculate:^{ {{childString}}}]) {
+{%for 1 to depth %}    {%/for%}} else if ([self speculate:^{ {{childString}}}]) {

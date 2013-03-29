@@ -12,8 +12,8 @@
 #import "PKSTokenAssembly.h"
 #import "PKSRecognitionException.h"
 
-#define LT(i) [self _LT:(i)]
-#define LA(i) [self _LA:(i)]
+#define LT(i) [self LT:(i)]
+#define LA(i) [self LA:(i)]
 
 #define POP() [_assembly pop]
 #define PUSH(tok) [_assembly push:(tok)]
@@ -32,8 +32,8 @@
 @property (nonatomic, assign) NSInteger _p;
 @property (nonatomic, assign, readonly) BOOL _isSpeculating;
 
-- (PKToken *)_LT:(NSInteger)i;
-- (NSInteger)_LA:(NSInteger)i;
+- (PKToken *)LT:(NSInteger)i;
+- (NSInteger)LA:(NSInteger)i;
 
 - (void)_consume;
 - (NSInteger)_mark;
@@ -144,7 +144,7 @@
 }
 
 
-- (void)_match:(NSInteger)x {
+- (void)match:(NSInteger)x {
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_EOF);
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
@@ -179,22 +179,25 @@
 }
 
 
-- (void)_discard {
+- (void)discard:(NSInteger)n {
     if (self.isSpeculating) return;
     
-    NSAssert(![_assembly isStackEmpty], @"");
-    [_assembly pop];
+    while (n > 0) {
+        NSAssert(![_assembly isStackEmpty], @"");
+        [_assembly pop];
+        --n;
+    }
 }
 
 
-- (BOOL)_predicts:(NSSet *)set {
+- (BOOL)predicts:(NSSet *)set {
     NSInteger x = LA(1);
     BOOL result = [set containsObject:@(x)];
     return result;
 }
 
 
-- (void)_fireAssemblerSelector:(SEL)sel {
+- (void)fireAssemblerSelector:(SEL)sel {
     if (self.isSpeculating) return;
     
     if (_assembler && [_assembler respondsToSelector:sel]) {
@@ -203,7 +206,7 @@
 }
 
 
-- (PKToken *)_LT:(NSInteger)i {
+- (PKToken *)LT:(NSInteger)i {
     [self _sync:i];
     
     NSUInteger idx = _p + i - 1;
@@ -215,7 +218,7 @@
 }
 
 
-- (NSInteger)_LA:(NSInteger)i {
+- (NSInteger)LA:(NSInteger)i {
     return [LT(i) tokenKind];
 }
 
@@ -271,7 +274,7 @@
 
 
 - (NSInteger)_tokenKindForToken:(PKToken *)tok {
-    NSInteger x = [self _tokenKindForString:tok.stringValue];
+    NSInteger x = [self tokenKindForString:tok.stringValue];
     
     if (TOKEN_KIND_BUILTIN_INVALID == x) {
         x = tok.tokenType;
@@ -281,13 +284,13 @@
 }
 
 
-- (NSInteger)_tokenKindForString:(NSString *)name {
+- (NSInteger)tokenKindForString:(NSString *)s {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return TOKEN_KIND_BUILTIN_INVALID;
 }
 
 
-- (BOOL)_speculate:(void (^)(void))block {
+- (BOOL)speculate:(void (^)(void))block {
     NSParameterAssert(block);
     
     BOOL success = YES;
@@ -313,7 +316,7 @@
 - (void)Any {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self _match:TOKEN_KIND_BUILTIN_ANY];
+    [self match:TOKEN_KIND_BUILTIN_ANY];
 }
 
 
@@ -326,49 +329,49 @@
 - (void)Word {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self _match:TOKEN_KIND_BUILTIN_WORD];
+    [self match:TOKEN_KIND_BUILTIN_WORD];
 }
 
 
 - (void)Number {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self _match:TOKEN_KIND_BUILTIN_NUMBER];
+    [self match:TOKEN_KIND_BUILTIN_NUMBER];
 }
 
 
 - (void)Symbol {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self _match:TOKEN_KIND_BUILTIN_SYMBOL];
+    [self match:TOKEN_KIND_BUILTIN_SYMBOL];
 }
 
 
 - (void)Comment {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self _match:TOKEN_KIND_BUILTIN_COMMENT];
+    [self match:TOKEN_KIND_BUILTIN_COMMENT];
 }
 
 
 - (void)Whitespace {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self _match:TOKEN_KIND_BUILTIN_WHITESPACE];
+    [self match:TOKEN_KIND_BUILTIN_WHITESPACE];
 }
 
 
 - (void)QuotedString {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self _match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
+    [self match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
 }
 
 
 - (void)DelimitedString {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self _match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
+    [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
 }
 
 @synthesize _tokenizer = _tokenizer;

@@ -3,8 +3,8 @@
 #import "PKSRecognitionException.h"
 #import "PKSNoViableException.h"
 
-#define LT(i) [self _LT:(i)]
-#define LA(i) [self _LA:(i)]
+#define LT(i) [self LT:(i)]
+#define LA(i) [self LA:(i)]
 
 #define POP() [_assembly pop]
 #define PUSH(tok) [_assembly push:(tok)]
@@ -35,10 +35,10 @@
 	[super dealloc];
 }
 
-- (NSInteger)_tokenKindForString:(NSString *)name {
+- (NSInteger)tokenKindForString:(NSString *)s {
     NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
 
-    id obj = _tokenKindTab[name];
+    id obj = _tokenKindTab[s];
     if (obj) {
         x = [obj integerValue];
     }

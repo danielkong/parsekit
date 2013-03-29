@@ -3,5 +3,5 @@
 	//NSLog(@"{{methodName}} %@", self._assembly);
     
 {{methodBody}}
-    [self _fireAssemblerSelector:@selector(parser:didMatch{{methodName | capitalized}}:)];
+    [self fireAssemblerSelector:@selector(parser:didMatch{{methodName | capitalized}}:)];
 }
