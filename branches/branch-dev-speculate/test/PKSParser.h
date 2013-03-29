@@ -39,7 +39,7 @@ enum {
 @end
 
 @interface PKSParser (Subclass)
-// underscores prevent name clash with grammar production names.
+// underscores prevent name collision with grammar production names.
 - (void)_match:(NSInteger)x;
 - (void)_consume;
 - (void)_discard;
