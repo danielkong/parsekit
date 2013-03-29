@@ -56,6 +56,8 @@
 
 
 - (id)copyWithZone:(NSZone *)zone {
+    NSAssert2(0, @"%s why are you copying me??? %@", __PRETTY_FUNCTION__, [self class]);
+    
     PKSTokenAssembly *a = (PKSTokenAssembly *)[super copyWithZone:zone];
     a->tokenizer = nil; // optimization
     a->preservesWhitespaceTokens = preservesWhitespaceTokens;
@@ -67,11 +69,12 @@
 - (void)consume:(PKToken *)tok {
     if (preservesWhitespaceTokens || tok.tokenType != PKTokenTypeWhitespace) {
         [self push:tok];
+        ++index;
+
         if (gathersConsumedTokens) {
             if (!tokens) {
                 self.tokens = [NSMutableArray array];
             }
-            ++index;
             [tokens addObject:tok];
         }
     }
@@ -125,18 +128,19 @@
 - (NSString *)lastConsumedObjects:(NSUInteger)len joinedByString:(NSString *)delimiter {
     NSParameterAssert(delimiter);
     
-    NSArray *toks = self.tokens;
+    if (!gathersConsumedTokens) return @"";
+
     NSUInteger end = self.objectsConsumed;
 
     len = MIN(end, len);
     NSUInteger loc = end - len;
 
-    NSAssert(loc < [toks count], @"");
-    NSAssert(len <= [toks count], @"");
-    NSAssert(loc + len <= [toks count], @"");
+    NSAssert(loc < [tokens count], @"");
+    NSAssert(len <= [tokens count], @"");
+    NSAssert(loc + len <= [tokens count], @"");
     
     NSRange r = NSMakeRange(loc, len);
-    NSArray *objs = [toks subarrayWithRange:r];
+    NSArray *objs = [tokens subarrayWithRange:r];
     
     NSString *s = [objs componentsJoinedByString:delimiter];
     return s;
@@ -149,14 +153,15 @@
 - (NSString *)objectsFrom:(NSUInteger)start to:(NSUInteger)end separatedBy:(NSString *)delimiter {
     NSParameterAssert(delimiter);
     NSParameterAssert(start <= end);
+    
+    if (!gathersConsumedTokens) return @"";
 
     NSMutableString *s = [NSMutableString string];
-    NSArray *toks = self.tokens;
 
-    NSParameterAssert(end <= [toks count]);
+    NSParameterAssert(end <= [tokens count]);
 
     for (NSInteger i = start; i < end; i++) {
-        PKToken *tok = [toks objectAtIndex:i];
+        PKToken *tok = [tokens objectAtIndex:i];
         [s appendString:tok.stringValue];
         if (end - 1 != i) {
             [s appendString:delimiter];

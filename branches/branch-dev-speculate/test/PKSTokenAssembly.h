@@ -25,7 +25,6 @@
 @interface PKSTokenAssembly : PKAssembly <NSCopying> {
     PKTokenizer *tokenizer;
     NSMutableArray *tokens;
-    PKToken *lookahead;
     BOOL preservesWhitespaceTokens;
     BOOL gathersConsumedTokens;
 }
