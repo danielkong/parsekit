@@ -12,18 +12,21 @@
 #import <ParseKit/PKTokenAssembly.h>
 #import "PKSRecognitionException.h"
 
-@interface PKAssembly ()
+@interface PKTokenAssembly ()
 - (id)next;
 - (BOOL)hasMore;
 @property (nonatomic, readonly) NSUInteger objectsConsumed;
+@property (nonatomic, copy) NSArray *tokens;
 @end
 
 @interface PKSParser ()
-@property (nonatomic, retain) PKAssembly *assembly;
+@property (nonatomic, retain) PKTokenAssembly *assembly;
+@property (nonatomic, retain) NSArray *tokens;
 @property (nonatomic, retain) NSMutableArray *lookahead;
 @property (nonatomic, retain) NSMutableArray *markers;
 @property (nonatomic, retain) NSMutableArray *assemblies;
 @property (nonatomic, assign) NSInteger p;
+@property (nonatomic, assign) NSInteger t;
 @property (nonatomic, assign, readonly) BOOL isSpeculating;
 
 - (NSInteger)_mark;
@@ -39,6 +42,7 @@
     self.tokenizer = nil;
     self.assembler = nil;
     self.assembly = nil;
+    self.tokens = nil;
     self.lookahead = nil;
     self.markers = nil;
     self.assemblies = nil;
@@ -55,9 +59,12 @@
 
     // setup assembly
     self.assembly = [PKTokenAssembly assemblyWithTokenizer:_tokenizer];
+    
+    self.tokens = _assembly.tokens;
 
     // setup speculation
     self.p = 0;
+    self.t = 0;
     self.lookahead = [NSMutableArray array];
     self.markers = [NSMutableArray array];
     self.assemblies = [NSMutableArray array];
@@ -117,7 +124,10 @@
     
     PKToken *lt = [self _lt:1];
     if (lt.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
-        [_assembly push:lt];
+        if (!self.isSpeculating) {
+            [_assembly push:lt];
+            [_assembly next];
+        }
         
         [self _consume];
     } else {
@@ -143,6 +153,8 @@
 
 
 - (void)_discard {
+    if (self.isSpeculating) return;
+    
     NSAssert(![_assembly isStackEmpty], @"");
     [_assembly pop];
 }
@@ -183,27 +195,27 @@
 
 
 - (NSInteger)_mark {
-    NSAssert([_markers count] == [_assemblies count],  @"");
-    NSLog(@"marking: %@", _assembly);
-    [_assemblies addObject:[[_assembly copy] autorelease]];
+//    NSAssert([_markers count] == [_assemblies count],  @"");
+//    NSLog(@"marking: %@", _assembly);
+//    [_assemblies addObject:[[_assembly copy] autorelease]];
     [_markers addObject:@(_p)];
     return _p;
 }
 
 
 - (void)_unmark {
-    NSAssert([_markers count] == [_assemblies count],  @"");
-
-    NSUInteger n = _assembly.objectsConsumed;
-    
-    self.assembly = [_assemblies lastObject];
-    [_assemblies removeLastObject];
-    NSLog(@"unmarked to: %@", _assembly);
-    
-    // fast-forward assembly
-    while (_assembly.objectsConsumed < n) {
-        [_assembly next];
-    }
+//    NSAssert([_markers count] == [_assemblies count],  @"");
+//
+//    NSUInteger n = _assembly.objectsConsumed;
+//    
+//    self.assembly = [_assemblies lastObject];
+//    [_assemblies removeLastObject];
+//    NSLog(@"unmarked to: %@", _assembly);
+//    
+//    // fast-forward assembly
+//    while (_assembly.objectsConsumed < n) {
+//        [_assembly next];
+//    }
     
     NSInteger marker = [[_markers lastObject] integerValue];
     [_markers removeLastObject];
@@ -235,9 +247,12 @@
 
 - (void)_fill:(NSInteger)n {
     for (NSUInteger i = 0; i <= n; ++i) { // <= ?? fetches an extra lookahead tok
+        
+        // -nextToken
         PKToken *tok = nil;
-        if ([_assembly hasMore]) {
-            tok = [_assembly next];
+        if (_t < [_tokens count]) {
+            tok = _tokens[_t];
+            self.t++;
         } else {
             tok = [PKToken EOFToken];
         }
