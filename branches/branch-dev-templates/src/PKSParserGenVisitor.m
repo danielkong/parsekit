@@ -10,7 +10,7 @@
 #import <ParseKit/ParseKit.h>
 
 #import "PKSParser.h"
-#import "PKSTokenKind.h"
+#import "PKSTokenKindDescriptor.h"
 #import "NSString+ParseKitAdditions.h"
 
 #import "MGTemplateEngine.h"
@@ -103,7 +103,7 @@
         case PKNodeTypeConstant: {
             //[set addObject:_tokenKinds[node.token.tokenType]];
             NSString *name = [NSString stringWithFormat:@"TOKEN_KIND_BUILTIN_%@", [node.token.stringValue uppercaseString]];
-            PKSTokenKind *kind = [PKSTokenKind tokenKindWithStringValue:nil name:name];
+            PKSTokenKindDescriptor *kind = [PKSTokenKindDescriptor descriptorWithStringValue:nil name:name];
             [set addObject:kind];
         } break;
         case PKNodeTypeLiteral: {
@@ -153,7 +153,7 @@
 #pragma mark PKVisitor
 
 - (void)visitRoot:(PKRootNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSParameterAssert(node);
     
     // setup symbol table
@@ -189,13 +189,13 @@
     NSString *implTemplate = [self templateStringNamed:@"PKSClassImplementationTemplate"];
     self.implementationOutputString = [_engine processTemplate:implTemplate withVariables:vars];
 
-    NSLog(@"%@", _interfaceOutputString);
-    NSLog(@"%@", _implementationOutputString);
+    //NSLog(@"%@", _interfaceOutputString);
+    //NSLog(@"%@", _implementationOutputString);
 }
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     self.depth = 1;
 
@@ -230,7 +230,7 @@
 
 
 - (void)visitReference:(PKReferenceNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
         
     // stup vars
     id vars = [NSMutableDictionary dictionary];
@@ -249,7 +249,7 @@
 
 
 - (void)visitComposite:(PKCompositeNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     NSAssert(1 == [node.token.stringValue length], @"");
     PKUniChar c = [node.token.stringValue characterAtIndex:0];
@@ -296,7 +296,7 @@
 
 
 - (void)visitCollection:(PKCollectionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     NSAssert(1 == [node.token.stringValue length], @"");
     PKUniChar c = [node.token.stringValue characterAtIndex:0];
@@ -312,7 +312,7 @@
 
 
 - (void)visitSequence:(PKCollectionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // setup vars
     id vars = [NSMutableDictionary dictionary];
@@ -336,7 +336,7 @@
 
 
 - (void)visitAlternation:(PKAlternationNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
@@ -385,14 +385,14 @@
 
 
 - (void)visitCardinal:(PKCardinalNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
  
     NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
 
 - (void)visitOptional:(PKOptionalNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     // setup vars
     id vars = [NSMutableDictionary dictionary];
@@ -422,7 +422,7 @@
 
 
 - (void)visitMultiple:(PKMultipleNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // setup vars
     id vars = [NSMutableDictionary dictionary];
@@ -452,7 +452,7 @@
 
 
 - (void)visitConstant:(PKConstantNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
    
     // stup vars
     id vars = [NSMutableDictionary dictionary];
@@ -471,7 +471,7 @@
 
 
 - (void)visitLiteral:(PKLiteralNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // stup vars
     id vars = [NSMutableDictionary dictionary];
@@ -489,14 +489,14 @@
 
 
 - (void)visitDelimited:(PKDelimitedNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
 
 - (void)visitPattern:(PKPatternNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }

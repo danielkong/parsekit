@@ -9,7 +9,7 @@
 #import "PKDefinitionPhaseVisitor.h"
 #import <ParseKit/PKCompositeParser.h>
 #import "NSString+ParseKitAdditions.h"
-#import "PKSTokenKind.h"
+#import "PKSTokenKindDescriptor.h"
 
 @interface PKDefinitionPhaseVisitor ()
 @end
@@ -163,7 +163,7 @@
         
         NSString *s = [node.token.stringValue stringByTrimmingQuotes];
         NSString *name = [NSString stringWithFormat:@"TOKEN_KIND_%@", [_currentDefName uppercaseString]];
-        PKSTokenKind *kind = [PKSTokenKind tokenKindWithStringValue:s name:name];
+        PKSTokenKindDescriptor *kind = [PKSTokenKindDescriptor descriptorWithStringValue:s name:name];
         
         [_tokenKinds addObject:kind];
         node.tokenKind = kind;
