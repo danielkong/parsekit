@@ -12,12 +12,12 @@
 #import "PKSTokenAssembly.h"
 #import "PKSRecognitionException.h"
 
-#define LT(i) ([self _LT:(i)])
-#define LA(i) ([self _LA:(i)])
+#define LT(i) [self _LT:(i)]
+#define LA(i) [self _LA:(i)]
 
-#define POP() ([_assembly pop])
-#define PUSH(tok) ([_assembly push:(tok)])
-#define ABOVE(tok) ([_assembly objectsAbove:(tok)])
+#define POP() [_assembly pop]
+#define PUSH(tok) [_assembly push:(tok)]
+#define ABOVE(fence) [_assembly objectsAbove:(fence)]
 
 @interface PKSTokenAssembly ()
 - (void)consume:(PKToken *)tok;
