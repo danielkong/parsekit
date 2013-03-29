@@ -22,7 +22,7 @@
 @property (nonatomic, retain) NSMutableArray *lookahead;
 @property (nonatomic, retain) NSMutableArray *markers;
 @property (nonatomic, assign) NSUInteger p;
-@property (nonatomic, assign) BOOL speculating;
+@property (nonatomic, assign, readonly) BOOL isSpeculating;
 @end
 
 @implementation PKSParser
@@ -147,7 +147,7 @@
 
 
 - (void)__fireAssemblerSelector:(SEL)sel {
-    if (_speculating) return;
+    if (self.isSpeculating) return;
     
     if (_assembler && [_assembler respondsToSelector:sel]) {
         [_assembler performSelector:sel withObject:self withObject:_assembly];
@@ -183,13 +183,22 @@
 }
 
 
-- (void)__mark {
-    
+- (NSUInteger)__mark {
+    [_markers addObject:_p];
+    return _p;
 }
 
 
 - (void)__unmark {
-    
+    NSUInteger pop = [_markers count] - 1;
+    NSUInteger marker = _markers[pop];
+    [_markers removeLastObject];
+    [self __seek:marker];
+}
+
+
+- (void)__seek:(NSInteger)index {
+    self.p = index;
 }
 
 
@@ -203,6 +212,11 @@
         NSUInteger n = lastNeededIndex - lastFullIndex; // get n tokens
         [self __fill:n];
     }
+}
+
+
+- (BOOL)isSpeculating {
+    return [_markers count] > 0;
 }
 
 
