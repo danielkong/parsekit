@@ -99,7 +99,9 @@
         
         [self __consume];
     } else {
-        [NSException raise:@"PKRecongitionException" format:@"expecting %ld; found %@", x, _lookahead];
+        // This is a "Runtime" (rather than "checked" exception) in Java parlance.
+        // An obvious programmer error has been made and must be fixed.
+        [NSException raise:@"PKRuntimeException" format:@"expecting %ld; found %@", x, _lookahead];
     }
 }
 

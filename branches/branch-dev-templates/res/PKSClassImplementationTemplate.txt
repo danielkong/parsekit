@@ -1,5 +1,7 @@
 #import "{{className}}.h"
 #import <ParseKit/PKAssembly.h>
+#import "PKSRecognitionException.h"
+#import "PKSNoViableException.h"
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *assembly;

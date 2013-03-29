@@ -1,5 +1,7 @@
 #import "ExpressionParser.h"
 #import <ParseKit/PKAssembly.h>
+#import "PKSRecognitionException.h"
+#import "PKSNoViableException.h"
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *assembly;
@@ -110,7 +112,7 @@
 	//NSLog(@"relExpr %@", self.assembly);
     
     [self callExpr]; 
-    while ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_EQ), @(TOKEN_KIND_GT), @(TOKEN_KIND_LT), @(TOKEN_KIND_NE), @(TOKEN_KIND_GE), @(TOKEN_KIND_LE), nil]]) {
+    while ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_GE), @(TOKEN_KIND_NE), @(TOKEN_KIND_LE), @(TOKEN_KIND_LT), @(TOKEN_KIND_GT), @(TOKEN_KIND_EQ), nil]]) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -134,7 +136,7 @@
     } else if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_GE), nil]]) {
         [self ge]; 
     } else {
-        [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in relOp"];
+        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in relOp"];
     }
 
     [self __fireAssemblerSelector:@selector(parser:didMatchRelOp:)];
@@ -146,7 +148,7 @@
     [self primary]; 
     if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
-        if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_NO), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
+        if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_NO), nil]]) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -170,14 +172,14 @@
 - (void)primary {
 	//NSLog(@"primary %@", self.assembly);
     
-    if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), nil]]) {
+    if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), nil]]) {
         [self atom]; 
     } else if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
         [self expr]; 
         [self closeParen]; 
     } else {
-        [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in primary"];
+        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in primary"];
     }
 
     [self __fireAssemblerSelector:@selector(parser:didMatchPrimary:)];
@@ -188,10 +190,10 @@
     
     if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), nil]]) {
         [self obj]; 
-    } else if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
+    } else if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self literal]; 
     } else {
-        [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in atom"];
+        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in atom"];
     }
 
     [self __fireAssemblerSelector:@selector(parser:didMatchAtom:)];
@@ -235,7 +237,7 @@
     } else if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_NO), nil]]) {
         [self bool]; 
     } else {
-        [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in literal"];
+        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in literal"];
     }
 
     [self __fireAssemblerSelector:@selector(parser:didMatchLiteral:)];
@@ -249,7 +251,7 @@
     } else if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), nil]]) {
         [self no]; 
     } else {
-        [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in bool"];
+        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in bool"];
     }
 
     [self __fireAssemblerSelector:@selector(parser:didMatchBool:)];

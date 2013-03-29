@@ -1,5 +1,7 @@
 #import "ElementParser.h"
 #import <ParseKit/PKAssembly.h>
+#import "PKSRecognitionException.h"
+#import "PKSNoViableException.h"
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *assembly;
@@ -77,7 +79,7 @@
     } else if ([self __predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
         [self list]; 
     } else {
-        [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in element"];
+        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in element"];
     }
 
     [self __fireAssemblerSelector:@selector(parser:didMatchElement:)];
