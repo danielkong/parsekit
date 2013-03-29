@@ -12,6 +12,12 @@
 
 @implementation PKLiteralNode
 
+- (void)dealloc {
+    self.tokenKind = nil;
+    [super dealloc];
+}
+
+
 - (NSUInteger)type {
     return PKNodeTypeLiteral;
 }
