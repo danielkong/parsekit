@@ -82,13 +82,13 @@
 
 
 - (id)peek {
-    NSAssert2(0, @"%s cannot call %@", __PRETTY_FUNCTION__, [self class]);
+    NSAssert1(0, @"cannot call %s", __PRETTY_FUNCTION__);
     return nil;
 }
 
 
 - (id)next {
-    NSAssert2(0, @"%s cannot call %@", __PRETTY_FUNCTION__, [self class]);
+    NSAssert1(0, @"cannot call %s", __PRETTY_FUNCTION__);
     return nil;
 }
 
