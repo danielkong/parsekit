@@ -112,7 +112,7 @@
 	//NSLog(@"relExpr %@", self._assembly);
     
     [self callExpr]; 
-    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LT), @(TOKEN_KIND_GE), @(TOKEN_KIND_GT), @(TOKEN_KIND_EQ), @(TOKEN_KIND_LE), @(TOKEN_KIND_NE), nil]]) {
+    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_GE), @(TOKEN_KIND_GT), @(TOKEN_KIND_LE), @(TOKEN_KIND_EQ), @(TOKEN_KIND_LT), @(TOKEN_KIND_NE), nil]]) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -160,7 +160,7 @@
     [self primary]; 
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
-        if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), nil]]) {
+        if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_NO), @(TOKEN_KIND_YES), nil]]) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -184,7 +184,7 @@
 - (void)primary {
 	//NSLog(@"primary %@", self._assembly);
     
-    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), nil]]) {
+    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), @(TOKEN_KIND_NO), nil]]) {
         if ([self _speculate:@selector(atom)]) {
             [self atom]; 
         }
@@ -212,7 +212,7 @@
         if ([self _speculate:@selector(obj)]) {
             [self obj]; 
         }
-    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
+    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_NO), nil]]) {
         if ([self _speculate:@selector(literal)]) {
             [self literal]; 
         }

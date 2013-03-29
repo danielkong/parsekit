@@ -45,31 +45,38 @@
 
 
 - (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outError {
-    self._assembler = a;
+    
+    [input scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [input open];
     
     // setup tokenizer
-    if (!_tokenizer) self._tokenizer = [PKTokenizer tokenizer];
-    _tokenizer.stream = input;
+    PKTokenizer *t = [PKTokenizer tokenizerWithStream:input];
 
-    return [self _doParse:outError];
+    id result = [self _doParseWithTokenizer:t assembler:a error:outError];
+    
+    [input close];
+    [input removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    
+    return result;
 }
 
 
 - (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outError {
-    self._assembler = a;
 
-    // setup tokenizer
-    if (!_tokenizer) self._tokenizer = [PKTokenizer tokenizer];
-    _tokenizer.string = input;
+    PKTokenizer *t = [PKTokenizer tokenizerWithString:input];
     
-    return [self _doParse:outError];
+    id result = [self _doParseWithTokenizer:t assembler:a error:outError];
+    return result;
 }
 
 
-- (id)_doParse:(NSError **)outError {
+- (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError {
     id result = nil;
     
+    self._tokenizer = t;
+
     // setup assembly
+    self._assembler = a;
     self._assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
     
     // setup speculation
@@ -113,6 +120,13 @@
         } else {
             [ex raise];
         }
+    }
+    @finally {
+        self._tokenizer = nil;
+        self._assembler = nil;
+        self._assembly = nil;
+        self._lookahead = nil;
+        self._markers = nil;
     }
     
     return result;
