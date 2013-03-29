@@ -78,7 +78,7 @@
 }
 
 
-- (void)match:(NSInteger)x {
+- (void)_match:(NSInteger)x {
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_EOF);
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
@@ -117,7 +117,7 @@
 }
 
 
-- (BOOL)predicts:(NSSet *)set {
+- (BOOL)_predicts:(NSSet *)set {
     NSInteger x = _lookahead.tokenKind;
     BOOL result = [set containsObject:@(x)];
     return result;
@@ -149,7 +149,7 @@
 - (void)Any {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_KIND_BUILTIN_ANY];
+    [self _match:TOKEN_KIND_BUILTIN_ANY];
 }
 
 
@@ -162,49 +162,49 @@
 - (void)Word {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_KIND_BUILTIN_WORD];
+    [self _match:TOKEN_KIND_BUILTIN_WORD];
 }
 
 
 - (void)Number {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_KIND_BUILTIN_NUMBER];
+    [self _match:TOKEN_KIND_BUILTIN_NUMBER];
 }
 
 
 - (void)Symbol {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_KIND_BUILTIN_SYMBOL];
+    [self _match:TOKEN_KIND_BUILTIN_SYMBOL];
 }
 
 
 - (void)Comment {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_KIND_BUILTIN_COMMENT];
+    [self _match:TOKEN_KIND_BUILTIN_COMMENT];
 }
 
 
 - (void)Whitespace {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_KIND_BUILTIN_WHITESPACE];
+    [self _match:TOKEN_KIND_BUILTIN_WHITESPACE];
 }
 
 
 - (void)QuotedString {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
+    [self _match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
 }
 
 
 - (void)DelimitedString {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
+    [self _match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
 }
 
 @end

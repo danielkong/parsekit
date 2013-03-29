@@ -59,7 +59,7 @@
 	NSLog(@"elements %@", self.assembly);
     
     [self element]; 
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_COMMA), nil]]) {
+    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_COMMA), nil]]) {
         [self comma]; 
         [self element]; 
     }
@@ -72,9 +72,9 @@
 - (void)element {
 	NSLog(@"element %@", self.assembly);
     
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
+    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self Number]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
+    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
         [self list]; 
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in element"];
@@ -88,7 +88,7 @@
 - (void)lbracket {
 	NSLog(@"lbracket %@", self.assembly);
     
-    [self match:TOKEN_KIND_LBRACKET]; 
+    [self _match:TOKEN_KIND_LBRACKET]; 
 
     if ([self.assembler respondsToSelector:@selector(parser:didMatchLbracket:)]) {
         [self.assembler performSelector:@selector(parser:didMatchLbracket:) withObject:self withObject:self.assembly];
@@ -98,7 +98,7 @@
 - (void)rbracket {
 	NSLog(@"rbracket %@", self.assembly);
     
-    [self match:TOKEN_KIND_RBRACKET]; [self _discard];
+    [self _match:TOKEN_KIND_RBRACKET]; [self _discard];
 
     if ([self.assembler respondsToSelector:@selector(parser:didMatchRbracket:)]) {
         [self.assembler performSelector:@selector(parser:didMatchRbracket:) withObject:self withObject:self.assembly];
@@ -108,7 +108,7 @@
 - (void)comma {
 	NSLog(@"comma %@", self.assembly);
     
-    [self match:TOKEN_KIND_COMMA]; [self _discard];
+    [self _match:TOKEN_KIND_COMMA]; [self _discard];
 
     if ([self.assembler respondsToSelector:@selector(parser:didMatchComma:)]) {
         [self.assembler performSelector:@selector(parser:didMatchComma:) withObject:self withObject:self.assembly];

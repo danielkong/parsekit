@@ -39,11 +39,11 @@ enum {
 @property (nonatomic, assign) id assembler;
 @property (nonatomic, assign) id preassembler;
 
-// for subclasses
-- (void)match:(NSInteger)x;
+// for subclasses. underscores prevent name clash with grammar production names.
+- (void)_match:(NSInteger)x;
 - (void)_consume;
 - (void)_discard;
-- (BOOL)predicts:(NSSet *)set;
+- (BOOL)_predicts:(NSSet *)set;
 
 - (NSInteger)tokenKindForString:(NSString *)name;
 
