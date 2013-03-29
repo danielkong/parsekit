@@ -112,7 +112,7 @@
 	//NSLog(@"relExpr %@", self.assembly);
     
     [self callExpr]; 
-    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LT), @(TOKEN_KIND_GE), @(TOKEN_KIND_EQ), @(TOKEN_KIND_LE), @(TOKEN_KIND_GT), @(TOKEN_KIND_NE), nil]]) {
+    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NE), @(TOKEN_KIND_GT), @(TOKEN_KIND_LT), @(TOKEN_KIND_GE), @(TOKEN_KIND_EQ), @(TOKEN_KIND_LE), nil]]) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -124,17 +124,29 @@
 	//NSLog(@"relOp %@", self.assembly);
     
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LT), nil]]) {
-        [self lt]; 
+        if ([self _speculate:@selector(lt)]) {
+            [self lt]; 
+        }
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_GT), nil]]) {
-        [self gt]; 
+        if ([self _speculate:@selector(gt)]) {
+            [self gt]; 
+        }
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_EQ), nil]]) {
-        [self eq]; 
+        if ([self _speculate:@selector(eq)]) {
+            [self eq]; 
+        }
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NE), nil]]) {
-        [self ne]; 
+        if ([self _speculate:@selector(ne)]) {
+            [self ne]; 
+        }
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LE), nil]]) {
-        [self le]; 
+        if ([self _speculate:@selector(le)]) {
+            [self le]; 
+        }
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_GE), nil]]) {
-        [self ge]; 
+        if ([self _speculate:@selector(ge)]) {
+            [self ge]; 
+        }
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in relOp"];
     }
@@ -148,7 +160,7 @@
     [self primary]; 
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
-        if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
+        if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_WORD), nil]]) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -172,12 +184,20 @@
 - (void)primary {
 	//NSLog(@"primary %@", self.assembly);
     
-    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_WORD), nil]]) {
-        [self atom]; 
+    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), nil]]) {
+        if ([self _speculate:@selector(atom)]) {
+            [self atom]; 
+        }
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
-        [self openParen]; 
-        [self expr]; 
-        [self closeParen]; 
+        if ([self _speculate:@selector(openParen)]) {
+            [self openParen]; 
+        }
+        if ([self _speculate:@selector(expr)]) {
+            [self expr]; 
+        }
+        if ([self _speculate:@selector(closeParen)]) {
+            [self closeParen]; 
+        }
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in primary"];
     }
@@ -189,9 +209,13 @@
 	//NSLog(@"atom %@", self.assembly);
     
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), nil]]) {
-        [self obj]; 
-    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
-        [self literal]; 
+        if ([self _speculate:@selector(obj)]) {
+            [self obj]; 
+        }
+    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
+        if ([self _speculate:@selector(literal)]) {
+            [self literal]; 
+        }
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in atom"];
     }
@@ -235,7 +259,9 @@
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self Number]; 
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_YES), nil]]) {
-        [self bool]; 
+        if ([self _speculate:@selector(bool)]) {
+            [self bool]; 
+        }
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in literal"];
     }
@@ -247,9 +273,13 @@
 	//NSLog(@"bool %@", self.assembly);
     
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), nil]]) {
-        [self yes]; 
+        if ([self _speculate:@selector(yes)]) {
+            [self yes]; 
+        }
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), nil]]) {
-        [self no]; 
+        if ([self _speculate:@selector(no)]) {
+            [self no]; 
+        }
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in bool"];
     }

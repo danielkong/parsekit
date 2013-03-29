@@ -184,7 +184,7 @@
     NSAssert(idx < [_lookahead count], @"");
 
     PKToken *tok = _lookahead[idx];
-    NSLog(@"lt : %@", [tok debugDescription]);
+    //NSLog(@"lt : %@", [tok debugDescription]);
     return tok;
 }
 
@@ -195,28 +195,12 @@
 
 
 - (NSInteger)_mark {
-//    NSAssert([_markers count] == [_assemblies count],  @"");
-//    NSLog(@"marking: %@", _assembly);
-//    [_assemblies addObject:[[_assembly copy] autorelease]];
     [_markers addObject:@(_p)];
     return _p;
 }
 
 
 - (void)_unmark {
-//    NSAssert([_markers count] == [_assemblies count],  @"");
-//
-//    NSUInteger n = _assembly.objectsConsumed;
-//    
-//    self.assembly = [_assemblies lastObject];
-//    [_assemblies removeLastObject];
-//    NSLog(@"unmarked to: %@", _assembly);
-//    
-//    // fast-forward assembly
-//    while (_assembly.objectsConsumed < n) {
-//        [_assembly next];
-//    }
-    
     NSInteger marker = [[_markers lastObject] integerValue];
     [_markers removeLastObject];
     
@@ -262,7 +246,7 @@
         
         // buffer in lookahead
         NSAssert(tok, @"");
-        NSLog(@"next: %@", [tok debugDescription]);
+        //NSLog(@"-nextToken: %@", [tok debugDescription]);
         [_lookahead addObject:tok];
     }
 }
