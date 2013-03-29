@@ -1,33 +1,39 @@
 #import "{{className}}.h"
+#import <ParseKit/PKAssembly.h>
+
+@interface PKSParser ()
+@property (nonatomic, retain) PKAssembly *assembly;
+@end
+
+@interface {{className}} ()
+@property (nonatomic, retain) NSDictionary *tokenKindTab;
+@end
 
 @implementation {{className}}
 
 - (id)init {
 	self = [super init];
 	if (self) {
-		
+		self.tokenKindTab = @{
+{%for kind in tokenKinds %}           @"{{kind.stringValue}}" : @({{kind.name}}),
+{%/for%}        };
 	}
 	return self;
 }
 
 - (void)dealloc {
-	
+	self.tokenKindTab = nil;
 	[super dealloc];
 }
 
 - (NSInteger)tokenKindForString:(NSString *)name {
-    static NSDictionary *d = nil;
-    if (!d) {
-        d = [@{
-{%for kind in tokenKinds %}           @"{{kind.stringValue}}" : @({{kind.name}}),
-{%/for%}        } retain];
-    }
-    
     NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-    id obj = d[name];
+
+    id obj = _tokenKindTab[name];
     if (obj) {
         x = [obj integerValue];
     }
+    
     return x;
 }
 {{methods}}

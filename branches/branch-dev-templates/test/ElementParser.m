@@ -1,35 +1,41 @@
 #import "ElementParser.h"
+#import <ParseKit/PKAssembly.h>
+
+@interface PKSParser ()
+@property (nonatomic, retain) PKAssembly *assembly;
+@end
+
+@interface ElementParser ()
+@property (nonatomic, retain) NSDictionary *tokenKindTab;
+@end
 
 @implementation ElementParser
 
 - (id)init {
 	self = [super init];
 	if (self) {
-		
+		self.tokenKindTab = @{
+           @"[" : @(TOKEN_KIND_LBRACKET),
+           @"]" : @(TOKEN_KIND_RBRACKET),
+           @"," : @(TOKEN_KIND_COMMA),
+        };
 	}
 	return self;
 }
 
 - (void)dealloc {
-	
+	self.tokenKindTab = nil;
 	[super dealloc];
 }
 
 - (NSInteger)tokenKindForString:(NSString *)name {
-    static NSDictionary *d = nil;
-    if (!d) {
-        d = [@{
-           @"[" : @(TOKEN_KIND_LBRACKET),
-           @"]" : @(TOKEN_KIND_RBRACKET),
-           @"," : @(TOKEN_KIND_COMMA),
-        } retain];
-    }
-    
     NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-    id obj = d[name];
+
+    id obj = _tokenKindTab[name];
     if (obj) {
         x = [obj integerValue];
     }
+    
     return x;
 }
 
@@ -38,9 +44,7 @@
     
     [self list]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatch_start:)]) {
-        [self.assembler performSelector:@selector(parser:didMatch_start:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)list {
@@ -50,9 +54,7 @@
     [self elements]; 
     [self rbracket]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchList:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchList:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 
 - (void)elements {
@@ -64,9 +66,7 @@
         [self element]; 
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchElements:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchElements:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchElements:)];
 }
 
 - (void)element {
@@ -80,9 +80,7 @@
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in element"];
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchElement:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchElement:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchElement:)];
 }
 
 - (void)lbracket {
@@ -90,9 +88,7 @@
     
     [self _match:TOKEN_KIND_LBRACKET]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchLbracket:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchLbracket:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
 
 - (void)rbracket {
@@ -100,9 +96,7 @@
     
     [self _match:TOKEN_KIND_RBRACKET]; [self _discard];
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchRbracket:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchRbracket:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
 
 - (void)comma {
@@ -110,9 +104,7 @@
     
     [self _match:TOKEN_KIND_COMMA]; [self _discard];
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchComma:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchComma:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
 @end

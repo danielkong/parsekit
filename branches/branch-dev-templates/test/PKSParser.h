@@ -37,8 +37,6 @@ enum {
 @property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, assign) id assembler; // weak ref
 
-@property (nonatomic, retain) PKAssembly *assembly; // TODO hide this.
-
 // for subclasses. underscores prevent name clash with grammar production names.
 - (void)_match:(NSInteger)x;
 - (void)_consume;

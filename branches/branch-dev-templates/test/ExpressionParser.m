@@ -1,24 +1,20 @@
 #import "ExpressionParser.h"
+#import <ParseKit/PKAssembly.h>
+
+@interface PKSParser ()
+@property (nonatomic, retain) PKAssembly *assembly;
+@end
+
+@interface ExpressionParser ()
+@property (nonatomic, retain) NSDictionary *tokenKindTab;
+@end
 
 @implementation ExpressionParser
 
 - (id)init {
 	self = [super init];
 	if (self) {
-		
-	}
-	return self;
-}
-
-- (void)dealloc {
-	
-	[super dealloc];
-}
-
-- (NSInteger)tokenKindForString:(NSString *)name {
-    static NSDictionary *d = nil;
-    if (!d) {
-        d = [@{
+		self.tokenKindTab = @{
            @"<" : @(TOKEN_KIND_LT),
            @">" : @(TOKEN_KIND_GT),
            @"=" : @(TOKEN_KIND_EQ),
@@ -33,14 +29,24 @@
            @"," : @(TOKEN_KIND_COMMA),
            @"or" : @(TOKEN_KIND_OR),
            @"and" : @(TOKEN_KIND_AND),
-        } retain];
-    }
-    
+        };
+	}
+	return self;
+}
+
+- (void)dealloc {
+	self.tokenKindTab = nil;
+	[super dealloc];
+}
+
+- (NSInteger)tokenKindForString:(NSString *)name {
     NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-    id obj = d[name];
+
+    id obj = _tokenKindTab[name];
     if (obj) {
         x = [obj integerValue];
     }
+    
     return x;
 }
 
@@ -49,9 +55,7 @@
     
     [self expr]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatch_start:)]) {
-        [self.assembler performSelector:@selector(parser:didMatch_start:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)expr {
@@ -59,9 +63,7 @@
     
     [self orExpr]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchExpr:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchExpr:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)orExpr {
@@ -72,9 +74,7 @@
         [self orTerm]; 
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchOrExpr:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchOrExpr:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
 }
 
 - (void)orTerm {
@@ -83,9 +83,7 @@
     [self or]; 
     [self andExpr]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchOrTerm:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchOrTerm:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
 }
 
 - (void)andExpr {
@@ -96,9 +94,7 @@
         [self andTerm]; 
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchAndExpr:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchAndExpr:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchAndExpr:)];
 }
 
 - (void)andTerm {
@@ -107,23 +103,19 @@
     [self and]; 
     [self relExpr]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchAndTerm:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchAndTerm:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchAndTerm:)];
 }
 
 - (void)relExpr {
 	NSLog(@"relExpr %@", self.assembly);
     
     [self callExpr]; 
-    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LT), @(TOKEN_KIND_GE), @(TOKEN_KIND_NE), @(TOKEN_KIND_LE), @(TOKEN_KIND_EQ), @(TOKEN_KIND_GT), nil]]) {
+    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NE), @(TOKEN_KIND_GE), @(TOKEN_KIND_LT), @(TOKEN_KIND_LE), @(TOKEN_KIND_EQ), @(TOKEN_KIND_GT), nil]]) {
         [self relOp]; 
         [self callExpr]; 
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchRelExpr:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchRelExpr:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchRelExpr:)];
 }
 
 - (void)relOp {
@@ -145,9 +137,7 @@
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in relOp"];
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchRelOp:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchRelOp:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchRelOp:)];
 }
 
 - (void)callExpr {
@@ -156,15 +146,13 @@
     [self primary]; 
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
-        if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
+        if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
             [self argList]; 
         }
         [self closeParen]; 
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchCallExpr:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchCallExpr:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchCallExpr:)];
 }
 
 - (void)argList {
@@ -176,15 +164,13 @@
         [self atom]; 
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchArgList:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchArgList:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchArgList:)];
 }
 
 - (void)primary {
 	NSLog(@"primary %@", self.assembly);
     
-    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_NO), @(TOKEN_KIND_YES), nil]]) {
+    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
         [self atom]; 
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
@@ -194,9 +180,7 @@
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in primary"];
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchPrimary:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchPrimary:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchPrimary:)];
 }
 
 - (void)atom {
@@ -204,15 +188,13 @@
     
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), nil]]) {
         [self obj]; 
-    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
+    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), @(TOKEN_KIND_NO), nil]]) {
         [self literal]; 
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in atom"];
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchAtom:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchAtom:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchAtom:)];
 }
 
 - (void)obj {
@@ -223,9 +205,7 @@
         [self member]; 
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchObj:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchObj:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchObj:)];
 }
 
 - (void)id {
@@ -233,9 +213,7 @@
     
     [self Word]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchId:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchId:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchId:)];
 }
 
 - (void)member {
@@ -244,9 +222,7 @@
     [self dot]; 
     [self id]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchMember:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchMember:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchMember:)];
 }
 
 - (void)literal {
@@ -256,15 +232,13 @@
         [self QuotedString]; 
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self Number]; 
-    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_YES), nil]]) {
+    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_NO), nil]]) {
         [self bool]; 
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in literal"];
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchLiteral:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchLiteral:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchLiteral:)];
 }
 
 - (void)bool {
@@ -278,9 +252,7 @@
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in bool"];
     }
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchBool:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchBool:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchBool:)];
 }
 
 - (void)lt {
@@ -288,9 +260,7 @@
     
     [self _match:TOKEN_KIND_LT]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchLt:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchLt:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
 
 - (void)gt {
@@ -298,9 +268,7 @@
     
     [self _match:TOKEN_KIND_GT]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchGt:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchGt:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
 
 - (void)eq {
@@ -308,9 +276,7 @@
     
     [self _match:TOKEN_KIND_EQ]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchEq:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchEq:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
 
 - (void)ne {
@@ -318,9 +284,7 @@
     
     [self _match:TOKEN_KIND_NE]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchNe:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchNe:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchNe:)];
 }
 
 - (void)le {
@@ -328,9 +292,7 @@
     
     [self _match:TOKEN_KIND_LE]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchLe:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchLe:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchLe:)];
 }
 
 - (void)ge {
@@ -338,9 +300,7 @@
     
     [self _match:TOKEN_KIND_GE]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchGe:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchGe:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchGe:)];
 }
 
 - (void)openParen {
@@ -348,9 +308,7 @@
     
     [self _match:TOKEN_KIND_OPENPAREN]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchOpenParen:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchOpenParen:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
 }
 
 - (void)closeParen {
@@ -358,9 +316,7 @@
     
     [self _match:TOKEN_KIND_CLOSEPAREN]; [self _discard];
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchCloseParen:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchCloseParen:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
 }
 
 - (void)yes {
@@ -368,9 +324,7 @@
     
     [self _match:TOKEN_KIND_YES]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchYes:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchYes:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchYes:)];
 }
 
 - (void)no {
@@ -378,9 +332,7 @@
     
     [self _match:TOKEN_KIND_NO]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchNo:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchNo:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchNo:)];
 }
 
 - (void)dot {
@@ -388,9 +340,7 @@
     
     [self _match:TOKEN_KIND_DOT]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchDot:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchDot:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchDot:)];
 }
 
 - (void)comma {
@@ -398,9 +348,7 @@
     
     [self _match:TOKEN_KIND_COMMA]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchComma:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchComma:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
 - (void)or {
@@ -408,9 +356,7 @@
     
     [self _match:TOKEN_KIND_OR]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchOr:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchOr:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchOr:)];
 }
 
 - (void)and {
@@ -418,9 +364,7 @@
     
     [self _match:TOKEN_KIND_AND]; 
 
-    if ([self.assembler respondsToSelector:@selector(parser:didMatchAnd:)]) {
-        [self.assembler performSelector:@selector(parser:didMatchAnd:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatchAnd:)];
 }
 
 @end

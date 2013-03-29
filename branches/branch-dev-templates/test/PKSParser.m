@@ -21,6 +21,7 @@
 @interface PKSParser ()
 @property (nonatomic, retain) PKToken *lookahead;
 @property (nonatomic, assign) BOOL speculating;
+@property (nonatomic, retain) PKAssembly *assembly; // TODO hide this.
 @end
 
 @implementation PKSParser

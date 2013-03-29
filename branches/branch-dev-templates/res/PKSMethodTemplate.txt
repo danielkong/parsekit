@@ -3,7 +3,5 @@
 	NSLog(@"{{methodName}} %@", self.assembly);
     
 {{methodBody}}
-    if ([self.assembler respondsToSelector:@selector(parser:didMatch{{methodName | capitalized}}:)]) {
-        [self.assembler performSelector:@selector(parser:didMatch{{methodName | capitalized}}:) withObject:self withObject:self.assembly];
-    }
+    [self _fireAssemblerSelector:@selector(parser:didMatch{{methodName | capitalized}}:)];
 }

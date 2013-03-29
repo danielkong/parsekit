@@ -159,7 +159,7 @@
  
     if (_collectTokenKinds) {
         NSAssert(_tokenKinds, @"");
-        NSAssert(_currentDefName, @"");
+        //NSAssert(!_collectTokenKinds || _currentDefName, @"");
         
         NSString *s = [node.token.stringValue stringByTrimmingQuotes];
         NSString *name = [NSString stringWithFormat:@"TOKEN_KIND_%@", [_currentDefName uppercaseString]];
