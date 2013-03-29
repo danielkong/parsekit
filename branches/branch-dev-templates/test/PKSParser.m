@@ -45,7 +45,7 @@
     @try {
 
         @autoreleasepool {
-            [self consume]; // get a lookahead token
+            [self _consume]; // get a lookahead token
             [self _start];
             
             result = [_target retain]; // +1
@@ -92,14 +92,14 @@
     if (_lookahead.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
         [_assembly push:_lookahead];
         
-        [self consume];
+        [self _consume];
     } else {
         [NSException raise:@"PKRecongitionException" format:@"expecting %ld; found %@", x, _lookahead];
     }
 }
 
 
-- (void)consume {
+- (void)_consume {
     if ([_assembly hasMore]) {
         
         // advance
@@ -111,7 +111,7 @@
 }
 
 
-- (void)discard {
+- (void)_discard {
     NSAssert(![_assembly isStackEmpty], @"");
     [_assembly pop];
 }

@@ -41,8 +41,8 @@ enum {
 
 // for subclasses
 - (void)match:(NSInteger)x;
-- (void)consume;
-- (void)discard;
+- (void)_consume;
+- (void)_discard;
 - (BOOL)predicts:(NSSet *)set;
 
 - (NSInteger)tokenKindForString:(NSString *)name;

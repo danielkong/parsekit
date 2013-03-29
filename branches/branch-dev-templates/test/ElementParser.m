@@ -98,7 +98,7 @@
 - (void)rbracket {
 	NSLog(@"rbracket %@", self.assembly);
     
-    [self match:TOKEN_KIND_RBRACKET]; [self discard];
+    [self match:TOKEN_KIND_RBRACKET]; [self _discard];
 
     if ([self.assembler respondsToSelector:@selector(parser:didMatchRbracket:)]) {
         [self.assembler performSelector:@selector(parser:didMatchRbracket:) withObject:self withObject:self.assembly];
@@ -108,7 +108,7 @@
 - (void)comma {
 	NSLog(@"comma %@", self.assembly);
     
-    [self match:TOKEN_KIND_COMMA]; [self discard];
+    [self match:TOKEN_KIND_COMMA]; [self _discard];
 
     if ([self.assembler respondsToSelector:@selector(parser:didMatchComma:)]) {
         [self.assembler performSelector:@selector(parser:didMatchComma:) withObject:self withObject:self.assembly];

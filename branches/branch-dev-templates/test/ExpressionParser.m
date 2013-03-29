@@ -116,7 +116,7 @@
 	NSLog(@"relExpr %@", self.assembly);
     
     [self callExpr]; 
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_GE), @(TOKEN_KIND_NE), @(TOKEN_KIND_LE), @(TOKEN_KIND_EQ), @(TOKEN_KIND_GT), @(TOKEN_KIND_LT), nil]]) {
+    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_LT), @(TOKEN_KIND_LE), @(TOKEN_KIND_EQ), @(TOKEN_KIND_GT), @(TOKEN_KIND_NE), @(TOKEN_KIND_GE), nil]]) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -156,7 +156,7 @@
     [self primary]; 
     if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
-        if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_WORD), nil]]) {
+        if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), nil]]) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -184,7 +184,7 @@
 - (void)primary {
 	NSLog(@"primary %@", self.assembly);
     
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
+    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
         [self atom]; 
     } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
@@ -204,7 +204,7 @@
     
     if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), nil]]) {
         [self obj]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
         [self literal]; 
     } else {
         [NSException raise:@"PKRecongitionException" format:@"no viable alternative found in atom"];
@@ -356,7 +356,7 @@
 - (void)closeParen {
 	NSLog(@"closeParen %@", self.assembly);
     
-    [self match:TOKEN_KIND_CLOSEPAREN]; [self discard];
+    [self match:TOKEN_KIND_CLOSEPAREN]; [self _discard];
 
     if ([self.assembler respondsToSelector:@selector(parser:didMatchCloseParen:)]) {
         [self.assembler performSelector:@selector(parser:didMatchCloseParen:) withObject:self withObject:self.assembly];
