@@ -20,6 +20,7 @@
            @"[" : @(TOKEN_KIND_LBRACKET),
            @"]" : @(TOKEN_KIND_RBRACKET),
            @"," : @(TOKEN_KIND_COMMA),
+           @"=" : @(TOKEN_KIND_EQ),
         };
 	}
 	return self;
@@ -44,9 +45,33 @@
 - (void)_start {
 	//NSLog(@"_start %@", self.assembly);
     
-    [self list]; 
+    [self stat]; 
 
     [self _fireAssemblerSelector:@selector(parser:didMatch_start:)];
+}
+
+- (void)stat {
+	//NSLog(@"stat %@", self.assembly);
+    
+    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
+        [self list]; 
+    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
+        [self assign]; 
+    } else {
+        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in stat"];
+    }
+
+    [self _fireAssemblerSelector:@selector(parser:didMatchStat:)];
+}
+
+- (void)assign {
+	//NSLog(@"assign %@", self.assembly);
+    
+    [self list]; 
+    [self eq]; 
+    [self list]; 
+
+    [self _fireAssemblerSelector:@selector(parser:didMatchAssign:)];
 }
 
 - (void)list {
@@ -107,6 +132,14 @@
     [self _match:TOKEN_KIND_COMMA]; [self _discard];
 
     [self _fireAssemblerSelector:@selector(parser:didMatchComma:)];
+}
+
+- (void)eq {
+	//NSLog(@"eq %@", self.assembly);
+    
+    [self _match:TOKEN_KIND_EQ]; 
+
+    [self _fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
 
 @end
