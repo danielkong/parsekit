@@ -29,6 +29,7 @@
 #define OPT_BODY @"optBody"
 #define DISCARD @"discard"
 #define NEEDS_BACKTRACK @"needsBacktrack"
+#define CHILD_STRING @"childString"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSString *)mstr;
@@ -241,9 +242,9 @@
     vars[DISCARD] = @(node.discard);
 
     // merge
-    NSString *templateName = self.needsBacktracking ? @"PKSMethodSpeculateTemplate" : @"PKSMethodCallTemplate";
-    NSString *template = [self templateStringNamed:templateName];
-//    NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
+//    NSString *templateName = self.needsBacktracking ? @"PKSMethodSpeculateTemplate" : @"PKSMethodCallTemplate";
+//    NSString *template = [self templateStringNamed:templateName];
+    NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];
     
     // push
@@ -338,6 +339,90 @@
 }
 
 
+- (NSMutableString *)recurseAlt:(PKAlternationNode *)node :(NSMutableArray *)lookaheadSets {
+    // setup child str buffer
+    NSMutableString *childStr = [NSMutableString string];
+    
+    // recurse
+    NSUInteger idx = 0;
+    for (PKBaseNode *child in node.children) {
+        id predictVars = [NSMutableDictionary dictionary];
+        
+        NSSet *set = lookaheadSets[idx];
+        predictVars[LOOKAHEAD_SET] = set;
+        predictVars[DEPTH] = @(_depth);
+        predictVars[NEEDS_BACKTRACK] = @(_needsBacktracking);
+        
+        NSString *templateName = nil;
+        
+        switch (idx) {
+            case 0:
+                templateName = @"PKSPredictIfTemplate";
+                break;
+            default:
+                templateName = @"PKSPredictElseIfTemplate";
+                break;
+        }
+        
+        NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:predictVars];
+        [childStr appendString:output];
+        
+        self.depth++;
+        [child visit:self];
+        self.depth--;
+        
+        // pop
+        [childStr appendString:[self pop]];
+        ++idx;
+    }
+    
+    return childStr;
+}
+
+
+- (NSMutableString *)recurseAltForBracktracking:(PKAlternationNode *)node :(NSMutableArray *)lookaheadSets {
+    // setup child str buffer
+    NSMutableString *result = [NSMutableString string];
+    
+    // recurse
+    NSUInteger idx = 0;
+    for (PKBaseNode *child in node.children) {
+        
+        // recurse first and get entire child str
+        self.depth++;
+        [child visit:self];
+        self.depth--;
+        NSString *childBody = [self pop];
+        NSString *ifTest = [[childBody stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"    " withString:@""];
+
+        // setup vars
+        id predictVars = [NSMutableDictionary dictionary];
+        predictVars[DEPTH] = @(_depth);
+        predictVars[NEEDS_BACKTRACK] = @(_needsBacktracking);
+        predictVars[CHILD_STRING] = ifTest;
+        
+        // setup template
+        NSString *templateName = nil;
+        switch (idx) {
+            case 0:
+                templateName = @"PKSSpeculateIfTemplate";
+                break;
+            default:
+                templateName = @"PKSSpeculateElseIfTemplate";
+                break;
+        }
+        
+        // process template
+        NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:predictVars];
+        [result appendString:output];
+        [result appendString:childBody];
+        ++idx;
+    }
+    
+    return result;
+}
+
+
 - (void)visitAlternation:(PKAlternationNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
@@ -360,41 +445,13 @@
     //NSLog(@"%@", lookaheadSets);
     self.needsBacktracking = [overlap count];
     
-    // setup child str buffer
-    NSMutableString *childStr = [NSMutableString string];
-    
-    // recurse
-    NSUInteger idx = 0;
-    for (PKBaseNode *child in node.children) {
-        id predictVars = [NSMutableDictionary dictionary];
-
-        NSSet *set = lookaheadSets[idx];
-        predictVars[LOOKAHEAD_SET] = set;
-        predictVars[DEPTH] = @(_depth);
-        predictVars[NEEDS_BACKTRACK] = @(_needsBacktracking);
-
-        NSString *templateName = nil;
-        
-        switch (idx) {
-            case 0:
-                templateName = @"PKSPredictIfTemplate";
-                break;
-            default:
-                templateName = @"PKSPredictElseIfTemplate";
-                break;
-        }
-
-        NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:predictVars];
-        [childStr appendString:output];
-
-        self.depth++;
-        [child visit:self];
-        self.depth--;
-        
-        // pop
-        [childStr appendString:[self pop]];
-        ++idx;
+    NSMutableString *childStr = nil;
+    if (_needsBacktracking) {
+        childStr = [self recurseAltForBracktracking:node :lookaheadSets];
+    } else {
+        childStr = [self recurseAlt:node :lookaheadSets];
     }
+
     self.needsBacktracking = NO;
 
     id predictVars = [NSMutableDictionary dictionary];

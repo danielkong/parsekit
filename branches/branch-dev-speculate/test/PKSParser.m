@@ -149,7 +149,7 @@
         
         [self _consume];
     } else {
-        [NSException raise:@"PKRuntimeException" format:@"expecting %ld; found %@", x, lt];
+        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"expecting %ld; found %@", x, lt];
     }
 }
 

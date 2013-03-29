@@ -21,6 +21,8 @@
            @"]" : @(TOKEN_KIND_RBRACKET),
            @"," : @(TOKEN_KIND_COMMA),
            @"=" : @(TOKEN_KIND_EQ),
+           @"." : @(TOKEN_KIND_DOT),
+           @";" : @(TOKEN_KIND_SEMI),
         };
 	}
 	return self;
@@ -53,14 +55,12 @@
 - (void)stat {
 	//NSLog(@"stat %@", self._assembly);
     
-    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
-        if ([self _speculate:^{ [self assign]; }]) {
-            [self assign]; 
-        }
-    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
-        if ([self _speculate:^{ [self list]; }]) {
-            [self list]; 
-        }
+    if ([self _speculate:^{ [self assign]; [self dot]; }]) {
+        [self assign]; 
+        [self dot]; 
+    } else if ([self _speculate:^{ [self list]; [self semi]; }]) {
+        [self list]; 
+        [self semi]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in stat"];
     }
@@ -144,6 +144,22 @@
     [self _match:TOKEN_KIND_EQ]; 
 
     [self _fireAssemblerSelector:@selector(parser:didMatchEq:)];
+}
+
+- (void)dot {
+	//NSLog(@"dot %@", self._assembly);
+    
+    [self _match:TOKEN_KIND_DOT]; 
+
+    [self _fireAssemblerSelector:@selector(parser:didMatchDot:)];
+}
+
+- (void)semi {
+	//NSLog(@"semi %@", self._assembly);
+    
+    [self _match:TOKEN_KIND_SEMI]; 
+
+    [self _fireAssemblerSelector:@selector(parser:didMatchSemi:)];
 }
 
 @synthesize _tokenKindTab = _tokenKindTab;

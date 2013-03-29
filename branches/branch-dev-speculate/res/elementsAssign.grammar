@@ -1,6 +1,6 @@
 @start = stat;
 
-stat = assign | list;
+stat = assign dot | list semi;
 
 assign = list eq list;
 
@@ -13,3 +13,6 @@ rbracket = ']'!;
 comma = ','!;
 
 eq = '=';
+
+dot = '.';
+semi = ';';
