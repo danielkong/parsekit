@@ -21,7 +21,7 @@
 @interface PKSParser ()
 @property (nonatomic, retain) PKToken *lookahead;
 @property (nonatomic, assign) BOOL speculating;
-@property (nonatomic, retain) PKAssembly *assembly; // TODO hide this.
+@property (nonatomic, retain) PKAssembly *assembly;
 @end
 
 @implementation PKSParser
@@ -141,7 +141,7 @@
 
 
 - (NSInteger)tokenKindForToken:(PKToken *)tok {
-    NSInteger x = [self tokenKindForString:tok.stringValue];
+    NSInteger x = [self _tokenKindForString:tok.stringValue];
     
     if (TOKEN_KIND_BUILTIN_INVALID == x) {
         x = tok.tokenType;
@@ -151,7 +151,7 @@
 }
 
 
-- (NSInteger)tokenKindForString:(NSString *)name {
+- (NSInteger)_tokenKindForString:(NSString *)name {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return TOKEN_KIND_BUILTIN_INVALID;
 }

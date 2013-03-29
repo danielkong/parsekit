@@ -36,16 +36,18 @@ enum {
 
 @property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, assign) id assembler; // weak ref
+@end
 
-// for subclasses. underscores prevent name clash with grammar production names.
+@interface PKSParser (Subclass)
+// underscores prevent name clash with grammar production names.
 - (void)_match:(NSInteger)x;
 - (void)_consume;
 - (void)_discard;
 - (BOOL)_predicts:(NSSet *)set;
 - (void)_fireAssemblerSelector:(SEL)sel;
+- (NSInteger)_tokenKindForString:(NSString *)name;
 
-- (NSInteger)tokenKindForString:(NSString *)name;
-
+// builtin token types
 - (void)Any;
 - (void)Empty;
 - (void)Word;
