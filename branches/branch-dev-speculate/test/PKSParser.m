@@ -57,7 +57,6 @@
     @try {
 
         @autoreleasepool {
-//            [self __consume]; // prime the lookahead token
             [self __start];
             
             if (_assembly.target) {
@@ -159,12 +158,10 @@
 - (PKToken *)__lt:(NSInteger)i {
     [self __sync:i];
     
-    PKToken *tok = nil;
     NSUInteger idx = _p + i - 1;
-    if (idx < [_lookahead count]) {
-        tok = _lookahead[idx];
-    }
-    
+    NSAssert(idx < [_lookahead count], @"");
+
+    PKToken *tok = _lookahead[idx];
     return tok;
 }
 
@@ -210,8 +207,13 @@
 
 
 - (void)__fill:(NSInteger)n {
-    for (NSUInteger i = 0; i <= n && [_assembly hasMore]; ++i) {
-        PKToken *tok = [_assembly next];
+    for (NSUInteger i = 0; i <= n; ++i) { // <= ?? fetches 2 toks instead of 1
+        PKToken *tok = nil;
+        if ([_assembly hasMore]) {
+            tok = [_assembly next];
+        } else {
+            tok = [PKToken EOFToken];
+        }
 
         // set token kind
         tok.tokenKind = [self __tokenKindForToken:tok];
