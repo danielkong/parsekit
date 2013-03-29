@@ -161,62 +161,62 @@
 
 
 - (void)Any {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self _match:TOKEN_KIND_BUILTIN_ANY];
 }
 
 
 - (void)Empty {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
 }
 
 
 - (void)Word {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self _match:TOKEN_KIND_BUILTIN_WORD];
 }
 
 
 - (void)Number {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self _match:TOKEN_KIND_BUILTIN_NUMBER];
 }
 
 
 - (void)Symbol {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self _match:TOKEN_KIND_BUILTIN_SYMBOL];
 }
 
 
 - (void)Comment {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self _match:TOKEN_KIND_BUILTIN_COMMENT];
 }
 
 
 - (void)Whitespace {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self _match:TOKEN_KIND_BUILTIN_WHITESPACE];
 }
 
 
 - (void)QuotedString {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self _match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
 }
 
 
 - (void)DelimitedString {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", __PRETTY_FUNCTION__);
     
     [self _match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
 }

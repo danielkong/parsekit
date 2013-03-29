@@ -16,15 +16,6 @@
 
 @implementation PKDefinitionPhaseVisitor
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.collectTokenKinds = YES; // TODO
-    }
-    return self;
-}
-
-
 - (void)dealloc {
     self.assembler = nil;
     self.preassembler = nil;

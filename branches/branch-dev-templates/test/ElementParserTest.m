@@ -22,6 +22,7 @@
 
 - (void)setUp {
     self.factory = [PKParserFactory factory];
+    _factory.collectTokenKinds = YES;
     
     NSError *err = nil;
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"elements" ofType:@"grammar"];
@@ -64,7 +65,7 @@
 
 
 - (void)parser:(PKSParser *)p didMatchList:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
 @end

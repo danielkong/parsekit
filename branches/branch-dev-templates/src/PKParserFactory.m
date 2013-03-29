@@ -337,6 +337,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     defv.assembler = self.assembler;
     defv.preassembler = self.preassembler;
     defv.assemblerSettingBehavior = self.assemblerSettingBehavior;
+    defv.collectTokenKinds = self.collectTokenKinds;
     [rootNode visit:defv];
 
     return rootNode;

@@ -22,7 +22,8 @@
 
 - (void)setUp {
     self.factory = [PKParserFactory factory];
-    
+    _factory.collectTokenKinds = YES;
+
     NSError *err = nil;
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"expression" ofType:@"grammar"];
     NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
@@ -64,7 +65,7 @@
 
 
 - (void)parser:(PKSParser *)p didMatchArgList:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
 
