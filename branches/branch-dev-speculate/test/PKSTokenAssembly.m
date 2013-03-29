@@ -16,10 +16,13 @@
 #import <ParseKit/PKTokenizer.h>
 #import <ParseKit/PKToken.h>
 
+@interface PKAssembly ()
+@property (nonatomic, readwrite, retain) NSString *defaultCursor;
+@end
+
 @interface PKSTokenAssembly ()
 @property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, retain) NSMutableArray *tokens;
-@property (nonatomic, retain) PKToken *lookahead;
 @end
 
 @implementation PKSTokenAssembly
@@ -33,7 +36,12 @@
     self = [super initWithString:nil];
     if (self) {
         self.tokenizer = t;
-        self.tokens = [NSMutableArray array];
+#if defined(NDEBUG)
+        self.gathersConsumedTokens = NO;
+        self.defaultCursor = @"";
+#else
+        self.gathersConsumedTokens = YES;
+#endif
     }
     return self;
 }
@@ -42,7 +50,6 @@
 - (void)dealloc {
     self.tokenizer = nil;
     self.tokens = nil;
-    self.lookahead = nil;
     [super dealloc];
 }
 
@@ -51,19 +58,24 @@
     PKSTokenAssembly *a = (PKSTokenAssembly *)[super copyWithZone:zone];
     a->tokenizer = nil; // optimization
     a->preservesWhitespaceTokens = preservesWhitespaceTokens;
-    a->tokens = [tokens mutableCopy];
-    a->lookahead = lookahead;
+    if (tokens) a->tokens = [tokens mutableCopy];
     return a;
 }
 
 
 - (void)consume:(PKToken *)tok {
     if (preservesWhitespaceTokens || tok.tokenType != PKTokenTypeWhitespace) {
-        ++index;
         [self push:tok];
-        [tokens addObject:tok];
+        if (gathersConsumedTokens) {
+            if (!tokens) {
+                self.tokens = [NSMutableArray array];
+            }
+            ++index;
+            [tokens addObject:tok];
+        }
     }
 }
+
 
 - (id)peek {
     NSAssert2(0, @"%s cannot call %@", __PRETTY_FUNCTION__, [self class]);
@@ -155,6 +167,6 @@
 
 @synthesize tokenizer;
 @synthesize tokens;
-@synthesize lookahead;
 @synthesize preservesWhitespaceTokens;
+@synthesize gathersConsumedTokens;
 @end

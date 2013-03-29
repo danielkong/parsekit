@@ -27,6 +27,7 @@
     NSMutableArray *tokens;
     PKToken *lookahead;
     BOOL preservesWhitespaceTokens;
+    BOOL gathersConsumedTokens;
 }
 
 /*!
@@ -50,4 +51,5 @@
     @brief      If true, whitespace tokens retreived from this assembly's tokenizier will be silently placed on this assembly's stack without being reported by -next or -peek. Default is false.
 */
 @property (nonatomic) BOOL preservesWhitespaceTokens;
+@property (nonatomic) BOOL gathersConsumedTokens;
 @end
