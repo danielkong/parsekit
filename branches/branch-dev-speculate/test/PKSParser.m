@@ -167,22 +167,6 @@
 }
 
 
-- (BOOL)__speculate:(SEL)sel {
-    BOOL success = YES;
-    [self __mark];
-    
-    @try {
-        [self performSelector:sel];
-    }
-    @catch (PKSRecognitionException *ex) {
-        success = NO;
-    }
-
-    [self __unmark];
-    return success;
-}
-
-
 - (NSUInteger)__mark {
     [_markers addObject:_p];
     return _p;
@@ -202,6 +186,11 @@
 }
 
 
+- (BOOL)isSpeculating {
+    return [_markers count] > 0;
+}
+
+
 - (void)__sync:(NSInteger)i {
     return; // TODO
     
@@ -212,11 +201,6 @@
         NSUInteger n = lastNeededIndex - lastFullIndex; // get n tokens
         [self __fill:n];
     }
-}
-
-
-- (BOOL)isSpeculating {
-    return [_markers count] > 0;
 }
 
 
@@ -249,6 +233,22 @@
 - (NSInteger)__tokenKindForString:(NSString *)name {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return TOKEN_KIND_BUILTIN_INVALID;
+}
+
+
+- (BOOL)__speculate:(SEL)sel {
+    BOOL success = YES;
+    [self __mark];
+    
+    @try {
+        [self performSelector:sel];
+    }
+    @catch (PKSRecognitionException *ex) {
+        success = NO;
+    }
+    
+    [self __unmark];
+    return success;
 }
 
 
