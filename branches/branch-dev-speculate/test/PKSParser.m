@@ -119,7 +119,7 @@
     //NSLog(@"lookahead %@", _lookahead);
     //NSLog(@"assembly %@", [_assembly description]);
 
-    // always match empty
+    // always match empty without consuming
     if (TOKEN_KIND_BUILTIN_EMPTY == x) return;
     
     PKToken *lt = [self _lt:1];
