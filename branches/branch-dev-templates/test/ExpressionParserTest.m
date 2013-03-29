@@ -12,7 +12,7 @@
 #import "PKRootNode.h"
 #import "ExpressionParser.h"
 
-#define EMIT 1
+#define EMIT 0
 
 @interface ExpressionParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
