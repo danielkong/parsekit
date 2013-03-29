@@ -112,7 +112,7 @@
 	//NSLog(@"relExpr %@", self.assembly);
     
     [self callExpr]; 
-    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_EQ), @(TOKEN_KIND_GT), @(TOKEN_KIND_LT), @(TOKEN_KIND_NE), @(TOKEN_KIND_GE), @(TOKEN_KIND_LE), nil]]) {
+    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_GT), @(TOKEN_KIND_LT), @(TOKEN_KIND_GE), @(TOKEN_KIND_NE), @(TOKEN_KIND_LE), @(TOKEN_KIND_EQ), nil]]) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -148,7 +148,7 @@
     [self primary]; 
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
-        if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_YES), nil]]) {
+        if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_WORD), nil]]) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -172,7 +172,7 @@
 - (void)primary {
 	//NSLog(@"primary %@", self.assembly);
     
-    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_YES), nil]]) {
+    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), nil]]) {
         [self atom]; 
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
@@ -234,7 +234,7 @@
         [self QuotedString]; 
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self Number]; 
-    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_NO), nil]]) {
+    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_YES), nil]]) {
         [self bool]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in literal"];

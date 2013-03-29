@@ -338,6 +338,23 @@
 - (void)visitAlternation:(PKAlternationNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    // first fetch all child lookahead sets
+    NSMutableArray *lookaheadSets = [NSMutableArray arrayWithCapacity:[node.children count]];
+    NSMutableSet *overlap = nil;
+    
+    for (PKBaseNode *child in node.children) {
+        NSSet *set = [self lookaheadSetForNode:child];
+        [lookaheadSets addObject:set];
+        
+        if (overlap) {
+            [overlap intersectSet:set]; // rest
+        } else {
+            [overlap unionSet:set]; // first
+        }
+    }
+    
+    NSAssert(0 == [overlap count], @"");
+    
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
     
@@ -346,7 +363,7 @@
     for (PKBaseNode *child in node.children) {
         id predictVars = [NSMutableDictionary dictionary];
 
-        NSSet *set = [self lookaheadSetForNode:child];
+        NSSet *set = lookaheadSets[idx];
         predictVars[LOOKAHEAD_SET] = set;
         predictVars[DEPTH] = @(_depth);
 

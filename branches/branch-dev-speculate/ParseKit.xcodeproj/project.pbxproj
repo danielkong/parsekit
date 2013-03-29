@@ -1874,8 +1874,8 @@
 				D3B22A591703D08B00446945 /* Tests */,
 				D3B22A5A1703D09C00446945 /* Grammars */,
 				D3B22A581703D07000446945 /* Language Parsers */,
-				D3022704170208BB00594F16 /* MGTemplateEngine */,
 				D3B22A571703D03F00446945 /* PKSTemplates */,
+				D3022704170208BB00594F16 /* MGTemplateEngine */,
 			);
 			name = ParserGen;
 			sourceTree = "<group>";
