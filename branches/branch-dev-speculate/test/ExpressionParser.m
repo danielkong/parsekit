@@ -3,6 +3,13 @@
 #import "PKSRecognitionException.h"
 #import "PKSNoViableException.h"
 
+#define LT(i) ([self _LT:(i)])
+#define LA(i) ([self _LA:(i)])
+
+#define POP() ([_assembly pop])
+#define PUSH(tok) ([_assembly push:(tok)])
+#define ABOVE(tok) ([_assembly objectsAbove:(tok)])
+
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
 @end
@@ -112,7 +119,7 @@
 	//NSLog(@"relExpr %@", self._assembly);
     
     [self callExpr]; 
-    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_EQ), @(TOKEN_KIND_GE), @(TOKEN_KIND_NE), @(TOKEN_KIND_LE), @(TOKEN_KIND_LT), @(TOKEN_KIND_GT), nil]]) {
+    while ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_EQ), @(TOKEN_KIND_LE), @(TOKEN_KIND_GE), @(TOKEN_KIND_LT), @(TOKEN_KIND_NE), @(TOKEN_KIND_GT), nil]]) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -148,7 +155,7 @@
     [self primary]; 
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
-        if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_NO), nil]]) {
+        if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_NO), nil]]) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -172,7 +179,7 @@
 - (void)primary {
 	//NSLog(@"primary %@", self._assembly);
     
-    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), nil]]) {
+    if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
         [self atom]; 
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
@@ -190,7 +197,7 @@
     
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), nil]]) {
         [self obj]; 
-    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
+    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
         [self literal]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in atom"];
@@ -234,7 +241,7 @@
         [self QuotedString]; 
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
         [self Number]; 
-    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_NO), nil]]) {
+    } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), @(TOKEN_KIND_YES), nil]]) {
         [self bool]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in literal"];

@@ -29,24 +29,11 @@ enum {
     TOKEN_KIND_BUILTIN_ANY = 13,
 };
 
-@interface PKSParser : NSObject {
-
-    // visible ivars here for use in subparser grammar predicates
-    PKToken * (^LT)   (NSInteger);
-    NSInteger (^LA)   (NSInteger);
-    PKToken * (^POP)  ();
-    void      (^PUSH) (PKToken *);
-    NSArray * (^ABOVE)(PKToken *);
-}
+@interface PKSParser : NSObject
 
 - (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outErr;
 - (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outErr;
 
-@property (nonatomic, copy) PKToken * (^LT)   (NSInteger);
-@property (nonatomic, copy) NSInteger (^LA)   (NSInteger);
-@property (nonatomic, copy) PKToken * (^POP)  ();
-@property (nonatomic, copy) void      (^PUSH) (PKToken *);
-@property (nonatomic, copy) NSArray * (^ABOVE)(PKToken *);
 @end
 
 @interface PKSParser (Subclass)

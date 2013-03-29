@@ -12,6 +12,13 @@
 #import "PKSTokenAssembly.h"
 #import "PKSRecognitionException.h"
 
+#define LT(i) ([self _LT:(i)])
+#define LA(i) ([self _LA:(i)])
+
+#define POP() ([_assembly pop])
+#define PUSH(tok) ([_assembly push:(tok)])
+#define ABOVE(tok) ([_assembly objectsAbove:(tok)])
+
 @interface PKSTokenAssembly ()
 - (void)consume:(PKToken *)tok;
 @end
@@ -37,13 +44,7 @@
 
 @implementation PKSParser
 
-- (void)dealloc {
-    self.LT = nil;
-    self.LA = nil;
-    self.POP = nil;
-    self.PUSH = nil;
-    self.ABOVE = nil;
-    
+- (void)dealloc {    
     self._tokenizer = nil;
     self._assembler = nil;
     self._assembly = nil;
@@ -83,12 +84,6 @@
 - (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError {
     id result = nil;
     
-    self.LT    = ^(NSInteger i)  { return [self _LT:i]; };
-    self.LA    = ^(NSInteger i)  { return [self _LA:i]; };
-    self.POP   = ^()             { return [_assembly pop]; };
-    self.PUSH  = ^(PKToken *tok) { return [_assembly push:tok]; };
-    self.ABOVE = ^(PKToken *tok) { return [_assembly objectsAbove:tok]; };
-
     // setup
     self._assembler = a;
     self._tokenizer = t;
@@ -137,12 +132,6 @@
         }
     }
     @finally {
-        self.LT = nil;
-        self.LA = nil;
-        self.POP = nil;
-        self.PUSH = nil;
-        self.ABOVE = nil;
-        
         self._tokenizer = nil;
         self._assembler = nil;
         self._assembly = nil;
@@ -380,12 +369,6 @@
     
     [self _match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
 }
-
-@synthesize LT = LT;
-@synthesize LA = LA;
-@synthesize POP = POP;
-@synthesize PUSH = PUSH;
-@synthesize ABOVE = ABOVE;
 
 @synthesize _tokenizer = _tokenizer;
 @synthesize _assembler = _assembler;

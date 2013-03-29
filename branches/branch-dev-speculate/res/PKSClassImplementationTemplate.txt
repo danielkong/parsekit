@@ -3,6 +3,13 @@
 #import "PKSRecognitionException.h"
 #import "PKSNoViableException.h"
 
+#define LT(i) ([self _LT:(i)])
+#define LA(i) ([self _LA:(i)])
+
+#define POP() ([_assembly pop])
+#define PUSH(tok) ([_assembly push:(tok)])
+#define ABOVE(tok) ([_assembly objectsAbove:(tok)])
+
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
 @end
