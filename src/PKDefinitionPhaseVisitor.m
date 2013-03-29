@@ -8,6 +8,8 @@
 
 #import "PKDefinitionPhaseVisitor.h"
 #import <ParseKit/PKCompositeParser.h>
+#import "NSString+ParseKitAdditions.h"
+#import "PKSTokenKindDescriptor.h"
 
 @interface PKDefinitionPhaseVisitor ()
 @end
@@ -17,6 +19,8 @@
 - (void)dealloc {
     self.assembler = nil;
     self.preassembler = nil;
+    self.tokenKinds = nil;
+    self.currentDefName = nil;
     [super dealloc];
 }
 
@@ -25,7 +29,16 @@
     NSParameterAssert(node);
     NSAssert(self.symbolTable, @"");
     
+    if (_collectTokenKinds) {
+        self.tokenKinds = [NSMutableArray array];
+    }
+    
     [self recurse:node];
+
+    if (_collectTokenKinds) {
+        node.tokenKinds = _tokenKinds;
+        self.tokenKinds = nil;
+    }
 
     self.symbolTable = nil;
 }
@@ -45,6 +58,9 @@
     // set name
     NSString *name = node.token.stringValue;
     cp.name = name;
+    if (_collectTokenKinds) {
+        self.currentDefName = name;
+    }
     
     // set assembler callback
     if (_assembler || _preassembler) {
@@ -131,7 +147,20 @@
 
 - (void)visitLiteral:(PKLiteralNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-    
+ 
+    if (_collectTokenKinds) {
+        NSAssert(_tokenKinds, @"");
+        //NSAssert(!_collectTokenKinds || _currentDefName, @"");
+        
+        NSString *s = [node.token.stringValue stringByTrimmingQuotes];
+        NSString *name = [NSString stringWithFormat:@"TOKEN_KIND_%@", [_currentDefName uppercaseString]];
+        PKSTokenKindDescriptor *kind = [PKSTokenKindDescriptor descriptorWithStringValue:s name:name];
+        
+        [_tokenKinds addObject:kind];
+        node.tokenKind = kind;
+
+        self.currentDefName = nil;
+    }
 }
 
 

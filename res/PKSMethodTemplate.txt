@@ -1,0 +1,7 @@
+
+- (void){{methodName}} {
+	//NSLog(@"{{methodName}} %@", self.assembly);
+    
+{{methodBody}}
+    [self __fireAssemblerSelector:@selector(parser:didMatch{{methodName | capitalized}}:)];
+}

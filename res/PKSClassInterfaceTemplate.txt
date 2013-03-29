@@ -1,0 +1,10 @@
+#import "PKSParser.h"
+
+enum {
+{%for kind in tokenKinds %}    {{kind.name}}{%if 0 = currentLoop.currentIndex %} = {{startIndex}}{%/if%},
+{%/for%}};
+
+@interface {{className}} : PKSParser
+
+@end
+

@@ -30,4 +30,5 @@ typedef enum {
 - (PKAST *)ASTFromGrammar:(NSString *)g error:(NSError **)outError;
 
 @property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
+@property (nonatomic, assign) BOOL collectTokenKinds;
 @end
