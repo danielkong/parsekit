@@ -13,7 +13,7 @@
 #import "PKSRecognitionException.h"
 
 @interface PKSTokenAssembly ()
-//- (id)next;
+- (void)consume:(PKToken *)tok;
 @end
 
 @interface PKSParser ()

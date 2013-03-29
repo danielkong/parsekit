@@ -21,6 +21,7 @@
 @end
 
 @interface PKSTokenAssembly ()
+- (void)consume:(PKToken *)tok;
 @property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, retain) NSMutableArray *tokens;
 @end
