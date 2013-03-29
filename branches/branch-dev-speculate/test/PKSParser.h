@@ -48,7 +48,7 @@ enum {
 // speculation
 - (PKToken *)_lt:(NSInteger)i;
 - (NSInteger)_la:(NSInteger)i;
-- (BOOL)_speculate:(SEL)sel;
+- (BOOL)_speculate:(void (^)(void))block;
 
 // builtin token types
 - (void)Any;

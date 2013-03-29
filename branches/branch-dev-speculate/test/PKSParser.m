@@ -276,12 +276,14 @@
 }
 
 
-- (BOOL)_speculate:(SEL)sel {
+- (BOOL)_speculate:(void (^)(void))block {
+    NSParameterAssert(block);
+    
     BOOL success = YES;
     [self _mark];
     
     @try {
-        [self performSelector:sel];
+        block();
     }
     @catch (PKSRecognitionException *ex) {
         success = NO;

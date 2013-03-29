@@ -54,11 +54,11 @@
 	//NSLog(@"stat %@", self._assembly);
     
     if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
-        if ([self _speculate:@selector(assign)]) {
+        if ([self _speculate:^{ [self assign]; }]) {
             [self assign]; 
         }
     } else if ([self _predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
-        if ([self _speculate:@selector(list)]) {
+        if ([self _speculate:^{ [self list]; }]) {
             [self list]; 
         }
     } else {
