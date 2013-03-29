@@ -18,10 +18,11 @@
 @end
 
 @interface PKSParser ()
+@property (nonatomic, retain) PKAssembly *assembly;
 @property (nonatomic, retain) NSMutableArray *lookahead;
+@property (nonatomic, retain) NSMutableArray *markers;
 @property (nonatomic, assign) NSUInteger p;
 @property (nonatomic, assign) BOOL speculating;
-@property (nonatomic, retain) PKAssembly *assembly;
 @end
 
 @implementation PKSParser
@@ -31,6 +32,7 @@
     self.assembler = nil;
     self.assembly = nil;
     self.lookahead = nil;
+    self.markers = nil;
     [super dealloc];
 }
 
@@ -49,7 +51,8 @@
 
     // setup speculation
     self.p = 0;
-    self.lookahead = [NSMutableArray arrayWithCapacity:5];
+    self.lookahead = [NSMutableArray array];
+    self.markers = [NSMutableArray array];
 
     @try {
 
@@ -193,6 +196,13 @@
 - (void)__sync:(NSInteger)i {
     return; // TODO
     
+    NSUInteger lastNeededIndex = _p + i - 1;
+    NSUInteger lastFullIndex = [_lookahead count] - 1;
+    
+    if (lastNeededIndex > lastFullIndex) { // out of tokens ?
+        NSUInteger n = lastNeededIndex - lastFullIndex; // get n tokens
+        [self __fill:n];
+    }
 }
 
 
