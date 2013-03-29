@@ -10,6 +10,7 @@
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
 #import <ParseKit/PKTokenAssembly.h>
+#import "PKSRecognitionException.h"
 
 @interface PKAssembly ()
 - (id)next;
@@ -137,6 +138,32 @@
     if (_assembler && [_assembler respondsToSelector:sel]) {
         [_assembler performSelector:sel withObject:self withObject:_assembly];
     }
+}
+
+
+- (BOOL)__speculate:(SEL)sel {
+    BOOL success = YES;
+    [self __mark];
+    
+    @try {
+        [self performSelector:sel];
+    }
+    @catch (PKSRecognitionException *ex) {
+        success = NO;
+    }
+
+    [self __unmark];
+    return success;
+}
+
+
+- (void)__mark {
+    
+}
+
+
+- (void)__unmark {
+    
 }
 
 

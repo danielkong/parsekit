@@ -47,6 +47,11 @@ enum {
 - (void)__fireAssemblerSelector:(SEL)sel;
 - (NSInteger)__tokenKindForString:(NSString *)name;
 
+// speculation
+- (BOOL)__speculate:(SEL)sel;
+- (void)__mark;
+- (void)__unmark;
+
 // builtin token types
 - (void)Any;
 - (void)Empty;
