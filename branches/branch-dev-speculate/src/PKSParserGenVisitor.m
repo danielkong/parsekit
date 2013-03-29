@@ -241,7 +241,7 @@
     vars[DISCARD] = @(node.discard);
 
     // merge
-    NSString *templateName = self.isSpeculating ? @"PKSMethodSpeculateTemplate" : @"PKSMethodCallTemplate";
+    NSString *templateName = self.needsBacktracking ? @"PKSMethodSpeculateTemplate" : @"PKSMethodCallTemplate";
     NSString *template = [self templateStringNamed:templateName];
 //    NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];
@@ -358,11 +358,10 @@
     }
     
     //NSLog(@"%@", lookaheadSets);
-    BOOL needsBacktrack = [overlap count];
+    self.needsBacktracking = [overlap count];
     
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
-    self.isSpeculating = needsBacktrack;
     
     // recurse
     NSUInteger idx = 0;
@@ -372,7 +371,7 @@
         NSSet *set = lookaheadSets[idx];
         predictVars[LOOKAHEAD_SET] = set;
         predictVars[DEPTH] = @(_depth);
-        predictVars[NEEDS_BACKTRACK] = @(needsBacktrack);
+        predictVars[NEEDS_BACKTRACK] = @(_needsBacktracking);
 
         NSString *templateName = nil;
         
@@ -396,7 +395,7 @@
         [childStr appendString:[self pop]];
         ++idx;
     }
-    self.isSpeculating = NO;
+    self.needsBacktracking = NO;
 
     id predictVars = [NSMutableDictionary dictionary];
     predictVars[METHOD_NAME] = _currentDefName;
