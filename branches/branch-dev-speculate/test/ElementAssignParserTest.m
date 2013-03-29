@@ -79,9 +79,8 @@
 
 - (void)testAssign {
     ElementAssignParser *p = [[[ElementAssignParser alloc] init] autorelease];
-    p.assembler = self;
     
-    PKAssembly *res = [p parseString:@"[1]=[2]" error:nil];
+    PKAssembly *res = [p parseString:@"[1]=[2]" assembler:self error:nil];
     
     TDEqualObjects(@"[[, 1, =, [, 2][/1/]/=/[/2/]^", [res description]);
 }

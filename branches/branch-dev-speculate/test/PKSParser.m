@@ -17,11 +17,13 @@
 @end
 
 @interface PKSParser ()
-@property (nonatomic, retain) PKSTokenAssembly *assembly;
-@property (nonatomic, retain) NSMutableArray *lookahead;
-@property (nonatomic, retain) NSMutableArray *markers;
-@property (nonatomic, assign) NSInteger p;
-@property (nonatomic, assign, readonly) BOOL isSpeculating;
+@property (nonatomic, retain) PKTokenizer *_tokenizer;
+@property (nonatomic, assign) id _assembler; // weak ref
+@property (nonatomic, retain) PKSTokenAssembly *_assembly;
+@property (nonatomic, retain) NSMutableArray *_lookahead;
+@property (nonatomic, retain) NSMutableArray *_markers;
+@property (nonatomic, assign) NSInteger _p;
+@property (nonatomic, assign, readonly) BOOL _isSpeculating;
 
 - (NSInteger)_mark;
 - (void)_unmark;
@@ -33,27 +35,31 @@
 @implementation PKSParser
 
 - (void)dealloc {
-    self.tokenizer = nil;
-    self.assembler = nil;
-    self.assembly = nil;
-    self.lookahead = nil;
-    self.markers = nil;
+    self._tokenizer = nil;
+    self._assembler = nil;
+    self._assembly = nil;
+    self._lookahead = nil;
+    self._markers = nil;
     [super dealloc];
 }
 
 
-- (id)parseStream:(NSInputStream *)input error:(NSError **)outError {
+- (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outError {
+    self._assembler = a;
+    
     // setup tokenizer
-    if (!_tokenizer) self.tokenizer = [PKTokenizer tokenizer];
+    if (!_tokenizer) self._tokenizer = [PKTokenizer tokenizer];
     _tokenizer.stream = input;
 
     return [self _doParse:outError];
 }
 
 
-- (id)parseString:(NSString *)input error:(NSError **)outError {
+- (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outError {
+    self._assembler = a;
+
     // setup tokenizer
-    if (!_tokenizer) self.tokenizer = [PKTokenizer tokenizer];
+    if (!_tokenizer) self._tokenizer = [PKTokenizer tokenizer];
     _tokenizer.string = input;
     
     return [self _doParse:outError];
@@ -64,12 +70,12 @@
     id result = nil;
     
     // setup assembly
-    self.assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
+    self._assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
     
     // setup speculation
-    self.p = 0;
-    self.lookahead = [NSMutableArray array];
-    self.markers = [NSMutableArray array];
+    self._p = 0;
+    self._lookahead = [NSMutableArray array];
+    self._markers = [NSMutableArray array];
 
     @try {
 
@@ -135,12 +141,12 @@
 
 
 - (void)_consume {
-    self.p++;
+    self._p++;
     
     // have we hit end of buffer when not backtracking?
     if (_p == [_lookahead count] && !self.isSpeculating) {
         // if so, it's an opp to start filling at index 0 again
-        self.p = 0;
+        self._p = 0;
         [_lookahead removeAllObjects]; // size goes to 0, but retains memory on heap
     }
 
@@ -204,7 +210,7 @@
 
 
 - (void)_seek:(NSInteger)index {
-    self.p = index;
+    self._p = index;
 }
 
 
@@ -338,4 +344,11 @@
     [self _match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
 }
 
+@synthesize _tokenizer = _tokenizer;
+@synthesize _assembler = _assembler;
+@synthesize _assembly = _assembly;
+@synthesize _lookahead = _lookahead;
+@synthesize _markers = _markers;
+@synthesize _p = _p;
+@synthesize _isSpeculating = _isSpeculating;
 @end

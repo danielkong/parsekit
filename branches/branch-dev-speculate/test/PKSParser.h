@@ -31,11 +31,9 @@ enum {
 
 @interface PKSParser : NSObject
 
-- (id)parseString:(NSString *)input error:(NSError **)outErr;
-- (id)parseStream:(NSInputStream *)input error:(NSError **)outErr;
+- (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outErr;
+- (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outErr;
 
-@property (nonatomic, retain) PKTokenizer *tokenizer;
-@property (nonatomic, assign) id assembler; // weak ref
 @end
 
 @interface PKSParser (Subclass)

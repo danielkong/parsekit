@@ -60,9 +60,8 @@
 
 - (void)testFoo {    
     ExpressionParser *p = [[[ExpressionParser alloc] init] autorelease];
-    p.assembler = self;
     
-    PKAssembly *res = [p parseString:@"foo.bar('hello') or bar" error:nil];
+    PKAssembly *res = [p parseString:@"foo.bar('hello') or bar" assembler:self error:nil];
     
     TDEqualObjects(@"[foo, ., bar, (, 'hello', or, bar]foo/./bar/(/'hello'/)/or/bar^", [res description]);
 }
