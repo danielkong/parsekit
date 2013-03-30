@@ -147,7 +147,7 @@
     
     PKToken *lt = LT(1);
     if (lt.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
-        if (!self.isSpeculating) {
+        if (!self._isSpeculating) {
             [_assembly consume:lt];
         }
         
@@ -162,7 +162,7 @@
     self._p++;
     
     // have we hit end of buffer when not backtracking?
-    if (_p == [_lookahead count] && !self.isSpeculating) {
+    if (_p == [_lookahead count] && !self._isSpeculating) {
         // if so, it's an opp to start filling at index 0 again
         self._p = 0;
         [_lookahead removeAllObjects]; // size goes to 0, but retains memory on heap
@@ -173,7 +173,7 @@
 
 
 - (void)discard:(NSInteger)n {
-    if (self.isSpeculating) return;
+    if (self._isSpeculating) return;
     
     while (n > 0) {
         NSAssert(![_assembly isStackEmpty], @"");
@@ -183,15 +183,8 @@
 }
 
 
-- (BOOL)predicts:(NSSet *)set {
-    NSInteger x = LA(1);
-    BOOL result = [set containsObject:@(x)];
-    return result;
-}
-
-
 - (void)fireAssemblerSelector:(SEL)sel {
-    if (self.isSpeculating) return;
+    if (self._isSpeculating) return;
     
     if (_assembler && [_assembler respondsToSelector:sel]) {
         [_assembler performSelector:sel withObject:self withObject:_assembly];
@@ -235,7 +228,7 @@
 }
 
 
-- (BOOL)isSpeculating {
+- (BOOL)_isSpeculating {
     return [_markers count] > 0;
 }
 
@@ -373,5 +366,4 @@
 @synthesize _lookahead = _lookahead;
 @synthesize _markers = _markers;
 @synthesize _p = _p;
-@synthesize _isSpeculating = _isSpeculating;
 @end

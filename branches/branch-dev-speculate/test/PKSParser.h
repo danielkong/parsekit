@@ -43,7 +43,6 @@ enum {
 
 - (void)match:(NSInteger)x;
 - (void)discard:(NSInteger)n;
-- (BOOL)predicts:(NSSet *)set;
 - (BOOL)speculate:(void (^)(void))block;
 - (void)fireAssemblerSelector:(SEL)sel;
 - (NSInteger)tokenKindForString:(NSString *)s;

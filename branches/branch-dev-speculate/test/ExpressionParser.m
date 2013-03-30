@@ -119,7 +119,7 @@
 	//NSLog(@"relExpr %@", self._assembly);
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_EQ || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LT || 0) {
+    while (LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_EQ || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GE || 0) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -155,7 +155,7 @@
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPENPAREN || 0) {
         [self openParen]; 
-        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || 0) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES || 0) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -179,7 +179,7 @@
 - (void)primary {
 	//NSLog(@"primary %@", self._assembly);
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || 0) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES || 0) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPENPAREN || 0) {
         [self openParen]; 
@@ -197,7 +197,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD || 0) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || 0) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || 0) {
         [self literal]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in atom"];
@@ -241,7 +241,7 @@
         [self QuotedString]; 
     } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || 0) {
         [self Number]; 
-    } else if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || 0) {
+    } else if (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || 0) {
         [self bool]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in literal"];
