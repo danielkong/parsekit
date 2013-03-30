@@ -18,6 +18,7 @@
 - (void)dealloc {
     self.parser = nil;
     self.actionNode = nil;
+    self.defName = nil;
     [super dealloc];
 }
 
@@ -27,6 +28,7 @@
     that->_discard = _discard;
     that->_parser = _parser;
     that->_actionNode = [_actionNode retain];
+    that->_defName = [_defName retain];
     return that;
 }
 
@@ -46,7 +48,11 @@
         return NO;
     }
     
-    if ([_actionNode isEqual:that->_actionNode]) {
+    if (![_actionNode isEqual:that->_actionNode]) {
+        return NO;
+    }
+    
+    if (![_defName isEqual:that->_defName]) {
         return NO;
     }
     

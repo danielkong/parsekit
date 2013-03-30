@@ -26,20 +26,20 @@
 	self = [super init];
 	if (self) {
 		self._tokenKindTab = @{
-           @"=" : @(TOKEN_KIND_RELOP),
-           @"<" : @(TOKEN_KIND_LT),
-           @">" : @(TOKEN_KIND_GT),
-           @"!=" : @(TOKEN_KIND_NE),
-           @"<=" : @(TOKEN_KIND_LE),
            @">=" : @(TOKEN_KIND_GE),
-           @"(" : @(TOKEN_KIND_OPENPAREN),
-           @")" : @(TOKEN_KIND_CLOSEPAREN),
-           @"yes" : @(TOKEN_KIND_YES),
-           @"no" : @(TOKEN_KIND_NO),
-           @"." : @(TOKEN_KIND_DOT),
            @"," : @(TOKEN_KIND_COMMA),
-           @"or" : @(TOKEN_KIND_OR),
-           @"and" : @(TOKEN_KIND_AND),
+           @"or" : @(TOKEN_KIND_OR_LOWER),
+           @"<" : @(TOKEN_KIND_LT),
+           @"<=" : @(TOKEN_KIND_LE),
+           @"=" : @(TOKEN_KIND_EQUALS),
+           @"." : @(TOKEN_KIND_DOT),
+           @">" : @(TOKEN_KIND_GT),
+           @"and" : @(TOKEN_KIND_AND_LOWER),
+           @"(" : @(TOKEN_KIND_OPEN_PAREN),
+           @"yes" : @(TOKEN_KIND_YES_LOWER),
+           @")" : @(TOKEN_KIND_CLOSE_PAREN),
+           @"!=" : @(TOKEN_KIND_NE),
+           @"no" : @(TOKEN_KIND_NO_LOWER),
         };
 	}
 	return self;
@@ -78,7 +78,7 @@
 - (void)orExpr {
     
     [self andExpr]; 
-    while (LA(1) == TOKEN_KIND_OR) {
+    while (LA(1) == TOKEN_KIND_OR_LOWER) {
         [self orTerm]; 
     }
 
@@ -87,7 +87,7 @@
 
 - (void)orTerm {
     
-    [self or]; 
+    [self match:TOKEN_KIND_OR_LOWER]; 
     [self andExpr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
@@ -96,7 +96,7 @@
 - (void)andExpr {
     
     [self relExpr]; 
-    while (LA(1) == TOKEN_KIND_AND) {
+    while (LA(1) == TOKEN_KIND_AND_LOWER) {
         [self andTerm]; 
     }
 
@@ -105,7 +105,7 @@
 
 - (void)andTerm {
     
-    [self and]; 
+    [self match:TOKEN_KIND_AND_LOWER]; 
     [self relExpr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndTerm:)];
@@ -114,7 +114,7 @@
 - (void)relExpr {
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_RELOP || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_GT) {
+    while (LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_EQUALS) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -125,17 +125,17 @@
 - (void)relOp {
     
     if (LA(1) == TOKEN_KIND_LT) {
-        [self lt]; 
+        [self match:TOKEN_KIND_LT]; 
     } else if (LA(1) == TOKEN_KIND_GT) {
-        [self gt]; 
-    } else if (LA(1) == TOKEN_KIND_RELOP) {
-        [self match:TOKEN_KIND_RELOP]; 
+        [self match:TOKEN_KIND_GT]; 
+    } else if (LA(1) == TOKEN_KIND_EQUALS) {
+        [self match:TOKEN_KIND_EQUALS]; 
     } else if (LA(1) == TOKEN_KIND_NE) {
-        [self ne]; 
+        [self match:TOKEN_KIND_NE]; 
     } else if (LA(1) == TOKEN_KIND_LE) {
-        [self le]; 
+        [self match:TOKEN_KIND_LE]; 
     } else if (LA(1) == TOKEN_KIND_GE) {
-        [self ge]; 
+        [self match:TOKEN_KIND_GE]; 
     } else {
         [self raise:@"no viable alternative found in relOp"];
     }
@@ -146,12 +146,12 @@
 - (void)callExpr {
     
     [self primary]; 
-    if (LA(1) == TOKEN_KIND_OPENPAREN) {
-        [self openParen]; 
-        if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES) {
+    if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
+        [self match:TOKEN_KIND_OPEN_PAREN]; 
+        if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
             [self argList]; 
         }
-        [self closeParen]; 
+        [self match:TOKEN_KIND_CLOSE_PAREN]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchCallExpr:)];
@@ -161,7 +161,7 @@
     
     [self atom]; 
     while (LA(1) == TOKEN_KIND_COMMA) {
-        [self comma]; 
+        [self match:TOKEN_KIND_COMMA]; 
         [self atom]; 
     }
 
@@ -170,12 +170,12 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_LOWER) {
         [self atom]; 
-    } else if (LA(1) == TOKEN_KIND_OPENPAREN) {
-        [self openParen]; 
+    } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
+        [self match:TOKEN_KIND_OPEN_PAREN]; 
         [self expr]; 
-        [self closeParen]; 
+        [self match:TOKEN_KIND_CLOSE_PAREN]; 
     } else {
         [self raise:@"no viable alternative found in primary"];
     }
@@ -187,7 +187,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+    } else if (LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES_LOWER) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -215,7 +215,7 @@
 
 - (void)member {
     
-    [self dot]; 
+    [self match:TOKEN_KIND_DOT]; 
     [self id]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMember:)];
@@ -227,7 +227,7 @@
         [self QuotedString]; 
     } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
-    } else if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO) {
+    } else if (LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_YES_LOWER) {
         [self bool]; 
     } else {
         [self raise:@"no viable alternative found in literal"];
@@ -238,106 +238,15 @@
 
 - (void)bool {
     
-    if (LA(1) == TOKEN_KIND_YES) {
-        [self yes]; 
-    } else if (LA(1) == TOKEN_KIND_NO) {
-        [self no]; 
+    if (LA(1) == TOKEN_KIND_YES_LOWER) {
+        [self match:TOKEN_KIND_YES_LOWER]; 
+    } else if (LA(1) == TOKEN_KIND_NO_LOWER) {
+        [self match:TOKEN_KIND_NO_LOWER]; 
     } else {
         [self raise:@"no viable alternative found in bool"];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchBool:)];
-}
-
-- (void)lt {
-    
-    [self match:TOKEN_KIND_LT]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
-}
-
-- (void)gt {
-    
-    [self match:TOKEN_KIND_GT]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
-}
-
-- (void)ne {
-    
-    [self match:TOKEN_KIND_NE]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchNe:)];
-}
-
-- (void)le {
-    
-    [self match:TOKEN_KIND_LE]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchLe:)];
-}
-
-- (void)ge {
-    
-    [self match:TOKEN_KIND_GE]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchGe:)];
-}
-
-- (void)openParen {
-    
-    [self match:TOKEN_KIND_OPENPAREN]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
-}
-
-- (void)closeParen {
-    
-    [self match:TOKEN_KIND_CLOSEPAREN]; [self discard:1];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
-}
-
-- (void)yes {
-    
-    [self match:TOKEN_KIND_YES]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchYes:)];
-}
-
-- (void)no {
-    
-    [self match:TOKEN_KIND_NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchNo:)];
-}
-
-- (void)dot {
-    
-    [self match:TOKEN_KIND_DOT]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
-}
-
-- (void)comma {
-    
-    [self match:TOKEN_KIND_COMMA]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
-}
-
-- (void)or {
-    
-    [self match:TOKEN_KIND_OR]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
-}
-
-- (void)and {
-    
-    [self match:TOKEN_KIND_AND]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];
 }
 
 @synthesize _tokenKindTab = _tokenKindTab;
