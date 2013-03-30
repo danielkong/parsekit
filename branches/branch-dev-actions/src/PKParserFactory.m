@@ -119,6 +119,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchTrackExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a;
@@ -366,9 +367,14 @@ void PKReleaseSubparserTree(PKParser *p) {
     t.commentState.fallbackState = t.delimitState;
     
     // regex delimited strings
-    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]];
-    [t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]];
-    
+    NSCharacterSet *nonWhitespace = [[NSCharacterSet whitespaceCharacterSet] invertedSet];
+    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:nonWhitespace];
+    [t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:nonWhitespace];
+
+    // action delimited strings
+    [t.delimitState addStartMarker:@"{" endMarker:@"}" allowedCharacterSet:nil];
+    [t.delimitState setFallbackState:t.symbolState from:'{' to:'}'];
+
     return t;
 }
 
@@ -919,6 +925,17 @@ void PKReleaseSubparserTree(PKParser *p) {
     [diffNode addChild:minusNode];
     
     [a push:diffNode];
+}
+
+
+- (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a {
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    PKToken *tok = [a pop];
+    NSAssert(tok.isDelimitedString, @"");
+    
+    PKDelimitedNode *delimNode = [PKDelimitedNode nodeWithToken:tok];
+    [a push:delimNode];
 }
 
 

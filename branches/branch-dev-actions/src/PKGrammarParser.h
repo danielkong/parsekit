@@ -30,6 +30,7 @@
     PKCollectionParser *factorParser;
     PKCollectionParser *nextFactorParser;
     PKCollectionParser *phraseParser;
+    PKParser *actionParser;
     PKCollectionParser *phraseStarParser;
     PKCollectionParser *phrasePlusParser;
     PKCollectionParser *phraseQuestionParser;
@@ -65,6 +66,7 @@
 @property (nonatomic, retain) PKCollectionParser *factorParser;
 @property (nonatomic, retain) PKCollectionParser *nextFactorParser;
 @property (nonatomic, retain) PKCollectionParser *phraseParser;
+@property (nonatomic, retain) PKParser *actionParser;
 @property (nonatomic, retain) PKCollectionParser *phraseStarParser;
 @property (nonatomic, retain) PKCollectionParser *phrasePlusParser;
 @property (nonatomic, retain) PKCollectionParser *phraseQuestionParser;

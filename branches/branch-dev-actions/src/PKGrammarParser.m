@@ -28,10 +28,12 @@
 // factor               = phrase | phraseStar | phrasePlus | phraseQuestion;
 // nextFactor           = factor;
 
-// phrase               = primaryExpr predicate*;
+// phrase               = primaryExpr predicate* action?;
 // phraseStar           = phrase '*'!;
 // phrasePlus           = phrase '+'!;
 // phraseQuestion       = phrase '?'!;
+
+// action               = %{'{', '}'};
 
 // predicate            = (intersection | difference);
 // intersection         = '&'! primaryExpr;
@@ -59,6 +61,7 @@
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDiscard:(PKAssembly *)a;
@@ -67,7 +70,6 @@
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSpecificConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a;
@@ -108,6 +110,7 @@
     self.factorParser = nil;
     self.nextFactorParser = nil;
     self.phraseParser = nil;
+    self.actionParser = nil;
     self.phraseStarParser = nil;
     self.phrasePlusParser = nil;
     self.phraseQuestionParser = nil;
@@ -309,15 +312,27 @@
 }
 
 
-// phrase               = primaryExpr predicate*;
+// phrase               = primaryExpr predicate* action?;
 - (PKCollectionParser *)phraseParser {
     if (!phraseParser) {
         self.phraseParser = [PKSequence sequence];
         phraseParser.name = @"phrase";
         [phraseParser add:self.primaryExprParser];
         [phraseParser add:[PKRepetition repetitionWithSubparser:self.predicateParser]];
+        [phraseParser add:[self zeroOrOne:self.actionParser]];
     }
     return phraseParser;
+}
+
+
+// action               = %{'{', '}'};
+- (PKParser *)actionParser {
+    if (!actionParser) {
+        self.actionParser = [PKDelimitedString delimitedStringWithStartMarker:@"{" endMarker:@"}"];
+        actionParser.name = @"action";
+        [actionParser setAssembler:assembler selector:@selector(parser:didMatchAction:)];
+    }
+    return actionParser;
 }
 
 
@@ -613,6 +628,7 @@
 @synthesize factorParser;
 @synthesize nextFactorParser;
 @synthesize phraseParser;
+@synthesize actionParser;
 @synthesize phraseStarParser;
 @synthesize phrasePlusParser;
 @synthesize phraseQuestionParser;
