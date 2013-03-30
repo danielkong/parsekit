@@ -372,6 +372,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     [t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:nonWhitespace];
 
     // action delimited strings
+    [t setTokenizerState:t.delimitState from:'{' to:'{'];
     [t.delimitState addStartMarker:@"{" endMarker:@"}" allowedCharacterSet:nil];
     [t.delimitState setFallbackState:t.symbolState from:'{' to:'}'];
 
@@ -934,8 +935,15 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKToken *tok = [a pop];
     NSAssert(tok.isDelimitedString, @"");
     
-    NSAssert([tok.stringValue length] > 1, @"");
-    NSString *source = [tok.stringValue stringByTrimmingQuotes];
+    NSUInteger len = [tok.stringValue length];
+    NSAssert(len > 1, @"");
+    
+    NSString *source = nil;
+    if (2 == len) {
+        source = @"";
+    } else {
+        source = [tok.stringValue substringWithRange:NSMakeRange(1, len - 2)];
+    }
     
     PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
     actNode.source = source;

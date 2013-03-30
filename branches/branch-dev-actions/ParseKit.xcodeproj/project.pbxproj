@@ -531,7 +531,12 @@
 		D3B22A73170550A400446945 /* PKSRecognitionException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A72170550A200446945 /* PKSRecognitionException.m */; };
 		D3B63A241706508400BA9DBF /* PKSSpeculateIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */; };
 		D3B63A261706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */; };
-		D3B63A29170751E800BA9DBF /* PKActionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A28170751E700BA9DBF /* PKActionNode.m */; };
+		D3B63A2A170753E400BA9DBF /* PKActionNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B63A27170751E700BA9DBF /* PKActionNode.h */; };
+		D3B63A2B170753E400BA9DBF /* PKActionNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B63A27170751E700BA9DBF /* PKActionNode.h */; };
+		D3B63A2C170753E500BA9DBF /* PKActionNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B63A27170751E700BA9DBF /* PKActionNode.h */; };
+		D3B63A2D170753E800BA9DBF /* PKActionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A28170751E700BA9DBF /* PKActionNode.m */; };
+		D3B63A2E170753E800BA9DBF /* PKActionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A28170751E700BA9DBF /* PKActionNode.m */; };
+		D3B63A2F170753E900BA9DBF /* PKActionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A28170751E700BA9DBF /* PKActionNode.m */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3B986AE1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
@@ -2616,7 +2621,6 @@
 				D3B22A5C1703DA8000446945 /* ElementParserTest.m */,
 				D3083AB71705F09B00DA6F95 /* ElementAssignParserTest.h */,
 				D3083AB81705F09B00DA6F95 /* ElementAssignParserTest.m */,
-				D3083AB51705F05C00DA6F95 /* elementsAssign.grammar */,
 				D3B22A601703DE2000446945 /* ExpressionParserTest.h */,
 				D3B22A611703DE2000446945 /* ExpressionParserTest.m */,
 			);
@@ -2626,6 +2630,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D3083AB51705F05C00DA6F95 /* elementsAssign.grammar */,
 				D3B22A3917025EA300446945 /* elements.grammar */,
 				D3B986AD1700D3A9000CBCAE /* expression.grammar */,
 			);
@@ -3161,6 +3166,7 @@
 				D33724DA16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
 				D33724EA16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */,
 				D3B22A6A1703E3F700446945 /* PKSTokenKindDescriptor.h in Headers */,
+				D3B63A2A170753E400BA9DBF /* PKActionNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3293,6 +3299,7 @@
 				D33724DB16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
 				D33724EB16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */,
 				D3B22A6C1703E3FB00446945 /* PKSTokenKindDescriptor.h in Headers */,
+				D3B63A2B170753E400BA9DBF /* PKActionNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3380,6 +3387,7 @@
 				D33724DC16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
 				D33724EC16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */,
 				D3B22A6D1703E3FC00446945 /* PKSTokenKindDescriptor.h in Headers */,
+				D3B63A2C170753E500BA9DBF /* PKActionNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3828,6 +3836,7 @@
 				D33724DD16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,
 				D33724ED16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */,
 				D3B22A691703E3ED00446945 /* PKSTokenKindDescriptor.m in Sources */,
+				D3B63A2D170753E800BA9DBF /* PKActionNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4031,7 +4040,6 @@
 				D3083AB91705F09B00DA6F95 /* ElementAssignParserTest.m in Sources */,
 				D3083ABC1705F16000DA6F95 /* ElementAssignParser.m in Sources */,
 				D3083AC117061E0D00DA6F95 /* PKSTokenAssembly.m in Sources */,
-				D3B63A29170751E800BA9DBF /* PKActionNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4170,6 +4178,7 @@
 				D33724DE16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,
 				D33724EE16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */,
 				D3B22A671703E3EC00446945 /* PKSTokenKindDescriptor.m in Sources */,
+				D3B63A2E170753E800BA9DBF /* PKActionNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4254,6 +4263,7 @@
 				D33724DF16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,
 				D33724EF16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */,
 				D3B22A661703E3EA00446945 /* PKSTokenKindDescriptor.m in Sources */,
+				D3B63A2F170753E900BA9DBF /* PKActionNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
