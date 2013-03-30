@@ -575,49 +575,4 @@
     TDNil(foo.preassemblerBlock);
 }
 
-
-- (void)parser:(PKParser *)p didMatchSomething:(PKAssembly *)a {}
-- (void)testCustomAssemblerSetting {
-    NSString *g = @"@start=foo;foo(parser:didMatchSomething:)=Word;";
-    
-    NSError *err = nil;
-    PKCollectionParser *start = (id)[_factory parserFromGrammar:g assembler:self error:&err];
-    TDNotNil(start);
-    
-    PKParser *foo = start.subparsers[0];
-    TDNotNil(foo);
-    TDTrue([foo isKindOfClass:[PKWord class]]);
-    
-    TDEquals(start.subparsers[0], foo);
-    
-    TDEqualObjects(self, foo.assembler);
-    TDEquals(@selector(parser:didMatchSomething:), foo.assemblerSelector);
-    TDNil(foo.assemblerBlock);
-    TDNil(foo.preassembler);
-    TDEquals((SEL)NULL, foo.preassemblerSelector);
-    TDNil(foo.preassemblerBlock);
-}
-
-
-- (void)testCustomPreassemblerSetting {
-    NSString *g = @"@start=foo;foo(parser:didMatchSomething:)=Word;";
-    
-    NSError *err = nil;
-    PKCollectionParser *start = (id)[_factory parserFromGrammar:g assembler:self preassembler:self error:&err];
-    TDNotNil(start);
-    
-    PKParser *foo = start.subparsers[0];
-    TDNotNil(foo);
-    TDTrue([foo isKindOfClass:[PKWord class]]);
-    
-    TDEquals(start.subparsers[0], foo);
-    
-    TDEqualObjects(self, foo.assembler);
-    TDEquals(@selector(parser:didMatchSomething:), foo.assemblerSelector);
-    TDNil(foo.assemblerBlock);
-    TDEqualObjects(self, foo.preassembler);
-    TDEquals(@selector(parser:willMatchFoo:), foo.preassemblerSelector);
-    TDNil(foo.preassemblerBlock);
-}
-
 @end

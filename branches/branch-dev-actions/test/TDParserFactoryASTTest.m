@@ -838,17 +838,6 @@
 //}
 //
 //
-- (void)testCallback {
-    NSString *g = @"@start=foo;foo(parser:didMatchSomething:)=Word;";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo(parser:didMatchSomething:) Word))", [rootNode treeDescription]);
-}
-
-
 - (void)testDirective {
     
     // TODO
