@@ -70,7 +70,7 @@
 	//NSLog(@"elements %@", self._assembly);
     
     [self element]; 
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_COMMA), nil]]) {
+    while (LA(1) == TOKEN_KIND_COMMA || 0) {
         [self comma]; 
         [self element]; 
     }
@@ -81,9 +81,9 @@
 - (void)element {
 	//NSLog(@"element %@", self._assembly);
     
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || 0) {
         [self Number]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_LBRACKET), nil]]) {
+    } else if (LA(1) == TOKEN_KIND_LBRACKET || 0) {
         [self list]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in element"];

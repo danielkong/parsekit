@@ -79,7 +79,7 @@
 	//NSLog(@"orExpr %@", self._assembly);
     
     [self andExpr]; 
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OR), nil]]) {
+    while (LA(1) == TOKEN_KIND_OR || 0) {
         [self orTerm]; 
     }
 
@@ -99,7 +99,7 @@
 	//NSLog(@"andExpr %@", self._assembly);
     
     [self relExpr]; 
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_AND), nil]]) {
+    while (LA(1) == TOKEN_KIND_AND || 0) {
         [self andTerm]; 
     }
 
@@ -119,7 +119,7 @@
 	//NSLog(@"relExpr %@", self._assembly);
     
     [self callExpr]; 
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_NE), @(TOKEN_KIND_GE), @(TOKEN_KIND_LE), @(TOKEN_KIND_LT), @(TOKEN_KIND_GT), @(TOKEN_KIND_EQ), nil]]) {
+    while (LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_EQ || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LT || 0) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -130,17 +130,17 @@
 - (void)relOp {
 	//NSLog(@"relOp %@", self._assembly);
     
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_LT), nil]]) {
+    if (LA(1) == TOKEN_KIND_LT || 0) {
         [self lt]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_GT), nil]]) {
+    } else if (LA(1) == TOKEN_KIND_GT || 0) {
         [self gt]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_EQ), nil]]) {
+    } else if (LA(1) == TOKEN_KIND_EQ || 0) {
         [self eq]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_NE), nil]]) {
+    } else if (LA(1) == TOKEN_KIND_NE || 0) {
         [self ne]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_LE), nil]]) {
+    } else if (LA(1) == TOKEN_KIND_LE || 0) {
         [self le]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_GE), nil]]) {
+    } else if (LA(1) == TOKEN_KIND_GE || 0) {
         [self ge]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in relOp"];
@@ -153,9 +153,9 @@
 	//NSLog(@"callExpr %@", self._assembly);
     
     [self primary]; 
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
+    if (LA(1) == TOKEN_KIND_OPENPAREN || 0) {
         [self openParen]; 
-        if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_NO), nil]]) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || 0) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -168,7 +168,7 @@
 	//NSLog(@"argList %@", self._assembly);
     
     [self atom]; 
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_COMMA), nil]]) {
+    while (LA(1) == TOKEN_KIND_COMMA || 0) {
         [self comma]; 
         [self atom]; 
     }
@@ -179,9 +179,9 @@
 - (void)primary {
 	//NSLog(@"primary %@", self._assembly);
     
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || 0) {
         [self atom]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
+    } else if (LA(1) == TOKEN_KIND_OPENPAREN || 0) {
         [self openParen]; 
         [self expr]; 
         [self closeParen]; 
@@ -195,9 +195,9 @@
 - (void)atom {
 	//NSLog(@"atom %@", self._assembly);
     
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), nil]]) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_WORD || 0) {
         [self obj]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || 0) {
         [self literal]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in atom"];
@@ -210,7 +210,7 @@
 	//NSLog(@"obj %@", self._assembly);
     
     [self id]; 
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_DOT), nil]]) {
+    while (LA(1) == TOKEN_KIND_DOT || 0) {
         [self member]; 
     }
 
@@ -237,11 +237,11 @@
 - (void)literal {
 	//NSLog(@"literal %@", self._assembly);
     
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_QUOTEDSTRING), nil]]) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || 0) {
         [self QuotedString]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), nil]]) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || 0) {
         [self Number]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_NO), nil]]) {
+    } else if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || 0) {
         [self bool]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in literal"];
@@ -253,9 +253,9 @@
 - (void)bool {
 	//NSLog(@"bool %@", self._assembly);
     
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), nil]]) {
+    if (LA(1) == TOKEN_KIND_YES || 0) {
         [self yes]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_NO), nil]]) {
+    } else if (LA(1) == TOKEN_KIND_NO || 0) {
         [self no]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in bool"];
