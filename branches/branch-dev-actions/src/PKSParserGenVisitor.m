@@ -198,11 +198,15 @@
 }
 
 
-- (void)emitActionFor:(PKBaseNode *)node inString:(NSMutableString *)str {
+- (NSString *)actionStringFrom:(PKBaseNode *)node {
+    NSString *result = @"";
+    
     if (node.actionNode) {
-        id vars = @{ACTION_BODY : node.actionNode.source};
-        [str appendString:[_engine processTemplate:[self templateStringNamed:@"PKSActionTemplate"] withVariables:vars]];
+        id vars = @{ACTION_BODY: node.actionNode.source, DEPTH: @(_depth)};
+        result = [_engine processTemplate:[self templateStringNamed:@"PKSActionTemplate"] withVariables:vars];
     }
+
+    return result;
 }
 
 
@@ -229,8 +233,6 @@
 
         // pop
         [childStr appendString:[self pop]];
-
-        [self emitActionFor:child inString:childStr];
     }
 
     // merge
@@ -259,6 +261,8 @@
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];
     
+    output = [output stringByAppendingString:[self actionStringFrom:node]];
+
     // push
     [self push:output];
 }
@@ -330,7 +334,7 @@
 
 
 - (void)visitSequence:(PKCollectionNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // setup vars
     id vars = [NSMutableDictionary dictionary];
@@ -345,8 +349,6 @@
         
         // pop
         [childStr appendString:[self pop]];
-        
-        [self emitActionFor:child inString:childStr];
     }
     
     // push
@@ -390,9 +392,6 @@
         
         // pop
         [childStr appendString:[self pop]];
-        
-        // action
-        [self emitActionFor:child inString:childStr];
 
         ++idx;
     }
@@ -437,9 +436,6 @@
         NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars];
         [result appendString:output];
         [result appendString:childBody];
-
-        // action
-        [self emitActionFor:child inString:result];
 
         ++idx;
     }
@@ -516,8 +512,6 @@
     NSString *childStr = [self pop];
     [output appendString:childStr];
     [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSOptionalEndTemplate"] withVariables:vars]];
-    
-    [self emitActionFor:child inString:output];
 
     // push
     [self push:output];
@@ -553,7 +547,6 @@
     
     // push
     [self push:output];
-    [self emitActionFor:child inString:output];
 }
 
 
@@ -571,6 +564,8 @@
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];
     
+    output = [output stringByAppendingString:[self actionStringFrom:node]];
+
     // push
     [self push:output];
 }

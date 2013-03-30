@@ -4,7 +4,10 @@ stat = assign dot | list semi;
 
 assign = list eq list;
 
-list = lbracket elements rbracket { LOG(LT(1)); };
+list =      lbracket { LOG(@"after rbracket"); }
+            elements { LOG(@"after elements"); }
+            rbracket { LOG(@"after rbracket"); };
+
 elements = element (comma element)*;
 element = Number | list;
 

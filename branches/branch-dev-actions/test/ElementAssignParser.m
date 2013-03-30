@@ -86,12 +86,23 @@
 - (void)list {
     
     [self lbracket]; 
+    
+    [self execute:(id)^{
+         LOG(@"after rbracket"); 
+    }];
+    
     [self elements]; 
+    
+    [self execute:(id)^{
+         LOG(@"after elements"); 
+    }];
+    
     [self rbracket]; 
-
-[self execute:(id)^{
-     LOG(LT(1)); 
-}];
+    
+    [self execute:(id)^{
+         LOG(@"after rbracket"); 
+    }];
+    
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
