@@ -17,6 +17,7 @@
 
 - (void)dealloc {
     self.parser = nil;
+    self.actionNode = nil;
     [super dealloc];
 }
 
@@ -25,6 +26,7 @@
     PKBaseNode *that = (PKBaseNode *)[super copyWithZone:zone];
     that->_discard = _discard;
     that->_parser = _parser;
+    that->_actionNode = [_actionNode retain];
     return that;
 }
 
@@ -41,6 +43,10 @@
     }
     
     if (_parser != that->_parser) {
+        return NO;
+    }
+    
+    if ([_actionNode isEqual:that->_actionNode]) {
         return NO;
     }
     

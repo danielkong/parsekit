@@ -945,9 +945,14 @@ void PKReleaseSubparserTree(PKParser *p) {
         source = [tok.stringValue substringWithRange:NSMakeRange(1, len - 2)];
     }
     
+    PKBaseNode *ownerNode = [a pop];
+    NSAssert([ownerNode isKindOfClass:[PKBaseNode class]], @"");
+    
     PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
     actNode.source = source;
-    [a push:actNode];
+    ownerNode.actionNode = actNode;
+    
+    [a push:ownerNode];
 }
 
 

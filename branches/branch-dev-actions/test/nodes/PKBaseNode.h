@@ -39,4 +39,6 @@ typedef enum NSUInteger {
 @property (nonatomic, assign) BOOL discard;
 @property (nonatomic, retain) Class parserClass;
 @property (nonatomic, retain) PKParser *parser;
+
+@property (nonatomic, retain) PKActionNode *actionNode;
 @end
