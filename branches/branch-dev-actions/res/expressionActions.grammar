@@ -4,7 +4,10 @@
 expr = orExpr;
  
 orExpr = andExpr orTerm*;
-orTerm = 'or' andExpr;
+
+orTerm = 'or'! andExpr {
+	PUSH(@([POP() boolValue] || [POP() boolValue]));
+};
  
 andExpr = relExpr andTerm*;
 andTerm = 'and' relExpr;

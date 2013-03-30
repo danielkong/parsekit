@@ -60,13 +60,18 @@
 
 
 - (void)testYes {
-    PKAssembly *res = [_parser parseString:@"yes" assembler:self error:nil];
+    PKAssembly *res = [_parser parseString:@"yes" assembler:nil error:nil];
     TDEqualObjects(@"[1]yes^", [res description]);
 }
 
-- (void)testN {
-    PKAssembly *res = [_parser parseString:@"no" assembler:self error:nil];
+- (void)testNo {
+    PKAssembly *res = [_parser parseString:@"no" assembler:nil error:nil];
     TDEqualObjects(@"[0]no^", [res description]);
+}
+
+- (void)testYesOrNo {
+    PKAssembly *res = [_parser parseString:@"yes or no" assembler:nil error:nil];
+    TDEqualObjects(@"[1]yes/or/no^", [res description]);
 }
 
 
