@@ -16,4 +16,5 @@
 @property (nonatomic, retain) NSString *implementationOutputString;
 @property (nonatomic, assign) NSUInteger depth;
 @property (nonatomic, assign) BOOL needsBacktracking;
+@property (nonatomic, assign) BOOL isSpeculating;
 @end

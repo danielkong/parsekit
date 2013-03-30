@@ -201,7 +201,7 @@
 - (NSString *)actionStringFrom:(PKBaseNode *)node {
     NSString *result = @"";
     
-    if (node.actionNode) {
+    if (!self.isSpeculating && node.actionNode) {
         id vars = @{ACTION_BODY: node.actionNode.source, DEPTH: @(_depth)};
         result = [_engine processTemplate:[self templateStringNamed:@"PKSActionTemplate"] withVariables:vars];
     }
@@ -410,10 +410,17 @@
         
         // recurse first and get entire child str
         self.depth++;
+
+        // visit for speculative if test
+        self.isSpeculating = YES;
         [child visit:self];
-        self.depth--;
+        self.isSpeculating = NO;
+        NSString *ifTest = [[[self pop] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"    " withString:@""];
+
+        // visit for child body
+        [child visit:self];
         NSString *childBody = [self pop];
-        NSString *ifTest = [[childBody stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"    " withString:@""];
+        self.depth--;
 
         // setup vars
         id vars = [NSMutableDictionary dictionary];
@@ -551,7 +558,7 @@
 
 
 - (void)visitConstant:(PKConstantNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
    
     // stup vars
     id vars = [NSMutableDictionary dictionary];
@@ -584,6 +591,8 @@
     NSString *template = [self templateStringNamed:@"PKSMatchCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];
     
+    output = [output stringByAppendingString:[self actionStringFrom:node]];
+
     // push
     [self push:output];
 }

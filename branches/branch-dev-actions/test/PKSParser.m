@@ -322,7 +322,8 @@
 
 - (id)execute:(id (^)(void))block {
     NSParameterAssert(block);
- 
+    if (self._isSpeculating) return nil;
+
     id result = nil;
     if (block) result = block();
     return result;
