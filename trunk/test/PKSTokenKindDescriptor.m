@@ -24,4 +24,26 @@
     [super dealloc];
 }
 
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p '%@'>", [self class], self, _stringValue];
+}
+
+
+- (BOOL)isEqual:(id)obj {
+    if (![obj isMemberOfClass:[self class]]) {
+        return NO;
+    }
+    
+    PKSTokenKindDescriptor *that = (PKSTokenKindDescriptor *)obj;
+    
+    if (![_stringValue isEqualToString:that->_stringValue]) {
+        return NO;
+    }
+    
+    NSAssert([_name isEqualToString:that->_name], @"if the stringValues match, so should the names");
+    
+    return YES;
+}
+
 @end
