@@ -24,8 +24,6 @@
     PKCollectionParser *productionParser;
     PKParser *varProductionParser;
     PKCollectionParser *startProductionParser;
-    PKCollectionParser *callbackParser;
-    PKCollectionParser *selectorParser;
     PKCollectionParser *exprParser;
     PKCollectionParser *termParser;
     PKCollectionParser *orTermParser;
@@ -61,8 +59,6 @@
 @property (nonatomic, retain) PKCollectionParser *productionParser;
 @property (nonatomic, retain) PKParser *varProductionParser;
 @property (nonatomic, retain) PKCollectionParser *startProductionParser;
-@property (nonatomic, retain) PKCollectionParser *callbackParser;
-@property (nonatomic, retain) PKCollectionParser *selectorParser;
 @property (nonatomic, retain) PKCollectionParser *exprParser;
 @property (nonatomic, retain) PKCollectionParser *termParser;
 @property (nonatomic, retain) PKCollectionParser *orTermParser;

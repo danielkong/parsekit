@@ -18,12 +18,10 @@
 // @start               = statement*;
 // statement            = tokenizerDirective | decl;
 // tokenizerDirective   = (/@.+/ - '@start') '=' (~';')+ ';'!;
-// decl                 = production callback? '=' expr ';'!;
+// decl                 = production '=' expr ';'!;
 // production           = startProduction | varProduction;
 // startProduction      = '@start';
 // varProduction        = LowercaseWord;
-// callback             = '('! selector ')'!;
-// selector             = Word ':';
 // expr                 = term orTerm*;
 // term                 = factor nextFactor*;
 // orTerm               = '|' term;
@@ -56,7 +54,6 @@
 @interface NSObject (PKGrammarParserAdditions)
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchTrackExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
@@ -105,8 +102,6 @@
     self.varProductionParser = nil;
     self.startProductionParser = nil;
     self.tokenizerDirectiveParser = nil;
-    self.callbackParser = nil;
-    self.selectorParser = nil;
     self.exprParser = nil;
     self.termParser = nil;
     self.orTermParser = nil;
@@ -196,13 +191,12 @@
 }
 
 
-// decl                 = production callback? '=' expr ';'!;
+// decl                 = production '=' expr ';'!;
 - (PKCollectionParser *)declParser {
     if (!declParser) {
         self.declParser = [PKSequence sequence];
         declParser.name = @"decl";
         [declParser add:self.productionParser];
-        [declParser add:[self zeroOrOne:self.callbackParser]];
         [declParser add:[PKSymbol symbolWithString:@"="]];
         [declParser add:self.exprParser];
         [declParser add:[[PKSymbol symbolWithString:@";"] discard]];
@@ -245,38 +239,6 @@
         [varProductionParser setAssembler:assembler selector:@selector(parser:didMatchVarProduction:)];
     }
     return varProductionParser;
-}
-
-
-// callback             = '('! selector ')'!;
-- (PKCollectionParser *)callbackParser {
-    if (!callbackParser) {
-        self.callbackParser = [PKSequence sequence];
-        callbackParser.name = @"callback";
-        
-        PKTrack *tr = [PKTrack track];
-        [tr add:[[PKSymbol symbolWithString:@"("] discard]];
-        [tr add:self.selectorParser];
-        [tr add:[[PKSymbol symbolWithString:@")"] discard]];
-        
-        [callbackParser add:tr];
-        [callbackParser setAssembler:assembler selector:@selector(parser:didMatchCallback:)];
-    }
-    return callbackParser;
-}
-
-
-// selector             = LowercaseWord ':' LowercaseWord ':';
-- (PKCollectionParser *)selectorParser {
-    if (!selectorParser) {
-        self.selectorParser = [PKTrack track];
-        selectorParser.name = @"selector";
-        [selectorParser add:[PKLowercaseWord word]];
-        [selectorParser add:[[PKSymbol symbolWithString:@":"] discard]];
-        [selectorParser add:[PKLowercaseWord word]];
-        [selectorParser add:[[PKSymbol symbolWithString:@":"] discard]];
-    }
-    return selectorParser;
 }
 
 
@@ -645,8 +607,6 @@
 @synthesize productionParser;
 @synthesize varProductionParser;
 @synthesize startProductionParser;
-@synthesize callbackParser;
-@synthesize selectorParser;
 @synthesize exprParser;
 @synthesize termParser;
 @synthesize orTermParser;
