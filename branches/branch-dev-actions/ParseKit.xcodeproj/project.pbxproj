@@ -538,6 +538,9 @@
 		D3B63A2E170753E800BA9DBF /* PKActionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A28170751E700BA9DBF /* PKActionNode.m */; };
 		D3B63A2F170753E900BA9DBF /* PKActionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A28170751E700BA9DBF /* PKActionNode.m */; };
 		D3B63A3117075C3000BA9DBF /* PKSActionTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3017075C3000BA9DBF /* PKSActionTemplate.txt */; };
+		D3B63A3417079F5200BA9DBF /* ExpressionParserActionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A3317079F5100BA9DBF /* ExpressionParserActionsTest.m */; };
+		D3B63A3617079F7A00BA9DBF /* expressionActions.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3517079F7A00BA9DBF /* expressionActions.grammar */; };
+		D3B63A3917079FE100BA9DBF /* ExpressionActionsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A3817079FE000BA9DBF /* ExpressionActionsParser.m */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3B986AE1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
@@ -1493,6 +1496,11 @@
 		D3B63A27170751E700BA9DBF /* PKActionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKActionNode.h; path = test/nodes/PKActionNode.h; sourceTree = "<group>"; };
 		D3B63A28170751E700BA9DBF /* PKActionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKActionNode.m; path = test/nodes/PKActionNode.m; sourceTree = "<group>"; };
 		D3B63A3017075C3000BA9DBF /* PKSActionTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSActionTemplate.txt; path = res/PKSActionTemplate.txt; sourceTree = "<group>"; };
+		D3B63A3217079F5100BA9DBF /* ExpressionParserActionsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpressionParserActionsTest.h; path = test/ExpressionParserActionsTest.h; sourceTree = "<group>"; };
+		D3B63A3317079F5100BA9DBF /* ExpressionParserActionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExpressionParserActionsTest.m; path = test/ExpressionParserActionsTest.m; sourceTree = "<group>"; };
+		D3B63A3517079F7A00BA9DBF /* expressionActions.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = expressionActions.grammar; path = res/expressionActions.grammar; sourceTree = "<group>"; };
+		D3B63A3717079FE000BA9DBF /* ExpressionActionsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpressionActionsParser.h; path = test/ExpressionActionsParser.h; sourceTree = "<group>"; };
+		D3B63A3817079FE000BA9DBF /* ExpressionActionsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExpressionActionsParser.m; path = test/ExpressionActionsParser.m; sourceTree = "<group>"; };
 		D3B69D310E80249900D70C41 /* nonascii.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = nonascii.html; path = res/nonascii.html; sourceTree = "<group>"; };
 		D3B986AD1700D3A9000CBCAE /* expression.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = expression.grammar; path = res/expression.grammar; sourceTree = "<group>"; };
 		D3BBBC960FEC9722007DF30D /* TDXMLParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDXMLParserTest.h; path = test/TDXMLParserTest.h; sourceTree = "<group>"; };
@@ -2607,6 +2615,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D3B63A3717079FE000BA9DBF /* ExpressionActionsParser.h */,
+				D3B63A3817079FE000BA9DBF /* ExpressionActionsParser.m */,
 				D3083ABA1705F16000DA6F95 /* ElementAssignParser.h */,
 				D3083ABB1705F16000DA6F95 /* ElementAssignParser.m */,
 				D3B22A531702B14000446945 /* ElementParser.h */,
@@ -2626,6 +2636,8 @@
 				D3083AB81705F09B00DA6F95 /* ElementAssignParserTest.m */,
 				D3B22A601703DE2000446945 /* ExpressionParserTest.h */,
 				D3B22A611703DE2000446945 /* ExpressionParserTest.m */,
+				D3B63A3217079F5100BA9DBF /* ExpressionParserActionsTest.h */,
+				D3B63A3317079F5100BA9DBF /* ExpressionParserActionsTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -2633,6 +2645,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D3B63A3517079F7A00BA9DBF /* expressionActions.grammar */,
 				D3083AB51705F05C00DA6F95 /* elementsAssign.grammar */,
 				D3B22A3917025EA300446945 /* elements.grammar */,
 				D3B986AD1700D3A9000CBCAE /* expression.grammar */,
@@ -3705,6 +3718,7 @@
 				D3B63A241706508400BA9DBF /* PKSSpeculateIfTemplate.txt in Resources */,
 				D3B63A261706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt in Resources */,
 				D3B63A3117075C3000BA9DBF /* PKSActionTemplate.txt in Resources */,
+				D3B63A3617079F7A00BA9DBF /* expressionActions.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4044,6 +4058,8 @@
 				D3083AB91705F09B00DA6F95 /* ElementAssignParserTest.m in Sources */,
 				D3083ABC1705F16000DA6F95 /* ElementAssignParser.m in Sources */,
 				D3083AC117061E0D00DA6F95 /* PKSTokenAssembly.m in Sources */,
+				D3B63A3417079F5200BA9DBF /* ExpressionParserActionsTest.m in Sources */,
+				D3B63A3917079FE100BA9DBF /* ExpressionActionsParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

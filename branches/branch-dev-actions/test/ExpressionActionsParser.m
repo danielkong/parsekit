@@ -1,4 +1,4 @@
-#import "ExpressionParser.h"
+#import "ExpressionActionsParser.h"
 #import <ParseKit/PKAssembly.h>
 #import "PKSRecognitionException.h"
 
@@ -16,19 +16,19 @@
 @property (nonatomic, retain) PKAssembly *_assembly;
 @end
 
-@interface ExpressionParser ()
+@interface ExpressionActionsParser ()
 @property (nonatomic, retain) NSDictionary *_tokenKindTab;
 @end
 
-@implementation ExpressionParser
+@implementation ExpressionActionsParser
 
 - (id)init {
 	self = [super init];
 	if (self) {
 		self._tokenKindTab = @{
+           @"=" : @(TOKEN_KIND_RELOP),
            @"<" : @(TOKEN_KIND_LT),
            @">" : @(TOKEN_KIND_GT),
-           @"=" : @(TOKEN_KIND_EQ),
            @"!=" : @(TOKEN_KIND_NE),
            @"<=" : @(TOKEN_KIND_LE),
            @">=" : @(TOKEN_KIND_GE),
@@ -114,7 +114,7 @@
 - (void)relExpr {
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_EQ || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_LT) {
+    while (LA(1) == TOKEN_KIND_RELOP || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_GT) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -128,8 +128,8 @@
         [self lt]; 
     } else if (LA(1) == TOKEN_KIND_GT) {
         [self gt]; 
-    } else if (LA(1) == TOKEN_KIND_EQ) {
-        [self eq]; 
+    } else if (LA(1) == TOKEN_KIND_RELOP) {
+        [self match:TOKEN_KIND_RELOP]; 
     } else if (LA(1) == TOKEN_KIND_NE) {
         [self ne]; 
     } else if (LA(1) == TOKEN_KIND_LE) {
@@ -170,7 +170,7 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPENPAREN) {
         [self openParen]; 
@@ -187,7 +187,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -261,13 +261,6 @@
     [self match:TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
-}
-
-- (void)eq {
-    
-    [self match:TOKEN_KIND_EQ]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
 
 - (void)ne {
