@@ -9,45 +9,104 @@
 #import "PKSParser.h"
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
-#import <ParseKit/PKTokenAssembly.h>
+#import "PKSTokenAssembly.h"
+#import "PKSRecognitionException.h"
 
-@interface PKAssembly ()
-- (id)next;
-- (BOOL)hasMore;
+#define LT(i) [self LT:(i)]
+#define LA(i) [self LA:(i)]
+
+@interface PKSTokenAssembly ()
+- (void)consume:(PKToken *)tok;
 @end
 
 @interface PKSParser ()
-@property (nonatomic, retain) PKToken *lookahead;
-@property (nonatomic, assign) BOOL speculating;
-@property (nonatomic, retain) PKAssembly *assembly;
+@property (nonatomic, retain) PKSRecognitionException *_exception;
+@property (nonatomic, retain) PKTokenizer *_tokenizer;
+@property (nonatomic, assign) id _assembler; // weak ref
+@property (nonatomic, retain) PKSTokenAssembly *_assembly;
+@property (nonatomic, retain) NSMutableArray *_lookahead;
+@property (nonatomic, retain) NSMutableArray *_markers;
+@property (nonatomic, assign) NSInteger _p;
+@property (nonatomic, assign, readonly) BOOL _isSpeculating;
+
+- (void)_consume;
+- (NSInteger)_mark;
+- (void)_unmark;
+- (void)_seek:(NSInteger)index;
+- (void)_sync:(NSInteger)i;
+- (void)_fill:(NSInteger)n;
 @end
 
 @implementation PKSParser
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        // create a single exception for reuse in control flow
+        self._exception = [[[PKSRecognitionException alloc] initWithName:NSStringFromClass([PKSRecognitionException class]) reason:nil userInfo:nil] autorelease];
+    }
+    return self;
+}
+
+
 - (void)dealloc {
-    self.tokenizer = nil;
-    self.assembler = nil;
-    self.assembly = nil;
-    self.lookahead = nil;
+    self._exception = nil;
+    self._tokenizer = nil;
+    self._assembler = nil;
+    self._assembly = nil;
+    self._lookahead = nil;
+    self._markers = nil;
     [super dealloc];
 }
 
 
-- (id)parse:(NSString *)s error:(NSError **)outError {
+- (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outError {
+    NSParameterAssert(input);
+    
+    [input scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [input open];
+    
+    PKTokenizer *t = [PKTokenizer tokenizerWithStream:input];
+
+    id result = [self _doParseWithTokenizer:t assembler:a error:outError];
+    
+    [input close];
+    [input removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    
+    return result;
+}
+
+
+- (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outError {
+    NSParameterAssert(input);
+
+    PKTokenizer *t = [PKTokenizer tokenizerWithString:input];
+    
+    id result = [self _doParseWithTokenizer:t assembler:a error:outError];
+    return result;
+}
+
+
+- (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError {
     id result = nil;
     
-    PKTokenizer *t = self.tokenizer;
-    if (!t) t = [PKTokenizer tokenizer];
-    t.string = s;
-    self.tokenizer = t;
-    self.assembly = [PKTokenAssembly assemblyWithTokenizer:t];
+    // setup
+    self._assembler = a;
+    self._tokenizer = t;
+    self._assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
+    
+    // setup speculation
+    self._p = 0;
+    self._lookahead = [NSMutableArray array];
+    self._markers = [NSMutableArray array];
 
     @try {
 
         @autoreleasepool {
-            [self __consume]; // get a lookahead token
-            [self __start];
+            // parse
+            [self _start];
             
+            // get result
             if (_assembly.target) {
                 result = _assembly.target;
             } else {
@@ -78,61 +137,66 @@
             [ex raise];
         }
     }
+    @finally {
+        self._tokenizer = nil;
+        self._assembler = nil;
+        self._assembly = nil;
+        self._lookahead = nil;
+        self._markers = nil;
+    }
     
     return result;
 }
 
 
-- (void)__match:(NSInteger)x {
+- (void)match:(NSInteger)x {
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_EOF);
     NSParameterAssert(x != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
-    //NSLog(@"lookahead %@", [_lookahead debugDescription]);
-    //NSLog(@"assembly %@", [_assembly description]);
-
-    // always match empty
+    // always match empty without consuming
     if (TOKEN_KIND_BUILTIN_EMPTY == x) return;
     
-    if (_lookahead.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
-        [_assembly push:_lookahead];
+    PKToken *lt = LT(1);
+    if (lt.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
+        if (!self._isSpeculating) {
+            [_assembly consume:lt];
+        }
         
-        [self __consume];
+        [self _consume];
     } else {
-        // This is a "Runtime" (rather than "checked" exception) in Java parlance.
-        // An obvious programmer error has been made and must be fixed.
-        [NSException raise:@"PKRuntimeException" format:@"expecting %ld; found %@", x, _lookahead];
+        [self raise:@"expecting %ld; found %@", x, lt];
     }
 }
 
 
-- (void)__consume {
-    if ([_assembly hasMore]) {
-        
-        // advance
-        self.lookahead = [_assembly next];
-                
-        // set token kind
-        _lookahead.tokenKind = [self __tokenKindForToken:_lookahead];
+- (void)_consume {
+    self._p++;
+    
+    // have we hit end of buffer when not backtracking?
+    if (_p == [_lookahead count] && !self._isSpeculating) {
+        // if so, it's an opp to start filling at index 0 again
+        self._p = 0;
+        [_lookahead removeAllObjects]; // size goes to 0, but retains memory on heap
+    }
+
+    [self _sync:1];
+}
+
+
+- (void)discard:(NSInteger)n {
+    if (self._isSpeculating) return;
+    
+    while (n > 0) {
+        NSAssert(![_assembly isStackEmpty], @"");
+        [_assembly pop];
+        --n;
     }
 }
 
 
-- (void)__discard {
-    NSAssert(![_assembly isStackEmpty], @"");
-    [_assembly pop];
-}
-
-
-- (BOOL)__predicts:(NSSet *)set {
-    NSInteger x = _lookahead.tokenKind;
-    BOOL result = [set containsObject:@(x)];
-    return result;
-}
-
-
-- (void)__fireAssemblerSelector:(SEL)sel {
-    if (_speculating) return;
+- (void)fireAssemblerSelector:(SEL)sel {
+    if (self._isSpeculating) return;
     
     if (_assembler && [_assembler respondsToSelector:sel]) {
         [_assembler performSelector:sel withObject:self withObject:_assembly];
@@ -140,8 +204,75 @@
 }
 
 
-- (NSInteger)__tokenKindForToken:(PKToken *)tok {
-    NSInteger x = [self __tokenKindForString:tok.stringValue];
+- (PKToken *)LT:(NSInteger)i {
+    [self _sync:i];
+    
+    NSUInteger idx = _p + i - 1;
+    NSAssert(idx < [_lookahead count], @"");
+
+    PKToken *tok = _lookahead[idx];
+    //NSLog(@"lt : %@", [tok debugDescription]);
+    return tok;
+}
+
+
+- (NSInteger)LA:(NSInteger)i {
+    return [LT(i) tokenKind];
+}
+
+
+- (NSInteger)_mark {
+    [_markers addObject:@(_p)];
+    return _p;
+}
+
+
+- (void)_unmark {
+    NSInteger marker = [[_markers lastObject] integerValue];
+    [_markers removeLastObject];
+    
+    [self _seek:marker];
+}
+
+
+- (void)_seek:(NSInteger)index {
+    self._p = index;
+}
+
+
+- (BOOL)_isSpeculating {
+    return [_markers count] > 0;
+}
+
+
+- (void)_sync:(NSInteger)i {
+    NSInteger lastNeededIndex = _p + i - 1;
+    NSInteger lastFullIndex = [_lookahead count] - 1;
+    
+    if (lastNeededIndex > lastFullIndex) { // out of tokens ?
+        NSInteger n = lastNeededIndex - lastFullIndex; // get n tokens
+        [self _fill:n];
+    }
+}
+
+
+- (void)_fill:(NSInteger)n {
+    for (NSUInteger i = 0; i <= n; ++i) { // <= ?? fetches an extra lookahead tok
+        PKToken *tok = [_tokenizer nextToken];
+
+        // set token kind
+        tok.tokenKind = [self _tokenKindForToken:tok];
+        
+        // buffer in lookahead
+        NSAssert(tok, @"");
+        //NSLog(@"-nextToken: %@", [tok debugDescription]);
+        [_lookahead addObject:tok];
+    }
+}
+
+
+- (NSInteger)_tokenKindForToken:(PKToken *)tok {
+    NSInteger x = [self tokenKindForString:tok.stringValue];
     
     if (TOKEN_KIND_BUILTIN_INVALID == x) {
         x = tok.tokenType;
@@ -151,76 +282,115 @@
 }
 
 
-- (NSInteger)__tokenKindForString:(NSString *)name {
+- (NSInteger)tokenKindForString:(NSString *)s {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return TOKEN_KIND_BUILTIN_INVALID;
 }
 
 
-- (void)__start {
+- (void)raise:(NSString *)fmt, ... {
+    va_list vargs;
+    va_start(vargs, fmt);
+    
+    NSString *str = [[[NSString alloc] initWithFormat:fmt arguments:vargs] autorelease];
+    _exception.currentReason = str;
+
+    // reuse
+    @throw _exception;
+    
+    va_end(vargs);
+}
+
+
+- (BOOL)speculate:(void (^)(void))block {
+    NSParameterAssert(block);
+    
+    BOOL success = YES;
+    [self _mark];
+    
+    @try {
+        block();
+    }
+    @catch (PKSRecognitionException *ex) {
+        success = NO;
+    }
+    
+    [self _unmark];
+    return success;
+}
+
+
+- (void)_start {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
 
 - (void)Any {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_ANY];
+    [self match:TOKEN_KIND_BUILTIN_ANY];
 }
 
 
 - (void)Empty {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
 }
 
 
 - (void)Word {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_WORD];
+    [self match:TOKEN_KIND_BUILTIN_WORD];
 }
 
 
 - (void)Number {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_NUMBER];
+    [self match:TOKEN_KIND_BUILTIN_NUMBER];
 }
 
 
 - (void)Symbol {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_SYMBOL];
+    [self match:TOKEN_KIND_BUILTIN_SYMBOL];
 }
 
 
 - (void)Comment {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_COMMENT];
+    [self match:TOKEN_KIND_BUILTIN_COMMENT];
 }
 
 
 - (void)Whitespace {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_WHITESPACE];
+    [self match:TOKEN_KIND_BUILTIN_WHITESPACE];
 }
 
 
 - (void)QuotedString {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
+    [self match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
 }
 
 
 - (void)DelimitedString {
-	//NSLog(@"%s", __PRETTY_FUNCTION__);
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self __match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
+    [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
 }
 
+@synthesize _exception = _exception;
+@synthesize _tokenizer = _tokenizer;
+@synthesize _assembler = _assembler;
+@synthesize _assembly = _assembly;
+@synthesize _lookahead = _lookahead;
+@synthesize _markers = _markers;
+@synthesize _p = _p;
 @end

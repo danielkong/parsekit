@@ -1,4 +1,4 @@
-#import "ElementParser.h"
+#import "ElementAssignParser.h"
 #import <ParseKit/PKAssembly.h>
 #import "PKSRecognitionException.h"
 
@@ -13,11 +13,11 @@
 @property (nonatomic, retain) PKAssembly *_assembly;
 @end
 
-@interface ElementParser ()
+@interface ElementAssignParser ()
 @property (nonatomic, retain) NSDictionary *_tokenKindTab;
 @end
 
-@implementation ElementParser
+@implementation ElementAssignParser
 
 - (id)init {
 	self = [super init];
@@ -26,6 +26,9 @@
            @"[" : @(TOKEN_KIND_LBRACKET),
            @"]" : @(TOKEN_KIND_RBRACKET),
            @"," : @(TOKEN_KIND_COMMA),
+           @"=" : @(TOKEN_KIND_EQ),
+           @"." : @(TOKEN_KIND_DOT),
+           @";" : @(TOKEN_KIND_SEMI),
         };
 	}
 	return self;
@@ -49,9 +52,33 @@
 
 - (void)_start {
     
-    [self list]; 
+    [self stat]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
+}
+
+- (void)stat {
+    
+    if ([self speculate:^{ [self assign]; [self dot]; }]) {
+        [self assign]; 
+        [self dot]; 
+    } else if ([self speculate:^{ [self list]; [self semi]; }]) {
+        [self list]; 
+        [self semi]; 
+    } else {
+        [self raise:@"no viable alternative found in stat"];
+    }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchStat:)];
+}
+
+- (void)assign {
+    
+    [self list]; 
+    [self eq]; 
+    [self list]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchAssign:)];
 }
 
 - (void)list {
@@ -106,6 +133,27 @@
     [self match:TOKEN_KIND_COMMA]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
+}
+
+- (void)eq {
+    
+    [self match:TOKEN_KIND_EQ]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
+}
+
+- (void)dot {
+    
+    [self match:TOKEN_KIND_DOT]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
+}
+
+- (void)semi {
+    
+    [self match:TOKEN_KIND_SEMI]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
 }
 
 @synthesize _tokenKindTab = _tokenKindTab;

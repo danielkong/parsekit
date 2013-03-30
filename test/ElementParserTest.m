@@ -12,7 +12,7 @@
 #import "PKRootNode.h"
 #import "ElementParser.h"
 
-#define EMIT 0
+#define EMIT 1
 
 @interface ElementParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
@@ -60,9 +60,8 @@
 
 - (void)testFoo {    
     ElementParser *p = [[[ElementParser alloc] init] autorelease];
-    p.assembler = self;
     
-    PKAssembly *res = [p parse:@"[1, [2,3],4]" error:nil];
+    PKAssembly *res = [p parseString:@"[1, [2,3],4]" assembler:self error:nil];
     
     TDEqualObjects(@"[[, 1, [, 2, 3, 4][/1/,/[/2/,/3/]/,/4/]^", [res description]);
 }
@@ -72,4 +71,5 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
 }
+
 @end

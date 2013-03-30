@@ -10,4 +10,14 @@
 
 @implementation PKSRecognitionException
 
+- (void)dealloc {
+    self.currentReason = nil;
+    [super dealloc];
+}
+
+
+- (NSString *)reason {
+    return self.currentReason;
+}
+
 @end

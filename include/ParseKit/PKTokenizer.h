@@ -60,6 +60,7 @@
 */
 @interface PKTokenizer : NSObject <NSFastEnumeration> {
     NSString *string;
+    NSInputStream *stream;
     PKReader *reader;
     
     NSMutableArray *tokenizerStates;
@@ -96,6 +97,7 @@
     @result     An autoreleased initialized tokenizer.
 */
 + (PKTokenizer *)tokenizerWithString:(NSString *)s;
++ (PKTokenizer *)tokenizerWithStream:(NSInputStream *)s;
 
 /*!
     @brief      Designated Initializer. Constructs a tokenizer to read from the supplied string.
@@ -103,6 +105,7 @@
     @result     An initialized tokenizer.
 */
 - (id)initWithString:(NSString *)s;
+- (id)initWithStream:(NSInputStream *)s;
 
 /*!
     @brief      Returns the next token.
@@ -130,6 +133,7 @@
     @brief      The string to read from.
 */
 @property (nonatomic, copy) NSString *string;
+@property (nonatomic, retain) NSInputStream *stream;
 
 /*!
     @property    numberState

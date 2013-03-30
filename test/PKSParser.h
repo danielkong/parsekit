@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class PKAssembly;
 @class PKTokenizer;
 @class PKToken;
 
@@ -32,20 +31,22 @@ enum {
 
 @interface PKSParser : NSObject
 
-- (id)parse:(NSString *)input error:(NSError **)outErr;
+- (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outErr;
+- (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outErr;
 
-@property (nonatomic, retain) PKTokenizer *tokenizer;
-@property (nonatomic, assign) id assembler; // weak ref
 @end
 
 @interface PKSParser (Subclass)
-// underscores prevent name clash with grammar production names.
-- (void)__match:(NSInteger)x;
-- (void)__consume;
-- (void)__discard;
-- (BOOL)__predicts:(NSSet *)set;
-- (void)__fireAssemblerSelector:(SEL)sel;
-- (NSInteger)__tokenKindForString:(NSString *)name;
+
+- (PKToken *)LT:(NSInteger)i;
+- (NSInteger)LA:(NSInteger)i;
+
+- (void)match:(NSInteger)x;
+- (void)discard:(NSInteger)n;
+- (BOOL)speculate:(void (^)(void))block;
+- (void)fireAssemblerSelector:(SEL)sel;
+- (NSInteger)tokenKindForString:(NSString *)s;
+- (void)raise:(NSString *)fmt, ...;
 
 // builtin token types
 - (void)Any;
@@ -57,4 +58,5 @@ enum {
 - (void)Whitespace;
 - (void)QuotedString;
 - (void)DelimitedString;
+
 @end
