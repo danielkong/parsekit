@@ -227,6 +227,8 @@
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
 
+    [childStr appendString:[self actionStringFrom:node]];
+
     // recurse
     for (PKBaseNode *child in node.children) {
         [child visit:self];

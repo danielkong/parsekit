@@ -3,7 +3,7 @@
 stat =    assign dot { LOG(@"after alt1") }
         | list semi { LOG(@"after alt2") };
 
-assign = list eq list;
+assign = { LOG(@"pre action") } list eq list;
 
 list =      lbracket { LOG(@"after rbracket ref") }
             elements { LOG(@"after elements ref") }

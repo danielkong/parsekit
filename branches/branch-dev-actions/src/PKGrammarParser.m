@@ -18,7 +18,7 @@
 // @start               = statement*;
 // statement            = tokenizerDirective | decl;
 // tokenizerDirective   = (/@.+/ - '@start') '=' (~';')+ ';'!;
-// decl                 = production '=' expr ';'!;
+// decl                 = production '=' action? expr ';'!;
 // production           = startProduction | varProduction;
 // startProduction      = '@start';
 // varProduction        = LowercaseWord;
@@ -194,13 +194,14 @@
 }
 
 
-// decl                 = production '=' expr ';'!;
+// decl                 = production '=' action? expr ';'!;
 - (PKCollectionParser *)declParser {
     if (!declParser) {
         self.declParser = [PKSequence sequence];
         declParser.name = @"decl";
         [declParser add:self.productionParser];
         [declParser add:[PKSymbol symbolWithString:@"="]];
+        [declParser add:[self zeroOrOne:self.actionParser]];
         [declParser add:self.exprParser];
         [declParser add:[[PKSymbol symbolWithString:@";"] discard]];
         

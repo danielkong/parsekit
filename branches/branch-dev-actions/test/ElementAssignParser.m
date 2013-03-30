@@ -10,6 +10,7 @@
 #define ABOVE(fence) [self._assembly objectsAbove:(fence)]
 
 #define LOG(obj) do { NSLog(@"%@", (obj)); } while (0);
+#define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
@@ -82,6 +83,9 @@
 
 - (void)assign {
     
+    [self execute:(id)^{
+         LOG(@"pre action") ;
+    }];
     [self list]; 
     [self eq]; 
     [self list]; 

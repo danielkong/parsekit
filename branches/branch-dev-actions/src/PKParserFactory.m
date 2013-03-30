@@ -930,29 +930,44 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
-    PKToken *tok = [a pop];
-    NSAssert(tok.isDelimitedString, @"");
+    PKToken *sourceTok = [a pop];
+    NSAssert(sourceTok.isDelimitedString, @"");
+
+    id obj = [a pop];
+    PKBaseNode *ownerNode = nil;
     
-    NSUInteger len = [tok.stringValue length];
+    // find owner node (different for pre and post actions)
+    if ([obj isEqualTo:equals]) {
+        // pre action
+        PKToken *eqTok = (PKToken *)obj;
+        NSAssert([eqTok isKindOfClass:[PKToken class]], @"");
+        ownerNode = [a pop];
+        
+        [a push:ownerNode];
+        [a push:eqTok]; // put '=' back
+    } else {
+        // post action
+        ownerNode = (PKBaseNode *)obj;
+        NSAssert([ownerNode isKindOfClass:[PKBaseNode class]], @"");
+
+        [a push:ownerNode];
+    }
+    
+    NSUInteger len = [sourceTok.stringValue length];
     NSAssert(len > 1, @"");
     
     NSString *source = nil;
     if (2 == len) {
         source = @"";
     } else {
-        source = [tok.stringValue substringWithRange:NSMakeRange(1, len - 2)];
+        source = [sourceTok.stringValue substringWithRange:NSMakeRange(1, len - 2)];
     }
-    
-    PKBaseNode *ownerNode = [a pop];
-    NSAssert([ownerNode isKindOfClass:[PKBaseNode class]], @"");
     
     PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
     actNode.source = source;
     ownerNode.actionNode = actNode;
-    
-    [a push:ownerNode];
 }
 
 
