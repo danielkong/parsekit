@@ -934,8 +934,12 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKToken *tok = [a pop];
     NSAssert(tok.isDelimitedString, @"");
     
-    PKDelimitedNode *delimNode = [PKDelimitedNode nodeWithToken:tok];
-    [a push:delimNode];
+    NSAssert([tok.stringValue length] > 1, @"");
+    NSString *source = [tok.stringValue stringByTrimmingQuotes];
+    
+    PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
+    actNode.source = source;
+    [a push:actNode];
 }
 
 

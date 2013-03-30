@@ -172,7 +172,6 @@
 - (void)visitAction:(PKActionNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    [self recurse:node];
 }
 
 
