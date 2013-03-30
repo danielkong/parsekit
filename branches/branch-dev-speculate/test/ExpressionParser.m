@@ -59,7 +59,6 @@
 }
 
 - (void)_start {
-	//NSLog(@"_start %@", self._assembly);
     
     [self expr]; 
 
@@ -67,7 +66,6 @@
 }
 
 - (void)expr {
-	//NSLog(@"expr %@", self._assembly);
     
     [self orExpr]; 
 
@@ -75,7 +73,6 @@
 }
 
 - (void)orExpr {
-	//NSLog(@"orExpr %@", self._assembly);
     
     [self andExpr]; 
     while (LA(1) == TOKEN_KIND_OR) {
@@ -86,7 +83,6 @@
 }
 
 - (void)orTerm {
-	//NSLog(@"orTerm %@", self._assembly);
     
     [self or]; 
     [self andExpr]; 
@@ -95,7 +91,6 @@
 }
 
 - (void)andExpr {
-	//NSLog(@"andExpr %@", self._assembly);
     
     [self relExpr]; 
     while (LA(1) == TOKEN_KIND_AND) {
@@ -106,7 +101,6 @@
 }
 
 - (void)andTerm {
-	//NSLog(@"andTerm %@", self._assembly);
     
     [self and]; 
     [self relExpr]; 
@@ -115,10 +109,9 @@
 }
 
 - (void)relExpr {
-	//NSLog(@"relExpr %@", self._assembly);
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_EQ || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_LE) {
+    while (LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_EQ || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LE) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -127,7 +120,6 @@
 }
 
 - (void)relOp {
-	//NSLog(@"relOp %@", self._assembly);
     
     if (LA(1) == TOKEN_KIND_LT) {
         [self lt]; 
@@ -149,12 +141,11 @@
 }
 
 - (void)callExpr {
-	//NSLog(@"callExpr %@", self._assembly);
     
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPENPAREN) {
         [self openParen]; 
-        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -164,7 +155,6 @@
 }
 
 - (void)argList {
-	//NSLog(@"argList %@", self._assembly);
     
     [self atom]; 
     while (LA(1) == TOKEN_KIND_COMMA) {
@@ -176,9 +166,8 @@
 }
 
 - (void)primary {
-	//NSLog(@"primary %@", self._assembly);
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES) {
+    if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPENPAREN) {
         [self openParen]; 
@@ -192,11 +181,10 @@
 }
 
 - (void)atom {
-	//NSLog(@"atom %@", self._assembly);
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -206,7 +194,6 @@
 }
 
 - (void)obj {
-	//NSLog(@"obj %@", self._assembly);
     
     [self id]; 
     while (LA(1) == TOKEN_KIND_DOT) {
@@ -217,7 +204,6 @@
 }
 
 - (void)id {
-	//NSLog(@"id %@", self._assembly);
     
     [self Word]; 
 
@@ -225,7 +211,6 @@
 }
 
 - (void)member {
-	//NSLog(@"member %@", self._assembly);
     
     [self dot]; 
     [self id]; 
@@ -234,13 +219,12 @@
 }
 
 - (void)literal {
-	//NSLog(@"literal %@", self._assembly);
     
     if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
         [self QuotedString]; 
     } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
-    } else if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO) {
+    } else if (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES) {
         [self bool]; 
     } else {
         [self raise:@"no viable alternative found in literal"];
@@ -250,7 +234,6 @@
 }
 
 - (void)bool {
-	//NSLog(@"bool %@", self._assembly);
     
     if (LA(1) == TOKEN_KIND_YES) {
         [self yes]; 
@@ -264,7 +247,6 @@
 }
 
 - (void)lt {
-	//NSLog(@"lt %@", self._assembly);
     
     [self match:TOKEN_KIND_LT]; 
 
@@ -272,7 +254,6 @@
 }
 
 - (void)gt {
-	//NSLog(@"gt %@", self._assembly);
     
     [self match:TOKEN_KIND_GT]; 
 
@@ -280,7 +261,6 @@
 }
 
 - (void)eq {
-	//NSLog(@"eq %@", self._assembly);
     
     [self match:TOKEN_KIND_EQ]; 
 
@@ -288,7 +268,6 @@
 }
 
 - (void)ne {
-	//NSLog(@"ne %@", self._assembly);
     
     [self match:TOKEN_KIND_NE]; 
 
@@ -296,7 +275,6 @@
 }
 
 - (void)le {
-	//NSLog(@"le %@", self._assembly);
     
     [self match:TOKEN_KIND_LE]; 
 
@@ -304,7 +282,6 @@
 }
 
 - (void)ge {
-	//NSLog(@"ge %@", self._assembly);
     
     [self match:TOKEN_KIND_GE]; 
 
@@ -312,7 +289,6 @@
 }
 
 - (void)openParen {
-	//NSLog(@"openParen %@", self._assembly);
     
     [self match:TOKEN_KIND_OPENPAREN]; 
 
@@ -320,7 +296,6 @@
 }
 
 - (void)closeParen {
-	//NSLog(@"closeParen %@", self._assembly);
     
     [self match:TOKEN_KIND_CLOSEPAREN]; [self discard:1];
 
@@ -328,7 +303,6 @@
 }
 
 - (void)yes {
-	//NSLog(@"yes %@", self._assembly);
     
     [self match:TOKEN_KIND_YES]; 
 
@@ -336,7 +310,6 @@
 }
 
 - (void)no {
-	//NSLog(@"no %@", self._assembly);
     
     [self match:TOKEN_KIND_NO]; 
 
@@ -344,7 +317,6 @@
 }
 
 - (void)dot {
-	//NSLog(@"dot %@", self._assembly);
     
     [self match:TOKEN_KIND_DOT]; 
 
@@ -352,7 +324,6 @@
 }
 
 - (void)comma {
-	//NSLog(@"comma %@", self._assembly);
     
     [self match:TOKEN_KIND_COMMA]; 
 
@@ -360,7 +331,6 @@
 }
 
 - (void)or {
-	//NSLog(@"or %@", self._assembly);
     
     [self match:TOKEN_KIND_OR]; 
 
@@ -368,7 +338,6 @@
 }
 
 - (void)and {
-	//NSLog(@"and %@", self._assembly);
     
     [self match:TOKEN_KIND_AND]; 
 

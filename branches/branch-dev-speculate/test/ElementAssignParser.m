@@ -51,7 +51,6 @@
 }
 
 - (void)_start {
-	//NSLog(@"_start %@", self._assembly);
     
     [self stat]; 
 
@@ -59,7 +58,6 @@
 }
 
 - (void)stat {
-	//NSLog(@"stat %@", self._assembly);
     
     if ([self speculate:^{ [self assign]; [self dot]; }]) {
         [self assign]; 
@@ -75,7 +73,6 @@
 }
 
 - (void)assign {
-	//NSLog(@"assign %@", self._assembly);
     
     [self list]; 
     [self eq]; 
@@ -85,7 +82,6 @@
 }
 
 - (void)list {
-	//NSLog(@"list %@", self._assembly);
     
     [self lbracket]; 
     [self elements]; 
@@ -95,7 +91,6 @@
 }
 
 - (void)elements {
-	//NSLog(@"elements %@", self._assembly);
     
     [self element]; 
     while (LA(1) == TOKEN_KIND_COMMA) {
@@ -107,7 +102,6 @@
 }
 
 - (void)element {
-	//NSLog(@"element %@", self._assembly);
     
     if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
@@ -121,7 +115,6 @@
 }
 
 - (void)lbracket {
-	//NSLog(@"lbracket %@", self._assembly);
     
     [self match:TOKEN_KIND_LBRACKET]; 
 
@@ -129,7 +122,6 @@
 }
 
 - (void)rbracket {
-	//NSLog(@"rbracket %@", self._assembly);
     
     [self match:TOKEN_KIND_RBRACKET]; [self discard:1];
 
@@ -137,7 +129,6 @@
 }
 
 - (void)comma {
-	//NSLog(@"comma %@", self._assembly);
     
     [self match:TOKEN_KIND_COMMA]; [self discard:1];
 
@@ -145,7 +136,6 @@
 }
 
 - (void)eq {
-	//NSLog(@"eq %@", self._assembly);
     
     [self match:TOKEN_KIND_EQ]; 
 
@@ -153,7 +143,6 @@
 }
 
 - (void)dot {
-	//NSLog(@"dot %@", self._assembly);
     
     [self match:TOKEN_KIND_DOT]; 
 
@@ -161,7 +150,6 @@
 }
 
 - (void)semi {
-	//NSLog(@"semi %@", self._assembly);
     
     [self match:TOKEN_KIND_SEMI]; 
 
