@@ -9,7 +9,7 @@ list =      lbracket { LOG(@"after rbracket ref") }
             elements { LOG(@"after elements ref") }
             rbracket { LOG(@"after rbracket ref") };
 
-elements = element (comma element { LOG(@"after element ref") })*; // { LOG(@"after rep") };
+elements = element (comma element { LOG(@"after element ref") })* { LOG(@"after rep") };
 element = Number { LOG(@"after const") } | list;
 
 lbracket = '['; // fence

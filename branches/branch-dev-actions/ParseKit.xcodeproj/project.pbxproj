@@ -2607,10 +2607,10 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
-				D3B22A531702B14000446945 /* ElementParser.h */,
-				D3B22A4F1702AFB500446945 /* ElementParser.m */,
 				D3083ABA1705F16000DA6F95 /* ElementAssignParser.h */,
 				D3083ABB1705F16000DA6F95 /* ElementAssignParser.m */,
+				D3B22A531702B14000446945 /* ElementParser.h */,
+				D3B22A4F1702AFB500446945 /* ElementParser.m */,
 				D3B22A541703D03700446945 /* ExpressionParser.h */,
 				D3B22A551703D03800446945 /* ExpressionParser.m */,
 			);

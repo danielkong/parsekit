@@ -25,10 +25,10 @@
 // expr                 = term orTerm*;
 // term                 = factor nextFactor*;
 // orTerm               = '|' term;
-// factor               = phrase | phraseStar | phrasePlus | phraseQuestion;
+// factor               = (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
 // nextFactor           = factor;
 
-// phrase               = primaryExpr predicate* action?;
+// phrase               = primaryExpr predicate*;
 // phraseStar           = phrase '*'!;
 // phrasePlus           = phrase '+'!;
 // phraseQuestion       = phrase '?'!;
@@ -286,15 +286,20 @@
 }
 
 
-// factor               = phrase | phraseStar | phrasePlus | phraseQuestion;
+// factor               = (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
 - (PKCollectionParser *)factorParser {
     if (!factorParser) {
-        self.factorParser = [PKAlternation alternation];
+        self.factorParser = [PKSequence sequence];
         factorParser.name = @"factor";
-        [factorParser add:self.phraseParser];
-        [factorParser add:self.phraseStarParser];
-        [factorParser add:self.phrasePlusParser];
-        [factorParser add:self.phraseQuestionParser];
+        
+        PKAlternation *alt = [PKAlternation alternation];
+        [alt add:self.phraseParser];
+        [alt add:self.phraseStarParser];
+        [alt add:self.phrasePlusParser];
+        [alt add:self.phraseQuestionParser];
+        [factorParser add:alt];
+        
+        [factorParser add:[self zeroOrOne:self.actionParser]];
     }
     return factorParser;
 }
@@ -312,14 +317,13 @@
 }
 
 
-// phrase               = primaryExpr predicate* action?;
+// phrase               = primaryExpr predicate*;
 - (PKCollectionParser *)phraseParser {
     if (!phraseParser) {
         self.phraseParser = [PKSequence sequence];
         phraseParser.name = @"phrase";
         [phraseParser add:self.primaryExprParser];
         [phraseParser add:[PKRepetition repetitionWithSubparser:self.predicateParser]];
-        [phraseParser add:[self zeroOrOne:self.actionParser]];
     }
     return phraseParser;
 }
