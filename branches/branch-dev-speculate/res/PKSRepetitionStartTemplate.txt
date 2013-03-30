@@ -1,1 +1,1 @@
-{%for 1 to depth %}    {%/for%}while ({%for tokenKind in lookaheadSet%}LA(1) == {{tokenKind.name}} || {%/for%}0) {
+{%for 1 to depth %}    {%/for%}while ({%for tokenKind in lookaheadSet%}LA(1) == {{tokenKind.name}}{%if currentLoop.currentIndex != last %} || {%/if%}{%/for%}) {

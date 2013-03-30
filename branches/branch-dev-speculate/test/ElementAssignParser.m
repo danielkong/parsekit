@@ -99,7 +99,7 @@
 	//NSLog(@"elements %@", self._assembly);
     
     [self element]; 
-    while (LA(1) == TOKEN_KIND_COMMA || 0) {
+    while (LA(1) == TOKEN_KIND_COMMA) {
         [self comma]; 
         [self element]; 
     }
@@ -110,9 +110,9 @@
 - (void)element {
 	//NSLog(@"element %@", self._assembly);
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || 0) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
-    } else if (LA(1) == TOKEN_KIND_LBRACKET || 0) {
+    } else if (LA(1) == TOKEN_KIND_LBRACKET) {
         [self list]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in element"];

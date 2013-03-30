@@ -25,6 +25,7 @@
 #define TOKEN_KIND @"tokenKind"
 #define CHILD_NAME @"childName"
 #define DEPTH @"depth"
+#define LAST @"last"
 #define LOOKAHEAD_SET @"lookaheadSet"
 #define OPT_BODY @"optBody"
 #define DISCARD @"discard"
@@ -280,6 +281,8 @@
 
     // setup template
     vars[LOOKAHEAD_SET] = set;
+    vars[LAST] = @([set count] - 1);
+
     NSMutableString *output = [NSMutableString string];
     [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionStartTemplate"] withVariables:vars]];
     
@@ -346,12 +349,13 @@
     // recurse
     NSUInteger idx = 0;
     for (PKBaseNode *child in node.children) {
-        id predictVars = [NSMutableDictionary dictionary];
+        id vars = [NSMutableDictionary dictionary];
         
         NSSet *set = lookaheadSets[idx];
-        predictVars[LOOKAHEAD_SET] = set;
-        predictVars[DEPTH] = @(_depth);
-        predictVars[NEEDS_BACKTRACK] = @(_needsBacktracking);
+        vars[LOOKAHEAD_SET] = set;
+        vars[LAST] = @([set count] - 1);
+        vars[DEPTH] = @(_depth);
+        vars[NEEDS_BACKTRACK] = @(_needsBacktracking);
         
         NSString *templateName = nil;
         
@@ -364,7 +368,7 @@
                 break;
         }
         
-        NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:predictVars];
+        NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars];
         [childStr appendString:output];
         
         self.depth++;
@@ -396,10 +400,10 @@
         NSString *ifTest = [[childBody stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"    " withString:@""];
 
         // setup vars
-        id predictVars = [NSMutableDictionary dictionary];
-        predictVars[DEPTH] = @(_depth);
-        predictVars[NEEDS_BACKTRACK] = @(_needsBacktracking);
-        predictVars[CHILD_STRING] = ifTest;
+        id vars = [NSMutableDictionary dictionary];
+        vars[DEPTH] = @(_depth);
+        vars[NEEDS_BACKTRACK] = @(_needsBacktracking);
+        vars[CHILD_STRING] = ifTest;
         
         // setup template
         NSString *templateName = nil;
@@ -413,7 +417,7 @@
         }
         
         // process template
-        NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:predictVars];
+        NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars];
         [result appendString:output];
         [result appendString:childBody];
         ++idx;
@@ -454,10 +458,10 @@
 
     self.needsBacktracking = NO;
 
-    id predictVars = [NSMutableDictionary dictionary];
-    predictVars[METHOD_NAME] = _currentDefName;
-    predictVars[DEPTH] = @(_depth);
-    NSString *output = [_engine processTemplate:[self templateStringNamed:@"PKSPredictElseTemplate"] withVariables:predictVars];
+    id vars = [NSMutableDictionary dictionary];
+    vars[METHOD_NAME] = _currentDefName;
+    vars[DEPTH] = @(_depth);
+    NSString *output = [_engine processTemplate:[self templateStringNamed:@"PKSPredictElseTemplate"] withVariables:vars];
     [childStr appendString:output];
 
     // push
@@ -485,6 +489,8 @@
     
     NSSet *set = [self lookaheadSetForNode:child];
     vars[LOOKAHEAD_SET] = set;
+    vars[LAST] = @([set count] - 1);
+
     NSMutableString *output = [NSMutableString string];
     [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSOptionalStartTemplate"] withVariables:vars]];
     
@@ -515,6 +521,8 @@
     
     NSSet *set = [self lookaheadSetForNode:child];
     vars[LOOKAHEAD_SET] = set;
+    vars[LAST] = @([set count] - 1);
+
     NSMutableString *output = [NSMutableString string];
     [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSMultipleStartTemplate"] withVariables:vars]];
     
