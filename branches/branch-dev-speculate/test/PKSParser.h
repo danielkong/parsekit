@@ -38,6 +38,9 @@ enum {
 
 @interface PKSParser (Subclass)
 
+- (PKToken *)LT:(NSInteger)i;
+- (NSInteger)LA:(NSInteger)i;
+
 - (void)match:(NSInteger)x;
 - (void)discard:(NSInteger)n;
 - (BOOL)predicts:(NSSet *)set;

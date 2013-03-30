@@ -6,9 +6,9 @@
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
 
-#define POP() [_assembly pop]
-#define PUSH(tok) [_assembly push:(tok)]
-#define ABOVE(fence) [_assembly objectsAbove:(fence)]
+#define POP() [self._assembly pop]
+#define PUSH(tok) [self._assembly push:(tok)]
+#define ABOVE(fence) [self._assembly objectsAbove:(fence)]
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
@@ -119,7 +119,7 @@
 	//NSLog(@"relExpr %@", self._assembly);
     
     [self callExpr]; 
-    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_GE), @(TOKEN_KIND_LE), @(TOKEN_KIND_EQ), @(TOKEN_KIND_GT), @(TOKEN_KIND_NE), @(TOKEN_KIND_LT), nil]]) {
+    while ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_NE), @(TOKEN_KIND_GE), @(TOKEN_KIND_LE), @(TOKEN_KIND_LT), @(TOKEN_KIND_GT), @(TOKEN_KIND_EQ), nil]]) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -155,7 +155,7 @@
     [self primary]; 
     if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
-        if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_NO), nil]]) {
+        if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_NO), nil]]) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -179,7 +179,7 @@
 - (void)primary {
 	//NSLog(@"primary %@", self._assembly);
     
-    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
+    if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_WORD), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
         [self atom]; 
     } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_OPENPAREN), nil]]) {
         [self openParen]; 
@@ -197,7 +197,7 @@
     
     if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_WORD), nil]]) {
         [self obj]; 
-    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_NO), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), nil]]) {
+    } else if ([self predicts:[NSSet setWithObjects:@(TOKEN_KIND_BUILTIN_NUMBER), @(TOKEN_KIND_YES), @(TOKEN_KIND_BUILTIN_QUOTEDSTRING), @(TOKEN_KIND_NO), nil]]) {
         [self literal]; 
     } else {
         [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in atom"];

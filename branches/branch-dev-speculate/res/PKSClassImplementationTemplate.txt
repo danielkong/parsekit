@@ -6,9 +6,9 @@
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
 
-#define POP() [_assembly pop]
-#define PUSH(tok) [_assembly push:(tok)]
-#define ABOVE(fence) [_assembly objectsAbove:(fence)]
+#define POP() [self._assembly pop]
+#define PUSH(tok) [self._assembly push:(tok)]
+#define ABOVE(fence) [self._assembly objectsAbove:(fence)]
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;

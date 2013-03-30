@@ -15,10 +15,6 @@
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
 
-#define POP() [_assembly pop]
-#define PUSH(tok) [_assembly push:(tok)]
-#define ABOVE(fence) [_assembly objectsAbove:(fence)]
-
 @interface PKSTokenAssembly ()
 - (void)consume:(PKToken *)tok;
 @end
@@ -31,9 +27,6 @@
 @property (nonatomic, retain) NSMutableArray *_markers;
 @property (nonatomic, assign) NSInteger _p;
 @property (nonatomic, assign, readonly) BOOL _isSpeculating;
-
-- (PKToken *)LT:(NSInteger)i;
-- (NSInteger)LA:(NSInteger)i;
 
 - (void)_consume;
 - (NSInteger)_mark;
