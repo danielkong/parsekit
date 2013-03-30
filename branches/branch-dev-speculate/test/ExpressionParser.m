@@ -1,7 +1,6 @@
 #import "ExpressionParser.h"
 #import <ParseKit/PKAssembly.h>
 #import "PKSRecognitionException.h"
-#import "PKSNoViableException.h"
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
@@ -119,7 +118,7 @@
 	//NSLog(@"relExpr %@", self._assembly);
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_EQ) {
+    while (LA(1) == TOKEN_KIND_EQ || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_LE) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -155,7 +154,7 @@
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPENPAREN) {
         [self openParen]; 
-        if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -179,7 +178,7 @@
 - (void)primary {
 	//NSLog(@"primary %@", self._assembly);
     
-    if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPENPAREN) {
         [self openParen]; 
@@ -197,7 +196,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];

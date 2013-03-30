@@ -1,7 +1,6 @@
 #import "ElementParser.h"
 #import <ParseKit/PKAssembly.h>
 #import "PKSRecognitionException.h"
-#import "PKSNoViableException.h"
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]

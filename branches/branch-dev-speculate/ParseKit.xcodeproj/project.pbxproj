@@ -535,7 +535,6 @@
 		D3B22A6C1703E3FB00446945 /* PKSTokenKindDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B22A631703E0A300446945 /* PKSTokenKindDescriptor.h */; settings = {ATTRIBUTES = (); }; };
 		D3B22A6D1703E3FC00446945 /* PKSTokenKindDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B22A631703E0A300446945 /* PKSTokenKindDescriptor.h */; settings = {ATTRIBUTES = (); }; };
 		D3B22A73170550A400446945 /* PKSRecognitionException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A72170550A200446945 /* PKSRecognitionException.m */; };
-		D3B22A76170550E300446945 /* PKSNoViableException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A75170550E100446945 /* PKSNoViableException.m */; };
 		D3B63A241706508400BA9DBF /* PKSSpeculateIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */; };
 		D3B63A261706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
@@ -1487,8 +1486,6 @@
 		D3B22A641703E0A300446945 /* PKSTokenKindDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSTokenKindDescriptor.m; path = test/PKSTokenKindDescriptor.m; sourceTree = "<group>"; };
 		D3B22A71170550A100446945 /* PKSRecognitionException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSRecognitionException.h; path = test/PKSRecognitionException.h; sourceTree = "<group>"; };
 		D3B22A72170550A200446945 /* PKSRecognitionException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSRecognitionException.m; path = test/PKSRecognitionException.m; sourceTree = "<group>"; };
-		D3B22A74170550DF00446945 /* PKSNoViableException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSNoViableException.h; path = test/PKSNoViableException.h; sourceTree = "<group>"; };
-		D3B22A75170550E100446945 /* PKSNoViableException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSNoViableException.m; path = test/PKSNoViableException.m; sourceTree = "<group>"; };
 		D3B43FB50F76E99C0072AF40 /* TDJavaScriptParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDJavaScriptParserTest.h; path = test/TDJavaScriptParserTest.h; sourceTree = "<group>"; };
 		D3B43FB60F76E99C0072AF40 /* TDJavaScriptParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDJavaScriptParserTest.m; path = test/TDJavaScriptParserTest.m; sourceTree = "<group>"; };
 		D3B473840E48C9CF008AFBDD /* yahoo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = yahoo.json; path = res/yahoo.json; sourceTree = "<group>"; };
@@ -2645,8 +2642,6 @@
 			children = (
 				D3B22A71170550A100446945 /* PKSRecognitionException.h */,
 				D3B22A72170550A200446945 /* PKSRecognitionException.m */,
-				D3B22A74170550DF00446945 /* PKSNoViableException.h */,
-				D3B22A75170550E100446945 /* PKSNoViableException.m */,
 			);
 			name = Exceptions;
 			sourceTree = "<group>";
@@ -4042,7 +4037,6 @@
 				D3B22A5D1703DA8000446945 /* ElementParserTest.m in Sources */,
 				D3B22A621703DE2000446945 /* ExpressionParserTest.m in Sources */,
 				D3B22A73170550A400446945 /* PKSRecognitionException.m in Sources */,
-				D3B22A76170550E300446945 /* PKSNoViableException.m in Sources */,
 				D3083AB91705F09B00DA6F95 /* ElementAssignParserTest.m in Sources */,
 				D3083ABC1705F16000DA6F95 /* ElementAssignParser.m in Sources */,
 				D3083AC117061E0D00DA6F95 /* PKSTokenAssembly.m in Sources */,
