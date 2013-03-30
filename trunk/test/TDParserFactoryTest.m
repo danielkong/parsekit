@@ -386,26 +386,6 @@
 }
 
 
-- (void)testAssemblerSettingBehaviorOnExplicit {
-    id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start = foo|baz; foo (parser:didMatchFoo:) = 'bar'; baz (parser:didMatchBaz:) = 'bat';";
-    factory.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnExplicit;
-    lp = [factory parserFromGrammar:s assembler:mock error:nil];
-    TDNotNil(lp);
-    TDTrue([lp isKindOfClass:[PKParser class]]);
-    TDEqualObjects(lp.name, @"@start");
-    TDNil(lp.assembler);
-    TDNil(NSStringFromSelector(lp.assemblerSelector));
-    
-    [[mock expect] parser:OCMOCK_ANY didMatchFoo:OCMOCK_ANY];
-    s = @"bar";
-    a = [PKTokenAssembly assemblyWithString:s];
-    res = [lp completeMatchFor:a];
-    TDEqualObjects(@"[bar]bar^", [res description]);
-    [mock verify];
-}
-
-
 - (void)testAssemblerSettingBehaviorOnExplicitNone {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
     s = @"@start = foo|baz; foo = 'bar'; baz = 'bat';";
@@ -427,7 +407,7 @@
 
 - (void)testAssemblerSettingBehaviorOnExplicitOrTerminal {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start = (foo|baz)+; foo (parser:didMatchFoo:) = 'bar'; baz = 'bat';";
+    s = @"@start = (foo|baz)+; foo = 'bar'; baz = 'bat';";
     factory.assemblerSettingBehavior = (PKParserFactoryAssemblerSettingBehaviorOnExplicit | PKParserFactoryAssemblerSettingBehaviorOnTerminals);
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
@@ -442,25 +422,6 @@
     a = [PKTokenAssembly assemblyWithString:s];
     res = [lp completeMatchFor:a];
     TDEqualObjects(@"[bar, bat]bar/bat^", [res description]);
-    [mock verify];
-}
-
-
-- (void)testStartLiteralWithCallback {
-    id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
-    s = @"@start (parser:didMatchStart:) = 'bar';";
-    lp = [factory parserFromGrammar:s assembler:mock error:nil];
-    TDNotNil(lp);
-    TDTrue([lp isKindOfClass:[PKParser class]]);
-    TDEqualObjects(lp.name, @"@start");
-    TDTrue(lp.assembler == mock);
-    TDEqualObjects(NSStringFromSelector(lp.assemblerSelector), @"parser:didMatchStart:");
-
-    [[mock expect] parser:OCMOCK_ANY didMatchStart:OCMOCK_ANY];
-    s = @"bar";
-    a = [PKTokenAssembly assemblyWithString:s];
-    res = [lp bestMatchFor:a];
-    TDEqualObjects(@"[bar]bar^", [res description]);
     [mock verify];
 }
 

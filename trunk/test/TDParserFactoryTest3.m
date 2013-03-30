@@ -156,7 +156,7 @@
 
 
 - (void)testOrVsAndPrecendence {
-    g = @" @start ( parser:didMatchFoo: ) = foo;\n"
+    g = @" @start = foo;\n"
     @"  foo = Word & /foo/ | Number! ( %{ '/' , '/' } Symbol- '%' ) * /bar/ ;";
     lp = [factory parserFromGrammar:g assembler:nil error:nil];
     TDNotNil(lp);
