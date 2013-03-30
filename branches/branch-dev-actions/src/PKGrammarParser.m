@@ -27,16 +27,13 @@
 // expr                 = term orTerm*;
 // term                 = factor nextFactor*;
 // orTerm               = '|' term;
-// factor               = phrase | phraseStar | phrasePlus | phraseQuestion | phraseCardinality;
+// factor               = phrase | phraseStar | phrasePlus | phraseQuestion;
 // nextFactor           = factor;
 
 // phrase               = primaryExpr predicate*;
 // phraseStar           = phrase '*'!;
 // phrasePlus           = phrase '+'!;
 // phraseQuestion       = phrase '?'!;
-// phraseCardinality    = phrase cardinality;
-// cardinality          = '{' number (','! number)? '}'!;
-// number               = Number;
 
 // predicate            = (intersection | difference);
 // intersection         = '&'! primaryExpr;
@@ -77,8 +74,6 @@
 - (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchCardinality:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a;
 @end
@@ -121,8 +116,6 @@
     self.phraseStarParser = nil;
     self.phrasePlusParser = nil;
     self.phraseQuestionParser = nil;
-    self.phraseCardinalityParser = nil;
-    self.cardinalityParser = nil;
     self.primaryExprParser = nil;
     self.negatedPrimaryExprParser = nil;
     self.barePrimaryExprParser = nil;
@@ -137,7 +130,6 @@
     self.literalParser = nil;
     self.variableParser = nil;
     self.constantParser = nil;
-    self.numberParser = nil;
     self.specificConstantParser = nil;
     [super dealloc];
 }
@@ -329,7 +321,7 @@
 }
 
 
-// factor               = phrase | phraseStar | phrasePlus | phraseQuestion | phraseCardinality;
+// factor               = phrase | phraseStar | phrasePlus | phraseQuestion;
 - (PKCollectionParser *)factorParser {
     if (!factorParser) {
         self.factorParser = [PKAlternation alternation];
@@ -338,7 +330,6 @@
         [factorParser add:self.phraseStarParser];
         [factorParser add:self.phrasePlusParser];
         [factorParser add:self.phraseQuestionParser];
-        [factorParser add:self.phraseCardinalityParser];
     }
     return factorParser;
 }
@@ -509,42 +500,6 @@
 }
 
 
-// phraseCardinality    = phrase cardinality;
-- (PKCollectionParser *)phraseCardinalityParser {
-    if (!phraseCardinalityParser) {
-        self.phraseCardinalityParser = [PKSequence sequence];
-        phraseCardinalityParser.name = @"phraseCardinality";
-        [phraseCardinalityParser add:self.phraseParser];
-        [phraseCardinalityParser add:self.cardinalityParser];
-        [phraseCardinalityParser setAssembler:assembler selector:@selector(parser:didMatchPhraseCardinality:)];
-    }
-    return phraseCardinalityParser;
-}
-
-
-// cardinality          = '{' number (','! number)? '}'!;
-- (PKCollectionParser *)cardinalityParser {
-    if (!cardinalityParser) {
-        self.cardinalityParser = [PKSequence sequence];
-        cardinalityParser.name = @"cardinality";
-        
-        PKSequence *commaNum = [PKSequence sequence];
-        [commaNum add:[[PKSymbol symbolWithString:@","] discard]];
-        [commaNum add:self.numberParser];
-        
-        PKTrack *tr = [PKTrack track];
-        [tr add:[PKSymbol symbolWithString:@"{"]]; // serves as fence. dont discard
-        [tr add:self.numberParser];
-        [tr add:[self zeroOrOne:commaNum]];
-        [tr add:[[PKSymbol symbolWithString:@"}"] discard]];
-        
-        [cardinalityParser add:tr];
-        [cardinalityParser setAssembler:assembler selector:@selector(parser:didMatchCardinality:)];
-    }
-    return cardinalityParser;
-}
-
-
 // atomicValue          = parser discard?;
 - (PKCollectionParser *)atomicValueParser {
     if (!atomicValueParser) {
@@ -669,17 +624,6 @@
 }
 
 
-// number               = Number;
-- (PKParser *)numberParser {
-    if (!numberParser) {
-        self.numberParser = [PKNumber number];
-        numberParser.name = @"number";
-        [numberParser setAssembler:assembler selector:@selector(parser:didMatchNum:)];
-    }
-    return numberParser;
-}
-
-
 // specificConstant      = UppercaseWord '(' QuotedString ')';
 - (PKParser *)specificConstantParser {
     if (!specificConstantParser) {
@@ -712,8 +656,6 @@
 @synthesize phraseStarParser;
 @synthesize phrasePlusParser;
 @synthesize phraseQuestionParser;
-@synthesize phraseCardinalityParser;
-@synthesize cardinalityParser;
 @synthesize primaryExprParser;
 @synthesize negatedPrimaryExprParser;
 @synthesize barePrimaryExprParser;
@@ -728,6 +670,5 @@
 @synthesize literalParser;
 @synthesize variableParser;
 @synthesize constantParser;
-@synthesize numberParser;
 @synthesize specificConstantParser;
 @end

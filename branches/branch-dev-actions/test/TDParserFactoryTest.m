@@ -570,21 +570,6 @@
     s = @"@start=%{'/', ;";
     STAssertThrowsSpecificNamed([factory parserFromGrammar:s assembler:nil], PKTrackException, PKTrackExceptionName, @"");
 }
-
-
-- (void)testCardinalityTrackException {
-    s = @"@start='foo'{;";
-    STAssertThrowsSpecificNamed([factory parserFromGrammar:s assembler:nil], PKTrackException, PKTrackExceptionName, @"");
-
-    s = @"@start='foo'{};";
-    STAssertThrowsSpecificNamed([factory parserFromGrammar:s assembler:nil], PKTrackException, PKTrackExceptionName, @"");
-    
-    s = @"@start='foo'{,};";
-    STAssertThrowsSpecificNamed([factory parserFromGrammar:s assembler:nil], PKTrackException, PKTrackExceptionName, @"");
-    
-    s = @"@start='foo'{m};";
-    STAssertThrowsSpecificNamed([factory parserFromGrammar:s assembler:nil], PKTrackException, PKTrackExceptionName, @"");
-}
 #endif
 
 
@@ -1057,91 +1042,6 @@
 //    a = [PKTokenAssembly assemblyWithString:s];
 //    res = [lp bestMatchFor:a];
 //    TDEqualObjects(@"[333]333^444", [res description]);
-//    
-//    s = @"hello hello";
-//    a = [PKTokenAssembly assemblyWithString:s];
-//    res = [lp bestMatchFor:a];
-//    TDNil(res);
-//}
-//
-//
-//- (void)testExprNumCardinality {
-//    s = @"Number{2}";
-//    a = [PKTokenAssembly assemblyWithString:s];
-//    res = [exprSeq bestMatchFor:a];
-//    TDNotNil(res);
-//    TDEqualObjects(@"[Sequence]Number/{/2/}^", [res description]);
-//    PKSequence *seq = [res pop];
-//    TDEqualObjects([seq class], [PKSequence class]);
-//    
-//    TDEquals((NSUInteger)2, [seq.subparsers count]);
-//    PKNumber *n = [seq.subparsers objectAtIndex:0];
-//    TDEqualObjects([n class], [PKNumber class]);
-//
-//    n = [seq.subparsers objectAtIndex:1];
-//    TDEqualObjects([n class], [PKNumber class]);
-//
-//    // use the result parser
-//    lp = [factory parserFromExpression:s];
-//    TDNotNil(lp);
-//    TDTrue([lp isKindOfClass:[PKSequence class]]);
-//    
-//    s = @"333 444";
-//    a = [PKTokenAssembly assemblyWithString:s];
-//    res = [lp bestMatchFor:a];
-//    TDEqualObjects(@"[333, 444]333/444^", [res description]);
-//    
-//    s = @"1.1 2.2 3.3";
-//    a = [PKTokenAssembly assemblyWithString:s];
-//    res = [lp bestMatchFor:a];
-//    TDEqualObjects(@"[1.1, 2.2]1.1/2.2^3.3", [res description]);
-//    
-//    s = @"hello hello";
-//    a = [PKTokenAssembly assemblyWithString:s];
-//    res = [lp bestMatchFor:a];
-//    TDNil(res);
-//}
-//
-//
-//- (void)testExprNumCardinality2 {
-//    s = @"Number{2,3}";
-//    a = [PKTokenAssembly assemblyWithString:s];
-//    res = [exprSeq bestMatchFor:a];
-//    TDNotNil(res);
-//    TDEqualObjects(@"[Sequence]Number/{/2/,/3/}^", [res description]);
-//    PKSequence *seq = [res pop];
-//    TDEqualObjects([seq class], [PKSequence class]);
-//    
-//    TDEquals((NSUInteger)3, [seq.subparsers count]);
-//
-//    PKNumber *n = [seq.subparsers objectAtIndex:0];
-//    TDEqualObjects([n class], [PKNumber class]);
-//    
-//    n = [seq.subparsers objectAtIndex:1];
-//    TDEqualObjects([n class], [PKNumber class]);
-//    
-//    n = [seq.subparsers objectAtIndex:2];
-//    TDEqualObjects([n class], [PKAlternation class]);
-//    
-//    // use the result parser
-//    lp = [factory parserFromExpression:s];
-//    TDNotNil(lp);
-//    TDTrue([lp isKindOfClass:[PKSequence class]]);
-//    
-//    s = @"333 444";
-//    a = [PKTokenAssembly assemblyWithString:s];
-//    res = [lp bestMatchFor:a];
-//    TDEqualObjects(@"[333, 444]333/444^", [res description]);
-//    
-//    s = @"1.1 2.2 3.3";
-//    a = [PKTokenAssembly assemblyWithString:s];
-//    res = [lp bestMatchFor:a];
-//    TDEqualObjects(@"[1.1, 2.2, 3.3]1.1/2.2/3.3^", [res description]);
-//    
-//    s = @"1.1 2.2 3.3 4";
-//    a = [PKTokenAssembly assemblyWithString:s];
-//    res = [lp bestMatchFor:a];
-//    TDEqualObjects(@"[1.1, 2.2, 3.3]1.1/2.2/3.3^4", [res description]);
 //    
 //    s = @"hello hello";
 //    a = [PKTokenAssembly assemblyWithString:s];

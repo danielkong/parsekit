@@ -771,28 +771,6 @@
 }
 
 
-- (void)testCardinal {
-    NSString *g = @"@start=Number{1,2};";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start ({ Number)))", [rootNode treeDescription]);
-}
-
-
-- (void)testCardinal2 {
-    NSString *g = @"@start=foo{2,4};foo=Number;";
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start ({ #foo)) ($foo Number))", [rootNode treeDescription]);
-}
-
-
 - (void)testDelimited {
     NSString *g = @"@start=%{'<', '>'};";
     
