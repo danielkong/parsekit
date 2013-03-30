@@ -61,7 +61,6 @@
 		D324B78F16F8CAEF005FE823 /* PKCollectionNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395524C16F16BA600D326FD /* PKCollectionNode.h */; };
 		D324B79016F8CAEF005FE823 /* PKMultipleNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395525A16F16BA600D326FD /* PKMultipleNode.h */; };
 		D324B79116F8CAEF005FE823 /* PKOptionalNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395525E16F16BA600D326FD /* PKOptionalNode.h */; };
-		D324B79216F8CAEF005FE823 /* PKCardinalNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395524A16F16BA600D326FD /* PKCardinalNode.h */; };
 		D324B79316F8CAEF005FE823 /* PKDelimitedNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395525616F16BA600D326FD /* PKDelimitedNode.h */; };
 		D324B79416F8CAEF005FE823 /* PKPatternNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395526016F16BA600D326FD /* PKPatternNode.h */; };
 		D324B79516F8CAF0005FE823 /* PKBaseNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395524816F16BA600D326FD /* PKBaseNode.h */; };
@@ -75,7 +74,6 @@
 		D324B79D16F8CAF0005FE823 /* PKAlternationNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D32612AE16F6A0930021845F /* PKAlternationNode.h */; };
 		D324B79E16F8CAF0005FE823 /* PKMultipleNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395525A16F16BA600D326FD /* PKMultipleNode.h */; };
 		D324B79F16F8CAF0005FE823 /* PKOptionalNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395525E16F16BA600D326FD /* PKOptionalNode.h */; };
-		D324B7A016F8CAF0005FE823 /* PKCardinalNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395524A16F16BA600D326FD /* PKCardinalNode.h */; };
 		D324B7A116F8CAF0005FE823 /* PKDelimitedNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395525616F16BA600D326FD /* PKDelimitedNode.h */; };
 		D324B7A216F8CAF0005FE823 /* PKPatternNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395526016F16BA600D326FD /* PKPatternNode.h */; };
 		D324B7A316F8CAF0005FE823 /* PKBaseNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395524816F16BA600D326FD /* PKBaseNode.h */; };
@@ -89,7 +87,6 @@
 		D324B7AB16F8CAF0005FE823 /* PKAlternationNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D32612AE16F6A0930021845F /* PKAlternationNode.h */; };
 		D324B7AC16F8CAF0005FE823 /* PKMultipleNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395525A16F16BA600D326FD /* PKMultipleNode.h */; };
 		D324B7AD16F8CAF0005FE823 /* PKOptionalNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395525E16F16BA600D326FD /* PKOptionalNode.h */; };
-		D324B7AE16F8CAF0005FE823 /* PKCardinalNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395524A16F16BA600D326FD /* PKCardinalNode.h */; };
 		D324B7AF16F8CAF0005FE823 /* PKDelimitedNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395525616F16BA600D326FD /* PKDelimitedNode.h */; };
 		D324B7B016F8CAF0005FE823 /* PKPatternNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D395526016F16BA600D326FD /* PKPatternNode.h */; };
 		D324B7B116F8CB03005FE823 /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
@@ -111,7 +108,6 @@
 		D324B7C116F8CB17005FE823 /* PKAlternationNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D32612AF16F6A0940021845F /* PKAlternationNode.m */; };
 		D324B7C216F8CB17005FE823 /* PKMultipleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525B16F16BA600D326FD /* PKMultipleNode.m */; };
 		D324B7C316F8CB17005FE823 /* PKOptionalNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525F16F16BA600D326FD /* PKOptionalNode.m */; };
-		D324B7C416F8CB17005FE823 /* PKCardinalNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395524B16F16BA600D326FD /* PKCardinalNode.m */; };
 		D324B7C516F8CB17005FE823 /* PKDelimitedNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525716F16BA600D326FD /* PKDelimitedNode.m */; };
 		D324B7C616F8CB17005FE823 /* PKPatternNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395526116F16BA600D326FD /* PKPatternNode.m */; };
 		D324B7C716F8CB17005FE823 /* PKBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395524916F16BA600D326FD /* PKBaseNode.m */; };
@@ -125,7 +121,6 @@
 		D324B7CF16F8CB17005FE823 /* PKAlternationNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D32612AF16F6A0940021845F /* PKAlternationNode.m */; };
 		D324B7D016F8CB17005FE823 /* PKMultipleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525B16F16BA600D326FD /* PKMultipleNode.m */; };
 		D324B7D116F8CB17005FE823 /* PKOptionalNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525F16F16BA600D326FD /* PKOptionalNode.m */; };
-		D324B7D216F8CB17005FE823 /* PKCardinalNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395524B16F16BA600D326FD /* PKCardinalNode.m */; };
 		D324B7D316F8CB17005FE823 /* PKDelimitedNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525716F16BA600D326FD /* PKDelimitedNode.m */; };
 		D324B7D416F8CB17005FE823 /* PKPatternNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395526116F16BA600D326FD /* PKPatternNode.m */; };
 		D3252F7E0FCE1A87005EF059 /* TDNSPredicateBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = D3252F7D0FCE1A87005EF059 /* TDNSPredicateBuilder.m */; };
@@ -499,7 +494,6 @@
 		D395529416F16DA200D326FD /* PKCollectionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395524D16F16BA600D326FD /* PKCollectionNode.m */; };
 		D395529516F16DA200D326FD /* PKMultipleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525B16F16BA600D326FD /* PKMultipleNode.m */; };
 		D395529616F16DA200D326FD /* PKOptionalNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525F16F16BA600D326FD /* PKOptionalNode.m */; };
-		D395529716F16DA200D326FD /* PKCardinalNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395524B16F16BA600D326FD /* PKCardinalNode.m */; };
 		D395529816F16DA200D326FD /* PKDelimitedNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525716F16BA600D326FD /* PKDelimitedNode.m */; };
 		D395529916F16DA200D326FD /* PKPatternNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395526116F16BA600D326FD /* PKPatternNode.m */; };
 		D39552B016F171EF00D326FD /* PKAST.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D8D10096C0700E4602E /* PKAST.m */; };
@@ -537,6 +531,7 @@
 		D3B22A73170550A400446945 /* PKSRecognitionException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A72170550A200446945 /* PKSRecognitionException.m */; };
 		D3B63A241706508400BA9DBF /* PKSSpeculateIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */; };
 		D3B63A261706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */; };
+		D3B63A29170751E800BA9DBF /* PKActionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A28170751E700BA9DBF /* PKActionNode.m */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3B986AE1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
@@ -1408,8 +1403,6 @@
 		D38E98D71062C5BA00739C39 /* TDParserBlocksTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserBlocksTest.m; path = test/TDParserBlocksTest.m; sourceTree = "<group>"; };
 		D395524816F16BA600D326FD /* PKBaseNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseNode.h; path = test/nodes/PKBaseNode.h; sourceTree = "<group>"; };
 		D395524916F16BA600D326FD /* PKBaseNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKBaseNode.m; path = test/nodes/PKBaseNode.m; sourceTree = "<group>"; };
-		D395524A16F16BA600D326FD /* PKCardinalNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKCardinalNode.h; path = test/nodes/PKCardinalNode.h; sourceTree = "<group>"; };
-		D395524B16F16BA600D326FD /* PKCardinalNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKCardinalNode.m; path = test/nodes/PKCardinalNode.m; sourceTree = "<group>"; };
 		D395524C16F16BA600D326FD /* PKCollectionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKCollectionNode.h; path = test/nodes/PKCollectionNode.h; sourceTree = "<group>"; };
 		D395524D16F16BA600D326FD /* PKCollectionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKCollectionNode.m; path = test/nodes/PKCollectionNode.m; sourceTree = "<group>"; };
 		D395524E16F16BA600D326FD /* PKCompositeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKCompositeNode.h; path = test/nodes/PKCompositeNode.h; sourceTree = "<group>"; };
@@ -1491,6 +1484,8 @@
 		D3B473840E48C9CF008AFBDD /* yahoo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = yahoo.json; path = res/yahoo.json; sourceTree = "<group>"; };
 		D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSSpeculateIfTemplate.txt; path = res/PKSSpeculateIfTemplate.txt; sourceTree = "<group>"; };
 		D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSSpeculateElseIfTemplate.txt; path = res/PKSSpeculateElseIfTemplate.txt; sourceTree = "<group>"; };
+		D3B63A27170751E700BA9DBF /* PKActionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKActionNode.h; path = test/nodes/PKActionNode.h; sourceTree = "<group>"; };
+		D3B63A28170751E700BA9DBF /* PKActionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKActionNode.m; path = test/nodes/PKActionNode.m; sourceTree = "<group>"; };
 		D3B69D310E80249900D70C41 /* nonascii.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = nonascii.html; path = res/nonascii.html; sourceTree = "<group>"; };
 		D3B986AD1700D3A9000CBCAE /* expression.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = expression.grammar; path = res/expression.grammar; sourceTree = "<group>"; };
 		D3BBBC960FEC9722007DF30D /* TDXMLParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDXMLParserTest.h; path = test/TDXMLParserTest.h; sourceTree = "<group>"; };
@@ -1988,12 +1983,12 @@
 				D395525B16F16BA600D326FD /* PKMultipleNode.m */,
 				D395525E16F16BA600D326FD /* PKOptionalNode.h */,
 				D395525F16F16BA600D326FD /* PKOptionalNode.m */,
-				D395524A16F16BA600D326FD /* PKCardinalNode.h */,
-				D395524B16F16BA600D326FD /* PKCardinalNode.m */,
 				D395525616F16BA600D326FD /* PKDelimitedNode.h */,
 				D395525716F16BA600D326FD /* PKDelimitedNode.m */,
 				D395526016F16BA600D326FD /* PKPatternNode.h */,
 				D395526116F16BA600D326FD /* PKPatternNode.m */,
+				D3B63A27170751E700BA9DBF /* PKActionNode.h */,
+				D3B63A28170751E700BA9DBF /* PKActionNode.m */,
 			);
 			name = ast;
 			sourceTree = "<group>";
@@ -3161,7 +3156,6 @@
 				D324B78F16F8CAEF005FE823 /* PKCollectionNode.h in Headers */,
 				D324B79016F8CAEF005FE823 /* PKMultipleNode.h in Headers */,
 				D324B79116F8CAEF005FE823 /* PKOptionalNode.h in Headers */,
-				D324B79216F8CAEF005FE823 /* PKCardinalNode.h in Headers */,
 				D324B79316F8CAEF005FE823 /* PKDelimitedNode.h in Headers */,
 				D324B79416F8CAEF005FE823 /* PKPatternNode.h in Headers */,
 				D33724DA16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
@@ -3294,7 +3288,6 @@
 				D324B79D16F8CAF0005FE823 /* PKAlternationNode.h in Headers */,
 				D324B79E16F8CAF0005FE823 /* PKMultipleNode.h in Headers */,
 				D324B79F16F8CAF0005FE823 /* PKOptionalNode.h in Headers */,
-				D324B7A016F8CAF0005FE823 /* PKCardinalNode.h in Headers */,
 				D324B7A116F8CAF0005FE823 /* PKDelimitedNode.h in Headers */,
 				D324B7A216F8CAF0005FE823 /* PKPatternNode.h in Headers */,
 				D33724DB16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
@@ -3382,7 +3375,6 @@
 				D324B7AB16F8CAF0005FE823 /* PKAlternationNode.h in Headers */,
 				D324B7AC16F8CAF0005FE823 /* PKMultipleNode.h in Headers */,
 				D324B7AD16F8CAF0005FE823 /* PKOptionalNode.h in Headers */,
-				D324B7AE16F8CAF0005FE823 /* PKCardinalNode.h in Headers */,
 				D324B7AF16F8CAF0005FE823 /* PKDelimitedNode.h in Headers */,
 				D324B7B016F8CAF0005FE823 /* PKPatternNode.h in Headers */,
 				D33724DC16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */,
@@ -3826,7 +3818,6 @@
 				D395529416F16DA200D326FD /* PKCollectionNode.m in Sources */,
 				D395529516F16DA200D326FD /* PKMultipleNode.m in Sources */,
 				D395529616F16DA200D326FD /* PKOptionalNode.m in Sources */,
-				D395529716F16DA200D326FD /* PKCardinalNode.m in Sources */,
 				D395529816F16DA200D326FD /* PKDelimitedNode.m in Sources */,
 				D395529916F16DA200D326FD /* PKPatternNode.m in Sources */,
 				D39552B016F171EF00D326FD /* PKAST.m in Sources */,
@@ -4040,6 +4031,7 @@
 				D3083AB91705F09B00DA6F95 /* ElementAssignParserTest.m in Sources */,
 				D3083ABC1705F16000DA6F95 /* ElementAssignParser.m in Sources */,
 				D3083AC117061E0D00DA6F95 /* PKSTokenAssembly.m in Sources */,
+				D3B63A29170751E800BA9DBF /* PKActionNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4173,7 +4165,6 @@
 				D324B7C116F8CB17005FE823 /* PKAlternationNode.m in Sources */,
 				D324B7C216F8CB17005FE823 /* PKMultipleNode.m in Sources */,
 				D324B7C316F8CB17005FE823 /* PKOptionalNode.m in Sources */,
-				D324B7C416F8CB17005FE823 /* PKCardinalNode.m in Sources */,
 				D324B7C516F8CB17005FE823 /* PKDelimitedNode.m in Sources */,
 				D324B7C616F8CB17005FE823 /* PKPatternNode.m in Sources */,
 				D33724DE16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,
@@ -4258,7 +4249,6 @@
 				D324B7CF16F8CB17005FE823 /* PKAlternationNode.m in Sources */,
 				D324B7D016F8CB17005FE823 /* PKMultipleNode.m in Sources */,
 				D324B7D116F8CB17005FE823 /* PKOptionalNode.m in Sources */,
-				D324B7D216F8CB17005FE823 /* PKCardinalNode.m in Sources */,
 				D324B7D316F8CB17005FE823 /* PKDelimitedNode.m in Sources */,
 				D324B7D416F8CB17005FE823 /* PKPatternNode.m in Sources */,
 				D33724DF16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,

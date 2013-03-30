@@ -21,9 +21,9 @@ typedef enum NSUInteger {
     PKNodeTypeComposite,
     PKNodeTypeCollection,
     PKNodeTypeAlternation,
-    PKNodeTypeCardinal,
     PKNodeTypeOptional,
     PKNodeTypeMultiple,
+    PKNodeTypeAction,
 } PKNodeType;
 
 @class PKParser;

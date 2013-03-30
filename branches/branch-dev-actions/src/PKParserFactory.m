@@ -23,9 +23,9 @@
 #import "PKCompositeNode.h"
 #import "PKCollectionNode.h"
 #import "PKAlternationNode.h"
-#import "PKCardinalNode.h"
 #import "PKOptionalNode.h"
 #import "PKMultipleNode.h"
+#import "PKActionNode.h"
 
 #import "PKDefinitionPhaseVisitor.h"
 #import "PKResolutionPhaseVisitor.h"

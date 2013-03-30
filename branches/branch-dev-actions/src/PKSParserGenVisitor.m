@@ -469,13 +469,6 @@
 }
 
 
-- (void)visitCardinal:(PKCardinalNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
- 
-    NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-}
-
-
 - (void)visitOptional:(PKOptionalNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
@@ -585,6 +578,13 @@
 
 
 - (void)visitPattern:(PKPatternNode *)node {
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    
+    NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+}
+
+
+- (void)visitAction:(PKActionNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);

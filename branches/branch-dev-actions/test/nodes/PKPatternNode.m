@@ -1,5 +1,5 @@
 //
-//  PKNodePattern.m
+//  PKPatternNode.m
 //  ParseKit
 //
 //  Created by Todd Ditchendorf on 10/4/12.
