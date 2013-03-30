@@ -64,19 +64,15 @@
     if ([self speculate:^{ [self assign]; [self dot]; }]) {
         [self assign]; 
         [self dot]; 
-        
         [self execute:(id)^{
              LOG(@"after alt1") ;
         }];
-        
     } else if ([self speculate:^{ [self list]; [self semi]; }]) {
         [self list]; 
         [self semi]; 
-        
         [self execute:(id)^{
              LOG(@"after alt2") ;
         }];
-        
     } else {
         [self raise:@"no viable alternative found in stat"];
     }
@@ -96,23 +92,17 @@
 - (void)list {
     
     [self lbracket]; 
-    
     [self execute:(id)^{
          LOG(@"after rbracket ref") ;
     }];
-    
     [self elements]; 
-    
     [self execute:(id)^{
          LOG(@"after elements ref") ;
     }];
-    
     [self rbracket]; 
-    
     [self execute:(id)^{
          LOG(@"after rbracket ref") ;
     }];
-    
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
@@ -123,12 +113,13 @@
     while (LA(1) == TOKEN_KIND_COMMA) {
         [self comma]; 
         [self element]; 
-        
         [self execute:(id)^{
              LOG(@"after element ref") ;
         }];
-        
     }
+    [self execute:(id)^{
+         LOG(@"after rep") ;
+    }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchElements:)];
 }
@@ -137,11 +128,9 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
-        
         [self execute:(id)^{
              LOG(@"after const") ;
         }];
-        
     } else if (LA(1) == TOKEN_KIND_LBRACKET) {
         [self list]; 
     } else {
@@ -175,11 +164,9 @@
 - (void)eq {
     
     [self match:TOKEN_KIND_EQ]; 
-    
     [self execute:(id)^{
          LOG(@"after literal") ;
     }];
-    
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }

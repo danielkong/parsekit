@@ -311,6 +311,8 @@
     [output appendString:childStr];
     [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionEndTemplate"] withVariables:vars]];
     
+    [output appendString:[self actionStringFrom:node]];
+
     // push
     [self push:output];
 
@@ -351,6 +353,8 @@
         [childStr appendString:[self pop]];
     }
     
+    [childStr appendString:[self actionStringFrom:node]];
+
     // push
     [self push:childStr];
     
@@ -520,6 +524,8 @@
     [output appendString:childStr];
     [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSOptionalEndTemplate"] withVariables:vars]];
 
+    [output appendString:[self actionStringFrom:node]];
+
     // push
     [self push:output];
 }
@@ -552,6 +558,8 @@
     [output appendString:childStr];
     [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSMultipleEndTemplate"] withVariables:vars]];
     
+    [output appendString:[self actionStringFrom:node]];
+
     // push
     [self push:output];
 }
