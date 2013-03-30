@@ -35,8 +35,6 @@
     PKCollectionParser *phraseStarParser;
     PKCollectionParser *phrasePlusParser;
     PKCollectionParser *phraseQuestionParser;
-    PKCollectionParser *phraseCardinalityParser;
-    PKCollectionParser *cardinalityParser;
     PKCollectionParser *primaryExprParser;
     PKCollectionParser *negatedPrimaryExprParser;
     PKCollectionParser *barePrimaryExprParser;
@@ -51,7 +49,6 @@
     PKParser *literalParser;
     PKParser *variableParser;
     PKParser *constantParser;
-    PKParser *numberParser;
     PKCollectionParser *specificConstantParser;
 }
 
@@ -75,8 +72,6 @@
 @property (nonatomic, retain) PKCollectionParser *phraseStarParser;
 @property (nonatomic, retain) PKCollectionParser *phrasePlusParser;
 @property (nonatomic, retain) PKCollectionParser *phraseQuestionParser;
-@property (nonatomic, retain) PKCollectionParser *phraseCardinalityParser;
-@property (nonatomic, retain) PKCollectionParser *cardinalityParser;
 @property (nonatomic, retain) PKCollectionParser *primaryExprParser;
 @property (nonatomic, retain) PKCollectionParser *negatedPrimaryExprParser;
 @property (nonatomic, retain) PKCollectionParser *barePrimaryExprParser;
@@ -91,6 +86,5 @@
 @property (nonatomic, retain) PKParser *literalParser;
 @property (nonatomic, retain) PKParser *variableParser;
 @property (nonatomic, retain) PKParser *constantParser;
-@property (nonatomic, retain) PKParser *numberParser;
 @property (nonatomic, retain) PKCollectionParser *specificConstantParser;
 @end

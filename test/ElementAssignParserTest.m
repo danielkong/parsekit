@@ -12,8 +12,6 @@
 #import "PKRootNode.h"
 #import "ElementAssignParser.h"
 
-#define EMIT 1
-
 @interface ElementAssignParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;
@@ -37,7 +35,7 @@
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     [_root visit:_visitor];
     
-#if EMIT
+#if TD_EMIT
     path = [@"~/work/parsekit/trunk/test/ElementAssignParser.h" stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {

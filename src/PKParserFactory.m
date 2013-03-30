@@ -128,12 +128,9 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSpecificConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchCardinality:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a;
 
@@ -910,19 +907,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    PKToken *tok = [a pop];
-    
-    if (self.wantsCharacters) {
-        PKUniChar c = [tok.stringValue characterAtIndex:0];
-        [a push:[PKSpecificChar specificCharWithChar:c]];
-    } else {
-        [a push:[NSNumber numberWithDouble:tok.floatValue]];
-    }
-}
-
-
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     PKBaseNode *minusNode = [a pop];
@@ -1002,50 +986,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     [negNode addChild:subNode];
     
     [a push:negNode];
-}
-
-
-- (void)parser:(PKParser *)p didMatchPhraseCardinality:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    
-    NSRange r = [[a pop] rangeValue];
-    
-    PKBaseNode *child = [a pop];
-    NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
-    
-    PKCardinalNode *cardNode = [PKCardinalNode nodeWithToken:cardToken];
-    
-    NSInteger start = r.location;
-    NSInteger end = r.length;
-    
-    cardNode.rangeStart = start;
-    cardNode.rangeEnd = end;
-    
-    [cardNode addChild:child];
-
-    [a push:cardNode];
-}
-
-
-- (void)parser:(PKParser *)p didMatchCardinality:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    NSArray *nums = [a objectsAbove:self.curly];
-    [a pop]; // discard '{' tok
-
-    NSAssert([nums count] > 0, @"");
-    
-    NSNumber *n = [nums lastObject];
-    PKFloat start = [n doubleValue];
-    PKFloat end = start;
-    if ([nums count] > 1) {
-        n = nums[0];
-        end = [n doubleValue];
-    }
-    
-    NSAssert(start <= end, @"");
-    
-    NSRange r = NSMakeRange(start, end);
-    [a push:[NSValue valueWithRange:r]];
 }
 
 
