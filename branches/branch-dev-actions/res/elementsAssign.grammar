@@ -1,22 +1,21 @@
 @start = stat;
 
-stat =    assign dot { LOG(@"after alt1") }
-        | list semi { LOG(@"after alt2") };
+stat = assign dot | list semi;
 
-assign = { LOG(@"pre action") } list eq list;
+assign = list eq list;
 
-list =      lbracket { LOG(@"after rbracket ref") }
-            elements { LOG(@"after elements ref") }
-            rbracket { LOG(@"after rbracket ref") };
+list =      lbracket
+            elements
+            rbracket;
 
-elements = element (comma element { LOG(@"after element ref") })* { LOG(@"after rep") };
-element = Number { LOG(@"after const") } | list;
+elements = element (comma element)*;
+element = Number | list;
 
 lbracket = '['; // fence
 rbracket = ']'!;
 comma = ','!;
 
-eq = '=' { LOG(@"after literal") };
+eq = '=';
 
 dot = '.';
 semi = ';';
