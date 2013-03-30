@@ -23,4 +23,6 @@ id = Word;
 member = '.' id;
  
 literal = QuotedString | Number | bool;
-bool = 'yes' | 'no';
+bool = 'yes' {POP(); PUSH(@(1));} 
+     | 'no'  {POP(); PUSH(@(0));}
+	 ;

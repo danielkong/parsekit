@@ -10,12 +10,13 @@
 #import "PKParserFactory.h"
 #import "PKSParserGenVisitor.h"
 #import "PKRootNode.h"
-#import "ExpressionParser.h"
+#import "ExpressionActionsParser.h"
 
 @interface ExpressionParserActionsTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;
 @property (nonatomic, retain) PKSParserGenVisitor *visitor;
+@property (nonatomic, retain) ExpressionActionsParser *parser;
 @end
 
 @implementation ExpressionParserActionsTest
@@ -35,6 +36,8 @@
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     [_root visit:_visitor];
     
+    self.parser = [[[ExpressionActionsParser alloc] init] autorelease];
+
 #if TD_EMIT
     path = [@"~/work/parsekit/trunk/test/ExpressionActionsParser.h" stringByExpandingTildeInPath];
     err = nil;
@@ -56,12 +59,14 @@
 }
 
 
-- (void)testFoo {    
-    ExpressionParser *p = [[[ExpressionParser alloc] init] autorelease];
-    
-    PKAssembly *res = [p parseString:@"foo.bar('hello') or bar" assembler:self error:nil];
-    
-    TDEqualObjects(@"[foo, ., bar, (, 'hello', or, bar]foo/./bar/(/'hello'/)/or/bar^", [res description]);
+- (void)testYes {
+    PKAssembly *res = [_parser parseString:@"yes" assembler:self error:nil];
+    TDEqualObjects(@"[1]yes^", [res description]);
+}
+
+- (void)testN {
+    PKAssembly *res = [_parser parseString:@"no" assembler:self error:nil];
+    TDEqualObjects(@"[0]no^", [res description]);
 }
 
 
