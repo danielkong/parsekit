@@ -10,4 +10,5 @@
 
 @interface PKSRecognitionException : NSException
 
+@property (nonatomic, retain) NSString *currentReason;
 @end

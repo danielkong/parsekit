@@ -119,7 +119,7 @@
 	//NSLog(@"relExpr %@", self._assembly);
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_EQ || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GT) {
+    while (LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_EQ) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -143,7 +143,7 @@
     } else if (LA(1) == TOKEN_KIND_GE) {
         [self ge]; 
     } else {
-        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in relOp"];
+        [self raise:@"no viable alternative found in relOp"];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelOp:)];
@@ -155,7 +155,7 @@
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPENPAREN) {
         [self openParen]; 
-        if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -179,14 +179,14 @@
 - (void)primary {
 	//NSLog(@"primary %@", self._assembly);
     
-    if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPENPAREN) {
         [self openParen]; 
         [self expr]; 
         [self closeParen]; 
     } else {
-        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in primary"];
+        [self raise:@"no viable alternative found in primary"];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPrimary:)];
@@ -197,10 +197,10 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO) {
         [self literal]; 
     } else {
-        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in atom"];
+        [self raise:@"no viable alternative found in atom"];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
@@ -244,7 +244,7 @@
     } else if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO) {
         [self bool]; 
     } else {
-        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in literal"];
+        [self raise:@"no viable alternative found in literal"];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchLiteral:)];
@@ -258,7 +258,7 @@
     } else if (LA(1) == TOKEN_KIND_NO) {
         [self no]; 
     } else {
-        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in bool"];
+        [self raise:@"no viable alternative found in bool"];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchBool:)];

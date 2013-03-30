@@ -69,7 +69,7 @@
         [self list]; 
         [self semi]; 
     } else {
-        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in stat"];
+        [self raise:@"no viable alternative found in stat"];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchStat:)];
@@ -115,7 +115,7 @@
     } else if (LA(1) == TOKEN_KIND_LBRACKET) {
         [self list]; 
     } else {
-        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"no viable alternative found in element"];
+        [self raise:@"no viable alternative found in element"];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElement:)];

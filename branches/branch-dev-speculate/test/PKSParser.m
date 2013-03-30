@@ -20,6 +20,7 @@
 @end
 
 @interface PKSParser ()
+@property (nonatomic, retain) PKSRecognitionException *_exception;
 @property (nonatomic, retain) PKTokenizer *_tokenizer;
 @property (nonatomic, assign) id _assembler; // weak ref
 @property (nonatomic, retain) PKSTokenAssembly *_assembly;
@@ -38,7 +39,18 @@
 
 @implementation PKSParser
 
-- (void)dealloc {    
+- (id)init {
+    self = [super init];
+    if (self) {
+        // create a single exception for reuse in control flow
+        self._exception = [[[PKSRecognitionException alloc] initWithName:NSStringFromClass([PKSRecognitionException class]) reason:nil userInfo:nil] autorelease];
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+    self._exception = nil;
     self._tokenizer = nil;
     self._assembler = nil;
     self._assembly = nil;
@@ -153,7 +165,7 @@
         
         [self _consume];
     } else {
-        [PKSRecognitionException raise:NSStringFromClass([PKSRecognitionException class]) format:@"expecting %ld; found %@", x, lt];
+        [self raise:@"expecting %ld; found %@", x, lt];
     }
 }
 
@@ -276,6 +288,20 @@
 }
 
 
+- (void)raise:(NSString *)fmt, ... {
+    va_list vargs;
+    va_start(vargs, fmt);
+    
+    NSString *str = [[[NSString alloc] initWithFormat:fmt arguments:vargs] autorelease];
+    _exception.currentReason = str;
+
+    // reuse
+    @throw _exception;
+    
+    va_end(vargs);
+}
+
+
 - (BOOL)speculate:(void (^)(void))block {
     NSParameterAssert(block);
     
@@ -360,6 +386,7 @@
     [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
 }
 
+@synthesize _exception = _exception;
 @synthesize _tokenizer = _tokenizer;
 @synthesize _assembler = _assembler;
 @synthesize _assembly = _assembly;
