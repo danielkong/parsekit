@@ -88,11 +88,11 @@
     [self lbracket]; 
     [self elements]; 
     [self rbracket]; 
-    
-    [self execute:(id)^{
-         LOG(LT(1)); 
-    }];
-    
+
+[self execute:(id)^{
+     LOG(LT(1)); 
+}];
+
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 

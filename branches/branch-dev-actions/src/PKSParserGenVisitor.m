@@ -198,6 +198,14 @@
 }
 
 
+- (void)emitActionFor:(PKBaseNode *)node inString:(NSMutableString *)str {
+    if (node.actionNode) {
+        id vars = @{ACTION_BODY : node.actionNode.source};
+        [str appendString:[_engine processTemplate:[self templateStringNamed:@"PKSActionTemplate"] withVariables:vars]];
+    }
+}
+
+
 - (void)visitDefinition:(PKDefinitionNode *)node {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
@@ -221,10 +229,8 @@
 
         // pop
         [childStr appendString:[self pop]];
-        
-        if (child.actionNode) {
-            
-        }
+
+        [self emitActionFor:child inString:childStr];
     }
 
     // merge
@@ -340,11 +346,7 @@
         // pop
         [childStr appendString:[self pop]];
         
-        if (child.actionNode) {
-            vars[ACTION_BODY] = child.actionNode.source;
-            [childStr appendString:[_engine processTemplate:[self templateStringNamed:@"PKSActionTemplate"] withVariables:vars]];
-            [vars removeObjectForKey:ACTION_BODY];
-        }
+        [self emitActionFor:child inString:childStr];
     }
     
     // push
@@ -388,6 +390,10 @@
         
         // pop
         [childStr appendString:[self pop]];
+        
+        // action
+        [self emitActionFor:child inString:childStr];
+
         ++idx;
     }
     
@@ -431,6 +437,10 @@
         NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars];
         [result appendString:output];
         [result appendString:childBody];
+
+        // action
+        [self emitActionFor:child inString:result];
+
         ++idx;
     }
     
@@ -507,6 +517,8 @@
     [output appendString:childStr];
     [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSOptionalEndTemplate"] withVariables:vars]];
     
+    [self emitActionFor:child inString:output];
+
     // push
     [self push:output];
 }
@@ -541,6 +553,7 @@
     
     // push
     [self push:output];
+    [self emitActionFor:child inString:output];
 }
 
 
