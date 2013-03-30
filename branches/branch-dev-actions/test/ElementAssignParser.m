@@ -9,6 +9,8 @@
 #define PUSH(tok) [self._assembly push:(tok)]
 #define ABOVE(fence) [self._assembly objectsAbove:(fence)]
 
+#define LOG(obj) do { NSLog(@"%@", (obj)); } while (0);
+
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
 @end
@@ -86,7 +88,11 @@
     [self lbracket]; 
     [self elements]; 
     [self rbracket]; 
-
+    
+    [self execute:(id)^{
+         LOG(LT(1)); 
+    }];
+    
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 

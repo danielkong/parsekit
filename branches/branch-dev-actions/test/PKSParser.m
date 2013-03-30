@@ -309,7 +309,7 @@
     [self _mark];
     
     @try {
-        block();
+        if (block) block();
     }
     @catch (PKSRecognitionException *ex) {
         success = NO;
@@ -319,6 +319,15 @@
     return success;
 }
 
+
+- (id)execute:(id (^)(void))block {
+    NSParameterAssert(block);
+ 
+    id result = nil;
+    if (block) result = block();
+    return result;
+}
+    
 
 - (void)_start {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);

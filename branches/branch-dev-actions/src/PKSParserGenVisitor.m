@@ -31,6 +31,7 @@
 #define DISCARD @"discard"
 #define NEEDS_BACKTRACK @"needsBacktrack"
 #define CHILD_STRING @"childString"
+#define ACTION_BODY @"actionBody"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSString *)mstr;
@@ -198,7 +199,7 @@
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     self.depth = 1;
 
@@ -220,6 +221,10 @@
 
         // pop
         [childStr appendString:[self pop]];
+        
+        if (child.actionNode) {
+            
+        }
     }
 
     // merge
@@ -334,6 +339,12 @@
         
         // pop
         [childStr appendString:[self pop]];
+        
+        if (child.actionNode) {
+            vars[ACTION_BODY] = child.actionNode.source;
+            [childStr appendString:[_engine processTemplate:[self templateStringNamed:@"PKSActionTemplate"] withVariables:vars]];
+            [vars removeObjectForKey:ACTION_BODY];
+        }
     }
     
     // push

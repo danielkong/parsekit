@@ -4,7 +4,7 @@ stat = assign dot | list semi;
 
 assign = list eq list;
 
-list = lbracket elements rbracket {NSLog(LT(1));};
+list = lbracket elements rbracket { LOG(LT(1)); };
 elements = element (comma element)*;
 element = Number | list;
 
