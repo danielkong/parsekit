@@ -21,7 +21,7 @@ relExpr   = callExpr relOpTerm*;
 relOp     = '<' | '>' | '=' | '!=' | '<=' | '>=';
 relOpTerm = relOp callExpr {
 	NSInteger rhs = POP_INT();
-	NSString  *op = [POP_TOK() stringValue];
+	NSString  *op = POP_STR();
 	NSInteger lhs = POP_INT();
 
 	     if (EQUALS(op, @"<"))  PUSH_BOOL(lhs <  rhs);
@@ -43,11 +43,8 @@ id = Word;
 member = '.' id;
  
 literal = {LA(1) != TOKEN_KIND_YES_UPPER}? bool // this predicate makes no sense. it's just for testing expr predicates.
-		| Number { PUSH_FLOAT([POP_TOK() floatValue]); }
-	    | QuotedString {
-			PKToken *tok = POP();
-			PUSH(tok.stringValue);
-		}
+		| Number { PUSH_FLOAT(POP_FLOAT()); }
+	    | QuotedString { PUSH(POP_STR()); }
 		;
 
 bool = 'yes' {POP(); PUSH_BOOL(YES);} 

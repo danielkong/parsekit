@@ -8,13 +8,13 @@
 #define LF(i) [self LF:(i)]
 
 #define POP()       [self._assembly pop]
+#define POP_STR()   [self _popString]
 #define POP_TOK()   [self _popToken]
 #define POP_BOOL()  [self _popBool]
 #define POP_INT()   [self _popInteger]
 #define POP_FLOAT() [self _popDouble]
 
 #define PUSH(obj)     [self._assembly push:(id)(obj)]
-#define PUSH_TOK(tok) [self._assembly push:(id)(tok)]
 #define PUSH_BOOL(yn) [self _pushBool:(BOOL)(yn)]
 #define PUSH_INT(i)   [self _pushInteger:(NSInteger)(i)]
 #define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
@@ -144,7 +144,7 @@
 - (void)relExpr {
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_GT) {
+    while (LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_NE) {
         [self relOpTerm]; 
     }
 
@@ -179,7 +179,7 @@
     [self execute:(id)^{
         
 	NSInteger rhs = POP_INT();
-	NSString  *op = [POP_TOK() stringValue];
+	NSString  *op = POP_STR();
 	NSInteger lhs = POP_INT();
 
 	     if (EQUALS(op, @"<"))  PUSH_BOOL(lhs <  rhs);
@@ -199,7 +199,7 @@
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
-        if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_UPPER) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_NO_LOWER) {
             [self argList]; 
         }
         [self match:TOKEN_KIND_CLOSE_PAREN]; 
@@ -221,7 +221,7 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES_UPPER) {
+    if (LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
@@ -238,7 +238,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_NO_UPPER) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -279,15 +279,12 @@
     } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
         [self execute:(id)^{
-             PUSH_FLOAT([POP_TOK() floatValue]); 
+             PUSH_FLOAT(POP_FLOAT()); 
         }];
     } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
         [self QuotedString]; 
         [self execute:(id)^{
-            
-			PKToken *tok = POP();
-			PUSH(tok.stringValue);
-		
+             PUSH(POP_STR()); 
         }];
     } else {
         [self raise:@"no viable alternative found in literal"];

@@ -61,6 +61,7 @@ enum {
 - (NSInteger)_popInteger;
 - (double)_popDouble;
 - (PKToken *)_popToken;
+- (NSString *)_popString;
 
 - (void)_pushBool:(BOOL)yn;
 - (void)_pushInteger:(NSInteger)i;

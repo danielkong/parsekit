@@ -372,7 +372,11 @@
 
 - (double)_popDouble {
     id obj = [self._assembly pop];
-    return [obj doubleValue];
+    if ([obj isKindOfClass:[PKToken class]]) {
+        return [(PKToken *)obj floatValue];
+    } else {
+        return [obj doubleValue];
+    }
 }
 
 
@@ -380,6 +384,16 @@
     PKToken *tok = [self._assembly pop];
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
     return tok;
+}
+
+
+- (NSString *)_popString {
+    id obj = [self._assembly pop];
+    if ([obj respondsToSelector:@selector(stringValue)]) {
+        return [obj stringValue];
+    } else {
+        return [obj description];
+    }
 }
 
 
