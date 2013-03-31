@@ -40,19 +40,19 @@
 	self = [super init];
 	if (self) {
 		self._tokenKindTab = @{
-           @"no" : @(TOKEN_KIND_NO_LOWER),
+           @"no" : @(TOKEN_KIND_NO),
            @"NO" : @(TOKEN_KIND_NO_UPPER),
            @">=" : @(TOKEN_KIND_GE),
            @"," : @(TOKEN_KIND_COMMA),
-           @"or" : @(TOKEN_KIND_OR_LOWER),
+           @"or" : @(TOKEN_KIND_OR),
            @"<" : @(TOKEN_KIND_LT),
            @"<=" : @(TOKEN_KIND_LE),
            @"=" : @(TOKEN_KIND_EQUALS),
            @"." : @(TOKEN_KIND_DOT),
            @">" : @(TOKEN_KIND_GT),
-           @"and" : @(TOKEN_KIND_AND_LOWER),
+           @"and" : @(TOKEN_KIND_AND),
            @"(" : @(TOKEN_KIND_OPEN_PAREN),
-           @"yes" : @(TOKEN_KIND_YES_LOWER),
+           @"yes" : @(TOKEN_KIND_YES),
            @")" : @(TOKEN_KIND_CLOSE_PAREN),
            @"!=" : @(TOKEN_KIND_NE),
            @"YES" : @(TOKEN_KIND_YES_UPPER),
@@ -94,7 +94,7 @@
 - (void)orExpr {
     
     [self andExpr]; 
-    while (LA(1) == TOKEN_KIND_OR_LOWER) {
+    while (LA(1) == TOKEN_KIND_OR) {
         [self orTerm]; 
     }
 
@@ -103,7 +103,7 @@
 
 - (void)orTerm {
     
-    [self match:TOKEN_KIND_OR_LOWER]; [self discard:1];
+    [self match:TOKEN_KIND_OR]; [self discard:1];
     [self andExpr]; 
     [self execute:(id)^{
         
@@ -119,7 +119,7 @@
 - (void)andExpr {
     
     [self relExpr]; 
-    while (LA(1) == TOKEN_KIND_AND_LOWER) {
+    while (LA(1) == TOKEN_KIND_AND) {
         [self andTerm]; 
     }
 
@@ -128,7 +128,7 @@
 
 - (void)andTerm {
     
-    [self match:TOKEN_KIND_AND_LOWER]; [self discard:1];
+    [self match:TOKEN_KIND_AND]; [self discard:1];
     [self relExpr]; 
     [self execute:(id)^{
         
@@ -144,7 +144,7 @@
 - (void)relExpr {
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_NE) {
+    while (LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GE) {
         [self relOpTerm]; 
     }
 
@@ -199,7 +199,7 @@
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
-        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_NO_LOWER) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
             [self argList]; 
         }
         [self match:TOKEN_KIND_CLOSE_PAREN]; 
@@ -221,7 +221,7 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
@@ -238,7 +238,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_NO_UPPER) {
+    } else if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_UPPER) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -274,7 +274,7 @@
 
 - (void)literal {
     
-    if ([self test:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }] && (LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_NO_UPPER)) {
+    if ([self test:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }] && (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_NO_UPPER)) {
         [self bool]; 
     } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
@@ -295,8 +295,8 @@
 
 - (void)bool {
     
-    if (LA(1) == TOKEN_KIND_YES_LOWER) {
-        [self match:TOKEN_KIND_YES_LOWER]; 
+    if (LA(1) == TOKEN_KIND_YES) {
+        [self match:TOKEN_KIND_YES]; 
         [self execute:(id)^{
             POP(); PUSH_BOOL(YES);
         }];
@@ -305,8 +305,8 @@
         [self execute:(id)^{
             POP(); PUSH_BOOL(YES);
         }];
-    } else if (LA(1) == TOKEN_KIND_NO_LOWER) {
-        [self match:TOKEN_KIND_NO_LOWER]; 
+    } else if (LA(1) == TOKEN_KIND_NO) {
+        [self match:TOKEN_KIND_NO]; 
         [self execute:(id)^{
             POP(); PUSH_BOOL(NO);
         }];
