@@ -37,7 +37,7 @@ relOpTerm = relOp callExpr {
 callExpr = primary ('(' argList? ')')?;
 argList = atom (',' atom)*;
  
-primary = {YES}? atom | {NO}? '(' expr ')';
+primary = {NO}? atom | {return 1+1>0;}? '(' expr ')';
 atom = obj | literal;
  
 obj = id member*;

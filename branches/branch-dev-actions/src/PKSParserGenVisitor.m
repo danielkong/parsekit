@@ -33,6 +33,7 @@
 #define CHILD_STRING @"childString"
 #define ACTION_BODY @"actionBody"
 #define PREDICATE_BODY @"predicateBody"
+#define PREDICATE @"predicate"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSString *)mstr;
@@ -382,7 +383,12 @@
 
         if (child.semanticPredicateNode) {
             NSString *predBody = child.semanticPredicateNode.source;
-            vars[PREDICATE_BODY] = predBody;
+            BOOL isStat = [predBody rangeOfString:@";"].length > 0;
+            NSString *templateName = isStat ? @"PKSSemanticPredicateStatTemplate" : @"PKSSemanticPredicateExprTemplate";
+
+            NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:@{PREDICATE_BODY: predBody}];
+            NSAssert(output, @"");
+            vars[PREDICATE] = output;
         }
 
         NSString *templateName = nil;
