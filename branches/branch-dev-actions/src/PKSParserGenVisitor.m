@@ -212,7 +212,7 @@
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     self.depth = 1;
 
@@ -339,7 +339,7 @@
 
 
 - (void)visitSequence:(PKCollectionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // setup vars
     id vars = [NSMutableDictionary dictionary];
@@ -569,7 +569,7 @@
 
 
 - (void)visitConstant:(PKConstantNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
    
     // stup vars
     id vars = [NSMutableDictionary dictionary];
