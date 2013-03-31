@@ -17,6 +17,8 @@
 #define PUSH_INT(i)   [self _pushInteger:(NSInteger)(i)]
 #define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
 
+#define EQUALS(a, b) [(a) isEqual:(b)]
+
 #define ABOVE(fence) [self._assembly objectsAbove:(fence)]
 
 #define LOG(obj) do { NSLog(@"%@", (obj)); } while (0);

@@ -24,12 +24,12 @@ relOpTerm = relOp callExpr {
 	NSString  *op = [POP_TOK() stringValue];
 	NSInteger lhs = POP_INT();
 
-	     if ([op isEqualToString:@"<"])  PUSH_BOOL(lhs <  rhs);
-	else if ([op isEqualToString:@">"])  PUSH_BOOL(lhs >  rhs);
-	else if ([op isEqualToString:@"="])  PUSH_BOOL(lhs == rhs);
-	else if ([op isEqualToString:@"!="]) PUSH_BOOL(lhs != rhs);
-	else if ([op isEqualToString:@"<="]) PUSH_BOOL(lhs <= rhs);
-	else if ([op isEqualToString:@">="]) PUSH_BOOL(lhs >= rhs);
+	     if (EQUALS(op, @"<"))  PUSH_BOOL(lhs <  rhs);
+	else if (EQUALS(op, @">"))  PUSH_BOOL(lhs >  rhs);
+	else if (EQUALS(op, @"="))  PUSH_BOOL(lhs == rhs);
+	else if (EQUALS(op, @"!=")) PUSH_BOOL(lhs != rhs);
+	else if (EQUALS(op, @"<=")) PUSH_BOOL(lhs <= rhs);
+	else if (EQUALS(op, @">=")) PUSH_BOOL(lhs >= rhs);
 };
 
 callExpr = primary ('(' argList? ')')?;
@@ -53,5 +53,5 @@ literal = {LA(1) != TOKEN_KIND_YES_UPPER}? bool // this predicate makes no sense
 bool = 'yes' {POP(); PUSH_BOOL(YES);} 
 	 | 'YES' {POP(); PUSH_BOOL(YES);}
 	 | 'no'  {POP(); PUSH_BOOL(NO);}
-	 | { return ![[LT(1) stringValue] isEqualToString:@"NO"]; }? 'NO'  {POP(); PUSH(@(0));} // this predicate makes no sense. it's just for testing stat predicates.
+	 | { return !EQUALS([LT(1) stringValue], @"NO"); }? 'NO'  {POP(); PUSH(@(0));} // this predicate makes no sense. it's just for testing stat predicates.
 	 ;
