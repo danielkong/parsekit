@@ -24,12 +24,12 @@ relOpTerm = relOp callExpr {
 	NSString  *op = POP_STR();
 	NSInteger lhs = POP_INT();
 
-	     if (EQUALS(op, @"<"))  PUSH_BOOL(lhs <  rhs);
-	else if (EQUALS(op, @">"))  PUSH_BOOL(lhs >  rhs);
-	else if (EQUALS(op, @"="))  PUSH_BOOL(lhs == rhs);
-	else if (EQUALS(op, @"!=")) PUSH_BOOL(lhs != rhs);
-	else if (EQUALS(op, @"<=")) PUSH_BOOL(lhs <= rhs);
-	else if (EQUALS(op, @">=")) PUSH_BOOL(lhs >= rhs);
+	     if (EQ(op, @"<"))  PUSH_BOOL(lhs <  rhs);
+	else if (EQ(op, @">"))  PUSH_BOOL(lhs >  rhs);
+	else if (EQ(op, @"="))  PUSH_BOOL(lhs == rhs);
+	else if (EQ(op, @"!=")) PUSH_BOOL(lhs != rhs);
+	else if (EQ(op, @"<=")) PUSH_BOOL(lhs <= rhs);
+	else if (EQ(op, @">=")) PUSH_BOOL(lhs >= rhs);
 };
 
 callExpr = primary ('(' argList? ')')?;
@@ -42,7 +42,7 @@ obj = id member*;
 id = Word;
 member = '.' id;
  
-literal = {LA(1) != TOKEN_KIND_YES_UPPER}? bool { PUSH_BOOL(EQUALS_IGNORE_CASE(POP_STR(), @"yes")); }// this predicate makes no sense. it's just for testing expr predicates.
+literal = {LA(1) != TOKEN_KIND_YES_UPPER}? bool { PUSH_BOOL(EQ_IGNORE_CASE(POP_STR(), @"yes")); }// this predicate makes no sense. it's just for testing expr predicates.
 		| Number { PUSH_FLOAT(POP_FLOAT()); }
 	    | QuotedString { PUSH(POP_STR()); }
 		;
@@ -50,5 +50,5 @@ literal = {LA(1) != TOKEN_KIND_YES_UPPER}? bool { PUSH_BOOL(EQUALS_IGNORE_CASE(P
 bool = 'yes'
 	 | 'YES'
 	 | 'no' 
-	 | { return !EQUALS(LS(1), @"NO"); }? 'NO' // this predicate makes no sense. it's just for testing stat predicates.
+	 | { return NE(LS(1), @"NO"); }? 'NO' // this predicate makes no sense. it's just for testing stat predicates.
 	 ;

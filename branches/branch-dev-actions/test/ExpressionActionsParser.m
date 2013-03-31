@@ -19,8 +19,9 @@
 #define PUSH_INT(i)   [self _pushInteger:(NSInteger)(i)]
 #define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
 
-#define EQUALS(a, b) [(a) isEqual:(b)]
-#define EQUALS_IGNORE_CASE(a, b) (NSOrderedSame == [(a) compare:(b)])
+#define EQ(a, b) [(a) isEqual:(b)]
+#define NE(a, b) (![(a) isEqual:(b)])
+#define EQ_IGNORE_CASE(a, b) (NSOrderedSame == [(a) compare:(b)])
 
 #define ABOVE(fence) [self._assembly objectsAbove:(fence)]
 
@@ -145,7 +146,7 @@
 - (void)relExpr {
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_GT) {
+    while (LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LT) {
         [self relOpTerm]; 
     }
 
@@ -183,12 +184,12 @@
 	NSString  *op = POP_STR();
 	NSInteger lhs = POP_INT();
 
-	     if (EQUALS(op, @"<"))  PUSH_BOOL(lhs <  rhs);
-	else if (EQUALS(op, @">"))  PUSH_BOOL(lhs >  rhs);
-	else if (EQUALS(op, @"="))  PUSH_BOOL(lhs == rhs);
-	else if (EQUALS(op, @"!=")) PUSH_BOOL(lhs != rhs);
-	else if (EQUALS(op, @"<=")) PUSH_BOOL(lhs <= rhs);
-	else if (EQUALS(op, @">=")) PUSH_BOOL(lhs >= rhs);
+	     if (EQ(op, @"<"))  PUSH_BOOL(lhs <  rhs);
+	else if (EQ(op, @">"))  PUSH_BOOL(lhs >  rhs);
+	else if (EQ(op, @"="))  PUSH_BOOL(lhs == rhs);
+	else if (EQ(op, @"!=")) PUSH_BOOL(lhs != rhs);
+	else if (EQ(op, @"<=")) PUSH_BOOL(lhs <= rhs);
+	else if (EQ(op, @">=")) PUSH_BOOL(lhs >= rhs);
 
     }];
 
@@ -200,7 +201,7 @@
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
-        if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_UPPER) {
+        if (LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
             [self argList]; 
         }
         [self match:TOKEN_KIND_CLOSE_PAREN]; 
@@ -222,7 +223,7 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    if (LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
@@ -239,7 +240,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+    } else if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -275,10 +276,10 @@
 
 - (void)literal {
     
-    if ([self test:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }] && (LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER)) {
+    if ([self test:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }] && (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER)) {
         [self bool]; 
         [self execute:(id)^{
-             PUSH_BOOL(EQUALS_IGNORE_CASE(POP_STR(), @"yes")); 
+             PUSH_BOOL(EQ_IGNORE_CASE(POP_STR(), @"yes")); 
         }];
     } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
@@ -305,7 +306,7 @@
         [self match:TOKEN_KIND_YES_UPPER]; 
     } else if (LA(1) == TOKEN_KIND_NO) {
         [self match:TOKEN_KIND_NO]; 
-    } else if ([self test:(id)^{  return !EQUALS(LS(1), @"NO");  }] && (LA(1) == TOKEN_KIND_NO_UPPER)) {
+    } else if ([self test:(id)^{  return NE(LS(1), @"NO");  }] && (LA(1) == TOKEN_KIND_NO_UPPER)) {
         [self match:TOKEN_KIND_NO_UPPER]; 
     } else {
         [self raise:@"no viable alternative found in bool"];
