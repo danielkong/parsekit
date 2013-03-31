@@ -18,6 +18,7 @@
 - (void)dealloc {
     self.parser = nil;
     self.actionNode = nil;
+    self.semanticPredicateNode = nil;
     self.defName = nil;
     [super dealloc];
 }
@@ -28,6 +29,7 @@
     that->_discard = _discard;
     that->_parser = _parser;
     that->_actionNode = [_actionNode retain];
+    that->_semanticPredicateNode = [_semanticPredicateNode retain];
     that->_defName = [_defName retain];
     return that;
 }
@@ -49,6 +51,10 @@
     }
     
     if (![_actionNode isEqual:that->_actionNode]) {
+        return NO;
+    }
+    
+    if (![_semanticPredicateNode isEqual:that->_semanticPredicateNode]) {
         return NO;
     }
     

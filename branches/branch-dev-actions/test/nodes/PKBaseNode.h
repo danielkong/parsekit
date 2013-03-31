@@ -41,5 +41,6 @@ typedef enum NSUInteger {
 @property (nonatomic, retain) PKParser *parser;
 
 @property (nonatomic, retain) PKActionNode *actionNode;
+@property (nonatomic, retain) PKActionNode *semanticPredicateNode;
 @property (nonatomic, retain) NSString *defName;
 @end

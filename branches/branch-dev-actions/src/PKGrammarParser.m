@@ -18,14 +18,14 @@
 // @start               = statement*;
 // statement            = tokenizerDirective | decl;
 // tokenizerDirective   = (/@.+/ - '@start') '=' (~';')+ ';'!;
-// decl                 = production '=' action? expr ';'!;
+// decl                 = production '=' action? expr semanticPredicate? ';'!;
 // production           = startProduction | varProduction;
 // startProduction      = '@start';
 // varProduction        = LowercaseWord;
 // expr                 = term orTerm*;
 // term                 = factor nextFactor*;
 // orTerm               = '|' term;
-// factor               = (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
+// factor               = semanticPredicate? (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
 // nextFactor           = factor;
 
 // phrase               = primaryExpr predicate*;
@@ -34,6 +34,7 @@
 // phraseQuestion       = phrase '?'!;
 
 // action               = %{'{', '}'};
+// semanticPredicate    = %{'{', '}?'};
 
 // predicate            = (intersection | difference);
 // intersection         = '&'! primaryExpr;
@@ -62,6 +63,7 @@
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchSemanticPredicate:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDiscard:(PKAssembly *)a;
@@ -111,6 +113,7 @@
     self.nextFactorParser = nil;
     self.phraseParser = nil;
     self.actionParser = nil;
+    self.semanticPredicateParser = nil;
     self.phraseStarParser = nil;
     self.phrasePlusParser = nil;
     self.phraseQuestionParser = nil;
@@ -194,7 +197,7 @@
 }
 
 
-// decl                 = production '=' action? expr ';'!;
+// decl                 = production '=' action? expr semanticPredicate? ';'!;
 - (PKCollectionParser *)declParser {
     if (!declParser) {
         self.declParser = [PKSequence sequence];
@@ -203,6 +206,7 @@
         [declParser add:[PKSymbol symbolWithString:@"="]];
         [declParser add:[self zeroOrOne:self.actionParser]];
         [declParser add:self.exprParser];
+        [declParser add:[self zeroOrOne:self.semanticPredicateParser]];
         [declParser add:[[PKSymbol symbolWithString:@";"] discard]];
         
         [declParser setAssembler:assembler selector:@selector(parser:didMatchDecl:)];
@@ -287,11 +291,13 @@
 }
 
 
-// factor               = (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
+// factor               = semanticPredicate? (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
 - (PKCollectionParser *)factorParser {
     if (!factorParser) {
         self.factorParser = [PKSequence sequence];
         factorParser.name = @"factor";
+
+        [factorParser add:[self zeroOrOne:self.semanticPredicateParser]];
         
         PKAlternation *alt = [PKAlternation alternation];
         [alt add:self.phraseParser];
@@ -338,6 +344,17 @@
         [actionParser setAssembler:assembler selector:@selector(parser:didMatchAction:)];
     }
     return actionParser;
+}
+
+
+// semanticPredicate    = %{'{', '}?'};
+- (PKParser *)semanticPredicateParser {
+    if (!semanticPredicateParser) {
+        self.semanticPredicateParser = [PKDelimitedString delimitedStringWithStartMarker:@"{" endMarker:@"}?"];
+        semanticPredicateParser.name = @"semanticPredicate";
+        [semanticPredicateParser setAssembler:assembler selector:@selector(parser:didMatchSemanticPredicate:)];
+    }
+    return semanticPredicateParser;
 }
 
 
@@ -634,6 +651,7 @@
 @synthesize nextFactorParser;
 @synthesize phraseParser;
 @synthesize actionParser;
+@synthesize semanticPredicateParser;
 @synthesize phraseStarParser;
 @synthesize phrasePlusParser;
 @synthesize phraseQuestionParser;

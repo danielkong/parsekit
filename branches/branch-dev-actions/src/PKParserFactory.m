@@ -120,6 +120,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchSemanticPredicate:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPattern:(PKAssembly *)a;
@@ -350,6 +351,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     [t.symbolState add:@"%{"];
     [t.symbolState add:@"/i"];
+    [t.symbolState add:@"}?"];
     
     // customize tokenizer to find tokenizer customization directives
     [t setTokenizerState:t.wordState from:'@' to:'@'];
@@ -371,10 +373,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:nonWhitespace];
     [t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:nonWhitespace];
 
-    // action delimited strings
+    // action and predicate delimited strings
     [t setTokenizerState:t.delimitState from:'{' to:'{'];
     [t.delimitState addStartMarker:@"{" endMarker:@"}" allowedCharacterSet:nil];
-    [t.delimitState setFallbackState:t.symbolState from:'{' to:'}'];
+    [t.delimitState addStartMarker:@"{" endMarker:@"}?" allowedCharacterSet:nil];
+    [t.delimitState setFallbackState:t.symbolState from:'{' to:'{'];
 
     return t;
 }
@@ -934,7 +937,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKToken *sourceTok = [a pop];
     NSAssert(sourceTok.isDelimitedString, @"");
-
+    
     id obj = [a pop];
     PKBaseNode *ownerNode = nil;
     
@@ -951,7 +954,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         // post action
         ownerNode = (PKBaseNode *)obj;
         NSAssert([ownerNode isKindOfClass:[PKBaseNode class]], @"");
-
+        
         [a push:ownerNode];
     }
     
@@ -968,6 +971,48 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
     actNode.source = source;
     ownerNode.actionNode = actNode;
+}
+
+
+- (void)parser:(PKParser *)p didMatchSemanticPredicate:(PKAssembly *)a {
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    PKToken *sourceTok = [a pop];
+    NSAssert(sourceTok.isDelimitedString, @"");
+    
+    id obj = [a pop];
+    PKBaseNode *ownerNode = nil;
+    
+    // find owner node (different for pre and post actions)
+    if ([obj isEqualTo:equals]) {
+        // pre action
+        PKToken *eqTok = (PKToken *)obj;
+        NSAssert([eqTok isKindOfClass:[PKToken class]], @"");
+        ownerNode = [a pop];
+        
+        [a push:ownerNode];
+        [a push:eqTok]; // put '=' back
+    } else {
+        // post action
+        ownerNode = (PKBaseNode *)obj;
+        NSAssert([ownerNode isKindOfClass:[PKBaseNode class]], @"");
+        
+        [a push:ownerNode];
+    }
+    
+    NSUInteger len = [sourceTok.stringValue length];
+    NSAssert(len > 2, @"");
+    
+    NSString *source = nil;
+    if (3 == len) {
+        source = @"";
+    } else {
+        source = [sourceTok.stringValue substringWithRange:NSMakeRange(1, len - 3)];
+    }
+    
+    PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
+    actNode.source = source;
+    ownerNode.semanticPredicateNode = actNode;
 }
 
 
