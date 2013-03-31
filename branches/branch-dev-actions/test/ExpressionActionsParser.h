@@ -1,7 +1,9 @@
 #import "PKSParser.h"
 
 enum {
-    TOKEN_KIND_GE = 14,
+    TOKEN_KIND_NO_LOWER = 14,
+    TOKEN_KIND_NO_UPPER,
+    TOKEN_KIND_GE,
     TOKEN_KIND_COMMA,
     TOKEN_KIND_OR_LOWER,
     TOKEN_KIND_LT,
@@ -14,7 +16,7 @@ enum {
     TOKEN_KIND_YES_LOWER,
     TOKEN_KIND_CLOSE_PAREN,
     TOKEN_KIND_NE,
-    TOKEN_KIND_NO_LOWER,
+    TOKEN_KIND_YES_UPPER,
 };
 
 @interface ExpressionActionsParser : PKSParser

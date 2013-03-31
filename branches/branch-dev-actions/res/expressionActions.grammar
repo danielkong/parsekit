@@ -37,7 +37,7 @@ relOpTerm = relOp callExpr {
 callExpr = primary ('(' argList? ')')?;
 argList = atom (',' atom)*;
  
-primary = {NO}? atom | {return 1+1>0;}? '(' expr ')';
+primary = atom | '(' expr ')';
 atom = obj | literal;
  
 obj = id member*;
@@ -52,9 +52,11 @@ literal = QuotedString {
 			PKToken *tok = POP();
             PUSH(@(tok.floatValue));
 		}
-	    | bool
+	    | {LA(1) != TOKEN_KIND_YES_UPPER}? bool
 		;
 
 bool = 'yes' {POP(); PUSH(@(1));} 
-     | 'no'  {POP(); PUSH(@(0));}
+	 | 'YES' {POP(); PUSH(@(1));}
+	 | 'no'  {POP(); PUSH(@(0));}
+	 | { PKToken *tok = LT(1); return ![tok.stringValue isEqualToString:@"NO"]; }? 'NO'  {POP(); PUSH(@(0));}
 	 ;
