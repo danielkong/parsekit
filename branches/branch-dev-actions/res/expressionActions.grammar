@@ -6,14 +6,26 @@ expr = orExpr;
 orExpr = andExpr orTerm*;
 
 orTerm = 'or'! andExpr {
-	PUSH(@([POP() boolValue] || [POP() boolValue]));
+	id rhs = POP();
+	id lhs = POP();
+	PUSH(@([lhs boolValue] || [rhs boolValue]));
 };
  
 andExpr = relExpr andTerm*;
-andTerm = 'and' relExpr;
+
+andTerm = 'and'! relExpr {
+	id rhs = POP();
+	id lhs = POP();
+	PUSH(@([lhs boolValue] && [rhs boolValue]));
+};
  
-relExpr = callExpr (relOp callExpr)*;
-relOp = '<' | '>' | '=' | '!=' | '<=' | '>=';
+relExpr = callExpr (relOp callExpr {
+	id rhs = POP();
+	id lhs = POP();
+	PUSH(@([lhs integerValue] >= [rhs integerValue]));
+})*;
+
+relOp = '<'! | '>'! | '='! | '!='! | '<='! | '>='!;
 
 callExpr = primary ('(' argList? ')')?;
 argList = atom (',' atom)*;
@@ -25,7 +37,14 @@ obj = id member*;
 id = Word;
 member = '.' id;
  
-literal = QuotedString | Number | bool;
+literal = QuotedString
+		| Number {            
+			PKToken *tok = POP();
+            PUSH(@(tok.floatValue));
+			}
+	    | bool
+		;
+
 bool = 'yes' {POP(); PUSH(@(1));} 
      | 'no'  {POP(); PUSH(@(0));}
 	 ;

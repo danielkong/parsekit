@@ -1,5 +1,5 @@
 #import "{{className}}.h"
-#import <ParseKit/PKAssembly.h>
+#import <ParseKit/ParseKit.h>
 #import "PKSRecognitionException.h"
 
 #define LT(i) [self LT:(i)]

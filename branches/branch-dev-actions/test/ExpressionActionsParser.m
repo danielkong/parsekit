@@ -1,5 +1,5 @@
 #import "ExpressionActionsParser.h"
-#import <ParseKit/PKAssembly.h>
+#import <ParseKit/ParseKit.h>
 #import "PKSRecognitionException.h"
 
 #define LT(i) [self LT:(i)]
@@ -91,7 +91,9 @@
     [self andExpr]; 
     [self execute:(id)^{
         
-	PUSH(@([POP() boolValue] || [POP() boolValue]));
+	id rhs = POP();
+	id lhs = POP();
+	PUSH(@([lhs boolValue] || [rhs boolValue]));
 
     }];
 
@@ -110,8 +112,15 @@
 
 - (void)andTerm {
     
-    [self match:TOKEN_KIND_AND_LOWER]; 
+    [self match:TOKEN_KIND_AND_LOWER]; [self discard:1];
     [self relExpr]; 
+    [self execute:(id)^{
+        
+	id rhs = POP();
+	id lhs = POP();
+	PUSH(@([lhs boolValue] && [rhs boolValue]));
+
+    }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndTerm:)];
 }
@@ -119,9 +128,16 @@
 - (void)relExpr {
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_GT) {
+    while (LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_NE) {
         [self relOp]; 
         [self callExpr]; 
+        [self execute:(id)^{
+            
+	id rhs = POP();
+	id lhs = POP();
+	PUSH(@([lhs integerValue] >= [rhs integerValue]));
+
+        }];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelExpr:)];
@@ -130,17 +146,17 @@
 - (void)relOp {
     
     if (LA(1) == TOKEN_KIND_LT) {
-        [self match:TOKEN_KIND_LT]; 
+        [self match:TOKEN_KIND_LT]; [self discard:1];
     } else if (LA(1) == TOKEN_KIND_GT) {
-        [self match:TOKEN_KIND_GT]; 
+        [self match:TOKEN_KIND_GT]; [self discard:1];
     } else if (LA(1) == TOKEN_KIND_EQUALS) {
-        [self match:TOKEN_KIND_EQUALS]; 
+        [self match:TOKEN_KIND_EQUALS]; [self discard:1];
     } else if (LA(1) == TOKEN_KIND_NE) {
-        [self match:TOKEN_KIND_NE]; 
+        [self match:TOKEN_KIND_NE]; [self discard:1];
     } else if (LA(1) == TOKEN_KIND_LE) {
-        [self match:TOKEN_KIND_LE]; 
+        [self match:TOKEN_KIND_LE]; [self discard:1];
     } else if (LA(1) == TOKEN_KIND_GE) {
-        [self match:TOKEN_KIND_GE]; 
+        [self match:TOKEN_KIND_GE]; [self discard:1];
     } else {
         [self raise:@"no viable alternative found in relOp"];
     }
@@ -153,7 +169,7 @@
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
-        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_NO_LOWER) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES_LOWER) {
             [self argList]; 
         }
         [self match:TOKEN_KIND_CLOSE_PAREN]; 
@@ -175,7 +191,7 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES_LOWER) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
@@ -192,7 +208,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO_LOWER) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_YES_LOWER) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -232,6 +248,12 @@
         [self QuotedString]; 
     } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
+        [self execute:(id)^{
+                        
+			PKToken *tok = POP();
+            PUSH(@(tok.floatValue));
+			
+        }];
     } else if (LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_NO_LOWER) {
         [self bool]; 
     } else {
