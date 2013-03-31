@@ -20,6 +20,7 @@
 #define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
 
 #define EQUALS(a, b) [(a) isEqual:(b)]
+#define EQUALS_IGNORE_CASE(a, b) (NSOrderedSame == [(a) compare:(b)])
 
 #define ABOVE(fence) [self._assembly objectsAbove:(fence)]
 
