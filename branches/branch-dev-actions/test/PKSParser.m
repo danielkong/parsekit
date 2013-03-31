@@ -372,10 +372,10 @@
 
 - (double)_popDouble {
     id obj = [self._assembly pop];
-    if ([obj isKindOfClass:[PKToken class]]) {
-        return [(PKToken *)obj floatValue];
-    } else {
+    if ([obj respondsToSelector:@selector(doubleValue)]) {
         return [obj doubleValue];
+    } else {
+        return [(PKToken *)obj floatValue];
     }
 }
 
