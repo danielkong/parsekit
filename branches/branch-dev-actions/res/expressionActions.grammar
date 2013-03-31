@@ -4,7 +4,6 @@
 expr = orExpr;
  
 orExpr = andExpr orTerm*;
-
 orTerm = 'or'! andExpr {
 	id rhs = POP();
 	id lhs = POP();
@@ -12,20 +11,29 @@ orTerm = 'or'! andExpr {
 };
  
 andExpr = relExpr andTerm*;
-
 andTerm = 'and'! relExpr {
 	id rhs = POP();
 	id lhs = POP();
 	PUSH(@([lhs boolValue] && [rhs boolValue]));
 };
  
-relExpr = callExpr (relOp callExpr {
+relExpr = callExpr relOpOperand*;
+relOpOperand = relOp callExpr {
 	id rhs = POP();
+	PKToken *op = POP();
 	id lhs = POP();
-	PUSH(@([lhs integerValue] >= [rhs integerValue]));
-})*;
+	
+	NSString *str = op.stringValue;
+	
+	if ([str isEqualToString:@"<"])  PUSH(@([lhs integerValue] <  [rhs integerValue]));
+	if ([str isEqualToString:@">"])  PUSH(@([lhs integerValue] >  [rhs integerValue]));
+	if ([str isEqualToString:@"="])  PUSH(@([lhs integerValue] == [rhs integerValue]));
+	if ([str isEqualToString:@"!="]) PUSH(@([lhs integerValue] != [rhs integerValue]));
+	if ([str isEqualToString:@"<="]) PUSH(@([lhs integerValue] <= [rhs integerValue]));
+	if ([str isEqualToString:@">="]) PUSH(@([lhs integerValue] >= [rhs integerValue]));
+};
 
-relOp = '<'! | '>'! | '='! | '!='! | '<='! | '>='!;
+relOp = '<' | '>' | '=' | '!=' | '<=' | '>=';
 
 callExpr = primary ('(' argList? ')')?;
 argList = atom (',' atom)*;

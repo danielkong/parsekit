@@ -129,35 +129,51 @@
 - (void)relExpr {
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_GT) {
-        [self relOp]; 
-        [self callExpr]; 
-        [self execute:(id)^{
-            
-	id rhs = POP();
-	id lhs = POP();
-	PUSH(@([lhs integerValue] >= [rhs integerValue]));
-
-        }];
+    while (LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_GE) {
+        [self relOpOperand]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelExpr:)];
 }
 
+- (void)relOpOperand {
+    
+    [self relOp]; 
+    [self callExpr]; 
+    [self execute:(id)^{
+        
+	id rhs = POP();
+	PKToken *op = POP();
+	id lhs = POP();
+	
+	NSString *str = op.stringValue;
+	
+	if ([str isEqualToString:@"<"])  PUSH(@([lhs integerValue] <  [rhs integerValue]));
+	if ([str isEqualToString:@">"])  PUSH(@([lhs integerValue] >  [rhs integerValue]));
+	if ([str isEqualToString:@"="])  PUSH(@([lhs integerValue] == [rhs integerValue]));
+	if ([str isEqualToString:@"!="]) PUSH(@([lhs integerValue] != [rhs integerValue]));
+	if ([str isEqualToString:@"<="]) PUSH(@([lhs integerValue] <= [rhs integerValue]));
+	if ([str isEqualToString:@">="]) PUSH(@([lhs integerValue] >= [rhs integerValue]));
+
+    }];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchRelOpOperand:)];
+}
+
 - (void)relOp {
     
     if (LA(1) == TOKEN_KIND_LT) {
-        [self match:TOKEN_KIND_LT]; [self discard:1];
+        [self match:TOKEN_KIND_LT]; 
     } else if (LA(1) == TOKEN_KIND_GT) {
-        [self match:TOKEN_KIND_GT]; [self discard:1];
+        [self match:TOKEN_KIND_GT]; 
     } else if (LA(1) == TOKEN_KIND_EQUALS) {
-        [self match:TOKEN_KIND_EQUALS]; [self discard:1];
+        [self match:TOKEN_KIND_EQUALS]; 
     } else if (LA(1) == TOKEN_KIND_NE) {
-        [self match:TOKEN_KIND_NE]; [self discard:1];
+        [self match:TOKEN_KIND_NE]; 
     } else if (LA(1) == TOKEN_KIND_LE) {
-        [self match:TOKEN_KIND_LE]; [self discard:1];
+        [self match:TOKEN_KIND_LE]; 
     } else if (LA(1) == TOKEN_KIND_GE) {
-        [self match:TOKEN_KIND_GE]; [self discard:1];
+        [self match:TOKEN_KIND_GE]; 
     } else {
         [self raise:@"no viable alternative found in relOp"];
     }
@@ -170,7 +186,7 @@
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
-        if (LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_NO_LOWER) {
             [self argList]; 
         }
         [self match:TOKEN_KIND_CLOSE_PAREN]; 
@@ -192,7 +208,7 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO_LOWER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_LOWER || LA(1) == TOKEN_KIND_NO_LOWER) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 

@@ -104,6 +104,16 @@
     TDEqualObjects(@"[0]42/>=/43^", [res description]);
 }
 
+- (void)test42LE43 {
+    PKAssembly *res = [_parser parseString:@"42 <= 43" assembler:nil error:nil];
+    TDEqualObjects(@"[1]42/<=/43^", [res description]);
+}
+
+- (void)test42LT43 {
+    PKAssembly *res = [_parser parseString:@"42 < 43" assembler:nil error:nil];
+    TDEqualObjects(@"[1]42/</43^", [res description]);
+}
+
 
 - (void)parser:(PKSParser *)p didMatchArgList:(PKAssembly *)a {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
