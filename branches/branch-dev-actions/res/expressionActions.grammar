@@ -44,19 +44,19 @@ obj = id member*;
 id = Word;
 member = '.' id;
  
-literal = QuotedString {
-			PKToken *tok = POP();
-			PUSH(tok.stringValue);
-		}
+literal = {LA(1) != TOKEN_KIND_YES_UPPER}? bool // this predicate makes no sense. it's just for testing expr predicates.
 		| Number {            
 			PKToken *tok = POP();
             PUSH(@(tok.floatValue));
 		}
-	    | {LA(1) != TOKEN_KIND_YES_UPPER}? bool
+	    | QuotedString {
+			PKToken *tok = POP();
+			PUSH(tok.stringValue);
+		}
 		;
 
 bool = 'yes' {POP(); PUSH(@(1));} 
 	 | 'YES' {POP(); PUSH(@(1));}
 	 | 'no'  {POP(); PUSH(@(0));}
-	 | { PKToken *tok = LT(1); return ![tok.stringValue isEqualToString:@"NO"]; }? 'NO'  {POP(); PUSH(@(0));}
+	 | { PKToken *tok = LT(1); return ![tok.stringValue isEqualToString:@"NO"]; }? 'NO'  {POP(); PUSH(@(0));} // this predicate makes no sense. it's just for testing stat predicates.
 	 ;

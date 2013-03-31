@@ -31,12 +31,12 @@
 
 
 - (void)testSemanticPredicate {
-    NSString *g = @"@start=foo;foo= {YES}? Word;";
+    NSString *g = @"@start=foo;foo= {YES}? Number | {NO}? Word;";
     
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo Word))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (| Number Word)))", [rootNode treeDescription]);
 }
 
 

@@ -1079,7 +1079,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (NSArray *)objectsAbove:(PKToken *)tokA or:(PKToken *)tokB in:(PKAssembly *)a {
+- (NSMutableArray *)objectsAbove:(PKToken *)tokA or:(PKToken *)tokB in:(PKAssembly *)a {
     NSMutableArray *result = [NSMutableArray array];
     
     while (![a isStackEmpty]) {
@@ -1098,7 +1098,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 
-    NSArray *rhsNodes = [a objectsAbove:orToken];
+    NSMutableArray *rhsNodes = [[[a objectsAbove:orToken] mutableCopy] autorelease];
     
     PKToken *orTok = [a pop]; // pop '|'
     NSAssert([orTok isKindOfClass:[PKToken class]], @"");
@@ -1109,39 +1109,43 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKBaseNode *left = nil;
 
-    NSArray *lhsNodes = [self objectsAbove:paren or:equals in:a];
+    NSMutableArray *lhsNodes = [self objectsAbove:paren or:equals in:a];
+    PKActionNode *lhsPredicate = nil;
+    if ([[lhsNodes lastObject] isKindOfClass:[PKActionNode class]]) {
+        lhsPredicate = [[[lhsNodes lastObject] retain] autorelease];
+        [lhsNodes removeLastObject];
+    }
     if (1 == [lhsNodes count]) {
         left = [lhsNodes lastObject];
     } else {
         PKCollectionNode *seqNode = [PKCollectionNode nodeWithToken:seqToken];
         for (PKBaseNode *child in [lhsNodes reverseObjectEnumerator]) {
             NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
-            if ([child isKindOfClass:[PKActionNode class]]) {
-                seqNode.semanticPredicateNode = (PKActionNode *)child;
-            } else {
-                [seqNode addChild:child];
-            }
+            [seqNode addChild:child];
         }
         left = seqNode;
     }
+    if (lhsPredicate) left.semanticPredicateNode = lhsPredicate;
     [orNode addChild:left];
 
     PKBaseNode *right = nil;
 
+    PKActionNode *rhsPredicate = nil;
+    if ([[rhsNodes lastObject] isKindOfClass:[PKActionNode class]]) {
+        rhsPredicate = [[[rhsNodes lastObject] retain] autorelease];
+        [rhsNodes removeLastObject];
+    }
     if (1 == [rhsNodes count]) {
         right = [rhsNodes lastObject];
     } else {
         PKCollectionNode *seqNode = [PKCollectionNode nodeWithToken:seqToken];
         for (PKBaseNode *child in [rhsNodes reverseObjectEnumerator]) {
             NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
-            if ([child isKindOfClass:[PKActionNode class]]) {
-                seqNode.semanticPredicateNode = (PKActionNode *)child;
-            } else {
-                [seqNode addChild:child];
-            }
+            [seqNode addChild:child];
         }
         right = seqNode;
     }
+    if (rhsPredicate) right.semanticPredicateNode = rhsPredicate;
     [orNode addChild:right];
 
     [a push:orNode];
