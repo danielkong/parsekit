@@ -32,6 +32,7 @@
 #define NEEDS_BACKTRACK @"needsBacktrack"
 #define CHILD_STRING @"childString"
 #define ACTION_BODY @"actionBody"
+#define PREDICATE_BODY @"predicateBody"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSString *)mstr;
@@ -378,7 +379,12 @@
         vars[LAST] = @([set count] - 1);
         vars[DEPTH] = @(_depth);
         vars[NEEDS_BACKTRACK] = @(_needsBacktracking);
-        
+
+        if (child.semanticPredicateNode) {
+            NSString *predBody = child.semanticPredicateNode.source;
+            vars[PREDICATE_BODY] = predBody;
+        }
+
         NSString *templateName = nil;
         
         switch (idx) {
@@ -577,7 +583,7 @@
     vars[METHOD_NAME] = methodName;
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
-
+    
     // merge
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     NSString *output = [_engine processTemplate:template withVariables:vars];

@@ -884,6 +884,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     id obj = [a pop];
     if ([obj isKindOfClass:[PKActionNode class]]) {
         PKActionNode *predNode = (PKActionNode *)obj;
+        NSLog(@"%@", predNode.source);
         node.semanticPredicateNode = predNode;
     } else {
         [a push:obj];
