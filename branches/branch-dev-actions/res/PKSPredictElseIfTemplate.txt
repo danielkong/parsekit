@@ -1,2 +1,1 @@
-{%for 1 to depth %}    {%/for%}} else if ({%if predicateBody %}[self test:^{ return {{predicateBody}}; }] && ({%/if%}{%for tokenKind in lookaheadSet%}LA(1) == {{tokenKind.name}}{%if currentLoop.currentIndex != last %} || {%/if%}{%/for%}{%if predicateBody %}
-){%/if%}) {
+{%for 1 to depth %}    {%/for%}} else if ({%if predicateBody %}[self test:^{ return {{predicateBody}}; }] && ({%/if%}{%for tokenKind in lookaheadSet%}LA(1) == {{tokenKind.name}}{%if currentLoop.currentIndex != last %} || {%/if%}{%/for%}{%if predicateBody %}){%/if%}) {

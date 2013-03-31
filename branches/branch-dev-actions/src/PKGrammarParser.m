@@ -18,14 +18,14 @@
 // @start               = statement*;
 // statement            = tokenizerDirective | decl;
 // tokenizerDirective   = (/@.+/ - '@start') '=' (~';')+ ';'!;
-// decl                 = production '=' action? expr semanticPredicate? ';'!;
+// decl                 = production '=' action? expr ';'!;
 // production           = startProduction | varProduction;
 // startProduction      = '@start';
 // varProduction        = LowercaseWord;
 // expr                 = term orTerm*;
-// term                 = factor nextFactor*;
+// term                 = semanticPredicate? factor nextFactor*;
 // orTerm               = '|' term;
-// factor               = semanticPredicate? (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
+// factor               = (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
 // nextFactor           = factor;
 
 // phrase               = primaryExpr predicate*;
@@ -197,7 +197,7 @@
 }
 
 
-// decl                 = production '=' action? expr semanticPredicate? ';'!;
+// decl                 = production '=' action? expr ';'!;
 - (PKCollectionParser *)declParser {
     if (!declParser) {
         self.declParser = [PKSequence sequence];
@@ -206,7 +206,6 @@
         [declParser add:[PKSymbol symbolWithString:@"="]];
         [declParser add:[self zeroOrOne:self.actionParser]];
         [declParser add:self.exprParser];
-        [declParser add:[self zeroOrOne:self.semanticPredicateParser]];
         [declParser add:[[PKSymbol symbolWithString:@";"] discard]];
         
         [declParser setAssembler:assembler selector:@selector(parser:didMatchDecl:)];
@@ -262,11 +261,12 @@
 }
 
 
-// term                = factor nextFactor*;
+// term                 = semanticPredicate? factor nextFactor*;
 - (PKCollectionParser *)termParser {
     if (!termParser) {
         self.termParser = [PKSequence sequence];
         termParser.name = @"term";
+        [termParser add:[self zeroOrOne:self.semanticPredicateParser]];
         [termParser add:self.factorParser];
         [termParser add:[PKRepetition repetitionWithSubparser:self.nextFactorParser]];
     }
@@ -291,14 +291,12 @@
 }
 
 
-// factor               = semanticPredicate? (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
+// factor               = (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
 - (PKCollectionParser *)factorParser {
     if (!factorParser) {
         self.factorParser = [PKSequence sequence];
         factorParser.name = @"factor";
 
-        [factorParser add:[self zeroOrOne:self.semanticPredicateParser]];
-        
         PKAlternation *alt = [PKAlternation alternation];
         [alt add:self.phraseParser];
         [alt add:self.phraseStarParser];
