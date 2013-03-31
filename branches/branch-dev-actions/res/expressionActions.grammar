@@ -37,11 +37,14 @@ obj = id member*;
 id = Word;
 member = '.' id;
  
-literal = QuotedString
+literal = QuotedString {
+			PKToken *tok = POP();
+			PUSH(tok.stringValue);
+		}
 		| Number {            
 			PKToken *tok = POP();
             PUSH(@(tok.floatValue));
-			}
+		}
 	    | bool
 		;
 
