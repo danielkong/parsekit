@@ -4,6 +4,8 @@
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
+#define LS(i) [self LS:(i)]
+#define LF(i) [self LF:(i)]
 
 #define POP()       [self._assembly pop]
 #define POP_TOK()   [self _popToken]

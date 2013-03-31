@@ -53,5 +53,5 @@ literal = {LA(1) != TOKEN_KIND_YES_UPPER}? bool // this predicate makes no sense
 bool = 'yes' {POP(); PUSH_BOOL(YES);} 
 	 | 'YES' {POP(); PUSH_BOOL(YES);}
 	 | 'no'  {POP(); PUSH_BOOL(NO);}
-	 | { return !EQUALS([LT(1) stringValue], @"NO"); }? 'NO'  {POP(); PUSH(@(0));} // this predicate makes no sense. it's just for testing stat predicates.
+	 | { return !EQUALS(LS(1), @"NO"); }? 'NO' {POP(); PUSH_BOOL(NO);} // this predicate makes no sense. it's just for testing stat predicates.
 	 ;

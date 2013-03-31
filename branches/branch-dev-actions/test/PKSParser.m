@@ -221,6 +221,16 @@
 }
 
 
+- (double)LF:(NSInteger)i {
+    return [LT(i) floatValue];
+}
+
+
+- (NSString *)LS:(NSInteger)i {
+    return [LT(i) stringValue];
+}
+
+
 - (NSInteger)_mark {
     [_markers addObject:@(_p)];
     return _p;

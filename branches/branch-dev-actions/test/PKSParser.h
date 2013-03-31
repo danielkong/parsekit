@@ -44,6 +44,8 @@ enum {
 
 - (PKToken *)LT:(NSInteger)i;
 - (NSInteger)LA:(NSInteger)i;
+- (double)LF:(NSInteger)i;
+- (NSString *)LS:(NSInteger)i;
 
 - (void)match:(NSInteger)x;
 - (void)discard:(NSInteger)n;
