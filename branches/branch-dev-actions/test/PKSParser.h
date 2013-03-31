@@ -11,6 +11,10 @@
 @class PKTokenizer;
 @class PKToken;
 
+typedef id   (^PKSActionBlock)   (void);
+typedef void (^PKSSpeculateBlock)(void);
+typedef BOOL (^PKSPredicateBlock)(void);
+
 enum {
     TOKEN_KIND_BUILTIN_EOF = -1,
     TOKEN_KIND_BUILTIN_INVALID = 0,
@@ -43,10 +47,10 @@ enum {
 
 - (void)match:(NSInteger)x;
 - (void)discard:(NSInteger)n;
-- (BOOL)speculate:(void (^)(void))block;
-- (id)execute:(id (^)(void))block;
-- (BOOL)test:(BOOL (^)(void))block;
-- (void)testAndThrow:(BOOL (^)(void))block;
+- (BOOL)speculate:(PKSSpeculateBlock)block;
+- (id)execute:(PKSActionBlock)block;
+- (BOOL)test:(PKSPredicateBlock)block;
+- (void)testAndThrow:(PKSPredicateBlock)block;
 - (void)fireAssemblerSelector:(SEL)sel;
 - (NSInteger)tokenKindForString:(NSString *)s;
 - (void)raise:(NSString *)fmt, ...;

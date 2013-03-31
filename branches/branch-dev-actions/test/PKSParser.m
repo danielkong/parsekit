@@ -302,7 +302,7 @@
 }
 
 
-- (BOOL)speculate:(void (^)(void))block {
+- (BOOL)speculate:(PKSSpeculateBlock)block {
     NSParameterAssert(block);
     
     BOOL success = YES;
@@ -320,7 +320,7 @@
 }
 
 
-- (id)execute:(id (^)(void))block {
+- (id)execute:(PKSActionBlock)block {
     NSParameterAssert(block);
     if (self._isSpeculating) return nil;
 
@@ -330,7 +330,7 @@
 }
 
 
-- (BOOL)test:(BOOL (^)(void))block {
+- (BOOL)test:(PKSPredicateBlock)block {
     NSParameterAssert(block);
     
     BOOL result = YES;
@@ -339,7 +339,7 @@
 }
 
 
-- (void)testAndThrow:(BOOL (^)(void))block {
+- (void)testAndThrow:(PKSPredicateBlock)block {
     NSParameterAssert(block);
     
     if (![self test:block]) {
