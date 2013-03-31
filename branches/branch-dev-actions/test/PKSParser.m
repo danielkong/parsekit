@@ -348,6 +348,46 @@
 }
 
 
+- (BOOL)_popBool {
+    id obj = [self._assembly pop];
+    return [obj boolValue];
+}
+
+
+- (NSInteger)_popInteger {
+    id obj = [self._assembly pop];
+    return [obj integerValue];
+}
+
+
+- (double)_popDouble {
+    id obj = [self._assembly pop];
+    return [obj doubleValue];
+}
+
+
+- (PKToken *)_popToken {
+    PKToken *tok = [self._assembly pop];
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    return tok;
+}
+
+
+- (void)_pushBool:(BOOL)yn {
+    [self._assembly push:(id)(yn ? kCFBooleanTrue : kCFBooleanFalse)];
+}
+
+
+- (void)_pushInteger:(NSInteger)i {
+    [self._assembly push:@(i)];
+}
+
+
+- (void)_pushDouble:(double)d {
+    [self._assembly push:@(d)];
+}
+
+
 - (void)_start {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }

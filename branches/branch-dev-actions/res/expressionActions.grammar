@@ -5,33 +5,31 @@ expr = orExpr;
  
 orExpr = andExpr orTerm*;
 orTerm = 'or'! andExpr {
-	id rhs = POP();
-	id lhs = POP();
-	PUSH(@([lhs boolValue] || [rhs boolValue]));
+	BOOL rhs = POP_BOOL();
+	BOOL lhs = POP_BOOL();
+	PUSH_BOOL(lhs || rhs);
 };
  
 andExpr = relExpr andTerm*;
 andTerm = 'and'! relExpr {
-	id rhs = POP();
-	id lhs = POP();
-	PUSH(@([lhs boolValue] && [rhs boolValue]));
+	BOOL rhs = POP_BOOL();
+	BOOL lhs = POP_BOOL();
+	PUSH_BOOL(lhs && rhs);
 };
  
 relExpr   = callExpr relOpTerm*;
 relOp     = '<' | '>' | '=' | '!=' | '<=' | '>=';
 relOpTerm = relOp callExpr {
-	id rhs = POP();
-	PKToken *op = POP();
-	id lhs = POP();
-	
-	NSString *str = op.stringValue;
-	
-	     if ([str isEqualToString:@"<"])  PUSH(@([lhs integerValue] <  [rhs integerValue]));
-	else if ([str isEqualToString:@">"])  PUSH(@([lhs integerValue] >  [rhs integerValue]));
-	else if ([str isEqualToString:@"="])  PUSH(@([lhs integerValue] == [rhs integerValue]));
-	else if ([str isEqualToString:@"!="]) PUSH(@([lhs integerValue] != [rhs integerValue]));
-	else if ([str isEqualToString:@"<="]) PUSH(@([lhs integerValue] <= [rhs integerValue]));
-	else if ([str isEqualToString:@">="]) PUSH(@([lhs integerValue] >= [rhs integerValue]));
+	NSInteger rhs = POP_INT();
+	NSString  *op = [POP_TOK() stringValue];
+	NSInteger lhs = POP_INT();
+
+	     if ([op isEqualToString:@"<"])  PUSH_BOOL(lhs <  rhs);
+	else if ([op isEqualToString:@">"])  PUSH_BOOL(lhs >  rhs);
+	else if ([op isEqualToString:@"="])  PUSH_BOOL(lhs == rhs);
+	else if ([op isEqualToString:@"!="]) PUSH_BOOL(lhs != rhs);
+	else if ([op isEqualToString:@"<="]) PUSH_BOOL(lhs <= rhs);
+	else if ([op isEqualToString:@">="]) PUSH_BOOL(lhs >= rhs);
 };
 
 callExpr = primary ('(' argList? ')')?;
@@ -45,18 +43,15 @@ id = Word;
 member = '.' id;
  
 literal = {LA(1) != TOKEN_KIND_YES_UPPER}? bool // this predicate makes no sense. it's just for testing expr predicates.
-		| Number {            
-			PKToken *tok = POP();
-            PUSH(@(tok.floatValue));
-		}
+		| Number { PUSH_FLOAT([POP_TOK() floatValue]); }
 	    | QuotedString {
 			PKToken *tok = POP();
 			PUSH(tok.stringValue);
 		}
 		;
 
-bool = 'yes' {POP(); PUSH(@(1));} 
-	 | 'YES' {POP(); PUSH(@(1));}
-	 | 'no'  {POP(); PUSH(@(0));}
-	 | { PKToken *tok = LT(1); return ![tok.stringValue isEqualToString:@"NO"]; }? 'NO'  {POP(); PUSH(@(0));} // this predicate makes no sense. it's just for testing stat predicates.
+bool = 'yes' {POP(); PUSH_BOOL(YES);} 
+	 | 'YES' {POP(); PUSH_BOOL(YES);}
+	 | 'no'  {POP(); PUSH_BOOL(NO);}
+	 | { return ![[LT(1) stringValue] isEqualToString:@"NO"]; }? 'NO'  {POP(); PUSH(@(0));} // this predicate makes no sense. it's just for testing stat predicates.
 	 ;

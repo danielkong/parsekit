@@ -55,6 +55,15 @@ enum {
 - (NSInteger)tokenKindForString:(NSString *)s;
 - (void)raise:(NSString *)fmt, ...;
 
+- (BOOL)_popBool;
+- (NSInteger)_popInteger;
+- (double)_popDouble;
+- (PKToken *)_popToken;
+
+- (void)_pushBool:(BOOL)yn;
+- (void)_pushInteger:(NSInteger)i;
+- (void)_pushDouble:(double)d;
+
 // builtin token types
 - (void)Any;
 - (void)Empty;
