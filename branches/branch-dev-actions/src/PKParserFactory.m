@@ -164,6 +164,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *negToken;
 @property (nonatomic, retain) PKToken *litToken;
 @property (nonatomic, retain) PKToken *delimToken;
+@property (nonatomic, retain) PKToken *predicateToken;
 @end
 
 @implementation PKParserFactory
@@ -197,6 +198,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.negToken   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"~" floatValue:0.0];
         self.litToken   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"'" floatValue:0.0];
         self.delimToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"%{" floatValue:0.0];
+        self.predicateToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"}?" floatValue:0.0];
         
         self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
     }
@@ -229,6 +231,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.negToken = nil;
     self.litToken = nil;
     self.delimToken = nil;
+    self.predicateToken = nil;
     [super dealloc];
 }
 
@@ -737,6 +740,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         }
         
     }
+    [self checkForSemanticPredicate:a before:trackNode];
     [a push:trackNode];
 }
 
@@ -827,6 +831,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     patNode.string = s;
     patNode.options = opts;
 
+    [self checkForSemanticPredicate:a before:patNode];
     [a push:patNode];
 }
 
@@ -852,6 +857,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     litNode = [PKLiteralNode nodeWithToken:tok];
     litNode.wantsCharacters = self.wantsCharacters;
 
+    [self checkForSemanticPredicate:a before:litNode];
     [a push:litNode];
 }
 
@@ -869,7 +875,19 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert(islower([tok.stringValue characterAtIndex:0]), @"");
 
     PKReferenceNode *node = [PKReferenceNode nodeWithToken:tok];
+    [self checkForSemanticPredicate:a before:node];
     [a push:node];
+}
+
+
+- (void)checkForSemanticPredicate:(PKAssembly *)a before:(PKBaseNode *)node {
+    id obj = [a pop];
+    if ([obj isKindOfClass:[PKActionNode class]]) {
+        PKActionNode *predNode = (PKActionNode *)obj;
+        node.semanticPredicateNode = predNode;
+    } else {
+        [a push:obj];
+    }
 }
 
 
@@ -878,6 +896,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKToken *tok = [a pop];
     
     PKConstantNode *node = [PKConstantNode nodeWithToken:tok];
+    [self checkForSemanticPredicate:a before:node];
     [a push:node];
 }
 
@@ -892,6 +911,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKConstantNode *constNode = [PKConstantNode nodeWithToken:classTok];
     constNode.literal = literal;
     
+    [self checkForSemanticPredicate:a before:constNode];
     [a push:constNode];
 }
 
@@ -913,6 +933,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     delimNode.startMarker = start;
     delimNode.endMarker = end;
     
+    [self checkForSemanticPredicate:a before:delimNode];
     [a push:delimNode];
 }
 
@@ -928,6 +949,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     [diffNode addChild:subNode];
     [diffNode addChild:minusNode];
     
+    [self checkForSemanticPredicate:a before:diffNode];
     [a push:diffNode];
 }
 
@@ -980,26 +1002,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKToken *sourceTok = [a pop];
     NSAssert(sourceTok.isDelimitedString, @"");
     
-    id obj = [a pop];
-    PKBaseNode *ownerNode = nil;
-    
-    // find owner node (different for pre and post actions)
-    if ([obj isEqualTo:equals]) {
-        // pre action
-        PKToken *eqTok = (PKToken *)obj;
-        NSAssert([eqTok isKindOfClass:[PKToken class]], @"");
-        ownerNode = [a pop];
-        
-        [a push:ownerNode];
-        [a push:eqTok]; // put '=' back
-    } else {
-        // post action
-        ownerNode = (PKBaseNode *)obj;
-        NSAssert([ownerNode isKindOfClass:[PKBaseNode class]], @"");
-        
-        [a push:ownerNode];
-    }
-    
     NSUInteger len = [sourceTok.stringValue length];
     NSAssert(len > 2, @"");
     
@@ -1010,9 +1012,10 @@ void PKReleaseSubparserTree(PKParser *p) {
         source = [sourceTok.stringValue substringWithRange:NSMakeRange(1, len - 3)];
     }
     
-    PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
-    actNode.source = source;
-    ownerNode.semanticPredicateNode = actNode;
+    PKActionNode *predNode = [PKActionNode nodeWithToken:predicateToken];
+    predNode.source = source;
+    
+    [a push:predNode];
 }
 
 
@@ -1023,11 +1026,12 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([predicateNode isKindOfClass:[PKBaseNode class]], @"");
     NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
     
-    PKCollectionNode *diffNode = [PKCollectionNode nodeWithToken:intToken];
-    [diffNode addChild:subNode];
-    [diffNode addChild:predicateNode];
+    PKCollectionNode *interNode = [PKCollectionNode nodeWithToken:intToken];
+    [interNode addChild:subNode];
+    [interNode addChild:predicateNode];
     
-    [a push:diffNode];
+    [self checkForSemanticPredicate:a before:interNode];
+    [a push:interNode];
 }
 
 
@@ -1040,6 +1044,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKCompositeNode *repNode = [PKCompositeNode nodeWithToken:repToken];
     [repNode addChild:subNode];
     
+    [self checkForSemanticPredicate:a before:repNode];
     [a push:repNode];
 }
 
@@ -1053,6 +1058,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKMultipleNode *multiNode = [PKMultipleNode nodeWithToken:multiToken];
     [multiNode addChild:subNode];
     
+    [self checkForSemanticPredicate:a before:multiNode];
     [a push:multiNode];
 }
 
@@ -1066,6 +1072,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKOptionalNode *optNode = [PKOptionalNode nodeWithToken:optToken];
     [optNode addChild:subNode];
     
+    [self checkForSemanticPredicate:a before:optNode];
     [a push:optNode];
 }
 
@@ -1079,6 +1086,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKCompositeNode *negNode = [PKCompositeNode nodeWithToken:negToken];
     [negNode addChild:subNode];
     
+    [self checkForSemanticPredicate:a before:negNode];
     [a push:negNode];
 }
 
@@ -1140,6 +1148,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     [orNode addChild:right];
 
+    [self checkForSemanticPredicate:a before:orNode];
     [a push:orNode];
 }
 
@@ -1170,6 +1179,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize negToken;
 @synthesize litToken;
 @synthesize delimToken;
+@synthesize predicateToken;
 
 @synthesize assemblerSettingBehavior;
 @end

@@ -30,7 +30,17 @@
 }
 
 
-- (void)testAction2 {
+- (void)testSemanticPredicate {
+    NSString *g = @"@start=foo;foo= {YES}? Word;";
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo Word))", [rootNode treeDescription]);
+}
+
+
+- (void)testAction {
     NSString *g = @"@start=foo;foo=Word {NSLog(@\"hi\");};";
     
     NSError *err = nil;
