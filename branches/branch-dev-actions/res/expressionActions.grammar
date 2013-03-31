@@ -17,23 +17,22 @@ andTerm = 'and'! relExpr {
 	PUSH(@([lhs boolValue] && [rhs boolValue]));
 };
  
-relExpr = callExpr relOpOperand*;
-relOpOperand = relOp callExpr {
+relExpr   = callExpr relOpTerm*;
+relOp     = '<' | '>' | '=' | '!=' | '<=' | '>=';
+relOpTerm = relOp callExpr {
 	id rhs = POP();
 	PKToken *op = POP();
 	id lhs = POP();
 	
 	NSString *str = op.stringValue;
 	
-	if ([str isEqualToString:@"<"])  PUSH(@([lhs integerValue] <  [rhs integerValue]));
-	if ([str isEqualToString:@">"])  PUSH(@([lhs integerValue] >  [rhs integerValue]));
-	if ([str isEqualToString:@"="])  PUSH(@([lhs integerValue] == [rhs integerValue]));
-	if ([str isEqualToString:@"!="]) PUSH(@([lhs integerValue] != [rhs integerValue]));
-	if ([str isEqualToString:@"<="]) PUSH(@([lhs integerValue] <= [rhs integerValue]));
-	if ([str isEqualToString:@">="]) PUSH(@([lhs integerValue] >= [rhs integerValue]));
+	     if ([str isEqualToString:@"<"])  PUSH(@([lhs integerValue] <  [rhs integerValue]));
+	else if ([str isEqualToString:@">"])  PUSH(@([lhs integerValue] >  [rhs integerValue]));
+	else if ([str isEqualToString:@"="])  PUSH(@([lhs integerValue] == [rhs integerValue]));
+	else if ([str isEqualToString:@"!="]) PUSH(@([lhs integerValue] != [rhs integerValue]));
+	else if ([str isEqualToString:@"<="]) PUSH(@([lhs integerValue] <= [rhs integerValue]));
+	else if ([str isEqualToString:@">="]) PUSH(@([lhs integerValue] >= [rhs integerValue]));
 };
-
-relOp = '<' | '>' | '=' | '!=' | '<=' | '>=';
 
 callExpr = primary ('(' argList? ')')?;
 argList = atom (',' atom)*;
