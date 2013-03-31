@@ -211,7 +211,7 @@
     NSAssert(idx < [_lookahead count], @"");
 
     PKToken *tok = _lookahead[idx];
-    //NSLog(@"lt : %@", [tok debugDescription]);
+    //NSLog(@"LT(%ld) : %@", i, [tok debugDescription]);
     return tok;
 }
 
