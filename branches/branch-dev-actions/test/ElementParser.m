@@ -1,11 +1,12 @@
 #import "ElementParser.h"
-#import <ParseKit/PKAssembly.h>
+#import <ParseKit/ParseKit.h>
 #import "PKSRecognitionException.h"
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
 
 #define POP() [self._assembly pop]
+#define TOK() (PKToken *)[self._assembly pop]
 #define PUSH(tok) [self._assembly push:(tok)]
 #define ABOVE(fence) [self._assembly objectsAbove:(fence)]
 

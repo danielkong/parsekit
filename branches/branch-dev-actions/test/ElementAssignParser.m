@@ -1,11 +1,12 @@
 #import "ElementAssignParser.h"
-#import <ParseKit/PKAssembly.h>
+#import <ParseKit/ParseKit.h>
 #import "PKSRecognitionException.h"
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
 
 #define POP() [self._assembly pop]
+#define TOK() (PKToken *)[self._assembly pop]
 #define PUSH(tok) [self._assembly push:(tok)]
 #define ABOVE(fence) [self._assembly objectsAbove:(fence)]
 
@@ -26,12 +27,12 @@
 	self = [super init];
 	if (self) {
 		self._tokenKindTab = @{
-           @"[" : @(TOKEN_KIND_LBRACKET),
            @"]" : @(TOKEN_KIND_RBRACKET),
+           @"[" : @(TOKEN_KIND_LBRACKET),
            @"," : @(TOKEN_KIND_COMMA),
            @"=" : @(TOKEN_KIND_EQ),
-           @"." : @(TOKEN_KIND_DOT),
            @";" : @(TOKEN_KIND_SEMI),
+           @"." : @(TOKEN_KIND_DOT),
         };
 	}
 	return self;

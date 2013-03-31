@@ -328,7 +328,25 @@
     if (block) result = block();
     return result;
 }
+
+
+- (BOOL)test:(BOOL (^)(void))block {
+    NSParameterAssert(block);
     
+    BOOL result = YES;
+    if (block) result = block();
+    return result;
+}
+
+
+- (void)testAndThrow:(BOOL (^)(void))block {
+    NSParameterAssert(block);
+    
+    if (![self test:block]) {
+        [self raise:@"Predicate Failed"];
+    }
+}
+
 
 - (void)_start {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);

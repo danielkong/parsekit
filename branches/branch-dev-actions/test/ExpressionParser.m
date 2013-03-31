@@ -1,11 +1,12 @@
 #import "ExpressionParser.h"
-#import <ParseKit/PKAssembly.h>
+#import <ParseKit/ParseKit.h>
 #import "PKSRecognitionException.h"
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
 
 #define POP() [self._assembly pop]
+#define TOK() (PKToken *)[self._assembly pop]
 #define PUSH(tok) [self._assembly push:(tok)]
 #define ABOVE(fence) [self._assembly objectsAbove:(fence)]
 
@@ -26,19 +27,19 @@
 	self = [super init];
 	if (self) {
 		self._tokenKindTab = @{
-           @"<" : @(TOKEN_KIND_LT),
-           @">" : @(TOKEN_KIND_GT),
-           @"=" : @(TOKEN_KIND_EQ),
-           @"!=" : @(TOKEN_KIND_NE),
-           @"<=" : @(TOKEN_KIND_LE),
            @">=" : @(TOKEN_KIND_GE),
-           @"(" : @(TOKEN_KIND_OPENPAREN),
-           @")" : @(TOKEN_KIND_CLOSEPAREN),
-           @"yes" : @(TOKEN_KIND_YES),
-           @"no" : @(TOKEN_KIND_NO),
-           @"." : @(TOKEN_KIND_DOT),
            @"," : @(TOKEN_KIND_COMMA),
            @"or" : @(TOKEN_KIND_OR),
+           @"<" : @(TOKEN_KIND_LT),
+           @"<=" : @(TOKEN_KIND_LE),
+           @"=" : @(TOKEN_KIND_EQ),
+           @"." : @(TOKEN_KIND_DOT),
+           @">" : @(TOKEN_KIND_GT),
+           @"(" : @(TOKEN_KIND_OPENPAREN),
+           @"yes" : @(TOKEN_KIND_YES),
+           @"no" : @(TOKEN_KIND_NO),
+           @")" : @(TOKEN_KIND_CLOSEPAREN),
+           @"!=" : @(TOKEN_KIND_NE),
            @"and" : @(TOKEN_KIND_AND),
         };
 	}
@@ -114,7 +115,7 @@
 - (void)relExpr {
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_EQ || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_LT) {
+    while (LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_EQ) {
         [self relOp]; 
         [self callExpr]; 
     }
@@ -148,7 +149,7 @@
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPENPAREN) {
         [self openParen]; 
-        if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -170,7 +171,7 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPENPAREN) {
         [self openParen]; 
@@ -187,7 +188,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
