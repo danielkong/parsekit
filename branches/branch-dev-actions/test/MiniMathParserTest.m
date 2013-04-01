@@ -53,11 +53,9 @@
 #endif
 }
 
-
 - (void)tearDown {
     self.factory = nil;
 }
-
 
 - (void)testAddDisableActions {
     _parser.disableActions = YES;
@@ -65,7 +63,7 @@
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"1+2" assembler:nil error:&err];
     
-    TDEqualObjects(@"[1, +, 2]1/+/2^", [res description]);
+    TDEqualObjects(@"[1, 2]1/+/2^", [res description]);
 }
 
 - (void)testMultDisableActions {
@@ -83,7 +81,7 @@
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"1+2*3+4" assembler:nil error:&err];
     
-    TDEqualObjects(@"[1, +, 2, 3, +, 4]1/+/2/*/3/+/4^", [res description]);
+    TDEqualObjects(@"[1, 2, 3, 4]1/+/2/*/3/+/4^", [res description]);
 }
 
 - (void)testAddMultPowDisableActions {
@@ -92,18 +90,18 @@
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"1+2*3^5+4" assembler:nil error:&err];
     
-    TDEqualObjects(@"[1, +, 2, 3, ^, 5, +, 4]1/+/2/*/3/^/5/+/4^", [res description]);
+    TDEqualObjects(@"[1, 2, 3, ^, 5, 4]1/+/2/*/3/^/5/+/4^", [res description]);
 }
 
-//- (void)testAddEnableActions {
-//    _parser.disableActions = NO;
-//    
-//    NSError *err = nil;
-//    PKAssembly *res = [_parser parseString:@"1+2" assembler:nil error:&err];
-//    
-//    TDEqualObjects(@"[1, +, 2]1/+/2^", [res description]);
-//}
-//
+- (void)testAddEnableActions {
+    _parser.disableActions = NO;
+    
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"1+2" assembler:nil error:&err];
+    
+    TDEqualObjects(@"[3]1/+/2^", [res description]);
+}
+
 - (void)testMultEnableActions {
     _parser.disableActions = NO;
     
@@ -112,16 +110,16 @@
     
     TDEqualObjects(@"[12]3/*/4^", [res description]);
 }
-//
-//- (void)testAddMultEnableActions {
-//    _parser.disableActions = NO;
-//    
-//    NSError *err = nil;
-//    PKAssembly *res = [_parser parseString:@"1+2*3+4" assembler:nil error:&err];
-//    
-//    TDEqualObjects(@"[1, +, 2, *, 3, +, 4]1/+/2/*/3/+/4^", [res description]);
-//}
-//
+
+- (void)testAddMultEnableActions {
+    _parser.disableActions = NO;
+    
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"1+2*3+4" assembler:nil error:&err];
+    
+    TDEqualObjects(@"[11]1/+/2/*/3/+/4^", [res description]);
+}
+
 //- (void)testAddMultPowEnableActions {
 //    _parser.disableActions = NO;
 //    

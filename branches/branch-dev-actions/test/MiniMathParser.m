@@ -77,8 +77,11 @@
     
     [self mult]; 
     while (LA(1) == TOKEN_KIND_PLUS) {
-        [self match:TOKEN_KIND_PLUS]; 
+        [self match:TOKEN_KIND_PLUS]; [self discard:1];
         [self mult]; 
+        [self execute:(id)^{
+             PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); 
+        }];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
@@ -90,10 +93,10 @@
     while (LA(1) == TOKEN_KIND_STAR) {
         [self match:TOKEN_KIND_STAR]; [self discard:1];
         [self pow]; 
+        [self execute:(id)^{
+             PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); 
+        }];
     }
-    [self execute:(id)^{
-         PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); 
-    }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchMult:)];
 }
