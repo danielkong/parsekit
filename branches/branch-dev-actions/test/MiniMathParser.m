@@ -82,7 +82,7 @@
 
 - (void)method {
     
-    if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type]; [self Word]; [self match:TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:TOKEN_KIND_CLOSE_PAREN]; [self match:TOKEN_KIND_SEMI_COLON]; }]) {
+    if ([self speculate:^{ [self testAndThrow:(id)^{ return YES; }]; [self type]; [self Word]; [self match:TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:TOKEN_KIND_CLOSE_PAREN]; [self match:TOKEN_KIND_SEMI_COLON]; }]) {
         [self type]; 
         [self Word]; 
         [self match:TOKEN_KIND_OPEN_PAREN]; 
