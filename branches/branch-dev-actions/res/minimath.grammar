@@ -1,6 +1,6 @@
 @start = expr;
 
-expr = mult ('*' mult)*;
-mult = pow ('+' pow)*;
+expr = mult ('+' mult)*;
+mult = pow ('*' pow)*;
 pow = atom ('^' pow)?;
-atom = Number;
+atom = Number {PUSH_FLOAT(POP_FLOAT());};

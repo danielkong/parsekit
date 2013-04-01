@@ -42,8 +42,8 @@
 	self = [super init];
 	if (self) {
 		self._tokenKindTab = @{
-           @"*" : @(TOKEN_KIND_STAR),
            @"+" : @(TOKEN_KIND_PLUS),
+           @"*" : @(TOKEN_KIND_STAR),
            @"^" : @(TOKEN_KIND_CARET),
         };
 	}
@@ -76,8 +76,8 @@
 - (void)expr {
     
     [self mult]; 
-    while (LA(1) == TOKEN_KIND_STAR) {
-        [self match:TOKEN_KIND_STAR]; 
+    while (LA(1) == TOKEN_KIND_PLUS) {
+        [self match:TOKEN_KIND_PLUS]; 
         [self mult]; 
     }
 
@@ -87,8 +87,8 @@
 - (void)mult {
     
     [self pow]; 
-    while (LA(1) == TOKEN_KIND_PLUS) {
-        [self match:TOKEN_KIND_PLUS]; 
+    while (LA(1) == TOKEN_KIND_STAR) {
+        [self match:TOKEN_KIND_STAR]; 
         [self pow]; 
     }
 
@@ -109,6 +109,9 @@
 - (void)atom {
     
     [self Number]; 
+    [self execute:(id)^{
+        PUSH_FLOAT(POP_FLOAT());
+    }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
 }
