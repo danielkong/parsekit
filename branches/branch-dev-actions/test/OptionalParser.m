@@ -74,7 +74,7 @@
 
 - (void)s {
     
-    if (LA(1) == TOKEN_KIND_FOO) {
+    if ((LA(1) == TOKEN_KIND_FOO) && ([self speculate:^{ [self expr]; }])) {
         [self expr]; 
     }
     [self foo]; 
