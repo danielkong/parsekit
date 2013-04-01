@@ -111,8 +111,8 @@
              
 		double exp = POP_FLOAT();
 		double base = POP_FLOAT();
-		double result = 1;
-	    for (NSUInteger i = 0; i < exp; i++) 
+		double result = base;
+	    for (NSUInteger i = 1; i < exp; i++) 
 			result *= base;
 		PUSH_FLOAT(result); 
 	
