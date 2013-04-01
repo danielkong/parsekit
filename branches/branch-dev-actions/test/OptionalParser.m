@@ -74,15 +74,8 @@
 
 - (void)s {
     
-    if (LA(1) == TOKEN_KIND_FOO) {
-        if (LA(1) == TOKEN_KIND_FOO) {
-            [self expr]; 
-        }
-    } else if (LA(1) == TOKEN_KIND_BAR) {
-        [self bar]; 
-    } else {
-        [self raise:@"no viable alternative found in s"];
-    }
+    [self expr]; 
+    [self bar]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
@@ -90,7 +83,9 @@
 - (void)expr {
     
     [self foo]; 
-    [self bar]; 
+    if (LA(1) == TOKEN_KIND_BAR) {
+        [self bar]; 
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
