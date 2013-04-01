@@ -1,7 +1,7 @@
 @start = s;
 
-s = label Word '=' expr
-  | label 'return' expr
+s = label? Word '=' expr
+  | label? 'return' expr
   ;
   
 label 
