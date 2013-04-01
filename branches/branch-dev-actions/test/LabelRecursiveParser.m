@@ -75,7 +75,12 @@
 
 - (void)s {
     
-    if ([self speculate:^{ [self label]; [self Word]; [self match:TOKEN_KIND_EQUALS]; [self expr]; }]) {
+    if ([self speculate:^{
+            [self label];
+            [self Word];
+            [self match:TOKEN_KIND_EQUALS];
+            [self expr];
+    }]) {
         [self label]; 
         [self Word]; 
         [self match:TOKEN_KIND_EQUALS]; 
@@ -92,7 +97,7 @@
 }
 
 - (void)label {
-    
+    NSLog(@"%@", LT(1));
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self Word]; 
         [self match:TOKEN_KIND_COLON]; 
