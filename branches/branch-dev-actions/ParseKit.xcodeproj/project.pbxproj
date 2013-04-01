@@ -555,6 +555,12 @@
 		D3B63A551709F88500BA9DBF /* minimath.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A541709F88500BA9DBF /* minimath.grammar */; };
 		D3B63A581709F8A000BA9DBF /* MiniMathParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A571709F89F00BA9DBF /* MiniMathParserTest.m */; };
 		D3B63A5B1709F8D800BA9DBF /* MiniMathParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A5A1709F8D600BA9DBF /* MiniMathParser.m */; };
+		D3B63A5E170A04C800BA9DBF /* LabelRecursiveParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A5D170A04C700BA9DBF /* LabelRecursiveParserTest.m */; };
+		D3B63A61170A050800BA9DBF /* LabelEBNFParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A60170A050700BA9DBF /* LabelEBNFParserTest.m */; };
+		D3B63A64170A062100BA9DBF /* label_ebnf.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A62170A062100BA9DBF /* label_ebnf.grammar */; };
+		D3B63A65170A062100BA9DBF /* label_recursive.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A63170A062100BA9DBF /* label_recursive.grammar */; };
+		D3B63A68170A064300BA9DBF /* LabelRecursiveParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A67170A064000BA9DBF /* LabelRecursiveParser.m */; };
+		D3B63A6B170A065700BA9DBF /* LabelEBNFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A6A170A065500BA9DBF /* LabelEBNFParser.m */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3B986AE1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
@@ -1535,6 +1541,16 @@
 		D3B63A571709F89F00BA9DBF /* MiniMathParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MiniMathParserTest.m; path = test/MiniMathParserTest.m; sourceTree = "<group>"; };
 		D3B63A591709F8D400BA9DBF /* MiniMathParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MiniMathParser.h; path = test/MiniMathParser.h; sourceTree = "<group>"; };
 		D3B63A5A1709F8D600BA9DBF /* MiniMathParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MiniMathParser.m; path = test/MiniMathParser.m; sourceTree = "<group>"; };
+		D3B63A5C170A04C600BA9DBF /* LabelRecursiveParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LabelRecursiveParserTest.h; path = test/LabelRecursiveParserTest.h; sourceTree = "<group>"; };
+		D3B63A5D170A04C700BA9DBF /* LabelRecursiveParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LabelRecursiveParserTest.m; path = test/LabelRecursiveParserTest.m; sourceTree = "<group>"; };
+		D3B63A5F170A050600BA9DBF /* LabelEBNFParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LabelEBNFParserTest.h; path = test/LabelEBNFParserTest.h; sourceTree = "<group>"; };
+		D3B63A60170A050700BA9DBF /* LabelEBNFParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LabelEBNFParserTest.m; path = test/LabelEBNFParserTest.m; sourceTree = "<group>"; };
+		D3B63A62170A062100BA9DBF /* label_ebnf.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = label_ebnf.grammar; path = res/label_ebnf.grammar; sourceTree = "<group>"; };
+		D3B63A63170A062100BA9DBF /* label_recursive.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = label_recursive.grammar; path = res/label_recursive.grammar; sourceTree = "<group>"; };
+		D3B63A66170A063D00BA9DBF /* LabelRecursiveParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LabelRecursiveParser.h; path = test/LabelRecursiveParser.h; sourceTree = "<group>"; };
+		D3B63A67170A064000BA9DBF /* LabelRecursiveParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LabelRecursiveParser.m; path = test/LabelRecursiveParser.m; sourceTree = "<group>"; };
+		D3B63A69170A065300BA9DBF /* LabelEBNFParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LabelEBNFParser.h; path = test/LabelEBNFParser.h; sourceTree = "<group>"; };
+		D3B63A6A170A065500BA9DBF /* LabelEBNFParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LabelEBNFParser.m; path = test/LabelEBNFParser.m; sourceTree = "<group>"; };
 		D3B69D310E80249900D70C41 /* nonascii.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = nonascii.html; path = res/nonascii.html; sourceTree = "<group>"; };
 		D3B986AD1700D3A9000CBCAE /* expression.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = expression.grammar; path = res/expression.grammar; sourceTree = "<group>"; };
 		D3BBBC960FEC9722007DF30D /* TDXMLParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDXMLParserTest.h; path = test/TDXMLParserTest.h; sourceTree = "<group>"; };
@@ -2654,6 +2670,10 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D3B63A66170A063D00BA9DBF /* LabelRecursiveParser.h */,
+				D3B63A67170A064000BA9DBF /* LabelRecursiveParser.m */,
+				D3B63A69170A065300BA9DBF /* LabelEBNFParser.h */,
+				D3B63A6A170A065500BA9DBF /* LabelEBNFParser.m */,
 				D3B63A591709F8D400BA9DBF /* MiniMathParser.h */,
 				D3B63A5A1709F8D600BA9DBF /* MiniMathParser.m */,
 				D3B63A481709155600BA9DBF /* MethodsFactoredParser.h */,
@@ -2675,6 +2695,10 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D3B63A5C170A04C600BA9DBF /* LabelRecursiveParserTest.h */,
+				D3B63A5D170A04C700BA9DBF /* LabelRecursiveParserTest.m */,
+				D3B63A5F170A050600BA9DBF /* LabelEBNFParserTest.h */,
+				D3B63A60170A050700BA9DBF /* LabelEBNFParserTest.m */,
 				D3B63A561709F89F00BA9DBF /* MiniMathParserTest.h */,
 				D3B63A571709F89F00BA9DBF /* MiniMathParserTest.m */,
 				D3B63A4B1709155D00BA9DBF /* MethodsFactoredParserTest.h */,
@@ -2696,6 +2720,8 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D3B63A62170A062100BA9DBF /* label_ebnf.grammar */,
+				D3B63A63170A062100BA9DBF /* label_recursive.grammar */,
 				D3B63A541709F88500BA9DBF /* minimath.grammar */,
 				D3B63A3E170910AA00BA9DBF /* methods.grammar */,
 				D3B63A461709152F00BA9DBF /* methods_factored.grammar */,
@@ -3781,6 +3807,8 @@
 				D3B63A5217091FCC00BA9DBF /* PKSSemanticPredicateTestAndThrowExprTemplate.txt in Resources */,
 				D3B63A5317091FCC00BA9DBF /* PKSSemanticPredicateTestAndThrowStatTemplate.txt in Resources */,
 				D3B63A551709F88500BA9DBF /* minimath.grammar in Resources */,
+				D3B63A64170A062100BA9DBF /* label_ebnf.grammar in Resources */,
+				D3B63A65170A062100BA9DBF /* label_recursive.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4128,6 +4156,10 @@
 				D3B63A4D1709155D00BA9DBF /* MethodsFactoredParserTest.m in Sources */,
 				D3B63A581709F8A000BA9DBF /* MiniMathParserTest.m in Sources */,
 				D3B63A5B1709F8D800BA9DBF /* MiniMathParser.m in Sources */,
+				D3B63A5E170A04C800BA9DBF /* LabelRecursiveParserTest.m in Sources */,
+				D3B63A61170A050800BA9DBF /* LabelEBNFParserTest.m in Sources */,
+				D3B63A68170A064300BA9DBF /* LabelRecursiveParser.m in Sources */,
+				D3B63A6B170A065700BA9DBF /* LabelEBNFParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
