@@ -75,7 +75,7 @@
     
     do {
         [self method]; 
-    } while (LA(1) == TOKEN_KIND_INT || LA(1) == TOKEN_KIND_VOID);
+    } while (LA(1) == TOKEN_KIND_VOID || LA(1) == TOKEN_KIND_INT);
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
