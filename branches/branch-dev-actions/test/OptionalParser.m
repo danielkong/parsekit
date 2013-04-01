@@ -74,7 +74,10 @@
 
 - (void)s {
     
-    [self expr]; 
+    if (LA(1) == TOKEN_KIND_FOO) {
+        [self expr]; 
+    }
+    [self foo]; 
     [self bar]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
@@ -83,9 +86,8 @@
 - (void)expr {
     
     [self foo]; 
-    if (LA(1) == TOKEN_KIND_BAR) {
-        [self bar]; 
-    }
+    [self bar]; 
+    [self bar]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
