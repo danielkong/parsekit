@@ -105,8 +105,18 @@
     
     [self atom]; 
     if (LA(1) == TOKEN_KIND_CARET) {
-        [self match:TOKEN_KIND_CARET]; 
+        [self match:TOKEN_KIND_CARET]; [self discard:1];
         [self pow]; 
+        [self execute:(id)^{
+             
+		double exp = POP_FLOAT();
+		double base = POP_FLOAT();
+		double result = 1;
+	    for (NSUInteger i = 0; i < exp; i++) 
+			result *= base;
+		PUSH_FLOAT(result); 
+	
+        }];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPow:)];

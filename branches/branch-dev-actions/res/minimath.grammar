@@ -2,5 +2,12 @@
 
 expr = mult ('+'! mult { PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); })*;
 mult = pow ('*'! pow { PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); })*;
-pow = atom ('^' pow)?;
+pow = atom ('^'! pow { 
+		double exp = POP_FLOAT();
+		double base = POP_FLOAT();
+		double result = 1;
+	    for (NSUInteger i = 0; i < exp; i++) 
+			result *= base;
+		PUSH_FLOAT(result); 
+	})?;
 atom = Number {PUSH_FLOAT(POP_FLOAT());};
