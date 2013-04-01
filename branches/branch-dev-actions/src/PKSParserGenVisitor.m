@@ -311,7 +311,7 @@
     vars[LAST] = @([set count] - 1);
 
     // recurse
-    self.depth += 2;
+    self.depth += 2; // rep body is always wrapped in an while AND an IF. so increase depth twice
     [child visit:self];
     self.depth -= 2;
     
@@ -321,15 +321,10 @@
     vars[CHILD_STRING] = childStr;
     
     NSMutableString *output = [NSMutableString string];
-    // if test
-    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionStartTemplate"] withVariables:vars]];
-    
-//    // body
-//    [output appendString:childStr];
-//    
-//    // else
-//    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionEndTemplate"] withVariables:vars]];
-    
+
+    // repetition
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionTemplate"] withVariables:vars]];
+
     // action
     [output appendString:[self actionStringFrom:node]];
 
