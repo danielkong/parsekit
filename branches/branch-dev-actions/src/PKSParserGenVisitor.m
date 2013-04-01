@@ -209,7 +209,6 @@
     if (!self.isSpeculating && node.actionNode) {
         id vars = @{ACTION_BODY: node.actionNode.source, DEPTH: @(_depth)};
         [result appendString:[_engine processTemplate:[self templateStringNamed:@"PKSActionTemplate"] withVariables:vars]];
-        [result replaceOccurrencesOfString:@"LOG(\"" withString:@"LOG(@\"" options:0 range:NSMakeRange(0, [result length])];
     }
 
     return result;

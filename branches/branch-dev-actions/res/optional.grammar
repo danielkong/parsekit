@@ -1,0 +1,8 @@
+@start = s;
+
+s = expr? | bar;
+  
+expr = foo bar;
+
+foo = 'foo';
+bar ='bar';
