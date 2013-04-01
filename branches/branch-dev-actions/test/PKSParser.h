@@ -38,6 +38,7 @@ enum {
 - (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outErr;
 - (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outErr;
 
+@property (nonatomic, assign) BOOL disableActions;
 @end
 
 @interface PKSParser (Subclass)
