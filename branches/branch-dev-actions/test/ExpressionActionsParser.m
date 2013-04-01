@@ -97,7 +97,11 @@
     
     [self andExpr]; 
     while (LA(1) == TOKEN_KIND_OR) {
-        [self orTerm]; 
+        if ([self speculate:^{ [self orTerm]; }]) {
+            [self orTerm]; 
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
@@ -122,7 +126,11 @@
     
     [self relExpr]; 
     while (LA(1) == TOKEN_KIND_AND) {
-        [self andTerm]; 
+        if ([self speculate:^{ [self andTerm]; }]) {
+            [self andTerm]; 
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndExpr:)];
@@ -146,8 +154,12 @@
 - (void)relExpr {
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_EQUALS) {
-        [self relOpTerm]; 
+    while (LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_EQUALS) {
+        if ([self speculate:^{ [self relOpTerm]; }]) {
+            [self relOpTerm]; 
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelExpr:)];
@@ -201,7 +213,7 @@
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
-        if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_YES_UPPER) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES) {
             [self argList]; 
         }
         [self match:TOKEN_KIND_CLOSE_PAREN]; 
@@ -214,8 +226,12 @@
     
     [self atom]; 
     while (LA(1) == TOKEN_KIND_COMMA) {
-        [self match:TOKEN_KIND_COMMA]; 
-        [self atom]; 
+        if ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self atom]; }]) {
+            [self match:TOKEN_KIND_COMMA]; 
+            [self atom]; 
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchArgList:)];
@@ -223,7 +239,7 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES_UPPER) {
+    if (LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
@@ -240,7 +256,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_YES) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_NO) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -253,7 +269,11 @@
     
     [self id]; 
     while (LA(1) == TOKEN_KIND_DOT) {
-        [self member]; 
+        if ([self speculate:^{ [self member]; }]) {
+            [self member]; 
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchObj:)];
@@ -276,7 +296,7 @@
 
 - (void)literal {
     
-    if ([self test:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }] && (LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO_UPPER)) {
+    if ([self test:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }] && (LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER)) {
         [self bool]; 
         [self execute:(id)^{
              PUSH_BOOL(EQ_IGNORE_CASE(POP_STR(), @"yes")); 

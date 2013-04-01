@@ -95,7 +95,11 @@
     
     [self andExpr]; 
     while (LA(1) == TOKEN_KIND_OR) {
-        [self orTerm]; 
+        if ([self speculate:^{ [self orTerm]; }]) {
+            [self orTerm]; 
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
@@ -113,7 +117,11 @@
     
     [self relExpr]; 
     while (LA(1) == TOKEN_KIND_AND) {
-        [self andTerm]; 
+        if ([self speculate:^{ [self andTerm]; }]) {
+            [self andTerm]; 
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndExpr:)];
@@ -130,9 +138,13 @@
 - (void)relExpr {
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_EQ) {
-        [self relOp]; 
-        [self callExpr]; 
+    while (LA(1) == TOKEN_KIND_EQ || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_GE) {
+        if ([self speculate:^{ [self relOp]; [self callExpr]; }]) {
+            [self relOp]; 
+            [self callExpr]; 
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelExpr:)];
@@ -164,7 +176,7 @@
     [self primary]; 
     if (LA(1) == TOKEN_KIND_OPENPAREN) {
         [self openParen]; 
-        if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -177,8 +189,12 @@
     
     [self atom]; 
     while (LA(1) == TOKEN_KIND_COMMA) {
-        [self comma]; 
-        [self atom]; 
+        if ([self speculate:^{ [self comma]; [self atom]; }]) {
+            [self comma]; 
+            [self atom]; 
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchArgList:)];
@@ -186,7 +202,7 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES) {
         [self atom]; 
     } else if (LA(1) == TOKEN_KIND_OPENPAREN) {
         [self openParen]; 
@@ -203,7 +219,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -216,7 +232,11 @@
     
     [self id]; 
     while (LA(1) == TOKEN_KIND_DOT) {
-        [self member]; 
+        if ([self speculate:^{ [self member]; }]) {
+            [self member]; 
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchObj:)];
@@ -243,7 +263,7 @@
         [self QuotedString]; 
     } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
-    } else if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO) {
+    } else if (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES) {
         [self bool]; 
     } else {
         [self raise:@"no viable alternative found in literal"];

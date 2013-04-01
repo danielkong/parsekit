@@ -244,8 +244,8 @@
     // merge
     vars[METHOD_BODY] = childStr;
     NSString *template = [self templateStringNamed:@"PKSMethodTemplate"];
-    NSString *output = [_engine processTemplate:template withVariables:vars];
-
+    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
+    
     // push
     [self push:output];
 }
@@ -262,12 +262,10 @@
     vars[DISCARD] = @(node.discard);
 
     // merge
-//    NSString *templateName = self.needsBacktracking ? @"PKSMethodSpeculateTemplate" : @"PKSMethodCallTemplate";
-//    NSString *template = [self templateStringNamed:templateName];
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
-    NSString *output = [_engine processTemplate:template withVariables:vars];
+    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
     
-    output = [output stringByAppendingString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node]];
 
     // push
     [self push:output];
@@ -320,10 +318,8 @@
     vars[IF_TEST] = [self stringByRemovingTabsAndNewLines:childStr];
     vars[CHILD_STRING] = childStr;
     
-    NSMutableString *output = [NSMutableString string];
-
     // repetition
-    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionTemplate"] withVariables:vars]];
+    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionTemplate"] withVariables:vars]];
 
     // action
     [output appendString:[self actionStringFrom:node]];
@@ -625,9 +621,9 @@
     
     // merge
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
-    NSString *output = [_engine processTemplate:template withVariables:vars];
+    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
     
-    output = [output stringByAppendingString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node]];
 
     // push
     [self push:output];
@@ -645,9 +641,9 @@
 
     // merge
     NSString *template = [self templateStringNamed:@"PKSMatchCallTemplate"];
-    NSString *output = [_engine processTemplate:template withVariables:vars];
+    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
     
-    output = [output stringByAppendingString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node]];
 
     // push
     [self push:output];

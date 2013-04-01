@@ -122,8 +122,12 @@
     if (LA(1) == TOKEN_KIND_INT) {
         [self arg]; 
         while (LA(1) == TOKEN_KIND_COMMA) {
-            [self match:TOKEN_KIND_COMMA]; 
-            [self arg]; 
+            if ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self arg]; }]) {
+                [self match:TOKEN_KIND_COMMA]; 
+                [self arg]; 
+            } else {
+                return;
+            }
         }
     }
 

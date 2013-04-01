@@ -75,7 +75,7 @@
     
     do {
         [self method]; 
-    } while (LA(1) == TOKEN_KIND_INT || LA(1) == TOKEN_KIND_VOID);
+    } while (LA(1) == TOKEN_KIND_VOID || LA(1) == TOKEN_KIND_INT);
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
@@ -117,8 +117,12 @@
     if (LA(1) == TOKEN_KIND_INT) {
         [self arg]; 
         while (LA(1) == TOKEN_KIND_COMMA) {
-            [self match:TOKEN_KIND_COMMA]; 
-            [self arg]; 
+            if ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self arg]; }]) {
+                [self match:TOKEN_KIND_COMMA]; 
+                [self arg]; 
+            } else {
+                return;
+            }
         }
     }
 

@@ -86,8 +86,12 @@
     
     [self element]; 
     while (LA(1) == TOKEN_KIND_COMMA) {
-        [self comma]; 
-        [self element]; 
+        if ([self speculate:^{ [self comma]; [self element]; }]) {
+            [self comma]; 
+            [self element]; 
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElements:)];
