@@ -1,32 +1,32 @@
 //
-//  MethodsParserTest.m
+//  MethodsFactoredParserTest.m
 //  ParseKit
 //
 //  Created by Todd Ditchendorf on 3/27/13.
 //
 //
 
-#import "MethodsParserTest.h"
+#import "MethodsFactoredParserTest.h"
 #import "PKParserFactory.h"
 #import "PKSParserGenVisitor.h"
 #import "PKRootNode.h"
-#import "MethodsParser.h"
+#import "MethodsFactoredParser.h"
 
-@interface MethodsParserTest ()
+@interface MethodsFactoredParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;
 @property (nonatomic, retain) PKSParserGenVisitor *visitor;
-@property (nonatomic, retain) MethodsParser *parser;
+@property (nonatomic, retain) MethodsFactoredParser *parser;
 @end
 
-@implementation MethodsParserTest
+@implementation MethodsFactoredParserTest
 
 - (void)setUp {
     self.factory = [PKParserFactory factory];
     _factory.collectTokenKinds = YES;
 
     NSError *err = nil;
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"methods" ofType:@"grammar"];
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"methods_factored" ofType:@"grammar"];
     NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
     
     err = nil;
@@ -36,16 +36,16 @@
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     [_root visit:_visitor];
     
-    self.parser = [[[MethodsParser alloc] init] autorelease];
+    self.parser = [[[MethodsFactoredParser alloc] init] autorelease];
 
 #if TD_EMIT
-    path = [@"~/work/parsekit/trunk/test/MethodsParser.h" stringByExpandingTildeInPath];
+    path = [@"~/work/parsekit/trunk/test/MethodsFactoredParser.h" stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
     }
 
-    path = [@"~/work/parsekit/trunk/test/MethodsParser.m" stringByExpandingTildeInPath];
+    path = [@"~/work/parsekit/trunk/test/MethodsFactoredParser.m" stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
