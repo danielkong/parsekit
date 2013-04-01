@@ -291,8 +291,10 @@
 
 
 // TODO make mutable
-- (NSString *)stringByRemovingTabsAndNewLines:(NSString *)inStr {
-    return [[inStr stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"    " withString:@""];
+- (NSMutableString *)removeTabsAndNewLines:(NSMutableString *)inStr {
+    [inStr replaceOccurrencesOfString:@"\n" withString:@"" options:0 range:NSMakeRange(0, [inStr length])];
+    [inStr replaceOccurrencesOfString:@"    " withString:@"" options:0 range:NSMakeRange(0, [inStr length])];
+    return inStr;
 }
 
 
@@ -316,9 +318,9 @@
     self.depth -= 2;
     
     // pop
-    NSString *childStr = [self pop];
-    vars[IF_TEST] = [self stringByRemovingTabsAndNewLines:childStr];
-    vars[CHILD_STRING] = childStr;
+    NSMutableString *childStr = [self pop];
+    vars[CHILD_STRING] = [[childStr copy] autorelease];
+    vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
     
     // repetition
     NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionTemplate"] withVariables:vars]];
@@ -465,7 +467,7 @@
         self.isSpeculating = YES;
         [child visit:self];
         self.isSpeculating = NO;
-        NSString *ifTest = [self stringByRemovingTabsAndNewLines:[self pop]];
+        NSString *ifTest = [self removeTabsAndNewLines:[self pop]];
 
         // visit for child body
         [child visit:self];
