@@ -57,13 +57,18 @@
     self.factory = nil;
 }
 
-- (void)testAddDisableActions {
-//    _parser.disableActions = YES;
-//
-//    NSError *err = nil;
-//    PKAssembly *res = [_parser parseString:@"1+2" assembler:nil error:&err];
+- (void)testAlt1 {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"foo: bar = 1" assembler:nil error:&err];
+    
+    TDEqualObjects(@"[foo, :, bar, =, 1]foo/:/bar/=/1^", [res description]);
+}
 
-    //    TDEqualObjects(@"[1, 2]1/+/2^", [res description]);
+- (void)testAlt2 {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"foo: return 1" assembler:nil error:&err];
+    
+    TDEqualObjects(@"[foo, :, return, 1]foo/:/return/1^", [res description]);
 }
 
 @end

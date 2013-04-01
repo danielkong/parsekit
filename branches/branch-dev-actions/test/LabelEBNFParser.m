@@ -94,8 +94,12 @@
 - (void)label {
     
     while (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
-        [self Word]; 
-        [self match:TOKEN_KIND_COLON]; 
+        if ([self speculate:^{ [self Word]; [self match:TOKEN_KIND_COLON]; }]) {
+            [self Word];
+            [self match:TOKEN_KIND_COLON];
+        } else {
+            return;
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchLabel:)];
