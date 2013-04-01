@@ -31,7 +31,7 @@
     
     err = nil;
     self.root = (id)[_factory ASTFromGrammar:g error:&err];
-    _root.grammarName = @"Methods";
+    _root.grammarName = @"MethodsFactored";
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     [_root visit:_visitor];

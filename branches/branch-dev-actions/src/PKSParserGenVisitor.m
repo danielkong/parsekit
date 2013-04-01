@@ -366,13 +366,41 @@
 }
 
 
-- (NSMutableString *)recurseAlt:(PKAlternationNode *)node :(NSMutableArray *)lookaheadSets {
+- (NSString *)semanticPredicateForNode:(PKBaseNode *)node {
+    NSString *result = nil;
+    
+    if (node.semanticPredicateNode) {
+        NSString *predBody = node.semanticPredicateNode.source;
+        NSAssert([predBody length], @"");
+        BOOL isStat = [predBody rangeOfString:@";"].length > 0;
+        NSString *templateName = isStat ? @"PKSSemanticPredicateStatTemplate" : @"PKSSemanticPredicateExprTemplate";
+        
+        result = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:@{PREDICATE_BODY: predBody}];
+        NSAssert(result, @"");
+    }
+
+    return result;
+}
+
+
+- (BOOL)isEmptyNode:(PKBaseNode *)node {
+    return [node.token.stringValue isEqualToString:@"Empty"];
+}
+
+
+- (NSMutableString *)recurseAlt:(PKAlternationNode *)node la:(NSMutableArray *)lookaheadSets {
     // setup child str buffer
-    NSMutableString *childStr = [NSMutableString string];
+    NSMutableString *result = [NSMutableString string];
     
     // recurse
     NSUInteger idx = 0;
     for (PKBaseNode *child in node.children) {
+        if ([self isEmptyNode:child]) {
+            node.hasEmptyAlternative = YES;
+            ++idx;
+            continue;
+        }
+        
         id vars = [NSMutableDictionary dictionary];
         
         NSSet *set = lookaheadSets[idx];
@@ -381,52 +409,40 @@
         vars[DEPTH] = @(_depth);
         vars[NEEDS_BACKTRACK] = @(_needsBacktracking);
 
-        if (child.semanticPredicateNode) {
-            NSString *predBody = child.semanticPredicateNode.source;
-            BOOL isStat = [predBody rangeOfString:@";"].length > 0;
-            NSString *templateName = isStat ? @"PKSSemanticPredicateStatTemplate" : @"PKSSemanticPredicateExprTemplate";
+        NSString *predStr = [self semanticPredicateForNode:child];
+        if (predStr) vars[PREDICATE] = predStr;
 
-            NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:@{PREDICATE_BODY: predBody}];
-            NSAssert(output, @"");
-            vars[PREDICATE] = output;
-        }
-
-        NSString *templateName = nil;
-        
-        switch (idx) {
-            case 0:
-                templateName = @"PKSPredictIfTemplate";
-                break;
-            default:
-                templateName = @"PKSPredictElseIfTemplate";
-                break;
-        }
-        
+        NSString *templateName = [result length] ? @"PKSPredictElseIfTemplate" : @"PKSPredictIfTemplate";
         NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars];
-        [childStr appendString:output];
+        [result appendString:output];
         
         self.depth++;
         [child visit:self];
         self.depth--;
         
         // pop
-        [childStr appendString:[self pop]];
+        [result appendString:[self pop]];
 
         ++idx;
     }
     
-    return childStr;
+    return result;
 }
 
 
-- (NSMutableString *)recurseAltForBracktracking:(PKAlternationNode *)node :(NSMutableArray *)lookaheadSets {
+- (NSMutableString *)recurseAltForBracktracking:(PKAlternationNode *)node la:(NSMutableArray *)lookaheadSets {
     // setup child str buffer
     NSMutableString *result = [NSMutableString string];
     
     // recurse
     NSUInteger idx = 0;
     for (PKBaseNode *child in node.children) {
-        
+        if ([self isEmptyNode:child]) {
+            node.hasEmptyAlternative = YES;
+            ++idx;
+            continue;
+        }
+
         // recurse first and get entire child str
         self.depth++;
 
@@ -447,18 +463,12 @@
         vars[NEEDS_BACKTRACK] = @(_needsBacktracking);
         vars[CHILD_STRING] = ifTest;
         
-        // setup template
-        NSString *templateName = nil;
-        switch (idx) {
-            case 0:
-                templateName = @"PKSSpeculateIfTemplate";
-                break;
-            default:
-                templateName = @"PKSSpeculateElseIfTemplate";
-                break;
-        }
-        
+        // TODO
+//        NSString *predStr = [self semanticPredicateForNode:child];
+//        if (predStr) vars[PREDICATE] = predStr;
+
         // process template
+        NSString *templateName = [result length] ? @"PKSSpeculateElseIfTemplate" : @"PKSSpeculateIfTemplate";
         NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars];
         [result appendString:output];
         [result appendString:childBody];
@@ -494,9 +504,9 @@
     
     NSMutableString *childStr = nil;
     if (_needsBacktracking) {
-        childStr = [self recurseAltForBracktracking:node :lookaheadSets];
+        childStr = [self recurseAltForBracktracking:node la:lookaheadSets];
     } else {
-        childStr = [self recurseAlt:node :lookaheadSets];
+        childStr = [self recurseAlt:node la:lookaheadSets];
     }
 
     self.needsBacktracking = NO;
@@ -504,8 +514,14 @@
     id vars = [NSMutableDictionary dictionary];
     vars[METHOD_NAME] = _currentDefName;
     vars[DEPTH] = @(_depth);
-    NSString *output = [_engine processTemplate:[self templateStringNamed:@"PKSPredictElseTemplate"] withVariables:vars];
-    [childStr appendString:output];
+    
+    NSString *elseStr = nil;
+    if (node.hasEmptyAlternative) {
+        elseStr = [_engine processTemplate:[self templateStringNamed:@"PKSPredictEndIfTemplate"] withVariables:vars];
+    } else {
+        elseStr = [_engine processTemplate:[self templateStringNamed:@"PKSPredictElseTemplate"] withVariables:vars];
+    }
+    [childStr appendString:elseStr];
 
     // push
     [self push:childStr];

@@ -11,7 +11,7 @@ enum {
     TOKEN_KIND_SEMI_COLON,
 };
 
-@interface MethodsParser : PKSParser
+@interface MethodsFactoredParser : PKSParser
 
 @end
 

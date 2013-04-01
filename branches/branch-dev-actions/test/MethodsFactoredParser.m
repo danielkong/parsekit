@@ -1,4 +1,4 @@
-#import "MethodsParser.h"
+#import "MethodsFactoredParser.h"
 #import <ParseKit/ParseKit.h>
 #import "PKSRecognitionException.h"
 
@@ -32,11 +32,11 @@
 @property (nonatomic, retain) PKAssembly *_assembly;
 @end
 
-@interface MethodsParser ()
+@interface MethodsFactoredParser ()
 @property (nonatomic, retain) NSDictionary *_tokenKindTab;
 @end
 
-@implementation MethodsParser
+@implementation MethodsFactoredParser
 
 - (id)init {
 	self = [super init];
@@ -119,10 +119,12 @@
 
 - (void)args {
     
-    [self arg]; 
-    while (LA(1) == TOKEN_KIND_COMMA) {
-        [self match:TOKEN_KIND_COMMA]; 
+    if (LA(1) == TOKEN_KIND_INT) {
         [self arg]; 
+        while (LA(1) == TOKEN_KIND_COMMA) {
+            [self match:TOKEN_KIND_COMMA]; 
+            [self arg]; 
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchArgs:)];

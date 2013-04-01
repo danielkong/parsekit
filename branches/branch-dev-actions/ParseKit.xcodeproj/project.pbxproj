@@ -549,6 +549,7 @@
 		D3B63A471709152F00BA9DBF /* methods_factored.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A461709152F00BA9DBF /* methods_factored.grammar */; };
 		D3B63A4A1709155900BA9DBF /* MethodsFactoredParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A491709155700BA9DBF /* MethodsFactoredParser.m */; };
 		D3B63A4D1709155D00BA9DBF /* MethodsFactoredParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A4C1709155D00BA9DBF /* MethodsFactoredParserTest.m */; };
+		D3B63A4F170918E700BA9DBF /* PKSPredictEndIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A4E170918E700BA9DBF /* PKSPredictEndIfTemplate.txt */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3B986AE1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
@@ -1521,6 +1522,7 @@
 		D3B63A491709155700BA9DBF /* MethodsFactoredParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MethodsFactoredParser.m; path = test/MethodsFactoredParser.m; sourceTree = "<group>"; };
 		D3B63A4B1709155D00BA9DBF /* MethodsFactoredParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MethodsFactoredParserTest.h; path = test/MethodsFactoredParserTest.h; sourceTree = "<group>"; };
 		D3B63A4C1709155D00BA9DBF /* MethodsFactoredParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MethodsFactoredParserTest.m; path = test/MethodsFactoredParserTest.m; sourceTree = "<group>"; };
+		D3B63A4E170918E700BA9DBF /* PKSPredictEndIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPredictEndIfTemplate.txt; path = res/PKSPredictEndIfTemplate.txt; sourceTree = "<group>"; };
 		D3B69D310E80249900D70C41 /* nonascii.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = nonascii.html; path = res/nonascii.html; sourceTree = "<group>"; };
 		D3B986AD1700D3A9000CBCAE /* expression.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = expression.grammar; path = res/expression.grammar; sourceTree = "<group>"; };
 		D3BBBC960FEC9722007DF30D /* TDXMLParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDXMLParserTest.h; path = test/TDXMLParserTest.h; sourceTree = "<group>"; };
@@ -2624,6 +2626,7 @@
 				D3B22A3D17026FBE00446945 /* PKSPredictElseIfTemplate.txt */,
 				D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */,
 				D3B22A3E17026FBE00446945 /* PKSPredictElseTemplate.txt */,
+				D3B63A4E170918E700BA9DBF /* PKSPredictEndIfTemplate.txt */,
 				D3B22A431702993B00446945 /* PKSOptionalStartTemplate.txt */,
 				D3B22A451702A03400446945 /* PKSOptionalEndTemplate.txt */,
 				D3B22A481702A11600446945 /* PKSMultipleStartTemplate.txt */,
@@ -3755,6 +3758,7 @@
 				D3B63A3D1708C98B00BA9DBF /* PKSSemanticPredicateStatTemplate.txt in Resources */,
 				D3B63A3F170910AA00BA9DBF /* methods.grammar in Resources */,
 				D3B63A471709152F00BA9DBF /* methods_factored.grammar in Resources */,
+				D3B63A4F170918E700BA9DBF /* PKSPredictEndIfTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
