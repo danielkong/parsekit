@@ -75,21 +75,21 @@
     
     do {
         [self method]; 
-    } while (LA(1) == TOKEN_KIND_INT || LA(1) == TOKEN_KIND_VOID);
+    } while (LA(1) == TOKEN_KIND_VOID || LA(1) == TOKEN_KIND_INT);
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)method {
     
-    if ([self speculate:^{ [self type]; [self Word]; [self match:TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:TOKEN_KIND_CLOSE_PAREN]; [self match:TOKEN_KIND_SEMI_COLON]; }]) {
+    if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type]; [self Word]; [self match:TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:TOKEN_KIND_CLOSE_PAREN]; [self match:TOKEN_KIND_SEMI_COLON]; }]) {
         [self type]; 
         [self Word]; 
         [self match:TOKEN_KIND_OPEN_PAREN]; 
         [self args]; 
         [self match:TOKEN_KIND_CLOSE_PAREN]; 
         [self match:TOKEN_KIND_SEMI_COLON]; 
-    } else if ([self speculate:^{ [self type]; [self Word]; [self match:TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:TOKEN_KIND_CLOSE_PAREN]; [self match:TOKEN_KIND_OPEN_CURLY]; [self match:TOKEN_KIND_CLOSE_CURLY]; }]) {
+    } else if ([self speculate:^{ [self testAndThrow:(id)^{ return 1; }]; [self type]; [self Word]; [self match:TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:TOKEN_KIND_CLOSE_PAREN]; [self match:TOKEN_KIND_OPEN_CURLY]; [self match:TOKEN_KIND_CLOSE_CURLY]; }]) {
         [self type]; 
         [self Word]; 
         [self match:TOKEN_KIND_OPEN_PAREN]; 

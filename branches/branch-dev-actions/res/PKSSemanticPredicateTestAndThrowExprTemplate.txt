@@ -1,0 +1,1 @@
+[self testAndThrow:(id)^{ return {{predicateBody}}; }]

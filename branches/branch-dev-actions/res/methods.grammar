@@ -1,7 +1,7 @@
 @start = method+;
 
-method = type Word '(' args ')' ';'
-	   | type Word '(' args ')' '{' '}';
+method = {NO}? type Word '(' args ')' ';'
+	   | {1}? type Word '(' args ')' '{' '}';
 	   
 type = 'void' | 'int';
 args = Empty | arg (',' arg)*;

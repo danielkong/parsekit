@@ -366,14 +366,20 @@
 }
 
 
-- (NSString *)semanticPredicateForNode:(PKBaseNode *)node {
+- (NSString *)semanticPredicateForNode:(PKBaseNode *)node throws:(BOOL)throws {
     NSString *result = nil;
     
     if (node.semanticPredicateNode) {
         NSString *predBody = node.semanticPredicateNode.source;
         NSAssert([predBody length], @"");
         BOOL isStat = [predBody rangeOfString:@";"].length > 0;
-        NSString *templateName = isStat ? @"PKSSemanticPredicateStatTemplate" : @"PKSSemanticPredicateExprTemplate";
+        
+        NSString *templateName = nil;
+        if (throws) {
+            templateName = isStat ? @"PKSSemanticPredicateTestAndThrowStatTemplate" : @"PKSSemanticPredicateTestAndThrowExprTemplate";
+        } else {
+            templateName = isStat ? @"PKSSemanticPredicateTestStatTemplate" : @"PKSSemanticPredicateTestExprTemplate";
+        }
         
         result = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:@{PREDICATE_BODY: predBody}];
         NSAssert(result, @"");
@@ -409,9 +415,10 @@
         vars[DEPTH] = @(_depth);
         vars[NEEDS_BACKTRACK] = @(_needsBacktracking);
 
-        NSString *predStr = [self semanticPredicateForNode:child];
+        NSString *predStr = [self semanticPredicateForNode:child throws:NO];
         if (predStr) vars[PREDICATE] = predStr;
 
+        // process template. cannot test `idx` here to determine `if` vs `else` due to possible Empty child borking `idx`
         NSString *templateName = [result length] ? @"PKSPredictElseIfTemplate" : @"PKSPredictIfTemplate";
         NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars];
         [result appendString:output];
@@ -463,13 +470,13 @@
         vars[NEEDS_BACKTRACK] = @(_needsBacktracking);
         vars[CHILD_STRING] = ifTest;
         
-        // TODO
-//        NSString *predStr = [self semanticPredicateForNode:child];
-//        if (predStr) vars[PREDICATE] = predStr;
+        NSString *predStr = [self semanticPredicateForNode:child throws:YES];
+        if (predStr) vars[PREDICATE] = predStr;
 
-        // process template
+        // process template. cannot test `idx` here to determine `if` vs `else` due to possible Empty child borking `idx`
         NSString *templateName = [result length] ? @"PKSSpeculateElseIfTemplate" : @"PKSSpeculateIfTemplate";
         NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars];
+
         [result appendString:output];
         [result appendString:childBody];
 
