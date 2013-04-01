@@ -31,6 +31,7 @@
 #define DISCARD @"discard"
 #define NEEDS_BACKTRACK @"needsBacktrack"
 #define CHILD_STRING @"childString"
+#define IF_TEST @"ifTest"
 #define ACTION_BODY @"actionBody"
 #define PREDICATE_BODY @"predicateBody"
 #define PREDICATE @"predicate"
@@ -289,6 +290,12 @@
 }
 
 
+// TODO make mutable
+- (NSString *)stringByRemovingTabsAndNewLines:(NSString *)inStr {
+    return [[inStr stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"    " withString:@""];
+}
+
+
 - (void)visitRepetition:(PKCompositeNode *)node {
     // setup vars
     id vars = [NSMutableDictionary dictionary];
@@ -303,19 +310,27 @@
     vars[LOOKAHEAD_SET] = set;
     vars[LAST] = @([set count] - 1);
 
-    NSMutableString *output = [NSMutableString string];
-    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionStartTemplate"] withVariables:vars]];
-    
     // recurse
-    self.depth++;
+    self.depth += 2;
     [child visit:self];
-    self.depth--;
+    self.depth -= 2;
     
     // pop
     NSString *childStr = [self pop];
-    [output appendString:childStr];
-    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionEndTemplate"] withVariables:vars]];
+    vars[IF_TEST] = [self stringByRemovingTabsAndNewLines:childStr];
+    vars[CHILD_STRING] = childStr;
     
+    NSMutableString *output = [NSMutableString string];
+    // if test
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionStartTemplate"] withVariables:vars]];
+    
+//    // body
+//    [output appendString:childStr];
+//    
+//    // else
+//    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionEndTemplate"] withVariables:vars]];
+    
+    // action
     [output appendString:[self actionStringFrom:node]];
 
     // push
@@ -457,7 +472,7 @@
         self.isSpeculating = YES;
         [child visit:self];
         self.isSpeculating = NO;
-        NSString *ifTest = [[[self pop] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"    " withString:@""];
+        NSString *ifTest = [self stringByRemovingTabsAndNewLines:[self pop]];
 
         // visit for child body
         [child visit:self];
