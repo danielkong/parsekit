@@ -312,18 +312,29 @@
     vars[LOOKAHEAD_SET] = set;
     vars[LAST] = @([set count] - 1);
 
+    // TODO. only need to speculate if this repetition's child is non-terminal
+    BOOL isChildTerminal = NO; //[child isKindOfClass:[PKConstantNode class]] || [child isKindOfClass:[PKLiteralNode class]];
+    
+    // rep body is always wrapped in an while AND an IF. so increase depth twice
+    NSInteger depth = isChildTerminal ? 1 : 2;
+
     // recurse
-    self.depth += 2; // rep body is always wrapped in an while AND an IF. so increase depth twice
+    self.depth += depth;
     [child visit:self];
-    self.depth -= 2;
+    self.depth -= depth;
     
     // pop
     NSMutableString *childStr = [self pop];
     vars[CHILD_STRING] = [[childStr copy] autorelease];
-    vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
+    
+    NSString *templateName = @"PKSRepetitionTerminalTemplate";
+    if (!isChildTerminal) {
+        vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
+        templateName = @"PKSRepetitionNonTerminalTemplate";
+    }
     
     // repetition
-    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:[self templateStringNamed:@"PKSRepetitionTemplate"] withVariables:vars]];
+    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
 
     // action
     [output appendString:[self actionStringFrom:node]];
