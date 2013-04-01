@@ -37,8 +37,8 @@
 #define PREDICATE @"predicate"
 
 @interface PKSParserGenVisitor ()
-- (void)push:(NSString *)mstr;
-- (NSString *)pop;
+- (void)push:(NSMutableString *)mstr;
+- (NSMutableString *)pop;
 - (NSSet *)lookaheadSetForNode:(PKBaseNode *)node;
 
 @property (nonatomic, retain) NSMutableArray *outputStringStack;
@@ -85,18 +85,20 @@
 }
 
 
-- (void)push:(NSString *)mstr {
-    NSParameterAssert([mstr isKindOfClass:[NSString class]]);
+- (void)push:(NSMutableString *)mstr {
+    NSParameterAssert([mstr isKindOfClass:[NSMutableString class]]);
     
     [_outputStringStack addObject:mstr];
 }
 
 
-- (NSString *)pop {
+- (NSMutableString *)pop {
     NSAssert([_outputStringStack count], @"");
-    NSString *pop = [[[_outputStringStack lastObject] retain] autorelease];
+    NSMutableString *mstr = [[[_outputStringStack lastObject] retain] autorelease];
     [_outputStringStack removeLastObject];
-    return pop;
+
+    NSAssert([mstr isKindOfClass:[NSMutableString class]], @"");
+    return mstr;
 }
 
 
