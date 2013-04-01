@@ -564,6 +564,9 @@
 		D3B63A72170A3FCF00BA9DBF /* optional.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A71170A3FCE00BA9DBF /* optional.grammar */; };
 		D3B63A75170A3FF000BA9DBF /* OptionalParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A74170A3FEB00BA9DBF /* OptionalParser.m */; };
 		D3B63A77170A460B00BA9DBF /* PKSOptionalTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A76170A460800BA9DBF /* PKSOptionalTerminalTemplate.txt */; };
+		D3B63A79170A55C300BA9DBF /* multiple.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A78170A55C100BA9DBF /* multiple.grammar */; };
+		D3B63A7C170A55DE00BA9DBF /* MultipleParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A7B170A55DB00BA9DBF /* MultipleParser.m */; };
+		D3B63A7F170A560900BA9DBF /* MultipleParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A7E170A560500BA9DBF /* MultipleParserTest.m */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3B986AE1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
@@ -1559,6 +1562,11 @@
 		D3B63A73170A3FE900BA9DBF /* OptionalParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionalParser.h; path = test/OptionalParser.h; sourceTree = "<group>"; };
 		D3B63A74170A3FEB00BA9DBF /* OptionalParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OptionalParser.m; path = test/OptionalParser.m; sourceTree = "<group>"; };
 		D3B63A76170A460800BA9DBF /* PKSOptionalTerminalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSOptionalTerminalTemplate.txt; path = res/PKSOptionalTerminalTemplate.txt; sourceTree = "<group>"; };
+		D3B63A78170A55C100BA9DBF /* multiple.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = multiple.grammar; path = res/multiple.grammar; sourceTree = "<group>"; };
+		D3B63A7A170A55D700BA9DBF /* MultipleParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultipleParser.h; path = test/MultipleParser.h; sourceTree = "<group>"; };
+		D3B63A7B170A55DB00BA9DBF /* MultipleParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MultipleParser.m; path = test/MultipleParser.m; sourceTree = "<group>"; };
+		D3B63A7D170A560200BA9DBF /* MultipleParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultipleParserTest.h; path = test/MultipleParserTest.h; sourceTree = "<group>"; };
+		D3B63A7E170A560500BA9DBF /* MultipleParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MultipleParserTest.m; path = test/MultipleParserTest.m; sourceTree = "<group>"; };
 		D3B69D310E80249900D70C41 /* nonascii.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = nonascii.html; path = res/nonascii.html; sourceTree = "<group>"; };
 		D3B986AD1700D3A9000CBCAE /* expression.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = expression.grammar; path = res/expression.grammar; sourceTree = "<group>"; };
 		D3BBBC960FEC9722007DF30D /* TDXMLParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDXMLParserTest.h; path = test/TDXMLParserTest.h; sourceTree = "<group>"; };
@@ -2678,6 +2686,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D3B63A7A170A55D700BA9DBF /* MultipleParser.h */,
+				D3B63A7B170A55DB00BA9DBF /* MultipleParser.m */,
 				D3B63A73170A3FE900BA9DBF /* OptionalParser.h */,
 				D3B63A74170A3FEB00BA9DBF /* OptionalParser.m */,
 				D3B63A66170A063D00BA9DBF /* LabelRecursiveParser.h */,
@@ -2705,6 +2715,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D3B63A7D170A560200BA9DBF /* MultipleParserTest.h */,
+				D3B63A7E170A560500BA9DBF /* MultipleParserTest.m */,
 				D3B63A6E170A3F7500BA9DBF /* OptionalParserTest.h */,
 				D3B63A6F170A3F7700BA9DBF /* OptionalParserTest.m */,
 				D3B63A5C170A04C600BA9DBF /* LabelRecursiveParserTest.h */,
@@ -2732,6 +2744,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D3B63A78170A55C100BA9DBF /* multiple.grammar */,
 				D3B63A71170A3FCE00BA9DBF /* optional.grammar */,
 				D3B63A62170A062100BA9DBF /* label_ebnf.grammar */,
 				D3B63A63170A062100BA9DBF /* label_recursive.grammar */,
@@ -3823,6 +3836,7 @@
 				D3B63A6D170A1F6E00BA9DBF /* PKSRepetitionTerminalTemplate.txt in Resources */,
 				D3B63A72170A3FCF00BA9DBF /* optional.grammar in Resources */,
 				D3B63A77170A460B00BA9DBF /* PKSOptionalTerminalTemplate.txt in Resources */,
+				D3B63A79170A55C300BA9DBF /* multiple.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4176,6 +4190,8 @@
 				D3B63A6B170A065700BA9DBF /* LabelEBNFParser.m in Sources */,
 				D3B63A70170A3F7900BA9DBF /* OptionalParserTest.m in Sources */,
 				D3B63A75170A3FF000BA9DBF /* OptionalParser.m in Sources */,
+				D3B63A7C170A55DE00BA9DBF /* MultipleParser.m in Sources */,
+				D3B63A7F170A560900BA9DBF /* MultipleParserTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
