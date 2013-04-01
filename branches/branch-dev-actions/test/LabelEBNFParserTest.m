@@ -57,13 +57,13 @@
     self.factory = nil;
 }
 
-//- (void)testAddDisableActions {
-//    _parser.disableActions = YES;
-//    
+- (void)testAddDisableActions {
+    _parser.disableActions = YES;
+    
 //    NSError *err = nil;
 //    PKAssembly *res = [_parser parseString:@"1+2" assembler:nil error:&err];
 //    
 //    TDEqualObjects(@"[1, 2]1/+/2^", [res description]);
-//}
+}
 
 @end

@@ -42,9 +42,9 @@
 	self = [super init];
 	if (self) {
 		self._tokenKindTab = @{
-           @"+" : @(TOKEN_KIND_PLUS),
-           @"*" : @(TOKEN_KIND_STAR),
-           @"^" : @(TOKEN_KIND_CARET),
+           @"=" : @(TOKEN_KIND_EQUALS),
+           @"return" : @(TOKEN_KIND_RETURN),
+           @":" : @(TOKEN_KIND_COLON),
         };
 	}
 	return self;
@@ -68,68 +68,44 @@
 
 - (void)_start {
     
-    [self expr]; 
+    [self s]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
+- (void)s {
+    
+    if ([self speculate:^{ [self label]; [self Word]; [self match:TOKEN_KIND_EQUALS]; [self expr]; }]) {
+        [self label]; 
+        [self Word]; 
+        [self match:TOKEN_KIND_EQUALS]; 
+        [self expr]; 
+    } else if ([self speculate:^{ [self label]; [self match:TOKEN_KIND_RETURN]; [self expr]; }]) {
+        [self label]; 
+        [self match:TOKEN_KIND_RETURN]; 
+        [self expr]; 
+    } else {
+        [self raise:@"no viable alternative found in s"];
+    }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchS:)];
+}
+
+- (void)label {
+    
+    while (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+        [self Word]; 
+        [self match:TOKEN_KIND_COLON]; 
+    }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchLabel:)];
+}
+
 - (void)expr {
     
-    [self mult]; 
-    while (LA(1) == TOKEN_KIND_PLUS) {
-        [self match:TOKEN_KIND_PLUS]; [self discard:1];
-        [self mult]; 
-        [self execute:(id)^{
-             PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); 
-        }];
-    }
+    [self Number]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
-}
-
-- (void)mult {
-    
-    [self pow]; 
-    while (LA(1) == TOKEN_KIND_STAR) {
-        [self match:TOKEN_KIND_STAR]; [self discard:1];
-        [self pow]; 
-        [self execute:(id)^{
-             PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); 
-        }];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchMult:)];
-}
-
-- (void)pow {
-    
-    [self atom]; 
-    if (LA(1) == TOKEN_KIND_CARET) {
-        [self match:TOKEN_KIND_CARET]; [self discard:1];
-        [self pow]; 
-        [self execute:(id)^{
-             
-		double exp = POP_FLOAT();
-		double base = POP_FLOAT();
-		double result = base;
-	    for (NSUInteger i = 1; i < exp; i++) 
-			result *= base;
-		PUSH_FLOAT(result); 
-	
-        }];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchPow:)];
-}
-
-- (void)atom {
-    
-    [self Number]; 
-    [self execute:(id)^{
-        PUSH_FLOAT(POP_FLOAT());
-    }];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
 }
 
 @synthesize _tokenKindTab = _tokenKindTab;

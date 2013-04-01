@@ -75,17 +75,13 @@
 
 - (void)s {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
-        if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
-            [self label]; 
-        }
+    if ([self speculate:^{ [self label]; [self Word]; [self match:TOKEN_KIND_EQUALS]; [self expr]; }]) {
+        [self label]; 
         [self Word]; 
         [self match:TOKEN_KIND_EQUALS]; 
         [self expr]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
-        if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
-            [self label]; 
-        }
+    } else if ([self speculate:^{ [self label]; [self match:TOKEN_KIND_RETURN]; [self expr]; }]) {
+        [self label]; 
         [self match:TOKEN_KIND_RETURN]; 
         [self expr]; 
     } else {
@@ -97,9 +93,11 @@
 
 - (void)label {
     
-    [self Word]; 
-    [self match:TOKEN_KIND_COLON]; 
-    [self label]; 
+    if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+        [self Word]; 
+        [self match:TOKEN_KIND_COLON]; 
+        [self label]; 
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchLabel:)];
 }
