@@ -59,19 +59,12 @@
 }
 
 
-- (void)testAddDecl {
+- (void)testAdd {
     NSError *err = nil;
-    PKAssembly *res = [_parser parseString:@"int add(int a);" assembler:nil error:&err];
+    PKAssembly *res = [_parser parseString:@"1+2" assembler:nil error:&err];
     
-    TDEqualObjects(@"[int, add, (, int, a, ), ;]int/add/(/int/a/)/;^", [res description]);
+    TDEqualObjects(@"[1, +, 2]1/+/2^", [res description]);
 }
 
-
-- (void)testAddDef {
-    NSError *err = nil;
-    PKAssembly *res = [_parser parseString:@"int add(int a) { }" assembler:nil error:&err];
-    
-    TDEqualObjects(@"[int, add, (, int, a, ), {, }]int/add/(/int/a/)/{/}^", [res description]);
-}
 
 @end
