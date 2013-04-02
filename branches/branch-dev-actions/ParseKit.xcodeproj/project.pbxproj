@@ -2677,8 +2677,8 @@
 				D3B63A76170A460800BA9DBF /* PKSOptionalTerminalTemplate.txt */,
 				D3B22A481702A11600446945 /* PKSMultipleNonTerminalTemplate.txt */,
 				D3B22A471702A11600446945 /* PKSMultipleTerminalTemplate.txt */,
-				D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionTerminalTemplate.txt */,
 				D3B22A4C1702A1F800446945 /* PKSRepetitionNonTerminalTemplate.txt */,
+				D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionTerminalTemplate.txt */,
 			);
 			name = PKSTemplates;
 			sourceTree = "<group>";

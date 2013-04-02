@@ -593,7 +593,6 @@
 - (void)visitMultiple:(PKMultipleNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    
     // recurse
     NSAssert(1 == [node.children count], @"");
     PKBaseNode *child = node.children[0];
