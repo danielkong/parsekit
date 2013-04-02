@@ -2,7 +2,7 @@
 
 s = expr+ foo foo;
   
-expr = foo bar;
+expr = foo bar; // not sure how greedy this failure should be. I made it non-greedy failure.
 
 foo = 'foo';
 bar = 'bar';
