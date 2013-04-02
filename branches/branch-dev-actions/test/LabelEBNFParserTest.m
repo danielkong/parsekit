@@ -71,4 +71,18 @@
     TDEqualObjects(@"[foo, :, return, 1]foo/:/return/1^", [res description]);
 }
 
+- (void)testAlt2Rep {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"foo: bar: return 1" assembler:nil error:&err];
+    
+    TDEqualObjects(@"[foo, :, bar, :, return, 1]foo/:/bar/:/return/1^", [res description]);
+}
+
+- (void)testAlt2RepRep {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"foo: bar: baz: return 1" assembler:nil error:&err];
+    
+    TDEqualObjects(@"[foo, :, bar, :, baz, :, return, 1]foo/:/bar/:/baz/:/return/1^", [res description]);
+}
+
 @end
