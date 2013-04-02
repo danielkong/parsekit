@@ -201,33 +201,22 @@
 }
 
 
-//- (void)testCollectionLtComparison {
-//    t.string = @"ANY {3} < 4";
-//    a = [PKTokenAssembly assemblyWithTokenizer:t];
-//    
-//    res = [eval.parser completeMatchFor:a];
-//    TDEqualObjects(@"[1]ANY/{/3/}/</4^", [_res description]);
-//    
-//    t.string = @"SOME {3} < 4";
-//    a = [PKTokenAssembly assemblyWithTokenizer:t];
-//    
-//    res = [eval.parser completeMatchFor:a];
-//    TDEqualObjects(@"[1]SOME/{/3/}/</4^", [_res description]);
-//    
-//    t.string = @"NONE {3} < 4";
-//    a = [PKTokenAssembly assemblyWithTokenizer:t];
-//    
-//    res = [eval.parser completeMatchFor:a];
-//    TDEqualObjects(@"[0]NONE/{/3/}/</4^", [_res description]);
-//    
-//    t.string = @"ALL {3} < 4";
-//    a = [PKTokenAssembly assemblyWithTokenizer:t];
-//    
-//    res = [eval.parser completeMatchFor:a];
-//    TDEqualObjects(@"[1]ALL/{/3/}/</4^", [_res description]);
-//}
-//
-//
+- (void)testCollectionLtComparison {
+    NSError *err = nil;
+    _res = [_parser parseString:@"ANY {3} < 4" assembler:self error:&err];
+    TDEqualObjects(@"[1]ANY/{/3/}/</4^", [_res description]);
+    
+    _res = [_parser parseString:@"SOME {3} < 4" assembler:self error:&err];
+    TDEqualObjects(@"[1]SOME/{/3/}/</4^", [_res description]);
+    
+    _res = [_parser parseString:@"NONE {3} < 4" assembler:self error:&err];
+    TDEqualObjects(@"[0]NONE/{/3/}/</4^", [_res description]);
+    
+    _res = [_parser parseString:@"ALL {3} < 4" assembler:self error:&err];
+    TDEqualObjects(@"[1]ALL/{/3/}/</4^", [_res description]);
+}
+
+
 //- (void)testCollectionGtComparison {
 //    t.string = @"ANY {3} > 4";
 //    a = [PKTokenAssembly assemblyWithTokenizer:t];
