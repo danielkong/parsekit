@@ -593,30 +593,32 @@
 - (void)visitMultiple:(PKMultipleNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    // setup vars
-    id vars = [NSMutableDictionary dictionary];
-    vars[DEPTH] = @(_depth);
     
     // recurse
     NSAssert(1 == [node.children count], @"");
     PKBaseNode *child = node.children[0];
     
     NSSet *set = [self lookaheadSetForNode:child];
-    vars[LOOKAHEAD_SET] = set;
-    vars[LAST] = @([set count] - 1);
-
-    NSMutableString *output = [NSMutableString string];
-    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSMultipleStartTemplate"] withVariables:vars]];
     
     self.depth++;
     [child visit:self];
     self.depth--;
     
     // pop
-    NSString *childStr = [self pop];
-    [output appendString:childStr];
-    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSMultipleEndTemplate"] withVariables:vars]];
+    NSMutableString *childStr = [self pop];
+
+    // setup vars
+    id vars = [NSMutableDictionary dictionary];
+    vars[DEPTH] = @(_depth);
+    vars[LOOKAHEAD_SET] = set;
+    vars[LAST] = @([set count] - 1);
+    vars[CHILD_STRING] = [[childStr mutableCopy] autorelease];
+    vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
     
+    NSMutableString *output = [NSMutableString string];
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSMultipleNonTerminalTemplate"] withVariables:vars]];
+
+    // action
     [output appendString:[self actionStringFrom:node]];
 
     // push

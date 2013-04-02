@@ -60,9 +60,9 @@
 
 - (void)testFoo {
     NSError *err = nil;
-    PKAssembly *res = [_parser parseString:@"foo foo bar" assembler:nil error:&err];
+    PKAssembly *res = [_parser parseString:@"foo bar foo foo" assembler:nil error:&err];
     
-    TDEqualObjects(@"[foo, bar]foo/bar^", [res description]);
+    TDEqualObjects(@"[foo, bar, foo, foo]foo/bar/foo/foo^", [res description]);
 }
 
 @end
