@@ -26,7 +26,7 @@
     _factory.collectTokenKinds = YES;
 
     NSError *err = nil;
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"nspredicate" ofType:@"grammar"];
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"nspredicate2" ofType:@"grammar"];
     NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
     
     err = nil;
