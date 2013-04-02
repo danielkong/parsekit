@@ -1,10 +1,9 @@
 @start = s;
 
-s = a | b | c;
+s = a | b;
   
-a = foo bar;
-b = foo baz;
-c = foo foo;
+a = foo baz;
+b = a | foo bar;
 
 foo = 'foo';
 bar = 'bar';

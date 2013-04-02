@@ -79,8 +79,6 @@
         [self a]; 
     } else if ([self speculate:^{ [self b]; }]) {
         [self b]; 
-    } else if ([self speculate:^{ [self c]; }]) {
-        [self c]; 
     } else {
         [self raise:@"no viable alternative found in s"];
     }
@@ -91,25 +89,23 @@
 - (void)a {
     
     [self foo]; 
-    [self bar]; 
+    [self baz]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
 - (void)b {
     
-    [self foo]; 
-    [self baz]; 
+    if ([self speculate:^{ [self a]; }]) {
+        [self a]; 
+    } else if ([self speculate:^{ [self foo]; [self bar]; }]) {
+        [self foo]; 
+        [self bar]; 
+    } else {
+        [self raise:@"no viable alternative found in b"];
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
-}
-
-- (void)c {
-    
-    [self foo]; 
-    [self foo]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchC:)];
 }
 
 - (void)foo {
