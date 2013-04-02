@@ -152,7 +152,7 @@
 
 - (void)andTerm {
     
-    if (LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_NONE) {
         [self primaryExpr]; 
     } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self compoundExpr]; 
@@ -174,9 +174,9 @@
 
 - (void)primaryExpr {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_SOME) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_NONE) {
         [self predicate]; 
-    } else if (LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_NOT_UPPER) {
+    } else if (LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_BANG) {
         [self negatedPredicate]; 
     } else {
         [self raise:@"no viable alternative found in primaryExpr"];
@@ -195,13 +195,13 @@
 
 - (void)predicate {
     
-    if ([self speculate:^{ [self boolPredicate]; }]) {
+    if (LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_TRUEPREDICATE) {
         [self boolPredicate]; 
-    } else if ([self speculate:^{ [self comparisonPredicate]; }]) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self comparisonPredicate]; 
-    } else if ([self speculate:^{ [self stringTestPredicate]; }]) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
         [self stringTestPredicate]; 
-    } else if ([self speculate:^{ [self collectionTestPredicate]; }]) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_OPEN_CURLY) {
         [self collectionTestPredicate]; 
     } else {
         [self raise:@"no viable alternative found in predicate"];
@@ -281,7 +281,7 @@
 
 - (void)arrayContentsOpt {
     
-    if (LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUELITERAL) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_OPEN_CURLY) {
         [self arrayContents]; 
     }
 
@@ -321,7 +321,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self numComparisonPredicate]; 
-    } else if (LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_ALL) {
+    } else if (LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME) {
         [self collectionComparisonPredicate]; 
     } else {
         [self raise:@"no viable alternative found in comparisonPredicate"];

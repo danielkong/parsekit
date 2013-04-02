@@ -154,32 +154,6 @@
 }
 
 
-//- (void)testArray {
-//    t.string = @"{1, 3}";
-//    a = [PKTokenAssembly assemblyWithTokenizer:t];
-//    
-//    res = [[eval.parser parserNamed:@"array"] completeMatchFor:a];
-//    NSArray *array = [_res pop];
-//    TDEquals((NSUInteger)2, [array count]);
-//    TDEqualObjects([array objectAtIndex:0], [NSNumber numberWithInteger:1]);
-//    TDEqualObjects([array objectAtIndex:1], [NSNumber numberWithInteger:3]);
-//}
-//
-//
-//- (void)testTrue {
-//    NSError *err = nil;
-//    _res = [_parser parseString:@"true" assembler:self error:&err];
-//    TDEqualObjects(@"[1]true^", [_res description]);
-//}
-//
-//
-//- (void)testFalse {
-//    NSError *err = nil;
-//    _res = [_parser parseString:@"false" assembler:self error:&err];
-//    TDEqualObjects(@"[0]false^", [_res description]);
-//}
-
-
 - (void)testTruePredicate {
     NSError *err = nil;
     _res = [_parser parseString:@"TRUEPREDICATE" assembler:self error:&err];
