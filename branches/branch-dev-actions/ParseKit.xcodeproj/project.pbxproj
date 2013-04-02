@@ -305,7 +305,7 @@
 		D35F4A8E11643662003811F3 /* PKURLState.h in Headers */ = {isa = PBXBuildFile; fileRef = D35F4A8C11643662003811F3 /* PKURLState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D35F4A8F11643662003811F3 /* PKEmailState.h in Headers */ = {isa = PBXBuildFile; fileRef = D35F4A8B11643662003811F3 /* PKEmailState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D35F4A9011643662003811F3 /* PKURLState.h in Headers */ = {isa = PBXBuildFile; fileRef = D35F4A8C11643662003811F3 /* PKURLState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3633A2E170A6E9700C0966D /* nspredicate2.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3633A2D170A6E9700C0966D /* nspredicate2.grammar */; };
+		D3633A2F170A700900C0966D /* nspredicate2.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3633A2D170A6E9700C0966D /* nspredicate2.grammar */; };
 		D3668293101D2C000008632C /* erb.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3668291101D2BFA0008632C /* erb.grammar */; };
 		D367F66B16F5570500F5E9EB /* PKBaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D367F66916F5570500F5E9EB /* PKBaseVisitor.h */; };
 		D367F66C16F5570500F5E9EB /* PKBaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D367F66A16F5570500F5E9EB /* PKBaseVisitor.m */; };
@@ -3732,7 +3732,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
-				D3633A2E170A6E9700C0966D /* nspredicate2.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3865,6 +3864,7 @@
 				D3B63A77170A460B00BA9DBF /* PKSOptionalTerminalTemplate.txt in Resources */,
 				D3B63A79170A55C300BA9DBF /* multiple.grammar in Resources */,
 				D3B63A84170A675000BA9DBF /* alternate.grammar in Resources */,
+				D3633A2F170A700900C0966D /* nspredicate2.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

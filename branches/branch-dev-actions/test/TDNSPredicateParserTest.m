@@ -59,11 +59,25 @@
 }
 
 
-- (void)testYes {
+//- (void)testYes {
+//    NSError *err = nil;
+//    PKAssembly *res = [_parser parseString:@"yes" assembler:nil error:&err];
+//    NSLog(@"%@", err);
+//    TDEqualObjects(@"[1]yes^", [res description]);
+//}
+
+
+- (void)testNegatedPredicate {
     NSError *err = nil;
-    PKAssembly *res = [_parser parseString:@"yes" assembler:nil error:&err];
-    NSLog(@"%@", err);
-    TDEqualObjects(@"[1]yes^", [res description]);
+    PKAssembly *res = [_parser parseString:@"NOT 0 < 2" assembler:nil error:&err];
+    TDEqualObjects(@"[0, <, 2]NOT/0/</2^", [res description]);
+    
+//    t.string = @"! 0 < 2";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[0]!/0/</2^", [res description]);
 }
+
+
 
 @end
