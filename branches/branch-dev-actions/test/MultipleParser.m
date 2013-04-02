@@ -74,9 +74,9 @@
 
 - (void)s {
     
-    if ((LA(1) == TOKEN_KIND_FOO) && ([self speculate:^{ [self expr]; }])) {
+    do {
         [self expr]; 
-    }
+    } while (LA(1) == TOKEN_KIND_FOO);
     [self foo]; 
     [self bar]; 
 
@@ -86,8 +86,6 @@
 - (void)expr {
     
     [self foo]; 
-    [self bar]; 
-    [self bar]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
