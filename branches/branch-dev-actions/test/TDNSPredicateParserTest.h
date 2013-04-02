@@ -8,6 +8,10 @@
 
 #import "TDTestScaffold.h"
 
-@interface TDNSPredicateParserTest : SenTestCase
+@protocol TDKeyPathResolver <NSObject>
+- (id)resolvedValueForKeyPath:(NSString *)s;
+@end
+
+@interface TDNSPredicateParserTest : SenTestCase <TDKeyPathResolver>
 
 @end
