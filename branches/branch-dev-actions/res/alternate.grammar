@@ -1,0 +1,11 @@
+@start = s;
+
+s = a | b | c;
+  
+a = foo bar;
+b = foo baz;
+c = foo foo;
+
+foo = 'foo';
+bar = 'bar';
+baz = 'baz';
