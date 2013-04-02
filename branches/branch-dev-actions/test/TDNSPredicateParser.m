@@ -1,4 +1,4 @@
-#import "ExpressionActionsParser.h"
+#import "TDNSPredicateParser.h"
 #import <ParseKit/ParseKit.h>
 #import "PKSRecognitionException.h"
 
@@ -32,11 +32,11 @@
 @property (nonatomic, retain) PKAssembly *_assembly;
 @end
 
-@interface ExpressionActionsParser ()
+@interface TDNSPredicateParser ()
 @property (nonatomic, retain) NSDictionary *_tokenKindTab;
 @end
 
-@implementation ExpressionActionsParser
+@implementation TDNSPredicateParser
 
 - (id)init {
 	self = [super init];

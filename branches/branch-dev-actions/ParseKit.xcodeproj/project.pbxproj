@@ -570,6 +570,8 @@
 		D3B63A82170A671F00BA9DBF /* AltParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A81170A671C00BA9DBF /* AltParserTest.m */; };
 		D3B63A84170A675000BA9DBF /* alternate.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A83170A674F00BA9DBF /* alternate.grammar */; };
 		D3B63A87170A676A00BA9DBF /* AltParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A86170A676700BA9DBF /* AltParser.m */; };
+		D3B63A8A170A6B5C00BA9DBF /* TDNSPredicateParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A89170A6B5800BA9DBF /* TDNSPredicateParserTest.m */; };
+		D3B63A8D170A6BBC00BA9DBF /* TDNSPredicateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A8C170A6BB600BA9DBF /* TDNSPredicateParser.m */; };
 		D3B69D320E80249900D70C41 /* nonascii.html in Resources */ = {isa = PBXBuildFile; fileRef = D3B69D310E80249900D70C41 /* nonascii.html */; };
 		D3B986AE1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
@@ -1575,6 +1577,10 @@
 		D3B63A83170A674F00BA9DBF /* alternate.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = alternate.grammar; path = res/alternate.grammar; sourceTree = "<group>"; };
 		D3B63A85170A676300BA9DBF /* AltParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AltParser.h; path = test/AltParser.h; sourceTree = "<group>"; };
 		D3B63A86170A676700BA9DBF /* AltParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AltParser.m; path = test/AltParser.m; sourceTree = "<group>"; };
+		D3B63A88170A6B5400BA9DBF /* TDNSPredicateParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNSPredicateParserTest.h; path = test/TDNSPredicateParserTest.h; sourceTree = "<group>"; };
+		D3B63A89170A6B5800BA9DBF /* TDNSPredicateParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNSPredicateParserTest.m; path = test/TDNSPredicateParserTest.m; sourceTree = "<group>"; };
+		D3B63A8B170A6BB100BA9DBF /* TDNSPredicateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNSPredicateParser.h; path = test/TDNSPredicateParser.h; sourceTree = "<group>"; };
+		D3B63A8C170A6BB600BA9DBF /* TDNSPredicateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNSPredicateParser.m; path = test/TDNSPredicateParser.m; sourceTree = "<group>"; };
 		D3B69D310E80249900D70C41 /* nonascii.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = nonascii.html; path = res/nonascii.html; sourceTree = "<group>"; };
 		D3B986AD1700D3A9000CBCAE /* expression.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = expression.grammar; path = res/expression.grammar; sourceTree = "<group>"; };
 		D3BBBC960FEC9722007DF30D /* TDXMLParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDXMLParserTest.h; path = test/TDXMLParserTest.h; sourceTree = "<group>"; };
@@ -2718,6 +2724,8 @@
 				D3B22A4F1702AFB500446945 /* ElementParser.m */,
 				D3B22A541703D03700446945 /* ExpressionParser.h */,
 				D3B22A551703D03800446945 /* ExpressionParser.m */,
+				D3B63A8B170A6BB100BA9DBF /* TDNSPredicateParser.h */,
+				D3B63A8C170A6BB600BA9DBF /* TDNSPredicateParser.m */,
 			);
 			name = "Language Parsers";
 			sourceTree = "<group>";
@@ -2749,6 +2757,8 @@
 				D3B22A611703DE2000446945 /* ExpressionParserTest.m */,
 				D3B63A3217079F5100BA9DBF /* ExpressionParserActionsTest.h */,
 				D3B63A3317079F5100BA9DBF /* ExpressionParserActionsTest.m */,
+				D3B63A88170A6B5400BA9DBF /* TDNSPredicateParserTest.h */,
+				D3B63A89170A6B5800BA9DBF /* TDNSPredicateParserTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -4208,6 +4218,8 @@
 				D3B63A7F170A560900BA9DBF /* MultipleParserTest.m in Sources */,
 				D3B63A82170A671F00BA9DBF /* AltParserTest.m in Sources */,
 				D3B63A87170A676A00BA9DBF /* AltParser.m in Sources */,
+				D3B63A8A170A6B5C00BA9DBF /* TDNSPredicateParserTest.m in Sources */,
+				D3B63A8D170A6BBC00BA9DBF /* TDNSPredicateParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
