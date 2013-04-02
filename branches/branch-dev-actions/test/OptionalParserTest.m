@@ -65,4 +65,18 @@
     TDEqualObjects(@"[foo, bar]foo/bar^", [res description]);
 }
 
+- (void)testFoo2 {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"foo bar bar foo bar" assembler:nil error:&err];
+    
+    TDEqualObjects(@"[foo, bar, bar, foo, bar]foo/bar/bar/foo/bar^", [res description]);
+}
+
+- (void)testFoo3 {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"foo bar bar foo bar bar foo bar" assembler:nil error:&err];
+    
+    TDEqualObjects(@"[foo, bar, bar, foo, bar]foo/bar/bar/foo/bar^", [res description]);
+}
+
 @end
