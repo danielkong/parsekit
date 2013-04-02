@@ -244,31 +244,25 @@
 //}
 //
 //
-//- (void)testOr {
-//    t.string = @"TRUEPREDICATE OR FALSEPREDICATE";
-//    a = [PKTokenAssembly assemblyWithTokenizer:t];
-//    
-//    res = [eval.parser completeMatchFor:a];
-//    TDEqualObjects(@"[1]TRUEPREDICATE/OR/FALSEPREDICATE^", [_res description]);
-//}
-//
-//
-//- (void)testAnd {
-//    t.string = @"TRUEPREDICATE AND FALSEPREDICATE";
-//    a = [PKTokenAssembly assemblyWithTokenizer:t];
-//    
-//    res = [eval.parser completeMatchFor:a];
-//    TDEqualObjects(@"[0]TRUEPREDICATE/AND/FALSEPREDICATE^", [_res description]);
-//}
-//
-//
-//- (void)testCompoundExpr {
-//    t.string = @"(TRUEPREDICATE)";
-//    a = [PKTokenAssembly assemblyWithTokenizer:t];
-//    
-//    res = [eval.parser completeMatchFor:a];
-//    TDEqualObjects(@"[1](/TRUEPREDICATE/)^", [_res description]);
-//}    
+- (void)testOr {
+    NSError *err = nil;
+    _res = [_parser parseString:@"TRUEPREDICATE OR FALSEPREDICATE" assembler:self error:&err];
+    TDEqualObjects(@"[1]TRUEPREDICATE/OR/FALSEPREDICATE^", [_res description]);
+}
+
+
+- (void)testAnd {
+    NSError *err = nil;
+    _res = [_parser parseString:@"TRUEPREDICATE AND FALSEPREDICATE" assembler:self error:&err];
+    TDEqualObjects(@"[0]TRUEPREDICATE/AND/FALSEPREDICATE^", [_res description]);
+}
+
+
+- (void)testCompoundExpr {
+    NSError *err = nil;
+    _res = [_parser parseString:@"(TRUEPREDICATE)" assembler:self error:&err];
+    TDEqualObjects(@"[1](/TRUEPREDICATE/)^", [_res description]);
+}    
 
 
 
