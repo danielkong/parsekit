@@ -508,26 +508,31 @@
 
 
 - (void)visitAlternation:(PKAlternationNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+//    
+//    if ([self.currentDefName isEqualToString:@"predicate"]) {
+//        NSLog(@"%@", node);
+//    }
     
     // first fetch all child lookahead sets
     NSMutableArray *lookaheadSets = [NSMutableArray arrayWithCapacity:[node.children count]];
-    NSMutableSet *overlap = nil;
-    
+
     for (PKBaseNode *child in node.children) {
         NSSet *set = [self lookaheadSetForNode:child];
         [lookaheadSets addObject:set];
-        
-        if (overlap) {
-            [overlap intersectSet:set]; // rest
-        } else {
-            overlap = [NSMutableSet set];
-            [overlap unionSet:set]; // first
-        }
     }
-    
+
+    NSMutableSet *all = [NSMutableSet setWithSet:lookaheadSets[0]];
+    BOOL overlap = NO;
+    for (NSUInteger i = 1; i < [lookaheadSets count]; ++i) {
+        NSSet *set = lookaheadSets[i];
+        overlap = [set intersectsSet:all];
+        if (overlap) break;
+        [all unionSet:set];
+    }
+
     //NSLog(@"%@", lookaheadSets);
-    self.needsBacktracking = [overlap count];
+    self.needsBacktracking = overlap;
     
     NSMutableString *childStr = nil;
     if (_needsBacktracking) {

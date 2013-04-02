@@ -166,18 +166,18 @@
 //}
 //
 //
-- (void)testTrue {
-    NSError *err = nil;
-    _res = [_parser parseString:@"true" assembler:self error:&err];
-    TDEqualObjects(@"[1]true^", [_res description]);
-}
-
-
-- (void)testFalse {
-    NSError *err = nil;
-    _res = [_parser parseString:@"false" assembler:self error:&err];
-    TDEqualObjects(@"[0]false^", [_res description]);
-}
+//- (void)testTrue {
+//    NSError *err = nil;
+//    _res = [_parser parseString:@"true" assembler:self error:&err];
+//    TDEqualObjects(@"[1]true^", [_res description]);
+//}
+//
+//
+//- (void)testFalse {
+//    NSError *err = nil;
+//    _res = [_parser parseString:@"false" assembler:self error:&err];
+//    TDEqualObjects(@"[0]false^", [_res description]);
+//}
 
 
 - (void)testTruePredicate {
@@ -192,17 +192,15 @@
     _res = [_parser parseString:@"FALSEPREDICATE" assembler:self error:&err];
     TDEqualObjects(@"[0]FALSEPREDICATE^", [_res description]);
 }
-//
-//
-//- (void)testCollectionTest {
-//    t.string = @"1 IN {1}";
-//    a = [PKTokenAssembly assemblyWithTokenizer:t];
-//    
-//    res = [eval.parser completeMatchFor:a];
-//    TDEqualObjects(@"[1]1/IN/{/1/}^", [_res description]);
-//}
-//
-//
+
+
+- (void)testCollectionTest {
+    NSError *err = nil;
+    _res = [_parser parseString:@"1 IN {1}" assembler:self error:&err];
+    TDEqualObjects(@"[1]1/IN/{/1/}^", [_res description]);
+}
+
+
 //- (void)testCollectionLtComparison {
 //    t.string = @"ANY {3} < 4";
 //    a = [PKTokenAssembly assemblyWithTokenizer:t];
@@ -436,12 +434,12 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchTrue:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchTrueLiteral:(PKAssembly *)a {
     [a push:[NSNumber numberWithBool:YES]];
 }
 
 
-- (void)parser:(PKParser *)p didMatchFalse:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchFalseLiteral:(PKAssembly *)a {
     [a push:[NSNumber numberWithBool:NO]];
 }
 
