@@ -77,14 +77,6 @@
 }
 
 
-//- (void)testYes {
-//    NSError *err = nil;
-//    PKAssembly *res = [_parser parseString:@"yes" assembler:nil error:&err];
-//    NSLog(@"%@", err);
-//    TDEqualObjects(@"[1]yes^", [res description]);
-//}
-
-
 - (void)testNegatedPredicate {
     NSError *err = nil;
     _res = [_parser parseString:@"NOT 0 < 2" assembler:self error:&err];
@@ -93,6 +85,204 @@
     _res = [_parser parseString:@"! 0 < 2" assembler:self error:&err];
     TDEqualObjects(@"[0]!/0/</2^", [_res description]);
 }
+
+
+//- (void)testKeyPath {
+//    [_tab setObject:[NSNumber numberWithBool:YES] forKey:@"foo"];
+//    [_tab setObject:[NSNumber numberWithBool:NO] forKey:@"baz"];
+//    
+//    t.string = @"foo";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    res = [[eval.parser parserNamed:@"keyPath"] completeMatchFor:a];
+//    TDEqualObjects(@"[1]foo^", [res description]);
+//    
+//    t.string = @"bar";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    res = [[eval.parser parserNamed:@"keyPath"] completeMatchFor:a];
+//    TDEqualObjects(@"[0]bar^", [res description]);
+//    
+//    t.string = @"baz";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    res = [[eval.parser parserNamed:@"keyPath"] completeMatchFor:a];
+//    TDEqualObjects(@"[0]baz^", [res description]);
+//    
+//    t.string = @"foo.bar";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    res = [[eval.parser parserNamed:@"keyPath"] completeMatchFor:a];
+//    TDEqualObjects(@"[0]foo.bar^", [res description]);
+//}
+
+
+- (void)testStringTest {
+    NSError *err = nil;
+    _res = [_parser parseString:@"'foo' BEGINSWITH 'f'" assembler:self error:&err];
+    TDEqualObjects(@"[1]'foo'/BEGINSWITH/'f'^", [_res description]);
+    
+    _res = [_parser parseString:@"'foo' BEGINSWITH 'o'" assembler:self error:&err];
+    TDEqualObjects(@"[0]'foo'/BEGINSWITH/'o'^", [_res description]);
+    
+    _res = [_parser parseString:@"'foo' ENDSWITH 'f'" assembler:self error:&err];
+    TDEqualObjects(@"[0]'foo'/ENDSWITH/'f'^", [_res description]);
+    
+    _res = [_parser parseString:@"'foo' ENDSWITH 'o'" assembler:self error:&err];
+    TDEqualObjects(@"[1]'foo'/ENDSWITH/'o'^", [_res description]);
+    
+    _res = [_parser parseString:@"'foo' CONTAINS 'fo'" assembler:self error:&err];
+    TDEqualObjects(@"[1]'foo'/CONTAINS/'fo'^", [_res description]);
+    
+    _res = [_parser parseString:@"'foo' CONTAINS '-'" assembler:self error:&err];
+    TDEqualObjects(@"[0]'foo'/CONTAINS/'-'^", [_res description]);
+}
+
+
+- (void)testComparison {
+    NSError *err = nil;
+    _res = [_parser parseString:@"1 < 2" assembler:self error:&err];
+    TDEqualObjects(@"[1]1/</2^", [_res description]);
+    
+    _res = [_parser parseString:@"1 > 2" assembler:self error:&err];
+    TDEqualObjects(@"[0]1/>/2^", [_res description]);
+    
+    _res = [_parser parseString:@"1 != 2" assembler:self error:&err];
+    TDEqualObjects(@"[1]1/!=/2^", [_res description]);
+    
+    _res = [_parser parseString:@"1 == 2" assembler:self error:&err];
+    TDEqualObjects(@"[0]1/==/2^", [_res description]);
+    
+    _res = [_parser parseString:@"1 = 2" assembler:self error:&err];
+    TDEqualObjects(@"[0]1/=/2^", [_res description]);
+}
+
+
+//- (void)testArray {
+//    t.string = @"{1, 3}";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [[eval.parser parserNamed:@"array"] completeMatchFor:a];
+//    NSArray *array = [_res pop];
+//    TDEquals((NSUInteger)2, [array count]);
+//    TDEqualObjects([array objectAtIndex:0], [NSNumber numberWithInteger:1]);
+//    TDEqualObjects([array objectAtIndex:1], [NSNumber numberWithInteger:3]);
+//}
+//
+//
+- (void)testTrue {
+    NSError *err = nil;
+    _res = [_parser parseString:@"true" assembler:self error:&err];
+    TDEqualObjects(@"[1]true^", [_res description]);
+}
+
+
+- (void)testFalse {
+    NSError *err = nil;
+    _res = [_parser parseString:@"false" assembler:self error:&err];
+    TDEqualObjects(@"[0]false^", [_res description]);
+}
+
+
+- (void)testTruePredicate {
+    NSError *err = nil;
+    _res = [_parser parseString:@"TRUEPREDICATE" assembler:self error:&err];
+    TDEqualObjects(@"[1]TRUEPREDICATE^", [_res description]);
+}
+
+
+- (void)testFalsePredicate {
+    NSError *err = nil;
+    _res = [_parser parseString:@"FALSEPREDICATE" assembler:self error:&err];
+    TDEqualObjects(@"[0]FALSEPREDICATE^", [_res description]);
+}
+//
+//
+//- (void)testCollectionTest {
+//    t.string = @"1 IN {1}";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[1]1/IN/{/1/}^", [_res description]);
+//}
+//
+//
+//- (void)testCollectionLtComparison {
+//    t.string = @"ANY {3} < 4";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[1]ANY/{/3/}/</4^", [_res description]);
+//    
+//    t.string = @"SOME {3} < 4";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[1]SOME/{/3/}/</4^", [_res description]);
+//    
+//    t.string = @"NONE {3} < 4";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[0]NONE/{/3/}/</4^", [_res description]);
+//    
+//    t.string = @"ALL {3} < 4";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[1]ALL/{/3/}/</4^", [_res description]);
+//}
+//
+//
+//- (void)testCollectionGtComparison {
+//    t.string = @"ANY {3} > 4";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[0]ANY/{/3/}/>/4^", [_res description]);
+//    
+//    t.string = @"SOME {3} > 4";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[0]SOME/{/3/}/>/4^", [_res description]);
+//    
+//    t.string = @"NONE {3} > 4";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[1]NONE/{/3/}/>/4^", [_res description]);
+//    
+//    t.string = @"ALL {3} > 4";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[0]ALL/{/3/}/>/4^", [_res description]);
+//}
+//
+//
+//- (void)testOr {
+//    t.string = @"TRUEPREDICATE OR FALSEPREDICATE";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[1]TRUEPREDICATE/OR/FALSEPREDICATE^", [_res description]);
+//}
+//
+//
+//- (void)testAnd {
+//    t.string = @"TRUEPREDICATE AND FALSEPREDICATE";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[0]TRUEPREDICATE/AND/FALSEPREDICATE^", [_res description]);
+//}
+//
+//
+//- (void)testCompoundExpr {
+//    t.string = @"(TRUEPREDICATE)";
+//    a = [PKTokenAssembly assemblyWithTokenizer:t];
+//    
+//    res = [eval.parser completeMatchFor:a];
+//    TDEqualObjects(@"[1](/TRUEPREDICATE/)^", [_res description]);
+//}    
+
 
 
 - (void)parser:(PKParser *)p didMatchNegatedPredicate:(PKAssembly *)a {

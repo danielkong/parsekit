@@ -131,7 +131,7 @@
 - (void)orTerm {
     
     [self andTerm]; 
-    while (LA(1) == TOKEN_KIND_AND_UPPER || LA(1) == TOKEN_KIND_DOUBLE_AMPERSAND) {
+    while (LA(1) == TOKEN_KIND_DOUBLE_AMPERSAND || LA(1) == TOKEN_KIND_AND_UPPER) {
         if ([self speculate:^{ [self andAndTerm]; }]) {
             [self andAndTerm]; 
         } else {
@@ -152,7 +152,7 @@
 
 - (void)andTerm {
     
-    if (LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_SOME) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
         [self primaryExpr]; 
     } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self compoundExpr]; 
@@ -174,9 +174,9 @@
 
 - (void)primaryExpr {
     
-    if (LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_SOME) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_NONE) {
         [self predicate]; 
-    } else if (LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_NOT_UPPER) {
+    } else if (LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_BANG) {
         [self negatedPredicate]; 
     } else {
         [self raise:@"no viable alternative found in primaryExpr"];
@@ -197,11 +197,11 @@
     
     if (LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_FALSEPREDICATE) {
         [self boolPredicate]; 
-    } else if (LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_SOME) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_NONE) {
         [self comparisonPredicate]; 
     } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
         [self stringTestPredicate]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_OPEN_CURLY) {
+    } else if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_OPEN_CURLY) {
         [self collectionTestPredicate]; 
     } else {
         [self raise:@"no viable alternative found in predicate"];
@@ -218,7 +218,7 @@
         [self string]; 
     } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self num]; 
-    } else if (LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUELITERAL) {
+    } else if (LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSELITERAL) {
         [self bool]; 
     } else if (LA(1) == TOKEN_KIND_OPEN_CURLY) {
         [self array]; 
@@ -281,7 +281,7 @@
 
 - (void)arrayContentsOpt {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    if (LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
         [self arrayContents]; 
     }
 
@@ -321,7 +321,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self numComparisonPredicate]; 
-    } else if (LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_SOME) {
+    } else if (LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_NONE) {
         [self collectionComparisonPredicate]; 
     } else {
         [self raise:@"no viable alternative found in comparisonPredicate"];
@@ -362,7 +362,7 @@
         [self lt]; 
     } else if (LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_HASH_ROCKET) {
         [self gtEq]; 
-    } else if (LA(1) == TOKEN_KIND_EL || LA(1) == TOKEN_KIND_LE) {
+    } else if (LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_EL) {
         [self ltEq]; 
     } else if (LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_NOT_EQUAL) {
         [self notEq]; 
