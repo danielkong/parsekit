@@ -28,6 +28,9 @@
 		D3083ABC1705F16000DA6F95 /* ElementAssignParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3083ABB1705F16000DA6F95 /* ElementAssignParser.m */; };
 		D3083ABE1705F73600DA6F95 /* PKSMethodSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3083ABD1705F73500DA6F95 /* PKSMethodSpeculateTemplate.txt */; };
 		D3083AC117061E0D00DA6F95 /* PKSTokenAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D3083AC017061E0D00DA6F95 /* PKSTokenAssembly.m */; };
+		D30B8F3D170CA594001796F4 /* DreadedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F3C170CA594001796F4 /* DreadedParser.m */; };
+		D30B8F40170CA59A001796F4 /* DreadedParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F3F170CA59A001796F4 /* DreadedParserTest.m */; };
+		D30B8F42170CA5D6001796F4 /* dreaded.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F41170CA5D6001796F4 /* dreaded.grammar */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
@@ -1014,6 +1017,11 @@
 		D3083ABD1705F73500DA6F95 /* PKSMethodSpeculateTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSMethodSpeculateTemplate.txt; path = res/PKSMethodSpeculateTemplate.txt; sourceTree = "<group>"; };
 		D3083ABF17061DE100DA6F95 /* PKSTokenAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSTokenAssembly.h; path = test/PKSTokenAssembly.h; sourceTree = "<group>"; };
 		D3083AC017061E0D00DA6F95 /* PKSTokenAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSTokenAssembly.m; path = test/PKSTokenAssembly.m; sourceTree = "<group>"; };
+		D30B8F3B170CA594001796F4 /* DreadedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DreadedParser.h; path = test/DreadedParser.h; sourceTree = "<group>"; };
+		D30B8F3C170CA594001796F4 /* DreadedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DreadedParser.m; path = test/DreadedParser.m; sourceTree = "<group>"; };
+		D30B8F3E170CA59A001796F4 /* DreadedParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DreadedParserTest.h; path = test/DreadedParserTest.h; sourceTree = "<group>"; };
+		D30B8F3F170CA59A001796F4 /* DreadedParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DreadedParserTest.m; path = test/DreadedParserTest.m; sourceTree = "<group>"; };
+		D30B8F41170CA5D6001796F4 /* dreaded.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dreaded.grammar; path = res/dreaded.grammar; sourceTree = "<group>"; };
 		D3126D040FFD9BA700CBF4C4 /* PKNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNegation.m; path = src/PKNegation.m; sourceTree = "<group>"; };
 		D3126D090FFD9E4B00CBF4C4 /* TDNegationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNegationTest.h; path = test/TDNegationTest.h; sourceTree = "<group>"; };
 		D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationTest.m; path = test/TDNegationTest.m; sourceTree = "<group>"; };
@@ -2702,6 +2710,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D30B8F3B170CA594001796F4 /* DreadedParser.h */,
+				D30B8F3C170CA594001796F4 /* DreadedParser.m */,
 				D3B63A85170A676300BA9DBF /* AltParser.h */,
 				D3B63A86170A676700BA9DBF /* AltParser.m */,
 				D3B63A7A170A55D700BA9DBF /* MultipleParser.h */,
@@ -2735,6 +2745,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D30B8F3E170CA59A001796F4 /* DreadedParserTest.h */,
+				D30B8F3F170CA59A001796F4 /* DreadedParserTest.m */,
 				D3B63A80170A671800BA9DBF /* AltParserTest.h */,
 				D3B63A81170A671C00BA9DBF /* AltParserTest.m */,
 				D3B63A7D170A560200BA9DBF /* MultipleParserTest.h */,
@@ -2768,6 +2780,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D30B8F41170CA5D6001796F4 /* dreaded.grammar */,
 				D3B63A83170A674F00BA9DBF /* alternate.grammar */,
 				D3B63A78170A55C100BA9DBF /* multiple.grammar */,
 				D3B63A71170A3FCE00BA9DBF /* optional.grammar */,
@@ -3865,6 +3878,7 @@
 				D3B63A79170A55C300BA9DBF /* multiple.grammar in Resources */,
 				D3B63A84170A675000BA9DBF /* alternate.grammar in Resources */,
 				D3633A2F170A700900C0966D /* nspredicate2.grammar in Resources */,
+				D30B8F42170CA5D6001796F4 /* dreaded.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4224,6 +4238,8 @@
 				D3B63A87170A676A00BA9DBF /* AltParser.m in Sources */,
 				D3B63A8A170A6B5C00BA9DBF /* TDNSPredicateParserTest.m in Sources */,
 				D3B63A8D170A6BBC00BA9DBF /* TDNSPredicateParser.m in Sources */,
+				D30B8F3D170CA594001796F4 /* DreadedParser.m in Sources */,
+				D30B8F40170CA59A001796F4 /* DreadedParserTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

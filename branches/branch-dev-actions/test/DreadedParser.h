@@ -5,7 +5,7 @@ enum {
     TOKEN_KIND_B,
 };
 
-@interface MultipleParser : PKSParser
+@interface DreadedParser : PKSParser
 
 @end
 

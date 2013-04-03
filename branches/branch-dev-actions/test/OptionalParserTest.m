@@ -79,4 +79,12 @@
     TDEqualObjects(@"[foo, bar, bar, foo, bar]foo/bar/bar/foo/bar^", [res description]);
 }
 
+- (void)testIncompleteSequence {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"foo bar bar foo" assembler:nil error:&err];
+    
+    TDEqualObjects(nil, res);
+    //TDEqualObjects(@"[foo, bar, bar, foo]foo/bar/bar/foo^", [res description]);
+}
+
 @end

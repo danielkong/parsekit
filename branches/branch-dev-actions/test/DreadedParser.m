@@ -1,4 +1,4 @@
-#import "MultipleParser.h"
+#import "DreadedParser.h"
 #import <ParseKit/ParseKit.h>
 #import "PKSRecognitionException.h"
 
@@ -32,11 +32,11 @@
 @property (nonatomic, retain) PKAssembly *_assembly;
 @end
 
-@interface MultipleParser ()
+@interface DreadedParser ()
 @property (nonatomic, retain) NSDictionary *_tokenKindTab;
 @end
 
-@implementation MultipleParser
+@implementation DreadedParser
 
 - (id)init {
 	self = [super init];
@@ -74,20 +74,16 @@
 
 - (void)s {
     
-    do {
-        [self ab]; 
-    } while ((LA(1) == TOKEN_KIND_A) && ([self speculate:^{ [self ab]; }]));
-    [self a]; 
+    if ([self speculate:^{ [self a]; }]) {
+        [self a]; 
+    } else if ([self speculate:^{ [self a]; [self b]; }]) {
+        [self a]; 
+        [self b]; 
+    } else {
+        [self raise:@"no viable alternative found in s"];
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
-}
-
-- (void)ab {
-    
-    [self a]; 
-    [self b]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAb:)];
 }
 
 - (void)a {
