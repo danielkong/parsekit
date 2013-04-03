@@ -67,39 +67,64 @@
 
 - (void)_start {
     
-    [self s]; 
+    @try {
+        [self s]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-    do {
-        [self ab]; 
-    } while ((LA(1) == TOKEN_KIND_A) && ([self speculate:^{ [self ab]; }]));
-    [self a]; 
+    @try {
+        do {
+            [self ab]; 
+        } while ((LA(1) == TOKEN_KIND_A) && ([self speculate:^{ [self ab]; }]));
+        [self a]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
 - (void)ab {
     
-    [self a]; 
-    [self b]; 
+    @try {
+        [self a]; 
+        [self b]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAb:)];
 }
 
 - (void)a {
     
-    [self match:TOKEN_KIND_A]; 
+    @try {
+        [self match:TOKEN_KIND_A]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
 - (void)b {
     
-    [self match:TOKEN_KIND_B]; 
+    @try {
+        [self match:TOKEN_KIND_B]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }

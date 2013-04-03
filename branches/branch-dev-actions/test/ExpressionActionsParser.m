@@ -81,27 +81,42 @@
 
 - (void)_start {
     
-    [self expr]; 
+    @try {
+        [self expr]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)expr {
     
-    [self orExpr]; 
+    @try {
+        [self orExpr]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)orExpr {
     
-    [self andExpr]; 
-    while (LA(1) == TOKEN_KIND_OR) {
-        if ([self speculate:^{ [self orTerm]; }]) {
-            [self orTerm]; 
-        } else {
-            return;
+    @try {
+        [self andExpr]; 
+        while (LA(1) == TOKEN_KIND_OR) {
+            if ([self speculate:^{ [self orTerm]; }]) {
+                [self orTerm]; 
+            } else {
+                return;
+            }
         }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
@@ -109,28 +124,38 @@
 
 - (void)orTerm {
     
-    [self match:TOKEN_KIND_OR]; [self discard:1];
-    [self andExpr]; 
-    [self execute:(id)^{
-        
+    @try {
+        [self match:TOKEN_KIND_OR]; [self discard:1];
+        [self andExpr]; 
+        [self execute:(id)^{
+            
 	BOOL rhs = POP_BOOL();
 	BOOL lhs = POP_BOOL();
 	PUSH_BOOL(lhs || rhs);
 
-    }];
+        }];
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
 }
 
 - (void)andExpr {
     
-    [self relExpr]; 
-    while (LA(1) == TOKEN_KIND_AND) {
-        if ([self speculate:^{ [self andTerm]; }]) {
-            [self andTerm]; 
-        } else {
-            return;
+    @try {
+        [self relExpr]; 
+        while (LA(1) == TOKEN_KIND_AND) {
+            if ([self speculate:^{ [self andTerm]; }]) {
+                [self andTerm]; 
+            } else {
+                return;
+            }
         }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndExpr:)];
@@ -138,28 +163,38 @@
 
 - (void)andTerm {
     
-    [self match:TOKEN_KIND_AND]; [self discard:1];
-    [self relExpr]; 
-    [self execute:(id)^{
-        
+    @try {
+        [self match:TOKEN_KIND_AND]; [self discard:1];
+        [self relExpr]; 
+        [self execute:(id)^{
+            
 	BOOL rhs = POP_BOOL();
 	BOOL lhs = POP_BOOL();
 	PUSH_BOOL(lhs && rhs);
 
-    }];
+        }];
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndTerm:)];
 }
 
 - (void)relExpr {
     
-    [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_GE) {
-        if ([self speculate:^{ [self relOpTerm]; }]) {
-            [self relOpTerm]; 
-        } else {
-            return;
+    @try {
+        [self callExpr]; 
+        while (LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LT) {
+            if ([self speculate:^{ [self relOpTerm]; }]) {
+                [self relOpTerm]; 
+            } else {
+                return;
+            }
         }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelExpr:)];
@@ -167,20 +202,25 @@
 
 - (void)relOp {
     
-    if (LA(1) == TOKEN_KIND_LT) {
-        [self match:TOKEN_KIND_LT]; 
-    } else if (LA(1) == TOKEN_KIND_GT) {
-        [self match:TOKEN_KIND_GT]; 
-    } else if (LA(1) == TOKEN_KIND_EQUALS) {
-        [self match:TOKEN_KIND_EQUALS]; 
-    } else if (LA(1) == TOKEN_KIND_NE) {
-        [self match:TOKEN_KIND_NE]; 
-    } else if (LA(1) == TOKEN_KIND_LE) {
-        [self match:TOKEN_KIND_LE]; 
-    } else if (LA(1) == TOKEN_KIND_GE) {
-        [self match:TOKEN_KIND_GE]; 
-    } else {
-        [self raise:@"no viable alternative found in relOp"];
+    @try {
+        if (LA(1) == TOKEN_KIND_LT) {
+            [self match:TOKEN_KIND_LT]; 
+        } else if (LA(1) == TOKEN_KIND_GT) {
+            [self match:TOKEN_KIND_GT]; 
+        } else if (LA(1) == TOKEN_KIND_EQUALS) {
+            [self match:TOKEN_KIND_EQUALS]; 
+        } else if (LA(1) == TOKEN_KIND_NE) {
+            [self match:TOKEN_KIND_NE]; 
+        } else if (LA(1) == TOKEN_KIND_LE) {
+            [self match:TOKEN_KIND_LE]; 
+        } else if (LA(1) == TOKEN_KIND_GE) {
+            [self match:TOKEN_KIND_GE]; 
+        } else {
+            [self raise:@"no viable alternative found in relOp"];
+        }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelOp:)];
@@ -188,10 +228,11 @@
 
 - (void)relOpTerm {
     
-    [self relOp]; 
-    [self callExpr]; 
-    [self execute:(id)^{
-        
+    @try {
+        [self relOp]; 
+        [self callExpr]; 
+        [self execute:(id)^{
+            
 	NSInteger rhs = POP_INT();
 	NSString  *op = POP_STR();
 	NSInteger lhs = POP_INT();
@@ -203,20 +244,29 @@
 	else if (EQ(op, @"<=")) PUSH_BOOL(lhs <= rhs);
 	else if (EQ(op, @">=")) PUSH_BOOL(lhs >= rhs);
 
-    }];
+        }];
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelOpTerm:)];
 }
 
 - (void)callExpr {
     
-    [self primary]; 
-    if ((LA(1) == TOKEN_KIND_OPEN_PAREN) && ([self speculate:^{ [self match:TOKEN_KIND_OPEN_PAREN]; if ((LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) && ([self speculate:^{ [self argList]; }])) {[self argList]; }[self match:TOKEN_KIND_CLOSE_PAREN]; }])) {
-        [self match:TOKEN_KIND_OPEN_PAREN]; 
-        if ((LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) && ([self speculate:^{ [self argList]; }])) {
-            [self argList]; 
+    @try {
+        [self primary]; 
+        if ((LA(1) == TOKEN_KIND_OPEN_PAREN) && ([self speculate:^{ [self match:TOKEN_KIND_OPEN_PAREN]; if ((LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_WORD) && ([self speculate:^{ [self argList]; }])) {[self argList]; }[self match:TOKEN_KIND_CLOSE_PAREN]; }])) {
+            [self match:TOKEN_KIND_OPEN_PAREN]; 
+            if ((LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_WORD) && ([self speculate:^{ [self argList]; }])) {
+                [self argList]; 
+            }
+            [self match:TOKEN_KIND_CLOSE_PAREN]; 
         }
-        [self match:TOKEN_KIND_CLOSE_PAREN]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchCallExpr:)];
@@ -224,14 +274,19 @@
 
 - (void)argList {
     
-    [self atom]; 
-    while (LA(1) == TOKEN_KIND_COMMA) {
-        if ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self atom]; }]) {
-            [self match:TOKEN_KIND_COMMA]; 
-            [self atom]; 
-        } else {
-            return;
+    @try {
+        [self atom]; 
+        while (LA(1) == TOKEN_KIND_COMMA) {
+            if ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self atom]; }]) {
+                [self match:TOKEN_KIND_COMMA]; 
+                [self atom]; 
+            } else {
+                return;
+            }
         }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchArgList:)];
@@ -239,14 +294,19 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO_UPPER) {
-        [self atom]; 
-    } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
-        [self match:TOKEN_KIND_OPEN_PAREN]; 
-        [self expr]; 
-        [self match:TOKEN_KIND_CLOSE_PAREN]; 
-    } else {
-        [self raise:@"no viable alternative found in primary"];
+    @try {
+        if (LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NO) {
+            [self atom]; 
+        } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
+            [self match:TOKEN_KIND_OPEN_PAREN]; 
+            [self expr]; 
+            [self match:TOKEN_KIND_CLOSE_PAREN]; 
+        } else {
+            [self raise:@"no viable alternative found in primary"];
+        }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPrimary:)];
@@ -254,12 +314,17 @@
 
 - (void)atom {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
-        [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
-        [self literal]; 
-    } else {
-        [self raise:@"no viable alternative found in atom"];
+    @try {
+        if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+            [self obj]; 
+        } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER) {
+            [self literal]; 
+        } else {
+            [self raise:@"no viable alternative found in atom"];
+        }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
@@ -267,13 +332,18 @@
 
 - (void)obj {
     
-    [self id]; 
-    while (LA(1) == TOKEN_KIND_DOT) {
-        if ([self speculate:^{ [self member]; }]) {
-            [self member]; 
-        } else {
-            return;
+    @try {
+        [self id]; 
+        while (LA(1) == TOKEN_KIND_DOT) {
+            if ([self speculate:^{ [self member]; }]) {
+                [self member]; 
+            } else {
+                return;
+            }
         }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchObj:)];
@@ -281,38 +351,53 @@
 
 - (void)id {
     
-    [self Word]; 
+    @try {
+        [self Word]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchId:)];
 }
 
 - (void)member {
     
-    [self match:TOKEN_KIND_DOT]; 
-    [self id]; 
+    @try {
+        [self match:TOKEN_KIND_DOT]; 
+        [self id]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchMember:)];
 }
 
 - (void)literal {
     
-    if ([self test:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }] && (LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER)) {
-        [self bool]; 
-        [self execute:(id)^{
-             PUSH_BOOL(EQ_IGNORE_CASE(POP_STR(), @"yes")); 
-        }];
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
-        [self Number]; 
-        [self execute:(id)^{
-             PUSH_FLOAT(POP_FLOAT()); 
-        }];
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
-        [self QuotedString]; 
-        [self execute:(id)^{
-             PUSH(POP_STR()); 
-        }];
-    } else {
-        [self raise:@"no viable alternative found in literal"];
+    @try {
+        if ([self test:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }] && (LA(1) == TOKEN_KIND_YES_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER)) {
+            [self bool]; 
+            [self execute:(id)^{
+                 PUSH_BOOL(EQ_IGNORE_CASE(POP_STR(), @"yes")); 
+            }];
+        } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+            [self Number]; 
+            [self execute:(id)^{
+                 PUSH_FLOAT(POP_FLOAT()); 
+            }];
+        } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+            [self QuotedString]; 
+            [self execute:(id)^{
+                 PUSH(POP_STR()); 
+            }];
+        } else {
+            [self raise:@"no viable alternative found in literal"];
+        }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchLiteral:)];
@@ -320,16 +405,21 @@
 
 - (void)bool {
     
-    if (LA(1) == TOKEN_KIND_YES) {
-        [self match:TOKEN_KIND_YES]; 
-    } else if (LA(1) == TOKEN_KIND_YES_UPPER) {
-        [self match:TOKEN_KIND_YES_UPPER]; 
-    } else if (LA(1) == TOKEN_KIND_NO) {
-        [self match:TOKEN_KIND_NO]; 
-    } else if ([self test:(id)^{  return NE(LS(1), @"NO");  }] && (LA(1) == TOKEN_KIND_NO_UPPER)) {
-        [self match:TOKEN_KIND_NO_UPPER]; 
-    } else {
-        [self raise:@"no viable alternative found in bool"];
+    @try {
+        if (LA(1) == TOKEN_KIND_YES) {
+            [self match:TOKEN_KIND_YES]; 
+        } else if (LA(1) == TOKEN_KIND_YES_UPPER) {
+            [self match:TOKEN_KIND_YES_UPPER]; 
+        } else if (LA(1) == TOKEN_KIND_NO) {
+            [self match:TOKEN_KIND_NO]; 
+        } else if ([self test:(id)^{  return NE(LS(1), @"NO");  }] && (LA(1) == TOKEN_KIND_NO_UPPER)) {
+            [self match:TOKEN_KIND_NO_UPPER]; 
+        } else {
+            [self raise:@"no viable alternative found in bool"];
+        }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchBool:)];

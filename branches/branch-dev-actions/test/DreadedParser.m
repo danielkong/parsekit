@@ -67,20 +67,30 @@
 
 - (void)_start {
     
-    [self s]; 
+    @try {
+        [self s]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-    if ([self speculate:^{ [self a]; }]) {
-        [self a]; 
-    } else if ([self speculate:^{ [self a]; [self b]; }]) {
-        [self a]; 
-        [self b]; 
-    } else {
-        [self raise:@"no viable alternative found in s"];
+    @try {
+        if ([self speculate:^{ [self a]; }]) {
+            [self a]; 
+        } else if ([self speculate:^{ [self a]; [self b]; }]) {
+            [self a]; 
+            [self b]; 
+        } else {
+            [self raise:@"no viable alternative found in s"];
+        }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
@@ -88,14 +98,24 @@
 
 - (void)a {
     
-    [self match:TOKEN_KIND_A]; 
+    @try {
+        [self match:TOKEN_KIND_A]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
 - (void)b {
     
-    [self match:TOKEN_KIND_B]; 
+    @try {
+        [self match:TOKEN_KIND_B]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }

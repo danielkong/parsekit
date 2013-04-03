@@ -67,41 +67,66 @@
 
 - (void)_start {
     
-    [self s]; 
+    @try {
+        [self s]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-    if ((LA(1) == TOKEN_KIND_FOO) && ([self speculate:^{ [self expr]; }])) {
-        [self expr]; 
+    @try {
+        if ((LA(1) == TOKEN_KIND_FOO) && ([self speculate:^{ [self expr]; }])) {
+            [self expr]; 
+        }
+        [self foo]; 
+        [self bar]; 
     }
-    [self foo]; 
-    [self bar]; 
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
 - (void)expr {
     
-    [self foo]; 
-    [self bar]; 
-    [self bar]; 
+    @try {
+        [self foo]; 
+        [self bar]; 
+        [self bar]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)foo {
     
-    [self match:TOKEN_KIND_FOO]; 
+    @try {
+        [self match:TOKEN_KIND_FOO]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
 
 - (void)bar {
     
-    [self match:TOKEN_KIND_BAR]; 
+    @try {
+        [self match:TOKEN_KIND_BAR]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
 }

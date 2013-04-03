@@ -68,24 +68,34 @@
 
 - (void)_start {
     
-    [self expr]; 
+    @try {
+        [self expr]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)expr {
     
-    [self mult]; 
-    while (LA(1) == TOKEN_KIND_PLUS) {
-        if ([self speculate:^{ [self match:TOKEN_KIND_PLUS]; [self discard:1];[self mult]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); }];}]) {
-            [self match:TOKEN_KIND_PLUS]; [self discard:1];
-            [self mult]; 
-            [self execute:(id)^{
-                 PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); 
-            }];
-        } else {
-            return;
+    @try {
+        [self mult]; 
+        while (LA(1) == TOKEN_KIND_PLUS) {
+            if ([self speculate:^{ [self match:TOKEN_KIND_PLUS]; [self discard:1];[self mult]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); }];}]) {
+                [self match:TOKEN_KIND_PLUS]; [self discard:1];
+                [self mult]; 
+                [self execute:(id)^{
+                     PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); 
+                }];
+            } else {
+                return;
+            }
         }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
@@ -93,17 +103,22 @@
 
 - (void)mult {
     
-    [self pow]; 
-    while (LA(1) == TOKEN_KIND_STAR) {
-        if ([self speculate:^{ [self match:TOKEN_KIND_STAR]; [self discard:1];[self pow]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); }];}]) {
-            [self match:TOKEN_KIND_STAR]; [self discard:1];
-            [self pow]; 
-            [self execute:(id)^{
-                 PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); 
-            }];
-        } else {
-            return;
+    @try {
+        [self pow]; 
+        while (LA(1) == TOKEN_KIND_STAR) {
+            if ([self speculate:^{ [self match:TOKEN_KIND_STAR]; [self discard:1];[self pow]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); }];}]) {
+                [self match:TOKEN_KIND_STAR]; [self discard:1];
+                [self pow]; 
+                [self execute:(id)^{
+                     PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); 
+                }];
+            } else {
+                return;
+            }
         }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchMult:)];
@@ -111,12 +126,13 @@
 
 - (void)pow {
     
-    [self atom]; 
-    if ((LA(1) == TOKEN_KIND_CARET) && ([self speculate:^{ [self match:TOKEN_KIND_CARET]; [self discard:1];[self pow]; [self execute:(id)^{ 		double exp = POP_FLOAT();		double base = POP_FLOAT();		double result = base;	for (NSUInteger i = 1; i < exp; i++) 			result *= base;		PUSH_FLOAT(result); 	}];}])) {
-        [self match:TOKEN_KIND_CARET]; [self discard:1];
-        [self pow]; 
-        [self execute:(id)^{
-             
+    @try {
+        [self atom]; 
+        if ((LA(1) == TOKEN_KIND_CARET) && ([self speculate:^{ [self match:TOKEN_KIND_CARET]; [self discard:1];[self pow]; [self execute:(id)^{ 		double exp = POP_FLOAT();		double base = POP_FLOAT();		double result = base;	for (NSUInteger i = 1; i < exp; i++) 			result *= base;		PUSH_FLOAT(result); 	}];}])) {
+            [self match:TOKEN_KIND_CARET]; [self discard:1];
+            [self pow]; 
+            [self execute:(id)^{
+                 
 		double exp = POP_FLOAT();
 		double base = POP_FLOAT();
 		double result = base;
@@ -124,7 +140,11 @@
 			result *= base;
 		PUSH_FLOAT(result); 
 	
-        }];
+            }];
+        }
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPow:)];
@@ -132,10 +152,15 @@
 
 - (void)atom {
     
-    [self Number]; 
-    [self execute:(id)^{
-        PUSH_FLOAT(POP_FLOAT());
-    }];
+    @try {
+        [self Number]; 
+        [self execute:(id)^{
+            PUSH_FLOAT(POP_FLOAT());
+        }];
+    }
+    @catch (PKSRecognitionException *ex) {
+        @throw ex;
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
 }
