@@ -42,6 +42,7 @@
 		D30B8F59170CFFFE001796F4 /* DelimitedParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F58170CFFFD001796F4 /* DelimitedParserTest.m */; };
 		D30B8F5B170D000A001796F4 /* delimited.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F5A170D000A001796F4 /* delimited.grammar */; };
 		D30B8F5E170D001E001796F4 /* DelimitedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F5D170D001D001796F4 /* DelimitedParser.m */; };
+		D30B8F60170D011E001796F4 /* PKSMatchDelimitedStringTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F5F170D011E001796F4 /* PKSMatchDelimitedStringTemplate.txt */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
@@ -1050,6 +1051,7 @@
 		D30B8F5A170D000A001796F4 /* delimited.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delimited.grammar; path = res/delimited.grammar; sourceTree = "<group>"; };
 		D30B8F5C170D001D001796F4 /* DelimitedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DelimitedParser.h; path = test/DelimitedParser.h; sourceTree = "<group>"; };
 		D30B8F5D170D001D001796F4 /* DelimitedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DelimitedParser.m; path = test/DelimitedParser.m; sourceTree = "<group>"; };
+		D30B8F5F170D011E001796F4 /* PKSMatchDelimitedStringTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSMatchDelimitedStringTemplate.txt; path = res/PKSMatchDelimitedStringTemplate.txt; sourceTree = "<group>"; };
 		D3126D040FFD9BA700CBF4C4 /* PKNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNegation.m; path = src/PKNegation.m; sourceTree = "<group>"; };
 		D3126D090FFD9E4B00CBF4C4 /* TDNegationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNegationTest.h; path = test/TDNegationTest.h; sourceTree = "<group>"; };
 		D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationTest.m; path = test/TDNegationTest.m; sourceTree = "<group>"; };
@@ -2715,6 +2717,7 @@
 				D3B22A37170241F500446945 /* PKSMethodCallTemplate.txt */,
 				D3083ABD1705F73500DA6F95 /* PKSMethodSpeculateTemplate.txt */,
 				D3B22A3B170264FD00446945 /* PKSMatchCallTemplate.txt */,
+				D30B8F5F170D011E001796F4 /* PKSMatchDelimitedStringTemplate.txt */,
 				D3B63A3A1708C80600BA9DBF /* PKSSemanticPredicateTestExprTemplate.txt */,
 				D3B63A3C1708C98B00BA9DBF /* PKSSemanticPredicateTestStatTemplate.txt */,
 				D3B63A5017091FCA00BA9DBF /* PKSSemanticPredicateTestAndThrowExprTemplate.txt */,
@@ -3929,6 +3932,7 @@
 				D30B8F4E170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt in Resources */,
 				D30B8F50170CFF16001796F4 /* parsekit.grammar in Resources */,
 				D30B8F5B170D000A001796F4 /* delimited.grammar in Resources */,
+				D30B8F60170D011E001796F4 /* PKSMatchDelimitedStringTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

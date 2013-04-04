@@ -42,8 +42,6 @@
 	self = [super init];
 	if (self) {
 		self._tokenKindTab = @{
-           @"a" : @(TOKEN_KIND_A),
-           @"b" : @(TOKEN_KIND_B),
         };
 	}
 	return self;
@@ -80,13 +78,8 @@
 - (void)s {
     
     @try {
-        if ([self speculate:^{ [self a]; }]) {
-            [self a]; 
-        } else if ([self speculate:^{ [self a]; [self b]; }]) {
-            [self a]; 
-            [self b]; 
-        } else {
-            [self raise:@"no viable alternative found in s"];
+        if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING) {
+            [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]; 
         }
     }
     @catch (PKSRecognitionException *ex) {
@@ -94,30 +87,6 @@
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
-}
-
-- (void)a {
-    
-    @try {
-        [self match:TOKEN_KIND_A]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchA:)];
-}
-
-- (void)b {
-    
-    @try {
-        [self match:TOKEN_KIND_B]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
 
 @synthesize _tokenKindTab = _tokenKindTab;

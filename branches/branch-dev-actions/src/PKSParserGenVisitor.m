@@ -717,7 +717,20 @@
 - (void)visitDelimited:(PKDelimitedNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    // stup vars
+    id vars = [NSMutableDictionary dictionary];
+    //vars[TOKEN_KIND] = node.tokenKind;
+    vars[DEPTH] = @(_depth);
+    vars[DISCARD] = @(node.discard);
+    
+    // merge
+    NSString *template = [self templateStringNamed:@"PKSMatchDelimitedStringTemplate"];
+    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
+    
+    [output appendString:[self actionStringFrom:node]];
+    
+    // push
+    [self push:output];
 }
 
 
