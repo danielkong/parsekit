@@ -151,6 +151,7 @@
             @"throw": @"THROW",
             @"throws": @"THROWS",
             @"assert": @"ASSERT",
+            @"start": @"START",
         };
     }
     
