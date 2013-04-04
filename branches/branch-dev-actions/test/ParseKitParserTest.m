@@ -58,11 +58,11 @@
     self.factory = nil;
 }
 
-//- (void)testFoo1 {
-//    NSError *err = nil;
-//    PKAssembly *res = [_parser parseString:@"a" assembler:nil error:&err];
-//    
-//    TDEqualObjects(@"[a]a^", [res description]);
-//}
+- (void)testFoo1 {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"@start=foo;foo='bar';" assembler:nil error:&err];
+    
+    TDEqualObjects(@"[=, foo, foo, =, 'bar']@/start/=/foo/;/foo/=/'bar'/;^", [res description]);
+}
 
 @end

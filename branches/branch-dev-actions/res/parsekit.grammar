@@ -3,7 +3,7 @@ statement            = tokenizerDirective | decl;
 tokenizerDirective   = '@'! ~'start' '=' (~';')+ ';'!;
 decl                 = production '=' action? expr ';'!;
 production           = startProduction | varProduction;
-startProduction      = '@' 'start';
+startProduction      = '@'! 'start'!;
 varProduction        = LowercaseWord;
 expr                 = term orTerm*;
 term                 = semanticPredicate? factor nextFactor*;
