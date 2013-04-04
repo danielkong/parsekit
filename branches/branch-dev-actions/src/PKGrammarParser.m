@@ -17,10 +17,10 @@
 
 // @start               = statement*;
 // statement            = tokenizerDirective | decl;
-// tokenizerDirective   = (/@.+/ - '@start') '=' (~';')+ ';'!;
+// tokenizerDirective   = '@'! ~'start' '=' (~';')+ ';'!;
 // decl                 = production '=' action? expr ';'!;
 // production           = startProduction | varProduction;
-// startProduction      = '@start';
+// startProduction      = '@'! 'start'!;
 // varProduction        = LowercaseWord;
 // expr                 = term orTerm*;
 // term                 = semanticPredicate? factor nextFactor*;
@@ -172,16 +172,17 @@
 }
 
 
-// tokenizerDirective   = ((Word & /@.+/) - '@start') '=' (~';')+ ';'!;
+// tokenizerDirective   = '@'! ~'start' '=' (~';')+ ';'!;
 - (PKCollectionParser *)tokenizerDirectiveParser {
     if (!tokenizerDirectiveParser) {
         self.tokenizerDirectiveParser = [PKSequence sequence];
         tokenizerDirectiveParser.name = @"tokenizerDirective";
         
-        PKPattern *regex = [PKPattern patternWithString:@"@.+"];
-        PKIntersection *dir = [PKIntersection intersectionWithSubparsers:[PKWord word], regex, nil];
-        PKParser *notStart = [PKDifference differenceWithSubparser:dir minus:[PKLiteral literalWithString:@"@start"]];
+        [tokenizerDirectiveParser add:[[PKSymbol symbolWithString:@"@"] discard]];
+        
+        PKParser *notStart = [PKNegation negationWithSubparser:[PKLiteral literalWithString:@"start"]];
         [tokenizerDirectiveParser add:notStart];
+
         [tokenizerDirectiveParser add:[PKSymbol symbolWithString:@"="]];
         
         PKParser *notSemi = [PKNegation negationWithSubparser:[PKSymbol symbolWithString:@";"]];
@@ -226,12 +227,13 @@
 }
 
 
-// startProduction              = '@start';
+// startProduction              = '@'! 'start'!;
 - (PKCollectionParser *)startProductionParser {
     if (!startProductionParser) {
         self.startProductionParser = [PKSequence sequence];
         startProductionParser.name = @"startProduction";
-        [startProductionParser add:[PKLiteral literalWithString:@"@start"]];
+        [startProductionParser add:[[PKSymbol symbolWithString:@"@"] discard]];
+        [startProductionParser add:[[PKLiteral literalWithString:@"start"] discard]];
         [startProductionParser setAssembler:assembler selector:@selector(parser:didMatchStartProduction:)];
     }
     return startProductionParser;

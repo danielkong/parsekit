@@ -150,6 +150,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *square;
 
 @property (nonatomic, retain) PKToken *rootToken;
+@property (nonatomic, retain) PKToken *startToken;
 @property (nonatomic, retain) PKToken *defToken;
 @property (nonatomic, retain) PKToken *refToken;
 @property (nonatomic, retain) PKToken *seqToken;
@@ -183,6 +184,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.paren      = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
         self.square     = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"[" floatValue:0.0];
 
+        self.startToken = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"@start" floatValue:0.0];
         self.rootToken  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"ROOT" floatValue:0.0];
         self.defToken   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"$" floatValue:0.0];
         self.refToken   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"#" floatValue:0.0];
@@ -218,6 +220,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.paren = nil;
     self.square = nil;
     self.rootToken = nil;
+    self.startToken = nil;
     self.defToken = nil;
     self.refToken = nil;
     self.seqToken = nil;
@@ -355,10 +358,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     [t.symbolState add:@"%{"];
     [t.symbolState add:@"/i"];
     [t.symbolState add:@"}?"];
-    
-    // customize tokenizer to find tokenizer customization directives
-    [t setTokenizerState:t.wordState from:'@' to:'@'];
-    
+
     // add support for tokenizer directives like @commentState.fallbackState
     [t.wordState setWordChars:YES from:'.' to:'.'];
     [t.wordState setWordChars:NO from:'-' to:'-'];
@@ -641,7 +641,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert([nameTok isKindOfClass:[PKToken class]], @"");
     NSAssert(nameTok.isWord, @"");
     
-    NSString *prodName = [NSString stringWithFormat:@"%@", nameTok.stringValue];
+    NSString *prodName = [NSString stringWithFormat:@"@%@", nameTok.stringValue];
     NSMutableArray *allToks = directiveTab[prodName];
     if (!allToks) {
         allToks = [NSMutableArray arrayWithCapacity:[argToks count]];
@@ -654,15 +654,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 
-    PKToken *tok = [a pop];
-    NSAssert(tok, @"");
-    NSAssert([tok isKindOfClass:[PKToken class]], @"");
-    NSAssert(tok.isWord, @"");
-    
-    NSAssert([tok.stringValue length], @"");
-    NSAssert([tok.stringValue isEqualToString:@"@start"], @"");
-    
-    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:tok];
+    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:startToken];
     [a push:node];
 }
 
@@ -1164,6 +1156,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize square;
 
 @synthesize rootToken;
+@synthesize startToken;
 @synthesize defToken;
 @synthesize refToken;
 @synthesize seqToken;
