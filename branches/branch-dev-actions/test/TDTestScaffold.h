@@ -23,4 +23,4 @@
 #define TDEquals(e1, e2) STAssertEquals((e1), (e2), @"")
 #define TDEqualObjects(e1, e2) STAssertEqualObjects((e1), (e2), @"")
 
-#define TD_EMIT 1
+#define TD_EMIT 0

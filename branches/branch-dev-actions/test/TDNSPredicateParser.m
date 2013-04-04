@@ -178,7 +178,7 @@
 - (void)andTerm {
     
     @try {
-        if (LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NONE) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_OPEN_CURLY) {
             [self primaryExpr]; 
         } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
             [self compoundExpr]; 
@@ -210,7 +210,7 @@
 - (void)primaryExpr {
     
     @try {
-        if (LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NONE) {
+        if (LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
             [self predicate]; 
         } else if (LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_BANG) {
             [self negatedPredicate]; 
@@ -269,7 +269,7 @@
             [self string]; 
         } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
             [self num]; 
-        } else if (LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUELITERAL) {
+        } else if (LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSELITERAL) {
             [self bool]; 
         } else if (LA(1) == TOKEN_KIND_OPEN_CURLY) {
             [self array]; 
@@ -367,7 +367,7 @@
 - (void)arrayContentsOpt {
     
     @try {
-        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+        if (LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
             [self arrayContents]; 
         }
     }
@@ -425,9 +425,9 @@
 - (void)comparisonPredicate {
     
     @try {
-        if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
             [self numComparisonPredicate]; 
-        } else if (LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_ALL) {
+        } else if (LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_SOME) {
             [self collectionComparisonPredicate]; 
         } else {
             [self raise:@"no viable alternative found in comparisonPredicate"];
@@ -481,7 +481,7 @@
             [self gt]; 
         } else if (LA(1) == TOKEN_KIND_LT) {
             [self lt]; 
-        } else if (LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_HASH_ROCKET) {
+        } else if (LA(1) == TOKEN_KIND_HASH_ROCKET || LA(1) == TOKEN_KIND_GE) {
             [self gtEq]; 
         } else if (LA(1) == TOKEN_KIND_EL || LA(1) == TOKEN_KIND_LE) {
             [self ltEq]; 

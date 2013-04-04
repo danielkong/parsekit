@@ -76,7 +76,7 @@
     @try {
         do {
             [self method]; 
-        } while ((LA(1) == TOKEN_KIND_INT || LA(1) == TOKEN_KIND_VOID) && ([self speculate:^{ [self method]; }]));
+        } while ((LA(1) == TOKEN_KIND_VOID || LA(1) == TOKEN_KIND_INT) && ([self speculate:^{ [self method]; }]));
     }
     @catch (PKSRecognitionException *ex) {
         @throw ex;
