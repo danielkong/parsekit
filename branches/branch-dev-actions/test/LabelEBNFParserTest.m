@@ -38,19 +38,19 @@
     
     self.parser = [[[LabelEBNFParser alloc] init] autorelease];
 
-//#if TD_EMIT
-//    path = [@"~/work/parsekit/trunk/test/LabelEBNFParser.h" stringByExpandingTildeInPath];
-//    err = nil;
-//    if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
-//        NSLog(@"%@", err);
-//    }
-//
-//    path = [@"~/work/parsekit/trunk/test/LabelEBNFParser.m" stringByExpandingTildeInPath];
-//    err = nil;
-//    if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
-//        NSLog(@"%@", err);
-//    }
-//#endif
+#if TD_EMIT
+    path = [@"~/work/parsekit/trunk/test/LabelEBNFParser.h" stringByExpandingTildeInPath];
+    err = nil;
+    if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
+        NSLog(@"%@", err);
+    }
+
+    path = [@"~/work/parsekit/trunk/test/LabelEBNFParser.m" stringByExpandingTildeInPath];
+    err = nil;
+    if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
+        NSLog(@"%@", err);
+    }
+#endif
 }
 
 - (void)tearDown {
