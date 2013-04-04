@@ -158,6 +158,7 @@
     if (TOKEN_KIND_BUILTIN_EMPTY == x) return;
     
     PKToken *lt = LT(1);
+    //NSLog(@"%@", lt);
     if (lt.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
         if (!self._isSpeculating) {
             [_assembly consume:lt];
@@ -442,14 +443,20 @@
 - (void)LowercaseWord {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self match:TOKEN_KIND_BUILTIN_LOWERCASEWORD];
+    NSString *str = [self LS:1];
+    if ([str length] && islower([str characterAtIndex:0])) {
+        [self match:TOKEN_KIND_BUILTIN_WORD];
+    }
 }
 
 
 - (void)UppercaseWord {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self match:TOKEN_KIND_BUILTIN_UPPERCASEWORD];
+    NSString *str = [self LS:1];
+    if ([str length] && isupper([str characterAtIndex:0])) {
+        [self match:TOKEN_KIND_BUILTIN_WORD];
+    }
 }
 
 

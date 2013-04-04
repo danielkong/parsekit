@@ -1,6 +1,6 @@
 #import "PKSParser.h"
 enum {
-    TOKEN_KIND_GE = 16,
+    TOKEN_KIND_GE = 14,
     TOKEN_KIND_COMMA,
     TOKEN_KIND_OR,
     TOKEN_KIND_LT,
