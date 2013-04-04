@@ -437,6 +437,20 @@
 }
 
 
+- (void)LowercaseWord {
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
+    
+    [self match:TOKEN_KIND_BUILTIN_LOWERCASEWORD];
+}
+
+
+- (void)UppercaseWord {
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
+    
+    [self match:TOKEN_KIND_BUILTIN_UPPERCASEWORD];
+}
+
+
 - (void)Number {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
