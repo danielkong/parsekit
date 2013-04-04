@@ -43,7 +43,6 @@
 	if (self) {
 		self._tokenKindTab = @{
            @"foo" : @(TOKEN_KIND_FOO),
-           @"bar" : @(TOKEN_KIND_BAR),
         };
 	}
 	return self;
@@ -80,31 +79,15 @@
 - (void)s {
     
     @try {
-        if ((LA(1) == TOKEN_KIND_FOO) && ([self speculate:^{ [self expr]; }])) {
-            [self expr]; 
+        if (![self speculate:^{ [self foo]; }]) {
+            [self match:TOKEN_KIND_BUILTIN_ANY];
         }
-        [self foo]; 
-        [self bar]; 
     }
     @catch (PKSRecognitionException *ex) {
         @throw ex;
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
-}
-
-- (void)expr {
-    
-    @try {
-        [self foo]; 
-        [self bar]; 
-        [self bar]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)foo {
@@ -117,18 +100,6 @@
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
-}
-
-- (void)bar {
-    
-    @try {
-        [self match:TOKEN_KIND_BAR]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
 }
 
 @synthesize _tokenKindTab = _tokenKindTab;

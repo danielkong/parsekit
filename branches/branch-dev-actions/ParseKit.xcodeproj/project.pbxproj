@@ -34,6 +34,8 @@
 		D30B8F45170CFA8C001796F4 /* NegationParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F44170CFA8C001796F4 /* NegationParser.m */; };
 		D30B8F47170CFA9A001796F4 /* negation.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F46170CFA9A001796F4 /* negation.grammar */; };
 		D30B8F4A170CFAAD001796F4 /* NegationParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F49170CFAAD001796F4 /* NegationParserTest.m */; };
+		D30B8F4C170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4B170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt */; };
+		D30B8F4E170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4D170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
@@ -1030,6 +1032,8 @@
 		D30B8F46170CFA9A001796F4 /* negation.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = negation.grammar; path = res/negation.grammar; sourceTree = "<group>"; };
 		D30B8F48170CFAAC001796F4 /* NegationParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NegationParserTest.h; path = test/NegationParserTest.h; sourceTree = "<group>"; };
 		D30B8F49170CFAAD001796F4 /* NegationParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NegationParserTest.m; path = test/NegationParserTest.m; sourceTree = "<group>"; };
+		D30B8F4B170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSNegationNonTerminalTemplate.txt; path = res/PKSNegationNonTerminalTemplate.txt; sourceTree = "<group>"; };
+		D30B8F4D170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSNegationTerminalTemplate.txt; path = res/PKSNegationTerminalTemplate.txt; sourceTree = "<group>"; };
 		D3126D040FFD9BA700CBF4C4 /* PKNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNegation.m; path = src/PKNegation.m; sourceTree = "<group>"; };
 		D3126D090FFD9E4B00CBF4C4 /* TDNegationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNegationTest.h; path = test/TDNegationTest.h; sourceTree = "<group>"; };
 		D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationTest.m; path = test/TDNegationTest.m; sourceTree = "<group>"; };
@@ -2711,6 +2715,8 @@
 				D3B22A471702A11600446945 /* PKSMultipleTerminalTemplate.txt */,
 				D3B22A4C1702A1F800446945 /* PKSRepetitionNonTerminalTemplate.txt */,
 				D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionTerminalTemplate.txt */,
+				D30B8F4B170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt */,
+				D30B8F4D170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt */,
 			);
 			name = PKSTemplates;
 			sourceTree = "<group>";
@@ -3893,6 +3899,8 @@
 				D3633A2F170A700900C0966D /* nspredicate2.grammar in Resources */,
 				D30B8F42170CA5D6001796F4 /* dreaded.grammar in Resources */,
 				D30B8F47170CFA9A001796F4 /* negation.grammar in Resources */,
+				D30B8F4C170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt in Resources */,
+				D30B8F4E170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

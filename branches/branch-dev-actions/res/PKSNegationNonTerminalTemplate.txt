@@ -1,0 +1,3 @@
+{%for 1 to depth %}    {%/for%}if (![self speculate:^{ {%if predicate %}{{predicate}}; {%/if%}{{ifTest}}}]) {
+{%for 1 to depth %}    {%/for%}    [self match:TOKEN_KIND_BUILTIN_ANY];
+{%for 1 to depth %}    {%/for%}}

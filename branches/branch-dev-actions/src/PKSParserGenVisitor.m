@@ -282,10 +282,53 @@
         case '*':
             [self visitRepetition:node];
             break;
+        case '~':
+            [self visitNegation:node];
+            break;
         default:
             NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
             break;
     }
+}
+
+
+- (void)visitNegation:(PKCompositeNode *)node {
+    
+    // recurse
+    NSAssert(1 == [node.children count], @"");
+    PKBaseNode *child = node.children[0];
+    
+    NSSet *set = [self lookaheadSetForNode:child];
+    
+    self.depth++;
+    [child visit:self];
+    self.depth--;
+    
+    // pop
+    NSMutableString *childStr = [self pop];
+    
+    // setup vars
+    id vars = [NSMutableDictionary dictionary];
+    vars[DEPTH] = @(_depth);
+    vars[LOOKAHEAD_SET] = set;
+    vars[LAST] = @([set count] - 1);
+    vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
+    
+    // TODO Predicates???
+    
+    NSMutableString *output = [NSMutableString string];
+    
+    // TODO
+//    BOOL isTerminal = [child isTermainal];
+//    NSString *templateName = isTerminal ? @"PKSNegationTerminalTemplate" : @"PKSNegationNonTerminalTemplate";
+
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSNegationNonTerminalTemplate"] withVariables:vars]];
+    
+    // action
+    [output appendString:[self actionStringFrom:node]];
+    
+    // push
+    [self push:output];
 }
 
 
