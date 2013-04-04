@@ -8,7 +8,8 @@
 
 #import "PKParserFactory.h"
 #import <ParseKit/ParseKit.h>
-#import "PKGrammarParser.h"
+//#import "PKGrammarParser.h"
+#import "ParseKitParser.h"
 #import "NSString+ParseKitAdditions.h"
 #import "NSArray+ParseKitAdditions.h"
 
@@ -136,7 +137,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a;
 
-@property (nonatomic, retain) PKGrammarParser *grammarParser;
+//@property (nonatomic, retain) PKGrammarParser *grammarParser;
+@property (nonatomic, retain) ParseKitParser *grammarParser;
 @property (nonatomic, assign) id assembler;
 @property (nonatomic, assign) id preassembler;
 
@@ -178,7 +180,9 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (id)init {
     self = [super init];
     if (self) {
-        self.grammarParser = [[[PKGrammarParser alloc] initWithAssembler:self] autorelease];
+//        self.grammarParser = [[[PKGrammarParser alloc] initWithAssembler:self] autorelease];
+        self.grammarParser = [[[ParseKitParser alloc] init] autorelease];
+        
         self.equals     = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"=" floatValue:0.0];
         self.curly      = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0.0];
         self.paren      = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
@@ -334,8 +338,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKTokenizer *t = [self tokenizerForParsingGrammar];
     t.string = g;
 
-    grammarParser.parser.tokenizer = t;
-    [grammarParser.parser parse:g error:outError];
+//    - (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError
+
+    [grammarParser _doParseWithTokenizer:t assembler:self error:outError];
+//    grammarParser.parser.tokenizer = t;
+//    [grammarParser.parser parse:g error:outError];
         
     PKDefinitionPhaseVisitor *defv = [[[PKDefinitionPhaseVisitor alloc] init] autorelease];
     defv.symbolTable = symTab;

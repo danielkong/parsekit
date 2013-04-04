@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
-		D30226FA170202DD00594F16 /* PKSParserGenVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D30226F9170202DD00594F16 /* PKSParserGenVisitor.m */; };
-		D30226FD170205D200594F16 /* PKSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30226FC170205D200594F16 /* PKSParser.m */; };
 		D3022719170208C800594F16 /* ICUTemplateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022707170208C800594F16 /* ICUTemplateMatcher.m */; };
 		D302271A170208C800594F16 /* MGTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270A170208C800594F16 /* MGTemplateEngine.m */; };
 		D302271B170208C800594F16 /* MGTemplateStandardFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270E170208C800594F16 /* MGTemplateStandardFilters.m */; };
@@ -27,7 +25,6 @@
 		D3083AB91705F09B00DA6F95 /* ElementAssignParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3083AB81705F09B00DA6F95 /* ElementAssignParserTest.m */; };
 		D3083ABC1705F16000DA6F95 /* ElementAssignParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3083ABB1705F16000DA6F95 /* ElementAssignParser.m */; };
 		D3083ABE1705F73600DA6F95 /* PKSMethodSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3083ABD1705F73500DA6F95 /* PKSMethodSpeculateTemplate.txt */; };
-		D3083AC117061E0D00DA6F95 /* PKSTokenAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D3083AC017061E0D00DA6F95 /* PKSTokenAssembly.m */; };
 		D30B8F3D170CA594001796F4 /* DreadedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F3C170CA594001796F4 /* DreadedParser.m */; };
 		D30B8F40170CA59A001796F4 /* DreadedParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F3F170CA59A001796F4 /* DreadedParserTest.m */; };
 		D30B8F42170CA5D6001796F4 /* dreaded.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F41170CA5D6001796F4 /* dreaded.grammar */; };
@@ -38,7 +35,6 @@
 		D30B8F4E170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4D170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt */; };
 		D30B8F50170CFF16001796F4 /* parsekit.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4F170CFF16001796F4 /* parsekit.grammar */; };
 		D30B8F53170CFF2B001796F4 /* ParseKitParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F52170CFF2A001796F4 /* ParseKitParserTest.m */; };
-		D30B8F56170CFF3D001796F4 /* ParseKitParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F55170CFF3C001796F4 /* ParseKitParser.m */; };
 		D30B8F59170CFFFE001796F4 /* DelimitedParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F58170CFFFD001796F4 /* DelimitedParserTest.m */; };
 		D30B8F5B170D000A001796F4 /* delimited.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F5A170D000A001796F4 /* delimited.grammar */; };
 		D30B8F5E170D001E001796F4 /* DelimitedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F5D170D001D001796F4 /* DelimitedParser.m */; };
@@ -547,7 +543,11 @@
 		D3B22A6A1703E3F700446945 /* PKSTokenKindDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B22A631703E0A300446945 /* PKSTokenKindDescriptor.h */; settings = {ATTRIBUTES = (); }; };
 		D3B22A6C1703E3FB00446945 /* PKSTokenKindDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B22A631703E0A300446945 /* PKSTokenKindDescriptor.h */; settings = {ATTRIBUTES = (); }; };
 		D3B22A6D1703E3FC00446945 /* PKSTokenKindDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B22A631703E0A300446945 /* PKSTokenKindDescriptor.h */; settings = {ATTRIBUTES = (); }; };
-		D3B22A73170550A400446945 /* PKSRecognitionException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A72170550A200446945 /* PKSRecognitionException.m */; };
+		D3B4B43F170E02D700572530 /* ParseKitParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F55170CFF3C001796F4 /* ParseKitParser.m */; };
+		D3B4B440170E02E000572530 /* PKSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30226FC170205D200594F16 /* PKSParser.m */; };
+		D3B4B441170E02E300572530 /* PKSTokenAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D3083AC017061E0D00DA6F95 /* PKSTokenAssembly.m */; };
+		D3B4B443170E03A000572530 /* PKSRecognitionException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A72170550A200446945 /* PKSRecognitionException.m */; };
+		D3B4B444170E03BF00572530 /* PKSParserGenVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D30226F9170202DD00594F16 /* PKSParserGenVisitor.m */; };
 		D3B63A241706508400BA9DBF /* PKSSpeculateIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */; };
 		D3B63A261706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */; };
 		D3B63A2A170753E400BA9DBF /* PKActionNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B63A27170751E700BA9DBF /* PKActionNode.h */; };
@@ -4091,6 +4091,10 @@
 				D33724ED16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */,
 				D3B22A691703E3ED00446945 /* PKSTokenKindDescriptor.m in Sources */,
 				D3B63A2D170753E800BA9DBF /* PKActionNode.m in Sources */,
+				D3B4B43F170E02D700572530 /* ParseKitParser.m in Sources */,
+				D3B4B440170E02E000572530 /* PKSParser.m in Sources */,
+				D3B4B441170E02E300572530 /* PKSTokenAssembly.m in Sources */,
+				D3B4B443170E03A000572530 /* PKSRecognitionException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4277,8 +4281,6 @@
 				D32612A116F64F280021845F /* PKGlobalScope.m in Sources */,
 				D32612A216F64F280021845F /* PKLocalScope.m in Sources */,
 				D32612A316F651F90021845F /* TDParserFactorySymbolTableTest.m in Sources */,
-				D30226FA170202DD00594F16 /* PKSParserGenVisitor.m in Sources */,
-				D30226FD170205D200594F16 /* PKSParser.m in Sources */,
 				D3022719170208C800594F16 /* ICUTemplateMatcher.m in Sources */,
 				D302271A170208C800594F16 /* MGTemplateEngine.m in Sources */,
 				D302271B170208C800594F16 /* MGTemplateStandardFilters.m in Sources */,
@@ -4290,10 +4292,8 @@
 				D3B22A561703D03900446945 /* ExpressionParser.m in Sources */,
 				D3B22A5D1703DA8000446945 /* ElementParserTest.m in Sources */,
 				D3B22A621703DE2000446945 /* ExpressionParserTest.m in Sources */,
-				D3B22A73170550A400446945 /* PKSRecognitionException.m in Sources */,
 				D3083AB91705F09B00DA6F95 /* ElementAssignParserTest.m in Sources */,
 				D3083ABC1705F16000DA6F95 /* ElementAssignParser.m in Sources */,
-				D3083AC117061E0D00DA6F95 /* PKSTokenAssembly.m in Sources */,
 				D3B63A3417079F5200BA9DBF /* ExpressionParserActionsTest.m in Sources */,
 				D3B63A3917079FE100BA9DBF /* ExpressionActionsParser.m in Sources */,
 				D3B63A42170910D100BA9DBF /* MethodsParserTest.m in Sources */,
@@ -4319,11 +4319,11 @@
 				D30B8F45170CFA8C001796F4 /* NegationParser.m in Sources */,
 				D30B8F4A170CFAAD001796F4 /* NegationParserTest.m in Sources */,
 				D30B8F53170CFF2B001796F4 /* ParseKitParserTest.m in Sources */,
-				D30B8F56170CFF3D001796F4 /* ParseKitParser.m in Sources */,
 				D30B8F59170CFFFE001796F4 /* DelimitedParserTest.m in Sources */,
 				D30B8F5E170D001E001796F4 /* DelimitedParser.m in Sources */,
 				D30B8F65170D0EB0001796F4 /* PatternParserTest.m in Sources */,
 				D30B8F6A170D0EEB001796F4 /* PatternParser.m in Sources */,
+				D3B4B444170E03BF00572530 /* PKSParserGenVisitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4627,7 +4627,6 @@
 				);
 				PRODUCT_NAME = ParseKit;
 				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = "-Wundeclared-selector";
 				WRAPPER_EXTENSION = framework;
 				ZERO_LINK = YES;
 			};
@@ -4657,7 +4656,6 @@
 				PRODUCT_NAME = ParseKit;
 				SKIP_INSTALL = YES;
 				TDPARSEKIT_FRAMEWORK_TARGET_PATH = "@executable_path/../Frameworks";
-				WARNING_CFLAGS = "-Wundeclared-selector";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
