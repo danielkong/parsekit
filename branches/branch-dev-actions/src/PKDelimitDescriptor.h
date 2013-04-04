@@ -10,9 +10,10 @@
 
 @interface PKDelimitDescriptor : NSObject <NSCopying>
 
-+ (PKDelimitDescriptor *)descriptorWithStartMarker:(NSString *)start endMarker:(NSString *)end characterSet:(NSCharacterSet *)cs;
++ (PKDelimitDescriptor *)descriptorWithStartMarker:(NSString *)start endMarker:(NSString *)end characterSet:(NSCharacterSet *)cs tokenKind:(NSInteger)kind;
 
 @property (nonatomic, retain) NSString *startMarker;
 @property (nonatomic, retain) NSString *endMarker;
 @property (nonatomic, retain) NSCharacterSet *characterSet;
+@property (nonatomic, assign) NSInteger tokenKind;
 @end
