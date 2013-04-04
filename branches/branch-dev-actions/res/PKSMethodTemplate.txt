@@ -1,11 +1,6 @@
 
 - (void){{methodName}} {
     
-    @try {
-{{methodBody}}    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
-
+{{methodBody}}
     [self fireAssemblerSelector:@selector(parser:didMatch{{methodName | capitalized}}:)];
 }
