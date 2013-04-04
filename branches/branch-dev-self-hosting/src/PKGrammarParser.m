@@ -57,8 +57,8 @@
 @interface NSObject (PKGrammarParserAdditions)
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchTrackExpr:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchSubSeqExpr:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchSubTrackExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
@@ -75,7 +75,7 @@
 - (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchOrTerm:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a;
 @end
 
@@ -287,7 +287,7 @@
         [tr add:self.termParser];
         
         [orTermParser add:tr];
-        [orTermParser setAssembler:assembler selector:@selector(parser:didMatchOr:)];
+        [orTermParser setAssembler:assembler selector:@selector(parser:didMatchOrTerm:)];
     }
     return orTermParser;
 }
@@ -396,14 +396,14 @@
         [s add:[PKSymbol symbolWithString:@"("]];
         [s add:self.exprParser];
         [s add:[[PKSymbol symbolWithString:@")"] discard]];
-        [s setAssembler:assembler selector:@selector(parser:didMatchSubExpr:)];
+        [s setAssembler:assembler selector:@selector(parser:didMatchSubSeqExpr:)];
         [barePrimaryExprParser add:s];
 
         PKTrack *tr = [PKTrack track];
         [tr add:[PKSymbol symbolWithString:@"["]];
         [tr add:self.exprParser];
         [tr add:[[PKSymbol symbolWithString:@"]"] discard]];
-        [tr setAssembler:assembler selector:@selector(parser:didMatchTrackExpr:)];
+        [tr setAssembler:assembler selector:@selector(parser:didMatchSubTrackExpr:)];
         [barePrimaryExprParser add:tr];
     }
     return barePrimaryExprParser;

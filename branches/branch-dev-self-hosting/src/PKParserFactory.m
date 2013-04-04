@@ -116,8 +116,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchTokenizerDirective:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchTrackExpr:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchSubSeqExpr:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchSubTrackExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a;
@@ -134,7 +134,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchOrTerm:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a;
 
 //@property (nonatomic, retain) PKGrammarParser *grammarParser;
@@ -683,7 +683,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     NSArray *nodes = [a objectsAbove:equals];
     NSAssert([nodes count], @"");
 
@@ -711,7 +711,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchTrackExpr:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchSubTrackExpr:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     NSArray *nodes = [a objectsAbove:square];
@@ -743,7 +743,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchSubSeqExpr:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     NSArray *nodes = [a objectsAbove:paren];
@@ -1095,8 +1095,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchOr:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+- (void)parser:(PKParser *)p didMatchOrTerm:(PKAssembly *)a {
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 
     NSMutableArray *rhsNodes = [[[a objectsAbove:orToken] mutableCopy] autorelease];
     
