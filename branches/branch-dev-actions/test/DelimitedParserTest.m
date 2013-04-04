@@ -64,7 +64,7 @@
 
 - (void)testFoo1 {
     PKTokenizer *t = [PKTokenizer tokenizerWithString:@"<foo>"];
-    [t.delimitState addStartMarker:@"<" endMarker:@">" allowedCharacterSet:nil];
+    [t.delimitState addStartMarker:@"<" endMarker:@">" allowedCharacterSet:nil tokenKind:14]; // TODO
     [t setTokenizerState:t.delimitState from:'<' to:'<'];
     
     NSError *err = nil;

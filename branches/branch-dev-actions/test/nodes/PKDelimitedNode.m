@@ -22,6 +22,7 @@
     PKDelimitedNode *that = (PKDelimitedNode *)[super copyWithZone:zone];
     that->_startMarker = [_startMarker retain];
     that->_endMarker = [_endMarker retain];
+    that->_tokenKind = _tokenKind;
     return that;
 }
 
@@ -38,6 +39,10 @@
     }
     
     if (![_endMarker isEqual:that->_endMarker]) {
+        return NO;
+    }
+    
+    if (_tokenKind != that->_tokenKind) {
         return NO;
     }
     

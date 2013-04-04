@@ -919,6 +919,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKDelimitedNode *delimNode = [PKDelimitedNode nodeWithToken:delimToken];
     delimNode.startMarker = start;
     delimNode.endMarker = end;
+    //delimNode.tokenKind = 0;
     
     [a push:delimNode];
 }

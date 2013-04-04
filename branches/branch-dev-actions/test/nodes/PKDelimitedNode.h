@@ -11,4 +11,5 @@
 @interface PKDelimitedNode : PKBaseNode
 @property (nonatomic, retain) NSString *startMarker;
 @property (nonatomic, retain) NSString *endMarker;
+@property (nonatomic, assign) NSInteger tokenKind;
 @end
