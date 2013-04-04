@@ -35,6 +35,8 @@
 #define ACTION_BODY @"actionBody"
 #define PREDICATE_BODY @"predicateBody"
 #define PREDICATE @"predicate"
+#define PREFIX @"prefix"
+#define SUFFIX @"suffix"
 
 @interface PKSParserGenVisitor ()
 - (void)push:(NSMutableString *)mstr;
@@ -722,6 +724,8 @@
     //vars[TOKEN_KIND] = node.tokenKind;
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
+    vars[PREFIX] = node.startMarker;
+    vars[SUFFIX] = node.endMarker;
     
     // merge
     NSString *template = [self templateStringNamed:@"PKSMatchDelimitedStringTemplate"];
