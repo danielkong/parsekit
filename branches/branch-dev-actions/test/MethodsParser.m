@@ -73,21 +73,15 @@
 
 - (void)_start {
     
-    @try {
         do {
             [self method]; 
         } while ((LA(1) == TOKEN_KIND_VOID || LA(1) == TOKEN_KIND_INT) && ([self speculate:^{ [self method]; }]));
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)method {
     
-    @try {
         if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type]; [self Word]; [self match:TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:TOKEN_KIND_CLOSE_PAREN]; [self match:TOKEN_KIND_SEMI_COLON]; }]) {
             [self type]; 
             [self Word]; 
@@ -106,17 +100,12 @@
         } else {
             [self raise:@"no viable alternative found in method"];
         }
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchMethod:)];
 }
 
 - (void)type {
     
-    @try {
         if (LA(1) == TOKEN_KIND_VOID) {
             [self match:TOKEN_KIND_VOID]; 
         } else if (LA(1) == TOKEN_KIND_INT) {
@@ -124,17 +113,12 @@
         } else {
             [self raise:@"no viable alternative found in type"];
         }
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchType:)];
 }
 
 - (void)args {
     
-    @try {
         if (LA(1) == TOKEN_KIND_INT) {
             [self arg]; 
             while (LA(1) == TOKEN_KIND_COMMA) {
@@ -146,23 +130,14 @@
                 }
             }
         }
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchArgs:)];
 }
 
 - (void)arg {
     
-    @try {
         [self match:TOKEN_KIND_INT]; 
         [self Word]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchArg:)];
 }

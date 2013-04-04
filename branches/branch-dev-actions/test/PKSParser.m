@@ -271,7 +271,9 @@
         PKToken *tok = [_tokenizer nextToken];
 
         // set token kind
-        tok.tokenKind = [self _tokenKindForToken:tok];
+        if (TOKEN_KIND_BUILTIN_INVALID == tok.tokenKind) {
+            tok.tokenKind = [self _tokenKindForToken:tok];
+        }
         
         // buffer in lookahead
         NSAssert(tok, @"");

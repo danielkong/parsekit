@@ -65,26 +65,16 @@
 
 - (void)_start {
     
-    @try {
         [self s]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-    @try {
         if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING && [LS(1) hasPrefix:@"<"] && [LS(1) hasSuffix:@">"]) {
             [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]; 
         }
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }

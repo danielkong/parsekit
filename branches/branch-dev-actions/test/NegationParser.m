@@ -66,38 +66,23 @@
 
 - (void)_start {
     
-    @try {
         [self s]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-    @try {
         if (![self speculate:^{ [self foo]; }]) {
             [self match:TOKEN_KIND_BUILTIN_ANY];
         }
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
 - (void)foo {
     
-    @try {
         [self match:TOKEN_KIND_FOO]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }

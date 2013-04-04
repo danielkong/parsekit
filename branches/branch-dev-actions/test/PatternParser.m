@@ -65,23 +65,17 @@
 
 - (void)_start {
     
-    @try {
         [self s]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-    @try {
         static NSRegularExpression *regex = nil;
         if (!regex) {
             NSError *err = nil;
-            regex = [[NSRegularExpression regularExpressionWithPattern:@"\\w+" options:NSRegularExpressionCaseInsensitive error:&err] retain];
+            regex = [[NSRegularExpression regularExpressionWithPattern:@"\\w\+" options:NSRegularExpressionCaseInsensitive error:&err] retain];
             if (!regex) {
                 if (err) NSLog(@"%@", err);
             }
@@ -92,10 +86,6 @@
         if ([regex numberOfMatchesInString:str options:0 range:NSMakeRange(0, [str length])]) {
             [self match:TOKEN_KIND_BUILTIN_ANY]; 
         }
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }

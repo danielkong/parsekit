@@ -68,19 +68,13 @@
 
 - (void)_start {
     
-    @try {
         [self expr]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)expr {
     
-    @try {
         [self mult]; 
         while (LA(1) == TOKEN_KIND_PLUS) {
             if ([self speculate:^{ [self match:TOKEN_KIND_PLUS]; [self discard:1];[self mult]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); }];}]) {
@@ -93,17 +87,12 @@
                 return;
             }
         }
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)mult {
     
-    @try {
         [self pow]; 
         while (LA(1) == TOKEN_KIND_STAR) {
             if ([self speculate:^{ [self match:TOKEN_KIND_STAR]; [self discard:1];[self pow]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); }];}]) {
@@ -116,17 +105,12 @@
                 return;
             }
         }
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchMult:)];
 }
 
 - (void)pow {
     
-    @try {
         [self atom]; 
         if ((LA(1) == TOKEN_KIND_CARET) && ([self speculate:^{ [self match:TOKEN_KIND_CARET]; [self discard:1];[self pow]; [self execute:(id)^{ 		double exp = POP_FLOAT();		double base = POP_FLOAT();		double result = base;	for (NSUInteger i = 1; i < exp; i++) 			result *= base;		PUSH_FLOAT(result); 	}];}])) {
             [self match:TOKEN_KIND_CARET]; [self discard:1];
@@ -142,25 +126,16 @@
 	
             }];
         }
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPow:)];
 }
 
 - (void)atom {
     
-    @try {
         [self Number]; 
         [self execute:(id)^{
             PUSH_FLOAT(POP_FLOAT());
         }];
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
 }

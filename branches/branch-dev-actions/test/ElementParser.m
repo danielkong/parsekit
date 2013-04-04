@@ -68,33 +68,22 @@
 
 - (void)_start {
     
-    @try {
         [self list]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)list {
     
-    @try {
         [self lbracket]; 
         [self elements]; 
         [self rbracket]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 
 - (void)elements {
     
-    @try {
         [self element]; 
         while (LA(1) == TOKEN_KIND_COMMA) {
             if ([self speculate:^{ [self comma]; [self element]; }]) {
@@ -104,17 +93,12 @@
                 return;
             }
         }
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElements:)];
 }
 
 - (void)element {
     
-    @try {
         if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
             [self Number]; 
         } else if (LA(1) == TOKEN_KIND_LBRACKET) {
@@ -122,46 +106,27 @@
         } else {
             [self raise:@"no viable alternative found in element"];
         }
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
 }
 
 - (void)lbracket {
     
-    @try {
         [self match:TOKEN_KIND_LBRACKET]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
 
 - (void)rbracket {
     
-    @try {
         [self match:TOKEN_KIND_RBRACKET]; [self discard:1];
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
 
 - (void)comma {
     
-    @try {
         [self match:TOKEN_KIND_COMMA]; [self discard:1];
-    }
-    @catch (PKSRecognitionException *ex) {
-        @throw ex;
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
