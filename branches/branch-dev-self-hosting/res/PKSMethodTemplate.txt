@@ -1,0 +1,6 @@
+
+- (void){{methodName}} {
+    
+{{methodBody}}
+    [self fireAssemblerSelector:@selector(parser:didMatch{{methodName | capitalized}}:)];
+}

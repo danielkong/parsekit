@@ -1,0 +1,3 @@
+{%for 1 to depth %}    {%/for%}if ({%if predicate %}{{predicate}} && ({%/if%}LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING && [LS(1) hasPrefix:@"{{prefix}}"] && [LS(1) hasSuffix:@"{{suffix}}"]{%if predicate %}){%/if%}) {
+{%for 1 to depth %}    {%/for%}    [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]; {%if discard %}[self discard:1];{%/if%}
+{%for 1 to depth %}    {%/for%}}

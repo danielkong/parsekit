@@ -1,0 +1,3 @@
+{%for 1 to depth %}    {%/for%}if ({%if predicate %}{{predicate}} && ({%/if%}{%for tokenKind in lookaheadSet%}LA(1) != {{tokenKind.name}}{%if currentLoop.currentIndex != last %} && {%/if%}{%/for%}{%if predicate %}){%/if%}) {
+{%for 1 to depth %}    {%/for%}    [self match:TOKEN_KIND_BUILTIN_ANY];
+{%for 1 to depth %}    {%/for%}}
