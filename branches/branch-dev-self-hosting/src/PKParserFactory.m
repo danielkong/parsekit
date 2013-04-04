@@ -131,9 +131,9 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSpecificConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchPhraseStar:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchPhrasePlus:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchPhraseQuestion:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchOrTerm:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a;
 
@@ -1027,8 +1027,8 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+- (void)parser:(PKParser *)p didMatchPhraseStar:(PKAssembly *)a {
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKBaseNode *subNode = [a pop];
     NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
@@ -1040,7 +1040,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchPhrasePlus:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKBaseNode *subNode = [a pop];
@@ -1053,7 +1053,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchPhraseQuestion:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKBaseNode *subNode = [a pop];

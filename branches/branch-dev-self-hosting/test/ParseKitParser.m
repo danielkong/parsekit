@@ -323,7 +323,7 @@
     
         if (LA(1) == TOKEN_KIND_TILDE) {
             [self negatedPrimaryExpr]; 
-        } else if (LA(1) == TOKEN_KIND_OPEN_PAREN || (LA(1) == TOKEN_KIND_BUILTIN_WORD && islower([LS(1) characterAtIndex:0])) || LA(1) == TOKEN_KIND_OPEN_BRACKET || LA(1) == TOKEN_KIND_DELIMOPEN || (LA(1) == TOKEN_KIND_BUILTIN_WORD && isupper([LS(1) characterAtIndex:0])) || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+        } else if (LA(1) == TOKEN_KIND_OPEN_PAREN || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_OPEN_BRACKET || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
             [self barePrimaryExpr]; 
         } else {
             [self raise:@"no viable alternative found in primaryExpr"];
@@ -342,7 +342,7 @@
 
 - (void)barePrimaryExpr {
     
-        if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_DELIMOPEN || (LA(1) == TOKEN_KIND_BUILTIN_WORD && islower([LS(1) characterAtIndex:0])) || (LA(1) == TOKEN_KIND_BUILTIN_WORD && isupper([LS(1) characterAtIndex:0]))) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
             [self atomicValue]; 
         } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
             [self subSeqExpr]; 

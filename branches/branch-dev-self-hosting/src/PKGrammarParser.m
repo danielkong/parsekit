@@ -72,9 +72,9 @@
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSpecificConstant:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchStar:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchPlus:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchQuestion:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchPhraseStar:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchPhrasePlus:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchPhraseQuestion:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchOrTerm:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a;
 @end
@@ -467,7 +467,7 @@
         phraseStarParser.name = @"phraseStar";
         [phraseStarParser add:self.phraseParser];
         [phraseStarParser add:[[PKSymbol symbolWithString:@"*"] discard]];
-        [phraseStarParser setAssembler:assembler selector:@selector(parser:didMatchStar:)];
+        [phraseStarParser setAssembler:assembler selector:@selector(parser:didMatchPhraseStar:)];
     }
     return phraseStarParser;
 }
@@ -480,7 +480,7 @@
         phrasePlusParser.name = @"phrasePlus";
         [phrasePlusParser add:self.phraseParser];
         [phrasePlusParser add:[[PKSymbol symbolWithString:@"+"] discard]];
-        [phrasePlusParser setAssembler:assembler selector:@selector(parser:didMatchPlus:)];
+        [phrasePlusParser setAssembler:assembler selector:@selector(parser:didMatchPhrasePlus:)];
     }
     return phrasePlusParser;
 }
@@ -493,7 +493,7 @@
         phraseQuestionParser.name = @"phraseQuestion";
         [phraseQuestionParser add:self.phraseParser];
         [phraseQuestionParser add:[[PKSymbol symbolWithString:@"?"] discard]];
-        [phraseQuestionParser setAssembler:assembler selector:@selector(parser:didMatchQuestion:)];
+        [phraseQuestionParser setAssembler:assembler selector:@selector(parser:didMatchPhraseQuestion:)];
     }
     return phraseQuestionParser;
 }
