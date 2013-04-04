@@ -111,6 +111,7 @@
 - (void)tokenizerDirective {
     
         [self match:TOKEN_KIND_AT]; [self discard:1];
+    
         if (![self speculate:^{ [self match:TOKEN_KIND_START]; }]) {
             [self match:TOKEN_KIND_BUILTIN_ANY];
         }
@@ -119,7 +120,8 @@
             if (![self speculate:^{ [self match:TOKEN_KIND_SEMI_COLON]; }]) {
                 [self match:TOKEN_KIND_BUILTIN_ANY];
             }
-        } while ((LA(1) == TOKEN_KIND_SEMI_COLON) && ([self speculate:^{ if (![self speculate:^{ [self match:TOKEN_KIND_SEMI_COLON]; }]) {[self match:TOKEN_KIND_BUILTIN_ANY];}}]));
+        } while (LA(1) != TOKEN_KIND_SEMI_COLON);
+    
         [self match:TOKEN_KIND_SEMI_COLON]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTokenizerDirective:)];
