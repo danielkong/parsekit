@@ -75,7 +75,7 @@
         static NSRegularExpression *regex = nil;
         if (!regex) {
             NSError *err = nil;
-            regex = [[NSRegularExpression regularExpressionWithPattern:@"\\w\+" options:NSRegularExpressionCaseInsensitive error:&err] retain];
+            regex = [[NSRegularExpression regularExpressionWithPattern:@"\\w+" options:NSRegularExpressionCaseInsensitive error:&err] retain];
             if (!regex) {
                 if (err) NSLog(@"%@", err);
             }
