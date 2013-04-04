@@ -1,48 +1,39 @@
-@start = s;
+@start               = statement*;
+statement            = tokenizerDirective | decl;
+tokenizerDirective   = /@[^s][^t]\w*/ '=' (~';')+ ';'!;
+decl                 = production '=' action? expr ';'!;
+production           = startProduction | varProduction;
+startProduction      = '@start';
+varProduction        = LowercaseWord;
+expr                 = term orTerm*;
+term                 = semanticPredicate? factor nextFactor*;
+orTerm               = '|' term;
+factor               = (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
+nextFactor           = factor;
 
-s = a | a b;
-  
-a = 'a';
-b = 'b';
+phrase               = primaryExpr predicate*;
+phraseStar           = phrase '*'!;
+phrasePlus           = phrase '+'!;
+phraseQuestion       = phrase '?'!;
 
+action               = %{'{', '}'};
+semanticPredicate    = %{'{', '}?'};
 
+predicate            = (intersection | difference);
+intersection         = '&'! primaryExpr;
+difference           = '-'! primaryExpr;
 
-
-// @start               = statement*;
-// statement            = tokenizerDirective | decl;
-// tokenizerDirective   = (/@.+/ - '@start') '=' (~';')+ ';'!;
-// decl                 = production '=' action? expr ';'!;
-// production           = startProduction | varProduction;
-// startProduction      = '@start';
-// varProduction        = LowercaseWord;
-// expr                 = term orTerm*;
-// term                 = semanticPredicate? factor nextFactor*;
-// orTerm               = '|' term;
-// factor               = (phrase | phraseStar | phrasePlus | phraseQuestion) action?;
-// nextFactor           = factor;
-
-// phrase               = primaryExpr predicate*;
-// phraseStar           = phrase '*'!;
-// phrasePlus           = phrase '+'!;
-// phraseQuestion       = phrase '?'!;
-
-// action               = %{'{', '}'};
-// semanticPredicate    = %{'{', '}?'};
-
-// predicate            = (intersection | difference);
-// intersection         = '&'! primaryExpr;
-// difference           = '-'! primaryExpr;
-
-// primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
-// negatedPrimaryExpr   = '~'! barePrimaryExpr;
-// barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
-// subSeqExpr           = '(' expr ')'!;
-// subTrackExpr         = '[' expr ']'!;
-// atomicValue          = parser discard?;
-// parser               = pattern | literal | variable | constant | specificConstant | delimitedString;
-// discard              = '!';
-// pattern              = %{'/', '/'};
-// delimitedString      = '%{' QuotedString (',' QuotedString)? '}'!;
-// literal              = QuotedString;
-// variable             = LowercaseWord;
-// constant             = UppercaseWord;
+primaryExpr          = negatedPrimaryExpr | barePrimaryExpr;
+negatedPrimaryExpr   = '~'! barePrimaryExpr;
+barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
+subSeqExpr           = '(' expr ')'!;
+subTrackExpr         = '[' expr ']'!;
+atomicValue          = parser discard?;
+parser               = pattern | literal | variable | constant | delimitedString;
+discard              = '!';
+pattern              = %{'/', '/'};
+delimitedString      = delimOpen QuotedString (',' QuotedString)? '}'!;
+literal              = QuotedString;
+variable             = LowercaseWord;
+constant             = UppercaseWord;
+delimOpen		     = '%{';
