@@ -914,7 +914,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     NSArray *toks = [a objectsAbove:delimToken];
-    [a pop]; // discard '(' fence
+    [a pop]; // discard '%{' fence
     
     NSAssert([toks count] > 0 && [toks count] < 3, @"");
     NSString *start = [[[toks lastObject] stringValue] stringByTrimmingQuotes];
