@@ -75,6 +75,8 @@
     
         if (![self speculate:^{ [self foo]; }]) {
             [self match:TOKEN_KIND_BUILTIN_ANY];
+        } else {
+            [self raise:@"negation test failed in s"];
         }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
