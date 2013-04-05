@@ -38,6 +38,7 @@ static NSDictionary *sClassTab = nil;
 
 - (void)dealloc {
     self.literal = nil;
+    self.tokenKind = nil;
     [super dealloc];
 }
 

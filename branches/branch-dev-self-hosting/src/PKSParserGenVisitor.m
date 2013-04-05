@@ -105,16 +105,6 @@
 }
 
 
-- (NSString *)tokenKindNameForNode:(PKBaseNode *)node {
-    NSString *name = node.token.stringValue;
-//    if ([@"LowercaseWord" isEqualToString:name] || [@"UppercaseWord" isEqualToString:name]) {
-//        name = @"Word";
-//    }
-    name = [NSString stringWithFormat:@"TOKEN_KIND_BUILTIN_%@", [name uppercaseString]];
-    return name;
-}
-
-
 - (NSSet *)lookaheadSetForNode:(PKBaseNode *)node {
     NSParameterAssert(node);
     NSAssert(self.symbolTable, @"");
@@ -123,10 +113,8 @@
     
     switch (node.type) {
         case PKNodeTypeConstant: {
-            //[set addObject:_tokenKinds[node.token.tokenType]];
-            NSString *name = [self tokenKindNameForNode:node];
-            PKSTokenKindDescriptor *kind = [PKSTokenKindDescriptor descriptorWithStringValue:name name:name]; // yes, use name for both
-            [set addObject:kind];
+            PKConstantNode *constNode = (PKConstantNode *)node;
+            [set addObject:constNode.tokenKind];
         } break;
         case PKNodeTypeLiteral: {
             PKLiteralNode *litNode = (PKLiteralNode *)node;

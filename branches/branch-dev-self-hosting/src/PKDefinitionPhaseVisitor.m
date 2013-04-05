@@ -258,7 +258,23 @@
 
 - (void)visitConstant:(PKConstantNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-    
+
+    if (_collectTokenKinds) {
+        NSAssert(_tokenKinds, @"");
+        
+        NSString *name = node.token.stringValue;
+        //    if ([@"LowercaseWord" isEqualToString:name] || [@"UppercaseWord" isEqualToString:name]) {
+        //        name = @"Word";
+        //    }
+        name = [NSString stringWithFormat:@"TOKEN_KIND_BUILTIN_%@", [name uppercaseString]];
+        NSAssert([name length], @"");
+
+        PKSTokenKindDescriptor *kind = [PKSTokenKindDescriptor descriptorWithStringValue:name name:name]; // yes, use name for both
+        
+        //_tokenKinds[name] = kind; do not add constants here.
+        node.tokenKind = kind;
+    }
+
 }
 
 
