@@ -1,9 +1,9 @@
 @start               = statement+;
 statement            = decl | tokenizerDirective;
-tokenizerDirective   = at ~startSym equalSign (Word | QuotedString)+ semi!;
-decl                 = production equalSign action? expr semi!;
+tokenizerDirective   = '@'! ~'start' '=' (Word | QuotedString)+ ';'!;
+decl                 = production '=' action? expr ';'!;
 production           = startProduction | varProduction;
-startProduction      = at startSym!;
+startProduction      = '@'! 'start'!;
 varProduction        = LowercaseWord;
 expr                 = term orTerm*;
 term                 = semanticPredicate? factor nextFactor*; // lookahead set for 'nextFactor' here has problems related to upper and lowercase word
@@ -37,8 +37,3 @@ literal              = QuotedString;
 variable             = LowercaseWord;
 constant             = UppercaseWord;
 delimOpen		     = '%{';
-
-at 					 = '@'!;
-startSym 			 = 'start';
-equalSign 			 = '=';
-semi				 = ';';
