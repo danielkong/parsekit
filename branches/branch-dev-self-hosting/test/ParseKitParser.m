@@ -400,7 +400,7 @@
 
 - (void)discard {
     
-        [self match:TOKEN_KIND_DISCARD]; 
+        [self match:TOKEN_KIND_DISCARD]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDiscard:)];
 }
