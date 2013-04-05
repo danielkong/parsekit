@@ -106,7 +106,7 @@
             // parse
             [self _start];
             
-            NSLog(@"%@", _assembly);
+            //NSLog(@"%@", _assembly);
             
             // get result
             if (_assembly.target) {
@@ -160,10 +160,11 @@
     if (TOKEN_KIND_BUILTIN_EMPTY == x) return;
     
     PKToken *lt = LT(1);
-    NSLog(@"%@", lt);
+//    NSLog(@"%@", lt);
     if (lt.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
         if (!self._isSpeculating) {
             [_assembly consume:lt];
+//            NSLog(@"%@", _assembly);
         }
         
         [self _consume];
