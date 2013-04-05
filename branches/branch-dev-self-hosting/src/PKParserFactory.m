@@ -911,7 +911,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDelimitedString:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     NSArray *toks = [a objectsAbove:delimToken];
     [a pop]; // discard '(' fence

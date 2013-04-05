@@ -1,5 +1,5 @@
-@start               = statement*;
-statement            = tokenizerDirective | decl;
+@start               = statement+;
+statement            = decl | tokenizerDirective;
 tokenizerDirective   = '@'! ~'start' '=' (Word | QuotedString)+ ';'!;
 decl                 = production '=' action? expr ';'!;
 production           = startProduction | varProduction;
