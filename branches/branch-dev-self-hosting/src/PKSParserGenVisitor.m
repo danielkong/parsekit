@@ -652,19 +652,29 @@
 }
 
 
-- (BOOL)isTerminal:(PKBaseNode *)node {
-    BOOL result = NO;
+- (BOOL)hasTerminalPath:(PKBaseNode *)node {
+    BOOL result = YES;
     
     if ([node isKindOfClass:[PKReferenceNode class]]) {
-        node = self.symbolTable[node.name];
+        node = self.symbolTable[node.token.stringValue];
     }
     
     if ([node isKindOfClass:[PKDefinitionNode class]]) {
-        NSAssert(0 == [node.children count], @"");
+        NSAssert(1 == [node.children count], @"");
         node = node.children[0];
     }
     
-    result = node.isTerminal;
+    if ([node isKindOfClass:[PKAlternationNode class]]) {
+        for (PKBaseNode *child in node.children) {
+            if (![self hasTerminalPath:child]) {
+                result = NO;
+                break;
+            }
+        }
+    } else {
+        result = node.isTerminal;
+    }
+    
     return result;
 }
 
@@ -696,10 +706,10 @@
     NSMutableString *output = [NSMutableString string];
     
     NSString *templateName = nil;
-    if (1 || self.needsBacktracking) { // TODO
-        templateName = @"PKSMultipleNonTerminalTemplate";
-    } else {
+    if ([self hasTerminalPath:child]) { // ????
         templateName = @"PKSMultipleTerminalTemplate";
+    } else {
+        templateName = @"PKSMultipleNonTerminalTemplate";
     }
     
     [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
