@@ -152,6 +152,21 @@
             @"throws": @"THROWS",
             @"assert": @"ASSERT",
             @"start": @"START",
+            
+            @"Word" : @"WORD_TITLE",
+            @"LowercaseWord" : @"UPPERCASEWORD_TITLE",
+            @"UppercaseWord" : @"LOWERCASEWORD_TITLE",
+            @"Number" : @"NUMBER_TITLE",
+            @"QuotedString" : @"QUOTEDSTRING_TITLE",
+            @"Symbol" : @"SYMBOL_TITLE",
+            @"Comment" : @"COMMENT_TITLE",
+            @"Empty" : @"EMPTY_TITLE",
+            @"Any" : @"ANY_TITLE",
+            @"S" : @"S_TITLE",
+            @"Digit" : @"DIGIT_TITLE",
+            @"Letter" : @"LETTER_TITLE",
+            @"Char" : @"CHAR_TITLE",
+            @"SpecificChar": @"SPECIFICCHAR_TITLE",
         };
     }
     
