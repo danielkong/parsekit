@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSMutableSet (ParseKitAdditions)
+- (void)unionSetTestingEquality:(NSSet *)s;
 - (void)intersectSetTestingEquality:(NSSet *)s;
 - (void)minusSetTestingEquality:(NSSet *)s;
 - (void)exclusiveSetTestingEquality:(NSSet *)s;
