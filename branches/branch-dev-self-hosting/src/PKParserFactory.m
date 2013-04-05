@@ -135,7 +135,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchPhrasePlus:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPhraseQuestion:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchOrTerm:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchNegatedPrimaryExpr:(PKAssembly *)a;
 
 //@property (nonatomic, retain) PKGrammarParser *grammarParser;
 @property (nonatomic, retain) ParseKitParser *grammarParser;
@@ -1066,7 +1066,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchNegatedPrimaryExpr:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 
     PKBaseNode *subNode = [a pop];

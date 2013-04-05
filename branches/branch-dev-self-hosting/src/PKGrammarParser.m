@@ -76,7 +76,7 @@
 - (void)parser:(PKParser *)p didMatchPhrasePlus:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchPhraseQuestion:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchOrTerm:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchNegation:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchNegatedPrimaryExpr:(PKAssembly *)a;
 @end
 
 @interface PKGrammarParser ()
@@ -377,7 +377,7 @@
         negatedPrimaryExprParser.name = @"negatedPrimaryExpr";
         [negatedPrimaryExprParser add:[[PKLiteral literalWithString:@"~"] discard]];
         [negatedPrimaryExprParser add:self.barePrimaryExprParser];
-        [negatedPrimaryExprParser setAssembler:assembler selector:@selector(parser:didMatchNegation:)];
+        [negatedPrimaryExprParser setAssembler:assembler selector:@selector(parser:didMatchNegatedPrimaryExpr:)];
     }
     return negatedPrimaryExprParser;
 }
