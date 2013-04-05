@@ -132,6 +132,10 @@
             PKLiteralNode *litNode = (PKLiteralNode *)node;
             [set addObject:litNode.tokenKind];
         } break;
+        case PKNodeTypeDelimited: {
+            PKDelimitedNode *delimNode = (PKDelimitedNode *)node;
+            [set addObject:delimNode.tokenKind];
+        } break;
         case PKNodeTypeReference: {
             NSString *name = node.token.stringValue;
             PKDefinitionNode *defNode = self.symbolTable[name];

@@ -14,6 +14,7 @@
 - (void)dealloc {
     self.startMarker = nil;
     self.endMarker = nil;
+    self.tokenKind = nil;
     [super dealloc];
 }
 
@@ -22,7 +23,7 @@
     PKDelimitedNode *that = (PKDelimitedNode *)[super copyWithZone:zone];
     that->_startMarker = [_startMarker retain];
     that->_endMarker = [_endMarker retain];
-    that->_tokenKind = _tokenKind;
+    that->_tokenKind = [_tokenKind retain];
     return that;
 }
 
@@ -42,9 +43,10 @@
         return NO;
     }
     
-    if (_tokenKind != that->_tokenKind) {
+    if (![_tokenKind isEqual:that->_tokenKind]) {
         return NO;
     }
+    
     
     return YES;
 }

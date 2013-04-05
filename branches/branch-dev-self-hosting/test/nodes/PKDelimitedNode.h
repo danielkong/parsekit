@@ -8,8 +8,10 @@
 
 #import "PKBaseNode.h"
 
+@class PKSTokenKindDescriptor;
+
 @interface PKDelimitedNode : PKBaseNode
 @property (nonatomic, retain) NSString *startMarker;
 @property (nonatomic, retain) NSString *endMarker;
-@property (nonatomic, assign) NSInteger tokenKind;
+@property (nonatomic, retain) PKSTokenKindDescriptor *tokenKind;
 @end

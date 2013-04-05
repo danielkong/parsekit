@@ -298,6 +298,33 @@
 - (void)visitDelimited:(PKDelimitedNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
+    if (_collectTokenKinds) {
+        NSAssert(_tokenKinds, @"");
+        
+        NSString *strVal = [NSString stringWithFormat:@"%@,%@", node.startMarker, node.endMarker];
+        
+        NSString *name = nil;
+        
+        PKSTokenKindDescriptor *desc = _tokenKinds[strVal];
+        if (desc) {
+            name = desc.name;
+        }
+        if (!name) {
+            NSString *defName = node.defName;
+            if (!defName) {
+                if (!defName) {
+                    defName = _defaultDefNameTab[strVal];
+                }
+            }
+            name = [NSString stringWithFormat:@"TOKEN_KIND_%@", [defName uppercaseString]];
+        }
+        
+        NSAssert([name length], @"");
+        PKSTokenKindDescriptor *kind = [PKSTokenKindDescriptor descriptorWithStringValue:strVal name:name];
+        
+        _tokenKinds[strVal] = kind;
+        node.tokenKind = kind;
+    }
 }
 
 
