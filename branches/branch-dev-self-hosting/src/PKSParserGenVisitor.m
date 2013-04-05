@@ -12,7 +12,6 @@
 #import "PKSParser.h"
 #import "PKSTokenKindDescriptor.h"
 #import "NSString+ParseKitAdditions.h"
-#import "NSMutableSet+ParseKitAdditions.h"
 
 #import "MGTemplateEngine.h"
 #import "ICUTemplateMatcher.h"
@@ -127,26 +126,26 @@
             //[set addObject:_tokenKinds[node.token.tokenType]];
             NSString *name = [self tokenKindNameForNode:node];
             PKSTokenKindDescriptor *kind = [PKSTokenKindDescriptor descriptorWithStringValue:name name:name]; // yes, use name for both
-            [set unionSetTestingEquality:[NSSet setWithObject:kind]];
+            [set addObject:kind];
         } break;
         case PKNodeTypeLiteral: {
             PKLiteralNode *litNode = (PKLiteralNode *)node;
-            [set unionSetTestingEquality:[NSSet setWithObject:litNode.tokenKind]];
+            [set addObject:litNode.tokenKind];
         } break;
         case PKNodeTypeReference: {
             NSString *name = node.token.stringValue;
             PKDefinitionNode *defNode = self.symbolTable[name];
-            [set unionSetTestingEquality:[self lookaheadSetForNode:defNode]];
+            [set unionSet:[self lookaheadSetForNode:defNode]];
         } break;
         case PKNodeTypeAlternation: {
             for (PKBaseNode *child in node.children) {
-                [set unionSetTestingEquality:[self lookaheadSetForNode:child]];
+                [set unionSet:[self lookaheadSetForNode:child]];
                 //break; // single look ahead
             }
         } break;
         default: {
             for (PKBaseNode *child in node.children) {
-                [set unionSetTestingEquality:[self lookaheadSetForNode:child]];
+                [set unionSet:[self lookaheadSetForNode:child]];
                 break; // single look ahead
             }
         } break;
@@ -230,7 +229,7 @@
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     self.depth = 2; // 1 for the try/catch wrapper
 

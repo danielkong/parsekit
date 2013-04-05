@@ -8,12 +8,27 @@
 
 #import "PKSTokenKindDescriptor.h"
 
+static NSMutableDictionary *sCache = nil;
+
 @implementation PKSTokenKindDescriptor
 
++ (void)initialize {
+    if ([PKSTokenKindDescriptor class] == self) {
+        sCache = [[NSMutableDictionary alloc] init];
+    }
+}
+
 + (PKSTokenKindDescriptor *)descriptorWithStringValue:(NSString *)s name:(NSString *)name {
-    PKSTokenKindDescriptor *kind = [[[PKSTokenKindDescriptor alloc] init] autorelease];
-    kind.stringValue = s;
-    kind.name = name;
+    PKSTokenKindDescriptor *kind = sCache[name];
+    
+    if (!kind) {
+        kind = [[[PKSTokenKindDescriptor alloc] init] autorelease];
+        kind.stringValue = s;
+        kind.name = name;
+        
+        sCache[name] = kind;
+    }
+    
     return kind;
 }
 
