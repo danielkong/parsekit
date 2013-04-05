@@ -651,8 +651,25 @@
 }
 
 
+- (BOOL)isTerminal:(PKBaseNode *)node {
+    BOOL result = NO;
+    
+    if ([node isKindOfClass:[PKReferenceNode class]]) {
+        node = self.symbolTable[node.name];
+    }
+    
+    if ([node isKindOfClass:[PKDefinitionNode class]]) {
+        NSAssert(0 == [node.children count], @"");
+        node = node.children[0];
+    }
+    
+    result = node.isTerminal;
+    return result;
+}
+
+
 - (void)visitMultiple:(PKMultipleNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // recurse
     NSAssert(1 == [node.children count], @"");
@@ -676,7 +693,15 @@
     vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
     
     NSMutableString *output = [NSMutableString string];
-    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSMultipleNonTerminalTemplate"] withVariables:vars]];
+    
+    NSString *templateName = nil;
+    if (self.needsBacktracking) {
+        templateName = @"PKSMultipleNonTerminalTemplate";
+    } else {
+        templateName = @"PKSMultipleTerminalTemplate";
+    }
+    
+    [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
 
     // action
     [output appendString:[self actionStringFrom:node]];

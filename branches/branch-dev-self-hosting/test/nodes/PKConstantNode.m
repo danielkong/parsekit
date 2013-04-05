@@ -72,4 +72,9 @@ static NSDictionary *sClassTab = nil;
     return cls;
 }
 
+
+- (BOOL)isTerminal {
+    return YES;
+}
+
 @end
