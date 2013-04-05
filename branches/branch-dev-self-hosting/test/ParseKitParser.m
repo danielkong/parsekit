@@ -188,7 +188,7 @@
             [self semanticPredicate]; 
         }
         [self factor]; 
-        while ((LA(1) == TOKEN_KIND_BUILTIN_WORD && islower([LS(1) characterAtIndex:0])) || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_OPEN_BRACKET || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || (LA(1) == TOKEN_KIND_BUILTIN_WORD && isupper([LS(1) characterAtIndex:0])) || LA(1) == TOKEN_KIND_TILDE || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || (LA(1) == TOKEN_KIND_BUILTIN_WORD && islower([LS(1) characterAtIndex:0])) || (LA(1) == TOKEN_KIND_BUILTIN_WORD && islower([LS(1) characterAtIndex:0])) || (LA(1) == TOKEN_KIND_BUILTIN_WORD && isupper([LS(1) characterAtIndex:0])) || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || (LA(1) == TOKEN_KIND_BUILTIN_WORD && isupper([LS(1) characterAtIndex:0])) || (LA(1) == TOKEN_KIND_BUILTIN_WORD && isupper([LS(1) characterAtIndex:0])) || LA(1) == TOKEN_KIND_OPEN_PAREN) {
+        while (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_OPEN_BRACKET || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_TILDE || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_OPEN_PAREN) {
             if ([self speculate:^{ [self nextFactor]; }]) {
                 [self nextFactor]; 
             } else {
@@ -209,14 +209,14 @@
 
 - (void)factor {
     
-        if ([self speculate:^{ [self phrase]; }]) {
-            [self phrase]; 
-        } else if ([self speculate:^{ [self phraseStar]; }]) {
+        if ([self speculate:^{ [self phraseStar]; }]) {
             [self phraseStar]; 
         } else if ([self speculate:^{ [self phrasePlus]; }]) {
             [self phrasePlus]; 
         } else if ([self speculate:^{ [self phraseQuestion]; }]) {
-            [self phraseQuestion]; 
+            [self phraseQuestion];
+        } else if ([self speculate:^{ [self phrase]; }]) {
+            [self phrase];
         } else {
             [self raise:@"no viable alternative found in factor"];
         }

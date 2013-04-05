@@ -160,7 +160,7 @@
     if (TOKEN_KIND_BUILTIN_EMPTY == x) return;
     
     PKToken *lt = LT(1);
-    //NSLog(@"%@", lt);
+    NSLog(@"%@", lt);
     if (lt.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
         if (!self._isSpeculating) {
             [_assembly consume:lt];
