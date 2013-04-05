@@ -579,6 +579,10 @@
         if (overlap) break;
         [all unionSet:set];
     }
+    
+    if (!overlap && [all containsObject:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]) {
+        overlap = YES; // TODO ??
+    }
 
     //NSLog(@"%@", lookaheadSets);
     self.needsBacktracking = overlap;
