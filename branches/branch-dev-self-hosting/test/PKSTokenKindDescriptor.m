@@ -41,7 +41,7 @@ static NSMutableDictionary *sCache = nil;
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p '%@'>", [self class], self, _stringValue];
+    return [NSString stringWithFormat:@"<%@ %p '%@' %@>", [self class], self, _stringValue, _name];
 }
 
 
