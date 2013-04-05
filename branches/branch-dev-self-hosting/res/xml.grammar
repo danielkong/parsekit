@@ -99,7 +99,7 @@
 // [16]       PI       ::=       '<?' PITarget (S (Char* - (Char* '?>' Char*)))? '?>'
 // [17]       PITarget       ::=        Name - (('X' | 'x') ('M' | 'm') ('L' | 'l'))
     
-    pi = piStart piTarget ~/?>/* '?>';
+    pi = piStart piTarget (~/?>/)* '?>';
     piTarget = name - /[xX][mM][lL]/;
 	piStart = '<?';
 
