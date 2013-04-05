@@ -12,6 +12,7 @@
 #import "PKSParser.h"
 #import "PKSTokenKindDescriptor.h"
 #import "NSString+ParseKitAdditions.h"
+#import "NSMutableSet+ParseKitAdditions.h"
 
 #import "MGTemplateEngine.h"
 #import "ICUTemplateMatcher.h"
@@ -105,6 +106,16 @@
 }
 
 
+- (NSString *)tokenKindNameForNode:(PKBaseNode *)node {
+    NSString *name = node.token.stringValue;
+//    if ([@"LowercaseWord" isEqualToString:name] || [@"UppercaseWord" isEqualToString:name]) {
+//        name = @"Word";
+//    }
+    name = [NSString stringWithFormat:@"TOKEN_KIND_BUILTIN_%@", [name uppercaseString]];
+    return name;
+}
+
+
 - (NSSet *)lookaheadSetForNode:(PKBaseNode *)node {
     NSParameterAssert(node);
     NSAssert(self.symbolTable, @"");
@@ -114,28 +125,28 @@
     switch (node.type) {
         case PKNodeTypeConstant: {
             //[set addObject:_tokenKinds[node.token.tokenType]];
-            NSString *name = [NSString stringWithFormat:@"TOKEN_KIND_BUILTIN_%@", [node.token.stringValue uppercaseString]];
+            NSString *name = [self tokenKindNameForNode:node];
             PKSTokenKindDescriptor *kind = [PKSTokenKindDescriptor descriptorWithStringValue:name name:name]; // yes, use name for both
-            [set addObject:kind];
+            [set unionSetTestingEquality:[NSSet setWithObject:kind]];
         } break;
         case PKNodeTypeLiteral: {
             PKLiteralNode *litNode = (PKLiteralNode *)node;
-            [set addObject:litNode.tokenKind];
+            [set unionSetTestingEquality:[NSSet setWithObject:litNode.tokenKind]];
         } break;
         case PKNodeTypeReference: {
             NSString *name = node.token.stringValue;
             PKDefinitionNode *defNode = self.symbolTable[name];
-            [set unionSet:[self lookaheadSetForNode:defNode]];
+            [set unionSetTestingEquality:[self lookaheadSetForNode:defNode]];
         } break;
         case PKNodeTypeAlternation: {
             for (PKBaseNode *child in node.children) {
-                [set unionSet:[self lookaheadSetForNode:child]];
+                [set unionSetTestingEquality:[self lookaheadSetForNode:child]];
                 //break; // single look ahead
             }
         } break;
         default: {
             for (PKBaseNode *child in node.children) {
-                [set unionSet:[self lookaheadSetForNode:child]];
+                [set unionSetTestingEquality:[self lookaheadSetForNode:child]];
                 break; // single look ahead
             }
         } break;
