@@ -106,27 +106,29 @@
 
 - (void)tokenizerDirective {
     
-        [self match:TOKEN_KIND_AT]; [self discard:1];
-    
-        if (![self speculate:^{ [self match:TOKEN_KIND_START]; }]) {
-            [self match:TOKEN_KIND_BUILTIN_ANY];
+    [self match:TOKEN_KIND_AT]; [self discard:1];
+    if (![self speculate:^{ [self match:TOKEN_KIND_START]; }]) {
+        [self match:TOKEN_KIND_BUILTIN_ANY];
+    }
+    [self match:TOKEN_KIND_EQUALS];
+    do {
+        if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+            [self Word];
+        } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+            [self QuotedString];
+        } else {
+            [self raise:@"no viable alternative found in tokenizerDirective"];
         }
-        [self match:TOKEN_KIND_EQUALS]; 
-        do {
-            if (![self speculate:^{ [self match:TOKEN_KIND_SEMI_COLON]; }]) {
-                [self match:TOKEN_KIND_BUILTIN_ANY];
-            }
-        } while (LA(1) != TOKEN_KIND_SEMI_COLON);
+    } while (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD);
+    [self match:TOKEN_KIND_SEMI_COLON]; [self discard:1];
     
-        [self match:TOKEN_KIND_SEMI_COLON]; [self discard:1];
-
     [self fireAssemblerSelector:@selector(parser:didMatchTokenizerDirective:)];
 }
 
 - (void)decl {
     
-        [self production]; 
-        [self match:TOKEN_KIND_EQUALS]; 
+        [self production];
+        [self match:TOKEN_KIND_EQUALS];
         if ((LA(1) == TOKEN_KIND_ACTION) && ([self speculate:^{ [self action]; }])) {
             [self action]; 
         }
