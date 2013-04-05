@@ -84,23 +84,19 @@
 
 - (void)_start {
     
-        while (LA(1) == TOKEN_KIND_AT || (LA(1) == TOKEN_KIND_BUILTIN_WORD && islower([LS(1) characterAtIndex:0]))) {
-            if ([self speculate:^{ [self statement]; }]) {
-                [self statement]; 
-            } else {
-                return;
-            }
-        }
+        do {
+            [self statement];
+        } while (LA(1) == TOKEN_KIND_AT || (LA(1) == TOKEN_KIND_BUILTIN_WORD && islower([LS(1) characterAtIndex:0])));
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)statement {
     
-        if ([self speculate:^{ [self tokenizerDirective]; }]) {
+        if ([self speculate:^{ [self decl]; }]) {
+            [self decl];
+        } else if ([self speculate:^{ [self tokenizerDirective]; }]) {
             [self tokenizerDirective]; 
-        } else if ([self speculate:^{ [self decl]; }]) {
-            [self decl]; 
         } else {
             [self raise:@"no viable alternative found in statement"];
         }
@@ -188,7 +184,7 @@
             [self semanticPredicate]; 
         }
         [self factor]; 
-        while (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_OPEN_BRACKET || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_TILDE || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_OPEN_PAREN) {
+        while (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_OPEN_BRACKET || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_TILDE || LA(1) == TOKEN_KIND_OPEN_PAREN) {
             if ([self speculate:^{ [self nextFactor]; }]) {
                 [self nextFactor]; 
             } else {
@@ -323,7 +319,7 @@
     
         if (LA(1) == TOKEN_KIND_TILDE) {
             [self negatedPrimaryExpr]; 
-        } else if (LA(1) == TOKEN_KIND_OPEN_PAREN || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_OPEN_BRACKET || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+        } else if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING || LA(1) == TOKEN_KIND_OPEN_PAREN || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_OPEN_BRACKET || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
             [self barePrimaryExpr]; 
         } else {
             [self raise:@"no viable alternative found in primaryExpr"];
@@ -342,7 +338,7 @@
 
 - (void)barePrimaryExpr {
     
-        if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING ||LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
             [self atomicValue]; 
         } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
             [self subSeqExpr]; 
@@ -394,7 +390,9 @@
         } else if ((LA(1) == TOKEN_KIND_BUILTIN_WORD && isupper([LS(1) characterAtIndex:0]))) {
             [self constant]; 
         } else if (LA(1) == TOKEN_KIND_DELIMOPEN) {
-            [self delimitedString]; 
+            [self delimitedString];
+        } else if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING) {
+            [self pattern];
         } else {
             [self raise:@"no viable alternative found in parser"];
         }
@@ -423,7 +421,7 @@
         [self delimOpen]; 
         [self QuotedString]; 
         if ((LA(1) == TOKEN_KIND_COMMA) && ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self QuotedString]; }])) {
-            [self match:TOKEN_KIND_COMMA]; 
+            [self match:TOKEN_KIND_COMMA]; [self discard:1];
             [self QuotedString]; 
         }
         [self match:TOKEN_KIND_CLOSE_CURLY]; [self discard:1];
