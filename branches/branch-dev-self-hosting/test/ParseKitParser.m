@@ -180,7 +180,7 @@
 
 - (void)term {
     
-        if ((LA(1) == TOKEN_KIND_PREDICATE) && ([self speculate:^{ [self semanticPredicate]; }])) {
+        if ((LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING && [LS(1) hasPrefix:@"{"]) && ([self speculate:^{ [self semanticPredicate]; }])) {
             [self semanticPredicate]; 
         }
         [self factor]; 
@@ -216,7 +216,7 @@
         } else {
             [self raise:@"no viable alternative found in factor"];
         }
-        if ((LA(1) == TOKEN_KIND_ACTION) && ([self speculate:^{ [self action]; }])) {
+        if ((LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING) && ([self speculate:^{ [self action]; }])) {
             [self action]; 
         }
 
