@@ -288,7 +288,13 @@
 
 
 - (NSInteger)_tokenKindForToken:(PKToken *)tok {
-    NSInteger x = [self tokenKindForString:tok.stringValue];
+    NSString *key = tok.stringValue;
+//    if (tok.isDelimitedString) {
+//        NSLog(@"%@", tok);
+//        NSLog(@"%@", [self performSelector:@selector(_tokenKindTab)]);
+//        key = [NSString stringWithFormat:@"%C,%C", [key characterAtIndex:0], [key characterAtIndex:[key length] - 1]];
+//    }
+    NSInteger x = [self tokenKindForString:key];
     
     if (TOKEN_KIND_BUILTIN_INVALID == x) {
         x = tok.tokenType;

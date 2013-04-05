@@ -109,7 +109,7 @@
 - (void)expr {
     
         [self orTerm]; 
-        while (LA(1) == TOKEN_KIND_DOUBLE_PIPE || LA(1) == TOKEN_KIND_OR_UPPER) {
+        while (LA(1) == TOKEN_KIND_OR_UPPER || LA(1) == TOKEN_KIND_DOUBLE_PIPE) {
             if ([self speculate:^{ [self orOrTerm]; }]) {
                 [self orOrTerm]; 
             } else {
@@ -131,7 +131,7 @@
 - (void)orTerm {
     
         [self andTerm]; 
-        while (LA(1) == TOKEN_KIND_DOUBLE_AMPERSAND || LA(1) == TOKEN_KIND_AND_UPPER) {
+        while (LA(1) == TOKEN_KIND_AND_UPPER || LA(1) == TOKEN_KIND_DOUBLE_AMPERSAND) {
             if ([self speculate:^{ [self andAndTerm]; }]) {
                 [self andAndTerm]; 
             } else {
@@ -152,7 +152,7 @@
 
 - (void)andTerm {
     
-        if (LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BANG) {
+        if (LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
             [self primaryExpr]; 
         } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
             [self compoundExpr]; 
@@ -174,9 +174,9 @@
 
 - (void)primaryExpr {
     
-        if (LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+        if (LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
             [self predicate]; 
-        } else if (LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_NOT_UPPER) {
+        } else if (LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_BANG) {
             [self negatedPredicate]; 
         } else {
             [self raise:@"no viable alternative found in primaryExpr"];
@@ -281,7 +281,7 @@
 
 - (void)arrayContentsOpt {
     
-        if (LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_FALSELITERAL) {
+        if (LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
             [self arrayContents]; 
         }
 
@@ -321,7 +321,7 @@
     
         if (LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
             [self numComparisonPredicate]; 
-        } else if (LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_NONE) {
+        } else if (LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_SOME) {
             [self collectionComparisonPredicate]; 
         } else {
             [self raise:@"no viable alternative found in comparisonPredicate"];
@@ -360,7 +360,7 @@
             [self gt]; 
         } else if (LA(1) == TOKEN_KIND_LT) {
             [self lt]; 
-        } else if (LA(1) == TOKEN_KIND_HASH_ROCKET || LA(1) == TOKEN_KIND_GE) {
+        } else if (LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_HASH_ROCKET) {
             [self gtEq]; 
         } else if (LA(1) == TOKEN_KIND_EL || LA(1) == TOKEN_KIND_LE) {
             [self ltEq]; 
