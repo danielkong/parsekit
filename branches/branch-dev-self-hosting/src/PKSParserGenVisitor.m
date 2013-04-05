@@ -229,7 +229,7 @@
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     self.depth = 2; // 1 for the try/catch wrapper
 
@@ -323,6 +323,7 @@
     // setup vars
     id vars = [NSMutableDictionary dictionary];
     vars[DEPTH] = @(_depth);
+    vars[METHOD_NAME] = self.currentDefName;
     vars[LOOKAHEAD_SET] = set;
     vars[LAST] = @([set count] - 1);
     vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
@@ -669,7 +670,7 @@
 
 
 - (void)visitMultiple:(PKMultipleNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // recurse
     NSAssert(1 == [node.children count], @"");
@@ -695,7 +696,7 @@
     NSMutableString *output = [NSMutableString string];
     
     NSString *templateName = nil;
-    if (self.needsBacktracking) {
+    if (1 || self.needsBacktracking) { // TODO
         templateName = @"PKSMultipleNonTerminalTemplate";
     } else {
         templateName = @"PKSMultipleTerminalTemplate";
