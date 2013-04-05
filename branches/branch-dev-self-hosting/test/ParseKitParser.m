@@ -381,7 +381,7 @@
 
 - (void)parser {
     
-        if (LA(1) == TOKEN_KIND_PATTERN) {
+        if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING) {
             [self pattern]; 
         } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
             [self literal]; 
@@ -391,8 +391,6 @@
             [self constant]; 
         } else if (LA(1) == TOKEN_KIND_DELIMOPEN) {
             [self delimitedString];
-        } else if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING) {
-            [self pattern];
         } else {
             [self raise:@"no viable alternative found in parser"];
         }
