@@ -548,6 +548,8 @@
 		D3B4B441170E02E300572530 /* PKSTokenAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D3083AC017061E0D00DA6F95 /* PKSTokenAssembly.m */; };
 		D3B4B443170E03A000572530 /* PKSRecognitionException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A72170550A200446945 /* PKSRecognitionException.m */; };
 		D3B4B444170E03BF00572530 /* PKSParserGenVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D30226F9170202DD00594F16 /* PKSParserGenVisitor.m */; };
+		D3B4B447170F2A5100572530 /* NSMutableSet+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B4B445170F2A5100572530 /* NSMutableSet+ParseKitAdditions.h */; };
+		D3B4B448170F2A5100572530 /* NSMutableSet+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B4B446170F2A5100572530 /* NSMutableSet+ParseKitAdditions.m */; };
 		D3B63A241706508400BA9DBF /* PKSSpeculateIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */; };
 		D3B63A261706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */; };
 		D3B63A2A170753E400BA9DBF /* PKActionNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B63A27170751E700BA9DBF /* PKActionNode.h */; };
@@ -1572,6 +1574,8 @@
 		D3B43FB50F76E99C0072AF40 /* TDJavaScriptParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDJavaScriptParserTest.h; path = test/TDJavaScriptParserTest.h; sourceTree = "<group>"; };
 		D3B43FB60F76E99C0072AF40 /* TDJavaScriptParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDJavaScriptParserTest.m; path = test/TDJavaScriptParserTest.m; sourceTree = "<group>"; };
 		D3B473840E48C9CF008AFBDD /* yahoo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = yahoo.json; path = res/yahoo.json; sourceTree = "<group>"; };
+		D3B4B445170F2A5100572530 /* NSMutableSet+ParseKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableSet+ParseKitAdditions.h"; path = "src/NSMutableSet+ParseKitAdditions.h"; sourceTree = "<group>"; };
+		D3B4B446170F2A5100572530 /* NSMutableSet+ParseKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableSet+ParseKitAdditions.m"; path = "src/NSMutableSet+ParseKitAdditions.m"; sourceTree = "<group>"; };
 		D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSSpeculateIfTemplate.txt; path = res/PKSSpeculateIfTemplate.txt; sourceTree = "<group>"; };
 		D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSSpeculateElseIfTemplate.txt; path = res/PKSSpeculateElseIfTemplate.txt; sourceTree = "<group>"; };
 		D3B63A27170751E700BA9DBF /* PKActionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKActionNode.h; path = test/nodes/PKActionNode.h; sourceTree = "<group>"; };
@@ -1928,7 +1932,7 @@
 				D3C7D8720A411F81005DD154 /* parse */,
 				D324B77D16F8C892005FE823 /* ast */,
 				D34BAC0F0FF87ED200D7773A /* grammar */,
-				D3A1492B16F8C7D600770DEE /* AppKit categories */,
+				D3A1492B16F8C7D600770DEE /* Foundation categories */,
 			);
 			name = "ParseKit Framework";
 			sourceTree = "<group>";
@@ -2640,15 +2644,17 @@
 			name = visitor;
 			sourceTree = "<group>";
 		};
-		D3A1492B16F8C7D600770DEE /* AppKit categories */ = {
+		D3A1492B16F8C7D600770DEE /* Foundation categories */ = {
 			isa = PBXGroup;
 			children = (
 				D34BAFD30FF9E95500D7773A /* NSArray+ParseKitAdditions.h */,
 				D34BAFD40FF9E95500D7773A /* NSArray+ParseKitAdditions.m */,
 				D34BAFD50FF9E95500D7773A /* NSString+ParseKitAdditions.h */,
 				D34BAFD60FF9E95500D7773A /* NSString+ParseKitAdditions.m */,
+				D3B4B445170F2A5100572530 /* NSMutableSet+ParseKitAdditions.h */,
+				D3B4B446170F2A5100572530 /* NSMutableSet+ParseKitAdditions.m */,
 			);
-			name = "AppKit categories";
+			name = "Foundation categories";
 			sourceTree = "<group>";
 		};
 		D3A203AF161CA16500207F4D /* NewFactory */ = {
@@ -3395,6 +3401,7 @@
 				D33724EA16FA635700D30459 /* PKDelimitDescriptorCollection.h in Headers */,
 				D3B22A6A1703E3F700446945 /* PKSTokenKindDescriptor.h in Headers */,
 				D3B63A2A170753E400BA9DBF /* PKActionNode.h in Headers */,
+				D3B4B447170F2A5100572530 /* NSMutableSet+ParseKitAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4095,6 +4102,7 @@
 				D3B4B440170E02E000572530 /* PKSParser.m in Sources */,
 				D3B4B441170E02E300572530 /* PKSTokenAssembly.m in Sources */,
 				D3B4B443170E03A000572530 /* PKSRecognitionException.m in Sources */,
+				D3B4B448170F2A5100572530 /* NSMutableSet+ParseKitAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
