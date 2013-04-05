@@ -683,7 +683,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     NSArray *nodes = [a objectsAbove:equals];
     NSAssert([nodes count], @"");
 
@@ -879,7 +879,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     id obj = [a pop];
     if ([obj isKindOfClass:[PKActionNode class]]) {
         PKActionNode *predNode = (PKActionNode *)obj;
-        NSLog(@"%@", predNode.source);
+        //NSLog(@"%@", predNode.source);
         node.semanticPredicateNode = predNode;
     } else {
         [a push:obj];
@@ -1028,7 +1028,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchPhraseStar:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKBaseNode *subNode = [a pop];
     NSAssert([subNode isKindOfClass:[PKBaseNode class]], @"");
@@ -1096,7 +1096,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchOrTerm:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
 
     NSMutableArray *rhsNodes = [[[a objectsAbove:orToken] mutableCopy] autorelease];
     
