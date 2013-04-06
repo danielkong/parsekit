@@ -223,7 +223,7 @@
 - (void)visitDefinition:(PKDefinitionNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    self.depth = 2; // 1 for the try/catch wrapper
+    self.depth = 1; // 1 for the try/catch wrapper
 
     // setup vars
     id vars = [NSMutableDictionary dictionary];
