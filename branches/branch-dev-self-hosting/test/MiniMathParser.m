@@ -65,7 +65,7 @@
                  PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); 
             }];
         } else {
-            return;
+            break;
         }
     }
 
@@ -83,7 +83,7 @@
                  PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); 
             }];
         } else {
-            return;
+            break;
         }
     }
 

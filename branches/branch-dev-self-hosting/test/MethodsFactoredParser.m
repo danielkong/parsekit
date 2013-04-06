@@ -102,7 +102,7 @@
                 [self match:TOKEN_KIND_COMMA]; 
                 [self arg]; 
             } else {
-                return;
+                break;
             }
         }
     }

@@ -94,7 +94,7 @@
         if ([self speculate:^{ [self orOrTerm]; }]) {
             [self orOrTerm]; 
         } else {
-            return;
+            break;
         }
     }
 
@@ -116,7 +116,7 @@
         if ([self speculate:^{ [self andAndTerm]; }]) {
             [self andAndTerm]; 
         } else {
-            return;
+            break;
         }
     }
 
@@ -276,7 +276,7 @@
         if ([self speculate:^{ [self commaValue]; }]) {
             [self commaValue]; 
         } else {
-            return;
+            break;
         }
     }
 

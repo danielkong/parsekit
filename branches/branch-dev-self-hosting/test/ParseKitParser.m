@@ -172,7 +172,7 @@
         if ([self speculate:^{ [self orTerm]; }]) {
             [self orTerm]; 
         } else {
-            return;
+            break;
         }
     }
 
@@ -189,7 +189,7 @@
         if ([self speculate:^{ [self nextFactor]; }]) {
             [self nextFactor]; 
         } else {
-            return;
+            break;
         }
     }
 
@@ -238,7 +238,7 @@
         if ([self speculate:^{ [self predicate]; }]) {
             [self predicate]; 
         } else {
-            return;
+            break;
         }
     }
 

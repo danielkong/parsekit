@@ -98,7 +98,7 @@
             [self comma]; 
             [self element]; 
         } else {
-            return;
+            break;
         }
     }
 

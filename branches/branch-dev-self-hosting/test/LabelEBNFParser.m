@@ -79,7 +79,7 @@
             [self Word]; 
             [self match:TOKEN_KIND_COLON]; 
         } else {
-            return;
+            break;
         }
     }
 

@@ -81,7 +81,7 @@
         if ([self speculate:^{ [self orTerm]; }]) {
             [self orTerm]; 
         } else {
-            return;
+            break;
         }
     }
 
@@ -110,7 +110,7 @@
         if ([self speculate:^{ [self andTerm]; }]) {
             [self andTerm]; 
         } else {
-            return;
+            break;
         }
     }
 
@@ -139,7 +139,7 @@
         if ([self speculate:^{ [self relOpTerm]; }]) {
             [self relOpTerm]; 
         } else {
-            return;
+            break;
         }
     }
 
@@ -211,7 +211,7 @@
             [self match:TOKEN_KIND_COMMA]; 
             [self atom]; 
         } else {
-            return;
+            break;
         }
     }
 
@@ -253,7 +253,7 @@
         if ([self speculate:^{ [self member]; }]) {
             [self member]; 
         } else {
-            return;
+            break;
         }
     }
 
