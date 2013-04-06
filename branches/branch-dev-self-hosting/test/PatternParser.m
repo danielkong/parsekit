@@ -34,6 +34,7 @@
 @end
 
 @interface PatternParser ()
+@property (nonatomic, retain) NSMutableDictionary *s_memo;
 @end
 
 @implementation PatternParser
@@ -46,8 +47,13 @@
 }
 
 - (void)dealloc {
+    self.s_memo = nil;
 
     [super dealloc];
+}
+
+- (void)_clearMemo {
+    [self.s_memo removeAllObjects];
 }
 
 - (void)_start {
@@ -57,7 +63,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)s {
+- (void)__s {
     
     static NSRegularExpression *regex = nil;
     if (!regex) {
@@ -77,6 +83,24 @@
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
+}
+
+- (void)s {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.s_memo]) return;
+    @try {
+        [self __s];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.s_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
 }
 
 @end

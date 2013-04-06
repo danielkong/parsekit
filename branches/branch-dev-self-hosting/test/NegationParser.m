@@ -34,6 +34,8 @@
 @end
 
 @interface NegationParser ()
+@property (nonatomic, retain) NSMutableDictionary *s_memo;
+@property (nonatomic, retain) NSMutableDictionary *foo_memo;
 @end
 
 @implementation NegationParser
@@ -47,8 +49,15 @@
 }
 
 - (void)dealloc {
+    self.s_memo = nil;
+    self.foo_memo = nil;
 
     [super dealloc];
+}
+
+- (void)_clearMemo {
+    [self.s_memo removeAllObjects];
+    [self.foo_memo removeAllObjects];
 }
 
 - (void)_start {
@@ -58,7 +67,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)s {
+- (void)__s {
     
     if (LA(1) != TOKEN_KIND_FOO) {
         [self match:TOKEN_KIND_BUILTIN_ANY];
@@ -69,11 +78,47 @@
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
-- (void)foo {
+- (void)s {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.s_memo]) return;
+    @try {
+        [self __s];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.s_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__foo {
     
     [self match:TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
+}
+
+- (void)foo {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.foo_memo]) return;
+    @try {
+        [self __foo];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.foo_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
 }
 
 @end

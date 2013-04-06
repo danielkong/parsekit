@@ -34,6 +34,23 @@
 @end
 
 @interface ExpressionActionsParser ()
+@property (nonatomic, retain) NSMutableDictionary *expr_memo;
+@property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *orTerm_memo;
+@property (nonatomic, retain) NSMutableDictionary *andExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *andTerm_memo;
+@property (nonatomic, retain) NSMutableDictionary *relExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *relOp_memo;
+@property (nonatomic, retain) NSMutableDictionary *relOpTerm_memo;
+@property (nonatomic, retain) NSMutableDictionary *callExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *argList_memo;
+@property (nonatomic, retain) NSMutableDictionary *primary_memo;
+@property (nonatomic, retain) NSMutableDictionary *atom_memo;
+@property (nonatomic, retain) NSMutableDictionary *obj_memo;
+@property (nonatomic, retain) NSMutableDictionary *id_memo;
+@property (nonatomic, retain) NSMutableDictionary *member_memo;
+@property (nonatomic, retain) NSMutableDictionary *literal_memo;
+@property (nonatomic, retain) NSMutableDictionary *bool_memo;
 @end
 
 @implementation ExpressionActionsParser
@@ -62,8 +79,45 @@
 }
 
 - (void)dealloc {
+    self.expr_memo = nil;
+    self.orExpr_memo = nil;
+    self.orTerm_memo = nil;
+    self.andExpr_memo = nil;
+    self.andTerm_memo = nil;
+    self.relExpr_memo = nil;
+    self.relOp_memo = nil;
+    self.relOpTerm_memo = nil;
+    self.callExpr_memo = nil;
+    self.argList_memo = nil;
+    self.primary_memo = nil;
+    self.atom_memo = nil;
+    self.obj_memo = nil;
+    self.id_memo = nil;
+    self.member_memo = nil;
+    self.literal_memo = nil;
+    self.bool_memo = nil;
 
     [super dealloc];
+}
+
+- (void)_clearMemo {
+    [self.expr_memo removeAllObjects];
+    [self.orExpr_memo removeAllObjects];
+    [self.orTerm_memo removeAllObjects];
+    [self.andExpr_memo removeAllObjects];
+    [self.andTerm_memo removeAllObjects];
+    [self.relExpr_memo removeAllObjects];
+    [self.relOp_memo removeAllObjects];
+    [self.relOpTerm_memo removeAllObjects];
+    [self.callExpr_memo removeAllObjects];
+    [self.argList_memo removeAllObjects];
+    [self.primary_memo removeAllObjects];
+    [self.atom_memo removeAllObjects];
+    [self.obj_memo removeAllObjects];
+    [self.id_memo removeAllObjects];
+    [self.member_memo removeAllObjects];
+    [self.literal_memo removeAllObjects];
+    [self.bool_memo removeAllObjects];
 }
 
 - (void)_start {
@@ -73,14 +127,32 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)expr {
+- (void)__expr {
     
     [self orExpr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
-- (void)orExpr {
+- (void)expr {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.expr_memo]) return;
+    @try {
+        [self __expr];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.expr_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__orExpr {
     
     [self andExpr]; 
     while (LA(1) == TOKEN_KIND_OR) {
@@ -94,7 +166,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
 }
 
-- (void)orTerm {
+- (void)orExpr {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.orExpr_memo]) return;
+    @try {
+        [self __orExpr];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.orExpr_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__orTerm {
     
     [self match:TOKEN_KIND_OR]; [self discard:1];
     [self andExpr]; 
@@ -109,7 +199,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
 }
 
-- (void)andExpr {
+- (void)orTerm {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.orTerm_memo]) return;
+    @try {
+        [self __orTerm];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.orTerm_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__andExpr {
     
     [self relExpr]; 
     while (LA(1) == TOKEN_KIND_AND) {
@@ -123,7 +231,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchAndExpr:)];
 }
 
-- (void)andTerm {
+- (void)andExpr {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.andExpr_memo]) return;
+    @try {
+        [self __andExpr];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.andExpr_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__andTerm {
     
     [self match:TOKEN_KIND_AND]; [self discard:1];
     [self relExpr]; 
@@ -138,7 +264,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchAndTerm:)];
 }
 
-- (void)relExpr {
+- (void)andTerm {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.andTerm_memo]) return;
+    @try {
+        [self __andTerm];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.andTerm_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__relExpr {
     
     [self callExpr]; 
     while (LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE) {
@@ -152,7 +296,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchRelExpr:)];
 }
 
-- (void)relOp {
+- (void)relExpr {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.relExpr_memo]) return;
+    @try {
+        [self __relExpr];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.relExpr_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__relOp {
     
     if (LA(1) == TOKEN_KIND_LT) {
         [self match:TOKEN_KIND_LT]; 
@@ -173,7 +335,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchRelOp:)];
 }
 
-- (void)relOpTerm {
+- (void)relOp {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.relOp_memo]) return;
+    @try {
+        [self __relOp];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.relOp_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__relOpTerm {
     
     [self relOp]; 
     [self callExpr]; 
@@ -195,7 +375,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchRelOpTerm:)];
 }
 
-- (void)callExpr {
+- (void)relOpTerm {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.relOpTerm_memo]) return;
+    @try {
+        [self __relOpTerm];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.relOpTerm_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__callExpr {
     
     [self primary]; 
     if ((LA(1) == TOKEN_KIND_OPEN_PAREN) && ([self speculate:^{ [self match:TOKEN_KIND_OPEN_PAREN]; if ((LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_YES_UPPER) && ([self speculate:^{ [self argList]; }])) {[self argList]; }[self match:TOKEN_KIND_CLOSE_PAREN]; }])) {
@@ -209,7 +407,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCallExpr:)];
 }
 
-- (void)argList {
+- (void)callExpr {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.callExpr_memo]) return;
+    @try {
+        [self __callExpr];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.callExpr_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__argList {
     
     [self atom]; 
     while (LA(1) == TOKEN_KIND_COMMA) {
@@ -224,7 +440,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchArgList:)];
 }
 
-- (void)primary {
+- (void)argList {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.argList_memo]) return;
+    @try {
+        [self __argList];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.argList_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__primary {
     
     if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_YES_UPPER) {
         [self atom]; 
@@ -239,7 +473,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchPrimary:)];
 }
 
-- (void)atom {
+- (void)primary {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.primary_memo]) return;
+    @try {
+        [self __primary];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.primary_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__atom {
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self obj]; 
@@ -252,7 +504,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
 }
 
-- (void)obj {
+- (void)atom {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.atom_memo]) return;
+    @try {
+        [self __atom];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.atom_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__obj {
     
     [self id]; 
     while (LA(1) == TOKEN_KIND_DOT) {
@@ -266,14 +536,50 @@
     [self fireAssemblerSelector:@selector(parser:didMatchObj:)];
 }
 
-- (void)id {
+- (void)obj {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.obj_memo]) return;
+    @try {
+        [self __obj];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.obj_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__id {
     
     [self Word]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchId:)];
 }
 
-- (void)member {
+- (void)id {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.id_memo]) return;
+    @try {
+        [self __id];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.id_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__member {
     
     [self match:TOKEN_KIND_DOT]; 
     [self id]; 
@@ -281,7 +587,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchMember:)];
 }
 
-- (void)literal {
+- (void)member {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.member_memo]) return;
+    @try {
+        [self __member];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.member_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__literal {
     
     if ([self test:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }] && (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_NO_UPPER || LA(1) == TOKEN_KIND_YES || LA(1) == TOKEN_KIND_YES_UPPER)) {
         [self bool]; 
@@ -305,7 +629,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchLiteral:)];
 }
 
-- (void)bool {
+- (void)literal {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.literal_memo]) return;
+    @try {
+        [self __literal];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.literal_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__bool {
     
     if (LA(1) == TOKEN_KIND_YES) {
         [self match:TOKEN_KIND_YES]; 
@@ -320,6 +662,24 @@
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchBool:)];
+}
+
+- (void)bool {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.bool_memo]) return;
+    @try {
+        [self __bool];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.bool_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
 }
 
 @end

@@ -34,6 +34,10 @@
 @end
 
 @interface MiniMathParser ()
+@property (nonatomic, retain) NSMutableDictionary *expr_memo;
+@property (nonatomic, retain) NSMutableDictionary *mult_memo;
+@property (nonatomic, retain) NSMutableDictionary *pow_memo;
+@property (nonatomic, retain) NSMutableDictionary *atom_memo;
 @end
 
 @implementation MiniMathParser
@@ -49,8 +53,19 @@
 }
 
 - (void)dealloc {
+    self.expr_memo = nil;
+    self.mult_memo = nil;
+    self.pow_memo = nil;
+    self.atom_memo = nil;
 
     [super dealloc];
+}
+
+- (void)_clearMemo {
+    [self.expr_memo removeAllObjects];
+    [self.mult_memo removeAllObjects];
+    [self.pow_memo removeAllObjects];
+    [self.atom_memo removeAllObjects];
 }
 
 - (void)_start {
@@ -60,7 +75,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)expr {
+- (void)__expr {
     
     [self mult]; 
     while (LA(1) == TOKEN_KIND_PLUS) {
@@ -78,7 +93,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
-- (void)mult {
+- (void)expr {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.expr_memo]) return;
+    @try {
+        [self __expr];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.expr_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__mult {
     
     [self pow]; 
     while (LA(1) == TOKEN_KIND_STAR) {
@@ -96,7 +129,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchMult:)];
 }
 
-- (void)pow {
+- (void)mult {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.mult_memo]) return;
+    @try {
+        [self __mult];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.mult_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__pow {
     
     [self atom]; 
     if ((LA(1) == TOKEN_KIND_CARET) && ([self speculate:^{ [self match:TOKEN_KIND_CARET]; [self discard:1];[self pow]; [self execute:(id)^{ 		double exp = POP_FLOAT();		double base = POP_FLOAT();		double result = base;	for (NSUInteger i = 1; i < exp; i++) 			result *= base;		PUSH_FLOAT(result); 	}];}])) {
@@ -117,7 +168,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchPow:)];
 }
 
-- (void)atom {
+- (void)pow {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.pow_memo]) return;
+    @try {
+        [self __pow];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.pow_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__atom {
     
     [self Number]; 
     [self execute:(id)^{
@@ -125,6 +194,24 @@
     }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
+}
+
+- (void)atom {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.atom_memo]) return;
+    @try {
+        [self __atom];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.atom_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
 }
 
 @end

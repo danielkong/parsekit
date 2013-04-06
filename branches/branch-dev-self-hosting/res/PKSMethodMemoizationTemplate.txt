@@ -1,5 +1,5 @@
 
-- (void)_do{{methodName}} {
+- (void)__{{methodName}} {
     
 {{methodBody}}
     [self fireAssemblerSelector:@selector(parser:didMatch{{methodName | capitalized}}:)];
@@ -10,7 +10,7 @@
     NSInteger startTokenIndex = [self _index];
     if (self._isSpeculating && [self alreadyParsedRule:self.{{methodName}}_memo]) return;
     @try {
-        [self _do{{methodName}}];
+        [self __{{methodName}}];
     }
     @catch (PKSRecognitionException *ex) {
         failed = YES;
@@ -18,7 +18,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.{{methodName}}_memo atIndex:startTokenIndex withResult:failed];
+            [self memoize:self.{{methodName}}_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }

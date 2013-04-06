@@ -29,7 +29,6 @@
 @property (nonatomic, retain) NSMutableArray *_lookahead;
 @property (nonatomic, retain) NSMutableArray *_markers;
 @property (nonatomic, assign) NSInteger _p;
-@property (nonatomic, assign, readonly) BOOL _isSpeculating;
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 
 - (void)_consume;

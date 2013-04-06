@@ -34,6 +34,12 @@
 @end
 
 @interface AltParser ()
+@property (nonatomic, retain) NSMutableDictionary *s_memo;
+@property (nonatomic, retain) NSMutableDictionary *a_memo;
+@property (nonatomic, retain) NSMutableDictionary *b_memo;
+@property (nonatomic, retain) NSMutableDictionary *foo_memo;
+@property (nonatomic, retain) NSMutableDictionary *bar_memo;
+@property (nonatomic, retain) NSMutableDictionary *baz_memo;
 @end
 
 @implementation AltParser
@@ -49,8 +55,23 @@
 }
 
 - (void)dealloc {
+    self.s_memo = nil;
+    self.a_memo = nil;
+    self.b_memo = nil;
+    self.foo_memo = nil;
+    self.bar_memo = nil;
+    self.baz_memo = nil;
 
     [super dealloc];
+}
+
+- (void)_clearMemo {
+    [self.s_memo removeAllObjects];
+    [self.a_memo removeAllObjects];
+    [self.b_memo removeAllObjects];
+    [self.foo_memo removeAllObjects];
+    [self.bar_memo removeAllObjects];
+    [self.baz_memo removeAllObjects];
 }
 
 - (void)_start {
@@ -60,7 +81,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)s {
+- (void)__s {
     
     if ([self speculate:^{ [self a]; }]) {
         [self a]; 
@@ -73,7 +94,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
-- (void)a {
+- (void)s {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.s_memo]) return;
+    @try {
+        [self __s];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.s_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__a {
     
     [self foo]; 
     [self baz]; 
@@ -81,7 +120,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
-- (void)b {
+- (void)a {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.a_memo]) return;
+    @try {
+        [self __a];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.a_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__b {
     
     if ([self speculate:^{ [self a]; }]) {
         [self a]; 
@@ -95,25 +152,97 @@
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
 
-- (void)foo {
+- (void)b {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.b_memo]) return;
+    @try {
+        [self __b];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.b_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__foo {
     
     [self match:TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
 
-- (void)bar {
+- (void)foo {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.foo_memo]) return;
+    @try {
+        [self __foo];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.foo_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__bar {
     
     [self match:TOKEN_KIND_BAR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
 }
 
-- (void)baz {
+- (void)bar {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.bar_memo]) return;
+    @try {
+        [self __bar];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.bar_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__baz {
     
     [self match:TOKEN_KIND_BAZ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBaz:)];
+}
+
+- (void)baz {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.baz_memo]) return;
+    @try {
+        [self __baz];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.baz_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
 }
 
 @end

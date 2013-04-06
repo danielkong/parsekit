@@ -68,6 +68,7 @@ enum {
 - (void)memoize:(NSMutableDictionary *)memoization atIndex:(NSInteger)startTokenIndex failed:(BOOL)failed;
 - (NSInteger)_index;
 - (void)_clearMemo;
+@property (nonatomic, assign, readonly) BOOL _isSpeculating;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
