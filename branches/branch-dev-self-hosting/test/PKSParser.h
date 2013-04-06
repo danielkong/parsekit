@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ParseKit/PKTokenizer.h>
 
-@class PKTokenizer;
 @class PKToken;
 
 typedef id   (^PKSActionBlock)   (void);
@@ -35,7 +35,7 @@ enum {
     TOKEN_KIND_BUILTIN_ANY = 13,
 };
 
-@interface PKSParser : NSObject
+@interface PKSParser : NSObject <PKTokenizerDelegate>
 
 - (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outErr;
 - (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outErr;
@@ -47,6 +47,7 @@ enum {
 @end
 
 @interface PKSParser (Subclass)
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab; // remove
 
 - (PKToken *)LT:(NSInteger)i;
 - (NSInteger)LA:(NSInteger)i;

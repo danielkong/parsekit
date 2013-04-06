@@ -30,10 +30,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
-@end
-
-@interface DelimitedParser ()
-@property (nonatomic, retain) NSDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
 @implementation DelimitedParser
@@ -41,44 +38,29 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self._tokenKindTab = @{
-           @"<,>" : @(TOKEN_KIND_S),
-        };
+           self._tokenKindTab[@"<,>"] = @(TOKEN_KIND_S);
+
 	}
 	return self;
 }
 
-- (void)dealloc {
-	self._tokenKindTab = nil;
-	[super dealloc];
-}
-
-- (NSInteger)tokenKindForString:(NSString *)s {
-    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-
-    id obj = _tokenKindTab[s];
-    if (obj) {
-        x = [obj integerValue];
-    }
-    
-    return x;
-}
 
 - (void)_start {
     
-        [self s]; 
+    [self s]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-        if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING && [LS(1) hasPrefix:@"<"] && [LS(1) hasSuffix:@">"]) {
-            [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]; 
-        }
+    if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING && [LS(1) hasPrefix:@"<"] && [LS(1) hasSuffix:@">"]) {
+        [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]; 
+    } else {
+        [self raise:@"delimited string test failed in s"];
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
-@synthesize _tokenKindTab = _tokenKindTab;
 @end

@@ -30,10 +30,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
-@end
-
-@interface PatternParser ()
-@property (nonatomic, retain) NSDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
 @implementation PatternParser
@@ -41,54 +38,39 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self._tokenKindTab = @{
-        };
+
 	}
 	return self;
 }
 
-- (void)dealloc {
-	self._tokenKindTab = nil;
-	[super dealloc];
-}
-
-- (NSInteger)tokenKindForString:(NSString *)s {
-    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-
-    id obj = _tokenKindTab[s];
-    if (obj) {
-        x = [obj integerValue];
-    }
-    
-    return x;
-}
 
 - (void)_start {
     
-        [self s]; 
+    [self s]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-        static NSRegularExpression *regex = nil;
+    static NSRegularExpression *regex = nil;
+    if (!regex) {
+        NSError *err = nil;
+        regex = [[NSRegularExpression regularExpressionWithPattern:@"\\w\+" options:NSRegularExpressionCaseInsensitive error:&err] retain];
         if (!regex) {
-            NSError *err = nil;
-            regex = [[NSRegularExpression regularExpressionWithPattern:@"\\w\+" options:NSRegularExpressionCaseInsensitive error:&err] retain];
-            if (!regex) {
-                if (err) NSLog(@"%@", err);
-            }
+            if (err) NSLog(@"%@", err);
         }
-        
-        NSString *str = LS(1);
-        
-        if ([regex numberOfMatchesInString:str options:0 range:NSMakeRange(0, [str length])]) {
-            [self match:TOKEN_KIND_BUILTIN_ANY]; 
-        }
+    }
+    
+    NSString *str = LS(1);
+    
+    if ([regex numberOfMatchesInString:str options:0 range:NSMakeRange(0, [str length])]) {
+        [self match:TOKEN_KIND_BUILTIN_ANY]; 
+    } else {
+        [self raise:@"pattern test failed in s"];
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
-@synthesize _tokenKindTab = _tokenKindTab;
 @end

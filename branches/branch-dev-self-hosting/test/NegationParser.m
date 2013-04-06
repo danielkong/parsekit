@@ -30,10 +30,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
-@end
-
-@interface NegationParser ()
-@property (nonatomic, retain) NSDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
 @implementation NegationParser
@@ -41,53 +38,36 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self._tokenKindTab = @{
-           @"foo" : @(TOKEN_KIND_FOO),
-        };
+           self._tokenKindTab[@"foo"] = @(TOKEN_KIND_FOO);
+
 	}
 	return self;
 }
 
-- (void)dealloc {
-	self._tokenKindTab = nil;
-	[super dealloc];
-}
-
-- (NSInteger)tokenKindForString:(NSString *)s {
-    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-
-    id obj = _tokenKindTab[s];
-    if (obj) {
-        x = [obj integerValue];
-    }
-    
-    return x;
-}
 
 - (void)_start {
     
-        [self s]; 
+    [self s]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-        if (![self speculate:^{ [self foo]; }]) {
-            [self match:TOKEN_KIND_BUILTIN_ANY];
-        } else {
-            [self raise:@"negation test failed in s"];
-        }
+    if (![self speculate:^{ [self foo]; }]) {
+        [self match:TOKEN_KIND_BUILTIN_ANY];
+    } else {
+        [self raise:@"negation test failed in s"];
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
 - (void)foo {
     
-        [self match:TOKEN_KIND_FOO]; 
+    [self match:TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
 
-@synthesize _tokenKindTab = _tokenKindTab;
 @end

@@ -28,6 +28,7 @@
 @property (nonatomic, retain) NSMutableArray *_markers;
 @property (nonatomic, assign) NSInteger _p;
 @property (nonatomic, assign, readonly) BOOL _isSpeculating;
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 
 - (void)_consume;
 - (NSInteger)_mark;
@@ -44,6 +45,8 @@
     if (self) {
         // create a single exception for reuse in control flow
         self._exception = [[[PKSRecognitionException alloc] initWithName:NSStringFromClass([PKSRecognitionException class]) reason:nil userInfo:nil] autorelease];
+        
+        self._tokenKindTab = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -56,7 +59,29 @@
     self._assembly = nil;
     self._lookahead = nil;
     self._markers = nil;
+    self._tokenKindTab = nil;
     [super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark PKTokenizerDelegate
+
+- (NSInteger)tokenizer:(PKTokenizer *)t tokenKindForStringValue:(NSString *)str {
+    NSParameterAssert([str length]);
+    return [self tokenKindForString:str];
+}
+
+
+- (NSInteger)tokenKindForString:(NSString *)s {
+    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
+    
+    id obj = self._tokenKindTab[s];
+    if (obj) {
+        x = [obj integerValue];
+    }
+    
+    return x;
 }
 
 
@@ -289,11 +314,11 @@
 
 - (NSInteger)_tokenKindForToken:(PKToken *)tok {
     NSString *key = tok.stringValue;
-//    if (tok.isDelimitedString) {
+    if (tok.isDelimitedString) {
 //        NSLog(@"%@", tok);
 //        NSLog(@"%@", [self performSelector:@selector(_tokenKindTab)]);
 //        key = [NSString stringWithFormat:@"%C,%C", [key characterAtIndex:0], [key characterAtIndex:[key length] - 1]];
-//    }
+    }
     NSInteger x = [self tokenKindForString:key];
     
     if (TOKEN_KIND_BUILTIN_INVALID == x) {
@@ -301,12 +326,6 @@
     }
     
     return x;
-}
-
-
-- (NSInteger)tokenKindForString:(NSString *)s {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return TOKEN_KIND_BUILTIN_INVALID;
 }
 
 
@@ -517,4 +536,5 @@
 @synthesize _lookahead = _lookahead;
 @synthesize _markers = _markers;
 @synthesize _p = _p;
+@synthesize _tokenKindTab = _tokenKindTab;
 @end

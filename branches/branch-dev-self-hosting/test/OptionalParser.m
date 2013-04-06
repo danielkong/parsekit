@@ -30,10 +30,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
-@end
-
-@interface OptionalParser ()
-@property (nonatomic, retain) NSDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
 @implementation OptionalParser
@@ -41,70 +38,53 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self._tokenKindTab = @{
-           @"foo" : @(TOKEN_KIND_FOO),
-           @"bar" : @(TOKEN_KIND_BAR),
-        };
+           self._tokenKindTab[@"foo"] = @(TOKEN_KIND_FOO);
+           self._tokenKindTab[@"bar"] = @(TOKEN_KIND_BAR);
+
 	}
 	return self;
 }
 
-- (void)dealloc {
-	self._tokenKindTab = nil;
-	[super dealloc];
-}
-
-- (NSInteger)tokenKindForString:(NSString *)s {
-    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-
-    id obj = _tokenKindTab[s];
-    if (obj) {
-        x = [obj integerValue];
-    }
-    
-    return x;
-}
 
 - (void)_start {
     
-        [self s]; 
+    [self s]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-        if ((LA(1) == TOKEN_KIND_FOO) && ([self speculate:^{ [self expr]; }])) {
-            [self expr]; 
-        }
-        [self foo]; 
-        [self bar]; 
+    if ((LA(1) == TOKEN_KIND_FOO) && ([self speculate:^{ [self expr]; }])) {
+        [self expr]; 
+    }
+    [self foo]; 
+    [self bar]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
 - (void)expr {
     
-        [self foo]; 
-        [self bar]; 
-        [self bar]; 
+    [self foo]; 
+    [self bar]; 
+    [self bar]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)foo {
     
-        [self match:TOKEN_KIND_FOO]; 
+    [self match:TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
 
 - (void)bar {
     
-        [self match:TOKEN_KIND_BAR]; 
+    [self match:TOKEN_KIND_BAR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
 }
 
-@synthesize _tokenKindTab = _tokenKindTab;
 @end

@@ -30,10 +30,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
-@end
-
-@interface ElementParser ()
-@property (nonatomic, retain) NSDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
 @implementation ElementParser
@@ -41,95 +38,78 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self._tokenKindTab = @{
-           @"[" : @(TOKEN_KIND_LBRACKET),
-           @"]" : @(TOKEN_KIND_RBRACKET),
-           @"," : @(TOKEN_KIND_COMMA),
-        };
+           self._tokenKindTab[@"["] = @(TOKEN_KIND_LBRACKET);
+           self._tokenKindTab[@"]"] = @(TOKEN_KIND_RBRACKET);
+           self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
+
 	}
 	return self;
 }
 
-- (void)dealloc {
-	self._tokenKindTab = nil;
-	[super dealloc];
-}
-
-- (NSInteger)tokenKindForString:(NSString *)s {
-    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-
-    id obj = _tokenKindTab[s];
-    if (obj) {
-        x = [obj integerValue];
-    }
-    
-    return x;
-}
 
 - (void)_start {
     
-        [self list]; 
+    [self list]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)list {
     
-        [self lbracket]; 
-        [self elements]; 
-        [self rbracket]; 
+    [self lbracket]; 
+    [self elements]; 
+    [self rbracket]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 
 - (void)elements {
     
-        [self element]; 
-        while (LA(1) == TOKEN_KIND_COMMA) {
-            if ([self speculate:^{ [self comma]; [self element]; }]) {
-                [self comma]; 
-                [self element]; 
-            } else {
-                return;
-            }
+    [self element]; 
+    while (LA(1) == TOKEN_KIND_COMMA) {
+        if ([self speculate:^{ [self comma]; [self element]; }]) {
+            [self comma]; 
+            [self element]; 
+        } else {
+            return;
         }
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElements:)];
 }
 
 - (void)element {
     
-        if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
-            [self Number]; 
-        } else if (LA(1) == TOKEN_KIND_LBRACKET) {
-            [self list]; 
-        } else {
-            [self raise:@"no viable alternative found in element"];
-        }
+    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+        [self Number]; 
+    } else if (LA(1) == TOKEN_KIND_LBRACKET) {
+        [self list]; 
+    } else {
+        [self raise:@"no viable alternative found in element"];
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
 }
 
 - (void)lbracket {
     
-        [self match:TOKEN_KIND_LBRACKET]; 
+    [self match:TOKEN_KIND_LBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
 
 - (void)rbracket {
     
-        [self match:TOKEN_KIND_RBRACKET]; [self discard:1];
+    [self match:TOKEN_KIND_RBRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
 
 - (void)comma {
     
-        [self match:TOKEN_KIND_COMMA]; [self discard:1];
+    [self match:TOKEN_KIND_COMMA]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
-@synthesize _tokenKindTab = _tokenKindTab;
 @end

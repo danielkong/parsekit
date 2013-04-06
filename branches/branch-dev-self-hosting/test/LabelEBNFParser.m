@@ -30,10 +30,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
-@end
-
-@interface LabelEBNFParser ()
-@property (nonatomic, retain) NSDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
 @implementation LabelEBNFParser
@@ -41,76 +38,59 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self._tokenKindTab = @{
-           @"=" : @(TOKEN_KIND_EQUALS),
-           @"return" : @(TOKEN_KIND_RETURN),
-           @":" : @(TOKEN_KIND_COLON),
-        };
+           self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
+           self._tokenKindTab[@"return"] = @(TOKEN_KIND_RETURN);
+           self._tokenKindTab[@":"] = @(TOKEN_KIND_COLON);
+
 	}
 	return self;
 }
 
-- (void)dealloc {
-	self._tokenKindTab = nil;
-	[super dealloc];
-}
-
-- (NSInteger)tokenKindForString:(NSString *)s {
-    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-
-    id obj = _tokenKindTab[s];
-    if (obj) {
-        x = [obj integerValue];
-    }
-    
-    return x;
-}
 
 - (void)_start {
     
-        [self s]; 
+    [self s]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-        if ([self speculate:^{ [self label]; [self Word]; [self match:TOKEN_KIND_EQUALS]; [self expr]; }]) {
-            [self label]; 
-            [self Word]; 
-            [self match:TOKEN_KIND_EQUALS]; 
-            [self expr]; 
-        } else if ([self speculate:^{ [self label]; [self match:TOKEN_KIND_RETURN]; [self expr]; }]) {
-            [self label]; 
-            [self match:TOKEN_KIND_RETURN]; 
-            [self expr]; 
-        } else {
-            [self raise:@"no viable alternative found in s"];
-        }
+    if ([self speculate:^{ [self label]; [self Word]; [self match:TOKEN_KIND_EQUALS]; [self expr]; }]) {
+        [self label]; 
+        [self Word]; 
+        [self match:TOKEN_KIND_EQUALS]; 
+        [self expr]; 
+    } else if ([self speculate:^{ [self label]; [self match:TOKEN_KIND_RETURN]; [self expr]; }]) {
+        [self label]; 
+        [self match:TOKEN_KIND_RETURN]; 
+        [self expr]; 
+    } else {
+        [self raise:@"no viable alternative found in s"];
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
 - (void)label {
     
-        while (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
-            if ([self speculate:^{ [self Word]; [self match:TOKEN_KIND_COLON]; }]) {
-                [self Word]; 
-                [self match:TOKEN_KIND_COLON]; 
-            } else {
-                return;
-            }
+    while (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+        if ([self speculate:^{ [self Word]; [self match:TOKEN_KIND_COLON]; }]) {
+            [self Word]; 
+            [self match:TOKEN_KIND_COLON]; 
+        } else {
+            return;
         }
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchLabel:)];
 }
 
 - (void)expr {
     
-        [self Number]; 
+    [self Number]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
-@synthesize _tokenKindTab = _tokenKindTab;
 @end

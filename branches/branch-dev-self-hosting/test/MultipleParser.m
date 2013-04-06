@@ -30,10 +30,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
-@end
-
-@interface MultipleParser ()
-@property (nonatomic, retain) NSDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
 @implementation MultipleParser
@@ -41,68 +38,51 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self._tokenKindTab = @{
-           @"a" : @(TOKEN_KIND_A),
-           @"b" : @(TOKEN_KIND_B),
-        };
+           self._tokenKindTab[@"a"] = @(TOKEN_KIND_A);
+           self._tokenKindTab[@"b"] = @(TOKEN_KIND_B);
+
 	}
 	return self;
 }
 
-- (void)dealloc {
-	self._tokenKindTab = nil;
-	[super dealloc];
-}
-
-- (NSInteger)tokenKindForString:(NSString *)s {
-    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-
-    id obj = _tokenKindTab[s];
-    if (obj) {
-        x = [obj integerValue];
-    }
-    
-    return x;
-}
 
 - (void)_start {
     
-        [self s]; 
+    [self s]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)s {
     
-        do {
-            [self ab]; 
-        } while ((LA(1) == TOKEN_KIND_A) && ([self speculate:^{ [self ab]; }]));
-        [self a]; 
+    do {
+        [self ab]; 
+    } while ((LA(1) == TOKEN_KIND_A) && ([self speculate:^{ [self ab]; }]));
+    [self a]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
 - (void)ab {
     
-        [self a]; 
-        [self b]; 
+    [self a]; 
+    [self b]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAb:)];
 }
 
 - (void)a {
     
-        [self match:TOKEN_KIND_A]; 
+    [self match:TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
 - (void)b {
     
-        [self match:TOKEN_KIND_B]; 
+    [self match:TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
 
-@synthesize _tokenKindTab = _tokenKindTab;
 @end
