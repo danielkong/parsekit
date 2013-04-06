@@ -573,11 +573,7 @@
 
 
 - (void)visitAlternation:(PKAlternationNode *)node {
-//    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-//    
-//    if ([self.currentDefName isEqualToString:@"predicate"]) {
-//        NSLog(@"%@", node);
-//    }
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // first fetch all child lookahead sets
     NSMutableArray *lookaheadSets = [NSMutableArray arrayWithCapacity:[node.children count]];
