@@ -42,6 +42,7 @@
 @interface PKSParserGenVisitor ()
 - (void)push:(NSMutableString *)mstr;
 - (NSMutableString *)pop;
+- (NSArray *)sortedLookaheadSetForNode:(PKBaseNode *)node;
 - (NSSet *)lookaheadSetForNode:(PKBaseNode *)node;
 
 @property (nonatomic, retain) NSMutableArray *outputStringStack;
@@ -102,6 +103,17 @@
 
     NSAssert([mstr isKindOfClass:[NSMutableString class]], @"");
     return mstr;
+}
+
+
+- (NSArray *)sortedLookaheadSetForNode:(PKBaseNode *)node {
+    NSSet *set = [self lookaheadSetForNode:node];
+    
+    NSArray *result = [[set allObjects] sortedArrayUsingComparator:^NSComparisonResult(PKSTokenKindDescriptor *desc1, PKSTokenKindDescriptor *desc2) {
+        return [desc1.name compare:desc2.name];
+    }];
+                       
+    return result;
 }
 
 
@@ -303,7 +315,7 @@
     NSAssert(1 == [node.children count], @"");
     PKBaseNode *child = node.children[0];
     
-    NSSet *set = [self lookaheadSetForNode:child];
+    NSArray *set = [self sortedLookaheadSetForNode:child];
     
     self.depth++;
     [child visit:self];
@@ -354,7 +366,7 @@
     NSAssert(1 == [node.children count], @"");
     PKBaseNode *child = node.children[0];
     
-    NSSet *set = [self lookaheadSetForNode:child];
+    NSArray *set = [self sortedLookaheadSetForNode:child];
 
     // setup template
     vars[LOOKAHEAD_SET] = set;
@@ -620,7 +632,7 @@
     NSAssert(1 == [node.children count], @"");
     PKBaseNode *child = node.children[0];
     
-    NSSet *set = [self lookaheadSetForNode:child];
+    NSArray *set = [self sortedLookaheadSetForNode:child];
 
     self.depth++;
     [child visit:self];
@@ -682,7 +694,7 @@
     NSAssert(1 == [node.children count], @"");
     PKBaseNode *child = node.children[0];
     
-    NSSet *set = [self lookaheadSetForNode:child];
+    NSArray *set = [self sortedLookaheadSetForNode:child];
     
     self.depth++;
     [child visit:self];
