@@ -85,6 +85,37 @@
         self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSEPAREN);
         self._tokenKindTab[@"!="] = @(TOKEN_KIND_NE);
         self._tokenKindTab[@"and"] = @(TOKEN_KIND_AND);
+
+        self.expr_memo = [NSMutableDictionary dictionary];
+        self.orExpr_memo = [NSMutableDictionary dictionary];
+        self.orTerm_memo = [NSMutableDictionary dictionary];
+        self.andExpr_memo = [NSMutableDictionary dictionary];
+        self.andTerm_memo = [NSMutableDictionary dictionary];
+        self.relExpr_memo = [NSMutableDictionary dictionary];
+        self.relOp_memo = [NSMutableDictionary dictionary];
+        self.callExpr_memo = [NSMutableDictionary dictionary];
+        self.argList_memo = [NSMutableDictionary dictionary];
+        self.primary_memo = [NSMutableDictionary dictionary];
+        self.atom_memo = [NSMutableDictionary dictionary];
+        self.obj_memo = [NSMutableDictionary dictionary];
+        self.id_memo = [NSMutableDictionary dictionary];
+        self.member_memo = [NSMutableDictionary dictionary];
+        self.literal_memo = [NSMutableDictionary dictionary];
+        self.bool_memo = [NSMutableDictionary dictionary];
+        self.lt_memo = [NSMutableDictionary dictionary];
+        self.gt_memo = [NSMutableDictionary dictionary];
+        self.eq_memo = [NSMutableDictionary dictionary];
+        self.ne_memo = [NSMutableDictionary dictionary];
+        self.le_memo = [NSMutableDictionary dictionary];
+        self.ge_memo = [NSMutableDictionary dictionary];
+        self.openParen_memo = [NSMutableDictionary dictionary];
+        self.closeParen_memo = [NSMutableDictionary dictionary];
+        self.yes_memo = [NSMutableDictionary dictionary];
+        self.no_memo = [NSMutableDictionary dictionary];
+        self.dot_memo = [NSMutableDictionary dictionary];
+        self.comma_memo = [NSMutableDictionary dictionary];
+        self.or_memo = [NSMutableDictionary dictionary];
+        self.and_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
@@ -125,36 +156,36 @@
 }
 
 - (void)_clearMemo {
-    [self.expr_memo removeAllObjects];
-    [self.orExpr_memo removeAllObjects];
-    [self.orTerm_memo removeAllObjects];
-    [self.andExpr_memo removeAllObjects];
-    [self.andTerm_memo removeAllObjects];
-    [self.relExpr_memo removeAllObjects];
-    [self.relOp_memo removeAllObjects];
-    [self.callExpr_memo removeAllObjects];
-    [self.argList_memo removeAllObjects];
-    [self.primary_memo removeAllObjects];
-    [self.atom_memo removeAllObjects];
-    [self.obj_memo removeAllObjects];
-    [self.id_memo removeAllObjects];
-    [self.member_memo removeAllObjects];
-    [self.literal_memo removeAllObjects];
-    [self.bool_memo removeAllObjects];
-    [self.lt_memo removeAllObjects];
-    [self.gt_memo removeAllObjects];
-    [self.eq_memo removeAllObjects];
-    [self.ne_memo removeAllObjects];
-    [self.le_memo removeAllObjects];
-    [self.ge_memo removeAllObjects];
-    [self.openParen_memo removeAllObjects];
-    [self.closeParen_memo removeAllObjects];
-    [self.yes_memo removeAllObjects];
-    [self.no_memo removeAllObjects];
-    [self.dot_memo removeAllObjects];
-    [self.comma_memo removeAllObjects];
-    [self.or_memo removeAllObjects];
-    [self.and_memo removeAllObjects];
+    [_expr_memo removeAllObjects];
+    [_orExpr_memo removeAllObjects];
+    [_orTerm_memo removeAllObjects];
+    [_andExpr_memo removeAllObjects];
+    [_andTerm_memo removeAllObjects];
+    [_relExpr_memo removeAllObjects];
+    [_relOp_memo removeAllObjects];
+    [_callExpr_memo removeAllObjects];
+    [_argList_memo removeAllObjects];
+    [_primary_memo removeAllObjects];
+    [_atom_memo removeAllObjects];
+    [_obj_memo removeAllObjects];
+    [_id_memo removeAllObjects];
+    [_member_memo removeAllObjects];
+    [_literal_memo removeAllObjects];
+    [_bool_memo removeAllObjects];
+    [_lt_memo removeAllObjects];
+    [_gt_memo removeAllObjects];
+    [_eq_memo removeAllObjects];
+    [_ne_memo removeAllObjects];
+    [_le_memo removeAllObjects];
+    [_ge_memo removeAllObjects];
+    [_openParen_memo removeAllObjects];
+    [_closeParen_memo removeAllObjects];
+    [_yes_memo removeAllObjects];
+    [_no_memo removeAllObjects];
+    [_dot_memo removeAllObjects];
+    [_comma_memo removeAllObjects];
+    [_or_memo removeAllObjects];
+    [_and_memo removeAllObjects];
 }
 
 - (void)_start {
@@ -174,7 +205,7 @@
 - (void)expr {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.expr_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_expr_memo]) return;
     @try {
         [self __expr];
     }
@@ -184,7 +215,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.expr_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_expr_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -206,7 +237,7 @@
 - (void)orExpr {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.orExpr_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_orExpr_memo]) return;
     @try {
         [self __orExpr];
     }
@@ -216,7 +247,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.orExpr_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_orExpr_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -232,7 +263,7 @@
 - (void)orTerm {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.orTerm_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_orTerm_memo]) return;
     @try {
         [self __orTerm];
     }
@@ -242,7 +273,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.orTerm_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_orTerm_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -264,7 +295,7 @@
 - (void)andExpr {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.andExpr_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_andExpr_memo]) return;
     @try {
         [self __andExpr];
     }
@@ -274,7 +305,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.andExpr_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_andExpr_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -290,7 +321,7 @@
 - (void)andTerm {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.andTerm_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_andTerm_memo]) return;
     @try {
         [self __andTerm];
     }
@@ -300,7 +331,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.andTerm_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_andTerm_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -323,7 +354,7 @@
 - (void)relExpr {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.relExpr_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_relExpr_memo]) return;
     @try {
         [self __relExpr];
     }
@@ -333,7 +364,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.relExpr_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_relExpr_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -362,7 +393,7 @@
 - (void)relOp {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.relOp_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_relOp_memo]) return;
     @try {
         [self __relOp];
     }
@@ -372,7 +403,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.relOp_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_relOp_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -394,7 +425,7 @@
 - (void)callExpr {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.callExpr_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_callExpr_memo]) return;
     @try {
         [self __callExpr];
     }
@@ -404,7 +435,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.callExpr_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_callExpr_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -427,7 +458,7 @@
 - (void)argList {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.argList_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_argList_memo]) return;
     @try {
         [self __argList];
     }
@@ -437,7 +468,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.argList_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_argList_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -460,7 +491,7 @@
 - (void)primary {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.primary_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_primary_memo]) return;
     @try {
         [self __primary];
     }
@@ -470,7 +501,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.primary_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_primary_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -491,7 +522,7 @@
 - (void)atom {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.atom_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_atom_memo]) return;
     @try {
         [self __atom];
     }
@@ -501,7 +532,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.atom_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_atom_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -523,7 +554,7 @@
 - (void)obj {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.obj_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_obj_memo]) return;
     @try {
         [self __obj];
     }
@@ -533,7 +564,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.obj_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_obj_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -548,7 +579,7 @@
 - (void)id {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.id_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_id_memo]) return;
     @try {
         [self __id];
     }
@@ -558,7 +589,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.id_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_id_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -574,7 +605,7 @@
 - (void)member {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.member_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_member_memo]) return;
     @try {
         [self __member];
     }
@@ -584,7 +615,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.member_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_member_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -607,7 +638,7 @@
 - (void)literal {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.literal_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_literal_memo]) return;
     @try {
         [self __literal];
     }
@@ -617,7 +648,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.literal_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_literal_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -638,7 +669,7 @@
 - (void)bool {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.bool_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_bool_memo]) return;
     @try {
         [self __bool];
     }
@@ -648,7 +679,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.bool_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_bool_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -663,7 +694,7 @@
 - (void)lt {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.lt_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_lt_memo]) return;
     @try {
         [self __lt];
     }
@@ -673,7 +704,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.lt_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_lt_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -688,7 +719,7 @@
 - (void)gt {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.gt_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_gt_memo]) return;
     @try {
         [self __gt];
     }
@@ -698,7 +729,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.gt_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_gt_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -713,7 +744,7 @@
 - (void)eq {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.eq_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_eq_memo]) return;
     @try {
         [self __eq];
     }
@@ -723,7 +754,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.eq_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_eq_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -738,7 +769,7 @@
 - (void)ne {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.ne_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_ne_memo]) return;
     @try {
         [self __ne];
     }
@@ -748,7 +779,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.ne_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_ne_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -763,7 +794,7 @@
 - (void)le {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.le_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_le_memo]) return;
     @try {
         [self __le];
     }
@@ -773,7 +804,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.le_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_le_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -788,7 +819,7 @@
 - (void)ge {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.ge_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_ge_memo]) return;
     @try {
         [self __ge];
     }
@@ -798,7 +829,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.ge_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_ge_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -813,7 +844,7 @@
 - (void)openParen {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.openParen_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_openParen_memo]) return;
     @try {
         [self __openParen];
     }
@@ -823,7 +854,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.openParen_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_openParen_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -838,7 +869,7 @@
 - (void)closeParen {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.closeParen_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_closeParen_memo]) return;
     @try {
         [self __closeParen];
     }
@@ -848,7 +879,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.closeParen_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_closeParen_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -863,7 +894,7 @@
 - (void)yes {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.yes_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_yes_memo]) return;
     @try {
         [self __yes];
     }
@@ -873,7 +904,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.yes_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_yes_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -888,7 +919,7 @@
 - (void)no {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.no_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_no_memo]) return;
     @try {
         [self __no];
     }
@@ -898,7 +929,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.no_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_no_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -913,7 +944,7 @@
 - (void)dot {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.dot_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_dot_memo]) return;
     @try {
         [self __dot];
     }
@@ -923,7 +954,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.dot_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_dot_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -938,7 +969,7 @@
 - (void)comma {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.comma_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_comma_memo]) return;
     @try {
         [self __comma];
     }
@@ -948,7 +979,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.comma_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_comma_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -963,7 +994,7 @@
 - (void)or {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.or_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_or_memo]) return;
     @try {
         [self __or];
     }
@@ -973,7 +1004,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.or_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_or_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -988,7 +1019,7 @@
 - (void)and {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.and_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_and_memo]) return;
     @try {
         [self __and];
     }
@@ -998,7 +1029,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.and_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_and_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }

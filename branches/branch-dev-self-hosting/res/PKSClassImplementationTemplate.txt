@@ -43,7 +43,9 @@
 	self = [super init];
 	if (self) {
 {%for kind in tokenKinds %}        self._tokenKindTab[@"{{kind.stringValue}}"] = @({{kind.name}});
-{%/for%}    }
+{%/for%}
+{%if enableMemoization %}{%for methodName in ruleMethodNames %}        self.{{methodName}}_memo = [NSMutableDictionary dictionary];
+{%/for%}{%/if%}    }
 	return self;
 }
 
@@ -54,7 +56,7 @@
 }
 
 - (void)_clearMemo {
-{%for methodName in ruleMethodNames %}    [self.{{methodName}}_memo removeAllObjects];
+{%for methodName in ruleMethodNames %}    [_{{methodName}}_memo removeAllObjects];
 {%/for%}}{%/if%}
 {{methods}}
 @end

@@ -8,7 +8,7 @@
 - (void){{methodName}} {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.{{methodName}}_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_{{methodName}}_memo]) return;
     @try {
         [self __{{methodName}}];
     }
@@ -18,7 +18,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.{{methodName}}_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_{{methodName}}_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }

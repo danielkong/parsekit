@@ -47,6 +47,10 @@
         self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
         self._tokenKindTab[@"return"] = @(TOKEN_KIND_RETURN);
         self._tokenKindTab[@":"] = @(TOKEN_KIND_COLON);
+
+        self.s_memo = [NSMutableDictionary dictionary];
+        self.label_memo = [NSMutableDictionary dictionary];
+        self.expr_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
@@ -60,9 +64,9 @@
 }
 
 - (void)_clearMemo {
-    [self.s_memo removeAllObjects];
-    [self.label_memo removeAllObjects];
-    [self.expr_memo removeAllObjects];
+    [_s_memo removeAllObjects];
+    [_label_memo removeAllObjects];
+    [_expr_memo removeAllObjects];
 }
 
 - (void)_start {
@@ -93,7 +97,7 @@
 - (void)s {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.s_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_s_memo]) return;
     @try {
         [self __s];
     }
@@ -103,7 +107,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.s_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_s_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -125,7 +129,7 @@
 - (void)label {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.label_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_label_memo]) return;
     @try {
         [self __label];
     }
@@ -135,7 +139,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.label_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_label_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -150,7 +154,7 @@
 - (void)expr {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.expr_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_expr_memo]) return;
     @try {
         [self __expr];
     }
@@ -160,7 +164,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.expr_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_expr_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }

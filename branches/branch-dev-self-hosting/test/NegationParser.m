@@ -44,6 +44,9 @@
 	self = [super init];
 	if (self) {
         self._tokenKindTab[@"foo"] = @(TOKEN_KIND_FOO);
+
+        self.s_memo = [NSMutableDictionary dictionary];
+        self.foo_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
@@ -56,8 +59,8 @@
 }
 
 - (void)_clearMemo {
-    [self.s_memo removeAllObjects];
-    [self.foo_memo removeAllObjects];
+    [_s_memo removeAllObjects];
+    [_foo_memo removeAllObjects];
 }
 
 - (void)_start {
@@ -81,7 +84,7 @@
 - (void)s {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.s_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_s_memo]) return;
     @try {
         [self __s];
     }
@@ -91,7 +94,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.s_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_s_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -106,7 +109,7 @@
 - (void)foo {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.foo_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_foo_memo]) return;
     @try {
         [self __foo];
     }
@@ -116,7 +119,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.foo_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_foo_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }

@@ -48,6 +48,11 @@
         self._tokenKindTab[@"+"] = @(TOKEN_KIND_PLUS);
         self._tokenKindTab[@"*"] = @(TOKEN_KIND_STAR);
         self._tokenKindTab[@"^"] = @(TOKEN_KIND_CARET);
+
+        self.expr_memo = [NSMutableDictionary dictionary];
+        self.mult_memo = [NSMutableDictionary dictionary];
+        self.pow_memo = [NSMutableDictionary dictionary];
+        self.atom_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
@@ -62,10 +67,10 @@
 }
 
 - (void)_clearMemo {
-    [self.expr_memo removeAllObjects];
-    [self.mult_memo removeAllObjects];
-    [self.pow_memo removeAllObjects];
-    [self.atom_memo removeAllObjects];
+    [_expr_memo removeAllObjects];
+    [_mult_memo removeAllObjects];
+    [_pow_memo removeAllObjects];
+    [_atom_memo removeAllObjects];
 }
 
 - (void)_start {
@@ -96,7 +101,7 @@
 - (void)expr {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.expr_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_expr_memo]) return;
     @try {
         [self __expr];
     }
@@ -106,7 +111,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.expr_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_expr_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -132,7 +137,7 @@
 - (void)mult {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.mult_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_mult_memo]) return;
     @try {
         [self __mult];
     }
@@ -142,7 +147,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.mult_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_mult_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -171,7 +176,7 @@
 - (void)pow {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.pow_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_pow_memo]) return;
     @try {
         [self __pow];
     }
@@ -181,7 +186,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.pow_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_pow_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
@@ -199,7 +204,7 @@
 - (void)atom {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.atom_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_atom_memo]) return;
     @try {
         [self __atom];
     }
@@ -209,7 +214,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.atom_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_atom_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }

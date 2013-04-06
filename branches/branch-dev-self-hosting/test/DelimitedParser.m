@@ -43,6 +43,8 @@
 	self = [super init];
 	if (self) {
         self._tokenKindTab[@"<,>"] = @(TOKEN_KIND_S);
+
+        self.s_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
@@ -54,7 +56,7 @@
 }
 
 - (void)_clearMemo {
-    [self.s_memo removeAllObjects];
+    [_s_memo removeAllObjects];
 }
 
 - (void)_start {
@@ -74,7 +76,7 @@
 - (void)s {
     BOOL failed = NO;
     NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:self.s_memo]) return;
+    if (self._isSpeculating && [self alreadyParsedRule:_s_memo]) return;
     @try {
         [self __s];
     }
@@ -84,7 +86,7 @@
     }
     @finally {
         if (self._isSpeculating) {
-            [self memoize:self.s_memo atIndex:startTokenIndex failed:failed];
+            [self memoize:_s_memo atIndex:startTokenIndex failed:failed];
         }
     }
 }
