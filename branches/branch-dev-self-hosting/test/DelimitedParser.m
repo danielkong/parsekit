@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface DelimitedParser ()
+@end
+
 @implementation DelimitedParser
 
 - (id)init {
@@ -41,6 +44,11 @@
         self._tokenKindTab[@"<,>"] = @(TOKEN_KIND_S);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

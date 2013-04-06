@@ -1,0 +1,24 @@
+
+- (void)_do{{methodName}} {
+    
+{{methodBody}}
+    [self fireAssemblerSelector:@selector(parser:didMatch{{methodName | capitalized}}:)];
+}
+
+- (void){{methodName}} {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:self.{{methodName}}_memo]) return;
+    @try {
+        [self _do{{methodName}}];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:self.{{methodName}}_memo atIndex:startTokenIndex withResult:failed];
+        }
+    }
+}

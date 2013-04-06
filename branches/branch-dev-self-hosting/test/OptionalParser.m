@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface OptionalParser ()
+@end
+
 @implementation OptionalParser
 
 - (id)init {
@@ -42,6 +45,11 @@
         self._tokenKindTab[@"bar"] = @(TOKEN_KIND_BAR);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

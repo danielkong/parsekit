@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface AltParser ()
+@end
+
 @implementation AltParser
 
 - (id)init {
@@ -43,6 +46,11 @@
         self._tokenKindTab[@"baz"] = @(TOKEN_KIND_BAZ);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

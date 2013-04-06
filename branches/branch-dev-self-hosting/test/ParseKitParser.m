@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface ParseKitParser ()
+@end
+
 @implementation ParseKitParser
 
 - (id)init {
@@ -75,6 +78,11 @@
         self._tokenKindTab[@"%{"] = @(TOKEN_KIND_DELIMOPEN);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

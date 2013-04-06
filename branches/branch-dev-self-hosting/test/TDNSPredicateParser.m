@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface TDNSPredicateParser ()
+@end
+
 @implementation TDNSPredicateParser
 
 - (id)init {
@@ -76,6 +79,11 @@
         self._tokenKindTab[@"=="] = @(TOKEN_KIND_DOUBLE_EQUALS);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface ElementParser ()
+@end
+
 @implementation ElementParser
 
 - (id)init {
@@ -43,6 +46,11 @@
         self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

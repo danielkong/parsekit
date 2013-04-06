@@ -33,6 +33,10 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface {{className}} ()
+{%if enableMemoization %}{%for methodName in ruleMethodNames %}@property (nonatomic, retain) NSMutableDictionary *{{methodName}}_memo;
+{%/for%}{%/if%}@end
+
 @implementation {{className}}
 
 - (id)init {
@@ -41,6 +45,12 @@
 {%for kind in tokenKinds %}        self._tokenKindTab[@"{{kind.stringValue}}"] = @({{kind.name}});
 {%/for%}    }
 	return self;
+}
+
+- (void)dealloc {
+{%if enableMemoization %}{%for methodName in ruleMethodNames %}    self.{{methodName}}_memo = nil;
+{%/for%}{%/if%}
+    [super dealloc];
 }
 {{methods}}
 @end

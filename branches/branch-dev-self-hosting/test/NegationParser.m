@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface NegationParser ()
+@end
+
 @implementation NegationParser
 
 - (id)init {
@@ -41,6 +44,11 @@
         self._tokenKindTab[@"foo"] = @(TOKEN_KIND_FOO);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

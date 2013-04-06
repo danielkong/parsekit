@@ -19,6 +19,8 @@
 #define CLASS_NAME @"className"
 #define TOKEN_KINDS_START_INDEX @"startIndex"
 #define TOKEN_KINDS @"tokenKinds"
+#define RULE_METHOD_NAMES @"ruleMethodNames"
+#define ENABLE_MEMOIZATION @"enableMemoization"
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
 #define METHOD_BODY @"methodBody"
@@ -67,6 +69,7 @@
     self.engine = nil;
     self.interfaceOutputString = nil;
     self.implementationOutputString = nil;
+    self.ruleMethodNames = nil;
     self.outputStringStack = nil;
     self.currentDefName = nil;
     [super dealloc];
@@ -191,6 +194,8 @@
     
     // setup stack
     self.outputStringStack = [NSMutableArray array];
+    
+    self.ruleMethodNames = [NSMutableArray array];
 
     // setup vars
     id vars = [NSMutableDictionary dictionary];
@@ -216,6 +221,9 @@
     
     // merge
     vars[METHODS] = childStr;
+    vars[RULE_METHOD_NAMES] = self.ruleMethodNames;
+    vars[ENABLE_MEMOIZATION] = @(self.enableMemoization);
+    
     NSString *implTemplate = [self templateStringNamed:@"PKSClassImplementationTemplate"];
     self.implementationOutputString = [_engine processTemplate:implTemplate withVariables:vars];
 
@@ -244,8 +252,12 @@
     // setup vars
     id vars = [NSMutableDictionary dictionary];
     NSString *methodName = node.token.stringValue;
-    if ([methodName isEqualToString:@"@start"]) {
+    
+    BOOL isStartMethod = [methodName isEqualToString:@"@start"];
+    if (isStartMethod) {
         methodName = @"_start";
+    } else {
+        [self.ruleMethodNames addObject:methodName];
     }
     vars[METHOD_NAME] = methodName;
     self.currentDefName = methodName;
@@ -265,6 +277,14 @@
 
     // merge
     vars[METHOD_BODY] = childStr;
+    
+    NSString *templateName = nil;
+    if (!isStartMethod && self.enableMemoization) {
+        templateName = @"PKSMethodMemoizationTemplate";
+    } else {
+        templateName = @"PKSMethodTemplate";
+    }
+
     NSString *template = [self templateStringNamed:@"PKSMethodTemplate"];
     NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
     

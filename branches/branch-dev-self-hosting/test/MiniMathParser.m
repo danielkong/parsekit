@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface MiniMathParser ()
+@end
+
 @implementation MiniMathParser
 
 - (id)init {
@@ -43,6 +46,11 @@
         self._tokenKindTab[@"^"] = @(TOKEN_KIND_CARET);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

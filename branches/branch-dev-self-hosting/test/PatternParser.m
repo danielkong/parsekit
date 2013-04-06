@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface PatternParser ()
+@end
+
 @implementation PatternParser
 
 - (id)init {
@@ -40,6 +43,11 @@
 	if (self) {
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

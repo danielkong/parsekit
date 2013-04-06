@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface ElementAssignParser ()
+@end
+
 @implementation ElementAssignParser
 
 - (id)init {
@@ -46,6 +49,11 @@
         self._tokenKindTab[@"."] = @(TOKEN_KIND_DOT);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

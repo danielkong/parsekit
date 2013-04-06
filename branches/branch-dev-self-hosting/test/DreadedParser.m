@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface DreadedParser ()
+@end
+
 @implementation DreadedParser
 
 - (id)init {
@@ -42,6 +45,11 @@
         self._tokenKindTab[@"b"] = @(TOKEN_KIND_B);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

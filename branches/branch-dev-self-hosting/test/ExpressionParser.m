@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface ExpressionParser ()
+@end
+
 @implementation ExpressionParser
 
 - (id)init {
@@ -54,6 +57,11 @@
         self._tokenKindTab[@"and"] = @(TOKEN_KIND_AND);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

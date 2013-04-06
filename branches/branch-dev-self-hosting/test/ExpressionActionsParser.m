@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface ExpressionActionsParser ()
+@end
+
 @implementation ExpressionActionsParser
 
 - (id)init {
@@ -56,6 +59,11 @@
         self._tokenKindTab[@"YES"] = @(TOKEN_KIND_YES_UPPER);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {

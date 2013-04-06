@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
+@interface MethodsFactoredParser ()
+@end
+
 @implementation MethodsFactoredParser
 
 - (id)init {
@@ -48,6 +51,11 @@
         self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI_COLON);
     }
 	return self;
+}
+
+- (void)dealloc {
+
+    [super dealloc];
 }
 
 - (void)_start {
