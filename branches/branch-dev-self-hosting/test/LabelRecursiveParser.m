@@ -30,10 +30,20 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
+
+- (BOOL)_popBool;
+- (NSInteger)_popInteger;
+- (double)_popDouble;
+- (PKToken *)_popToken;
+- (NSString *)_popString;
+
+- (void)_pushBool:(BOOL)yn;
+- (void)_pushInteger:(NSInteger)i;
+- (void)_pushDouble:(double)d;
 @end
 
 @interface LabelRecursiveParser ()
-@property (nonatomic, retain) NSDictionary *_tokenKindTab;
 @end
 
 @implementation LabelRecursiveParser
@@ -41,30 +51,14 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self._tokenKindTab = @{
-           @"=" : @(TOKEN_KIND_EQUALS),
-           @"return" : @(TOKEN_KIND_RETURN),
-           @":" : @(TOKEN_KIND_COLON),
-        };
-	}
+        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
+        self._tokenKindTab[@"return"] = @(TOKEN_KIND_RETURN);
+        self._tokenKindTab[@":"] = @(TOKEN_KIND_COLON);
+
+    }
 	return self;
 }
 
-- (void)dealloc {
-	self._tokenKindTab = nil;
-	[super dealloc];
-}
-
-- (NSInteger)tokenKindForString:(NSString *)s {
-    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-
-    id obj = _tokenKindTab[s];
-    if (obj) {
-        x = [obj integerValue];
-    }
-    
-    return x;
-}
 
 - (void)_start {
     
@@ -109,5 +103,4 @@
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
-@synthesize _tokenKindTab = _tokenKindTab;
 @end

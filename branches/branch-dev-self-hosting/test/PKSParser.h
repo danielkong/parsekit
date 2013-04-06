@@ -47,7 +47,6 @@ enum {
 @end
 
 @interface PKSParser (Subclass)
-@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab; // remove
 
 - (PKToken *)LT:(NSInteger)i;
 - (NSInteger)LA:(NSInteger)i;
@@ -61,24 +60,9 @@ enum {
 - (BOOL)test:(PKSPredicateBlock)block;
 - (void)testAndThrow:(PKSPredicateBlock)block;
 - (void)fireAssemblerSelector:(SEL)sel;
-- (NSInteger)tokenKindForString:(NSString *)s;
 - (void)raise:(NSString *)fmt, ...;
 
-- (BOOL)alreadyParsedRule:(NSMutableDictionary *)memoization;
-- (void)memoize:(NSMutableDictionary *)memoization atIndex:(NSInteger)startTokenIndex failed:(BOOL)failed;
-- (NSInteger)_index;
-- (void)_clearMemo;
-@property (nonatomic, assign, readonly) BOOL _isSpeculating;
-
-- (BOOL)_popBool;
-- (NSInteger)_popInteger;
-- (double)_popDouble;
-- (PKToken *)_popToken;
-- (NSString *)_popString;
-
-- (void)_pushBool:(BOOL)yn;
-- (void)_pushInteger:(NSInteger)i;
-- (void)_pushDouble:(double)d;
+- (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
 
 // builtin token types
 - (void)Any;

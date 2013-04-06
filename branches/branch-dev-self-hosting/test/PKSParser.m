@@ -29,14 +29,34 @@
 @property (nonatomic, retain) NSMutableArray *_lookahead;
 @property (nonatomic, retain) NSMutableArray *_markers;
 @property (nonatomic, assign) NSInteger _p;
+@property (nonatomic, assign, readonly) BOOL _isSpeculating;
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 
+- (NSInteger)tokenKindForString:(NSString *)s;
+
+// conenience
+- (BOOL)_popBool;
+- (NSInteger)_popInteger;
+- (double)_popDouble;
+- (PKToken *)_popToken;
+- (NSString *)_popString;
+- (void)_pushBool:(BOOL)yn;
+- (void)_pushInteger:(NSInteger)i;
+- (void)_pushDouble:(double)d;
+
+// backtracking
 - (void)_consume;
 - (NSInteger)_mark;
 - (void)_unmark;
 - (void)_seek:(NSInteger)index;
 - (void)_sync:(NSInteger)i;
 - (void)_fill:(NSInteger)n;
+
+// memoization
+- (BOOL)alreadyParsedRule:(NSMutableDictionary *)memoization;
+- (void)memoize:(NSMutableDictionary *)memoization atIndex:(NSInteger)startTokenIndex failed:(BOOL)failed;
+- (NSInteger)_index;
+- (void)_clearMemo;
 @end
 
 @implementation PKSParser
@@ -393,6 +413,19 @@
     }
 }
 
+
+- (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:memoization]) return;
+                                
+    @try { [self performSelector:ruleSelector]; }
+    @catch (PKSRecognitionException *ex) { failed = YES; @throw ex; }
+    @finally {
+        if (self._isSpeculating) [self memoize:memoization atIndex:startTokenIndex failed:failed];
+    }
+
+}
 
 - (BOOL)alreadyParsedRule:(NSMutableDictionary *)memoization {
     

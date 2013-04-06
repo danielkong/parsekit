@@ -31,6 +31,16 @@
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
+
+- (BOOL)_popBool;
+- (NSInteger)_popInteger;
+- (double)_popDouble;
+- (PKToken *)_popToken;
+- (NSString *)_popString;
+
+- (void)_pushBool:(BOOL)yn;
+- (void)_pushInteger:(NSInteger)i;
+- (void)_pushDouble:(double)d;
 @end
 
 @interface {{className}} ()

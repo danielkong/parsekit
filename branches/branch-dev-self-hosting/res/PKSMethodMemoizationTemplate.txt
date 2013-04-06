@@ -6,19 +6,5 @@
 }
 
 - (void){{methodName}} {
-    BOOL failed = NO;
-    NSInteger startTokenIndex = [self _index];
-    if (self._isSpeculating && [self alreadyParsedRule:_{{methodName}}_memo]) return;
-    @try {
-        [self __{{methodName}}];
-    }
-    @catch (PKSRecognitionException *ex) {
-        failed = YES;
-        @throw ex;
-    }
-    @finally {
-        if (self._isSpeculating) {
-            [self memoize:_{{methodName}}_memo atIndex:startTokenIndex failed:failed];
-        }
-    }
+    [self parseRule:@selector(__{{methodName}}) withMemo:_{{methodName}}_memo];
 }
