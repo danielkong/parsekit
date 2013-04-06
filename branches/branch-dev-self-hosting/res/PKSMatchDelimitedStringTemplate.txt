@@ -1,5 +1,1 @@
-{%for 1 to depth %}    {%/for%}if ({%if predicate %}{{predicate}} && ({%/if%}LA(1) == {{tokenKind.name}}{%if predicate %}){%/if%}) {
-{%for 1 to depth %}    {%/for%}    [self match:{{tokenKind.name}}]; {%if discard %}[self discard:1];{%/if%}
-{%for 1 to depth %}    {%/for%}} else {
-{%for 1 to depth %}    {%/for%}    [self raise:@"delimited string test failed in {{methodName}}"];
-{%for 1 to depth %}    {%/for%}}
+{%for 1 to depth %}    {%/for%}[self match:{{tokenKind.name}}]; {%if discard %}[self discard:1];{%/if%}

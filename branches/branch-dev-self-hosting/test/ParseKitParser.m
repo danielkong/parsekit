@@ -271,22 +271,14 @@
 
 - (void)action {
     
-    if (LA(1) == TOKEN_KIND_ACTION) {
-        [self match:TOKEN_KIND_ACTION]; 
-    } else {
-        [self raise:@"delimited string test failed in action"];
-    }
+    [self match:TOKEN_KIND_ACTION]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAction:)];
 }
 
 - (void)semanticPredicate {
     
-    if (LA(1) == TOKEN_KIND_SEMANTICPREDICATE) {
-        [self match:TOKEN_KIND_SEMANTICPREDICATE]; 
-    } else {
-        [self raise:@"delimited string test failed in semanticPredicate"];
-    }
+    [self match:TOKEN_KIND_SEMANTICPREDICATE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemanticPredicate:)];
 }
@@ -425,22 +417,14 @@
 
 - (void)patternNoOpts {
     
-    if (LA(1) == TOKEN_KIND_PATTERNNOOPTS) {
-        [self match:TOKEN_KIND_PATTERNNOOPTS]; 
-    } else {
-        [self raise:@"delimited string test failed in patternNoOpts"];
-    }
+    [self match:TOKEN_KIND_PATTERNNOOPTS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPatternNoOpts:)];
 }
 
 - (void)patternIgnoreCase {
     
-    if (LA(1) == TOKEN_KIND_PATTERNIGNORECASE) {
-        [self match:TOKEN_KIND_PATTERNIGNORECASE]; 
-    } else {
-        [self raise:@"delimited string test failed in patternIgnoreCase"];
-    }
+    [self match:TOKEN_KIND_PATTERNIGNORECASE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPatternIgnoreCase:)];
 }

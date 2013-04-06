@@ -54,11 +54,7 @@
 
 - (void)s {
     
-    if (LA(1) == TOKEN_KIND_S) {
-        [self match:TOKEN_KIND_S]; 
-    } else {
-        [self raise:@"delimited string test failed in s"];
-    }
+    [self match:TOKEN_KIND_S]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
