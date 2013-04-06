@@ -34,6 +34,12 @@
 @end
 
 @interface ElementParser ()
+@property (nonatomic, retain) NSMutableDictionary *list_memo;
+@property (nonatomic, retain) NSMutableDictionary *elements_memo;
+@property (nonatomic, retain) NSMutableDictionary *element_memo;
+@property (nonatomic, retain) NSMutableDictionary *lbracket_memo;
+@property (nonatomic, retain) NSMutableDictionary *rbracket_memo;
+@property (nonatomic, retain) NSMutableDictionary *comma_memo;
 @end
 
 @implementation ElementParser
@@ -45,10 +51,35 @@
         self._tokenKindTab[@"]"] = @(TOKEN_KIND_RBRACKET);
         self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
 
+        self.list_memo = [NSMutableDictionary dictionary];
+        self.elements_memo = [NSMutableDictionary dictionary];
+        self.element_memo = [NSMutableDictionary dictionary];
+        self.lbracket_memo = [NSMutableDictionary dictionary];
+        self.rbracket_memo = [NSMutableDictionary dictionary];
+        self.comma_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
+- (void)dealloc {
+    self.list_memo = nil;
+    self.elements_memo = nil;
+    self.element_memo = nil;
+    self.lbracket_memo = nil;
+    self.rbracket_memo = nil;
+    self.comma_memo = nil;
+
+    [super dealloc];
+}
+
+- (void)_clearMemo {
+    [_list_memo removeAllObjects];
+    [_elements_memo removeAllObjects];
+    [_element_memo removeAllObjects];
+    [_lbracket_memo removeAllObjects];
+    [_rbracket_memo removeAllObjects];
+    [_comma_memo removeAllObjects];
+}
 
 - (void)_start {
     
@@ -57,7 +88,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)list {
+- (void)__list {
     
     [self lbracket]; 
     [self elements]; 
@@ -66,7 +97,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 
-- (void)elements {
+- (void)list {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:_list_memo]) return;
+    @try {
+        [self __list];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:_list_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__elements {
     
     [self element]; 
     while (LA(1) == TOKEN_KIND_COMMA) {
@@ -81,7 +130,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchElements:)];
 }
 
-- (void)element {
+- (void)elements {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:_elements_memo]) return;
+    @try {
+        [self __elements];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:_elements_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__element {
     
     if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
@@ -94,25 +161,97 @@
     [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
 }
 
-- (void)lbracket {
+- (void)element {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:_element_memo]) return;
+    @try {
+        [self __element];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:_element_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__lbracket {
     
     [self match:TOKEN_KIND_LBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
 
-- (void)rbracket {
+- (void)lbracket {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:_lbracket_memo]) return;
+    @try {
+        [self __lbracket];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:_lbracket_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__rbracket {
     
     [self match:TOKEN_KIND_RBRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
 
-- (void)comma {
+- (void)rbracket {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:_rbracket_memo]) return;
+    @try {
+        [self __rbracket];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:_rbracket_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
+}
+
+- (void)__comma {
     
     [self match:TOKEN_KIND_COMMA]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
+}
+
+- (void)comma {
+    BOOL failed = NO;
+    NSInteger startTokenIndex = [self _index];
+    if (self._isSpeculating && [self alreadyParsedRule:_comma_memo]) return;
+    @try {
+        [self __comma];
+    }
+    @catch (PKSRecognitionException *ex) {
+        failed = YES;
+        @throw ex;
+    }
+    @finally {
+        if (self._isSpeculating) {
+            [self memoize:_comma_memo atIndex:startTokenIndex failed:failed];
+        }
+    }
 }
 
 @end
