@@ -55,6 +55,8 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self.enableHybridDFA = YES;
+        
         [self setUpTemplateEngine];
     }
     return self;
@@ -522,7 +524,7 @@
 }
 
 
-- (NSMutableString *)recurseAltForBracktracking:(PKAlternationNode *)node la:(NSMutableArray *)lookaheadSets {
+- (NSMutableString *)recurseAltForBracktracking:(PKAlternationNode *)node {
     // setup child str buffer
     NSMutableString *result = [NSMutableString string];
     
@@ -575,38 +577,44 @@
 - (void)visitAlternation:(PKAlternationNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
-    // first fetch all child lookahead sets
-    NSMutableArray *lookaheadSets = [NSMutableArray arrayWithCapacity:[node.children count]];
-
-    for (PKBaseNode *child in node.children) {
-        NSSet *set = [self lookaheadSetForNode:child];
-        [lookaheadSets addObject:set];
-    }
-
-    NSMutableSet *all = [NSMutableSet setWithSet:lookaheadSets[0]];
-    BOOL overlap = NO;
-    for (NSUInteger i = 1; i < [lookaheadSets count]; ++i) {
-        NSSet *set = lookaheadSets[i];
-        overlap = [set intersectsSet:all];
-        if (overlap) break;
-        [all unionSet:set];
-    }
-    
-    if (!overlap && [all containsObject:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]) {
-        overlap = YES; // TODO ??
-    }
-
-    //NSLog(@"%@", lookaheadSets);
-    self.needsBacktracking = overlap;
-    
     NSMutableString *childStr = nil;
-    if (_needsBacktracking) {
-        childStr = [self recurseAltForBracktracking:node la:lookaheadSets];
-    } else {
-        childStr = [self recurseAlt:node la:lookaheadSets];
-    }
 
-    self.needsBacktracking = NO;
+    if (_enableHybridDFA) {
+        // first fetch all child lookahead sets
+        NSMutableArray *lookaheadSets = [NSMutableArray arrayWithCapacity:[node.children count]];
+        
+        for (PKBaseNode *child in node.children) {
+            NSSet *set = [self lookaheadSetForNode:child];
+            [lookaheadSets addObject:set];
+        }
+        
+        NSMutableSet *all = [NSMutableSet setWithSet:lookaheadSets[0]];
+        BOOL overlap = NO;
+        for (NSUInteger i = 1; i < [lookaheadSets count]; ++i) {
+            NSSet *set = lookaheadSets[i];
+            overlap = [set intersectsSet:all];
+            if (overlap) break;
+            [all unionSet:set];
+        }
+        
+        if (!overlap && [all containsObject:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]) {
+            overlap = YES; // TODO ??
+        }
+        
+        //NSLog(@"%@", lookaheadSets);
+        self.needsBacktracking = overlap;
+    
+        if (_needsBacktracking) {
+            childStr = [self recurseAltForBracktracking:node];
+        } else {
+            childStr = [self recurseAlt:node la:lookaheadSets];
+        }
+        self.needsBacktracking = NO;
+    
+    } else {
+        self.needsBacktracking = YES;
+        childStr = [self recurseAltForBracktracking:node];
+    }
 
     id vars = [NSMutableDictionary dictionary];
     vars[METHOD_NAME] = _currentDefName;
@@ -652,7 +660,7 @@
     NSMutableString *output = [NSMutableString string];
 
     NSString *templateName = nil;
-    if ([self hasTerminalPath:child]) { // ????
+    if (_enableHybridDFA && [self hasTerminalPath:child]) { // ????
         templateName = @"PKSOptionalTerminalTemplate";
     } else {
         templateName = @"PKSOptionalNonTerminalTemplate";
@@ -722,7 +730,7 @@
     NSMutableString *output = [NSMutableString string];
     
     NSString *templateName = nil;
-    if ([self hasTerminalPath:child]) { // ????
+    if (_enableHybridDFA && [self hasTerminalPath:child]) { // ????
         templateName = @"PKSMultipleTerminalTemplate";
     } else {
         templateName = @"PKSMultipleNonTerminalTemplate";
