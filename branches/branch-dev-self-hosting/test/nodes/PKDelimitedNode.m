@@ -76,4 +76,9 @@
     return [PKDelimitedString class];
 }
 
+
+- (BOOL)isTerminal {
+    return YES;
+}
+
 @end

@@ -128,7 +128,7 @@
     
     [self production]; 
     [self match:TOKEN_KIND_EQUALS]; 
-    if ((LA(1) == TOKEN_KIND_ACTION) && ([self speculate:^{ [self action]; }])) {
+    if (LA(1) == TOKEN_KIND_ACTION) {
         [self action]; 
     }
     [self expr]; 
@@ -181,7 +181,7 @@
 
 - (void)term {
     
-    if ((LA(1) == TOKEN_KIND_SEMANTICPREDICATE) && ([self speculate:^{ [self semanticPredicate]; }])) {
+    if (LA(1) == TOKEN_KIND_SEMANTICPREDICATE) {
         [self semanticPredicate]; 
     }
     [self factor]; 
@@ -217,7 +217,7 @@
     } else {
         [self raise:@"no viable alternative found in factor"];
     }
-    if ((LA(1) == TOKEN_KIND_ACTION) && ([self speculate:^{ [self action]; }])) {
+    if (LA(1) == TOKEN_KIND_ACTION) {
         [self action]; 
     }
 
@@ -369,7 +369,7 @@
 - (void)atomicValue {
     
     [self parser]; 
-    if ((LA(1) == TOKEN_KIND_DISCARD) && ([self speculate:^{ [self discard]; }])) {
+    if (LA(1) == TOKEN_KIND_DISCARD) {
         [self discard]; 
     }
 

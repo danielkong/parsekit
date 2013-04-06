@@ -654,7 +654,15 @@
     vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
     
     NSMutableString *output = [NSMutableString string];
-    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSOptionalNonTerminalTemplate"] withVariables:vars]];
+
+    NSString *templateName = nil;
+    if ([self hasTerminalPath:child]) { // ????
+        templateName = @"PKSOptionalTerminalTemplate";
+    } else {
+        templateName = @"PKSOptionalNonTerminalTemplate";
+    }
+    
+    [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
     
     // action
     [output appendString:[self actionStringFrom:node]];
