@@ -379,8 +379,8 @@
     vars[LOOKAHEAD_SET] = set;
     vars[LAST] = @([set count] - 1);
 
-    // TODO. only need to speculate if this repetition's child is non-terminal
-    BOOL isChildTerminal = NO; //[child isKindOfClass:[PKConstantNode class]] || [child isKindOfClass:[PKLiteralNode class]];
+    // Only need to speculate if this repetition's child is non-terminal
+    BOOL isChildTerminal = (_enableHybridDFA && [self hasTerminalPath:child]);
     
     // rep body is always wrapped in an while AND an IF. so increase depth twice
     NSInteger depth = isChildTerminal ? 1 : 2;
@@ -394,8 +394,10 @@
     NSMutableString *childStr = [self pop];
     vars[CHILD_STRING] = [[childStr copy] autorelease];
     
-    NSString *templateName = @"PKSRepetitionTerminalTemplate";
-    if (!isChildTerminal) {
+    NSString *templateName = nil;
+    if (isChildTerminal) { // ????
+        templateName = @"PKSRepetitionTerminalTemplate";
+    } else {
         vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
         templateName = @"PKSRepetitionNonTerminalTemplate";
     }
@@ -677,16 +679,19 @@
 }
 
 
-- (BOOL)hasTerminalPath:(PKBaseNode *)node {
+- (BOOL)hasTerminalPath:(PKBaseNode *)inNode {
     BOOL result = YES;
     
-    if ([node isKindOfClass:[PKReferenceNode class]]) {
-        node = self.symbolTable[node.token.stringValue];
-    }
-    
-    if ([node isKindOfClass:[PKDefinitionNode class]]) {
-        NSAssert(1 == [node.children count], @"");
-        node = node.children[0];
+    PKBaseNode *node = inNode;
+    while ([node isKindOfClass:[PKReferenceNode class]] || [node isKindOfClass:[PKDefinitionNode class]]) {
+        while ([node isKindOfClass:[PKReferenceNode class]]) {
+            node = self.symbolTable[node.token.stringValue];
+        }
+        
+        if ([node isKindOfClass:[PKDefinitionNode class]]) {
+            NSAssert(1 == [node.children count], @"");
+            node = node.children[0];
+        }
     }
     
     if ([node isKindOfClass:[PKAlternationNode class]]) {
