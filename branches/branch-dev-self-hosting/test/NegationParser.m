@@ -44,6 +44,8 @@
 @end
 
 @interface NegationParser ()
+@property (nonatomic, retain) NSMutableDictionary *s_memo;
+@property (nonatomic, retain) NSMutableDictionary *foo_memo;
 @end
 
 @implementation NegationParser
@@ -53,10 +55,23 @@
 	if (self) {
         self._tokenKindTab[@"foo"] = @(TOKEN_KIND_FOO);
 
+        self.s_memo = [NSMutableDictionary dictionary];
+        self.foo_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
+- (void)dealloc {
+    self.s_memo = nil;
+    self.foo_memo = nil;
+
+    [super dealloc];
+}
+
+- (void)_clearMemo {
+    [_s_memo removeAllObjects];
+    [_foo_memo removeAllObjects];
+}
 
 - (void)_start {
     
@@ -65,7 +80,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)s {
+- (void)__s {
     
     if (LA(1) != TOKEN_KIND_FOO) {
         [self match:TOKEN_KIND_BUILTIN_ANY];
@@ -76,11 +91,19 @@
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
-- (void)foo {
+- (void)s {
+    [self parseRule:@selector(__s) withMemo:_s_memo];
+}
+
+- (void)__foo {
     
     [self match:TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
+}
+
+- (void)foo {
+    [self parseRule:@selector(__foo) withMemo:_foo_memo];
 }
 
 @end

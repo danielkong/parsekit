@@ -424,8 +424,8 @@
     @finally {
         if (self._isSpeculating) [self memoize:memoization atIndex:startTokenIndex failed:failed];
     }
-
 }
+
 
 - (BOOL)alreadyParsedRule:(NSMutableDictionary *)memoization {
     

@@ -44,6 +44,10 @@
 @end
 
 @interface MiniMathParser ()
+@property (nonatomic, retain) NSMutableDictionary *expr_memo;
+@property (nonatomic, retain) NSMutableDictionary *mult_memo;
+@property (nonatomic, retain) NSMutableDictionary *pow_memo;
+@property (nonatomic, retain) NSMutableDictionary *atom_memo;
 @end
 
 @implementation MiniMathParser
@@ -55,10 +59,29 @@
         self._tokenKindTab[@"*"] = @(TOKEN_KIND_STAR);
         self._tokenKindTab[@"^"] = @(TOKEN_KIND_CARET);
 
+        self.expr_memo = [NSMutableDictionary dictionary];
+        self.mult_memo = [NSMutableDictionary dictionary];
+        self.pow_memo = [NSMutableDictionary dictionary];
+        self.atom_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
+- (void)dealloc {
+    self.expr_memo = nil;
+    self.mult_memo = nil;
+    self.pow_memo = nil;
+    self.atom_memo = nil;
+
+    [super dealloc];
+}
+
+- (void)_clearMemo {
+    [_expr_memo removeAllObjects];
+    [_mult_memo removeAllObjects];
+    [_pow_memo removeAllObjects];
+    [_atom_memo removeAllObjects];
+}
 
 - (void)_start {
     
@@ -67,7 +90,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)expr {
+- (void)__expr {
     
     [self mult]; 
     while (LA(1) == TOKEN_KIND_PLUS) {
@@ -85,7 +108,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
-- (void)mult {
+- (void)expr {
+    [self parseRule:@selector(__expr) withMemo:_expr_memo];
+}
+
+- (void)__mult {
     
     [self pow]; 
     while (LA(1) == TOKEN_KIND_STAR) {
@@ -103,7 +130,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchMult:)];
 }
 
-- (void)pow {
+- (void)mult {
+    [self parseRule:@selector(__mult) withMemo:_mult_memo];
+}
+
+- (void)__pow {
     
     [self atom]; 
     if ((LA(1) == TOKEN_KIND_CARET) && ([self speculate:^{ [self match:TOKEN_KIND_CARET]; [self discard:1];[self pow]; [self execute:(id)^{ 		double exp = POP_FLOAT();		double base = POP_FLOAT();		double result = base;	for (NSUInteger i = 1; i < exp; i++) 			result *= base;		PUSH_FLOAT(result); 	}];}])) {
@@ -124,7 +155,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchPow:)];
 }
 
-- (void)atom {
+- (void)pow {
+    [self parseRule:@selector(__pow) withMemo:_pow_memo];
+}
+
+- (void)__atom {
     
     [self Number]; 
     [self execute:(id)^{
@@ -132,6 +167,10 @@
     }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
+}
+
+- (void)atom {
+    [self parseRule:@selector(__atom) withMemo:_atom_memo];
 }
 
 @end

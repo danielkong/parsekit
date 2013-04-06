@@ -44,6 +44,12 @@
 @end
 
 @interface ElementParser ()
+@property (nonatomic, retain) NSMutableDictionary *list_memo;
+@property (nonatomic, retain) NSMutableDictionary *elements_memo;
+@property (nonatomic, retain) NSMutableDictionary *element_memo;
+@property (nonatomic, retain) NSMutableDictionary *lbracket_memo;
+@property (nonatomic, retain) NSMutableDictionary *rbracket_memo;
+@property (nonatomic, retain) NSMutableDictionary *comma_memo;
 @end
 
 @implementation ElementParser
@@ -55,10 +61,35 @@
         self._tokenKindTab[@"]"] = @(TOKEN_KIND_RBRACKET);
         self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
 
+        self.list_memo = [NSMutableDictionary dictionary];
+        self.elements_memo = [NSMutableDictionary dictionary];
+        self.element_memo = [NSMutableDictionary dictionary];
+        self.lbracket_memo = [NSMutableDictionary dictionary];
+        self.rbracket_memo = [NSMutableDictionary dictionary];
+        self.comma_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
+- (void)dealloc {
+    self.list_memo = nil;
+    self.elements_memo = nil;
+    self.element_memo = nil;
+    self.lbracket_memo = nil;
+    self.rbracket_memo = nil;
+    self.comma_memo = nil;
+
+    [super dealloc];
+}
+
+- (void)_clearMemo {
+    [_list_memo removeAllObjects];
+    [_elements_memo removeAllObjects];
+    [_element_memo removeAllObjects];
+    [_lbracket_memo removeAllObjects];
+    [_rbracket_memo removeAllObjects];
+    [_comma_memo removeAllObjects];
+}
 
 - (void)_start {
     
@@ -67,7 +98,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)list {
+- (void)__list {
     
     [self lbracket]; 
     [self elements]; 
@@ -76,7 +107,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 
-- (void)elements {
+- (void)list {
+    [self parseRule:@selector(__list) withMemo:_list_memo];
+}
+
+- (void)__elements {
     
     [self element]; 
     while (LA(1) == TOKEN_KIND_COMMA) {
@@ -91,7 +126,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchElements:)];
 }
 
-- (void)element {
+- (void)elements {
+    [self parseRule:@selector(__elements) withMemo:_elements_memo];
+}
+
+- (void)__element {
     
     if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
         [self Number]; 
@@ -104,25 +143,41 @@
     [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
 }
 
-- (void)lbracket {
+- (void)element {
+    [self parseRule:@selector(__element) withMemo:_element_memo];
+}
+
+- (void)__lbracket {
     
     [self match:TOKEN_KIND_LBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
 
-- (void)rbracket {
+- (void)lbracket {
+    [self parseRule:@selector(__lbracket) withMemo:_lbracket_memo];
+}
+
+- (void)__rbracket {
     
     [self match:TOKEN_KIND_RBRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
 
-- (void)comma {
+- (void)rbracket {
+    [self parseRule:@selector(__rbracket) withMemo:_rbracket_memo];
+}
+
+- (void)__comma {
     
     [self match:TOKEN_KIND_COMMA]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
+}
+
+- (void)comma {
+    [self parseRule:@selector(__comma) withMemo:_comma_memo];
 }
 
 @end

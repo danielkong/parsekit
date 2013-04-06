@@ -44,6 +44,10 @@
 @end
 
 @interface MultipleParser ()
+@property (nonatomic, retain) NSMutableDictionary *s_memo;
+@property (nonatomic, retain) NSMutableDictionary *ab_memo;
+@property (nonatomic, retain) NSMutableDictionary *a_memo;
+@property (nonatomic, retain) NSMutableDictionary *b_memo;
 @end
 
 @implementation MultipleParser
@@ -54,10 +58,29 @@
         self._tokenKindTab[@"a"] = @(TOKEN_KIND_A);
         self._tokenKindTab[@"b"] = @(TOKEN_KIND_B);
 
+        self.s_memo = [NSMutableDictionary dictionary];
+        self.ab_memo = [NSMutableDictionary dictionary];
+        self.a_memo = [NSMutableDictionary dictionary];
+        self.b_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
+- (void)dealloc {
+    self.s_memo = nil;
+    self.ab_memo = nil;
+    self.a_memo = nil;
+    self.b_memo = nil;
+
+    [super dealloc];
+}
+
+- (void)_clearMemo {
+    [_s_memo removeAllObjects];
+    [_ab_memo removeAllObjects];
+    [_a_memo removeAllObjects];
+    [_b_memo removeAllObjects];
+}
 
 - (void)_start {
     
@@ -66,7 +89,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)s {
+- (void)__s {
     
     do {
         [self ab]; 
@@ -76,7 +99,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
-- (void)ab {
+- (void)s {
+    [self parseRule:@selector(__s) withMemo:_s_memo];
+}
+
+- (void)__ab {
     
     [self a]; 
     [self b]; 
@@ -84,18 +111,30 @@
     [self fireAssemblerSelector:@selector(parser:didMatchAb:)];
 }
 
-- (void)a {
+- (void)ab {
+    [self parseRule:@selector(__ab) withMemo:_ab_memo];
+}
+
+- (void)__a {
     
     [self match:TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
-- (void)b {
+- (void)a {
+    [self parseRule:@selector(__a) withMemo:_a_memo];
+}
+
+- (void)__b {
     
     [self match:TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
+}
+
+- (void)b {
+    [self parseRule:@selector(__b) withMemo:_b_memo];
 }
 
 @end

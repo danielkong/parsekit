@@ -44,6 +44,7 @@
 @end
 
 @interface DelimitedParser ()
+@property (nonatomic, retain) NSMutableDictionary *s_memo;
 @end
 
 @implementation DelimitedParser
@@ -53,10 +54,20 @@
 	if (self) {
         self._tokenKindTab[@"<,>"] = @(TOKEN_KIND_S);
 
+        self.s_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
+- (void)dealloc {
+    self.s_memo = nil;
+
+    [super dealloc];
+}
+
+- (void)_clearMemo {
+    [_s_memo removeAllObjects];
+}
 
 - (void)_start {
     
@@ -65,11 +76,15 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)s {
+- (void)__s {
     
     [self match:TOKEN_KIND_S]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
+}
+
+- (void)s {
+    [self parseRule:@selector(__s) withMemo:_s_memo];
 }
 
 @end
