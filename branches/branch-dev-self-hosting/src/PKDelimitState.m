@@ -27,6 +27,10 @@
 @property (nonatomic, readwrite) NSUInteger offset;
 @end
 
+@interface PKTokenizer ()
+- (NSInteger)tokenKindForStringValue:(NSString *)str;
+@end
+
 @interface PKTokenizerState ()
 - (void)resetWithReader:(PKReader *)r;
 - (void)append:(PKUniChar)c;
