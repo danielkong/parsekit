@@ -30,10 +30,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
-@end
-
-@interface ParseKitParser ()
-@property (nonatomic, retain) NSDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
 @implementation ParseKitParser
@@ -41,46 +38,37 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self._tokenKindTab = @{
-           @"*" : @(TOKEN_KIND_STAR),
-           @"start" : @(TOKEN_KIND_START),
-           @"}" : @(TOKEN_KIND_CLOSE_CURLY),
-           @"+" : @(TOKEN_KIND_PLUS),
-           @"%{" : @(TOKEN_KIND_DELIMOPEN),
-           @";" : @(TOKEN_KIND_SEMI_COLON),
-           @"," : @(TOKEN_KIND_COMMA),
-           @"-" : @(TOKEN_KIND_MINUS),
-           @"[" : @(TOKEN_KIND_OPEN_BRACKET),
-           @"=" : @(TOKEN_KIND_EQUALS),
-           @"&" : @(TOKEN_KIND_AMPERSAND),
-           @"]" : @(TOKEN_KIND_CLOSE_BRACKET),
-           @"|" : @(TOKEN_KIND_PIPE),
-           @"(" : @(TOKEN_KIND_OPEN_PAREN),
-           @"?" : @(TOKEN_KIND_QUESTION),
-           @"!" : @(TOKEN_KIND_DISCARD),
-           @"@" : @(TOKEN_KIND_AT),
-           @")" : @(TOKEN_KIND_CLOSE_PAREN),
-           @"~" : @(TOKEN_KIND_TILDE),
-        };
+        self._tokenKindTab[@"*"] = @(TOKEN_KIND_STAR);
+        self._tokenKindTab[@"start"] = @(TOKEN_KIND_START);
+        self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSE_CURLY);
+        self._tokenKindTab[@"+"] = @(TOKEN_KIND_PLUS);
+        self._tokenKindTab[@"%{"] = @(TOKEN_KIND_DELIMOPEN);
+        self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI_COLON);
+        self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"-"] = @(TOKEN_KIND_MINUS);
+        self._tokenKindTab[@"["] = @(TOKEN_KIND_OPEN_BRACKET);
+        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
+        self._tokenKindTab[@"&"] = @(TOKEN_KIND_AMPERSAND);
+        self._tokenKindTab[@"]"] = @(TOKEN_KIND_CLOSE_BRACKET);
+        self._tokenKindTab[@"|"] = @(TOKEN_KIND_PIPE);
+        self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
+        self._tokenKindTab[@"?"] = @(TOKEN_KIND_QUESTION);
+        self._tokenKindTab[@"!"] = @(TOKEN_KIND_DISCARD);
+        self._tokenKindTab[@"@"] = @(TOKEN_KIND_AT);
+        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
+        self._tokenKindTab[@"~"] = @(TOKEN_KIND_TILDE);
+        self._tokenKindTab[@"{,}?"] = @(TOKEN_KIND_SEMANTICPREDICATE);
+        self._tokenKindTab[@"{,}"] = @(TOKEN_KIND_ACTION);
+        self._tokenKindTab[@"/,/"] = @(TOKEN_KIND_PATTERN);
+        self._tokenKindTab[@"/,/i"] = @(TOKEN_KIND_PATTERN);
 	}
 	return self;
 }
 
 - (void)dealloc {
-	self._tokenKindTab = nil;
 	[super dealloc];
 }
 
-- (NSInteger)tokenKindForString:(NSString *)s {
-    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-
-    id obj = _tokenKindTab[s];
-    if (obj) {
-        x = [obj integerValue];
-    }
-    
-    return x;
-}
 
 - (void)_start {
     
@@ -182,7 +170,7 @@
 
 - (void)term {
     
-        if ((LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING && [LS(1) hasPrefix:@"{"]) && ([self speculate:^{ [self semanticPredicate]; }])) {
+        if ((LA(1) == TOKEN_KIND_SEMANTICPREDICATE && [LS(1) hasPrefix:@"{"]) && ([self speculate:^{ [self semanticPredicate]; }])) {
             [self semanticPredicate]; 
         }
         [self factor]; 
@@ -218,7 +206,7 @@
         } else {
             [self raise:@"no viable alternative found in factor"];
         }
-        if ((LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING) && ([self speculate:^{ [self action]; }])) {
+        if ((LA(1) == TOKEN_KIND_ACTION) && ([self speculate:^{ [self action]; }])) {
             [self action]; 
         }
 
@@ -272,8 +260,8 @@
 
 - (void)action {
     
-        if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING && [LS(1) hasPrefix:@"{"] && [LS(1) hasSuffix:@"}"]) {
-            [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]; 
+        if (LA(1) == TOKEN_KIND_ACTION && [LS(1) hasPrefix:@"{"] && [LS(1) hasSuffix:@"}"]) {
+            [self match:TOKEN_KIND_ACTION];
         }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAction:)];
@@ -281,8 +269,8 @@
 
 - (void)semanticPredicate {
     
-        if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING && [LS(1) hasPrefix:@"{"] && [LS(1) hasSuffix:@"}?"]) {
-            [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]; 
+        if (LA(1) == TOKEN_KIND_SEMANTICPREDICATE && [LS(1) hasPrefix:@"{"] && [LS(1) hasSuffix:@"}?"]) {
+            [self match:TOKEN_KIND_SEMANTICPREDICATE];
         }
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemanticPredicate:)];
@@ -321,7 +309,7 @@
     
         if (LA(1) == TOKEN_KIND_TILDE) {
             [self negatedPrimaryExpr]; 
-        } else if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING || LA(1) == TOKEN_KIND_OPEN_PAREN || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_OPEN_BRACKET || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+        } else if (LA(1) == TOKEN_KIND_PATTERN || LA(1) == TOKEN_KIND_OPEN_PAREN || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_OPEN_BRACKET || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
             [self barePrimaryExpr]; 
         } else {
             [self raise:@"no viable alternative found in primaryExpr"];
@@ -340,7 +328,7 @@
 
 - (void)barePrimaryExpr {
     
-        if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING ||LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+        if (LA(1) == TOKEN_KIND_PATTERN ||LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_DELIMOPEN || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
             [self atomicValue]; 
         } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
             [self subSeqExpr]; 
@@ -383,7 +371,7 @@
 
 - (void)parser {
     
-        if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING) {
+        if (LA(1) == TOKEN_KIND_PATTERN) {
             [self pattern]; 
         } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
             [self literal]; 
@@ -409,10 +397,10 @@
 
 - (void)pattern {
     
-        if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING && [LS(1) hasPrefix:@"/"] && [LS(1) hasSuffix:@"/"]) {
-            [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]; 
-        } else if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING && [LS(1) hasPrefix:@"/"] && [LS(1) hasSuffix:@"/i"]) {
-            [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
+        if (LA(1) == TOKEN_KIND_PATTERN && [LS(1) hasPrefix:@"/"] && [LS(1) hasSuffix:@"/"]) {
+            [self match:TOKEN_KIND_PATTERN];
+        } else if (LA(1) == TOKEN_KIND_PATTERN && [LS(1) hasPrefix:@"/"] && [LS(1) hasSuffix:@"/i"]) {
+            [self match:TOKEN_KIND_PATTERN];
         }
 
 

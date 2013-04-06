@@ -120,6 +120,8 @@
     self._tokenizer = t;
     self._assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
     
+    self._tokenizer.delegate = self;
+    
     // setup speculation
     self._p = 0;
     self._lookahead = [NSMutableArray array];
@@ -165,6 +167,7 @@
         }
     }
     @finally {
+        self._tokenizer.delegate = nil;
         self._tokenizer = nil;
         self._assembler = nil;
         self._assembly = nil;
@@ -314,15 +317,15 @@
 
 - (NSInteger)_tokenKindForToken:(PKToken *)tok {
     NSString *key = tok.stringValue;
-    if (tok.isDelimitedString) {
-//        NSLog(@"%@", tok);
-//        NSLog(@"%@", [self performSelector:@selector(_tokenKindTab)]);
-//        key = [NSString stringWithFormat:@"%C,%C", [key characterAtIndex:0], [key characterAtIndex:[key length] - 1]];
-    }
-    NSInteger x = [self tokenKindForString:key];
+    
+    NSInteger x = tok.tokenKind;
     
     if (TOKEN_KIND_BUILTIN_INVALID == x) {
-        x = tok.tokenType;
+        x = [self tokenKindForString:key];
+    
+        if (TOKEN_KIND_BUILTIN_INVALID == x) {
+            x = tok.tokenType;
+        }
     }
     
     return x;

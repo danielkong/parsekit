@@ -54,8 +54,8 @@
 
 - (void)s {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_DELIMITEDSTRING && [LS(1) hasPrefix:@"<"] && [LS(1) hasSuffix:@">"]) {
-        [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING]; 
+    if (LA(1) == TOKEN_KIND_S) {
+        [self match:TOKEN_KIND_S]; 
     } else {
         [self raise:@"delimited string test failed in s"];
     }
