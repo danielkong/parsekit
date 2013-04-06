@@ -48,9 +48,9 @@
 {%/for%}{%/if%}    }
 	return self;
 }
-
+{%if enableMemoization %}
 - (void)dealloc {
-{%if enableMemoization %}{%for methodName in ruleMethodNames %}    self.{{methodName}}_memo = nil;
+{%for methodName in ruleMethodNames %}    self.{{methodName}}_memo = nil;
 {%/for%}
     [super dealloc];
 }
