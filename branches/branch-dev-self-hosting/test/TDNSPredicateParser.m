@@ -90,7 +90,7 @@
 - (void)expr {
     
     [self orTerm]; 
-    while (LA(1) == TOKEN_KIND_OR_UPPER || LA(1) == TOKEN_KIND_DOUBLE_PIPE) {
+    while (LA(1) == TOKEN_KIND_DOUBLE_PIPE || LA(1) == TOKEN_KIND_OR_UPPER) {
         if ([self speculate:^{ [self orOrTerm]; }]) {
             [self orOrTerm]; 
         } else {
@@ -133,7 +133,7 @@
 
 - (void)andTerm {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_NOT_UPPER) {
+    if (LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_SOME) {
         [self primaryExpr]; 
     } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
         [self compoundExpr]; 
@@ -155,9 +155,9 @@
 
 - (void)primaryExpr {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME) {
+    if (LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_TRUEPREDICATE || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_SOME) {
         [self predicate]; 
-    } else if (LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_BANG) {
+    } else if (LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_NOT_UPPER) {
         [self negatedPredicate]; 
     } else {
         [self raise:@"no viable alternative found in primaryExpr"];
@@ -262,7 +262,7 @@
 
 - (void)arrayContentsOpt {
     
-    if (LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_FALSELITERAL) {
         [self arrayContents]; 
     }
 
@@ -302,7 +302,7 @@
     
     if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self numComparisonPredicate]; 
-    } else if (LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME) {
+    } else if (LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_NONE) {
         [self collectionComparisonPredicate]; 
     } else {
         [self raise:@"no viable alternative found in comparisonPredicate"];
@@ -335,7 +335,7 @@
 
 - (void)comparisonOp {
     
-    if (LA(1) == TOKEN_KIND_EQUALS || LA(1) == TOKEN_KIND_DOUBLE_EQUALS) {
+    if (LA(1) == TOKEN_KIND_DOUBLE_EQUALS || LA(1) == TOKEN_KIND_EQUALS) {
         [self eq]; 
     } else if (LA(1) == TOKEN_KIND_GT) {
         [self gt]; 
@@ -345,7 +345,7 @@
         [self gtEq]; 
     } else if (LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_EL) {
         [self ltEq]; 
-    } else if (LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_NOT_EQUAL) {
+    } else if (LA(1) == TOKEN_KIND_NOT_EQUAL || LA(1) == TOKEN_KIND_NE) {
         [self notEq]; 
     } else if (LA(1) == TOKEN_KIND_BETWEEN) {
         [self between]; 
