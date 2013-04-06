@@ -8,14 +8,14 @@ varProduction        = Word;
 expr                 = term orTerm*;
 term                 = semanticPredicate? factor nextFactor*;
 orTerm               = '|' term;
-factor               = phrase cardinality? action?;
+factor               = phrase (phraseStar | phrasePlus | phraseQuestion)? action?;
 
 nextFactor           = factor;
 phrase               = primaryExpr predicate*;
 
-cardinality 		 = '*'! {[self fireAssemblerSelector:@selector(parser:didMatchPhraseStar:)];}
-	        		 | '+'! {[self fireAssemblerSelector:@selector(parser:didMatchPhrasePlus:)];}
-					 | '?'! {[self fireAssemblerSelector:@selector(parser:didMatchPhraseQuestion:)];};
+phraseStar = '*'!;
+phrasePlus = '+'!;
+phraseQuestion = '?'!;
 
 action               = %{'{', '}'};
 semanticPredicate    = %{'{', '}?'};

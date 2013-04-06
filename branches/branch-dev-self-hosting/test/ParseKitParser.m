@@ -54,16 +54,16 @@
         self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
         self._tokenKindTab[@"&"] = @(TOKEN_KIND_AMPERSAND);
         self._tokenKindTab[@"/,/"] = @(TOKEN_KIND_PATTERNNOOPTS);
-        self._tokenKindTab[@"?"] = @(TOKEN_KIND_QUESTION);
+        self._tokenKindTab[@"?"] = @(TOKEN_KIND_PHRASEQUESTION);
         self._tokenKindTab[@"QuotedString"] = @(TOKEN_KIND_QUOTEDSTRING_TITLE);
         self._tokenKindTab[@"Letter"] = @(TOKEN_KIND_LETTER_TITLE);
         self._tokenKindTab[@"@"] = @(TOKEN_KIND_AT);
         self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
         self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
         self._tokenKindTab[@"/,/i"] = @(TOKEN_KIND_PATTERNIGNORECASE);
-        self._tokenKindTab[@"*"] = @(TOKEN_KIND_STAR);
+        self._tokenKindTab[@"*"] = @(TOKEN_KIND_PHRASESTAR);
         self._tokenKindTab[@"Empty"] = @(TOKEN_KIND_EMPTY_TITLE);
-        self._tokenKindTab[@"+"] = @(TOKEN_KIND_PLUS);
+        self._tokenKindTab[@"+"] = @(TOKEN_KIND_PHRASEPLUS);
         self._tokenKindTab[@"["] = @(TOKEN_KIND_OPEN_BRACKET);
         self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
         self._tokenKindTab[@"SpecificChar"] = @(TOKEN_KIND_SPECIFICCHAR_TITLE);
@@ -205,8 +205,16 @@
 - (void)factor {
     
     [self phrase]; 
-    if (LA(1) == TOKEN_KIND_PLUS || LA(1) == TOKEN_KIND_QUESTION || LA(1) == TOKEN_KIND_STAR) {
-        [self cardinality]; 
+    if (LA(1) == TOKEN_KIND_PHRASEPLUS || LA(1) == TOKEN_KIND_PHRASEQUESTION || LA(1) == TOKEN_KIND_PHRASESTAR) {
+        if (LA(1) == TOKEN_KIND_PHRASESTAR) {
+            [self phraseStar]; 
+        } else if (LA(1) == TOKEN_KIND_PHRASEPLUS) {
+            [self phrasePlus]; 
+        } else if (LA(1) == TOKEN_KIND_PHRASEQUESTION) {
+            [self phraseQuestion]; 
+        } else {
+            [self raise:@"no viable alternative found in factor"];
+        }
     }
     if (LA(1) == TOKEN_KIND_ACTION) {
         [self action]; 
@@ -236,28 +244,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchPhrase:)];
 }
 
-- (void)cardinality {
+- (void)phraseStar {
     
-    if (LA(1) == TOKEN_KIND_STAR) {
-        [self match:TOKEN_KIND_STAR]; [self discard:1];
-        [self execute:(id)^{
-            [self fireAssemblerSelector:@selector(parser:didMatchPhraseStar:)];
-        }];
-    } else if (LA(1) == TOKEN_KIND_PLUS) {
-        [self match:TOKEN_KIND_PLUS]; [self discard:1];
-        [self execute:(id)^{
-            [self fireAssemblerSelector:@selector(parser:didMatchPhrasePlus:)];
-        }];
-    } else if (LA(1) == TOKEN_KIND_QUESTION) {
-        [self match:TOKEN_KIND_QUESTION]; [self discard:1];
-        [self execute:(id)^{
-            [self fireAssemblerSelector:@selector(parser:didMatchPhraseQuestion:)];
-        }];
-    } else {
-        [self raise:@"no viable alternative found in cardinality"];
-    }
+    [self match:TOKEN_KIND_PHRASESTAR]; [self discard:1];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchCardinality:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchPhraseStar:)];
+}
+
+- (void)phrasePlus {
+    
+    [self match:TOKEN_KIND_PHRASEPLUS]; [self discard:1];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchPhrasePlus:)];
+}
+
+- (void)phraseQuestion {
+    
+    [self match:TOKEN_KIND_PHRASEQUESTION]; [self discard:1];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchPhraseQuestion:)];
 }
 
 - (void)action {
