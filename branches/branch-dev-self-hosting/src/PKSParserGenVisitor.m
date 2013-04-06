@@ -150,17 +150,15 @@
         case PKNodeTypeAlternation: {
             for (PKBaseNode *child in node.children) {
                 [set unionSet:[self lookaheadSetForNode:child]];
-                //break; // single look ahead
             }
         } break;
         default: {
             for (PKBaseNode *child in node.children) {
                 [set unionSet:[self lookaheadSetForNode:child]];
-                break; // single look ahead
+                break; // single look ahead. to implement full LL(*), this would need to be enhanced here.
             }
         } break;
     }
-
     
     return set;
 }
@@ -342,11 +340,14 @@
     
     NSMutableString *output = [NSMutableString string];
     
-    // TODO
-//    BOOL isTerminal = [child isTermainal];
-//    NSString *templateName = isTerminal ? @"PKSNegationTerminalTemplate" : @"PKSNegationNonTerminalTemplate";
-
-    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSNegationNonTerminalTemplate"] withVariables:vars]];
+    NSString *templateName = nil;
+    if (_enableHybridDFA && [self hasTerminalPath:child]) { // ????
+        templateName = @"PKSNegationTerminalTemplate";
+    } else {
+        templateName = @"PKSNegationNonTerminalTemplate";
+    }
+    
+    [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
     
     // action
     [output appendString:[self actionStringFrom:node]];

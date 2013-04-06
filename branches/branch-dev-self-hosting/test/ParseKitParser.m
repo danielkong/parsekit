@@ -102,7 +102,7 @@
 - (void)tokenizerDirective {
     
     [self match:TOKEN_KIND_AT]; [self discard:1];
-    if (![self speculate:^{ [self match:TOKEN_KIND_START]; }]) {
+    if (LA(1) != TOKEN_KIND_START) {
         [self match:TOKEN_KIND_BUILTIN_ANY];
     } else {
         [self raise:@"negation test failed in tokenizerDirective"];

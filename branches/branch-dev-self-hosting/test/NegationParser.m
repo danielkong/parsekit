@@ -52,7 +52,7 @@
 
 - (void)s {
     
-    if (![self speculate:^{ [self foo]; }]) {
+    if (LA(1) != TOKEN_KIND_FOO) {
         [self match:TOKEN_KIND_BUILTIN_ANY];
     } else {
         [self raise:@"negation test failed in s"];
