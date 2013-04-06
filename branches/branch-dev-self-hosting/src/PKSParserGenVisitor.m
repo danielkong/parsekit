@@ -769,6 +769,7 @@
     vars[DISCARD] = @(node.discard);
     vars[PREFIX] = node.startMarker;
     vars[SUFFIX] = node.endMarker;
+    vars[METHOD_NAME] = self.currentDefName;
     
     // merge
     NSString *template = [self templateStringNamed:@"PKSMatchDelimitedStringTemplate"];
@@ -790,7 +791,8 @@
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
     vars[PATTERN] = [NSRegularExpression escapedPatternForString:node.string];
-    
+    vars[METHOD_NAME] = self.currentDefName;
+
     // merge
     NSString *template = [self templateStringNamed:@"PKSMatchPatternTemplate"];
     NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
