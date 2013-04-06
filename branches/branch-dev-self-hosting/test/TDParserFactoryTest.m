@@ -90,7 +90,7 @@
     PKParser *selectorParser = [lp parserNamed:@"selector"];
     TDNotNil(selectorParser);
     TDEqualObjects(selectorParser.name, @"selector");
-    TDEqualObjects([selectorParser class], [PKLowercaseWord class]);
+    TDEqualObjects([selectorParser class], [PKWord class]);
 
     PKParser *declParser = [lp parserNamed:@"decl"];
     TDNotNil(declParser);

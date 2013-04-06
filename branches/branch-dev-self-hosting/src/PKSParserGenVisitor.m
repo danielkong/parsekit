@@ -776,7 +776,7 @@
 
 
 - (void)visitDelimited:(PKDelimitedNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // stup vars
     id vars = [NSMutableDictionary dictionary];

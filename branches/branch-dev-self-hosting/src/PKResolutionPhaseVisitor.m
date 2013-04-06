@@ -218,7 +218,7 @@
 
 
 - (void)visitDelimited:(PKDelimitedNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
 
     PKDelimitedString *p = [self parserFromNode:node];
     NSAssert([p isKindOfClass:[PKDelimitedString class]], @"");
