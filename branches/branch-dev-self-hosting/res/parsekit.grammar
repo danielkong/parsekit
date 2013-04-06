@@ -6,15 +6,16 @@ production           = startProduction | varProduction;
 startProduction      = '@'! 'start'!;
 varProduction        = Word;
 expr                 = term orTerm*;
-term                 = semanticPredicate? factor nextFactor*; // lookahead set for 'nextFactor' here has problems related to upper and lowercase word
+term                 = semanticPredicate? factor nextFactor*;
 orTerm               = '|' term;
-factor               = (phraseStar | phrasePlus | phraseQuestion | phrase) action?; // might wanna left factor this bad boy. that's a lot of 'phrase' speculating
-nextFactor           = factor;
+factor               = phrase cardinality? action?;
 
+nextFactor           = factor;
 phrase               = primaryExpr predicate*;
-phraseStar           = phrase '*'!;
-phrasePlus           = phrase '+'!;
-phraseQuestion       = phrase '?'!;
+
+cardinality 		 = '*'! {[self fireAssemblerSelector:@selector(parser:didMatchPhraseStar:)];}
+	        		 | '+'! {[self fireAssemblerSelector:@selector(parser:didMatchPhrasePlus:)];}
+					 | '?'! {[self fireAssemblerSelector:@selector(parser:didMatchPhraseQuestion:)];};
 
 action               = %{'{', '}'};
 semanticPredicate    = %{'{', '}?'};
@@ -29,7 +30,7 @@ barePrimaryExpr      = atomicValue | subSeqExpr | subTrackExpr;
 subSeqExpr           = '(' expr ')'!;
 subTrackExpr         = '[' expr ']'!;
 atomicValue          = parser discard?;
-parser               = pattern | literal | constant | delimitedString | variable;
+parser               = variable | literal | pattern | delimitedString | constant;
 discard              = '!'!;
 pattern              = patternNoOpts | patternIgnoreCase;
 patternNoOpts		 = %{'/', '/'};
