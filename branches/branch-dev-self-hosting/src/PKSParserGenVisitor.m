@@ -43,6 +43,7 @@
 - (void)push:(NSMutableString *)mstr;
 - (NSMutableString *)pop;
 - (NSArray *)sortedLookaheadSetForNode:(PKBaseNode *)node;
+- (NSArray *)sortedArrayFromLookaheadSet:(NSSet *)set;
 - (NSSet *)lookaheadSetForNode:(PKBaseNode *)node;
 
 @property (nonatomic, retain) NSMutableArray *outputStringStack;
@@ -107,12 +108,15 @@
 
 
 - (NSArray *)sortedLookaheadSetForNode:(PKBaseNode *)node {
-    NSSet *set = [self lookaheadSetForNode:node];
-    
+    return [self sortedArrayFromLookaheadSet:[self lookaheadSetForNode:node]];
+}
+
+
+- (NSArray *)sortedArrayFromLookaheadSet:(NSSet *)set {
     NSArray *result = [[set allObjects] sortedArrayUsingComparator:^NSComparisonResult(PKSTokenKindDescriptor *desc1, PKSTokenKindDescriptor *desc2) {
         return [desc1.name compare:desc2.name];
     }];
-                       
+    
     return result;
 }
 
@@ -490,7 +494,7 @@
         
         id vars = [NSMutableDictionary dictionary];
         
-        NSSet *set = lookaheadSets[idx];
+        NSArray *set = [self sortedArrayFromLookaheadSet:lookaheadSets[idx]];
         vars[LOOKAHEAD_SET] = set;
         vars[LAST] = @([set count] - 1);
         vars[DEPTH] = @(_depth);
