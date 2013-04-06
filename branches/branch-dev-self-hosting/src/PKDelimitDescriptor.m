@@ -10,12 +10,11 @@
 
 @implementation PKDelimitDescriptor
 
-+ (PKDelimitDescriptor *)descriptorWithStartMarker:(NSString *)start endMarker:(NSString *)end characterSet:(NSCharacterSet *)cs tokenKind:(NSInteger)kind {
++ (PKDelimitDescriptor *)descriptorWithStartMarker:(NSString *)start endMarker:(NSString *)end characterSet:(NSCharacterSet *)cs {
     PKDelimitDescriptor *desc = [[[[self class] alloc] init] autorelease];
     desc.startMarker = start;
     desc.endMarker = end;
     desc.characterSet = cs;
-    desc.tokenKind = kind;
     return desc;
 }
 
@@ -33,7 +32,6 @@
     desc->_startMarker = [_startMarker retain];
     desc->_endMarker = [_endMarker retain];
     desc->_characterSet = [_characterSet retain];
-    desc->_tokenKind = _tokenKind;
     return desc;
 }
 
@@ -57,23 +55,12 @@
         return NO;
     }
     
-    if (_tokenKind != desc->_tokenKind) {
-        return NO;
-    }
-    
     return YES;
 }
 
 
 - (NSString *)description {
-    NSString *fmt = nil;
-#if defined(__LP64__)
-    fmt = @"<%@ %p %@ %@ %ld>";
-#else
-    fmt = @"<%@ %p %@ %@ %d>";
-#endif
-    return [NSString stringWithFormat:fmt, [self class], self, _startMarker, _endMarker, _tokenKind];
+    return [NSString stringWithFormat:@"<%@ %p %@ %@>", [self class], self, _startMarker, _endMarker];
 }
-
 
 @end

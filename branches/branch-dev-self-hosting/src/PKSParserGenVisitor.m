@@ -776,11 +776,11 @@
 
 
 - (void)visitDelimited:(PKDelimitedNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // stup vars
     id vars = [NSMutableDictionary dictionary];
-    //vars[TOKEN_KIND] = node.tokenKind;
+    vars[TOKEN_KIND] = node.tokenKind;
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
     vars[PREFIX] = node.startMarker;

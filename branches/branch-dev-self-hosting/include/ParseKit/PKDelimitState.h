@@ -37,7 +37,6 @@
     @param      set of characters allowed to appear within the delimited string or <tt>nil</tt> to allow any non-newline characters
 */
 - (void)addStartMarker:(NSString *)start endMarker:(NSString *)end allowedCharacterSet:(NSCharacterSet *)set;
-- (void)addStartMarker:(NSString *)start endMarker:(NSString *)end allowedCharacterSet:(NSCharacterSet *)set tokenKind:(NSInteger)kind;
 
 /*!
     @property   balancesEOFTerminatedStrings

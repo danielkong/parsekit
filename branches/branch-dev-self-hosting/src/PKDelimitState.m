@@ -65,11 +65,6 @@
 
 
 - (void)addStartMarker:(NSString *)start endMarker:(NSString *)end allowedCharacterSet:(NSCharacterSet *)set {
-    [self addStartMarker:start endMarker:end allowedCharacterSet:set tokenKind:0];
-}
-
-
-- (void)addStartMarker:(NSString *)start endMarker:(NSString *)end allowedCharacterSet:(NSCharacterSet *)set tokenKind:(NSInteger)kind {
     NSParameterAssert([start length]);
 
     // add markers to root node
@@ -79,7 +74,7 @@
     }
     
     // add descriptor to collection
-    PKDelimitDescriptor *desc = [PKDelimitDescriptor descriptorWithStartMarker:start endMarker:end characterSet:set tokenKind:kind];
+    PKDelimitDescriptor *desc = [PKDelimitDescriptor descriptorWithStartMarker:start endMarker:end characterSet:set];
     NSAssert(collection, @"");
     [collection add:desc];
 }
@@ -107,7 +102,7 @@
     NSUInteger count = [descs count];
     BOOL hasEndMarkers = NO;
     PKUniChar endChars[count];
-    NSInteger tokenKind = 0;
+    PKDelimitDescriptor *selectedDesc = nil;
 
     NSUInteger i = 0;
     for (PKDelimitDescriptor *desc in descs) {
@@ -153,9 +148,9 @@
             PKUniChar e = endChars[i];
             
             if (e == c) {
-                endMarker = [descs[i] endMarker];
-                charSet = [descs[i] characterSet];
-                tokenKind = [descs[i] tokenKind];
+                selectedDesc = descs[i];
+                endMarker = [selectedDesc endMarker];
+                charSet = [selectedDesc characterSet];
                 
                 NSString *peek = [rootNode nextSymbol:r startingWith:e];
                 if (endMarker && [endMarker isEqualToString:peek]) {
@@ -205,7 +200,11 @@
     
     PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeDelimitedString stringValue:[self bufferedString] floatValue:0.0];
     tok.offset = offset;
-    tok.tokenKind = tokenKind;
+    
+    NSString *tokenKindKey = [NSString stringWithFormat:@"%@,%@", selectedDesc.startMarker, selectedDesc.endMarker];
+    NSInteger tokenKind = [t tokenKindForStringValue:tokenKindKey];
+    tok.tokenKind = tokenKind; //selectedDesc.tokenKind;
+
     return tok;
 }
 
