@@ -49,8 +49,12 @@
 
 - (void)dealloc {
 {%if enableMemoization %}{%for methodName in ruleMethodNames %}    self.{{methodName}}_memo = nil;
-{%/for%}{%/if%}
+{%/for%}
     [super dealloc];
 }
+
+- (void)_clearMemo {
+{%for methodName in ruleMethodNames %}    [self.{{methodName}}_memo removeAllObjects];
+{%/for%}}{%/if%}
 {{methods}}
 @end

@@ -12,6 +12,8 @@
 #import "PKSTokenAssembly.h"
 #import "PKSRecognitionException.h"
 
+#define FAILED -1
+
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
 
@@ -210,6 +212,7 @@
         // if so, it's an opp to start filling at index 0 again
         self._p = 0;
         [_lookahead removeAllObjects]; // size goes to 0, but retains memory on heap
+        [self _clearMemo]; // clear all rule_memo dictionaries
     }
 
     [self _sync:1];
@@ -389,6 +392,42 @@
     if (![self test:block]) {
         [self raise:@"Predicate Failed"];
     }
+}
+
+
+- (BOOL)alreadyParsedRule:(NSMutableDictionary *)memoization {
+    
+    id idxKey = @([self _index]);
+    NSNumber *memoObj = memoization[idxKey];
+    if (!memoObj) return NO;
+    
+    NSInteger memo = [memoObj integerValue];
+    if (FAILED == memo) {
+        [self raise:@"already failed prior attempt at start token index %@", idxKey];
+    }
+    
+    [self _seek:memo];
+    return YES;
+}
+
+
+- (void)memoize:(NSMutableDictionary *)memoization atIndex:(NSInteger)startTokenIndex failed:(BOOL)failed {
+    id idxKey = @(startTokenIndex);
+    
+    NSInteger stopTokenIdex = failed ? FAILED : [self _index];
+    id idxVal = @(stopTokenIdex);
+
+    memoization[idxKey] = idxVal;
+}
+
+
+- (NSInteger)_index {
+    return self._p;
+}
+
+
+- (void)_clearMemo {
+    
 }
 
 

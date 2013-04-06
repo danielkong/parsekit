@@ -58,6 +58,7 @@
     self = [super init];
     if (self) {
         self.enableHybridDFA = YES;
+        self.enableMemoization = YES;
         
         [self setUpTemplateEngine];
     }
@@ -285,7 +286,7 @@
         templateName = @"PKSMethodTemplate";
     }
 
-    NSString *template = [self templateStringNamed:@"PKSMethodTemplate"];
+    NSString *template = [self templateStringNamed:templateName];
     NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
     
     // push

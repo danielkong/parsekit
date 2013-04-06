@@ -64,6 +64,11 @@ enum {
 - (NSInteger)tokenKindForString:(NSString *)s;
 - (void)raise:(NSString *)fmt, ...;
 
+- (BOOL)alreadyParsedRule:(NSMutableDictionary *)memoization;
+- (void)memoize:(NSMutableDictionary *)memoization atIndex:(NSInteger)startTokenIndex failed:(BOOL)failed;
+- (NSInteger)_index;
+- (void)_clearMemo;
+
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
 - (double)_popDouble;
