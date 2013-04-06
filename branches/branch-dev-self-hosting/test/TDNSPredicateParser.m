@@ -38,47 +38,45 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-           self._tokenKindTab[@"ALL"] = @(TOKEN_KIND_ALL);
-           self._tokenKindTab[@"FALSEPREDICATE"] = @(TOKEN_KIND_FALSEPREDICATE);
-           self._tokenKindTab[@"NOT"] = @(TOKEN_KIND_NOT_UPPER);
-           self._tokenKindTab[@"{"] = @(TOKEN_KIND_OPEN_CURLY);
-           self._tokenKindTab[@"=>"] = @(TOKEN_KIND_HASH_ROCKET);
-           self._tokenKindTab[@">="] = @(TOKEN_KIND_GE);
-           self._tokenKindTab[@"&&"] = @(TOKEN_KIND_DOUBLE_AMPERSAND);
-           self._tokenKindTab[@"TRUEPREDICATE"] = @(TOKEN_KIND_TRUEPREDICATE);
-           self._tokenKindTab[@"AND"] = @(TOKEN_KIND_AND_UPPER);
-           self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSE_CURLY);
-           self._tokenKindTab[@"true"] = @(TOKEN_KIND_TRUELITERAL);
-           self._tokenKindTab[@"!="] = @(TOKEN_KIND_NE);
-           self._tokenKindTab[@"OR"] = @(TOKEN_KIND_OR_UPPER);
-           self._tokenKindTab[@"!"] = @(TOKEN_KIND_BANG);
-           self._tokenKindTab[@"SOME"] = @(TOKEN_KIND_SOME);
-           self._tokenKindTab[@"IN"] = @(TOKEN_KIND_IN);
-           self._tokenKindTab[@"BEGINSWITH"] = @(TOKEN_KIND_BEGINSWITH);
-           self._tokenKindTab[@"<"] = @(TOKEN_KIND_LT);
-           self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
-           self._tokenKindTab[@"CONTAINS"] = @(TOKEN_KIND_CONTAINS);
-           self._tokenKindTab[@">"] = @(TOKEN_KIND_GT);
-           self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
-           self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
-           self._tokenKindTab[@"||"] = @(TOKEN_KIND_DOUBLE_PIPE);
-           self._tokenKindTab[@"MATCHES"] = @(TOKEN_KIND_MATCHES);
-           self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
-           self._tokenKindTab[@"LIKE"] = @(TOKEN_KIND_LIKE);
-           self._tokenKindTab[@"ANY"] = @(TOKEN_KIND_ANY);
-           self._tokenKindTab[@"ENDSWITH"] = @(TOKEN_KIND_ENDSWITH);
-           self._tokenKindTab[@"false"] = @(TOKEN_KIND_FALSELITERAL);
-           self._tokenKindTab[@"<="] = @(TOKEN_KIND_LE);
-           self._tokenKindTab[@"BETWEEN"] = @(TOKEN_KIND_BETWEEN);
-           self._tokenKindTab[@"=<"] = @(TOKEN_KIND_EL);
-           self._tokenKindTab[@"<>"] = @(TOKEN_KIND_NOT_EQUAL);
-           self._tokenKindTab[@"NONE"] = @(TOKEN_KIND_NONE);
-           self._tokenKindTab[@"=="] = @(TOKEN_KIND_DOUBLE_EQUALS);
-
-	}
+        self._tokenKindTab[@"ALL"] = @(TOKEN_KIND_ALL);
+        self._tokenKindTab[@"FALSEPREDICATE"] = @(TOKEN_KIND_FALSEPREDICATE);
+        self._tokenKindTab[@"NOT"] = @(TOKEN_KIND_NOT_UPPER);
+        self._tokenKindTab[@"{"] = @(TOKEN_KIND_OPEN_CURLY);
+        self._tokenKindTab[@"=>"] = @(TOKEN_KIND_HASH_ROCKET);
+        self._tokenKindTab[@">="] = @(TOKEN_KIND_GE);
+        self._tokenKindTab[@"&&"] = @(TOKEN_KIND_DOUBLE_AMPERSAND);
+        self._tokenKindTab[@"TRUEPREDICATE"] = @(TOKEN_KIND_TRUEPREDICATE);
+        self._tokenKindTab[@"AND"] = @(TOKEN_KIND_AND_UPPER);
+        self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSE_CURLY);
+        self._tokenKindTab[@"true"] = @(TOKEN_KIND_TRUELITERAL);
+        self._tokenKindTab[@"!="] = @(TOKEN_KIND_NE);
+        self._tokenKindTab[@"OR"] = @(TOKEN_KIND_OR_UPPER);
+        self._tokenKindTab[@"!"] = @(TOKEN_KIND_BANG);
+        self._tokenKindTab[@"SOME"] = @(TOKEN_KIND_SOME);
+        self._tokenKindTab[@"IN"] = @(TOKEN_KIND_IN);
+        self._tokenKindTab[@"BEGINSWITH"] = @(TOKEN_KIND_BEGINSWITH);
+        self._tokenKindTab[@"<"] = @(TOKEN_KIND_LT);
+        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
+        self._tokenKindTab[@"CONTAINS"] = @(TOKEN_KIND_CONTAINS);
+        self._tokenKindTab[@">"] = @(TOKEN_KIND_GT);
+        self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
+        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
+        self._tokenKindTab[@"||"] = @(TOKEN_KIND_DOUBLE_PIPE);
+        self._tokenKindTab[@"MATCHES"] = @(TOKEN_KIND_MATCHES);
+        self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"LIKE"] = @(TOKEN_KIND_LIKE);
+        self._tokenKindTab[@"ANY"] = @(TOKEN_KIND_ANY);
+        self._tokenKindTab[@"ENDSWITH"] = @(TOKEN_KIND_ENDSWITH);
+        self._tokenKindTab[@"false"] = @(TOKEN_KIND_FALSELITERAL);
+        self._tokenKindTab[@"<="] = @(TOKEN_KIND_LE);
+        self._tokenKindTab[@"BETWEEN"] = @(TOKEN_KIND_BETWEEN);
+        self._tokenKindTab[@"=<"] = @(TOKEN_KIND_EL);
+        self._tokenKindTab[@"<>"] = @(TOKEN_KIND_NOT_EQUAL);
+        self._tokenKindTab[@"NONE"] = @(TOKEN_KIND_NONE);
+        self._tokenKindTab[@"=="] = @(TOKEN_KIND_DOUBLE_EQUALS);
+    }
 	return self;
 }
-
 
 - (void)_start {
     

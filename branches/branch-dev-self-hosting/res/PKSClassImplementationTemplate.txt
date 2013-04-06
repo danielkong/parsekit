@@ -38,11 +38,9 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-{%for kind in tokenKinds %}           self._tokenKindTab[@"{{kind.stringValue}}"] = @({{kind.name}});
-{%/for%}
-	}
+{%for kind in tokenKinds %}        self._tokenKindTab[@"{{kind.stringValue}}"] = @({{kind.name}});
+{%/for%}    }
 	return self;
 }
-
 {{methods}}
 @end

@@ -38,13 +38,11 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-           self._tokenKindTab[@"a"] = @(TOKEN_KIND_A);
-           self._tokenKindTab[@"b"] = @(TOKEN_KIND_B);
-
-	}
+        self._tokenKindTab[@"a"] = @(TOKEN_KIND_A);
+        self._tokenKindTab[@"b"] = @(TOKEN_KIND_B);
+    }
 	return self;
 }
-
 
 - (void)_start {
     

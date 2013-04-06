@@ -38,27 +38,25 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-           self._tokenKindTab[@"no"] = @(TOKEN_KIND_NO);
-           self._tokenKindTab[@"NO"] = @(TOKEN_KIND_NO_UPPER);
-           self._tokenKindTab[@">="] = @(TOKEN_KIND_GE);
-           self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
-           self._tokenKindTab[@"or"] = @(TOKEN_KIND_OR);
-           self._tokenKindTab[@"<"] = @(TOKEN_KIND_LT);
-           self._tokenKindTab[@"<="] = @(TOKEN_KIND_LE);
-           self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
-           self._tokenKindTab[@"."] = @(TOKEN_KIND_DOT);
-           self._tokenKindTab[@">"] = @(TOKEN_KIND_GT);
-           self._tokenKindTab[@"and"] = @(TOKEN_KIND_AND);
-           self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
-           self._tokenKindTab[@"yes"] = @(TOKEN_KIND_YES);
-           self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
-           self._tokenKindTab[@"!="] = @(TOKEN_KIND_NE);
-           self._tokenKindTab[@"YES"] = @(TOKEN_KIND_YES_UPPER);
-
-	}
+        self._tokenKindTab[@"no"] = @(TOKEN_KIND_NO);
+        self._tokenKindTab[@"NO"] = @(TOKEN_KIND_NO_UPPER);
+        self._tokenKindTab[@">="] = @(TOKEN_KIND_GE);
+        self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"or"] = @(TOKEN_KIND_OR);
+        self._tokenKindTab[@"<"] = @(TOKEN_KIND_LT);
+        self._tokenKindTab[@"<="] = @(TOKEN_KIND_LE);
+        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
+        self._tokenKindTab[@"."] = @(TOKEN_KIND_DOT);
+        self._tokenKindTab[@">"] = @(TOKEN_KIND_GT);
+        self._tokenKindTab[@"and"] = @(TOKEN_KIND_AND);
+        self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
+        self._tokenKindTab[@"yes"] = @(TOKEN_KIND_YES);
+        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
+        self._tokenKindTab[@"!="] = @(TOKEN_KIND_NE);
+        self._tokenKindTab[@"YES"] = @(TOKEN_KIND_YES_UPPER);
+    }
 	return self;
 }
-
 
 - (void)_start {
     

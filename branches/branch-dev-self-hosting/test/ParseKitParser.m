@@ -38,46 +38,44 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-           self._tokenKindTab[@"Symbol"] = @(TOKEN_KIND_SYMBOL_TITLE);
-           self._tokenKindTab[@"{,}?"] = @(TOKEN_KIND_SEMANTICPREDICATE);
-           self._tokenKindTab[@"|"] = @(TOKEN_KIND_PIPE);
-           self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSE_CURLY);
-           self._tokenKindTab[@"~"] = @(TOKEN_KIND_TILDE);
-           self._tokenKindTab[@"start"] = @(TOKEN_KIND_START);
-           self._tokenKindTab[@"Comment"] = @(TOKEN_KIND_COMMENT_TITLE);
-           self._tokenKindTab[@"!"] = @(TOKEN_KIND_DISCARD);
-           self._tokenKindTab[@"Number"] = @(TOKEN_KIND_NUMBER_TITLE);
-           self._tokenKindTab[@"Any"] = @(TOKEN_KIND_ANY_TITLE);
-           self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI_COLON);
-           self._tokenKindTab[@"S"] = @(TOKEN_KIND_S_TITLE);
-           self._tokenKindTab[@"{,}"] = @(TOKEN_KIND_ACTION);
-           self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
-           self._tokenKindTab[@"&"] = @(TOKEN_KIND_AMPERSAND);
-           self._tokenKindTab[@"/,/"] = @(TOKEN_KIND_PATTERNNOOPTS);
-           self._tokenKindTab[@"?"] = @(TOKEN_KIND_QUESTION);
-           self._tokenKindTab[@"QuotedString"] = @(TOKEN_KIND_QUOTEDSTRING_TITLE);
-           self._tokenKindTab[@"Letter"] = @(TOKEN_KIND_LETTER_TITLE);
-           self._tokenKindTab[@"@"] = @(TOKEN_KIND_AT);
-           self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
-           self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
-           self._tokenKindTab[@"/,/i"] = @(TOKEN_KIND_PATTERNIGNORECASE);
-           self._tokenKindTab[@"*"] = @(TOKEN_KIND_STAR);
-           self._tokenKindTab[@"Empty"] = @(TOKEN_KIND_EMPTY_TITLE);
-           self._tokenKindTab[@"+"] = @(TOKEN_KIND_PLUS);
-           self._tokenKindTab[@"["] = @(TOKEN_KIND_OPEN_BRACKET);
-           self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
-           self._tokenKindTab[@"SpecificChar"] = @(TOKEN_KIND_SPECIFICCHAR_TITLE);
-           self._tokenKindTab[@"-"] = @(TOKEN_KIND_MINUS);
-           self._tokenKindTab[@"Word"] = @(TOKEN_KIND_WORD_TITLE);
-           self._tokenKindTab[@"Char"] = @(TOKEN_KIND_CHAR_TITLE);
-           self._tokenKindTab[@"]"] = @(TOKEN_KIND_CLOSE_BRACKET);
-           self._tokenKindTab[@"Digit"] = @(TOKEN_KIND_DIGIT_TITLE);
-           self._tokenKindTab[@"%{"] = @(TOKEN_KIND_DELIMOPEN);
-
-	}
+        self._tokenKindTab[@"Symbol"] = @(TOKEN_KIND_SYMBOL_TITLE);
+        self._tokenKindTab[@"{,}?"] = @(TOKEN_KIND_SEMANTICPREDICATE);
+        self._tokenKindTab[@"|"] = @(TOKEN_KIND_PIPE);
+        self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSE_CURLY);
+        self._tokenKindTab[@"~"] = @(TOKEN_KIND_TILDE);
+        self._tokenKindTab[@"start"] = @(TOKEN_KIND_START);
+        self._tokenKindTab[@"Comment"] = @(TOKEN_KIND_COMMENT_TITLE);
+        self._tokenKindTab[@"!"] = @(TOKEN_KIND_DISCARD);
+        self._tokenKindTab[@"Number"] = @(TOKEN_KIND_NUMBER_TITLE);
+        self._tokenKindTab[@"Any"] = @(TOKEN_KIND_ANY_TITLE);
+        self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI_COLON);
+        self._tokenKindTab[@"S"] = @(TOKEN_KIND_S_TITLE);
+        self._tokenKindTab[@"{,}"] = @(TOKEN_KIND_ACTION);
+        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
+        self._tokenKindTab[@"&"] = @(TOKEN_KIND_AMPERSAND);
+        self._tokenKindTab[@"/,/"] = @(TOKEN_KIND_PATTERNNOOPTS);
+        self._tokenKindTab[@"?"] = @(TOKEN_KIND_QUESTION);
+        self._tokenKindTab[@"QuotedString"] = @(TOKEN_KIND_QUOTEDSTRING_TITLE);
+        self._tokenKindTab[@"Letter"] = @(TOKEN_KIND_LETTER_TITLE);
+        self._tokenKindTab[@"@"] = @(TOKEN_KIND_AT);
+        self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
+        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
+        self._tokenKindTab[@"/,/i"] = @(TOKEN_KIND_PATTERNIGNORECASE);
+        self._tokenKindTab[@"*"] = @(TOKEN_KIND_STAR);
+        self._tokenKindTab[@"Empty"] = @(TOKEN_KIND_EMPTY_TITLE);
+        self._tokenKindTab[@"+"] = @(TOKEN_KIND_PLUS);
+        self._tokenKindTab[@"["] = @(TOKEN_KIND_OPEN_BRACKET);
+        self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"SpecificChar"] = @(TOKEN_KIND_SPECIFICCHAR_TITLE);
+        self._tokenKindTab[@"-"] = @(TOKEN_KIND_MINUS);
+        self._tokenKindTab[@"Word"] = @(TOKEN_KIND_WORD_TITLE);
+        self._tokenKindTab[@"Char"] = @(TOKEN_KIND_CHAR_TITLE);
+        self._tokenKindTab[@"]"] = @(TOKEN_KIND_CLOSE_BRACKET);
+        self._tokenKindTab[@"Digit"] = @(TOKEN_KIND_DIGIT_TITLE);
+        self._tokenKindTab[@"%{"] = @(TOKEN_KIND_DELIMOPEN);
+    }
 	return self;
 }
-
 
 - (void)_start {
     

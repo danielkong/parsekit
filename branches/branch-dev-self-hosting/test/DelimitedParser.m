@@ -38,12 +38,10 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-           self._tokenKindTab[@"<,>"] = @(TOKEN_KIND_S);
-
-	}
+        self._tokenKindTab[@"<,>"] = @(TOKEN_KIND_S);
+    }
 	return self;
 }
-
 
 - (void)_start {
     

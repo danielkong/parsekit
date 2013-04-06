@@ -38,19 +38,17 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-           self._tokenKindTab[@"int"] = @(TOKEN_KIND_INT);
-           self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSE_CURLY);
-           self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
-           self._tokenKindTab[@"void"] = @(TOKEN_KIND_VOID);
-           self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
-           self._tokenKindTab[@"{"] = @(TOKEN_KIND_OPEN_CURLY);
-           self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
-           self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI_COLON);
-
-	}
+        self._tokenKindTab[@"int"] = @(TOKEN_KIND_INT);
+        self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSE_CURLY);
+        self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"void"] = @(TOKEN_KIND_VOID);
+        self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
+        self._tokenKindTab[@"{"] = @(TOKEN_KIND_OPEN_CURLY);
+        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
+        self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI_COLON);
+    }
 	return self;
 }
-
 
 - (void)_start {
     

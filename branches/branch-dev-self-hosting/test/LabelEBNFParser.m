@@ -38,14 +38,12 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-           self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
-           self._tokenKindTab[@"return"] = @(TOKEN_KIND_RETURN);
-           self._tokenKindTab[@":"] = @(TOKEN_KIND_COLON);
-
-	}
+        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
+        self._tokenKindTab[@"return"] = @(TOKEN_KIND_RETURN);
+        self._tokenKindTab[@":"] = @(TOKEN_KIND_COLON);
+    }
 	return self;
 }
-
 
 - (void)_start {
     
