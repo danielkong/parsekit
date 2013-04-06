@@ -30,10 +30,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKAssembly *_assembly;
-@end
-
-@interface {{className}} ()
-@property (nonatomic, retain) NSDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @end
 
 @implementation {{className}}
@@ -41,28 +38,11 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		self._tokenKindTab = @{
-{%for kind in tokenKinds %}           @"{{kind.stringValue}}" : @({{kind.name}}),
-{%/for%}        };
+{%for kind in tokenKinds %}           self._tokenKindTab[@"{{kind.stringValue}}"] = @({{kind.name}});
+{%/for%}
 	}
 	return self;
 }
 
-- (void)dealloc {
-	self._tokenKindTab = nil;
-	[super dealloc];
-}
-
-- (NSInteger)tokenKindForString:(NSString *)s {
-    NSInteger x = TOKEN_KIND_BUILTIN_INVALID;
-
-    id obj = _tokenKindTab[s];
-    if (obj) {
-        x = [obj integerValue];
-    }
-    
-    return x;
-}
 {{methods}}
-@synthesize _tokenKindTab = _tokenKindTab;
 @end
