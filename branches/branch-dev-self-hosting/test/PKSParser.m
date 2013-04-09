@@ -370,7 +370,14 @@
 - (BOOL)predicts:(NSInteger)tokenKind {
     NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_INVALID);
     
-    BOOL result = (TOKEN_KIND_BUILTIN_ANY == tokenKind || LA(1) == tokenKind);
+    BOOL result = NO;
+    
+    if (TOKEN_KIND_BUILTIN_ANY == tokenKind && LA(1) != TOKEN_KIND_BUILTIN_EOF) {
+        result = YES;
+    } else if (LA(1) == tokenKind) {
+        result = YES;
+    }
+    
     return result;
 }
 
