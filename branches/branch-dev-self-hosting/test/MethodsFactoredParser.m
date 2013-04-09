@@ -44,10 +44,6 @@
 @end
 
 @interface MethodsFactoredParser ()
-@property (nonatomic, retain) NSMutableDictionary *method_memo;
-@property (nonatomic, retain) NSMutableDictionary *type_memo;
-@property (nonatomic, retain) NSMutableDictionary *args_memo;
-@property (nonatomic, retain) NSMutableDictionary *arg_memo;
 @end
 
 @implementation MethodsFactoredParser
@@ -64,29 +60,10 @@
         self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
         self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI_COLON);
 
-        self.method_memo = [NSMutableDictionary dictionary];
-        self.type_memo = [NSMutableDictionary dictionary];
-        self.args_memo = [NSMutableDictionary dictionary];
-        self.arg_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
-- (void)dealloc {
-    self.method_memo = nil;
-    self.type_memo = nil;
-    self.args_memo = nil;
-    self.arg_memo = nil;
-
-    [super dealloc];
-}
-
-- (void)_clearMemo {
-    [_method_memo removeAllObjects];
-    [_type_memo removeAllObjects];
-    [_args_memo removeAllObjects];
-    [_arg_memo removeAllObjects];
-}
 
 - (void)_start {
     
@@ -97,7 +74,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)__method {
+- (void)method {
     
     [self type]; 
     [self Word]; 
@@ -116,11 +93,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchMethod:)];
 }
 
-- (void)method {
-    [self parseRule:@selector(__method) withMemo:_method_memo];
-}
-
-- (void)__type {
+- (void)type {
     
     if (LA(1) == TOKEN_KIND_VOID) {
         [self match:TOKEN_KIND_VOID]; 
@@ -133,11 +106,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchType:)];
 }
 
-- (void)type {
-    [self parseRule:@selector(__type) withMemo:_type_memo];
-}
-
-- (void)__args {
+- (void)args {
     
     if (LA(1) == TOKEN_KIND_INT) {
         [self arg]; 
@@ -154,20 +123,12 @@
     [self fireAssemblerSelector:@selector(parser:didMatchArgs:)];
 }
 
-- (void)args {
-    [self parseRule:@selector(__args) withMemo:_args_memo];
-}
-
-- (void)__arg {
+- (void)arg {
     
     [self match:TOKEN_KIND_INT]; 
     [self Word]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchArg:)];
-}
-
-- (void)arg {
-    [self parseRule:@selector(__arg) withMemo:_arg_memo];
 }
 
 @end

@@ -44,65 +44,6 @@
 @end
 
 @interface TDNSPredicateParser ()
-@property (nonatomic, retain) NSMutableDictionary *expr_memo;
-@property (nonatomic, retain) NSMutableDictionary *orOrTerm_memo;
-@property (nonatomic, retain) NSMutableDictionary *orTerm_memo;
-@property (nonatomic, retain) NSMutableDictionary *andAndTerm_memo;
-@property (nonatomic, retain) NSMutableDictionary *andTerm_memo;
-@property (nonatomic, retain) NSMutableDictionary *compoundExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *primaryExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *negatedPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *predicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *value_memo;
-@property (nonatomic, retain) NSMutableDictionary *string_memo;
-@property (nonatomic, retain) NSMutableDictionary *num_memo;
-@property (nonatomic, retain) NSMutableDictionary *bool_memo;
-@property (nonatomic, retain) NSMutableDictionary *trueLiteral_memo;
-@property (nonatomic, retain) NSMutableDictionary *falseLiteral_memo;
-@property (nonatomic, retain) NSMutableDictionary *array_memo;
-@property (nonatomic, retain) NSMutableDictionary *arrayContentsOpt_memo;
-@property (nonatomic, retain) NSMutableDictionary *arrayContents_memo;
-@property (nonatomic, retain) NSMutableDictionary *commaValue_memo;
-@property (nonatomic, retain) NSMutableDictionary *keyPath_memo;
-@property (nonatomic, retain) NSMutableDictionary *comparisonPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *numComparisonPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *numComparisonValue_memo;
-@property (nonatomic, retain) NSMutableDictionary *comparisonOp_memo;
-@property (nonatomic, retain) NSMutableDictionary *eq_memo;
-@property (nonatomic, retain) NSMutableDictionary *gt_memo;
-@property (nonatomic, retain) NSMutableDictionary *lt_memo;
-@property (nonatomic, retain) NSMutableDictionary *gtEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *ltEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *notEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *between_memo;
-@property (nonatomic, retain) NSMutableDictionary *collectionComparisonPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *collectionLtPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *collectionGtPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *collectionLtEqPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *collectionGtEqPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *collectionEqPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *collectionNotEqPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *boolPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *truePredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *falsePredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *and_memo;
-@property (nonatomic, retain) NSMutableDictionary *or_memo;
-@property (nonatomic, retain) NSMutableDictionary *not_memo;
-@property (nonatomic, retain) NSMutableDictionary *stringTestPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *stringTestOp_memo;
-@property (nonatomic, retain) NSMutableDictionary *beginswith_memo;
-@property (nonatomic, retain) NSMutableDictionary *contains_memo;
-@property (nonatomic, retain) NSMutableDictionary *endswith_memo;
-@property (nonatomic, retain) NSMutableDictionary *like_memo;
-@property (nonatomic, retain) NSMutableDictionary *matches_memo;
-@property (nonatomic, retain) NSMutableDictionary *collectionTestPredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *collection_memo;
-@property (nonatomic, retain) NSMutableDictionary *in_memo;
-@property (nonatomic, retain) NSMutableDictionary *aggregateOp_memo;
-@property (nonatomic, retain) NSMutableDictionary *any_memo;
-@property (nonatomic, retain) NSMutableDictionary *some_memo;
-@property (nonatomic, retain) NSMutableDictionary *all_memo;
-@property (nonatomic, retain) NSMutableDictionary *none_memo;
 @end
 
 @implementation TDNSPredicateParser
@@ -147,194 +88,10 @@
         self._tokenKindTab[@"NONE"] = @(TOKEN_KIND_NONE);
         self._tokenKindTab[@"=="] = @(TOKEN_KIND_DOUBLE_EQUALS);
 
-        self.expr_memo = [NSMutableDictionary dictionary];
-        self.orOrTerm_memo = [NSMutableDictionary dictionary];
-        self.orTerm_memo = [NSMutableDictionary dictionary];
-        self.andAndTerm_memo = [NSMutableDictionary dictionary];
-        self.andTerm_memo = [NSMutableDictionary dictionary];
-        self.compoundExpr_memo = [NSMutableDictionary dictionary];
-        self.primaryExpr_memo = [NSMutableDictionary dictionary];
-        self.negatedPredicate_memo = [NSMutableDictionary dictionary];
-        self.predicate_memo = [NSMutableDictionary dictionary];
-        self.value_memo = [NSMutableDictionary dictionary];
-        self.string_memo = [NSMutableDictionary dictionary];
-        self.num_memo = [NSMutableDictionary dictionary];
-        self.bool_memo = [NSMutableDictionary dictionary];
-        self.trueLiteral_memo = [NSMutableDictionary dictionary];
-        self.falseLiteral_memo = [NSMutableDictionary dictionary];
-        self.array_memo = [NSMutableDictionary dictionary];
-        self.arrayContentsOpt_memo = [NSMutableDictionary dictionary];
-        self.arrayContents_memo = [NSMutableDictionary dictionary];
-        self.commaValue_memo = [NSMutableDictionary dictionary];
-        self.keyPath_memo = [NSMutableDictionary dictionary];
-        self.comparisonPredicate_memo = [NSMutableDictionary dictionary];
-        self.numComparisonPredicate_memo = [NSMutableDictionary dictionary];
-        self.numComparisonValue_memo = [NSMutableDictionary dictionary];
-        self.comparisonOp_memo = [NSMutableDictionary dictionary];
-        self.eq_memo = [NSMutableDictionary dictionary];
-        self.gt_memo = [NSMutableDictionary dictionary];
-        self.lt_memo = [NSMutableDictionary dictionary];
-        self.gtEq_memo = [NSMutableDictionary dictionary];
-        self.ltEq_memo = [NSMutableDictionary dictionary];
-        self.notEq_memo = [NSMutableDictionary dictionary];
-        self.between_memo = [NSMutableDictionary dictionary];
-        self.collectionComparisonPredicate_memo = [NSMutableDictionary dictionary];
-        self.collectionLtPredicate_memo = [NSMutableDictionary dictionary];
-        self.collectionGtPredicate_memo = [NSMutableDictionary dictionary];
-        self.collectionLtEqPredicate_memo = [NSMutableDictionary dictionary];
-        self.collectionGtEqPredicate_memo = [NSMutableDictionary dictionary];
-        self.collectionEqPredicate_memo = [NSMutableDictionary dictionary];
-        self.collectionNotEqPredicate_memo = [NSMutableDictionary dictionary];
-        self.boolPredicate_memo = [NSMutableDictionary dictionary];
-        self.truePredicate_memo = [NSMutableDictionary dictionary];
-        self.falsePredicate_memo = [NSMutableDictionary dictionary];
-        self.and_memo = [NSMutableDictionary dictionary];
-        self.or_memo = [NSMutableDictionary dictionary];
-        self.not_memo = [NSMutableDictionary dictionary];
-        self.stringTestPredicate_memo = [NSMutableDictionary dictionary];
-        self.stringTestOp_memo = [NSMutableDictionary dictionary];
-        self.beginswith_memo = [NSMutableDictionary dictionary];
-        self.contains_memo = [NSMutableDictionary dictionary];
-        self.endswith_memo = [NSMutableDictionary dictionary];
-        self.like_memo = [NSMutableDictionary dictionary];
-        self.matches_memo = [NSMutableDictionary dictionary];
-        self.collectionTestPredicate_memo = [NSMutableDictionary dictionary];
-        self.collection_memo = [NSMutableDictionary dictionary];
-        self.in_memo = [NSMutableDictionary dictionary];
-        self.aggregateOp_memo = [NSMutableDictionary dictionary];
-        self.any_memo = [NSMutableDictionary dictionary];
-        self.some_memo = [NSMutableDictionary dictionary];
-        self.all_memo = [NSMutableDictionary dictionary];
-        self.none_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
-- (void)dealloc {
-    self.expr_memo = nil;
-    self.orOrTerm_memo = nil;
-    self.orTerm_memo = nil;
-    self.andAndTerm_memo = nil;
-    self.andTerm_memo = nil;
-    self.compoundExpr_memo = nil;
-    self.primaryExpr_memo = nil;
-    self.negatedPredicate_memo = nil;
-    self.predicate_memo = nil;
-    self.value_memo = nil;
-    self.string_memo = nil;
-    self.num_memo = nil;
-    self.bool_memo = nil;
-    self.trueLiteral_memo = nil;
-    self.falseLiteral_memo = nil;
-    self.array_memo = nil;
-    self.arrayContentsOpt_memo = nil;
-    self.arrayContents_memo = nil;
-    self.commaValue_memo = nil;
-    self.keyPath_memo = nil;
-    self.comparisonPredicate_memo = nil;
-    self.numComparisonPredicate_memo = nil;
-    self.numComparisonValue_memo = nil;
-    self.comparisonOp_memo = nil;
-    self.eq_memo = nil;
-    self.gt_memo = nil;
-    self.lt_memo = nil;
-    self.gtEq_memo = nil;
-    self.ltEq_memo = nil;
-    self.notEq_memo = nil;
-    self.between_memo = nil;
-    self.collectionComparisonPredicate_memo = nil;
-    self.collectionLtPredicate_memo = nil;
-    self.collectionGtPredicate_memo = nil;
-    self.collectionLtEqPredicate_memo = nil;
-    self.collectionGtEqPredicate_memo = nil;
-    self.collectionEqPredicate_memo = nil;
-    self.collectionNotEqPredicate_memo = nil;
-    self.boolPredicate_memo = nil;
-    self.truePredicate_memo = nil;
-    self.falsePredicate_memo = nil;
-    self.and_memo = nil;
-    self.or_memo = nil;
-    self.not_memo = nil;
-    self.stringTestPredicate_memo = nil;
-    self.stringTestOp_memo = nil;
-    self.beginswith_memo = nil;
-    self.contains_memo = nil;
-    self.endswith_memo = nil;
-    self.like_memo = nil;
-    self.matches_memo = nil;
-    self.collectionTestPredicate_memo = nil;
-    self.collection_memo = nil;
-    self.in_memo = nil;
-    self.aggregateOp_memo = nil;
-    self.any_memo = nil;
-    self.some_memo = nil;
-    self.all_memo = nil;
-    self.none_memo = nil;
-
-    [super dealloc];
-}
-
-- (void)_clearMemo {
-    [_expr_memo removeAllObjects];
-    [_orOrTerm_memo removeAllObjects];
-    [_orTerm_memo removeAllObjects];
-    [_andAndTerm_memo removeAllObjects];
-    [_andTerm_memo removeAllObjects];
-    [_compoundExpr_memo removeAllObjects];
-    [_primaryExpr_memo removeAllObjects];
-    [_negatedPredicate_memo removeAllObjects];
-    [_predicate_memo removeAllObjects];
-    [_value_memo removeAllObjects];
-    [_string_memo removeAllObjects];
-    [_num_memo removeAllObjects];
-    [_bool_memo removeAllObjects];
-    [_trueLiteral_memo removeAllObjects];
-    [_falseLiteral_memo removeAllObjects];
-    [_array_memo removeAllObjects];
-    [_arrayContentsOpt_memo removeAllObjects];
-    [_arrayContents_memo removeAllObjects];
-    [_commaValue_memo removeAllObjects];
-    [_keyPath_memo removeAllObjects];
-    [_comparisonPredicate_memo removeAllObjects];
-    [_numComparisonPredicate_memo removeAllObjects];
-    [_numComparisonValue_memo removeAllObjects];
-    [_comparisonOp_memo removeAllObjects];
-    [_eq_memo removeAllObjects];
-    [_gt_memo removeAllObjects];
-    [_lt_memo removeAllObjects];
-    [_gtEq_memo removeAllObjects];
-    [_ltEq_memo removeAllObjects];
-    [_notEq_memo removeAllObjects];
-    [_between_memo removeAllObjects];
-    [_collectionComparisonPredicate_memo removeAllObjects];
-    [_collectionLtPredicate_memo removeAllObjects];
-    [_collectionGtPredicate_memo removeAllObjects];
-    [_collectionLtEqPredicate_memo removeAllObjects];
-    [_collectionGtEqPredicate_memo removeAllObjects];
-    [_collectionEqPredicate_memo removeAllObjects];
-    [_collectionNotEqPredicate_memo removeAllObjects];
-    [_boolPredicate_memo removeAllObjects];
-    [_truePredicate_memo removeAllObjects];
-    [_falsePredicate_memo removeAllObjects];
-    [_and_memo removeAllObjects];
-    [_or_memo removeAllObjects];
-    [_not_memo removeAllObjects];
-    [_stringTestPredicate_memo removeAllObjects];
-    [_stringTestOp_memo removeAllObjects];
-    [_beginswith_memo removeAllObjects];
-    [_contains_memo removeAllObjects];
-    [_endswith_memo removeAllObjects];
-    [_like_memo removeAllObjects];
-    [_matches_memo removeAllObjects];
-    [_collectionTestPredicate_memo removeAllObjects];
-    [_collection_memo removeAllObjects];
-    [_in_memo removeAllObjects];
-    [_aggregateOp_memo removeAllObjects];
-    [_any_memo removeAllObjects];
-    [_some_memo removeAllObjects];
-    [_all_memo removeAllObjects];
-    [_none_memo removeAllObjects];
-}
 
 - (void)_start {
     
@@ -343,7 +100,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)__expr {
+- (void)expr {
     
     [self orTerm]; 
     while (LA(1) == TOKEN_KIND_DOUBLE_PIPE || LA(1) == TOKEN_KIND_OR_UPPER) {
@@ -357,11 +114,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
-- (void)expr {
-    [self parseRule:@selector(__expr) withMemo:_expr_memo];
-}
-
-- (void)__orOrTerm {
+- (void)orOrTerm {
     
     [self or]; 
     [self orTerm]; 
@@ -369,11 +122,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchOrOrTerm:)];
 }
 
-- (void)orOrTerm {
-    [self parseRule:@selector(__orOrTerm) withMemo:_orOrTerm_memo];
-}
-
-- (void)__orTerm {
+- (void)orTerm {
     
     [self andTerm]; 
     while (LA(1) == TOKEN_KIND_AND_UPPER || LA(1) == TOKEN_KIND_DOUBLE_AMPERSAND) {
@@ -387,11 +136,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
 }
 
-- (void)orTerm {
-    [self parseRule:@selector(__orTerm) withMemo:_orTerm_memo];
-}
-
-- (void)__andAndTerm {
+- (void)andAndTerm {
     
     [self and]; 
     [self andTerm]; 
@@ -399,11 +144,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchAndAndTerm:)];
 }
 
-- (void)andAndTerm {
-    [self parseRule:@selector(__andAndTerm) withMemo:_andAndTerm_memo];
-}
-
-- (void)__andTerm {
+- (void)andTerm {
     
     if (LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_TRUEPREDICATE) {
         [self primaryExpr]; 
@@ -416,11 +157,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchAndTerm:)];
 }
 
-- (void)andTerm {
-    [self parseRule:@selector(__andTerm) withMemo:_andTerm_memo];
-}
-
-- (void)__compoundExpr {
+- (void)compoundExpr {
     
     [self match:TOKEN_KIND_OPEN_PAREN]; [self discard:1];
     [self expr]; 
@@ -429,11 +166,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCompoundExpr:)];
 }
 
-- (void)compoundExpr {
-    [self parseRule:@selector(__compoundExpr) withMemo:_compoundExpr_memo];
-}
-
-- (void)__primaryExpr {
+- (void)primaryExpr {
     
     if (LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_TRUEPREDICATE) {
         [self predicate]; 
@@ -446,11 +179,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchPrimaryExpr:)];
 }
 
-- (void)primaryExpr {
-    [self parseRule:@selector(__primaryExpr) withMemo:_primaryExpr_memo];
-}
-
-- (void)__negatedPredicate {
+- (void)negatedPredicate {
     
     [self not]; 
     [self predicate]; 
@@ -458,11 +187,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchNegatedPredicate:)];
 }
 
-- (void)negatedPredicate {
-    [self parseRule:@selector(__negatedPredicate) withMemo:_negatedPredicate_memo];
-}
-
-- (void)__predicate {
+- (void)predicate {
     
     if ([self speculate:^{ [self boolPredicate]; }]) {
         [self boolPredicate]; 
@@ -479,11 +204,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchPredicate:)];
 }
 
-- (void)predicate {
-    [self parseRule:@selector(__predicate) withMemo:_predicate_memo];
-}
-
-- (void)__value {
+- (void)value {
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self keyPath]; 
@@ -502,33 +223,21 @@
     [self fireAssemblerSelector:@selector(parser:didMatchValue:)];
 }
 
-- (void)value {
-    [self parseRule:@selector(__value) withMemo:_value_memo];
-}
-
-- (void)__string {
+- (void)string {
     
     [self QuotedString]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchString:)];
 }
 
-- (void)string {
-    [self parseRule:@selector(__string) withMemo:_string_memo];
-}
-
-- (void)__num {
+- (void)num {
     
     [self Number]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNum:)];
 }
 
-- (void)num {
-    [self parseRule:@selector(__num) withMemo:_num_memo];
-}
-
-- (void)__bool {
+- (void)bool {
     
     if (LA(1) == TOKEN_KIND_TRUELITERAL) {
         [self trueLiteral]; 
@@ -541,33 +250,21 @@
     [self fireAssemblerSelector:@selector(parser:didMatchBool:)];
 }
 
-- (void)bool {
-    [self parseRule:@selector(__bool) withMemo:_bool_memo];
-}
-
-- (void)__trueLiteral {
+- (void)trueLiteral {
     
     [self match:TOKEN_KIND_TRUELITERAL]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
 }
 
-- (void)trueLiteral {
-    [self parseRule:@selector(__trueLiteral) withMemo:_trueLiteral_memo];
-}
-
-- (void)__falseLiteral {
+- (void)falseLiteral {
     
     [self match:TOKEN_KIND_FALSELITERAL]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
 }
 
-- (void)falseLiteral {
-    [self parseRule:@selector(__falseLiteral) withMemo:_falseLiteral_memo];
-}
-
-- (void)__array {
+- (void)array {
     
     [self match:TOKEN_KIND_OPEN_CURLY]; 
     [self arrayContentsOpt]; 
@@ -576,11 +273,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchArray:)];
 }
 
-- (void)array {
-    [self parseRule:@selector(__array) withMemo:_array_memo];
-}
-
-- (void)__arrayContentsOpt {
+- (void)arrayContentsOpt {
     
     if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_TRUELITERAL) {
         [self arrayContents]; 
@@ -589,11 +282,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchArrayContentsOpt:)];
 }
 
-- (void)arrayContentsOpt {
-    [self parseRule:@selector(__arrayContentsOpt) withMemo:_arrayContentsOpt_memo];
-}
-
-- (void)__arrayContents {
+- (void)arrayContents {
     
     [self value]; 
     while (LA(1) == TOKEN_KIND_COMMA) {
@@ -607,11 +296,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchArrayContents:)];
 }
 
-- (void)arrayContents {
-    [self parseRule:@selector(__arrayContents) withMemo:_arrayContents_memo];
-}
-
-- (void)__commaValue {
+- (void)commaValue {
     
     [self match:TOKEN_KIND_COMMA]; [self discard:1];
     [self value]; 
@@ -619,22 +304,14 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCommaValue:)];
 }
 
-- (void)commaValue {
-    [self parseRule:@selector(__commaValue) withMemo:_commaValue_memo];
-}
-
-- (void)__keyPath {
+- (void)keyPath {
     
     [self Word]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchKeyPath:)];
 }
 
-- (void)keyPath {
-    [self parseRule:@selector(__keyPath) withMemo:_keyPath_memo];
-}
-
-- (void)__comparisonPredicate {
+- (void)comparisonPredicate {
     
     if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self numComparisonPredicate]; 
@@ -647,11 +324,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchComparisonPredicate:)];
 }
 
-- (void)comparisonPredicate {
-    [self parseRule:@selector(__comparisonPredicate) withMemo:_comparisonPredicate_memo];
-}
-
-- (void)__numComparisonPredicate {
+- (void)numComparisonPredicate {
     
     [self numComparisonValue]; 
     [self comparisonOp]; 
@@ -660,11 +333,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchNumComparisonPredicate:)];
 }
 
-- (void)numComparisonPredicate {
-    [self parseRule:@selector(__numComparisonPredicate) withMemo:_numComparisonPredicate_memo];
-}
-
-- (void)__numComparisonValue {
+- (void)numComparisonValue {
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self keyPath]; 
@@ -677,11 +346,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchNumComparisonValue:)];
 }
 
-- (void)numComparisonValue {
-    [self parseRule:@selector(__numComparisonValue) withMemo:_numComparisonValue_memo];
-}
-
-- (void)__comparisonOp {
+- (void)comparisonOp {
     
     if (LA(1) == TOKEN_KIND_DOUBLE_EQUALS || LA(1) == TOKEN_KIND_EQUALS) {
         [self eq]; 
@@ -704,11 +369,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchComparisonOp:)];
 }
 
-- (void)comparisonOp {
-    [self parseRule:@selector(__comparisonOp) withMemo:_comparisonOp_memo];
-}
-
-- (void)__eq {
+- (void)eq {
     
     if (LA(1) == TOKEN_KIND_EQUALS) {
         [self match:TOKEN_KIND_EQUALS]; 
@@ -721,33 +382,21 @@
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
 
-- (void)eq {
-    [self parseRule:@selector(__eq) withMemo:_eq_memo];
-}
-
-- (void)__gt {
+- (void)gt {
     
     [self match:TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
 
-- (void)gt {
-    [self parseRule:@selector(__gt) withMemo:_gt_memo];
-}
-
-- (void)__lt {
+- (void)lt {
     
     [self match:TOKEN_KIND_LT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
 
-- (void)lt {
-    [self parseRule:@selector(__lt) withMemo:_lt_memo];
-}
-
-- (void)__gtEq {
+- (void)gtEq {
     
     if (LA(1) == TOKEN_KIND_GE) {
         [self match:TOKEN_KIND_GE]; 
@@ -760,11 +409,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchGtEq:)];
 }
 
-- (void)gtEq {
-    [self parseRule:@selector(__gtEq) withMemo:_gtEq_memo];
-}
-
-- (void)__ltEq {
+- (void)ltEq {
     
     if (LA(1) == TOKEN_KIND_LE) {
         [self match:TOKEN_KIND_LE]; 
@@ -777,11 +422,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchLtEq:)];
 }
 
-- (void)ltEq {
-    [self parseRule:@selector(__ltEq) withMemo:_ltEq_memo];
-}
-
-- (void)__notEq {
+- (void)notEq {
     
     if (LA(1) == TOKEN_KIND_NE) {
         [self match:TOKEN_KIND_NE]; 
@@ -794,22 +435,14 @@
     [self fireAssemblerSelector:@selector(parser:didMatchNotEq:)];
 }
 
-- (void)notEq {
-    [self parseRule:@selector(__notEq) withMemo:_notEq_memo];
-}
-
-- (void)__between {
+- (void)between {
     
     [self match:TOKEN_KIND_BETWEEN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBetween:)];
 }
 
-- (void)between {
-    [self parseRule:@selector(__between) withMemo:_between_memo];
-}
-
-- (void)__collectionComparisonPredicate {
+- (void)collectionComparisonPredicate {
     
     if ([self speculate:^{ [self collectionLtPredicate]; }]) {
         [self collectionLtPredicate]; 
@@ -830,11 +463,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionComparisonPredicate:)];
 }
 
-- (void)collectionComparisonPredicate {
-    [self parseRule:@selector(__collectionComparisonPredicate) withMemo:_collectionComparisonPredicate_memo];
-}
-
-- (void)__collectionLtPredicate {
+- (void)collectionLtPredicate {
     
     [self aggregateOp]; 
     [self collection]; 
@@ -844,11 +473,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionLtPredicate:)];
 }
 
-- (void)collectionLtPredicate {
-    [self parseRule:@selector(__collectionLtPredicate) withMemo:_collectionLtPredicate_memo];
-}
-
-- (void)__collectionGtPredicate {
+- (void)collectionGtPredicate {
     
     [self aggregateOp]; 
     [self collection]; 
@@ -858,11 +483,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionGtPredicate:)];
 }
 
-- (void)collectionGtPredicate {
-    [self parseRule:@selector(__collectionGtPredicate) withMemo:_collectionGtPredicate_memo];
-}
-
-- (void)__collectionLtEqPredicate {
+- (void)collectionLtEqPredicate {
     
     [self aggregateOp]; 
     [self collection]; 
@@ -872,11 +493,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionLtEqPredicate:)];
 }
 
-- (void)collectionLtEqPredicate {
-    [self parseRule:@selector(__collectionLtEqPredicate) withMemo:_collectionLtEqPredicate_memo];
-}
-
-- (void)__collectionGtEqPredicate {
+- (void)collectionGtEqPredicate {
     
     [self aggregateOp]; 
     [self collection]; 
@@ -886,11 +503,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionGtEqPredicate:)];
 }
 
-- (void)collectionGtEqPredicate {
-    [self parseRule:@selector(__collectionGtEqPredicate) withMemo:_collectionGtEqPredicate_memo];
-}
-
-- (void)__collectionEqPredicate {
+- (void)collectionEqPredicate {
     
     [self aggregateOp]; 
     [self collection]; 
@@ -900,11 +513,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionEqPredicate:)];
 }
 
-- (void)collectionEqPredicate {
-    [self parseRule:@selector(__collectionEqPredicate) withMemo:_collectionEqPredicate_memo];
-}
-
-- (void)__collectionNotEqPredicate {
+- (void)collectionNotEqPredicate {
     
     [self aggregateOp]; 
     [self collection]; 
@@ -914,11 +523,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionNotEqPredicate:)];
 }
 
-- (void)collectionNotEqPredicate {
-    [self parseRule:@selector(__collectionNotEqPredicate) withMemo:_collectionNotEqPredicate_memo];
-}
-
-- (void)__boolPredicate {
+- (void)boolPredicate {
     
     if (LA(1) == TOKEN_KIND_TRUEPREDICATE) {
         [self truePredicate]; 
@@ -931,33 +536,21 @@
     [self fireAssemblerSelector:@selector(parser:didMatchBoolPredicate:)];
 }
 
-- (void)boolPredicate {
-    [self parseRule:@selector(__boolPredicate) withMemo:_boolPredicate_memo];
-}
-
-- (void)__truePredicate {
+- (void)truePredicate {
     
     [self match:TOKEN_KIND_TRUEPREDICATE]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTruePredicate:)];
 }
 
-- (void)truePredicate {
-    [self parseRule:@selector(__truePredicate) withMemo:_truePredicate_memo];
-}
-
-- (void)__falsePredicate {
+- (void)falsePredicate {
     
     [self match:TOKEN_KIND_FALSEPREDICATE]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalsePredicate:)];
 }
 
-- (void)falsePredicate {
-    [self parseRule:@selector(__falsePredicate) withMemo:_falsePredicate_memo];
-}
-
-- (void)__and {
+- (void)and {
     
     if (LA(1) == TOKEN_KIND_AND_UPPER) {
         [self match:TOKEN_KIND_AND_UPPER]; [self discard:1];
@@ -970,11 +563,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];
 }
 
-- (void)and {
-    [self parseRule:@selector(__and) withMemo:_and_memo];
-}
-
-- (void)__or {
+- (void)or {
     
     if (LA(1) == TOKEN_KIND_OR_UPPER) {
         [self match:TOKEN_KIND_OR_UPPER]; [self discard:1];
@@ -987,11 +576,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
 }
 
-- (void)or {
-    [self parseRule:@selector(__or) withMemo:_or_memo];
-}
-
-- (void)__not {
+- (void)not {
     
     if (LA(1) == TOKEN_KIND_NOT_UPPER) {
         [self match:TOKEN_KIND_NOT_UPPER]; [self discard:1];
@@ -1004,11 +589,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchNot:)];
 }
 
-- (void)not {
-    [self parseRule:@selector(__not) withMemo:_not_memo];
-}
-
-- (void)__stringTestPredicate {
+- (void)stringTestPredicate {
     
     [self string]; 
     [self stringTestOp]; 
@@ -1017,11 +598,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchStringTestPredicate:)];
 }
 
-- (void)stringTestPredicate {
-    [self parseRule:@selector(__stringTestPredicate) withMemo:_stringTestPredicate_memo];
-}
-
-- (void)__stringTestOp {
+- (void)stringTestOp {
     
     if (LA(1) == TOKEN_KIND_BEGINSWITH) {
         [self beginswith]; 
@@ -1040,66 +617,42 @@
     [self fireAssemblerSelector:@selector(parser:didMatchStringTestOp:)];
 }
 
-- (void)stringTestOp {
-    [self parseRule:@selector(__stringTestOp) withMemo:_stringTestOp_memo];
-}
-
-- (void)__beginswith {
+- (void)beginswith {
     
     [self match:TOKEN_KIND_BEGINSWITH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBeginswith:)];
 }
 
-- (void)beginswith {
-    [self parseRule:@selector(__beginswith) withMemo:_beginswith_memo];
-}
-
-- (void)__contains {
+- (void)contains {
     
     [self match:TOKEN_KIND_CONTAINS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchContains:)];
 }
 
-- (void)contains {
-    [self parseRule:@selector(__contains) withMemo:_contains_memo];
-}
-
-- (void)__endswith {
+- (void)endswith {
     
     [self match:TOKEN_KIND_ENDSWITH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEndswith:)];
 }
 
-- (void)endswith {
-    [self parseRule:@selector(__endswith) withMemo:_endswith_memo];
-}
-
-- (void)__like {
+- (void)like {
     
     [self match:TOKEN_KIND_LIKE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLike:)];
 }
 
-- (void)like {
-    [self parseRule:@selector(__like) withMemo:_like_memo];
-}
-
-- (void)__matches {
+- (void)matches {
     
     [self match:TOKEN_KIND_MATCHES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMatches:)];
 }
 
-- (void)matches {
-    [self parseRule:@selector(__matches) withMemo:_matches_memo];
-}
-
-- (void)__collectionTestPredicate {
+- (void)collectionTestPredicate {
     
     [self value]; 
     [self in]; 
@@ -1108,11 +661,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionTestPredicate:)];
 }
 
-- (void)collectionTestPredicate {
-    [self parseRule:@selector(__collectionTestPredicate) withMemo:_collectionTestPredicate_memo];
-}
-
-- (void)__collection {
+- (void)collection {
     
     if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
         [self keyPath]; 
@@ -1125,22 +674,14 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCollection:)];
 }
 
-- (void)collection {
-    [self parseRule:@selector(__collection) withMemo:_collection_memo];
-}
-
-- (void)__in {
+- (void)in {
     
     [self match:TOKEN_KIND_IN]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchIn:)];
 }
 
-- (void)in {
-    [self parseRule:@selector(__in) withMemo:_in_memo];
-}
-
-- (void)__aggregateOp {
+- (void)aggregateOp {
     
     if (LA(1) == TOKEN_KIND_ANY) {
         [self any]; 
@@ -1157,52 +698,32 @@
     [self fireAssemblerSelector:@selector(parser:didMatchAggregateOp:)];
 }
 
-- (void)aggregateOp {
-    [self parseRule:@selector(__aggregateOp) withMemo:_aggregateOp_memo];
-}
-
-- (void)__any {
+- (void)any {
     
     [self match:TOKEN_KIND_ANY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAny:)];
 }
 
-- (void)any {
-    [self parseRule:@selector(__any) withMemo:_any_memo];
-}
-
-- (void)__some {
+- (void)some {
     
     [self match:TOKEN_KIND_SOME]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSome:)];
 }
 
-- (void)some {
-    [self parseRule:@selector(__some) withMemo:_some_memo];
-}
-
-- (void)__all {
+- (void)all {
     
     [self match:TOKEN_KIND_ALL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAll:)];
 }
 
-- (void)all {
-    [self parseRule:@selector(__all) withMemo:_all_memo];
-}
-
-- (void)__none {
+- (void)none {
     
     [self match:TOKEN_KIND_NONE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNone:)];
-}
-
-- (void)none {
-    [self parseRule:@selector(__none) withMemo:_none_memo];
 }
 
 @end

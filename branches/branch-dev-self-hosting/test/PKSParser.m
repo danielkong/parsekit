@@ -55,7 +55,6 @@
 // memoization
 - (BOOL)alreadyParsedRule:(NSMutableDictionary *)memoization;
 - (void)memoize:(NSMutableDictionary *)memoization atIndex:(NSInteger)startTokenIndex failed:(BOOL)failed;
-- (NSInteger)_index;
 - (void)_clearMemo;
 @end
 
@@ -416,7 +415,7 @@
 
 - (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization {
     BOOL failed = NO;
-    NSInteger startTokenIndex = [self _index];
+    NSInteger startTokenIndex = self._p;
     if (self._isSpeculating && [self alreadyParsedRule:memoization]) return;
                                 
     @try { [self performSelector:ruleSelector]; }
@@ -429,7 +428,7 @@
 
 - (BOOL)alreadyParsedRule:(NSMutableDictionary *)memoization {
     
-    id idxKey = @([self _index]);
+    id idxKey = @(self._p);
     NSNumber *memoObj = memoization[idxKey];
     if (!memoObj) return NO;
     
@@ -446,15 +445,10 @@
 - (void)memoize:(NSMutableDictionary *)memoization atIndex:(NSInteger)startTokenIndex failed:(BOOL)failed {
     id idxKey = @(startTokenIndex);
     
-    NSInteger stopTokenIdex = failed ? FAILED : [self _index];
+    NSInteger stopTokenIdex = failed ? FAILED : self._p;
     id idxVal = @(stopTokenIdex);
 
     memoization[idxKey] = idxVal;
-}
-
-
-- (NSInteger)_index {
-    return self._p;
 }
 
 

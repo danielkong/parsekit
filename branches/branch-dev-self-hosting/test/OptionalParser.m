@@ -44,10 +44,6 @@
 @end
 
 @interface OptionalParser ()
-@property (nonatomic, retain) NSMutableDictionary *s_memo;
-@property (nonatomic, retain) NSMutableDictionary *expr_memo;
-@property (nonatomic, retain) NSMutableDictionary *foo_memo;
-@property (nonatomic, retain) NSMutableDictionary *bar_memo;
 @end
 
 @implementation OptionalParser
@@ -58,29 +54,10 @@
         self._tokenKindTab[@"foo"] = @(TOKEN_KIND_FOO);
         self._tokenKindTab[@"bar"] = @(TOKEN_KIND_BAR);
 
-        self.s_memo = [NSMutableDictionary dictionary];
-        self.expr_memo = [NSMutableDictionary dictionary];
-        self.foo_memo = [NSMutableDictionary dictionary];
-        self.bar_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
-- (void)dealloc {
-    self.s_memo = nil;
-    self.expr_memo = nil;
-    self.foo_memo = nil;
-    self.bar_memo = nil;
-
-    [super dealloc];
-}
-
-- (void)_clearMemo {
-    [_s_memo removeAllObjects];
-    [_expr_memo removeAllObjects];
-    [_foo_memo removeAllObjects];
-    [_bar_memo removeAllObjects];
-}
 
 - (void)_start {
     
@@ -89,7 +66,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)__s {
+- (void)s {
     
     if ((LA(1) == TOKEN_KIND_FOO) && ([self speculate:^{ [self expr]; }])) {
         [self expr]; 
@@ -100,11 +77,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
-- (void)s {
-    [self parseRule:@selector(__s) withMemo:_s_memo];
-}
-
-- (void)__expr {
+- (void)expr {
     
     [self foo]; 
     [self bar]; 
@@ -113,30 +86,18 @@
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
-- (void)expr {
-    [self parseRule:@selector(__expr) withMemo:_expr_memo];
-}
-
-- (void)__foo {
+- (void)foo {
     
     [self match:TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
 
-- (void)foo {
-    [self parseRule:@selector(__foo) withMemo:_foo_memo];
-}
-
-- (void)__bar {
+- (void)bar {
     
     [self match:TOKEN_KIND_BAR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
-}
-
-- (void)bar {
-    [self parseRule:@selector(__bar) withMemo:_bar_memo];
 }
 
 @end
