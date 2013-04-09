@@ -52,7 +52,6 @@
 	self = [super init];
 	if (self) {
         self._tokenKindTab[@"a"] = @(TOKEN_KIND_A);
-        self._tokenKindTab[@"b"] = @(TOKEN_KIND_B);
 
     }
 	return self;
@@ -62,9 +61,9 @@
 - (void)_start {
     
     [self a]; 
-    [self b]; 
-    [self a]; 
-    [self b]; 
+    while (LA(1) == TOKEN_KIND_BUILTIN_ANY) {
+        [self Any]; 
+    }
     [self a]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
@@ -75,13 +74,6 @@
     [self match:TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
-}
-
-- (void)b {
-    
-    [self match:TOKEN_KIND_B]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
 
 @end
