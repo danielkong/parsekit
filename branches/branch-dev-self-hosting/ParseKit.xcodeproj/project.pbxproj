@@ -508,6 +508,9 @@
 		D38BC8A11714A75B00BF530D /* UnfinishedSeqParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC8A01714A75A00BF530D /* UnfinishedSeqParser.m */; };
 		D38BC8A31714A77700BF530D /* unfinished_seq.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D38BC8A21714A77700BF530D /* unfinished_seq.grammar */; };
 		D38BC8A61714A78800BF530D /* UnfinishedSeqParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC8A51714A78800BF530D /* UnfinishedSeqParserTest.m */; };
+		D38BC8A91714AF1B00BF530D /* DotQuestionParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC8A81714AF1B00BF530D /* DotQuestionParserTest.m */; };
+		D38BC8AB1714AF4200BF530D /* dot_question.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D38BC8AA1714AF4100BF530D /* dot_question.grammar */; };
+		D38BC8AE1714AF5900BF530D /* DotQuestionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC8AD1714AF5800BF530D /* DotQuestionParser.m */; };
 		D395528D16F16DA200D326FD /* PKBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395524916F16BA600D326FD /* PKBaseNode.m */; };
 		D395528E16F16DA200D326FD /* PKRootNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395527F16F16C5F00D326FD /* PKRootNode.m */; };
 		D395528F16F16DA200D326FD /* PKConstantNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525116F16BA600D326FD /* PKConstantNode.m */; };
@@ -1508,6 +1511,11 @@
 		D38BC8A21714A77700BF530D /* unfinished_seq.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unfinished_seq.grammar; path = res/unfinished_seq.grammar; sourceTree = "<group>"; };
 		D38BC8A41714A78700BF530D /* UnfinishedSeqParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnfinishedSeqParserTest.h; path = test/UnfinishedSeqParserTest.h; sourceTree = "<group>"; };
 		D38BC8A51714A78800BF530D /* UnfinishedSeqParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnfinishedSeqParserTest.m; path = test/UnfinishedSeqParserTest.m; sourceTree = "<group>"; };
+		D38BC8A71714AF1A00BF530D /* DotQuestionParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DotQuestionParserTest.h; path = test/DotQuestionParserTest.h; sourceTree = "<group>"; };
+		D38BC8A81714AF1B00BF530D /* DotQuestionParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DotQuestionParserTest.m; path = test/DotQuestionParserTest.m; sourceTree = "<group>"; };
+		D38BC8AA1714AF4100BF530D /* dot_question.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dot_question.grammar; path = res/dot_question.grammar; sourceTree = "<group>"; };
+		D38BC8AC1714AF5700BF530D /* DotQuestionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DotQuestionParser.h; path = test/DotQuestionParser.h; sourceTree = "<group>"; };
+		D38BC8AD1714AF5800BF530D /* DotQuestionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DotQuestionParser.m; path = test/DotQuestionParser.m; sourceTree = "<group>"; };
 		D38DD9E70EC29F260070BC4D /* nyt.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = nyt.html; path = res/nyt.html; sourceTree = "<group>"; };
 		D38E97CA1061CF6500739C39 /* TDTokenizerBlocksTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTokenizerBlocksTest.h; path = test/TDTokenizerBlocksTest.h; sourceTree = "<group>"; };
 		D38E97CB1061CF6500739C39 /* TDTokenizerBlocksTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTokenizerBlocksTest.m; path = test/TDTokenizerBlocksTest.m; sourceTree = "<group>"; };
@@ -2786,6 +2794,8 @@
 				D38BC8A01714A75A00BF530D /* UnfinishedSeqParser.m */,
 				D38BC896171494FE00BF530D /* GreedParser.h */,
 				D38BC897171494FE00BF530D /* GreedParser.m */,
+				D38BC8AC1714AF5700BF530D /* DotQuestionParser.h */,
+				D38BC8AD1714AF5800BF530D /* DotQuestionParser.m */,
 				D30B8F68170D0EEA001796F4 /* PatternParser.h */,
 				D30B8F69170D0EEA001796F4 /* PatternParser.m */,
 				D30B8F5C170D001D001796F4 /* DelimitedParser.h */,
@@ -2835,6 +2845,8 @@
 				D38BC892171494CE00BF530D /* GreedParserTest.m */,
 				D30B8F63170D0EAF001796F4 /* PatternParserTest.h */,
 				D30B8F64170D0EAF001796F4 /* PatternParserTest.m */,
+				D38BC8A71714AF1A00BF530D /* DotQuestionParserTest.h */,
+				D38BC8A81714AF1B00BF530D /* DotQuestionParserTest.m */,
 				D30B8F57170CFFFD001796F4 /* DelimitedParserTest.h */,
 				D30B8F58170CFFFD001796F4 /* DelimitedParserTest.m */,
 				D30B8F51170CFF2A001796F4 /* ParseKitParserTest.h */,
@@ -2878,6 +2890,7 @@
 			children = (
 				D38BC8A21714A77700BF530D /* unfinished_seq.grammar */,
 				D38BC894171494E800BF530D /* greed.grammar */,
+				D38BC8AA1714AF4100BF530D /* dot_question.grammar */,
 				D30B8F66170D0ED5001796F4 /* pattern.grammar */,
 				D30B8F5A170D000A001796F4 /* delimited.grammar */,
 				D30B8F4F170CFF16001796F4 /* parsekit.grammar */,
@@ -3994,6 +4007,7 @@
 				D38BC8901710AF7400BF530D /* PKSMethodMemoizationTemplate.txt in Resources */,
 				D38BC895171494E900BF530D /* greed.grammar in Resources */,
 				D38BC8A31714A77700BF530D /* unfinished_seq.grammar in Resources */,
+				D38BC8AB1714AF4200BF530D /* dot_question.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4368,6 +4382,8 @@
 				D38BC898171494FE00BF530D /* GreedParser.m in Sources */,
 				D38BC8A11714A75B00BF530D /* UnfinishedSeqParser.m in Sources */,
 				D38BC8A61714A78800BF530D /* UnfinishedSeqParserTest.m in Sources */,
+				D38BC8A91714AF1B00BF530D /* DotQuestionParserTest.m in Sources */,
+				D38BC8AE1714AF5900BF530D /* DotQuestionParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
