@@ -1,2 +1,2 @@
-{%for 1 to depth %}    {%/for%}if ({%for tokenKind in lookaheadSet%}LA(1) == {{tokenKind.name}}{%if currentLoop.currentIndex != last %} || {%/if%}{%/for%}) {
+{%for 1 to depth %}    {%/for%}if ({%for tokenKind in lookaheadSet%}[self predicts:{{tokenKind.name}}]{%if currentLoop.currentIndex != last %} || {%/if%}{%/for%}) {
 {{childString}}{%for 1 to depth %}    {%/for%}}

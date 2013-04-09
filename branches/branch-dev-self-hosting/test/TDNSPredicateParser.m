@@ -103,7 +103,7 @@
 - (void)expr {
     
     [self orTerm]; 
-    while (LA(1) == TOKEN_KIND_DOUBLE_PIPE || LA(1) == TOKEN_KIND_OR_UPPER) {
+    while ([self predicts:TOKEN_KIND_DOUBLE_PIPE] || [self predicts:TOKEN_KIND_OR_UPPER]) {
         if ([self speculate:^{ [self orOrTerm]; }]) {
             [self orOrTerm]; 
         } else {
@@ -125,7 +125,7 @@
 - (void)orTerm {
     
     [self andTerm]; 
-    while (LA(1) == TOKEN_KIND_AND_UPPER || LA(1) == TOKEN_KIND_DOUBLE_AMPERSAND) {
+    while ([self predicts:TOKEN_KIND_AND_UPPER] || [self predicts:TOKEN_KIND_DOUBLE_AMPERSAND]) {
         if ([self speculate:^{ [self andAndTerm]; }]) {
             [self andAndTerm]; 
         } else {
@@ -146,9 +146,9 @@
 
 - (void)andTerm {
     
-    if (LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_NOT_UPPER || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_TRUEPREDICATE) {
+    if ([self predicts:TOKEN_KIND_ALL] || [self predicts:TOKEN_KIND_ANY] || [self predicts:TOKEN_KIND_BANG] || [self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_FALSELITERAL] || [self predicts:TOKEN_KIND_FALSEPREDICATE] || [self predicts:TOKEN_KIND_NONE] || [self predicts:TOKEN_KIND_NOT_UPPER] || [self predicts:TOKEN_KIND_OPEN_CURLY] || [self predicts:TOKEN_KIND_SOME] || [self predicts:TOKEN_KIND_TRUELITERAL] || [self predicts:TOKEN_KIND_TRUEPREDICATE]) {
         [self primaryExpr]; 
-    } else if (LA(1) == TOKEN_KIND_OPEN_PAREN) {
+    } else if ([self predicts:TOKEN_KIND_OPEN_PAREN]) {
         [self compoundExpr]; 
     } else {
         [self raise:@"no viable alternative found in andTerm"];
@@ -168,9 +168,9 @@
 
 - (void)primaryExpr {
     
-    if (LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_FALSEPREDICATE || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_SOME || LA(1) == TOKEN_KIND_TRUELITERAL || LA(1) == TOKEN_KIND_TRUEPREDICATE) {
+    if ([self predicts:TOKEN_KIND_ALL] || [self predicts:TOKEN_KIND_ANY] || [self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_FALSELITERAL] || [self predicts:TOKEN_KIND_FALSEPREDICATE] || [self predicts:TOKEN_KIND_NONE] || [self predicts:TOKEN_KIND_OPEN_CURLY] || [self predicts:TOKEN_KIND_SOME] || [self predicts:TOKEN_KIND_TRUELITERAL] || [self predicts:TOKEN_KIND_TRUEPREDICATE]) {
         [self predicate]; 
-    } else if (LA(1) == TOKEN_KIND_BANG || LA(1) == TOKEN_KIND_NOT_UPPER) {
+    } else if ([self predicts:TOKEN_KIND_BANG] || [self predicts:TOKEN_KIND_NOT_UPPER]) {
         [self negatedPredicate]; 
     } else {
         [self raise:@"no viable alternative found in primaryExpr"];
@@ -206,15 +206,15 @@
 
 - (void)value {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
         [self keyPath]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING]) {
         [self string]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER]) {
         [self num]; 
-    } else if (LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_TRUELITERAL) {
+    } else if ([self predicts:TOKEN_KIND_FALSELITERAL] || [self predicts:TOKEN_KIND_TRUELITERAL]) {
         [self bool]; 
-    } else if (LA(1) == TOKEN_KIND_OPEN_CURLY) {
+    } else if ([self predicts:TOKEN_KIND_OPEN_CURLY]) {
         [self array]; 
     } else {
         [self raise:@"no viable alternative found in value"];
@@ -239,9 +239,9 @@
 
 - (void)bool {
     
-    if (LA(1) == TOKEN_KIND_TRUELITERAL) {
+    if ([self predicts:TOKEN_KIND_TRUELITERAL]) {
         [self trueLiteral]; 
-    } else if (LA(1) == TOKEN_KIND_FALSELITERAL) {
+    } else if ([self predicts:TOKEN_KIND_FALSELITERAL]) {
         [self falseLiteral]; 
     } else {
         [self raise:@"no viable alternative found in bool"];
@@ -275,7 +275,7 @@
 
 - (void)arrayContentsOpt {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_FALSELITERAL || LA(1) == TOKEN_KIND_OPEN_CURLY || LA(1) == TOKEN_KIND_TRUELITERAL) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_FALSELITERAL] || [self predicts:TOKEN_KIND_OPEN_CURLY] || [self predicts:TOKEN_KIND_TRUELITERAL]) {
         [self arrayContents]; 
     }
 
@@ -285,7 +285,7 @@
 - (void)arrayContents {
     
     [self value]; 
-    while (LA(1) == TOKEN_KIND_COMMA) {
+    while ([self predicts:TOKEN_KIND_COMMA]) {
         if ([self speculate:^{ [self commaValue]; }]) {
             [self commaValue]; 
         } else {
@@ -313,9 +313,9 @@
 
 - (void)comparisonPredicate {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_WORD]) {
         [self numComparisonPredicate]; 
-    } else if (LA(1) == TOKEN_KIND_ALL || LA(1) == TOKEN_KIND_ANY || LA(1) == TOKEN_KIND_NONE || LA(1) == TOKEN_KIND_SOME) {
+    } else if ([self predicts:TOKEN_KIND_ALL] || [self predicts:TOKEN_KIND_ANY] || [self predicts:TOKEN_KIND_NONE] || [self predicts:TOKEN_KIND_SOME]) {
         [self collectionComparisonPredicate]; 
     } else {
         [self raise:@"no viable alternative found in comparisonPredicate"];
@@ -335,9 +335,9 @@
 
 - (void)numComparisonValue {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
         [self keyPath]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER]) {
         [self num]; 
     } else {
         [self raise:@"no viable alternative found in numComparisonValue"];
@@ -348,19 +348,19 @@
 
 - (void)comparisonOp {
     
-    if (LA(1) == TOKEN_KIND_DOUBLE_EQUALS || LA(1) == TOKEN_KIND_EQUALS) {
+    if ([self predicts:TOKEN_KIND_DOUBLE_EQUALS] || [self predicts:TOKEN_KIND_EQUALS]) {
         [self eq]; 
-    } else if (LA(1) == TOKEN_KIND_GT) {
+    } else if ([self predicts:TOKEN_KIND_GT]) {
         [self gt]; 
-    } else if (LA(1) == TOKEN_KIND_LT) {
+    } else if ([self predicts:TOKEN_KIND_LT]) {
         [self lt]; 
-    } else if (LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_HASH_ROCKET) {
+    } else if ([self predicts:TOKEN_KIND_GE] || [self predicts:TOKEN_KIND_HASH_ROCKET]) {
         [self gtEq]; 
-    } else if (LA(1) == TOKEN_KIND_EL || LA(1) == TOKEN_KIND_LE) {
+    } else if ([self predicts:TOKEN_KIND_EL] || [self predicts:TOKEN_KIND_LE]) {
         [self ltEq]; 
-    } else if (LA(1) == TOKEN_KIND_NE || LA(1) == TOKEN_KIND_NOT_EQUAL) {
+    } else if ([self predicts:TOKEN_KIND_NE] || [self predicts:TOKEN_KIND_NOT_EQUAL]) {
         [self notEq]; 
-    } else if (LA(1) == TOKEN_KIND_BETWEEN) {
+    } else if ([self predicts:TOKEN_KIND_BETWEEN]) {
         [self between]; 
     } else {
         [self raise:@"no viable alternative found in comparisonOp"];
@@ -371,9 +371,9 @@
 
 - (void)eq {
     
-    if (LA(1) == TOKEN_KIND_EQUALS) {
+    if ([self predicts:TOKEN_KIND_EQUALS]) {
         [self match:TOKEN_KIND_EQUALS]; 
-    } else if (LA(1) == TOKEN_KIND_DOUBLE_EQUALS) {
+    } else if ([self predicts:TOKEN_KIND_DOUBLE_EQUALS]) {
         [self match:TOKEN_KIND_DOUBLE_EQUALS]; 
     } else {
         [self raise:@"no viable alternative found in eq"];
@@ -398,9 +398,9 @@
 
 - (void)gtEq {
     
-    if (LA(1) == TOKEN_KIND_GE) {
+    if ([self predicts:TOKEN_KIND_GE]) {
         [self match:TOKEN_KIND_GE]; 
-    } else if (LA(1) == TOKEN_KIND_HASH_ROCKET) {
+    } else if ([self predicts:TOKEN_KIND_HASH_ROCKET]) {
         [self match:TOKEN_KIND_HASH_ROCKET]; 
     } else {
         [self raise:@"no viable alternative found in gtEq"];
@@ -411,9 +411,9 @@
 
 - (void)ltEq {
     
-    if (LA(1) == TOKEN_KIND_LE) {
+    if ([self predicts:TOKEN_KIND_LE]) {
         [self match:TOKEN_KIND_LE]; 
-    } else if (LA(1) == TOKEN_KIND_EL) {
+    } else if ([self predicts:TOKEN_KIND_EL]) {
         [self match:TOKEN_KIND_EL]; 
     } else {
         [self raise:@"no viable alternative found in ltEq"];
@@ -424,9 +424,9 @@
 
 - (void)notEq {
     
-    if (LA(1) == TOKEN_KIND_NE) {
+    if ([self predicts:TOKEN_KIND_NE]) {
         [self match:TOKEN_KIND_NE]; 
-    } else if (LA(1) == TOKEN_KIND_NOT_EQUAL) {
+    } else if ([self predicts:TOKEN_KIND_NOT_EQUAL]) {
         [self match:TOKEN_KIND_NOT_EQUAL]; 
     } else {
         [self raise:@"no viable alternative found in notEq"];
@@ -525,9 +525,9 @@
 
 - (void)boolPredicate {
     
-    if (LA(1) == TOKEN_KIND_TRUEPREDICATE) {
+    if ([self predicts:TOKEN_KIND_TRUEPREDICATE]) {
         [self truePredicate]; 
-    } else if (LA(1) == TOKEN_KIND_FALSEPREDICATE) {
+    } else if ([self predicts:TOKEN_KIND_FALSEPREDICATE]) {
         [self falsePredicate]; 
     } else {
         [self raise:@"no viable alternative found in boolPredicate"];
@@ -552,9 +552,9 @@
 
 - (void)and {
     
-    if (LA(1) == TOKEN_KIND_AND_UPPER) {
+    if ([self predicts:TOKEN_KIND_AND_UPPER]) {
         [self match:TOKEN_KIND_AND_UPPER]; [self discard:1];
-    } else if (LA(1) == TOKEN_KIND_DOUBLE_AMPERSAND) {
+    } else if ([self predicts:TOKEN_KIND_DOUBLE_AMPERSAND]) {
         [self match:TOKEN_KIND_DOUBLE_AMPERSAND]; [self discard:1];
     } else {
         [self raise:@"no viable alternative found in and"];
@@ -565,9 +565,9 @@
 
 - (void)or {
     
-    if (LA(1) == TOKEN_KIND_OR_UPPER) {
+    if ([self predicts:TOKEN_KIND_OR_UPPER]) {
         [self match:TOKEN_KIND_OR_UPPER]; [self discard:1];
-    } else if (LA(1) == TOKEN_KIND_DOUBLE_PIPE) {
+    } else if ([self predicts:TOKEN_KIND_DOUBLE_PIPE]) {
         [self match:TOKEN_KIND_DOUBLE_PIPE]; [self discard:1];
     } else {
         [self raise:@"no viable alternative found in or"];
@@ -578,9 +578,9 @@
 
 - (void)not {
     
-    if (LA(1) == TOKEN_KIND_NOT_UPPER) {
+    if ([self predicts:TOKEN_KIND_NOT_UPPER]) {
         [self match:TOKEN_KIND_NOT_UPPER]; [self discard:1];
-    } else if (LA(1) == TOKEN_KIND_BANG) {
+    } else if ([self predicts:TOKEN_KIND_BANG]) {
         [self match:TOKEN_KIND_BANG]; [self discard:1];
     } else {
         [self raise:@"no viable alternative found in not"];
@@ -600,15 +600,15 @@
 
 - (void)stringTestOp {
     
-    if (LA(1) == TOKEN_KIND_BEGINSWITH) {
+    if ([self predicts:TOKEN_KIND_BEGINSWITH]) {
         [self beginswith]; 
-    } else if (LA(1) == TOKEN_KIND_CONTAINS) {
+    } else if ([self predicts:TOKEN_KIND_CONTAINS]) {
         [self contains]; 
-    } else if (LA(1) == TOKEN_KIND_ENDSWITH) {
+    } else if ([self predicts:TOKEN_KIND_ENDSWITH]) {
         [self endswith]; 
-    } else if (LA(1) == TOKEN_KIND_LIKE) {
+    } else if ([self predicts:TOKEN_KIND_LIKE]) {
         [self like]; 
-    } else if (LA(1) == TOKEN_KIND_MATCHES) {
+    } else if ([self predicts:TOKEN_KIND_MATCHES]) {
         [self matches]; 
     } else {
         [self raise:@"no viable alternative found in stringTestOp"];
@@ -663,9 +663,9 @@
 
 - (void)collection {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
         [self keyPath]; 
-    } else if (LA(1) == TOKEN_KIND_OPEN_CURLY) {
+    } else if ([self predicts:TOKEN_KIND_OPEN_CURLY]) {
         [self array]; 
     } else {
         [self raise:@"no viable alternative found in collection"];
@@ -683,13 +683,13 @@
 
 - (void)aggregateOp {
     
-    if (LA(1) == TOKEN_KIND_ANY) {
+    if ([self predicts:TOKEN_KIND_ANY]) {
         [self any]; 
-    } else if (LA(1) == TOKEN_KIND_SOME) {
+    } else if ([self predicts:TOKEN_KIND_SOME]) {
         [self some]; 
-    } else if (LA(1) == TOKEN_KIND_ALL) {
+    } else if ([self predicts:TOKEN_KIND_ALL]) {
         [self all]; 
-    } else if (LA(1) == TOKEN_KIND_NONE) {
+    } else if ([self predicts:TOKEN_KIND_NONE]) {
         [self none]; 
     } else {
         [self raise:@"no viable alternative found in aggregateOp"];

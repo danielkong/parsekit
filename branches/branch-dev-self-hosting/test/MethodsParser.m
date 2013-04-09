@@ -69,7 +69,7 @@
     
     do {
         [self method]; 
-    } while ((LA(1) == TOKEN_KIND_INT || LA(1) == TOKEN_KIND_VOID) && ([self speculate:^{ [self method]; }]));
+    } while (([self predicts:TOKEN_KIND_INT] || [self predicts:TOKEN_KIND_VOID]) && ([self speculate:^{ [self method]; }]));
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
@@ -100,9 +100,9 @@
 
 - (void)type {
     
-    if (LA(1) == TOKEN_KIND_VOID) {
+    if ([self predicts:TOKEN_KIND_VOID]) {
         [self match:TOKEN_KIND_VOID]; 
-    } else if (LA(1) == TOKEN_KIND_INT) {
+    } else if ([self predicts:TOKEN_KIND_INT]) {
         [self match:TOKEN_KIND_INT]; 
     } else {
         [self raise:@"no viable alternative found in type"];
@@ -113,9 +113,9 @@
 
 - (void)args {
     
-    if (LA(1) == TOKEN_KIND_INT) {
+    if ([self predicts:TOKEN_KIND_INT]) {
         [self arg]; 
-        while (LA(1) == TOKEN_KIND_COMMA) {
+        while ([self predicts:TOKEN_KIND_COMMA]) {
             if ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self arg]; }]) {
                 [self match:TOKEN_KIND_COMMA]; 
                 [self arg]; 

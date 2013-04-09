@@ -87,7 +87,7 @@
 
 - (void)label {
     
-    while (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+    while ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
         if ([self speculate:^{ [self Word]; [self match:TOKEN_KIND_COLON]; }]) {
             [self Word]; 
             [self match:TOKEN_KIND_COLON]; 

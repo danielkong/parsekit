@@ -88,7 +88,7 @@
 - (void)orExpr {
     
     [self andExpr]; 
-    while (LA(1) == TOKEN_KIND_OR) {
+    while ([self predicts:TOKEN_KIND_OR]) {
         if ([self speculate:^{ [self orTerm]; }]) {
             [self orTerm]; 
         } else {
@@ -110,7 +110,7 @@
 - (void)andExpr {
     
     [self relExpr]; 
-    while (LA(1) == TOKEN_KIND_AND) {
+    while ([self predicts:TOKEN_KIND_AND]) {
         if ([self speculate:^{ [self andTerm]; }]) {
             [self andTerm]; 
         } else {
@@ -132,7 +132,7 @@
 - (void)relExpr {
     
     [self callExpr]; 
-    while (LA(1) == TOKEN_KIND_EQ || LA(1) == TOKEN_KIND_GE || LA(1) == TOKEN_KIND_GT || LA(1) == TOKEN_KIND_LE || LA(1) == TOKEN_KIND_LT || LA(1) == TOKEN_KIND_NE) {
+    while ([self predicts:TOKEN_KIND_EQ] || [self predicts:TOKEN_KIND_GE] || [self predicts:TOKEN_KIND_GT] || [self predicts:TOKEN_KIND_LE] || [self predicts:TOKEN_KIND_LT] || [self predicts:TOKEN_KIND_NE]) {
         if ([self speculate:^{ [self relOp]; [self callExpr]; }]) {
             [self relOp]; 
             [self callExpr]; 
@@ -146,17 +146,17 @@
 
 - (void)relOp {
     
-    if (LA(1) == TOKEN_KIND_LT) {
+    if ([self predicts:TOKEN_KIND_LT]) {
         [self lt]; 
-    } else if (LA(1) == TOKEN_KIND_GT) {
+    } else if ([self predicts:TOKEN_KIND_GT]) {
         [self gt]; 
-    } else if (LA(1) == TOKEN_KIND_EQ) {
+    } else if ([self predicts:TOKEN_KIND_EQ]) {
         [self eq]; 
-    } else if (LA(1) == TOKEN_KIND_NE) {
+    } else if ([self predicts:TOKEN_KIND_NE]) {
         [self ne]; 
-    } else if (LA(1) == TOKEN_KIND_LE) {
+    } else if ([self predicts:TOKEN_KIND_LE]) {
         [self le]; 
-    } else if (LA(1) == TOKEN_KIND_GE) {
+    } else if ([self predicts:TOKEN_KIND_GE]) {
         [self ge]; 
     } else {
         [self raise:@"no viable alternative found in relOp"];
@@ -168,9 +168,9 @@
 - (void)callExpr {
     
     [self primary]; 
-    if ((LA(1) == TOKEN_KIND_OPENPAREN) && ([self speculate:^{ [self openParen]; if ((LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES) && ([self speculate:^{ [self argList]; }])) {[self argList]; }[self closeParen]; }])) {
+    if (([self predicts:TOKEN_KIND_OPENPAREN]) && ([self speculate:^{ [self openParen]; if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_YES]) && ([self speculate:^{ [self argList]; }])) {[self argList]; }[self closeParen]; }])) {
         [self openParen]; 
-        if ((LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES) && ([self speculate:^{ [self argList]; }])) {
+        if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_YES]) && ([self speculate:^{ [self argList]; }])) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -182,7 +182,7 @@
 - (void)argList {
     
     [self atom]; 
-    while (LA(1) == TOKEN_KIND_COMMA) {
+    while ([self predicts:TOKEN_KIND_COMMA]) {
         if ([self speculate:^{ [self comma]; [self atom]; }]) {
             [self comma]; 
             [self atom]; 
@@ -196,9 +196,9 @@
 
 - (void)primary {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_BUILTIN_WORD || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_YES]) {
         [self atom]; 
-    } else if (LA(1) == TOKEN_KIND_OPENPAREN) {
+    } else if ([self predicts:TOKEN_KIND_OPENPAREN]) {
         [self openParen]; 
         [self expr]; 
         [self closeParen]; 
@@ -211,9 +211,9 @@
 
 - (void)atom {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
         [self obj]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER || LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING || LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_YES]) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -225,7 +225,7 @@
 - (void)obj {
     
     [self id]; 
-    while (LA(1) == TOKEN_KIND_DOT) {
+    while ([self predicts:TOKEN_KIND_DOT]) {
         if ([self speculate:^{ [self member]; }]) {
             [self member]; 
         } else {
@@ -253,11 +253,11 @@
 
 - (void)literal {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_QUOTEDSTRING) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING]) {
         [self QuotedString]; 
-    } else if (LA(1) == TOKEN_KIND_BUILTIN_NUMBER) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER]) {
         [self Number]; 
-    } else if (LA(1) == TOKEN_KIND_NO || LA(1) == TOKEN_KIND_YES) {
+    } else if ([self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_YES]) {
         [self bool]; 
     } else {
         [self raise:@"no viable alternative found in literal"];
@@ -268,9 +268,9 @@
 
 - (void)bool {
     
-    if (LA(1) == TOKEN_KIND_YES) {
+    if ([self predicts:TOKEN_KIND_YES]) {
         [self yes]; 
-    } else if (LA(1) == TOKEN_KIND_NO) {
+    } else if ([self predicts:TOKEN_KIND_NO]) {
         [self no]; 
     } else {
         [self raise:@"no viable alternative found in bool"];

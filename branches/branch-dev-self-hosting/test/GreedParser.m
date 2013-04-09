@@ -61,7 +61,7 @@
 - (void)_start {
     
     [self a]; 
-    if (LA(1) == TOKEN_KIND_BUILTIN_ANY) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_ANY]) {
         [self Any]; 
     }
     [self a]; 

@@ -367,6 +367,14 @@
 }
 
 
+- (BOOL)predicts:(NSInteger)tokenKind {
+    NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_INVALID);
+    
+    BOOL result = (TOKEN_KIND_BUILTIN_ANY == tokenKind || LA(1) == tokenKind);
+    return result;
+}
+
+
 - (BOOL)speculate:(PKSSpeculateBlock)block {
     NSParameterAssert(block);
     

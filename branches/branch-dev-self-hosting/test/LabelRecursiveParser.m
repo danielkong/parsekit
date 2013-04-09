@@ -87,7 +87,7 @@
 
 - (void)label {
     
-    if (LA(1) == TOKEN_KIND_BUILTIN_WORD) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
         [self Word]; 
         [self match:TOKEN_KIND_COLON]; 
         [self label]; 

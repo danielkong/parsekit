@@ -7,6 +7,7 @@
 //
 
 #import "PKSTokenKindDescriptor.h"
+#import "PKSParser.h"
 
 static NSMutableDictionary *sCache = nil;
 
@@ -30,6 +31,11 @@ static NSMutableDictionary *sCache = nil;
     }
     
     return kind;
+}
+
+
++ (PKSTokenKindDescriptor *)anyDescriptor {
+    return [PKSTokenKindDescriptor descriptorWithStringValue:@"TOKEN_KIND_BUILTIN_ANY" name:@"TOKEN_KIND_BUILTIN_ANY"];
 }
 
 

@@ -11,6 +11,7 @@
 @interface PKSTokenKindDescriptor : NSObject
 
 + (PKSTokenKindDescriptor *)descriptorWithStringValue:(NSString *)s name:(NSString *)name;
++ (PKSTokenKindDescriptor *)anyDescriptor;
 
 @property (nonatomic, copy) NSString *stringValue;
 @property (nonatomic, copy) NSString *name;
