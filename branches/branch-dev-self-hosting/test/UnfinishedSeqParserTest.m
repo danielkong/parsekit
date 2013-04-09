@@ -62,12 +62,12 @@
     self.factory = nil;
 }
 
-- (void)testABABA {
+- (void)testAB {
     NSError *err = nil;
-    PKAssembly *res = [_parser parseString:@"a b a b a" assembler:nil error:&err];
+    PKAssembly *res = [_parser parseString:@"a b" assembler:nil error:&err];
     
-    TDEqualObjects(@"[a, b, a]a/b/a^", [res description]);
-    //TDNil(res);
+    //TDEqualObjects(@"[a, b]a/b^", [res description]);
+    TDNil(res);
 }
 
 - (void)testABA {

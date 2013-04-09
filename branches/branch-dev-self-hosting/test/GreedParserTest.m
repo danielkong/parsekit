@@ -62,19 +62,36 @@
     self.factory = nil;
 }
 
-- (void)testABABA {
+- (void)testACACA {
     NSError *err = nil;
-    PKAssembly *res = [_parser parseString:@"a b a b a" assembler:nil error:&err];
+    PKAssembly *res = [_parser parseString:@"a C a C a" assembler:nil error:&err];
     
-    TDEqualObjects(@"[a, b, a]a/b/a^", [res description]);
+    TDEqualObjects(@"[a, C, a]a/C/a^", [res description]);
     //TDNil(res);
 }
 
-- (void)testABA {
+- (void)testACA {
     NSError *err = nil;
-    PKAssembly *res = [_parser parseString:@"a b a" assembler:nil error:&err];
+    PKAssembly *res = [_parser parseString:@"a C a" assembler:nil error:&err];
     
-    TDEqualObjects(@"[a, b, a]a/b/a^", [res description]);
+    TDEqualObjects(@"[a, C, a]a/C/a^", [res description]);
+    //TDNil(res);
+}
+
+- (void)testBCBCB {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"b C b C b" assembler:nil error:&err];
+    
+    TDEqualObjects(@"[b, C, b]b/C/b^", [res description]);
+    //TDNil(res);
+}
+
+- (void)testBCB {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"b C b" assembler:nil error:&err];
+    
+    TDEqualObjects(@"[b, C, b]b/C/b^", [res description]);
+    //TDNil(res);
 }
 
 @end
