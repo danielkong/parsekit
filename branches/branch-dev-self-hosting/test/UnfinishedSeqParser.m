@@ -1,4 +1,4 @@
-#import "GreedParser.h"
+#import "UnfinishedSeqParser.h"
 #import <ParseKit/ParseKit.h>
 #import "PKSRecognitionException.h"
 
@@ -43,10 +43,10 @@
 - (void)_pushDouble:(double)d;
 @end
 
-@interface GreedParser ()
+@interface UnfinishedSeqParser ()
 @end
 
-@implementation GreedParser
+@implementation UnfinishedSeqParser
 
 - (id)init {
 	self = [super init];
@@ -61,7 +61,7 @@
 - (void)_start {
     
     [self a]; 
-    while ([self predicts:TOKEN_KIND_BUILTIN_ANY]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_ANY]) {
         [self Any]; 
     }
     [self a]; 
