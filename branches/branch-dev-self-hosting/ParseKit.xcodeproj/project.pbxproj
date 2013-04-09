@@ -502,6 +502,9 @@
 		D389F5B80F19C76A00558235 /* TDJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D389F5B30F19C76A00558235 /* TDJsonParser.m */; };
 		D389FBCD0F1B25E200558235 /* ParserTest.html in Resources */ = {isa = PBXBuildFile; fileRef = D389FBCC0F1B25E200558235 /* ParserTest.html */; };
 		D38BC8901710AF7400BF530D /* PKSMethodMemoizationTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D38BC88E1710AF6D00BF530D /* PKSMethodMemoizationTemplate.txt */; };
+		D38BC893171494CE00BF530D /* GreedParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC892171494CE00BF530D /* GreedParserTest.m */; };
+		D38BC895171494E900BF530D /* greed.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D38BC894171494E800BF530D /* greed.grammar */; };
+		D38BC898171494FE00BF530D /* GreedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC897171494FE00BF530D /* GreedParser.m */; };
 		D395528D16F16DA200D326FD /* PKBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395524916F16BA600D326FD /* PKBaseNode.m */; };
 		D395528E16F16DA200D326FD /* PKRootNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395527F16F16C5F00D326FD /* PKRootNode.m */; };
 		D395528F16F16DA200D326FD /* PKConstantNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525116F16BA600D326FD /* PKConstantNode.m */; };
@@ -1492,6 +1495,11 @@
 		D389F5B50F19C76A00558235 /* TDJsonParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDJsonParserTest.m; path = test/TDJsonParserTest.m; sourceTree = "<group>"; };
 		D389FBCC0F1B25E200558235 /* ParserTest.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = ParserTest.html; path = jsdemoapp/ParserTest.html; sourceTree = "<group>"; };
 		D38BC88E1710AF6D00BF530D /* PKSMethodMemoizationTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSMethodMemoizationTemplate.txt; path = res/PKSMethodMemoizationTemplate.txt; sourceTree = "<group>"; };
+		D38BC891171494CD00BF530D /* GreedParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreedParserTest.h; path = test/GreedParserTest.h; sourceTree = "<group>"; };
+		D38BC892171494CE00BF530D /* GreedParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GreedParserTest.m; path = test/GreedParserTest.m; sourceTree = "<group>"; };
+		D38BC894171494E800BF530D /* greed.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = greed.grammar; path = res/greed.grammar; sourceTree = "<group>"; };
+		D38BC896171494FE00BF530D /* GreedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreedParser.h; path = test/GreedParser.h; sourceTree = "<group>"; };
+		D38BC897171494FE00BF530D /* GreedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GreedParser.m; path = test/GreedParser.m; sourceTree = "<group>"; };
 		D38DD9E70EC29F260070BC4D /* nyt.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = nyt.html; path = res/nyt.html; sourceTree = "<group>"; };
 		D38E97CA1061CF6500739C39 /* TDTokenizerBlocksTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTokenizerBlocksTest.h; path = test/TDTokenizerBlocksTest.h; sourceTree = "<group>"; };
 		D38E97CB1061CF6500739C39 /* TDTokenizerBlocksTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTokenizerBlocksTest.m; path = test/TDTokenizerBlocksTest.m; sourceTree = "<group>"; };
@@ -2766,6 +2774,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D38BC896171494FE00BF530D /* GreedParser.h */,
+				D38BC897171494FE00BF530D /* GreedParser.m */,
 				D30B8F68170D0EEA001796F4 /* PatternParser.h */,
 				D30B8F69170D0EEA001796F4 /* PatternParser.m */,
 				D30B8F5C170D001D001796F4 /* DelimitedParser.h */,
@@ -2809,6 +2819,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D38BC891171494CD00BF530D /* GreedParserTest.h */,
+				D38BC892171494CE00BF530D /* GreedParserTest.m */,
 				D30B8F63170D0EAF001796F4 /* PatternParserTest.h */,
 				D30B8F64170D0EAF001796F4 /* PatternParserTest.m */,
 				D30B8F57170CFFFD001796F4 /* DelimitedParserTest.h */,
@@ -2852,6 +2864,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D38BC894171494E800BF530D /* greed.grammar */,
 				D30B8F66170D0ED5001796F4 /* pattern.grammar */,
 				D30B8F5A170D000A001796F4 /* delimited.grammar */,
 				D30B8F4F170CFF16001796F4 /* parsekit.grammar */,
@@ -3966,6 +3979,7 @@
 				D30B8F67170D0ED5001796F4 /* pattern.grammar in Resources */,
 				D30B8F6C170D111B001796F4 /* PKSPatternPrefixTemplate.txt in Resources */,
 				D38BC8901710AF7400BF530D /* PKSMethodMemoizationTemplate.txt in Resources */,
+				D38BC895171494E900BF530D /* greed.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4336,6 +4350,8 @@
 				D30B8F65170D0EB0001796F4 /* PatternParserTest.m in Sources */,
 				D30B8F6A170D0EEB001796F4 /* PatternParser.m in Sources */,
 				D3B4B444170E03BF00572530 /* PKSParserGenVisitor.m in Sources */,
+				D38BC893171494CE00BF530D /* GreedParserTest.m in Sources */,
+				D38BC898171494FE00BF530D /* GreedParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
