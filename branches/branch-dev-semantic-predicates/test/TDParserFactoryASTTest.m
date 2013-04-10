@@ -30,6 +30,17 @@
 }
 
 
+- (void)testSemanticPredicateNumber {
+    NSString *g = @"@start=foo;foo= {YES}? Number;";
+    //NSLog(@"%@", g);
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo Number))", [rootNode treeDescription]);
+}
+
+
 - (void)testSemanticPredicateAlt {
     NSString *g = @"@start=foo;foo= {YES}? Number | {NO}? Word;";
     //NSLog(@"%@", g);
@@ -38,17 +49,6 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start #foo) ($foo (| Number Word)))", [rootNode treeDescription]);
-}
-
-
-- (void)testSemanticPredicateNumber {
-    NSString *g = @"@start=foo;foo= {YES}? Number";
-    //NSLog(@"%@", g);
-    
-    NSError *err = nil;
-    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
-    TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo Number))", [rootNode treeDescription]);
 }
 
 
