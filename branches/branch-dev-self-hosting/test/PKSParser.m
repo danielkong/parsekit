@@ -147,6 +147,8 @@
     self._lookahead = [NSMutableArray array];
     self._markers = [NSMutableArray array];
 
+    [self _clearMemo];
+    
     @try {
 
         @autoreleasepool {
