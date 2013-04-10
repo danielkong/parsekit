@@ -1118,11 +1118,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKBaseNode *left = nil;
 
     NSMutableArray *lhsNodes = [self objectsAbove:paren or:equals in:a];
-//    PKActionNode *lhsPredicate = nil;
-//    if ([[lhsNodes lastObject] isKindOfClass:[PKActionNode class]]) {
-//        lhsPredicate = [[[lhsNodes lastObject] retain] autorelease];
-//        [lhsNodes removeLastObject];
-//    }
     if (1 == [lhsNodes count]) {
         left = [lhsNodes lastObject];
     } else {
@@ -1133,16 +1128,10 @@ void PKReleaseSubparserTree(PKParser *p) {
         }
         left = seqNode;
     }
-//    if (lhsPredicate) left.semanticPredicateNode = lhsPredicate;
     [orNode addChild:left];
 
     PKBaseNode *right = nil;
 
-//    PKActionNode *rhsPredicate = nil;
-//    if ([[rhsNodes lastObject] isKindOfClass:[PKActionNode class]]) {
-//        rhsPredicate = [[[rhsNodes lastObject] retain] autorelease];
-//        [rhsNodes removeLastObject];
-//    }
     if (1 == [rhsNodes count]) {
         right = [rhsNodes lastObject];
     } else {
@@ -1153,7 +1142,6 @@ void PKReleaseSubparserTree(PKParser *p) {
         }
         right = seqNode;
     }
-//    if (rhsPredicate) right.semanticPredicateNode = rhsPredicate;
     [orNode addChild:right];
 
     [a push:orNode];
