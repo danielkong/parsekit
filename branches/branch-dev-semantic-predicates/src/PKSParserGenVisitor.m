@@ -305,8 +305,11 @@
     vars[DISCARD] = @(node.discard);
 
     // merge
+    NSMutableString *output = [NSMutableString string];
+    [output appendString:[self semanticPredicateForNode:node throws:YES]];
+    
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
-    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
+    [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node]];
 
@@ -360,7 +363,8 @@
     // TODO Predicates???
     
     NSMutableString *output = [NSMutableString string];
-    
+    [output appendString:[self semanticPredicateForNode:node throws:YES]];
+
     NSString *templateName = nil;
     if (_enableHybridDFA && [self hasTerminalPath:child]) { // ????
         templateName = @"PKSNegationTerminalTemplate";
@@ -424,7 +428,10 @@
     }
     
     // repetition
-    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
+    NSMutableString *output = [NSMutableString string];
+    [output appendString:[self semanticPredicateForNode:node throws:YES]];
+    
+    [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
 
     // action
     [output appendString:[self actionStringFrom:node]];
@@ -460,7 +467,8 @@
     
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
-    
+    [childStr appendString:[self semanticPredicateForNode:node throws:YES]];
+
     // recurse
     for (PKBaseNode *child in node.children) {
         [child visit:self];
@@ -478,7 +486,7 @@
 
 
 - (NSString *)semanticPredicateForNode:(PKBaseNode *)node throws:(BOOL)throws {
-    NSString *result = nil;
+    NSString *result = @"";
     
     if (node.semanticPredicateNode) {
         NSString *predBody = node.semanticPredicateNode.source;
@@ -492,7 +500,7 @@
             templateName = isStat ? @"PKSSemanticPredicateTestStatTemplate" : @"PKSSemanticPredicateTestExprTemplate";
         }
         
-        result = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:@{PREDICATE_BODY: predBody}];
+        result = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:@{PREDICATE_BODY: predBody, DEPTH: @(self.depth)}];
         NSAssert(result, @"");
     }
 
@@ -525,9 +533,6 @@
         vars[LAST] = @([set count] - 1);
         vars[DEPTH] = @(_depth);
         vars[NEEDS_BACKTRACK] = @(_needsBacktracking);
-
-        NSString *predStr = [self semanticPredicateForNode:child throws:NO];
-        if (predStr) vars[PREDICATE] = predStr;
 
         // process template. cannot test `idx` here to determine `if` vs `else` due to possible Empty child borking `idx`
         NSString *templateName = [result length] ? @"PKSPredictElseIfTemplate" : @"PKSPredictIfTemplate";
@@ -581,9 +586,6 @@
         vars[NEEDS_BACKTRACK] = @(_needsBacktracking);
         vars[CHILD_STRING] = ifTest;
         
-        NSString *predStr = [self semanticPredicateForNode:child throws:YES];
-        if (predStr) vars[PREDICATE] = predStr;
-
         // process template. cannot test `idx` here to determine `if` vs `else` due to possible Empty child borking `idx`
         NSString *templateName = [result length] ? @"PKSSpeculateElseIfTemplate" : @"PKSSpeculateIfTemplate";
         NSString *output = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars];
@@ -682,6 +684,7 @@
     vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
     
     NSMutableString *output = [NSMutableString string];
+    [output appendString:[self semanticPredicateForNode:node throws:YES]];
 
     NSString *templateName = nil;
     if (_enableHybridDFA && [self hasTerminalPath:child]) { // ????
@@ -755,7 +758,8 @@
     vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
     
     NSMutableString *output = [NSMutableString string];
-    
+    [output appendString:[self semanticPredicateForNode:node throws:YES]];
+
     NSString *templateName = nil;
     if (_enableHybridDFA && [self hasTerminalPath:child]) { // ????
         templateName = @"PKSMultipleTerminalTemplate";
@@ -784,8 +788,11 @@
     vars[DISCARD] = @(node.discard);
     
     // merge
+    NSMutableString *output = [NSMutableString string];
+    [output appendString:[self semanticPredicateForNode:node throws:YES]];
+    
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
-    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
+    [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node]];
 
@@ -804,8 +811,11 @@
     vars[DISCARD] = @(node.discard);
 
     // merge
+    NSMutableString *output = [NSMutableString string];
+    [output appendString:[self semanticPredicateForNode:node throws:YES]];
+    
     NSString *template = [self templateStringNamed:@"PKSMatchCallTemplate"];
-    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
+    [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node]];
 
@@ -827,8 +837,11 @@
     vars[METHOD_NAME] = self.currentDefName;
     
     // merge
+    NSMutableString *output = [NSMutableString string];
+    [output appendString:[self semanticPredicateForNode:node throws:YES]];
+    
     NSString *template = [self templateStringNamed:@"PKSMatchDelimitedStringTemplate"];
-    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
+    [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node]];
     
@@ -849,8 +862,11 @@
     vars[METHOD_NAME] = self.currentDefName;
 
     // merge
+    NSMutableString *output = [NSMutableString string];
+    [output appendString:[self semanticPredicateForNode:node throws:YES]];
+    
     NSString *template = [self templateStringNamed:@"PKSMatchPatternTemplate"];
-    NSMutableString *output = [NSMutableString stringWithString:[_engine processTemplate:template withVariables:vars]];
+    [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node]];
     

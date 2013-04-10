@@ -425,7 +425,8 @@
 
 - (void)__literal {
     
-    if ([self test:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }] && ([self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_NO_UPPER] || [self predicts:TOKEN_KIND_YES] || [self predicts:TOKEN_KIND_YES_UPPER])) {
+    if ([self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_NO_UPPER] || [self predicts:TOKEN_KIND_YES] || [self predicts:TOKEN_KIND_YES_UPPER]) {
+        [self testAndThrow:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }]; 
         [self bool]; 
         [self execute:(id)^{
              PUSH_BOOL(EQ_IGNORE_CASE(POP_STR(), @"yes")); 
@@ -459,7 +460,8 @@
         [self match:TOKEN_KIND_YES_UPPER]; 
     } else if ([self predicts:TOKEN_KIND_NO]) {
         [self match:TOKEN_KIND_NO]; 
-    } else if ([self test:(id)^{  return NE(LS(1), @"NO");  }] && ([self predicts:TOKEN_KIND_NO_UPPER])) {
+    } else if ([self predicts:TOKEN_KIND_NO_UPPER]) {
+        [self testAndThrow:(id)^{  return NE(LS(1), @"NO");  }]; 
         [self match:TOKEN_KIND_NO_UPPER]; 
     } else {
         [self raise:@"no viable alternative found in bool"];

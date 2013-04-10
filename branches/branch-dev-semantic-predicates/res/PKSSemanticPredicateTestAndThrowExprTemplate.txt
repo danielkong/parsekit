@@ -1,1 +1,1 @@
-[self testAndThrow:(id)^{ return {{predicateBody}}; }]
+{%for 1 to depth %}    {%/for%}[self testAndThrow:(id)^{ return {{predicateBody}}; }]; 

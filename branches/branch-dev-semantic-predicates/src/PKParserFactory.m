@@ -121,6 +121,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchFactor:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSemanticPredicate:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchIntersection:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchDifference:(PKAssembly *)a;
@@ -875,18 +876,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)checkForSemanticPredicate:(PKAssembly *)a before:(PKBaseNode *)node {
-    id obj = [a pop];
-    if ([obj isKindOfClass:[PKActionNode class]]) {
-        PKActionNode *predNode = (PKActionNode *)obj;
-        //NSLog(@"%@", predNode.source);
-        node.semanticPredicateNode = predNode;
-    } else {
-        [a push:obj];
-    }
-}
-
-
 - (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     PKToken *tok = [a pop];
@@ -985,6 +974,26 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
     actNode.source = source;
     ownerNode.actionNode = actNode;
+}
+
+
+- (void)parser:(PKParser *)p didMatchFactor:(PKAssembly *)a {
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    id possibleNode = [a pop];
+    if ([possibleNode isKindOfClass:[PKBaseNode class]]) {
+        PKBaseNode *node = (PKBaseNode *)possibleNode;
+        
+        id possiblePred = [a pop];
+        if ([possiblePred isKindOfClass:[PKActionNode class]]) {
+            PKActionNode *predNode = (PKActionNode *)possiblePred;
+            //NSLog(@"%@", predNode.source);
+            node.semanticPredicateNode = predNode;
+        } else {
+            [a push:possiblePred];
+        }
+    }
+    [a push:possibleNode];
 }
 
 
@@ -1109,11 +1118,11 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKBaseNode *left = nil;
 
     NSMutableArray *lhsNodes = [self objectsAbove:paren or:equals in:a];
-    PKActionNode *lhsPredicate = nil;
-    if ([[lhsNodes lastObject] isKindOfClass:[PKActionNode class]]) {
-        lhsPredicate = [[[lhsNodes lastObject] retain] autorelease];
-        [lhsNodes removeLastObject];
-    }
+//    PKActionNode *lhsPredicate = nil;
+//    if ([[lhsNodes lastObject] isKindOfClass:[PKActionNode class]]) {
+//        lhsPredicate = [[[lhsNodes lastObject] retain] autorelease];
+//        [lhsNodes removeLastObject];
+//    }
     if (1 == [lhsNodes count]) {
         left = [lhsNodes lastObject];
     } else {
@@ -1124,16 +1133,16 @@ void PKReleaseSubparserTree(PKParser *p) {
         }
         left = seqNode;
     }
-    if (lhsPredicate) left.semanticPredicateNode = lhsPredicate;
+//    if (lhsPredicate) left.semanticPredicateNode = lhsPredicate;
     [orNode addChild:left];
 
     PKBaseNode *right = nil;
 
-    PKActionNode *rhsPredicate = nil;
-    if ([[rhsNodes lastObject] isKindOfClass:[PKActionNode class]]) {
-        rhsPredicate = [[[rhsNodes lastObject] retain] autorelease];
-        [rhsNodes removeLastObject];
-    }
+//    PKActionNode *rhsPredicate = nil;
+//    if ([[rhsNodes lastObject] isKindOfClass:[PKActionNode class]]) {
+//        rhsPredicate = [[[rhsNodes lastObject] retain] autorelease];
+//        [rhsNodes removeLastObject];
+//    }
     if (1 == [rhsNodes count]) {
         right = [rhsNodes lastObject];
     } else {
@@ -1144,7 +1153,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         }
         right = seqNode;
     }
-    if (rhsPredicate) right.semanticPredicateNode = rhsPredicate;
+//    if (rhsPredicate) right.semanticPredicateNode = rhsPredicate;
     [orNode addChild:right];
 
     [a push:orNode];

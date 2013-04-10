@@ -100,6 +100,7 @@
 - (void)__method {
     
     if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type]; [self Word]; [self match:TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:TOKEN_KIND_CLOSE_PAREN]; [self match:TOKEN_KIND_SEMI_COLON]; }]) {
+        [self testAndThrow:(id)^{ return NO; }]; 
         [self type]; 
         [self Word]; 
         [self match:TOKEN_KIND_OPEN_PAREN]; 
@@ -107,6 +108,7 @@
         [self match:TOKEN_KIND_CLOSE_PAREN]; 
         [self match:TOKEN_KIND_SEMI_COLON]; 
     } else if ([self speculate:^{ [self testAndThrow:(id)^{ return 1; }]; [self type]; [self Word]; [self match:TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:TOKEN_KIND_CLOSE_PAREN]; [self match:TOKEN_KIND_OPEN_CURLY]; [self match:TOKEN_KIND_CLOSE_CURLY]; }]) {
+        [self testAndThrow:(id)^{ return 1; }]; 
         [self type]; 
         [self Word]; 
         [self match:TOKEN_KIND_OPEN_PAREN]; 
