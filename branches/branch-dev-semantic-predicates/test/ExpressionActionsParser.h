@@ -1,0 +1,24 @@
+#import "PKSParser.h"
+enum {
+    TOKEN_KIND_NO = 14,
+    TOKEN_KIND_NO_UPPER,
+    TOKEN_KIND_GE,
+    TOKEN_KIND_COMMA,
+    TOKEN_KIND_OR,
+    TOKEN_KIND_LT,
+    TOKEN_KIND_LE,
+    TOKEN_KIND_EQUALS,
+    TOKEN_KIND_DOT,
+    TOKEN_KIND_GT,
+    TOKEN_KIND_AND,
+    TOKEN_KIND_OPEN_PAREN,
+    TOKEN_KIND_YES,
+    TOKEN_KIND_CLOSE_PAREN,
+    TOKEN_KIND_NE,
+    TOKEN_KIND_YES_UPPER,
+};
+
+@interface ExpressionActionsParser : PKSParser
+
+@end
+
