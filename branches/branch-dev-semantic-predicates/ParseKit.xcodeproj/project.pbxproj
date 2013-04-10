@@ -511,6 +511,9 @@
 		D38BC8A91714AF1B00BF530D /* DotQuestionParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC8A81714AF1B00BF530D /* DotQuestionParserTest.m */; };
 		D38BC8AB1714AF4200BF530D /* dot_question.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D38BC8AA1714AF4100BF530D /* dot_question.grammar */; };
 		D38BC8AE1714AF5900BF530D /* DotQuestionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC8AD1714AF5800BF530D /* DotQuestionParser.m */; };
+		D38BC8B11716006D00BF530D /* SemanticPredicateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC8B01716006C00BF530D /* SemanticPredicateParser.m */; };
+		D38BC8B31716008E00BF530D /* semantic_predicate.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D38BC8B21716008D00BF530D /* semantic_predicate.grammar */; };
+		D38BC8B6171600A900BF530D /* SemanticPredicateParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC8B5171600A900BF530D /* SemanticPredicateParserTest.m */; };
 		D395528D16F16DA200D326FD /* PKBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395524916F16BA600D326FD /* PKBaseNode.m */; };
 		D395528E16F16DA200D326FD /* PKRootNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395527F16F16C5F00D326FD /* PKRootNode.m */; };
 		D395528F16F16DA200D326FD /* PKConstantNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D395525116F16BA600D326FD /* PKConstantNode.m */; };
@@ -1516,6 +1519,11 @@
 		D38BC8AA1714AF4100BF530D /* dot_question.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dot_question.grammar; path = res/dot_question.grammar; sourceTree = "<group>"; };
 		D38BC8AC1714AF5700BF530D /* DotQuestionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DotQuestionParser.h; path = test/DotQuestionParser.h; sourceTree = "<group>"; };
 		D38BC8AD1714AF5800BF530D /* DotQuestionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DotQuestionParser.m; path = test/DotQuestionParser.m; sourceTree = "<group>"; };
+		D38BC8AF1716006B00BF530D /* SemanticPredicateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SemanticPredicateParser.h; path = test/SemanticPredicateParser.h; sourceTree = "<group>"; };
+		D38BC8B01716006C00BF530D /* SemanticPredicateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SemanticPredicateParser.m; path = test/SemanticPredicateParser.m; sourceTree = "<group>"; };
+		D38BC8B21716008D00BF530D /* semantic_predicate.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = semantic_predicate.grammar; path = res/semantic_predicate.grammar; sourceTree = "<group>"; };
+		D38BC8B4171600A900BF530D /* SemanticPredicateParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SemanticPredicateParserTest.h; path = test/SemanticPredicateParserTest.h; sourceTree = "<group>"; };
+		D38BC8B5171600A900BF530D /* SemanticPredicateParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SemanticPredicateParserTest.m; path = test/SemanticPredicateParserTest.m; sourceTree = "<group>"; };
 		D38DD9E70EC29F260070BC4D /* nyt.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = nyt.html; path = res/nyt.html; sourceTree = "<group>"; };
 		D38E97CA1061CF6500739C39 /* TDTokenizerBlocksTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTokenizerBlocksTest.h; path = test/TDTokenizerBlocksTest.h; sourceTree = "<group>"; };
 		D38E97CB1061CF6500739C39 /* TDTokenizerBlocksTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTokenizerBlocksTest.m; path = test/TDTokenizerBlocksTest.m; sourceTree = "<group>"; };
@@ -2790,6 +2798,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D38BC8AF1716006B00BF530D /* SemanticPredicateParser.h */,
+				D38BC8B01716006C00BF530D /* SemanticPredicateParser.m */,
 				D38BC89F1714A75A00BF530D /* UnfinishedSeqParser.h */,
 				D38BC8A01714A75A00BF530D /* UnfinishedSeqParser.m */,
 				D38BC896171494FE00BF530D /* GreedParser.h */,
@@ -2839,6 +2849,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D38BC8B4171600A900BF530D /* SemanticPredicateParserTest.h */,
+				D38BC8B5171600A900BF530D /* SemanticPredicateParserTest.m */,
 				D38BC8A41714A78700BF530D /* UnfinishedSeqParserTest.h */,
 				D38BC8A51714A78800BF530D /* UnfinishedSeqParserTest.m */,
 				D38BC891171494CD00BF530D /* GreedParserTest.h */,
@@ -2888,6 +2900,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D38BC8B21716008D00BF530D /* semantic_predicate.grammar */,
 				D38BC8A21714A77700BF530D /* unfinished_seq.grammar */,
 				D38BC894171494E800BF530D /* greed.grammar */,
 				D38BC8AA1714AF4100BF530D /* dot_question.grammar */,
@@ -4008,6 +4021,7 @@
 				D38BC895171494E900BF530D /* greed.grammar in Resources */,
 				D38BC8A31714A77700BF530D /* unfinished_seq.grammar in Resources */,
 				D38BC8AB1714AF4200BF530D /* dot_question.grammar in Resources */,
+				D38BC8B31716008E00BF530D /* semantic_predicate.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4384,6 +4398,8 @@
 				D38BC8A61714A78800BF530D /* UnfinishedSeqParserTest.m in Sources */,
 				D38BC8A91714AF1B00BF530D /* DotQuestionParserTest.m in Sources */,
 				D38BC8AE1714AF5900BF530D /* DotQuestionParser.m in Sources */,
+				D38BC8B11716006D00BF530D /* SemanticPredicateParser.m in Sources */,
+				D38BC8B6171600A900BF530D /* SemanticPredicateParserTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
