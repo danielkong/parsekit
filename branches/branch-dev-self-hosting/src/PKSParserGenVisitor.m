@@ -58,7 +58,7 @@
     self = [super init];
     if (self) {
         self.enableHybridDFA = YES;
-        self.enableMemoization = NO;
+        self.enableMemoization = YES;
         
         [self setUpTemplateEngine];
     }

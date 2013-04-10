@@ -44,6 +44,8 @@
 @end
 
 @interface UnfinishedSeqParser ()
+@property (nonatomic, retain) NSMutableDictionary *a_memo;
+@property (nonatomic, retain) NSMutableDictionary *b_memo;
 @end
 
 @implementation UnfinishedSeqParser
@@ -54,10 +56,23 @@
         self._tokenKindTab[@"a"] = @(TOKEN_KIND_A);
         self._tokenKindTab[@"b"] = @(TOKEN_KIND_B);
 
+        self.a_memo = [NSMutableDictionary dictionary];
+        self.b_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
+- (void)dealloc {
+    self.a_memo = nil;
+    self.b_memo = nil;
+
+    [super dealloc];
+}
+
+- (void)_clearMemo {
+    [_a_memo removeAllObjects];
+    [_b_memo removeAllObjects];
+}
 
 - (void)_start {
     
@@ -68,18 +83,26 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)a {
+- (void)__a {
     
     [self match:TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
-- (void)b {
+- (void)a {
+    [self parseRule:@selector(__a) withMemo:_a_memo];
+}
+
+- (void)__b {
     
     [self match:TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
+}
+
+- (void)b {
+    [self parseRule:@selector(__b) withMemo:_b_memo];
 }
 
 @end

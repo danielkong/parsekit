@@ -44,6 +44,7 @@
 @end
 
 @interface DotQuestionParser ()
+@property (nonatomic, retain) NSMutableDictionary *a_memo;
 @end
 
 @implementation DotQuestionParser
@@ -53,10 +54,20 @@
 	if (self) {
         self._tokenKindTab[@"a"] = @(TOKEN_KIND_A);
 
+        self.a_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
+- (void)dealloc {
+    self.a_memo = nil;
+
+    [super dealloc];
+}
+
+- (void)_clearMemo {
+    [_a_memo removeAllObjects];
+}
 
 - (void)_start {
     
@@ -69,11 +80,15 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)a {
+- (void)__a {
     
     [self match:TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
+}
+
+- (void)a {
+    [self parseRule:@selector(__a) withMemo:_a_memo];
 }
 
 @end

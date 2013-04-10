@@ -44,6 +44,12 @@
 @end
 
 @interface AltParser ()
+@property (nonatomic, retain) NSMutableDictionary *s_memo;
+@property (nonatomic, retain) NSMutableDictionary *a_memo;
+@property (nonatomic, retain) NSMutableDictionary *b_memo;
+@property (nonatomic, retain) NSMutableDictionary *foo_memo;
+@property (nonatomic, retain) NSMutableDictionary *bar_memo;
+@property (nonatomic, retain) NSMutableDictionary *baz_memo;
 @end
 
 @implementation AltParser
@@ -55,10 +61,35 @@
         self._tokenKindTab[@"bar"] = @(TOKEN_KIND_BAR);
         self._tokenKindTab[@"baz"] = @(TOKEN_KIND_BAZ);
 
+        self.s_memo = [NSMutableDictionary dictionary];
+        self.a_memo = [NSMutableDictionary dictionary];
+        self.b_memo = [NSMutableDictionary dictionary];
+        self.foo_memo = [NSMutableDictionary dictionary];
+        self.bar_memo = [NSMutableDictionary dictionary];
+        self.baz_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
+- (void)dealloc {
+    self.s_memo = nil;
+    self.a_memo = nil;
+    self.b_memo = nil;
+    self.foo_memo = nil;
+    self.bar_memo = nil;
+    self.baz_memo = nil;
+
+    [super dealloc];
+}
+
+- (void)_clearMemo {
+    [_s_memo removeAllObjects];
+    [_a_memo removeAllObjects];
+    [_b_memo removeAllObjects];
+    [_foo_memo removeAllObjects];
+    [_bar_memo removeAllObjects];
+    [_baz_memo removeAllObjects];
+}
 
 - (void)_start {
     
@@ -67,7 +98,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
-- (void)s {
+- (void)__s {
     
     if ([self speculate:^{ [self a]; }]) {
         [self a]; 
@@ -80,7 +111,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
-- (void)a {
+- (void)s {
+    [self parseRule:@selector(__s) withMemo:_s_memo];
+}
+
+- (void)__a {
     
     [self foo]; 
     [self baz]; 
@@ -88,7 +123,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
-- (void)b {
+- (void)a {
+    [self parseRule:@selector(__a) withMemo:_a_memo];
+}
+
+- (void)__b {
     
     if ([self speculate:^{ [self a]; }]) {
         [self a]; 
@@ -102,25 +141,41 @@
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
 
-- (void)foo {
+- (void)b {
+    [self parseRule:@selector(__b) withMemo:_b_memo];
+}
+
+- (void)__foo {
     
     [self match:TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
 
-- (void)bar {
+- (void)foo {
+    [self parseRule:@selector(__foo) withMemo:_foo_memo];
+}
+
+- (void)__bar {
     
     [self match:TOKEN_KIND_BAR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
 }
 
-- (void)baz {
+- (void)bar {
+    [self parseRule:@selector(__bar) withMemo:_bar_memo];
+}
+
+- (void)__baz {
     
     [self match:TOKEN_KIND_BAZ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBaz:)];
+}
+
+- (void)baz {
+    [self parseRule:@selector(__baz) withMemo:_baz_memo];
 }
 
 @end
