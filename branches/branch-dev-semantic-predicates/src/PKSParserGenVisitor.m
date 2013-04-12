@@ -489,7 +489,7 @@
     NSString *result = @"";
     
     if (node.semanticPredicateNode) {
-        NSString *predBody = node.semanticPredicateNode.source;
+        NSString *predBody = [node.semanticPredicateNode.source stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSAssert([predBody length], @"");
         BOOL isStat = [predBody rangeOfString:@";"].length > 0;
         

@@ -461,7 +461,7 @@
     } else if ([self predicts:TOKEN_KIND_NO]) {
         [self match:TOKEN_KIND_NO]; 
     } else if ([self predicts:TOKEN_KIND_NO_UPPER]) {
-        [self testAndThrow:(id)^{  return NE(LS(1), @"NO");  }]; 
+        [self testAndThrow:(id)^{ return NE(LS(1), @"NO"); }]; 
         [self match:TOKEN_KIND_NO_UPPER]; 
     } else {
         [self raise:@"no viable alternative found in bool"];

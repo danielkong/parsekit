@@ -79,7 +79,7 @@
 
 - (void)__nonReserved {
     
-    [self testAndThrow:(id)^{ return  ![@[@"goto", @"const"] containsObject:LS(1)] ; }]; 
+    [self testAndThrow:(id)^{ return ![@[@"goto", @"const"] containsObject:LS(1)]; }]; 
     [self Word]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNonReserved:)];
