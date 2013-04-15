@@ -237,6 +237,14 @@
 		D3382FEF171C8CE600CCE513 /* PKSTokenKindDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382FA0171C811B00CCE513 /* PKSTokenKindDescriptor.h */; };
 		D3382FF0171C8CE600CCE513 /* PKSParserGenVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D30226F8170202DD00594F16 /* PKSParserGenVisitor.h */; };
 		D3382FF1171C8CE900CCE513 /* PKSRecognitionException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382FD9171C8CB200CCE513 /* PKSRecognitionException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3383032171C923700CCE513 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3383031171C923700CCE513 /* Cocoa.framework */; };
+		D338303C171C923700CCE513 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D338303A171C923700CCE513 /* InfoPlist.strings */; };
+		D338303E171C923700CCE513 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D338303D171C923700CCE513 /* main.m */; };
+		D3383042171C923700CCE513 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D3383040171C923700CCE513 /* Credits.rtf */; };
+		D3383045171C923700CCE513 /* PGDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D3383044171C923700CCE513 /* PGDocument.m */; };
+		D3383048171C923700CCE513 /* PGDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3383046171C923700CCE513 /* PGDocument.xib */; };
+		D338304B171C923700CCE513 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3383049171C923700CCE513 /* MainMenu.xib */; };
+		D3383051171C924D00CCE513 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D3385FDA0FCFB1FF003BF729 /* TDPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */; };
 		D33DC1991165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
 		D33DC19B1165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
@@ -989,6 +997,13 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = TODParseKit;
 		};
+		D338304F171C924300CCE513 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = ParseKit;
+		};
 		D341850F0E520D6F0081B0DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1270,6 +1285,20 @@
 		D3382FA1171C811B00CCE513 /* PKSTokenKindDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSTokenKindDescriptor.m; path = src/PKSTokenKindDescriptor.m; sourceTree = "<group>"; };
 		D3382FD6171C8C9100CCE513 /* PKSRecognitionException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSRecognitionException.m; path = src/PKSRecognitionException.m; sourceTree = "<group>"; };
 		D3382FD9171C8CB200CCE513 /* PKSRecognitionException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSRecognitionException.h; path = include/ParseKit/PKSRecognitionException.h; sourceTree = "<group>"; };
+		D338302F171C923700CCE513 /* ParserGenApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParserGenApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3383031171C923700CCE513 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		D3383034171C923700CCE513 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		D3383035171C923700CCE513 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D3383036171C923700CCE513 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D3383039171C923700CCE513 /* ParserGenApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ParserGenApp-Info.plist"; sourceTree = "<group>"; };
+		D338303B171C923700CCE513 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D338303D171C923700CCE513 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D338303F171C923700CCE513 /* ParserGenApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ParserGenApp-Prefix.pch"; sourceTree = "<group>"; };
+		D3383041171C923700CCE513 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		D3383043171C923700CCE513 /* PGDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGDocument.h; sourceTree = "<group>"; };
+		D3383044171C923700CCE513 /* PGDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PGDocument.m; sourceTree = "<group>"; };
+		D3383047171C923700CCE513 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PGDocument.xib; sourceTree = "<group>"; };
+		D338304A171C923700CCE513 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		D3385FD70FCFB1FF003BF729 /* TDPredicateEvaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPredicateEvaluator.h; path = test/TDPredicateEvaluator.h; sourceTree = "<group>"; };
 		D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPredicateEvaluator.m; path = test/TDPredicateEvaluator.m; sourceTree = "<group>"; };
 		D3385FDB0FCFB227003BF729 /* TDPredicateEvaluatorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPredicateEvaluatorTest.h; path = test/TDPredicateEvaluatorTest.h; sourceTree = "<group>"; };
@@ -1863,6 +1892,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D338302C171C923700CCE513 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3383051171C924D00CCE513 /* ParseKit.framework in Frameworks */,
+				D3383032171C923700CCE513 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D34185020E520D3F0081B0DC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1943,6 +1981,7 @@
 				D3FDC5830FFC4BFC00F1F797 /* libparsekit.a */,
 				D37D8DC61571A4F700CDB822 /* Tests.octest */,
 				D3D9753216E7F36700D55EAB /* libParseKit.a */,
+				D338302F171C923700CCE513 /* ParserGenApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1954,11 +1993,13 @@
 				D3C7D8220A411F31005DD154 /* ParseKit Tests */,
 				D36E98CB0E58C08F00496BD3 /* DebugApp */,
 				D334941B0E29641300406085 /* DemoApp */,
+				D3383037171C923700CCE513 /* ParserGenApp */,
 				D380BA950F0F1C450009EC13 /* JSParseKit Framework */,
 				D389F2CA0F196ACF00558235 /* JSDemoApp */,
 				32C88DFF0371C24200C91783 /* Other Sources (not used) */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				D3383030171C923700CCE513 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
 			name = TODParseKit;
@@ -2280,6 +2321,49 @@
 				D3B22A571703D03F00446945 /* PKSTemplates */,
 			);
 			name = static;
+			sourceTree = "<group>";
+		};
+		D3383030171C923700CCE513 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3383031171C923700CCE513 /* Cocoa.framework */,
+				D3383033171C923700CCE513 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3383033171C923700CCE513 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3383034171C923700CCE513 /* AppKit.framework */,
+				D3383035171C923700CCE513 /* CoreData.framework */,
+				D3383036171C923700CCE513 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		D3383037171C923700CCE513 /* ParserGenApp */ = {
+			isa = PBXGroup;
+			children = (
+				D3383043171C923700CCE513 /* PGDocument.h */,
+				D3383044171C923700CCE513 /* PGDocument.m */,
+				D3383046171C923700CCE513 /* PGDocument.xib */,
+				D3383049171C923700CCE513 /* MainMenu.xib */,
+				D3383038171C923700CCE513 /* Supporting Files */,
+			);
+			path = ParserGenApp;
+			sourceTree = "<group>";
+		};
+		D3383038171C923700CCE513 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D3383039171C923700CCE513 /* ParserGenApp-Info.plist */,
+				D338303A171C923700CCE513 /* InfoPlist.strings */,
+				D338303D171C923700CCE513 /* main.m */,
+				D338303F171C923700CCE513 /* ParserGenApp-Prefix.pch */,
+				D3383040171C923700CCE513 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		D3407DCF1701091D0047F5FC /* AST */ = {
@@ -3770,6 +3854,24 @@
 			productReference = D33494100E2963FD00406085 /* DemoApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D338302E171C923700CCE513 /* ParserGenApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D338304E171C923700CCE513 /* Build configuration list for PBXNativeTarget "ParserGenApp" */;
+			buildPhases = (
+				D338302B171C923700CCE513 /* Sources */,
+				D338302C171C923700CCE513 /* Frameworks */,
+				D338302D171C923700CCE513 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3383050171C924300CCE513 /* PBXTargetDependency */,
+			);
+			name = ParserGenApp;
+			productName = ParserGenApp;
+			productReference = D338302F171C923700CCE513 /* ParserGenApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D34185030E520D3F0081B0DC /* DebugApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D34185090E520D410081B0DC /* Build configuration list for PBXNativeTarget "DebugApp" */;
@@ -3912,6 +4014,7 @@
 				D334940F0E2963FD00406085 /* DemoApp */,
 				D34185030E520D3F0081B0DC /* DebugApp */,
 				D389F2020F196A7500558235 /* JSDemoApp */,
+				D338302E171C923700CCE513 /* ParserGenApp */,
 			);
 		};
 /* End PBXProject section */
@@ -3966,6 +4069,17 @@
 				D3F562A410266E6300DD6DB1 /* TreesView.xib in Resources */,
 				D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */,
 				D3407DD217010A970047F5FC /* ASTView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D338302D171C923700CCE513 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D338303C171C923700CCE513 /* InfoPlist.strings in Resources */,
+				D3383042171C923700CCE513 /* Credits.rtf in Resources */,
+				D3383048171C923700CCE513 /* PGDocument.xib in Resources */,
+				D338304B171C923700CCE513 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4239,6 +4353,15 @@
 				D3407DD017010A8B0047F5FC /* DemoASTViewController.m in Sources */,
 				D3407DD117010A8F0047F5FC /* PKASTView.m in Sources */,
 				D3407DD517010AC30047F5FC /* DemoBaseViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D338302B171C923700CCE513 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D338303E171C923700CCE513 /* main.m in Sources */,
+				D3383045171C923700CCE513 /* PGDocument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4701,6 +4824,11 @@
 			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;
 			targetProxy = D334949F0E296AA900406085 /* PBXContainerItemProxy */;
 		};
+		D3383050171C924300CCE513 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;
+			targetProxy = D338304F171C924300CCE513 /* PBXContainerItemProxy */;
+		};
 		D34185100E520D6F0081B0DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;
@@ -4738,6 +4866,38 @@
 				D337F07D15D5AE7B00C83AED /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D338303A171C923700CCE513 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D338303B171C923700CCE513 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D3383040171C923700CCE513 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3383041171C923700CCE513 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		D3383046171C923700CCE513 /* PGDocument.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3383047171C923700CCE513 /* en */,
+			);
+			name = PGDocument.xib;
+			sourceTree = "<group>";
+		};
+		D3383049171C923700CCE513 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D338304A171C923700CCE513 /* en */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -4873,6 +5033,65 @@
 				PRODUCT_NAME = DemoApp;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		D338304C171C923700CCE513 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ParserGenApp/ParserGenApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "ParserGenApp/ParserGenApp-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D338304D171C923700CCE513 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ParserGenApp/ParserGenApp-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "ParserGenApp/ParserGenApp-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
@@ -5215,6 +5434,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
+		};
+		D338304E171C923700CCE513 /* Build configuration list for PBXNativeTarget "ParserGenApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D338304C171C923700CCE513 /* Debug */,
+				D338304D171C923700CCE513 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		D34185090E520D410081B0DC /* Build configuration list for PBXNativeTarget "DebugApp" */ = {
 			isa = XCConfigurationList;
