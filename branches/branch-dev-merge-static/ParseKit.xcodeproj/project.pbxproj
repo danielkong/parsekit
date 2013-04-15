@@ -166,76 +166,23 @@
 		D3382F9F171C810B00CCE513 /* PKSTokenAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D3382F9E171C810B00CCE513 /* PKSTokenAssembly.m */; };
 		D3382FA2171C811B00CCE513 /* PKSTokenKindDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382FA0171C811B00CCE513 /* PKSTokenKindDescriptor.h */; };
 		D3382FA3171C811B00CCE513 /* PKSTokenKindDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3382FA1171C811B00CCE513 /* PKSTokenKindDescriptor.m */; };
-		D3382FA4171C812D00CCE513 /* PKSParserGenVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D30226F8170202DD00594F16 /* PKSParserGenVisitor.h */; };
-		D3382FA5171C813300CCE513 /* PKSParserGenVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D30226F9170202DD00594F16 /* PKSParserGenVisitor.m */; };
-		D3382FA9171C819F00CCE513 /* MGTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270A170208C800594F16 /* MGTemplateEngine.m */; };
-		D3382FAB171C81B100CCE513 /* MGTemplateStandardMarkers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022710170208C800594F16 /* MGTemplateStandardMarkers.m */; };
-		D3382FAC171C81B100CCE513 /* MGTemplateStandardFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270E170208C800594F16 /* MGTemplateStandardFilters.m */; };
-		D3382FAD171C81B100CCE513 /* ICUTemplateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022707170208C800594F16 /* ICUTemplateMatcher.m */; };
-		D3382FAF171C81B100CCE513 /* NSArray_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022712170208C800594F16 /* NSArray_DeepMutableCopy.m */; };
-		D3382FB0171C81B100CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022714170208C800594F16 /* NSDictionary_DeepMutableCopy.m */; };
-		D3382FB1171C82F800CCE513 /* PKSClassInterfaceTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A5E1703DB9700446945 /* PKSClassInterfaceTemplate.txt */; };
-		D3382FB2171C82F800CCE513 /* PKSClassImplementationTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D302272A17020F9400594F16 /* PKSClassImplementationTemplate.txt */; };
-		D3382FB3171C82F800CCE513 /* PKSActionTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3017075C3000BA9DBF /* PKSActionTemplate.txt */; };
-		D3382FB4171C82F800CCE513 /* PKSMethodTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3517023F1200446945 /* PKSMethodTemplate.txt */; };
-		D3382FB5171C82F800CCE513 /* PKSMethodMemoizationTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D38BC88E1710AF6D00BF530D /* PKSMethodMemoizationTemplate.txt */; };
-		D3382FB6171C82F800CCE513 /* PKSMethodCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A37170241F500446945 /* PKSMethodCallTemplate.txt */; };
-		D3382FB7171C82F800CCE513 /* PKSMethodSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3083ABD1705F73500DA6F95 /* PKSMethodSpeculateTemplate.txt */; };
-		D3382FB8171C82F800CCE513 /* PKSMatchCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3B170264FD00446945 /* PKSMatchCallTemplate.txt */; };
-		D3382FB9171C82F800CCE513 /* PKSMatchDelimitedStringTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F5F170D011E001796F4 /* PKSMatchDelimitedStringTemplate.txt */; };
-		D3382FBA171C82F800CCE513 /* PKSPatternPrefixTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F6B170D111B001796F4 /* PKSPatternPrefixTemplate.txt */; };
-		D3382FBB171C82F800CCE513 /* PKSMatchPatternTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F61170D0E71001796F4 /* PKSMatchPatternTemplate.txt */; };
-		D3382FBC171C82F800CCE513 /* PKSSemanticPredicateTestExprTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3A1708C80600BA9DBF /* PKSSemanticPredicateTestExprTemplate.txt */; };
-		D3382FBD171C82F800CCE513 /* PKSSemanticPredicateTestStatTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3C1708C98B00BA9DBF /* PKSSemanticPredicateTestStatTemplate.txt */; };
-		D3382FBE171C82F800CCE513 /* PKSSemanticPredicateTestAndThrowExprTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A5017091FCA00BA9DBF /* PKSSemanticPredicateTestAndThrowExprTemplate.txt */; };
-		D3382FBF171C82F800CCE513 /* PKSSemanticPredicateTestAndThrowStatTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A5117091FCB00BA9DBF /* PKSSemanticPredicateTestAndThrowStatTemplate.txt */; };
-		D3382FC0171C82F800CCE513 /* PKSPredictIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3F17026FBE00446945 /* PKSPredictIfTemplate.txt */; };
-		D3382FC1171C82F800CCE513 /* PKSSpeculateIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */; };
-		D3382FC2171C82F800CCE513 /* PKSPredictElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3D17026FBE00446945 /* PKSPredictElseIfTemplate.txt */; };
-		D3382FC3171C82F800CCE513 /* PKSSpeculateElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */; };
-		D3382FC4171C82F800CCE513 /* PKSPredictElseTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3E17026FBE00446945 /* PKSPredictElseTemplate.txt */; };
-		D3382FC5171C82F800CCE513 /* PKSPredictEndIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A4E170918E700BA9DBF /* PKSPredictEndIfTemplate.txt */; };
-		D3382FC6171C82F800CCE513 /* PKSOptionalNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A431702993B00446945 /* PKSOptionalNonTerminalTemplate.txt */; };
-		D3382FC7171C82F800CCE513 /* PKSOptionalTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A76170A460800BA9DBF /* PKSOptionalTerminalTemplate.txt */; };
-		D3382FC8171C82F800CCE513 /* PKSMultipleNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A481702A11600446945 /* PKSMultipleNonTerminalTemplate.txt */; };
-		D3382FC9171C82F800CCE513 /* PKSMultipleTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A471702A11600446945 /* PKSMultipleTerminalTemplate.txt */; };
-		D3382FCA171C82F800CCE513 /* PKSRepetitionNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A4C1702A1F800446945 /* PKSRepetitionNonTerminalTemplate.txt */; };
-		D3382FCB171C82F800CCE513 /* PKSRepetitionTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionTerminalTemplate.txt */; };
-		D3382FCC171C82F800CCE513 /* PKSNegationNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4B170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt */; };
-		D3382FCD171C82F800CCE513 /* PKSNegationTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4D170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt */; };
 		D3382FCE171C8C6C00CCE513 /* PKSParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382F98171C80E100CCE513 /* PKSParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3382FCF171C8C6C00CCE513 /* PKSTokenAssembly.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382F9C171C80F900CCE513 /* PKSTokenAssembly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3382FD0171C8C7300CCE513 /* PKSTokenKindDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382FA0171C811B00CCE513 /* PKSTokenKindDescriptor.h */; };
-		D3382FD1171C8C7300CCE513 /* PKSParserGenVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D30226F8170202DD00594F16 /* PKSParserGenVisitor.h */; };
 		D3382FD2171C8C7900CCE513 /* PKSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3382F9A171C80EB00CCE513 /* PKSParser.m */; };
 		D3382FD3171C8C7900CCE513 /* PKSTokenAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D3382F9E171C810B00CCE513 /* PKSTokenAssembly.m */; };
 		D3382FD4171C8C7900CCE513 /* PKSTokenKindDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3382FA1171C811B00CCE513 /* PKSTokenKindDescriptor.m */; };
-		D3382FD5171C8C7900CCE513 /* PKSParserGenVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D30226F9170202DD00594F16 /* PKSParserGenVisitor.m */; };
 		D3382FD7171C8C9200CCE513 /* PKSRecognitionException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3382FD6171C8C9100CCE513 /* PKSRecognitionException.m */; };
 		D3382FD8171C8C9200CCE513 /* PKSRecognitionException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3382FD6171C8C9100CCE513 /* PKSRecognitionException.m */; };
 		D3382FDA171C8CB200CCE513 /* PKSRecognitionException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382FD9171C8CB200CCE513 /* PKSRecognitionException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3382FDB171C8CB200CCE513 /* PKSRecognitionException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382FD9171C8CB200CCE513 /* PKSRecognitionException.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3382FDC171C8CC500CCE513 /* MGTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270A170208C800594F16 /* MGTemplateEngine.m */; };
-		D3382FDD171C8CC500CCE513 /* MGTemplateStandardMarkers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022710170208C800594F16 /* MGTemplateStandardMarkers.m */; };
-		D3382FDE171C8CC500CCE513 /* MGTemplateStandardFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270E170208C800594F16 /* MGTemplateStandardFilters.m */; };
-		D3382FDF171C8CC500CCE513 /* ICUTemplateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022707170208C800594F16 /* ICUTemplateMatcher.m */; };
-		D3382FE0171C8CC500CCE513 /* NSArray_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022712170208C800594F16 /* NSArray_DeepMutableCopy.m */; };
-		D3382FE1171C8CC500CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022714170208C800594F16 /* NSDictionary_DeepMutableCopy.m */; };
-		D3382FE2171C8CCB00CCE513 /* MGTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270A170208C800594F16 /* MGTemplateEngine.m */; };
-		D3382FE3171C8CCB00CCE513 /* MGTemplateStandardMarkers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022710170208C800594F16 /* MGTemplateStandardMarkers.m */; };
-		D3382FE4171C8CCB00CCE513 /* MGTemplateStandardFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270E170208C800594F16 /* MGTemplateStandardFilters.m */; };
-		D3382FE5171C8CCB00CCE513 /* ICUTemplateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022707170208C800594F16 /* ICUTemplateMatcher.m */; };
-		D3382FE6171C8CCB00CCE513 /* NSArray_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022712170208C800594F16 /* NSArray_DeepMutableCopy.m */; };
-		D3382FE7171C8CCB00CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022714170208C800594F16 /* NSDictionary_DeepMutableCopy.m */; };
 		D3382FE8171C8CD300CCE513 /* PKSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3382F9A171C80EB00CCE513 /* PKSParser.m */; };
 		D3382FE9171C8CD300CCE513 /* PKSTokenAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D3382F9E171C810B00CCE513 /* PKSTokenAssembly.m */; };
 		D3382FEA171C8CD300CCE513 /* PKSTokenKindDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3382FA1171C811B00CCE513 /* PKSTokenKindDescriptor.m */; };
-		D3382FEB171C8CD300CCE513 /* PKSParserGenVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D30226F9170202DD00594F16 /* PKSParserGenVisitor.m */; };
 		D3382FEC171C8CD300CCE513 /* PKSRecognitionException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3382FD6171C8C9100CCE513 /* PKSRecognitionException.m */; };
 		D3382FED171C8CDD00CCE513 /* PKSParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382F98171C80E100CCE513 /* PKSParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3382FEE171C8CE100CCE513 /* PKSTokenAssembly.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382F9C171C80F900CCE513 /* PKSTokenAssembly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3382FEF171C8CE600CCE513 /* PKSTokenKindDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382FA0171C811B00CCE513 /* PKSTokenKindDescriptor.h */; };
-		D3382FF0171C8CE600CCE513 /* PKSParserGenVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D30226F8170202DD00594F16 /* PKSParserGenVisitor.h */; };
 		D3382FF1171C8CE900CCE513 /* PKSRecognitionException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382FD9171C8CB200CCE513 /* PKSRecognitionException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3383032171C923700CCE513 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3383031171C923700CCE513 /* Cocoa.framework */; };
 		D338303C171C923700CCE513 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D338303A171C923700CCE513 /* InfoPlist.strings */; };
@@ -245,6 +192,82 @@
 		D3383048171C923700CCE513 /* PGDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3383046171C923700CCE513 /* PGDocument.xib */; };
 		D338304B171C923700CCE513 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3383049171C923700CCE513 /* MainMenu.xib */; };
 		D3383051171C924D00CCE513 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
+		D3383052171CA2DC00CCE513 /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
+		D3383053171CA2EC00CCE513 /* PKSParserGenVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D30226F9170202DD00594F16 /* PKSParserGenVisitor.m */; };
+		D3383054171CA2ED00CCE513 /* PKSParserGenVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D30226F9170202DD00594F16 /* PKSParserGenVisitor.m */; };
+		D3383072171CA3BA00CCE513 /* PKSClassInterfaceTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A5E1703DB9700446945 /* PKSClassInterfaceTemplate.txt */; };
+		D3383073171CA3BA00CCE513 /* PKSClassImplementationTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D302272A17020F9400594F16 /* PKSClassImplementationTemplate.txt */; };
+		D3383074171CA3BA00CCE513 /* PKSActionTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3017075C3000BA9DBF /* PKSActionTemplate.txt */; };
+		D3383075171CA3BA00CCE513 /* PKSMethodTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3517023F1200446945 /* PKSMethodTemplate.txt */; };
+		D3383076171CA3BA00CCE513 /* PKSMethodMemoizationTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D38BC88E1710AF6D00BF530D /* PKSMethodMemoizationTemplate.txt */; };
+		D3383077171CA3BA00CCE513 /* PKSMethodCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A37170241F500446945 /* PKSMethodCallTemplate.txt */; };
+		D3383078171CA3BA00CCE513 /* PKSMethodSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3083ABD1705F73500DA6F95 /* PKSMethodSpeculateTemplate.txt */; };
+		D3383079171CA3BA00CCE513 /* PKSMatchCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3B170264FD00446945 /* PKSMatchCallTemplate.txt */; };
+		D338307A171CA3BA00CCE513 /* PKSMatchDelimitedStringTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F5F170D011E001796F4 /* PKSMatchDelimitedStringTemplate.txt */; };
+		D338307B171CA3BA00CCE513 /* PKSPatternPrefixTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F6B170D111B001796F4 /* PKSPatternPrefixTemplate.txt */; };
+		D338307C171CA3BA00CCE513 /* PKSMatchPatternTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F61170D0E71001796F4 /* PKSMatchPatternTemplate.txt */; };
+		D338307D171CA3BA00CCE513 /* PKSSemanticPredicateTestExprTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3A1708C80600BA9DBF /* PKSSemanticPredicateTestExprTemplate.txt */; };
+		D338307E171CA3BA00CCE513 /* PKSSemanticPredicateTestStatTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3C1708C98B00BA9DBF /* PKSSemanticPredicateTestStatTemplate.txt */; };
+		D338307F171CA3BA00CCE513 /* PKSSemanticPredicateTestAndThrowExprTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A5017091FCA00BA9DBF /* PKSSemanticPredicateTestAndThrowExprTemplate.txt */; };
+		D3383080171CA3BA00CCE513 /* PKSSemanticPredicateTestAndThrowStatTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A5117091FCB00BA9DBF /* PKSSemanticPredicateTestAndThrowStatTemplate.txt */; };
+		D3383081171CA3BA00CCE513 /* PKSPredictIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3F17026FBE00446945 /* PKSPredictIfTemplate.txt */; };
+		D3383082171CA3BA00CCE513 /* PKSSpeculateIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */; };
+		D3383083171CA3BA00CCE513 /* PKSPredictElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3D17026FBE00446945 /* PKSPredictElseIfTemplate.txt */; };
+		D3383084171CA3BA00CCE513 /* PKSSpeculateElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */; };
+		D3383085171CA3BA00CCE513 /* PKSPredictElseTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3E17026FBE00446945 /* PKSPredictElseTemplate.txt */; };
+		D3383086171CA3BA00CCE513 /* PKSPredictEndIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A4E170918E700BA9DBF /* PKSPredictEndIfTemplate.txt */; };
+		D3383087171CA3BA00CCE513 /* PKSOptionalNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A431702993B00446945 /* PKSOptionalNonTerminalTemplate.txt */; };
+		D3383088171CA3BA00CCE513 /* PKSOptionalTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A76170A460800BA9DBF /* PKSOptionalTerminalTemplate.txt */; };
+		D3383089171CA3BA00CCE513 /* PKSMultipleNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A481702A11600446945 /* PKSMultipleNonTerminalTemplate.txt */; };
+		D338308A171CA3BA00CCE513 /* PKSMultipleTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A471702A11600446945 /* PKSMultipleTerminalTemplate.txt */; };
+		D338308B171CA3BA00CCE513 /* PKSRepetitionNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A4C1702A1F800446945 /* PKSRepetitionNonTerminalTemplate.txt */; };
+		D338308C171CA3BA00CCE513 /* PKSRepetitionTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionTerminalTemplate.txt */; };
+		D338308D171CA3BA00CCE513 /* PKSNegationNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4B170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt */; };
+		D338308E171CA3BA00CCE513 /* PKSNegationTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4D170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt */; };
+		D338308F171CA3BB00CCE513 /* PKSClassInterfaceTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A5E1703DB9700446945 /* PKSClassInterfaceTemplate.txt */; };
+		D3383090171CA3BB00CCE513 /* PKSClassImplementationTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D302272A17020F9400594F16 /* PKSClassImplementationTemplate.txt */; };
+		D3383091171CA3BB00CCE513 /* PKSActionTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3017075C3000BA9DBF /* PKSActionTemplate.txt */; };
+		D3383092171CA3BB00CCE513 /* PKSMethodTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3517023F1200446945 /* PKSMethodTemplate.txt */; };
+		D3383093171CA3BB00CCE513 /* PKSMethodMemoizationTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D38BC88E1710AF6D00BF530D /* PKSMethodMemoizationTemplate.txt */; };
+		D3383094171CA3BB00CCE513 /* PKSMethodCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A37170241F500446945 /* PKSMethodCallTemplate.txt */; };
+		D3383095171CA3BB00CCE513 /* PKSMethodSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3083ABD1705F73500DA6F95 /* PKSMethodSpeculateTemplate.txt */; };
+		D3383096171CA3BB00CCE513 /* PKSMatchCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3B170264FD00446945 /* PKSMatchCallTemplate.txt */; };
+		D3383097171CA3BB00CCE513 /* PKSMatchDelimitedStringTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F5F170D011E001796F4 /* PKSMatchDelimitedStringTemplate.txt */; };
+		D3383098171CA3BB00CCE513 /* PKSPatternPrefixTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F6B170D111B001796F4 /* PKSPatternPrefixTemplate.txt */; };
+		D3383099171CA3BB00CCE513 /* PKSMatchPatternTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F61170D0E71001796F4 /* PKSMatchPatternTemplate.txt */; };
+		D338309A171CA3BB00CCE513 /* PKSSemanticPredicateTestExprTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3A1708C80600BA9DBF /* PKSSemanticPredicateTestExprTemplate.txt */; };
+		D338309B171CA3BB00CCE513 /* PKSSemanticPredicateTestStatTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3C1708C98B00BA9DBF /* PKSSemanticPredicateTestStatTemplate.txt */; };
+		D338309C171CA3BB00CCE513 /* PKSSemanticPredicateTestAndThrowExprTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A5017091FCA00BA9DBF /* PKSSemanticPredicateTestAndThrowExprTemplate.txt */; };
+		D338309D171CA3BB00CCE513 /* PKSSemanticPredicateTestAndThrowStatTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A5117091FCB00BA9DBF /* PKSSemanticPredicateTestAndThrowStatTemplate.txt */; };
+		D338309E171CA3BB00CCE513 /* PKSPredictIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3F17026FBE00446945 /* PKSPredictIfTemplate.txt */; };
+		D338309F171CA3BB00CCE513 /* PKSSpeculateIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */; };
+		D33830A0171CA3BB00CCE513 /* PKSPredictElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3D17026FBE00446945 /* PKSPredictElseIfTemplate.txt */; };
+		D33830A1171CA3BB00CCE513 /* PKSSpeculateElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */; };
+		D33830A2171CA3BB00CCE513 /* PKSPredictElseTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3E17026FBE00446945 /* PKSPredictElseTemplate.txt */; };
+		D33830A3171CA3BB00CCE513 /* PKSPredictEndIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A4E170918E700BA9DBF /* PKSPredictEndIfTemplate.txt */; };
+		D33830A4171CA3BB00CCE513 /* PKSOptionalNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A431702993B00446945 /* PKSOptionalNonTerminalTemplate.txt */; };
+		D33830A5171CA3BB00CCE513 /* PKSOptionalTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A76170A460800BA9DBF /* PKSOptionalTerminalTemplate.txt */; };
+		D33830A6171CA3BB00CCE513 /* PKSMultipleNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A481702A11600446945 /* PKSMultipleNonTerminalTemplate.txt */; };
+		D33830A7171CA3BB00CCE513 /* PKSMultipleTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A471702A11600446945 /* PKSMultipleTerminalTemplate.txt */; };
+		D33830A8171CA3BB00CCE513 /* PKSRepetitionNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A4C1702A1F800446945 /* PKSRepetitionNonTerminalTemplate.txt */; };
+		D33830A9171CA3BB00CCE513 /* PKSRepetitionTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionTerminalTemplate.txt */; };
+		D33830AA171CA3BB00CCE513 /* PKSNegationNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4B170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt */; };
+		D33830AB171CA3BB00CCE513 /* PKSNegationTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4D170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt */; };
+		D33830B2171CA46200CCE513 /* MGTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270A170208C800594F16 /* MGTemplateEngine.m */; };
+		D33830B3171CA46200CCE513 /* MGTemplateStandardMarkers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022710170208C800594F16 /* MGTemplateStandardMarkers.m */; };
+		D33830B4171CA46200CCE513 /* MGTemplateStandardFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270E170208C800594F16 /* MGTemplateStandardFilters.m */; };
+		D33830B5171CA46200CCE513 /* ICUTemplateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022707170208C800594F16 /* ICUTemplateMatcher.m */; };
+		D33830B6171CA46200CCE513 /* NSArray_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022712170208C800594F16 /* NSArray_DeepMutableCopy.m */; };
+		D33830B7171CA46200CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022714170208C800594F16 /* NSDictionary_DeepMutableCopy.m */; };
+		D33830BA171CA50F00CCE513 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = D33830B9171CA50F00CCE513 /* RegexKitLite.m */; };
+		D33830BB171CA50F00CCE513 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = D33830B9171CA50F00CCE513 /* RegexKitLite.m */; };
+		D33830BC171CA53400CCE513 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FDC7380FFC4D6100F1F797 /* libicucore.dylib */; };
+		D33830BE171CA55300CCE513 /* MGTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270A170208C800594F16 /* MGTemplateEngine.m */; };
+		D33830BF171CA55300CCE513 /* MGTemplateStandardMarkers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022710170208C800594F16 /* MGTemplateStandardMarkers.m */; };
+		D33830C0171CA55300CCE513 /* MGTemplateStandardFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270E170208C800594F16 /* MGTemplateStandardFilters.m */; };
+		D33830C1171CA55300CCE513 /* ICUTemplateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022707170208C800594F16 /* ICUTemplateMatcher.m */; };
+		D33830C2171CA55300CCE513 /* NSArray_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022712170208C800594F16 /* NSArray_DeepMutableCopy.m */; };
+		D33830C3171CA55300CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022714170208C800594F16 /* NSDictionary_DeepMutableCopy.m */; };
 		D3385FDA0FCFB1FF003BF729 /* TDPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */; };
 		D33DC1991165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
 		D33DC19B1165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
@@ -1299,6 +1322,8 @@
 		D3383044171C923700CCE513 /* PGDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PGDocument.m; sourceTree = "<group>"; };
 		D3383047171C923700CCE513 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PGDocument.xib; sourceTree = "<group>"; };
 		D338304A171C923700CCE513 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		D33830B8171CA50F00CCE513 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = lib/MGTemplateEngine/RegexKitLite.h; sourceTree = "<group>"; };
+		D33830B9171CA50F00CCE513 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = lib/MGTemplateEngine/RegexKitLite.m; sourceTree = "<group>"; };
 		D3385FD70FCFB1FF003BF729 /* TDPredicateEvaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPredicateEvaluator.h; path = test/TDPredicateEvaluator.h; sourceTree = "<group>"; };
 		D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPredicateEvaluator.m; path = test/TDPredicateEvaluator.m; sourceTree = "<group>"; };
 		D3385FDB0FCFB227003BF729 /* TDPredicateEvaluatorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPredicateEvaluatorTest.h; path = test/TDPredicateEvaluatorTest.h; sourceTree = "<group>"; };
@@ -1896,6 +1921,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D33830BC171CA53400CCE513 /* libicucore.dylib in Frameworks */,
 				D3383051171C924D00CCE513 /* ParseKit.framework in Frameworks */,
 				D3383032171C923700CCE513 /* Cocoa.framework in Frameworks */,
 			);
@@ -2108,6 +2134,8 @@
 			children = (
 				D3022706170208C800594F16 /* ICUTemplateMatcher.h */,
 				D3022707170208C800594F16 /* ICUTemplateMatcher.m */,
+				D33830B8171CA50F00CCE513 /* RegexKitLite.h */,
+				D33830B9171CA50F00CCE513 /* RegexKitLite.m */,
 			);
 			name = Matchers;
 			sourceTree = "<group>";
@@ -2127,6 +2155,10 @@
 		D302272517020A4D00594F16 /* ParserGen */ = {
 			isa = PBXGroup;
 			children = (
+				D30226F8170202DD00594F16 /* PKSParserGenVisitor.h */,
+				D30226F9170202DD00594F16 /* PKSParserGenVisitor.m */,
+				D3022704170208BB00594F16 /* MGTemplateEngine */,
+				D3B22A571703D03F00446945 /* PKSTemplates */,
 				D3B22A591703D08B00446945 /* Tests */,
 				D3B22A5A1703D09C00446945 /* Grammars */,
 				D3B22A581703D07000446945 /* Language Parsers */,
@@ -2314,11 +2346,8 @@
 				D3382F9E171C810B00CCE513 /* PKSTokenAssembly.m */,
 				D3382FA0171C811B00CCE513 /* PKSTokenKindDescriptor.h */,
 				D3382FA1171C811B00CCE513 /* PKSTokenKindDescriptor.m */,
-				D30226F8170202DD00594F16 /* PKSParserGenVisitor.h */,
-				D30226F9170202DD00594F16 /* PKSParserGenVisitor.m */,
-				D3B22A771705516200446945 /* Exceptions */,
-				D3022704170208BB00594F16 /* MGTemplateEngine */,
-				D3B22A571703D03F00446945 /* PKSTemplates */,
+				D3382FD9171C8CB200CCE513 /* PKSRecognitionException.h */,
+				D3382FD6171C8C9100CCE513 /* PKSRecognitionException.m */,
 			);
 			name = static;
 			sourceTree = "<group>";
@@ -3045,15 +3074,6 @@
 			name = Grammars;
 			sourceTree = "<group>";
 		};
-		D3B22A771705516200446945 /* Exceptions */ = {
-			isa = PBXGroup;
-			children = (
-				D3382FD9171C8CB200CCE513 /* PKSRecognitionException.h */,
-				D3382FD6171C8C9100CCE513 /* PKSRecognitionException.m */,
-			);
-			name = Exceptions;
-			sourceTree = "<group>";
-		};
 		D3BBBC9A0FEC9739007DF30D /* old */ = {
 			isa = PBXGroup;
 			children = (
@@ -3579,7 +3599,6 @@
 				D3382F99171C80E100CCE513 /* PKSParser.h in Headers */,
 				D3382F9D171C80F900CCE513 /* PKSTokenAssembly.h in Headers */,
 				D3382FA2171C811B00CCE513 /* PKSTokenKindDescriptor.h in Headers */,
-				D3382FA4171C812D00CCE513 /* PKSParserGenVisitor.h in Headers */,
 				D3382FDA171C8CB200CCE513 /* PKSRecognitionException.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3716,7 +3735,6 @@
 				D3382FCE171C8C6C00CCE513 /* PKSParser.h in Headers */,
 				D3382FCF171C8C6C00CCE513 /* PKSTokenAssembly.h in Headers */,
 				D3382FD0171C8C7300CCE513 /* PKSTokenKindDescriptor.h in Headers */,
-				D3382FD1171C8C7300CCE513 /* PKSParserGenVisitor.h in Headers */,
 				D3382FDB171C8CB200CCE513 /* PKSRecognitionException.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3808,7 +3826,6 @@
 				D3382FED171C8CDD00CCE513 /* PKSParser.h in Headers */,
 				D3382FEE171C8CE100CCE513 /* PKSTokenAssembly.h in Headers */,
 				D3382FEF171C8CE600CCE513 /* PKSTokenKindDescriptor.h in Headers */,
-				D3382FF0171C8CE600CCE513 /* PKSParserGenVisitor.h in Headers */,
 				D3382FF1171C8CE900CCE513 /* PKSRecognitionException.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4025,35 +4042,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
-				D3382FB1171C82F800CCE513 /* PKSClassInterfaceTemplate.txt in Resources */,
-				D3382FB2171C82F800CCE513 /* PKSClassImplementationTemplate.txt in Resources */,
-				D3382FB3171C82F800CCE513 /* PKSActionTemplate.txt in Resources */,
-				D3382FB4171C82F800CCE513 /* PKSMethodTemplate.txt in Resources */,
-				D3382FB5171C82F800CCE513 /* PKSMethodMemoizationTemplate.txt in Resources */,
-				D3382FB6171C82F800CCE513 /* PKSMethodCallTemplate.txt in Resources */,
-				D3382FB7171C82F800CCE513 /* PKSMethodSpeculateTemplate.txt in Resources */,
-				D3382FB8171C82F800CCE513 /* PKSMatchCallTemplate.txt in Resources */,
-				D3382FB9171C82F800CCE513 /* PKSMatchDelimitedStringTemplate.txt in Resources */,
-				D3382FBA171C82F800CCE513 /* PKSPatternPrefixTemplate.txt in Resources */,
-				D3382FBB171C82F800CCE513 /* PKSMatchPatternTemplate.txt in Resources */,
-				D3382FBC171C82F800CCE513 /* PKSSemanticPredicateTestExprTemplate.txt in Resources */,
-				D3382FBD171C82F800CCE513 /* PKSSemanticPredicateTestStatTemplate.txt in Resources */,
-				D3382FBE171C82F800CCE513 /* PKSSemanticPredicateTestAndThrowExprTemplate.txt in Resources */,
-				D3382FBF171C82F800CCE513 /* PKSSemanticPredicateTestAndThrowStatTemplate.txt in Resources */,
-				D3382FC0171C82F800CCE513 /* PKSPredictIfTemplate.txt in Resources */,
-				D3382FC1171C82F800CCE513 /* PKSSpeculateIfTemplate.txt in Resources */,
-				D3382FC2171C82F800CCE513 /* PKSPredictElseIfTemplate.txt in Resources */,
-				D3382FC3171C82F800CCE513 /* PKSSpeculateElseIfTemplate.txt in Resources */,
-				D3382FC4171C82F800CCE513 /* PKSPredictElseTemplate.txt in Resources */,
-				D3382FC5171C82F800CCE513 /* PKSPredictEndIfTemplate.txt in Resources */,
-				D3382FC6171C82F800CCE513 /* PKSOptionalNonTerminalTemplate.txt in Resources */,
-				D3382FC7171C82F800CCE513 /* PKSOptionalTerminalTemplate.txt in Resources */,
-				D3382FC8171C82F800CCE513 /* PKSMultipleNonTerminalTemplate.txt in Resources */,
-				D3382FC9171C82F800CCE513 /* PKSMultipleTerminalTemplate.txt in Resources */,
-				D3382FCA171C82F800CCE513 /* PKSRepetitionNonTerminalTemplate.txt in Resources */,
-				D3382FCB171C82F800CCE513 /* PKSRepetitionTerminalTemplate.txt in Resources */,
-				D3382FCC171C82F800CCE513 /* PKSNegationNonTerminalTemplate.txt in Resources */,
-				D3382FCD171C82F800CCE513 /* PKSNegationTerminalTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4080,6 +4068,36 @@
 				D3383042171C923700CCE513 /* Credits.rtf in Resources */,
 				D3383048171C923700CCE513 /* PGDocument.xib in Resources */,
 				D338304B171C923700CCE513 /* MainMenu.xib in Resources */,
+				D3383052171CA2DC00CCE513 /* expression.grammar in Resources */,
+				D338308F171CA3BB00CCE513 /* PKSClassInterfaceTemplate.txt in Resources */,
+				D3383090171CA3BB00CCE513 /* PKSClassImplementationTemplate.txt in Resources */,
+				D3383091171CA3BB00CCE513 /* PKSActionTemplate.txt in Resources */,
+				D3383092171CA3BB00CCE513 /* PKSMethodTemplate.txt in Resources */,
+				D3383093171CA3BB00CCE513 /* PKSMethodMemoizationTemplate.txt in Resources */,
+				D3383094171CA3BB00CCE513 /* PKSMethodCallTemplate.txt in Resources */,
+				D3383095171CA3BB00CCE513 /* PKSMethodSpeculateTemplate.txt in Resources */,
+				D3383096171CA3BB00CCE513 /* PKSMatchCallTemplate.txt in Resources */,
+				D3383097171CA3BB00CCE513 /* PKSMatchDelimitedStringTemplate.txt in Resources */,
+				D3383098171CA3BB00CCE513 /* PKSPatternPrefixTemplate.txt in Resources */,
+				D3383099171CA3BB00CCE513 /* PKSMatchPatternTemplate.txt in Resources */,
+				D338309A171CA3BB00CCE513 /* PKSSemanticPredicateTestExprTemplate.txt in Resources */,
+				D338309B171CA3BB00CCE513 /* PKSSemanticPredicateTestStatTemplate.txt in Resources */,
+				D338309C171CA3BB00CCE513 /* PKSSemanticPredicateTestAndThrowExprTemplate.txt in Resources */,
+				D338309D171CA3BB00CCE513 /* PKSSemanticPredicateTestAndThrowStatTemplate.txt in Resources */,
+				D338309E171CA3BB00CCE513 /* PKSPredictIfTemplate.txt in Resources */,
+				D338309F171CA3BB00CCE513 /* PKSSpeculateIfTemplate.txt in Resources */,
+				D33830A0171CA3BB00CCE513 /* PKSPredictElseIfTemplate.txt in Resources */,
+				D33830A1171CA3BB00CCE513 /* PKSSpeculateElseIfTemplate.txt in Resources */,
+				D33830A2171CA3BB00CCE513 /* PKSPredictElseTemplate.txt in Resources */,
+				D33830A3171CA3BB00CCE513 /* PKSPredictEndIfTemplate.txt in Resources */,
+				D33830A4171CA3BB00CCE513 /* PKSOptionalNonTerminalTemplate.txt in Resources */,
+				D33830A5171CA3BB00CCE513 /* PKSOptionalTerminalTemplate.txt in Resources */,
+				D33830A6171CA3BB00CCE513 /* PKSMultipleNonTerminalTemplate.txt in Resources */,
+				D33830A7171CA3BB00CCE513 /* PKSMultipleTerminalTemplate.txt in Resources */,
+				D33830A8171CA3BB00CCE513 /* PKSRepetitionNonTerminalTemplate.txt in Resources */,
+				D33830A9171CA3BB00CCE513 /* PKSRepetitionTerminalTemplate.txt in Resources */,
+				D33830AA171CA3BB00CCE513 /* PKSNegationNonTerminalTemplate.txt in Resources */,
+				D33830AB171CA3BB00CCE513 /* PKSNegationTerminalTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4184,6 +4202,35 @@
 				D38BC8A31714A77700BF530D /* unfinished_seq.grammar in Resources */,
 				D38BC8AB1714AF4200BF530D /* dot_question.grammar in Resources */,
 				D38BC8B31716008E00BF530D /* semantic_predicate.grammar in Resources */,
+				D3383072171CA3BA00CCE513 /* PKSClassInterfaceTemplate.txt in Resources */,
+				D3383073171CA3BA00CCE513 /* PKSClassImplementationTemplate.txt in Resources */,
+				D3383074171CA3BA00CCE513 /* PKSActionTemplate.txt in Resources */,
+				D3383075171CA3BA00CCE513 /* PKSMethodTemplate.txt in Resources */,
+				D3383076171CA3BA00CCE513 /* PKSMethodMemoizationTemplate.txt in Resources */,
+				D3383077171CA3BA00CCE513 /* PKSMethodCallTemplate.txt in Resources */,
+				D3383078171CA3BA00CCE513 /* PKSMethodSpeculateTemplate.txt in Resources */,
+				D3383079171CA3BA00CCE513 /* PKSMatchCallTemplate.txt in Resources */,
+				D338307A171CA3BA00CCE513 /* PKSMatchDelimitedStringTemplate.txt in Resources */,
+				D338307B171CA3BA00CCE513 /* PKSPatternPrefixTemplate.txt in Resources */,
+				D338307C171CA3BA00CCE513 /* PKSMatchPatternTemplate.txt in Resources */,
+				D338307D171CA3BA00CCE513 /* PKSSemanticPredicateTestExprTemplate.txt in Resources */,
+				D338307E171CA3BA00CCE513 /* PKSSemanticPredicateTestStatTemplate.txt in Resources */,
+				D338307F171CA3BA00CCE513 /* PKSSemanticPredicateTestAndThrowExprTemplate.txt in Resources */,
+				D3383080171CA3BA00CCE513 /* PKSSemanticPredicateTestAndThrowStatTemplate.txt in Resources */,
+				D3383081171CA3BA00CCE513 /* PKSPredictIfTemplate.txt in Resources */,
+				D3383082171CA3BA00CCE513 /* PKSSpeculateIfTemplate.txt in Resources */,
+				D3383083171CA3BA00CCE513 /* PKSPredictElseIfTemplate.txt in Resources */,
+				D3383084171CA3BA00CCE513 /* PKSSpeculateElseIfTemplate.txt in Resources */,
+				D3383085171CA3BA00CCE513 /* PKSPredictElseTemplate.txt in Resources */,
+				D3383086171CA3BA00CCE513 /* PKSPredictEndIfTemplate.txt in Resources */,
+				D3383087171CA3BA00CCE513 /* PKSOptionalNonTerminalTemplate.txt in Resources */,
+				D3383088171CA3BA00CCE513 /* PKSOptionalTerminalTemplate.txt in Resources */,
+				D3383089171CA3BA00CCE513 /* PKSMultipleNonTerminalTemplate.txt in Resources */,
+				D338308A171CA3BA00CCE513 /* PKSMultipleTerminalTemplate.txt in Resources */,
+				D338308B171CA3BA00CCE513 /* PKSRepetitionNonTerminalTemplate.txt in Resources */,
+				D338308C171CA3BA00CCE513 /* PKSRepetitionTerminalTemplate.txt in Resources */,
+				D338308D171CA3BA00CCE513 /* PKSNegationNonTerminalTemplate.txt in Resources */,
+				D338308E171CA3BA00CCE513 /* PKSNegationTerminalTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4324,13 +4371,6 @@
 				D3382F9B171C80EB00CCE513 /* PKSParser.m in Sources */,
 				D3382F9F171C810B00CCE513 /* PKSTokenAssembly.m in Sources */,
 				D3382FA3171C811B00CCE513 /* PKSTokenKindDescriptor.m in Sources */,
-				D3382FA5171C813300CCE513 /* PKSParserGenVisitor.m in Sources */,
-				D3382FA9171C819F00CCE513 /* MGTemplateEngine.m in Sources */,
-				D3382FAB171C81B100CCE513 /* MGTemplateStandardMarkers.m in Sources */,
-				D3382FAC171C81B100CCE513 /* MGTemplateStandardFilters.m in Sources */,
-				D3382FAD171C81B100CCE513 /* ICUTemplateMatcher.m in Sources */,
-				D3382FAF171C81B100CCE513 /* NSArray_DeepMutableCopy.m in Sources */,
-				D3382FB0171C81B100CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */,
 				D3382FD7171C8C9200CCE513 /* PKSRecognitionException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4362,6 +4402,14 @@
 			files = (
 				D338303E171C923700CCE513 /* main.m in Sources */,
 				D3383045171C923700CCE513 /* PGDocument.m in Sources */,
+				D3383054171CA2ED00CCE513 /* PKSParserGenVisitor.m in Sources */,
+				D33830B2171CA46200CCE513 /* MGTemplateEngine.m in Sources */,
+				D33830B3171CA46200CCE513 /* MGTemplateStandardMarkers.m in Sources */,
+				D33830B4171CA46200CCE513 /* MGTemplateStandardFilters.m in Sources */,
+				D33830B5171CA46200CCE513 /* ICUTemplateMatcher.m in Sources */,
+				D33830B6171CA46200CCE513 /* NSArray_DeepMutableCopy.m in Sources */,
+				D33830B7171CA46200CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */,
+				D33830BB171CA50F00CCE513 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4570,6 +4618,14 @@
 				D38BC8AE1714AF5900BF530D /* DotQuestionParser.m in Sources */,
 				D38BC8B11716006D00BF530D /* SemanticPredicateParser.m in Sources */,
 				D38BC8B6171600A900BF530D /* SemanticPredicateParserTest.m in Sources */,
+				D3383053171CA2EC00CCE513 /* PKSParserGenVisitor.m in Sources */,
+				D33830BA171CA50F00CCE513 /* RegexKitLite.m in Sources */,
+				D33830BE171CA55300CCE513 /* MGTemplateEngine.m in Sources */,
+				D33830BF171CA55300CCE513 /* MGTemplateStandardMarkers.m in Sources */,
+				D33830C0171CA55300CCE513 /* MGTemplateStandardFilters.m in Sources */,
+				D33830C1171CA55300CCE513 /* ICUTemplateMatcher.m in Sources */,
+				D33830C2171CA55300CCE513 /* NSArray_DeepMutableCopy.m in Sources */,
+				D33830C3171CA55300CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4710,14 +4766,7 @@
 				D3382FD2171C8C7900CCE513 /* PKSParser.m in Sources */,
 				D3382FD3171C8C7900CCE513 /* PKSTokenAssembly.m in Sources */,
 				D3382FD4171C8C7900CCE513 /* PKSTokenKindDescriptor.m in Sources */,
-				D3382FD5171C8C7900CCE513 /* PKSParserGenVisitor.m in Sources */,
 				D3382FD8171C8C9200CCE513 /* PKSRecognitionException.m in Sources */,
-				D3382FDC171C8CC500CCE513 /* MGTemplateEngine.m in Sources */,
-				D3382FDD171C8CC500CCE513 /* MGTemplateStandardMarkers.m in Sources */,
-				D3382FDE171C8CC500CCE513 /* MGTemplateStandardFilters.m in Sources */,
-				D3382FDF171C8CC500CCE513 /* ICUTemplateMatcher.m in Sources */,
-				D3382FE0171C8CC500CCE513 /* NSArray_DeepMutableCopy.m in Sources */,
-				D3382FE1171C8CC500CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4802,16 +4851,9 @@
 				D33724DF16FA62D400D30459 /* PKDelimitDescriptor.m in Sources */,
 				D33724EF16FA635700D30459 /* PKDelimitDescriptorCollection.m in Sources */,
 				D3B63A2F170753E900BA9DBF /* PKActionNode.m in Sources */,
-				D3382FE2171C8CCB00CCE513 /* MGTemplateEngine.m in Sources */,
-				D3382FE3171C8CCB00CCE513 /* MGTemplateStandardMarkers.m in Sources */,
-				D3382FE4171C8CCB00CCE513 /* MGTemplateStandardFilters.m in Sources */,
-				D3382FE5171C8CCB00CCE513 /* ICUTemplateMatcher.m in Sources */,
-				D3382FE6171C8CCB00CCE513 /* NSArray_DeepMutableCopy.m in Sources */,
-				D3382FE7171C8CCB00CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */,
 				D3382FE8171C8CD300CCE513 /* PKSParser.m in Sources */,
 				D3382FE9171C8CD300CCE513 /* PKSTokenAssembly.m in Sources */,
 				D3382FEA171C8CD300CCE513 /* PKSTokenKindDescriptor.m in Sources */,
-				D3382FEB171C8CD300CCE513 /* PKSParserGenVisitor.m in Sources */,
 				D3382FEC171C8CD300CCE513 /* PKSRecognitionException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

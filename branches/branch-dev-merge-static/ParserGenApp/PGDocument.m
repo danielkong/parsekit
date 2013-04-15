@@ -23,6 +23,12 @@
     if (self) {
         self.factory = [PKParserFactory factory];
         _factory.collectTokenKinds = YES;
+        
+        self.destinationPath = [@"~/Desktop" stringByExpandingTildeInPath];
+        self.parserName = @"ExpressionParser";
+        
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"expression" ofType:@"grammar"];
+        self.grammar = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     }
     return self;
 }
@@ -121,11 +127,14 @@
         }
     }
     
-    NSURL *pathURL = [NSURL fileURLWithPath:path];
-    [panel setDirectoryURL:pathURL];
+    if (path) {
+        NSURL *pathURL = [NSURL fileURLWithPath:path];
+        [panel setDirectoryURL:pathURL];
+    }
+
     [panel setAllowsMultipleSelection:NO];
     [panel setCanChooseDirectories:YES];
-    [panel setCanCreateDirectories:NO];
+    [panel setCanCreateDirectories:YES];
     [panel setCanChooseFiles:NO];
     
     [panel beginSheetModalForWindow:win completionHandler:^(NSInteger result) {
@@ -163,6 +172,9 @@
     _root.grammarName = self.parserName;
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
+    _visitor.enableHybridDFA = YES;
+    _visitor.enableMemoization = YES;
+    
     [_root visit:_visitor];
     
     NSString *path = [[NSString stringWithFormat:@"%@/%@.h", destPath, _parserName] stringByExpandingTildeInPath];
