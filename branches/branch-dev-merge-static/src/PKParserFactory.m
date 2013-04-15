@@ -945,7 +945,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKBaseNode *ownerNode = nil;
     
     // find owner node (different for pre and post actions)
-    if ([obj isEqualTo:equals]) {
+    if ([obj isEqual:equals]) {
         // pre action
         PKToken *eqTok = (PKToken *)obj;
         NSAssert([eqTok isKindOfClass:[PKToken class]], @"");

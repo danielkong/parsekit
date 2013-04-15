@@ -51,7 +51,7 @@
         return NO;
     }
 
-    if (![_characterSet isEqualTo:desc->_characterSet]) {
+    if (![_characterSet isEqual:desc->_characterSet]) {
         return NO;
     }
     
