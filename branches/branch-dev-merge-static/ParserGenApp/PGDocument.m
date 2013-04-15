@@ -189,13 +189,16 @@
         NSLog(@"%@", err);
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    double secs = 0.25;
+    dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(secs * NSEC_PER_SEC));
+    dispatch_after(delay, dispatch_get_main_queue(), ^(void){
         [self done];
     });
 }
 
 
 - (void)done {
+    [[NSSound soundNamed:@"Hero"] play];
     
     self.busy = NO;
 }
