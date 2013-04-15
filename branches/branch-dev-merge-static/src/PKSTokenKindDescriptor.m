@@ -19,18 +19,19 @@ static NSMutableDictionary *sCache = nil;
     }
 }
 
+
 + (PKSTokenKindDescriptor *)descriptorWithStringValue:(NSString *)s name:(NSString *)name {
-    PKSTokenKindDescriptor *kind = sCache[name];
+    PKSTokenKindDescriptor *desc = sCache[name];
     
-    if (!kind) {
-        kind = [[[PKSTokenKindDescriptor alloc] init] autorelease];
-        kind.stringValue = s;
-        kind.name = name;
+    if (!desc) {
+        desc = [[[PKSTokenKindDescriptor alloc] init] autorelease];
+        desc.stringValue = s;
+        desc.name = name;
         
-        sCache[name] = kind;
+        sCache[name] = desc;
     }
     
-    return kind;
+    return desc;
 }
 
 
