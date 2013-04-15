@@ -1,4 +1,4 @@
-#import "PKSParser.h"
+#import <ParseKitStatic/PKSParser.h>
 enum {
     TOKEN_KIND_FOO = 14,
     TOKEN_KIND_BAR,

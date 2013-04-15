@@ -1,4 +1,4 @@
-#import "PKSParser.h"
+#import <ParseKitStatic/PKSParser.h>
 
 
 

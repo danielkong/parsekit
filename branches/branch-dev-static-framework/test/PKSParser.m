@@ -6,11 +6,11 @@
 //
 //
 
-#import "PKSParser.h"
+#import <ParseKitStatic/PKSParser.h>
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
-#import "PKSTokenAssembly.h"
-#import "PKSRecognitionException.h"
+#import <ParseKitStatic/PKSTokenAssembly.h>
+#import <ParseKitStatic/PKSRecognitionException.h>
 
 #define FAILED -1
 
