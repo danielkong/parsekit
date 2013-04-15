@@ -1,4 +1,4 @@
-#import "PKSParser.h"
+#import <ParseKit/PKSParser.h>
 enum {
     TOKEN_KIND_GE = 14,
     TOKEN_KIND_COMMA,
