@@ -936,7 +936,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKToken *sourceTok = [a pop];
     NSAssert(sourceTok.isDelimitedString, @"");
