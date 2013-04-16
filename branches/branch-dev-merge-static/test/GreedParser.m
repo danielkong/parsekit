@@ -76,7 +76,7 @@
 
 - (void)_start {
     
-    if ([self predicts:TOKEN_KIND_A]) {
+    if ([self predictsAny:TOKEN_KIND_A, 0]) {
         [self a]; 
         while ([self predictsAny:TOKEN_KIND_BUILTIN_ANY, 0]) {
             [self Any]; 

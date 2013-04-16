@@ -405,7 +405,7 @@
 
 - (void)__andTerm {
     
-    if ([self predicts:TOKEN_KIND_ALL] || [self predicts:TOKEN_KIND_ANY] || [self predicts:TOKEN_KIND_BANG] || [self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_FALSELITERAL] || [self predicts:TOKEN_KIND_FALSEPREDICATE] || [self predicts:TOKEN_KIND_NONE] || [self predicts:TOKEN_KIND_NOT_UPPER] || [self predicts:TOKEN_KIND_OPEN_CURLY] || [self predicts:TOKEN_KIND_SOME] || [self predicts:TOKEN_KIND_TRUELITERAL] || [self predicts:TOKEN_KIND_TRUEPREDICATE]) {
+    if ([self predictsAny:TOKEN_KIND_ALL, TOKEN_KIND_ANY, TOKEN_KIND_BANG, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_FALSEPREDICATE, TOKEN_KIND_NONE, TOKEN_KIND_NOT_UPPER, TOKEN_KIND_OPEN_CURLY, TOKEN_KIND_SOME, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TRUEPREDICATE, 0]) {
         [self primaryExpr]; 
     } else if ([self predictsAny:TOKEN_KIND_OPEN_PAREN, 0]) {
         [self compoundExpr]; 
@@ -435,7 +435,7 @@
 
 - (void)__primaryExpr {
     
-    if ([self predicts:TOKEN_KIND_ALL] || [self predicts:TOKEN_KIND_ANY] || [self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_FALSELITERAL] || [self predicts:TOKEN_KIND_FALSEPREDICATE] || [self predicts:TOKEN_KIND_NONE] || [self predicts:TOKEN_KIND_OPEN_CURLY] || [self predicts:TOKEN_KIND_SOME] || [self predicts:TOKEN_KIND_TRUELITERAL] || [self predicts:TOKEN_KIND_TRUEPREDICATE]) {
+    if ([self predictsAny:TOKEN_KIND_ALL, TOKEN_KIND_ANY, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_FALSEPREDICATE, TOKEN_KIND_NONE, TOKEN_KIND_OPEN_CURLY, TOKEN_KIND_SOME, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TRUEPREDICATE, 0]) {
         [self predicate]; 
     } else if ([self predictsAny:TOKEN_KIND_BANG, TOKEN_KIND_NOT_UPPER, 0]) {
         [self negatedPredicate]; 
@@ -485,7 +485,7 @@
 
 - (void)__value {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self keyPath]; 
     } else if ([self predictsAny:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self string]; 
@@ -530,7 +530,7 @@
 
 - (void)__bool {
     
-    if ([self predicts:TOKEN_KIND_TRUELITERAL]) {
+    if ([self predictsAny:TOKEN_KIND_TRUELITERAL, 0]) {
         [self trueLiteral]; 
     } else if ([self predictsAny:TOKEN_KIND_FALSELITERAL, 0]) {
         [self falseLiteral]; 
@@ -582,7 +582,7 @@
 
 - (void)__arrayContentsOpt {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_FALSELITERAL] || [self predicts:TOKEN_KIND_OPEN_CURLY] || [self predicts:TOKEN_KIND_TRUELITERAL]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_OPEN_CURLY, TOKEN_KIND_TRUELITERAL, 0]) {
         [self arrayContents]; 
     }
 
@@ -636,7 +636,7 @@
 
 - (void)__comparisonPredicate {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_WORD]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self numComparisonPredicate]; 
     } else if ([self predictsAny:TOKEN_KIND_ALL, TOKEN_KIND_ANY, TOKEN_KIND_NONE, TOKEN_KIND_SOME, 0]) {
         [self collectionComparisonPredicate]; 
@@ -666,7 +666,7 @@
 
 - (void)__numComparisonValue {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self keyPath]; 
     } else if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self num]; 
@@ -683,7 +683,7 @@
 
 - (void)__comparisonOp {
     
-    if ([self predicts:TOKEN_KIND_DOUBLE_EQUALS] || [self predicts:TOKEN_KIND_EQUALS]) {
+    if ([self predictsAny:TOKEN_KIND_DOUBLE_EQUALS, TOKEN_KIND_EQUALS, 0]) {
         [self eq]; 
     } else if ([self predictsAny:TOKEN_KIND_GT, 0]) {
         [self gt]; 
@@ -710,7 +710,7 @@
 
 - (void)__eq {
     
-    if ([self predicts:TOKEN_KIND_EQUALS]) {
+    if ([self predictsAny:TOKEN_KIND_EQUALS, 0]) {
         [self match:TOKEN_KIND_EQUALS]; 
     } else if ([self predictsAny:TOKEN_KIND_DOUBLE_EQUALS, 0]) {
         [self match:TOKEN_KIND_DOUBLE_EQUALS]; 
@@ -749,7 +749,7 @@
 
 - (void)__gtEq {
     
-    if ([self predicts:TOKEN_KIND_GE]) {
+    if ([self predictsAny:TOKEN_KIND_GE, 0]) {
         [self match:TOKEN_KIND_GE]; 
     } else if ([self predictsAny:TOKEN_KIND_HASH_ROCKET, 0]) {
         [self match:TOKEN_KIND_HASH_ROCKET]; 
@@ -766,7 +766,7 @@
 
 - (void)__ltEq {
     
-    if ([self predicts:TOKEN_KIND_LE]) {
+    if ([self predictsAny:TOKEN_KIND_LE, 0]) {
         [self match:TOKEN_KIND_LE]; 
     } else if ([self predictsAny:TOKEN_KIND_EL, 0]) {
         [self match:TOKEN_KIND_EL]; 
@@ -783,7 +783,7 @@
 
 - (void)__notEq {
     
-    if ([self predicts:TOKEN_KIND_NE]) {
+    if ([self predictsAny:TOKEN_KIND_NE, 0]) {
         [self match:TOKEN_KIND_NE]; 
     } else if ([self predictsAny:TOKEN_KIND_NOT_EQUAL, 0]) {
         [self match:TOKEN_KIND_NOT_EQUAL]; 
@@ -920,7 +920,7 @@
 
 - (void)__boolPredicate {
     
-    if ([self predicts:TOKEN_KIND_TRUEPREDICATE]) {
+    if ([self predictsAny:TOKEN_KIND_TRUEPREDICATE, 0]) {
         [self truePredicate]; 
     } else if ([self predictsAny:TOKEN_KIND_FALSEPREDICATE, 0]) {
         [self falsePredicate]; 
@@ -959,7 +959,7 @@
 
 - (void)__and {
     
-    if ([self predicts:TOKEN_KIND_AND_UPPER]) {
+    if ([self predictsAny:TOKEN_KIND_AND_UPPER, 0]) {
         [self match:TOKEN_KIND_AND_UPPER]; [self discard:1];
     } else if ([self predictsAny:TOKEN_KIND_DOUBLE_AMPERSAND, 0]) {
         [self match:TOKEN_KIND_DOUBLE_AMPERSAND]; [self discard:1];
@@ -976,7 +976,7 @@
 
 - (void)__or {
     
-    if ([self predicts:TOKEN_KIND_OR_UPPER]) {
+    if ([self predictsAny:TOKEN_KIND_OR_UPPER, 0]) {
         [self match:TOKEN_KIND_OR_UPPER]; [self discard:1];
     } else if ([self predictsAny:TOKEN_KIND_DOUBLE_PIPE, 0]) {
         [self match:TOKEN_KIND_DOUBLE_PIPE]; [self discard:1];
@@ -993,7 +993,7 @@
 
 - (void)__not {
     
-    if ([self predicts:TOKEN_KIND_NOT_UPPER]) {
+    if ([self predictsAny:TOKEN_KIND_NOT_UPPER, 0]) {
         [self match:TOKEN_KIND_NOT_UPPER]; [self discard:1];
     } else if ([self predictsAny:TOKEN_KIND_BANG, 0]) {
         [self match:TOKEN_KIND_BANG]; [self discard:1];
@@ -1023,7 +1023,7 @@
 
 - (void)__stringTestOp {
     
-    if ([self predicts:TOKEN_KIND_BEGINSWITH]) {
+    if ([self predictsAny:TOKEN_KIND_BEGINSWITH, 0]) {
         [self beginswith]; 
     } else if ([self predictsAny:TOKEN_KIND_CONTAINS, 0]) {
         [self contains]; 
@@ -1114,7 +1114,7 @@
 
 - (void)__collection {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self keyPath]; 
     } else if ([self predictsAny:TOKEN_KIND_OPEN_CURLY, 0]) {
         [self array]; 
@@ -1142,7 +1142,7 @@
 
 - (void)__aggregateOp {
     
-    if ([self predicts:TOKEN_KIND_ANY]) {
+    if ([self predictsAny:TOKEN_KIND_ANY, 0]) {
         [self any]; 
     } else if ([self predictsAny:TOKEN_KIND_SOME, 0]) {
         [self some]; 

@@ -129,7 +129,7 @@
 
 - (void)__type {
     
-    if ([self predicts:TOKEN_KIND_VOID]) {
+    if ([self predictsAny:TOKEN_KIND_VOID, 0]) {
         [self match:TOKEN_KIND_VOID]; 
     } else if ([self predictsAny:TOKEN_KIND_INT, 0]) {
         [self match:TOKEN_KIND_INT]; 
@@ -146,7 +146,7 @@
 
 - (void)__args {
     
-    if ([self predicts:TOKEN_KIND_INT]) {
+    if ([self predictsAny:TOKEN_KIND_INT, 0]) {
         [self arg]; 
         while ([self predictsAny:TOKEN_KIND_COMMA, 0]) {
             if ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self arg]; }]) {

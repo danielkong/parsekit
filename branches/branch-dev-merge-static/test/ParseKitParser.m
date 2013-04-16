@@ -289,7 +289,7 @@
     [self Word]; 
     [self match:TOKEN_KIND_EQUALS]; 
     do {
-        if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
+        if ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]) {
             [self Word]; 
         } else if ([self predictsAny:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
             [self QuotedString]; 
@@ -332,7 +332,7 @@
 
 - (void)__production {
     
-    if ([self predicts:TOKEN_KIND_AT]) {
+    if ([self predictsAny:TOKEN_KIND_AT, 0]) {
         [self startProduction]; 
     } else if ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self varProduction]; 
@@ -362,7 +362,7 @@
 - (void)__namedAction {
     
     [self match:TOKEN_KIND_AT]; [self discard:1];
-    if ([self predicts:TOKEN_KIND_BEFOREKEY]) {
+    if ([self predictsAny:TOKEN_KIND_BEFOREKEY, 0]) {
         [self beforeKey]; 
     } else if ([self predictsAny:TOKEN_KIND_AFTERKEY, 0]) {
         [self afterKey]; 
@@ -466,7 +466,7 @@
     
     [self phrase]; 
     if ([self predictsAny:TOKEN_KIND_PHRASEPLUS, TOKEN_KIND_PHRASEQUESTION, TOKEN_KIND_PHRASESTAR, 0]) {
-        if ([self predicts:TOKEN_KIND_PHRASESTAR]) {
+        if ([self predictsAny:TOKEN_KIND_PHRASESTAR, 0]) {
             [self phraseStar]; 
         } else if ([self predictsAny:TOKEN_KIND_PHRASEPLUS, 0]) {
             [self phrasePlus]; 
@@ -573,7 +573,7 @@
 
 - (void)__predicate {
     
-    if ([self predicts:TOKEN_KIND_AMPERSAND]) {
+    if ([self predictsAny:TOKEN_KIND_AMPERSAND, 0]) {
         [self intersection]; 
     } else if ([self predictsAny:TOKEN_KIND_MINUS, 0]) {
         [self difference]; 
@@ -614,7 +614,7 @@
 
 - (void)__primaryExpr {
     
-    if ([self predicts:TOKEN_KIND_TILDE]) {
+    if ([self predictsAny:TOKEN_KIND_TILDE, 0]) {
         [self negatedPrimaryExpr]; 
     } else if ([self predictsAny:TOKEN_KIND_ANY_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CHAR_TITLE, TOKEN_KIND_COMMENT_TITLE, TOKEN_KIND_DELIMOPEN, TOKEN_KIND_DIGIT_TITLE, TOKEN_KIND_EMPTY_TITLE, TOKEN_KIND_LETTER_TITLE, TOKEN_KIND_NUMBER_TITLE, TOKEN_KIND_OPEN_BRACKET, TOKEN_KIND_OPEN_PAREN, TOKEN_KIND_PATTERNIGNORECASE, TOKEN_KIND_PATTERNNOOPTS, TOKEN_KIND_QUOTEDSTRING_TITLE, TOKEN_KIND_SPECIFICCHAR_TITLE, TOKEN_KIND_SYMBOL_TITLE, TOKEN_KIND_S_TITLE, TOKEN_KIND_WORD_TITLE, 0]) {
         [self barePrimaryExpr]; 
@@ -643,7 +643,7 @@
 
 - (void)__barePrimaryExpr {
     
-    if ([self predicts:TOKEN_KIND_ANY_TITLE] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_CHAR_TITLE] || [self predicts:TOKEN_KIND_COMMENT_TITLE] || [self predicts:TOKEN_KIND_DELIMOPEN] || [self predicts:TOKEN_KIND_DIGIT_TITLE] || [self predicts:TOKEN_KIND_EMPTY_TITLE] || [self predicts:TOKEN_KIND_LETTER_TITLE] || [self predicts:TOKEN_KIND_NUMBER_TITLE] || [self predicts:TOKEN_KIND_PATTERNIGNORECASE] || [self predicts:TOKEN_KIND_PATTERNNOOPTS] || [self predicts:TOKEN_KIND_QUOTEDSTRING_TITLE] || [self predicts:TOKEN_KIND_SPECIFICCHAR_TITLE] || [self predicts:TOKEN_KIND_SYMBOL_TITLE] || [self predicts:TOKEN_KIND_S_TITLE] || [self predicts:TOKEN_KIND_WORD_TITLE]) {
+    if ([self predictsAny:TOKEN_KIND_ANY_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CHAR_TITLE, TOKEN_KIND_COMMENT_TITLE, TOKEN_KIND_DELIMOPEN, TOKEN_KIND_DIGIT_TITLE, TOKEN_KIND_EMPTY_TITLE, TOKEN_KIND_LETTER_TITLE, TOKEN_KIND_NUMBER_TITLE, TOKEN_KIND_PATTERNIGNORECASE, TOKEN_KIND_PATTERNNOOPTS, TOKEN_KIND_QUOTEDSTRING_TITLE, TOKEN_KIND_SPECIFICCHAR_TITLE, TOKEN_KIND_SYMBOL_TITLE, TOKEN_KIND_S_TITLE, TOKEN_KIND_WORD_TITLE, 0]) {
         [self atomicValue]; 
     } else if ([self predictsAny:TOKEN_KIND_OPEN_PAREN, 0]) {
         [self subSeqExpr]; 
@@ -702,7 +702,7 @@
 
 - (void)__parser {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self variable]; 
     } else if ([self predictsAny:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self literal]; 
@@ -736,7 +736,7 @@
 
 - (void)__pattern {
     
-    if ([self predicts:TOKEN_KIND_PATTERNNOOPTS]) {
+    if ([self predictsAny:TOKEN_KIND_PATTERNNOOPTS, 0]) {
         [self patternNoOpts]; 
     } else if ([self predictsAny:TOKEN_KIND_PATTERNIGNORECASE, 0]) {
         [self patternIgnoreCase]; 
@@ -803,7 +803,7 @@
 
 - (void)__constant {
     
-    if ([self predicts:TOKEN_KIND_WORD_TITLE]) {
+    if ([self predictsAny:TOKEN_KIND_WORD_TITLE, 0]) {
         [self match:TOKEN_KIND_WORD_TITLE]; 
     } else if ([self predictsAny:TOKEN_KIND_NUMBER_TITLE, 0]) {
         [self match:TOKEN_KIND_NUMBER_TITLE]; 

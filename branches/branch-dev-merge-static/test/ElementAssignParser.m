@@ -187,7 +187,7 @@
 
 - (void)__element {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self Number]; 
     } else if ([self predictsAny:TOKEN_KIND_LBRACKET, 0]) {
         [self list]; 

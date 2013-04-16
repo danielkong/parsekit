@@ -260,7 +260,7 @@
 
 - (void)__relOp {
     
-    if ([self predicts:TOKEN_KIND_LT]) {
+    if ([self predictsAny:TOKEN_KIND_LT, 0]) {
         [self match:TOKEN_KIND_LT]; 
     } else if ([self predictsAny:TOKEN_KIND_GT, 0]) {
         [self match:TOKEN_KIND_GT]; 
@@ -348,7 +348,7 @@
 
 - (void)__primary {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_NO_UPPER] || [self predicts:TOKEN_KIND_YES] || [self predicts:TOKEN_KIND_YES_UPPER]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_NO_UPPER, TOKEN_KIND_YES, TOKEN_KIND_YES_UPPER, 0]) {
         [self atom]; 
     } else if ([self predictsAny:TOKEN_KIND_OPEN_PAREN, 0]) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
@@ -367,7 +367,7 @@
 
 - (void)__atom {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self obj]; 
     } else if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_NO, TOKEN_KIND_NO_UPPER, TOKEN_KIND_YES, TOKEN_KIND_YES_UPPER, 0]) {
         [self literal]; 
@@ -425,7 +425,7 @@
 
 - (void)__literal {
     
-    if ([self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_NO_UPPER] || [self predicts:TOKEN_KIND_YES] || [self predicts:TOKEN_KIND_YES_UPPER]) {
+    if ([self predictsAny:TOKEN_KIND_NO, TOKEN_KIND_NO_UPPER, TOKEN_KIND_YES, TOKEN_KIND_YES_UPPER, 0]) {
         [self testAndThrow:(id)^{ return LA(1) != TOKEN_KIND_YES_UPPER; }]; 
         [self bool]; 
         [self execute:(id)^{
@@ -454,7 +454,7 @@
 
 - (void)__bool {
     
-    if ([self predicts:TOKEN_KIND_YES]) {
+    if ([self predictsAny:TOKEN_KIND_YES, 0]) {
         [self match:TOKEN_KIND_YES]; 
     } else if ([self predictsAny:TOKEN_KIND_YES_UPPER, 0]) {
         [self match:TOKEN_KIND_YES_UPPER]; 

@@ -297,7 +297,7 @@
 
 - (void)__relOp {
     
-    if ([self predicts:TOKEN_KIND_LT]) {
+    if ([self predictsAny:TOKEN_KIND_LT, 0]) {
         [self lt]; 
     } else if ([self predictsAny:TOKEN_KIND_GT, 0]) {
         [self gt]; 
@@ -359,7 +359,7 @@
 
 - (void)__primary {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_YES]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) {
         [self atom]; 
     } else if ([self predictsAny:TOKEN_KIND_OPENPAREN, 0]) {
         [self openParen]; 
@@ -378,7 +378,7 @@
 
 - (void)__atom {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self obj]; 
     } else if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) {
         [self literal]; 
@@ -436,7 +436,7 @@
 
 - (void)__literal {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING]) {
+    if ([self predictsAny:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self QuotedString]; 
     } else if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self Number]; 
@@ -455,7 +455,7 @@
 
 - (void)__bool {
     
-    if ([self predicts:TOKEN_KIND_YES]) {
+    if ([self predictsAny:TOKEN_KIND_YES, 0]) {
         [self yes]; 
     } else if ([self predictsAny:TOKEN_KIND_NO, 0]) {
         [self no]; 
