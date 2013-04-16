@@ -370,7 +370,7 @@
 }
 
 
-- (BOOL)predicts:(NSInteger)firstTokenKind {
+- (BOOL)predictsOne:(NSInteger)firstTokenKind {
     NSParameterAssert(firstTokenKind != TOKEN_KIND_BUILTIN_INVALID);
     
     NSInteger la = LA(1);
