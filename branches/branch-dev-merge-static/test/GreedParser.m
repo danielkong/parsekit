@@ -78,15 +78,15 @@
     
     if ([self predicts:TOKEN_KIND_A]) {
         [self a]; 
-        while ([self predicts:TOKEN_KIND_BUILTIN_ANY]) {
+        while ([self predictsAny:TOKEN_KIND_BUILTIN_ANY, 0]) {
             [self Any]; 
         }
         [self a]; 
-    } else if ([self predicts:TOKEN_KIND_B]) {
+    } else if ([self predictsAny:TOKEN_KIND_B, 0]) {
         [self b]; 
         do {
             [self Any]; 
-        } while ([self predicts:TOKEN_KIND_BUILTIN_ANY]);
+        } while ([self predictsAny:TOKEN_KIND_BUILTIN_ANY, 0]);
         [self b]; 
     } else {
         [self raise:@"no viable alternative found in _start"];

@@ -169,7 +169,7 @@
 - (void)__orExpr {
     
     [self andExpr]; 
-    while ([self predicts:TOKEN_KIND_OR]) {
+    while ([self predictsAny:TOKEN_KIND_OR, 0]) {
         if ([self speculate:^{ [self orTerm]; }]) {
             [self orTerm]; 
         } else {
@@ -206,7 +206,7 @@
 - (void)__andExpr {
     
     [self relExpr]; 
-    while ([self predicts:TOKEN_KIND_AND]) {
+    while ([self predictsAny:TOKEN_KIND_AND, 0]) {
         if ([self speculate:^{ [self andTerm]; }]) {
             [self andTerm]; 
         } else {
@@ -243,7 +243,7 @@
 - (void)__relExpr {
     
     [self callExpr]; 
-    while ([self predicts:TOKEN_KIND_EQUALS] || [self predicts:TOKEN_KIND_GE] || [self predicts:TOKEN_KIND_GT] || [self predicts:TOKEN_KIND_LE] || [self predicts:TOKEN_KIND_LT] || [self predicts:TOKEN_KIND_NE]) {
+    while ([self predictsAny:TOKEN_KIND_EQUALS, TOKEN_KIND_GE, TOKEN_KIND_GT, TOKEN_KIND_LE, TOKEN_KIND_LT, TOKEN_KIND_NE, 0]) {
         if ([self speculate:^{ [self relOpTerm]; }]) {
             [self relOpTerm]; 
         } else {
@@ -262,15 +262,15 @@
     
     if ([self predicts:TOKEN_KIND_LT]) {
         [self match:TOKEN_KIND_LT]; 
-    } else if ([self predicts:TOKEN_KIND_GT]) {
+    } else if ([self predictsAny:TOKEN_KIND_GT, 0]) {
         [self match:TOKEN_KIND_GT]; 
-    } else if ([self predicts:TOKEN_KIND_EQUALS]) {
+    } else if ([self predictsAny:TOKEN_KIND_EQUALS, 0]) {
         [self match:TOKEN_KIND_EQUALS]; 
-    } else if ([self predicts:TOKEN_KIND_NE]) {
+    } else if ([self predictsAny:TOKEN_KIND_NE, 0]) {
         [self match:TOKEN_KIND_NE]; 
-    } else if ([self predicts:TOKEN_KIND_LE]) {
+    } else if ([self predictsAny:TOKEN_KIND_LE, 0]) {
         [self match:TOKEN_KIND_LE]; 
-    } else if ([self predicts:TOKEN_KIND_GE]) {
+    } else if ([self predictsAny:TOKEN_KIND_GE, 0]) {
         [self match:TOKEN_KIND_GE]; 
     } else {
         [self raise:@"no viable alternative found in relOp"];
@@ -312,9 +312,9 @@
 - (void)__callExpr {
     
     [self primary]; 
-    if (([self predicts:TOKEN_KIND_OPEN_PAREN]) && ([self speculate:^{ [self match:TOKEN_KIND_OPEN_PAREN]; if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_NO_UPPER] || [self predicts:TOKEN_KIND_YES] || [self predicts:TOKEN_KIND_YES_UPPER]) && ([self speculate:^{ [self argList]; }])) {[self argList]; }[self match:TOKEN_KIND_CLOSE_PAREN]; }])) {
+    if (([self predictsAny:TOKEN_KIND_OPEN_PAREN, 0]) && ([self speculate:^{ [self match:TOKEN_KIND_OPEN_PAREN]; if (([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_NO_UPPER, TOKEN_KIND_YES, TOKEN_KIND_YES_UPPER, 0]) && ([self speculate:^{ [self argList]; }])) {[self argList]; }[self match:TOKEN_KIND_CLOSE_PAREN]; }])) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
-        if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_NO_UPPER] || [self predicts:TOKEN_KIND_YES] || [self predicts:TOKEN_KIND_YES_UPPER]) && ([self speculate:^{ [self argList]; }])) {
+        if (([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_NO_UPPER, TOKEN_KIND_YES, TOKEN_KIND_YES_UPPER, 0]) && ([self speculate:^{ [self argList]; }])) {
             [self argList]; 
         }
         [self match:TOKEN_KIND_CLOSE_PAREN]; 
@@ -330,7 +330,7 @@
 - (void)__argList {
     
     [self atom]; 
-    while ([self predicts:TOKEN_KIND_COMMA]) {
+    while ([self predictsAny:TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self atom]; }]) {
             [self match:TOKEN_KIND_COMMA]; 
             [self atom]; 
@@ -350,7 +350,7 @@
     
     if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_NO_UPPER] || [self predicts:TOKEN_KIND_YES] || [self predicts:TOKEN_KIND_YES_UPPER]) {
         [self atom]; 
-    } else if ([self predicts:TOKEN_KIND_OPEN_PAREN]) {
+    } else if ([self predictsAny:TOKEN_KIND_OPEN_PAREN, 0]) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
         [self expr]; 
         [self match:TOKEN_KIND_CLOSE_PAREN]; 
@@ -369,7 +369,7 @@
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
         [self obj]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_NO] || [self predicts:TOKEN_KIND_NO_UPPER] || [self predicts:TOKEN_KIND_YES] || [self predicts:TOKEN_KIND_YES_UPPER]) {
+    } else if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_NO, TOKEN_KIND_NO_UPPER, TOKEN_KIND_YES, TOKEN_KIND_YES_UPPER, 0]) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -385,7 +385,7 @@
 - (void)__obj {
     
     [self id]; 
-    while ([self predicts:TOKEN_KIND_DOT]) {
+    while ([self predictsAny:TOKEN_KIND_DOT, 0]) {
         if ([self speculate:^{ [self member]; }]) {
             [self member]; 
         } else {
@@ -431,12 +431,12 @@
         [self execute:(id)^{
              PUSH_BOOL(EQ_IGNORE_CASE(POP_STR(), @"yes")); 
         }];
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER]) {
+    } else if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self Number]; 
         [self execute:(id)^{
              PUSH_FLOAT(POP_FLOAT()); 
         }];
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING]) {
+    } else if ([self predictsAny:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self QuotedString]; 
         [self execute:(id)^{
              PUSH(POP_STR()); 
@@ -456,11 +456,11 @@
     
     if ([self predicts:TOKEN_KIND_YES]) {
         [self match:TOKEN_KIND_YES]; 
-    } else if ([self predicts:TOKEN_KIND_YES_UPPER]) {
+    } else if ([self predictsAny:TOKEN_KIND_YES_UPPER, 0]) {
         [self match:TOKEN_KIND_YES_UPPER]; 
-    } else if ([self predicts:TOKEN_KIND_NO]) {
+    } else if ([self predictsAny:TOKEN_KIND_NO, 0]) {
         [self match:TOKEN_KIND_NO]; 
-    } else if ([self predicts:TOKEN_KIND_NO_UPPER]) {
+    } else if ([self predictsAny:TOKEN_KIND_NO_UPPER, 0]) {
         [self testAndThrow:(id)^{ return NE(LS(1), @"NO"); }]; 
         [self match:TOKEN_KIND_NO_UPPER]; 
     } else {

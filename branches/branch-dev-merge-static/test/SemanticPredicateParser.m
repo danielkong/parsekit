@@ -72,7 +72,7 @@
     
     do {
         [self nonReserved]; 
-    } while ([self predicts:TOKEN_KIND_BUILTIN_WORD]);
+    } while ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]);
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }

@@ -261,7 +261,7 @@
     
     do {
         [self statement]; 
-    } while (([self predicts:TOKEN_KIND_AT] || [self predicts:TOKEN_KIND_BUILTIN_WORD]) && ([self speculate:^{ [self statement]; }]));
+    } while (([self predictsAny:TOKEN_KIND_AT, TOKEN_KIND_BUILTIN_WORD, 0]) && ([self speculate:^{ [self statement]; }]));
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
@@ -291,12 +291,12 @@
     do {
         if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
             [self Word]; 
-        } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING]) {
+        } else if ([self predictsAny:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
             [self QuotedString]; 
         } else {
             [self raise:@"no viable alternative found in tokenizerDirective"];
         }
-    } while ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD]);
+    } while ([self predictsAny:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]);
     [self match:TOKEN_KIND_SEMI_COLON]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTokenizerDirective:)];
@@ -309,7 +309,7 @@
 - (void)__decl {
     
     [self production]; 
-    while ([self predicts:TOKEN_KIND_AT]) {
+    while ([self predictsAny:TOKEN_KIND_AT, 0]) {
         if ([self speculate:^{ [self namedAction]; }]) {
             [self namedAction]; 
         } else {
@@ -317,7 +317,7 @@
         }
     }
     [self match:TOKEN_KIND_EQUALS]; 
-    if ([self predicts:TOKEN_KIND_ACTION]) {
+    if ([self predictsAny:TOKEN_KIND_ACTION, 0]) {
         [self action]; 
     }
     [self expr]; 
@@ -334,7 +334,7 @@
     
     if ([self predicts:TOKEN_KIND_AT]) {
         [self startProduction]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
+    } else if ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self varProduction]; 
     } else {
         [self raise:@"no viable alternative found in production"];
@@ -364,7 +364,7 @@
     [self match:TOKEN_KIND_AT]; [self discard:1];
     if ([self predicts:TOKEN_KIND_BEFOREKEY]) {
         [self beforeKey]; 
-    } else if ([self predicts:TOKEN_KIND_AFTERKEY]) {
+    } else if ([self predictsAny:TOKEN_KIND_AFTERKEY, 0]) {
         [self afterKey]; 
     } else {
         [self raise:@"no viable alternative found in namedAction"];
@@ -414,7 +414,7 @@
 - (void)__expr {
     
     [self term]; 
-    while ([self predicts:TOKEN_KIND_PIPE]) {
+    while ([self predictsAny:TOKEN_KIND_PIPE, 0]) {
         if ([self speculate:^{ [self orTerm]; }]) {
             [self orTerm]; 
         } else {
@@ -431,11 +431,11 @@
 
 - (void)__term {
     
-    if ([self predicts:TOKEN_KIND_SEMANTICPREDICATE]) {
+    if ([self predictsAny:TOKEN_KIND_SEMANTICPREDICATE, 0]) {
         [self semanticPredicate]; 
     }
     [self factor]; 
-    while ([self predicts:TOKEN_KIND_ANY_TITLE] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_CHAR_TITLE] || [self predicts:TOKEN_KIND_COMMENT_TITLE] || [self predicts:TOKEN_KIND_DELIMOPEN] || [self predicts:TOKEN_KIND_DIGIT_TITLE] || [self predicts:TOKEN_KIND_EMPTY_TITLE] || [self predicts:TOKEN_KIND_LETTER_TITLE] || [self predicts:TOKEN_KIND_NUMBER_TITLE] || [self predicts:TOKEN_KIND_OPEN_BRACKET] || [self predicts:TOKEN_KIND_OPEN_PAREN] || [self predicts:TOKEN_KIND_PATTERNIGNORECASE] || [self predicts:TOKEN_KIND_PATTERNNOOPTS] || [self predicts:TOKEN_KIND_QUOTEDSTRING_TITLE] || [self predicts:TOKEN_KIND_SPECIFICCHAR_TITLE] || [self predicts:TOKEN_KIND_SYMBOL_TITLE] || [self predicts:TOKEN_KIND_S_TITLE] || [self predicts:TOKEN_KIND_TILDE] || [self predicts:TOKEN_KIND_WORD_TITLE]) {
+    while ([self predictsAny:TOKEN_KIND_ANY_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CHAR_TITLE, TOKEN_KIND_COMMENT_TITLE, TOKEN_KIND_DELIMOPEN, TOKEN_KIND_DIGIT_TITLE, TOKEN_KIND_EMPTY_TITLE, TOKEN_KIND_LETTER_TITLE, TOKEN_KIND_NUMBER_TITLE, TOKEN_KIND_OPEN_BRACKET, TOKEN_KIND_OPEN_PAREN, TOKEN_KIND_PATTERNIGNORECASE, TOKEN_KIND_PATTERNNOOPTS, TOKEN_KIND_QUOTEDSTRING_TITLE, TOKEN_KIND_SPECIFICCHAR_TITLE, TOKEN_KIND_SYMBOL_TITLE, TOKEN_KIND_S_TITLE, TOKEN_KIND_TILDE, TOKEN_KIND_WORD_TITLE, 0]) {
         if ([self speculate:^{ [self nextFactor]; }]) {
             [self nextFactor]; 
         } else {
@@ -465,18 +465,18 @@
 - (void)__factor {
     
     [self phrase]; 
-    if ([self predicts:TOKEN_KIND_PHRASEPLUS] || [self predicts:TOKEN_KIND_PHRASEQUESTION] || [self predicts:TOKEN_KIND_PHRASESTAR]) {
+    if ([self predictsAny:TOKEN_KIND_PHRASEPLUS, TOKEN_KIND_PHRASEQUESTION, TOKEN_KIND_PHRASESTAR, 0]) {
         if ([self predicts:TOKEN_KIND_PHRASESTAR]) {
             [self phraseStar]; 
-        } else if ([self predicts:TOKEN_KIND_PHRASEPLUS]) {
+        } else if ([self predictsAny:TOKEN_KIND_PHRASEPLUS, 0]) {
             [self phrasePlus]; 
-        } else if ([self predicts:TOKEN_KIND_PHRASEQUESTION]) {
+        } else if ([self predictsAny:TOKEN_KIND_PHRASEQUESTION, 0]) {
             [self phraseQuestion]; 
         } else {
             [self raise:@"no viable alternative found in factor"];
         }
     }
-    if ([self predicts:TOKEN_KIND_ACTION]) {
+    if ([self predictsAny:TOKEN_KIND_ACTION, 0]) {
         [self action]; 
     }
 
@@ -501,7 +501,7 @@
 - (void)__phrase {
     
     [self primaryExpr]; 
-    while ([self predicts:TOKEN_KIND_AMPERSAND] || [self predicts:TOKEN_KIND_MINUS]) {
+    while ([self predictsAny:TOKEN_KIND_AMPERSAND, TOKEN_KIND_MINUS, 0]) {
         if ([self speculate:^{ [self predicate]; }]) {
             [self predicate]; 
         } else {
@@ -575,7 +575,7 @@
     
     if ([self predicts:TOKEN_KIND_AMPERSAND]) {
         [self intersection]; 
-    } else if ([self predicts:TOKEN_KIND_MINUS]) {
+    } else if ([self predictsAny:TOKEN_KIND_MINUS, 0]) {
         [self difference]; 
     } else {
         [self raise:@"no viable alternative found in predicate"];
@@ -616,7 +616,7 @@
     
     if ([self predicts:TOKEN_KIND_TILDE]) {
         [self negatedPrimaryExpr]; 
-    } else if ([self predicts:TOKEN_KIND_ANY_TITLE] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_CHAR_TITLE] || [self predicts:TOKEN_KIND_COMMENT_TITLE] || [self predicts:TOKEN_KIND_DELIMOPEN] || [self predicts:TOKEN_KIND_DIGIT_TITLE] || [self predicts:TOKEN_KIND_EMPTY_TITLE] || [self predicts:TOKEN_KIND_LETTER_TITLE] || [self predicts:TOKEN_KIND_NUMBER_TITLE] || [self predicts:TOKEN_KIND_OPEN_BRACKET] || [self predicts:TOKEN_KIND_OPEN_PAREN] || [self predicts:TOKEN_KIND_PATTERNIGNORECASE] || [self predicts:TOKEN_KIND_PATTERNNOOPTS] || [self predicts:TOKEN_KIND_QUOTEDSTRING_TITLE] || [self predicts:TOKEN_KIND_SPECIFICCHAR_TITLE] || [self predicts:TOKEN_KIND_SYMBOL_TITLE] || [self predicts:TOKEN_KIND_S_TITLE] || [self predicts:TOKEN_KIND_WORD_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_ANY_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CHAR_TITLE, TOKEN_KIND_COMMENT_TITLE, TOKEN_KIND_DELIMOPEN, TOKEN_KIND_DIGIT_TITLE, TOKEN_KIND_EMPTY_TITLE, TOKEN_KIND_LETTER_TITLE, TOKEN_KIND_NUMBER_TITLE, TOKEN_KIND_OPEN_BRACKET, TOKEN_KIND_OPEN_PAREN, TOKEN_KIND_PATTERNIGNORECASE, TOKEN_KIND_PATTERNNOOPTS, TOKEN_KIND_QUOTEDSTRING_TITLE, TOKEN_KIND_SPECIFICCHAR_TITLE, TOKEN_KIND_SYMBOL_TITLE, TOKEN_KIND_S_TITLE, TOKEN_KIND_WORD_TITLE, 0]) {
         [self barePrimaryExpr]; 
     } else {
         [self raise:@"no viable alternative found in primaryExpr"];
@@ -645,9 +645,9 @@
     
     if ([self predicts:TOKEN_KIND_ANY_TITLE] || [self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING] || [self predicts:TOKEN_KIND_BUILTIN_WORD] || [self predicts:TOKEN_KIND_CHAR_TITLE] || [self predicts:TOKEN_KIND_COMMENT_TITLE] || [self predicts:TOKEN_KIND_DELIMOPEN] || [self predicts:TOKEN_KIND_DIGIT_TITLE] || [self predicts:TOKEN_KIND_EMPTY_TITLE] || [self predicts:TOKEN_KIND_LETTER_TITLE] || [self predicts:TOKEN_KIND_NUMBER_TITLE] || [self predicts:TOKEN_KIND_PATTERNIGNORECASE] || [self predicts:TOKEN_KIND_PATTERNNOOPTS] || [self predicts:TOKEN_KIND_QUOTEDSTRING_TITLE] || [self predicts:TOKEN_KIND_SPECIFICCHAR_TITLE] || [self predicts:TOKEN_KIND_SYMBOL_TITLE] || [self predicts:TOKEN_KIND_S_TITLE] || [self predicts:TOKEN_KIND_WORD_TITLE]) {
         [self atomicValue]; 
-    } else if ([self predicts:TOKEN_KIND_OPEN_PAREN]) {
+    } else if ([self predictsAny:TOKEN_KIND_OPEN_PAREN, 0]) {
         [self subSeqExpr]; 
-    } else if ([self predicts:TOKEN_KIND_OPEN_BRACKET]) {
+    } else if ([self predictsAny:TOKEN_KIND_OPEN_BRACKET, 0]) {
         [self subTrackExpr]; 
     } else {
         [self raise:@"no viable alternative found in barePrimaryExpr"];
@@ -689,7 +689,7 @@
 - (void)__atomicValue {
     
     [self parser]; 
-    if ([self predicts:TOKEN_KIND_DISCARD]) {
+    if ([self predictsAny:TOKEN_KIND_DISCARD, 0]) {
         [self discard]; 
     }
 
@@ -704,13 +704,13 @@
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
         [self variable]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING]) {
+    } else if ([self predictsAny:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self literal]; 
-    } else if ([self predicts:TOKEN_KIND_PATTERNIGNORECASE] || [self predicts:TOKEN_KIND_PATTERNNOOPTS]) {
+    } else if ([self predictsAny:TOKEN_KIND_PATTERNIGNORECASE, TOKEN_KIND_PATTERNNOOPTS, 0]) {
         [self pattern]; 
-    } else if ([self predicts:TOKEN_KIND_DELIMOPEN]) {
+    } else if ([self predictsAny:TOKEN_KIND_DELIMOPEN, 0]) {
         [self delimitedString]; 
-    } else if ([self predicts:TOKEN_KIND_ANY_TITLE] || [self predicts:TOKEN_KIND_CHAR_TITLE] || [self predicts:TOKEN_KIND_COMMENT_TITLE] || [self predicts:TOKEN_KIND_DIGIT_TITLE] || [self predicts:TOKEN_KIND_EMPTY_TITLE] || [self predicts:TOKEN_KIND_LETTER_TITLE] || [self predicts:TOKEN_KIND_NUMBER_TITLE] || [self predicts:TOKEN_KIND_QUOTEDSTRING_TITLE] || [self predicts:TOKEN_KIND_SPECIFICCHAR_TITLE] || [self predicts:TOKEN_KIND_SYMBOL_TITLE] || [self predicts:TOKEN_KIND_S_TITLE] || [self predicts:TOKEN_KIND_WORD_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_ANY_TITLE, TOKEN_KIND_CHAR_TITLE, TOKEN_KIND_COMMENT_TITLE, TOKEN_KIND_DIGIT_TITLE, TOKEN_KIND_EMPTY_TITLE, TOKEN_KIND_LETTER_TITLE, TOKEN_KIND_NUMBER_TITLE, TOKEN_KIND_QUOTEDSTRING_TITLE, TOKEN_KIND_SPECIFICCHAR_TITLE, TOKEN_KIND_SYMBOL_TITLE, TOKEN_KIND_S_TITLE, TOKEN_KIND_WORD_TITLE, 0]) {
         [self constant]; 
     } else {
         [self raise:@"no viable alternative found in parser"];
@@ -738,7 +738,7 @@
     
     if ([self predicts:TOKEN_KIND_PATTERNNOOPTS]) {
         [self patternNoOpts]; 
-    } else if ([self predicts:TOKEN_KIND_PATTERNIGNORECASE]) {
+    } else if ([self predictsAny:TOKEN_KIND_PATTERNIGNORECASE, 0]) {
         [self patternIgnoreCase]; 
     } else {
         [self raise:@"no viable alternative found in pattern"];
@@ -777,7 +777,7 @@
     
     [self delimOpen]; 
     [self QuotedString]; 
-    if (([self predicts:TOKEN_KIND_COMMA]) && ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self discard:1];[self QuotedString]; }])) {
+    if (([self predictsAny:TOKEN_KIND_COMMA, 0]) && ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self discard:1];[self QuotedString]; }])) {
         [self match:TOKEN_KIND_COMMA]; [self discard:1];
         [self QuotedString]; 
     }
@@ -805,27 +805,27 @@
     
     if ([self predicts:TOKEN_KIND_WORD_TITLE]) {
         [self match:TOKEN_KIND_WORD_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_NUMBER_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_NUMBER_TITLE, 0]) {
         [self match:TOKEN_KIND_NUMBER_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_QUOTEDSTRING_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_QUOTEDSTRING_TITLE, 0]) {
         [self match:TOKEN_KIND_QUOTEDSTRING_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_SYMBOL_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_SYMBOL_TITLE, 0]) {
         [self match:TOKEN_KIND_SYMBOL_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_COMMENT_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_COMMENT_TITLE, 0]) {
         [self match:TOKEN_KIND_COMMENT_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_EMPTY_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_EMPTY_TITLE, 0]) {
         [self match:TOKEN_KIND_EMPTY_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_ANY_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_ANY_TITLE, 0]) {
         [self match:TOKEN_KIND_ANY_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_S_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_S_TITLE, 0]) {
         [self match:TOKEN_KIND_S_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_DIGIT_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_DIGIT_TITLE, 0]) {
         [self match:TOKEN_KIND_DIGIT_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_LETTER_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_LETTER_TITLE, 0]) {
         [self match:TOKEN_KIND_LETTER_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_CHAR_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_CHAR_TITLE, 0]) {
         [self match:TOKEN_KIND_CHAR_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_SPECIFICCHAR_TITLE]) {
+    } else if ([self predictsAny:TOKEN_KIND_SPECIFICCHAR_TITLE, 0]) {
         [self match:TOKEN_KIND_SPECIFICCHAR_TITLE]; 
     } else {
         [self raise:@"no viable alternative found in constant"];

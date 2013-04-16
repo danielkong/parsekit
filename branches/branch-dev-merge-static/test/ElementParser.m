@@ -114,7 +114,7 @@
 - (void)__elements {
     
     [self element]; 
-    while ([self predicts:TOKEN_KIND_COMMA]) {
+    while ([self predictsAny:TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self comma]; [self element]; }]) {
             [self comma]; 
             [self element]; 
@@ -134,7 +134,7 @@
     
     if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER]) {
         [self Number]; 
-    } else if ([self predicts:TOKEN_KIND_LBRACKET]) {
+    } else if ([self predictsAny:TOKEN_KIND_LBRACKET, 0]) {
         [self list]; 
     } else {
         [self raise:@"no viable alternative found in element"];

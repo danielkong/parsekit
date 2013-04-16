@@ -370,7 +370,7 @@
 }
 
 
-- (BOOL)predicts:(NSInteger)firstTokenKind, ... {
+- (BOOL)predicts:(NSInteger)firstTokenKind {
     NSParameterAssert(firstTokenKind != TOKEN_KIND_BUILTIN_INVALID);
     
     NSInteger la = LA(1);
@@ -379,19 +379,35 @@
         return YES;
     }
     
-//    va_list vargs;
-//    va_start(vargs, firstTokenKind);
-//
-//    NSInteger nextTokenKind;
-//    while ((nextTokenKind = va_arg(vargs, NSInteger))) {
-//        if ([self lookahead:la predicts:nextTokenKind]) {
-//            return YES;
-//        }
-//    }
-//
-//    va_end(vargs);
-
     return NO;
+}
+
+
+- (BOOL)predictsAny:(NSInteger)firstTokenKind, ... {
+    NSParameterAssert(firstTokenKind != TOKEN_KIND_BUILTIN_INVALID);
+    
+    NSInteger la = LA(1);
+    
+    if ([self lookahead:la predicts:firstTokenKind]) {
+        return YES;
+    }
+    
+    BOOL result = NO;
+    
+    va_list vargs;
+    va_start(vargs, firstTokenKind);
+
+    int nextTokenKind;
+    while ((nextTokenKind = va_arg(vargs, int)) > 0) {
+        if ([self lookahead:la predicts:nextTokenKind]) {
+            result = YES;
+            break;
+        }
+    }
+
+    va_end(vargs);
+    
+    return result;
 }
 
 
