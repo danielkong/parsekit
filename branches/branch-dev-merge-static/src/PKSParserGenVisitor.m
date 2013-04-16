@@ -234,20 +234,18 @@
 }
 
 
-- (NSString *)actionStringFrom:(PKBaseNode *)node {
-    NSMutableString *result = [NSMutableString string];
+- (NSString *)actionStringFrom:(PKActionNode *)actNode {
+    if (!actNode || self.isSpeculating) return @"";
     
-    if (!self.isSpeculating && node.actionNode) {
-        id vars = @{ACTION_BODY: node.actionNode.source, DEPTH: @(_depth)};
-        [result appendString:[_engine processTemplate:[self templateStringNamed:@"PKSActionTemplate"] withVariables:vars]];
-    }
+    id vars = @{ACTION_BODY: actNode.source, DEPTH: @(_depth)};
+    NSString *result = [_engine processTemplate:[self templateStringNamed:@"PKSActionTemplate"] withVariables:vars];
 
     return result;
 }
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     self.depth = 1; // 1 for the try/catch wrapper
 
@@ -266,8 +264,12 @@
 
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
+    
+    if (node.before) {
+        [childStr appendString:[self actionStringFrom:node.before]];
+    }
 
-    [childStr appendString:[self actionStringFrom:node]];
+    [childStr appendString:[self actionStringFrom:node.actionNode]];
 
     // recurse
     for (PKBaseNode *child in node.children) {
@@ -277,6 +279,10 @@
         [childStr appendString:[self pop]];
     }
 
+    if (node.after) {
+        [childStr appendString:[self actionStringFrom:node.after]];
+    }
+    
     // merge
     vars[METHOD_BODY] = childStr;
     
@@ -312,7 +318,7 @@
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
-    [output appendString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node.actionNode]];
 
     // push
     [self push:output];
@@ -376,7 +382,7 @@
     [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
     
     // action
-    [output appendString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node.actionNode]];
     
     // push
     [self push:output];
@@ -435,7 +441,7 @@
     [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
 
     // action
-    [output appendString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node.actionNode]];
 
     // push
     [self push:output];
@@ -478,7 +484,7 @@
         [childStr appendString:[self pop]];
     }
     
-    [childStr appendString:[self actionStringFrom:node]];
+    [childStr appendString:[self actionStringFrom:node.actionNode]];
 
     // push
     [self push:childStr];
@@ -697,7 +703,7 @@
     [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
     
     // action
-    [output appendString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node.actionNode]];
 
     // push
     [self push:output];
@@ -771,7 +777,7 @@
     [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
 
     // action
-    [output appendString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node.actionNode]];
 
     // push
     [self push:output];
@@ -795,7 +801,7 @@
     NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
-    [output appendString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node.actionNode]];
 
     // push
     [self push:output];
@@ -818,7 +824,7 @@
     NSString *template = [self templateStringNamed:@"PKSMatchCallTemplate"];
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
-    [output appendString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node.actionNode]];
 
     // push
     [self push:output];
@@ -844,7 +850,7 @@
     NSString *template = [self templateStringNamed:@"PKSMatchDelimitedStringTemplate"];
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
-    [output appendString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node.actionNode]];
     
     // push
     [self push:output];
@@ -869,7 +875,7 @@
     NSString *template = [self templateStringNamed:@"PKSMatchPatternTemplate"];
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
-    [output appendString:[self actionStringFrom:node]];
+    [output appendString:[self actionStringFrom:node.actionNode]];
     
     // push
     [self push:output];

@@ -84,7 +84,13 @@
 
 - (void)__a {
     
+    [self execute:(id)^{
+        PUSH(@"foo");
+    }];
     [self match:TOKEN_KIND_A]; 
+    [self execute:(id)^{
+        PUSH(@"bar");
+    }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }

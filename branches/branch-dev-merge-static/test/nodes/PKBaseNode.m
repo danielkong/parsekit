@@ -20,6 +20,8 @@
     self.actionNode = nil;
     self.semanticPredicateNode = nil;
     self.defName = nil;
+    self.before = nil;
+    self.after = nil;
     [super dealloc];
 }
 
@@ -31,6 +33,8 @@
     that->_actionNode = [_actionNode retain];
     that->_semanticPredicateNode = [_semanticPredicateNode retain];
     that->_defName = [_defName retain];
+    that->_before = [_before retain];
+    that->_after = [_after retain];
     return that;
 }
 
