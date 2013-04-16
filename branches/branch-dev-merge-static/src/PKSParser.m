@@ -33,6 +33,7 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 
 - (NSInteger)tokenKindForString:(NSString *)s;
+- (BOOL)tokenKind:(NSInteger)x predicts:(NSInteger)tokenKind;
 
 // conenience
 - (BOOL)_popBool;
@@ -369,14 +370,37 @@
 }
 
 
-- (BOOL)predicts:(NSInteger)tokenKind {
-    NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_INVALID);
+- (BOOL)predicts:(NSInteger)firstTokenKind, ... {
+    NSParameterAssert(firstTokenKind != TOKEN_KIND_BUILTIN_INVALID);
     
+    NSInteger x = LA(1);
+    
+    if ([self tokenKind:x predicts:firstTokenKind]) {
+        return YES;
+    }
+    
+//    va_list vargs;
+//    va_start(vargs, firstTokenKind);
+//
+//    NSInteger nextTokenKind;
+//    while ((nextTokenKind = va_arg(vargs, NSInteger))) {
+//        if ([self tokenKind:x predicts:nextTokenKind]) {
+//            return YES;
+//        }
+//    }
+//
+//    va_end(vargs);
+
+    return NO;
+}
+
+
+- (BOOL)tokenKind:(NSInteger)x predicts:(NSInteger)tokenKind {
     BOOL result = NO;
     
-    if (TOKEN_KIND_BUILTIN_ANY == tokenKind && LA(1) != TOKEN_KIND_BUILTIN_EOF) {
+    if (TOKEN_KIND_BUILTIN_ANY == tokenKind && x != TOKEN_KIND_BUILTIN_EOF) {
         result = YES;
-    } else if (LA(1) == tokenKind) {
+    } else if (x == tokenKind) {
         result = YES;
     }
     
