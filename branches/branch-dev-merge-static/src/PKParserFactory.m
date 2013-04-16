@@ -120,7 +120,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchSubTrackExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchCodeBlock:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchFactor:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSemanticPredicate:(PKAssembly *)a;
@@ -937,7 +936,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKToken *sourceTok = [a pop];
     NSAssert(sourceTok.isDelimitedString, @"");
@@ -945,20 +944,34 @@ void PKReleaseSubparserTree(PKParser *p) {
     id obj = [a pop];
     PKBaseNode *ownerNode = nil;
     
+    NSString *key = nil;
+    
     // find owner node (different for pre and post actions)
     if ([obj isEqual:equals]) {
         // pre action
+        key = @"actionNode";
+        
         PKToken *eqTok = (PKToken *)obj;
         NSAssert([eqTok isKindOfClass:[PKToken class]], @"");
         ownerNode = [a pop];
         
         [a push:ownerNode];
         [a push:eqTok]; // put '=' back
-    } else {
+    } else if ([obj isKindOfClass:[PKBaseNode class]]) {
         // post action
+        key = @"actionNode";
+
         ownerNode = (PKBaseNode *)obj;
         NSAssert([ownerNode isKindOfClass:[PKBaseNode class]], @"");
         
+        [a push:ownerNode];
+    } else if ([obj isKindOfClass:[PKToken class]]) {
+        // before codeBlock. obj is 'before' or 'after'. discard.
+        PKToken *tok = (PKToken *)obj;
+        key = tok.stringValue;
+        NSAssert([key isEqual:@"before"] || [key isEqual:@"after"], @"");
+        ownerNode = [a pop];
+
         [a push:ownerNode];
     }
     
@@ -974,28 +987,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
     actNode.source = source;
-    ownerNode.actionNode = actNode;
-}
-
-
-- (void)parser:(PKParser *)p didMatchCodeBlock:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    
-    PKToken *sourceTok = [a pop];
-    
-    NSUInteger len = [sourceTok.stringValue length];
-    NSAssert(len > 1, @"");
-    
-    NSString *source = nil;
-    if (2 == len) {
-        source = @"";
-    } else {
-        source = [sourceTok.stringValue substringWithRange:NSMakeRange(1, len - 2)];
-    }
-    
-    PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
-    actNode.source = source;
-    rootNode.beforeBlock = actNode;
+    [ownerNode setValue:actNode forKey:key];
 }
 
 

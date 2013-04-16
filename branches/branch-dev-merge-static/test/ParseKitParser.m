@@ -49,8 +49,9 @@
 @property (nonatomic, retain) NSMutableDictionary *decl_memo;
 @property (nonatomic, retain) NSMutableDictionary *production_memo;
 @property (nonatomic, retain) NSMutableDictionary *startProduction_memo;
-@property (nonatomic, retain) NSMutableDictionary *beforeBlock_memo;
-@property (nonatomic, retain) NSMutableDictionary *beforeNaked_memo;
+@property (nonatomic, retain) NSMutableDictionary *namedAction_memo;
+@property (nonatomic, retain) NSMutableDictionary *beforeKey_memo;
+@property (nonatomic, retain) NSMutableDictionary *afterKey_memo;
 @property (nonatomic, retain) NSMutableDictionary *varProduction_memo;
 @property (nonatomic, retain) NSMutableDictionary *expr_memo;
 @property (nonatomic, retain) NSMutableDictionary *term_memo;
@@ -92,6 +93,7 @@
         self._tokenKindTab[@"Symbol"] = @(TOKEN_KIND_SYMBOL_TITLE);
         self._tokenKindTab[@"{,}?"] = @(TOKEN_KIND_SEMANTICPREDICATE);
         self._tokenKindTab[@"|"] = @(TOKEN_KIND_PIPE);
+        self._tokenKindTab[@"after"] = @(TOKEN_KIND_AFTERKEY);
         self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSE_CURLY);
         self._tokenKindTab[@"~"] = @(TOKEN_KIND_TILDE);
         self._tokenKindTab[@"start"] = @(TOKEN_KIND_START);
@@ -107,12 +109,12 @@
         self._tokenKindTab[@"/,/"] = @(TOKEN_KIND_PATTERNNOOPTS);
         self._tokenKindTab[@"?"] = @(TOKEN_KIND_PHRASEQUESTION);
         self._tokenKindTab[@"QuotedString"] = @(TOKEN_KIND_QUOTEDSTRING_TITLE);
-        self._tokenKindTab[@"Letter"] = @(TOKEN_KIND_LETTER_TITLE);
-        self._tokenKindTab[@"@"] = @(TOKEN_KIND_AT);
         self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
-        self._tokenKindTab[@"before"] = @(TOKEN_KIND_BEFORENAKED);
-        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
+        self._tokenKindTab[@"@"] = @(TOKEN_KIND_AT);
         self._tokenKindTab[@"/,/i"] = @(TOKEN_KIND_PATTERNIGNORECASE);
+        self._tokenKindTab[@"before"] = @(TOKEN_KIND_BEFOREKEY);
+        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
+        self._tokenKindTab[@"Letter"] = @(TOKEN_KIND_LETTER_TITLE);
         self._tokenKindTab[@"*"] = @(TOKEN_KIND_PHRASESTAR);
         self._tokenKindTab[@"Empty"] = @(TOKEN_KIND_EMPTY_TITLE);
         self._tokenKindTab[@"+"] = @(TOKEN_KIND_PHRASEPLUS);
@@ -131,8 +133,9 @@
         self.decl_memo = [NSMutableDictionary dictionary];
         self.production_memo = [NSMutableDictionary dictionary];
         self.startProduction_memo = [NSMutableDictionary dictionary];
-        self.beforeBlock_memo = [NSMutableDictionary dictionary];
-        self.beforeNaked_memo = [NSMutableDictionary dictionary];
+        self.namedAction_memo = [NSMutableDictionary dictionary];
+        self.beforeKey_memo = [NSMutableDictionary dictionary];
+        self.afterKey_memo = [NSMutableDictionary dictionary];
         self.varProduction_memo = [NSMutableDictionary dictionary];
         self.expr_memo = [NSMutableDictionary dictionary];
         self.term_memo = [NSMutableDictionary dictionary];
@@ -174,8 +177,9 @@
     self.decl_memo = nil;
     self.production_memo = nil;
     self.startProduction_memo = nil;
-    self.beforeBlock_memo = nil;
-    self.beforeNaked_memo = nil;
+    self.namedAction_memo = nil;
+    self.beforeKey_memo = nil;
+    self.afterKey_memo = nil;
     self.varProduction_memo = nil;
     self.expr_memo = nil;
     self.term_memo = nil;
@@ -217,8 +221,9 @@
     [_decl_memo removeAllObjects];
     [_production_memo removeAllObjects];
     [_startProduction_memo removeAllObjects];
-    [_beforeBlock_memo removeAllObjects];
-    [_beforeNaked_memo removeAllObjects];
+    [_namedAction_memo removeAllObjects];
+    [_beforeKey_memo removeAllObjects];
+    [_afterKey_memo removeAllObjects];
     [_varProduction_memo removeAllObjects];
     [_expr_memo removeAllObjects];
     [_term_memo removeAllObjects];
@@ -263,9 +268,7 @@
 
 - (void)__statement {
     
-    if ([self speculate:^{ [self beforeBlock]; }]) {
-        [self beforeBlock]; 
-    } else if ([self speculate:^{ [self decl]; }]) {
+    if ([self speculate:^{ [self decl]; }]) {
         [self decl]; 
     } else if ([self speculate:^{ [self tokenizerDirective]; }]) {
         [self tokenizerDirective]; 
@@ -306,6 +309,13 @@
 - (void)__decl {
     
     [self production]; 
+    while ([self predicts:TOKEN_KIND_AT]) {
+        if ([self speculate:^{ [self namedAction]; }]) {
+            [self namedAction]; 
+        } else {
+            break;
+        }
+    }
     [self match:TOKEN_KIND_EQUALS]; 
     if ([self predicts:TOKEN_KIND_ACTION]) {
         [self action]; 
@@ -349,29 +359,45 @@
     [self parseRule:@selector(__startProduction) withMemo:_startProduction_memo];
 }
 
-- (void)__beforeBlock {
+- (void)__namedAction {
     
     [self match:TOKEN_KIND_AT]; [self discard:1];
-    [self beforeNaked]; 
+    if ([self predicts:TOKEN_KIND_BEFOREKEY]) {
+        [self beforeKey]; 
+    } else if ([self predicts:TOKEN_KIND_AFTERKEY]) {
+        [self afterKey]; 
+    } else {
+        [self raise:@"no viable alternative found in namedAction"];
+    }
     [self action]; 
-    [self match:TOKEN_KIND_SEMI_COLON]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchBeforeBlock:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchNamedAction:)];
 }
 
-- (void)beforeBlock {
-    [self parseRule:@selector(__beforeBlock) withMemo:_beforeBlock_memo];
+- (void)namedAction {
+    [self parseRule:@selector(__namedAction) withMemo:_namedAction_memo];
 }
 
-- (void)__beforeNaked {
+- (void)__beforeKey {
     
-    [self match:TOKEN_KIND_BEFORENAKED]; [self discard:1];
+    [self match:TOKEN_KIND_BEFOREKEY]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchBeforeNaked:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchBeforeKey:)];
 }
 
-- (void)beforeNaked {
-    [self parseRule:@selector(__beforeNaked) withMemo:_beforeNaked_memo];
+- (void)beforeKey {
+    [self parseRule:@selector(__beforeKey) withMemo:_beforeKey_memo];
+}
+
+- (void)__afterKey {
+    
+    [self match:TOKEN_KIND_AFTERKEY]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchAfterKey:)];
+}
+
+- (void)afterKey {
+    [self parseRule:@selector(__afterKey) withMemo:_afterKey_memo];
 }
 
 - (void)__varProduction {

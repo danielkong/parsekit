@@ -1,11 +1,12 @@
 @start               = statement+;
-statement            = beforeBlock | decl | tokenizerDirective;
+statement            = decl | tokenizerDirective;
 tokenizerDirective   = '@'! Word '=' (Word | QuotedString)+ ';'!;
-decl                 = production '=' action? expr ';'!;
+decl                 = production namedAction* '=' action? expr ';'!;
 production           = startProduction | varProduction;
 startProduction      = '@'! 'start'!;
-beforeBlock		     = '@'! beforeNaked action ';';
-beforeNaked 		 = 'before'!;
+namedAction		     = '@'! (beforeKey | afterKey) action;
+beforeKey    		 = 'before';
+afterKey    		 = 'after';
 varProduction        = Word;
 expr                 = term orTerm*;
 term                 = semanticPredicate? factor nextFactor*;

@@ -268,6 +268,9 @@
 		D33830C1171CA55300CCE513 /* ICUTemplateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022707170208C800594F16 /* ICUTemplateMatcher.m */; };
 		D33830C2171CA55300CCE513 /* NSArray_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022712170208C800594F16 /* NSArray_DeepMutableCopy.m */; };
 		D33830C3171CA55300CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022714170208C800594F16 /* NSDictionary_DeepMutableCopy.m */; };
+		D33830C8171DBE8A00CCE513 /* named_action.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D33830C7171DBE8A00CCE513 /* named_action.grammar */; };
+		D33830CB171DBEB100CCE513 /* NamedActionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D33830CA171DBEB100CCE513 /* NamedActionParser.m */; };
+		D33830CE171DBEE200CCE513 /* NamedActionParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D33830CD171DBEE200CCE513 /* NamedActionParserTest.m */; };
 		D3385FDA0FCFB1FF003BF729 /* TDPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */; };
 		D33DC1991165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
 		D33DC19B1165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
@@ -1324,6 +1327,11 @@
 		D338304A171C923700CCE513 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		D33830B8171CA50F00CCE513 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = lib/MGTemplateEngine/RegexKitLite.h; sourceTree = "<group>"; };
 		D33830B9171CA50F00CCE513 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = lib/MGTemplateEngine/RegexKitLite.m; sourceTree = "<group>"; };
+		D33830C7171DBE8A00CCE513 /* named_action.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = named_action.grammar; path = res/named_action.grammar; sourceTree = "<group>"; };
+		D33830C9171DBEB100CCE513 /* NamedActionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NamedActionParser.h; path = test/NamedActionParser.h; sourceTree = "<group>"; };
+		D33830CA171DBEB100CCE513 /* NamedActionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NamedActionParser.m; path = test/NamedActionParser.m; sourceTree = "<group>"; };
+		D33830CC171DBEE200CCE513 /* NamedActionParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NamedActionParserTest.h; path = test/NamedActionParserTest.h; sourceTree = "<group>"; };
+		D33830CD171DBEE200CCE513 /* NamedActionParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NamedActionParserTest.m; path = test/NamedActionParserTest.m; sourceTree = "<group>"; };
 		D3385FD70FCFB1FF003BF729 /* TDPredicateEvaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPredicateEvaluator.h; path = test/TDPredicateEvaluator.h; sourceTree = "<group>"; };
 		D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPredicateEvaluator.m; path = test/TDPredicateEvaluator.m; sourceTree = "<group>"; };
 		D3385FDB0FCFB227003BF729 /* TDPredicateEvaluatorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPredicateEvaluatorTest.h; path = test/TDPredicateEvaluatorTest.h; sourceTree = "<group>"; };
@@ -2949,6 +2957,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D33830C9171DBEB100CCE513 /* NamedActionParser.h */,
+				D33830CA171DBEB100CCE513 /* NamedActionParser.m */,
 				D38BC8AF1716006B00BF530D /* SemanticPredicateParser.h */,
 				D38BC8B01716006C00BF530D /* SemanticPredicateParser.m */,
 				D38BC89F1714A75A00BF530D /* UnfinishedSeqParser.h */,
@@ -2998,6 +3008,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D33830CC171DBEE200CCE513 /* NamedActionParserTest.h */,
+				D33830CD171DBEE200CCE513 /* NamedActionParserTest.m */,
 				D38BC8B4171600A900BF530D /* SemanticPredicateParserTest.h */,
 				D38BC8B5171600A900BF530D /* SemanticPredicateParserTest.m */,
 				D38BC8A41714A78700BF530D /* UnfinishedSeqParserTest.h */,
@@ -3049,6 +3061,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D33830C7171DBE8A00CCE513 /* named_action.grammar */,
 				D38BC8B21716008D00BF530D /* semantic_predicate.grammar */,
 				D38BC8A21714A77700BF530D /* unfinished_seq.grammar */,
 				D38BC894171494E800BF530D /* greed.grammar */,
@@ -4231,6 +4244,7 @@
 				D338308C171CA3BA00CCE513 /* PKSRepetitionTerminalTemplate.txt in Resources */,
 				D338308D171CA3BA00CCE513 /* PKSNegationNonTerminalTemplate.txt in Resources */,
 				D338308E171CA3BA00CCE513 /* PKSNegationTerminalTemplate.txt in Resources */,
+				D33830C8171DBE8A00CCE513 /* named_action.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4626,6 +4640,8 @@
 				D33830C1171CA55300CCE513 /* ICUTemplateMatcher.m in Sources */,
 				D33830C2171CA55300CCE513 /* NSArray_DeepMutableCopy.m in Sources */,
 				D33830C3171CA55300CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */,
+				D33830CB171DBEB100CCE513 /* NamedActionParser.m in Sources */,
+				D33830CE171DBEE200CCE513 /* NamedActionParserTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
