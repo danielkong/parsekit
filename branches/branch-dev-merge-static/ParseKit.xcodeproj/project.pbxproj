@@ -2444,6 +2444,7 @@
 			children = (
 				D3C222290FFE8DAC004514FE /* PKParserFactory.h */,
 				D34BAFD80FF9E95500D7773A /* PKParserFactory.m */,
+				D30B8F4F170CFF16001796F4 /* parsekit.grammar */,
 				D30B8F54170CFF3C001796F4 /* ParseKitParser.h */,
 				D30B8F55170CFF3C001796F4 /* ParseKitParser.m */,
 				D3376D5710093A1600E4602E /* PKGrammarParser.h */,
@@ -3054,7 +3055,6 @@
 				D38BC8AA1714AF4100BF530D /* dot_question.grammar */,
 				D30B8F66170D0ED5001796F4 /* pattern.grammar */,
 				D30B8F5A170D000A001796F4 /* delimited.grammar */,
-				D30B8F4F170CFF16001796F4 /* parsekit.grammar */,
 				D30B8F41170CA5D6001796F4 /* dreaded.grammar */,
 				D3B63A83170A674F00BA9DBF /* alternate.grammar */,
 				D3B63A78170A55C100BA9DBF /* multiple.grammar */,

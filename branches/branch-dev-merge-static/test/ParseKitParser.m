@@ -49,6 +49,8 @@
 @property (nonatomic, retain) NSMutableDictionary *decl_memo;
 @property (nonatomic, retain) NSMutableDictionary *production_memo;
 @property (nonatomic, retain) NSMutableDictionary *startProduction_memo;
+@property (nonatomic, retain) NSMutableDictionary *beforeBlock_memo;
+@property (nonatomic, retain) NSMutableDictionary *beforeNaked_memo;
 @property (nonatomic, retain) NSMutableDictionary *varProduction_memo;
 @property (nonatomic, retain) NSMutableDictionary *expr_memo;
 @property (nonatomic, retain) NSMutableDictionary *term_memo;
@@ -108,6 +110,7 @@
         self._tokenKindTab[@"Letter"] = @(TOKEN_KIND_LETTER_TITLE);
         self._tokenKindTab[@"@"] = @(TOKEN_KIND_AT);
         self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
+        self._tokenKindTab[@"before"] = @(TOKEN_KIND_BEFORENAKED);
         self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
         self._tokenKindTab[@"/,/i"] = @(TOKEN_KIND_PATTERNIGNORECASE);
         self._tokenKindTab[@"*"] = @(TOKEN_KIND_PHRASESTAR);
@@ -118,8 +121,8 @@
         self._tokenKindTab[@"SpecificChar"] = @(TOKEN_KIND_SPECIFICCHAR_TITLE);
         self._tokenKindTab[@"-"] = @(TOKEN_KIND_MINUS);
         self._tokenKindTab[@"Word"] = @(TOKEN_KIND_WORD_TITLE);
-        self._tokenKindTab[@"Char"] = @(TOKEN_KIND_CHAR_TITLE);
         self._tokenKindTab[@"]"] = @(TOKEN_KIND_CLOSE_BRACKET);
+        self._tokenKindTab[@"Char"] = @(TOKEN_KIND_CHAR_TITLE);
         self._tokenKindTab[@"Digit"] = @(TOKEN_KIND_DIGIT_TITLE);
         self._tokenKindTab[@"%{"] = @(TOKEN_KIND_DELIMOPEN);
 
@@ -128,6 +131,8 @@
         self.decl_memo = [NSMutableDictionary dictionary];
         self.production_memo = [NSMutableDictionary dictionary];
         self.startProduction_memo = [NSMutableDictionary dictionary];
+        self.beforeBlock_memo = [NSMutableDictionary dictionary];
+        self.beforeNaked_memo = [NSMutableDictionary dictionary];
         self.varProduction_memo = [NSMutableDictionary dictionary];
         self.expr_memo = [NSMutableDictionary dictionary];
         self.term_memo = [NSMutableDictionary dictionary];
@@ -169,6 +174,8 @@
     self.decl_memo = nil;
     self.production_memo = nil;
     self.startProduction_memo = nil;
+    self.beforeBlock_memo = nil;
+    self.beforeNaked_memo = nil;
     self.varProduction_memo = nil;
     self.expr_memo = nil;
     self.term_memo = nil;
@@ -210,6 +217,8 @@
     [_decl_memo removeAllObjects];
     [_production_memo removeAllObjects];
     [_startProduction_memo removeAllObjects];
+    [_beforeBlock_memo removeAllObjects];
+    [_beforeNaked_memo removeAllObjects];
     [_varProduction_memo removeAllObjects];
     [_expr_memo removeAllObjects];
     [_term_memo removeAllObjects];
@@ -254,7 +263,9 @@
 
 - (void)__statement {
     
-    if ([self speculate:^{ [self decl]; }]) {
+    if ([self speculate:^{ [self beforeBlock]; }]) {
+        [self beforeBlock]; 
+    } else if ([self speculate:^{ [self decl]; }]) {
         [self decl]; 
     } else if ([self speculate:^{ [self tokenizerDirective]; }]) {
         [self tokenizerDirective]; 
@@ -272,11 +283,7 @@
 - (void)__tokenizerDirective {
     
     [self match:TOKEN_KIND_AT]; [self discard:1];
-    if (![self predicts:TOKEN_KIND_START]) {
-        [self match:TOKEN_KIND_BUILTIN_ANY];
-    } else {
-        [self raise:@"negation test failed in tokenizerDirective"];
-    }
+    [self Word]; 
     [self match:TOKEN_KIND_EQUALS]; 
     do {
         if ([self predicts:TOKEN_KIND_BUILTIN_WORD]) {
@@ -340,6 +347,31 @@
 
 - (void)startProduction {
     [self parseRule:@selector(__startProduction) withMemo:_startProduction_memo];
+}
+
+- (void)__beforeBlock {
+    
+    [self match:TOKEN_KIND_AT]; [self discard:1];
+    [self beforeNaked]; 
+    [self action]; 
+    [self match:TOKEN_KIND_SEMI_COLON]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchBeforeBlock:)];
+}
+
+- (void)beforeBlock {
+    [self parseRule:@selector(__beforeBlock) withMemo:_beforeBlock_memo];
+}
+
+- (void)__beforeNaked {
+    
+    [self match:TOKEN_KIND_BEFORENAKED]; [self discard:1];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchBeforeNaked:)];
+}
+
+- (void)beforeNaked {
+    [self parseRule:@selector(__beforeNaked) withMemo:_beforeNaked_memo];
 }
 
 - (void)__varProduction {

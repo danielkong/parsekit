@@ -149,6 +149,7 @@
         case PKNodeTypeReference: {
             NSString *name = node.token.stringValue;
             PKDefinitionNode *defNode = self.symbolTable[name];
+            NSAssert1(defNode, @"missing: %@", name);
             [set unionSet:[self lookaheadSetForNode:defNode]];
         } break;
         case PKNodeTypeAlternation: {

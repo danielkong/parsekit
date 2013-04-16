@@ -120,6 +120,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchSubTrackExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
+- (void)parser:(PKParser *)p didMatchCodeBlock:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchFactor:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSemanticPredicate:(PKAssembly *)a;
@@ -974,6 +975,27 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
     actNode.source = source;
     ownerNode.actionNode = actNode;
+}
+
+
+- (void)parser:(PKParser *)p didMatchCodeBlock:(PKAssembly *)a {
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    PKToken *sourceTok = [a pop];
+    
+    NSUInteger len = [sourceTok.stringValue length];
+    NSAssert(len > 1, @"");
+    
+    NSString *source = nil;
+    if (2 == len) {
+        source = @"";
+    } else {
+        source = [sourceTok.stringValue substringWithRange:NSMakeRange(1, len - 2)];
+    }
+    
+    PKActionNode *actNode = [PKActionNode nodeWithToken:curly];
+    actNode.source = source;
+    rootNode.beforeBlock = actNode;
 }
 
 
