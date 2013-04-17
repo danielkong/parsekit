@@ -1710,7 +1710,7 @@
     
     do {
         [self element]; 
-    } while (([self predicts:TOKEN_KIND_BREAK, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CONTINUE, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_FOR, TOKEN_KIND_FUNCTION, TOKEN_KIND_IF, TOKEN_KIND_KEYWORDNEW, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NULL, TOKEN_KIND_OPENCURLY, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_RETURN, TOKEN_KIND_SEMI, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VAR, TOKEN_KIND_VOID, TOKEN_KIND_WHILE, TOKEN_KIND_WITH, 0]) && ([self speculate:^{ [self element]; }]));
+    } while ([self speculate:^{ [self element]; }]);
 
     [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }
@@ -2117,7 +2117,7 @@
 - (void)__variable {
     
     [self identifier]; 
-    if (([self predicts:TOKEN_KIND_EQUALS, 0]) && ([self speculate:^{ [self assignment]; }])) {
+    if ([self speculate:^{ [self assignment]; }]) {
         [self assignment]; 
     }
 
@@ -2156,7 +2156,7 @@
 - (void)__expr {
     
     [self assignmentExpr]; 
-    if (([self predicts:TOKEN_KIND_COMMA, 0]) && ([self speculate:^{ [self commaExpr]; }])) {
+    if ([self speculate:^{ [self commaExpr]; }]) {
         [self commaExpr]; 
     }
 
@@ -2182,7 +2182,7 @@
 - (void)__assignmentExpr {
     
     [self conditionalExpr]; 
-    if (([self predicts:TOKEN_KIND_ANDEQ, TOKEN_KIND_DIVEQ, TOKEN_KIND_EQUALS, TOKEN_KIND_MINUSEQ, TOKEN_KIND_MODEQ, TOKEN_KIND_OREQ, TOKEN_KIND_PLUSEQ, TOKEN_KIND_SHIFTLEFTEQ, TOKEN_KIND_SHIFTRIGHTEQ, TOKEN_KIND_SHIFTRIGHTEXTEQ, TOKEN_KIND_TIMESEQ, TOKEN_KIND_XOREQ, 0]) && ([self speculate:^{ [self extraAssignment]; }])) {
+    if ([self speculate:^{ [self extraAssignment]; }]) {
         [self extraAssignment]; 
     }
 
@@ -2208,7 +2208,7 @@
 - (void)__conditionalExpr {
     
     [self orExpr]; 
-    if (([self predicts:TOKEN_KIND_QUESTION, 0]) && ([self speculate:^{ [self ternaryExpr]; }])) {
+    if ([self speculate:^{ [self ternaryExpr]; }]) {
         [self ternaryExpr]; 
     }
 
@@ -2266,7 +2266,7 @@
 - (void)__andExpr {
     
     [self bitwiseOrExpr]; 
-    if (([self predicts:TOKEN_KIND_AND, 0]) && ([self speculate:^{ [self andAndExpr]; }])) {
+    if ([self speculate:^{ [self andAndExpr]; }]) {
         [self andAndExpr]; 
     }
 
@@ -2292,7 +2292,7 @@
 - (void)__bitwiseOrExpr {
     
     [self bitwiseXorExpr]; 
-    if (([self predicts:TOKEN_KIND_PIPE, 0]) && ([self speculate:^{ [self pipeBitwiseOrExpr]; }])) {
+    if ([self speculate:^{ [self pipeBitwiseOrExpr]; }]) {
         [self pipeBitwiseOrExpr]; 
     }
 
@@ -2318,7 +2318,7 @@
 - (void)__bitwiseXorExpr {
     
     [self bitwiseAndExpr]; 
-    if (([self predicts:TOKEN_KIND_CARET, 0]) && ([self speculate:^{ [self caretBitwiseXorExpr]; }])) {
+    if ([self speculate:^{ [self caretBitwiseXorExpr]; }]) {
         [self caretBitwiseXorExpr]; 
     }
 
@@ -2344,7 +2344,7 @@
 - (void)__bitwiseAndExpr {
     
     [self equalityExpr]; 
-    if (([self predicts:TOKEN_KIND_AMP, 0]) && ([self speculate:^{ [self ampBitwiseAndExpression]; }])) {
+    if ([self speculate:^{ [self ampBitwiseAndExpression]; }]) {
         [self ampBitwiseAndExpression]; 
     }
 
@@ -2370,7 +2370,7 @@
 - (void)__equalityExpr {
     
     [self relationalExpr]; 
-    if (([self predicts:TOKEN_KIND_EQ, TOKEN_KIND_IS, TOKEN_KIND_ISNOT, TOKEN_KIND_NE, 0]) && ([self speculate:^{ [self equalityOpEqualityExpr]; }])) {
+    if ([self speculate:^{ [self equalityOpEqualityExpr]; }]) {
         [self equalityOpEqualityExpr]; 
     }
 
@@ -2415,7 +2415,7 @@
 - (void)__shiftExpr {
     
     [self additiveExpr]; 
-    if (([self predicts:TOKEN_KIND_SHIFTLEFT, TOKEN_KIND_SHIFTRIGHT, TOKEN_KIND_SHIFTRIGHTEXT, 0]) && ([self speculate:^{ [self shiftOpShiftExpr]; }])) {
+    if ([self speculate:^{ [self shiftOpShiftExpr]; }]) {
         [self shiftOpShiftExpr]; 
     }
 
@@ -2441,7 +2441,7 @@
 - (void)__additiveExpr {
     
     [self multiplicativeExpr]; 
-    if (([self predicts:TOKEN_KIND_MINUS, TOKEN_KIND_PLUS, 0]) && ([self speculate:^{ [self plusOrMinusExpr]; }])) {
+    if ([self speculate:^{ [self plusOrMinusExpr]; }]) {
         [self plusOrMinusExpr]; 
     }
 
@@ -2496,7 +2496,7 @@
 - (void)__multiplicativeExpr {
     
     [self unaryExpr]; 
-    if (([self predicts:TOKEN_KIND_DIV, TOKEN_KIND_MOD, TOKEN_KIND_TIMES, 0]) && ([self speculate:^{ [self multiplicativeOperator]; [self multiplicativeExpr]; }])) {
+    if ([self speculate:^{ [self multiplicativeOperator]; [self multiplicativeExpr]; }]) {
         [self multiplicativeOperator]; 
         [self multiplicativeExpr]; 
     }
@@ -2607,7 +2607,7 @@
 
 - (void)__constructor {
     
-    if (([self predicts:TOKEN_KIND_THIS, 0]) && ([self speculate:^{ [self this]; [self dot]; }])) {
+    if ([self speculate:^{ [self this]; [self dot]; }]) {
         [self this]; 
         [self dot]; 
     }
@@ -2623,7 +2623,7 @@
 - (void)__constructorCall {
     
     [self identifier]; 
-    if (([self predicts:TOKEN_KIND_DOT, TOKEN_KIND_OPENPAREN, 0]) && ([self speculate:^{ if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"no viable alternative found in constructorCall"];}}])) {
+    if ([self speculate:^{ if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"no viable alternative found in constructorCall"];}}]) {
         if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {
             [self parenArgListParen]; 
         } else if ([self predicts:TOKEN_KIND_DOT, 0]) {
@@ -2657,7 +2657,7 @@
 - (void)__memberExpr {
     
     [self primaryExpr]; 
-    if (([self predicts:TOKEN_KIND_DOT, TOKEN_KIND_OPENBRACKET, TOKEN_KIND_OPENPAREN, 0]) && ([self speculate:^{ [self dotBracketOrParenExpr]; }])) {
+    if ([self speculate:^{ [self dotBracketOrParenExpr]; }]) {
         [self dotBracketOrParenExpr]; 
     }
 
@@ -2727,7 +2727,7 @@
 
 - (void)__argListOpt {
     
-    if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_KEYWORDNEW, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NULL, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VOID, 0]) && ([self speculate:^{ [self argList]; }])) {
+    if ([self speculate:^{ [self argList]; }]) {
         [self argList]; 
     }
 

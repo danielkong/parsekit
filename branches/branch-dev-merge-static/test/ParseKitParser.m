@@ -262,7 +262,7 @@
     
     do {
         [self statement]; 
-    } while (([self predicts:TOKEN_KIND_AT, TOKEN_KIND_BUILTIN_WORD, 0]) && ([self speculate:^{ [self statement]; }]));
+    } while ([self speculate:^{ [self statement]; }]);
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
@@ -778,7 +778,7 @@
     
     [self delimOpen]; 
     [self QuotedString]; 
-    if (([self predicts:TOKEN_KIND_COMMA, 0]) && ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self discard:1];[self QuotedString]; }])) {
+    if ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self discard:1];[self QuotedString]; }]) {
         [self match:TOKEN_KIND_COMMA]; [self discard:1];
         [self QuotedString]; 
     }

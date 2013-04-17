@@ -92,7 +92,7 @@
 
 - (void)__s {
     
-    if (([self predicts:TOKEN_KIND_FOO, 0]) && ([self speculate:^{ [self expr]; }])) {
+    if ([self speculate:^{ [self expr]; }]) {
         [self expr]; 
     }
     [self foo]; 

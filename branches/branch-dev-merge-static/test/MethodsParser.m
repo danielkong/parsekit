@@ -93,7 +93,7 @@
     
     do {
         [self method]; 
-    } while (([self predicts:TOKEN_KIND_INT, TOKEN_KIND_VOID, 0]) && ([self speculate:^{ [self method]; }]));
+    } while ([self speculate:^{ [self method]; }]);
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }

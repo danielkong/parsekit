@@ -94,7 +94,7 @@
     
     do {
         [self ab]; 
-    } while (([self predicts:TOKEN_KIND_A, 0]) && ([self speculate:^{ [self ab]; }]));
+    } while ([self speculate:^{ [self ab]; }]);
     [self a]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];

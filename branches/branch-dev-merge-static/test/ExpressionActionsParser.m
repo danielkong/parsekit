@@ -313,9 +313,9 @@
 - (void)__callExpr {
     
     [self primary]; 
-    if (([self predicts:TOKEN_KIND_OPEN_PAREN, 0]) && ([self speculate:^{ [self match:TOKEN_KIND_OPEN_PAREN]; if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_NO_UPPER, TOKEN_KIND_YES, TOKEN_KIND_YES_UPPER, 0]) && ([self speculate:^{ [self argList]; }])) {[self argList]; }[self match:TOKEN_KIND_CLOSE_PAREN]; }])) {
+    if ([self speculate:^{ [self match:TOKEN_KIND_OPEN_PAREN]; if ([self speculate:^{ [self argList]; }]) {[self argList]; }[self match:TOKEN_KIND_CLOSE_PAREN]; }]) {
         [self match:TOKEN_KIND_OPEN_PAREN]; 
-        if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_NO_UPPER, TOKEN_KIND_YES, TOKEN_KIND_YES_UPPER, 0]) && ([self speculate:^{ [self argList]; }])) {
+        if ([self speculate:^{ [self argList]; }]) {
             [self argList]; 
         }
         [self match:TOKEN_KIND_CLOSE_PAREN]; 

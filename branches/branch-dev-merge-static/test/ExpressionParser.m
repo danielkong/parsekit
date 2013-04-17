@@ -324,9 +324,9 @@
 - (void)__callExpr {
     
     [self primary]; 
-    if (([self predicts:TOKEN_KIND_OPENPAREN, 0]) && ([self speculate:^{ [self openParen]; if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) && ([self speculate:^{ [self argList]; }])) {[self argList]; }[self closeParen]; }])) {
+    if ([self speculate:^{ [self openParen]; if ([self speculate:^{ [self argList]; }]) {[self argList]; }[self closeParen]; }]) {
         [self openParen]; 
-        if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) && ([self speculate:^{ [self argList]; }])) {
+        if ([self speculate:^{ [self argList]; }]) {
             [self argList]; 
         }
         [self closeParen]; 
