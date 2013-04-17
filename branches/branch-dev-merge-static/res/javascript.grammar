@@ -33,6 +33,10 @@
 	[self._tokenizer.symbolState add:@"|="];
 
 	self._tokenizer.commentState.reportsCommentTokens = YES;
+	
+	[self._tokenizer setTokenizerState:self._tokenizer.commentState from:'/' to:'/'];
+	[self._tokenizer.commentState addSingleLineStartMarker:@"//"];
+	[self._tokenizer.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 }
 
 
