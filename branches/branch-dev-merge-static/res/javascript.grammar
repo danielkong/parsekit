@@ -7,36 +7,39 @@
 
 @start              
 @before {
-	[self._tokenizer.symbolState add:@"||"];
-	[self._tokenizer.symbolState add:@"&&"];
-	[self._tokenizer.symbolState add:@"!="];
-	[self._tokenizer.symbolState add:@"!=="];
-	[self._tokenizer.symbolState add:@"=="];
-	[self._tokenizer.symbolState add:@"==="];
-	[self._tokenizer.symbolState add:@"<="];
-	[self._tokenizer.symbolState add:@">="];
-	[self._tokenizer.symbolState add:@"++"];
-	[self._tokenizer.symbolState add:@"--"];
-	[self._tokenizer.symbolState add:@"+="];
-	[self._tokenizer.symbolState add:@"-="];
-	[self._tokenizer.symbolState add:@"*="];
-	[self._tokenizer.symbolState add:@"/="];
-	[self._tokenizer.symbolState add:@"%="];
-	[self._tokenizer.symbolState add:@"<<"];
-	[self._tokenizer.symbolState add:@">>"];
-	[self._tokenizer.symbolState add:@">>>"];
-	[self._tokenizer.symbolState add:@"<<="];
-	[self._tokenizer.symbolState add:@">>="];
-	[self._tokenizer.symbolState add:@">>>="];
-	[self._tokenizer.symbolState add:@"&="];
-	[self._tokenizer.symbolState add:@"^="];
-	[self._tokenizer.symbolState add:@"|="];
-
-	self._tokenizer.commentState.reportsCommentTokens = YES;
 	
-	[self._tokenizer setTokenizerState:self._tokenizer.commentState from:'/' to:'/'];
-	[self._tokenizer.commentState addSingleLineStartMarker:@"//"];
-	[self._tokenizer.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
+	PKTokenizer *t = self._tokenizer;
+	
+	[t.symbolState add:@"||"];
+	[t.symbolState add:@"&&"];
+	[t.symbolState add:@"!="];
+	[t.symbolState add:@"!=="];
+	[t.symbolState add:@"=="];
+	[t.symbolState add:@"==="];
+	[t.symbolState add:@"<="];
+	[t.symbolState add:@">="];
+	[t.symbolState add:@"++"];
+	[t.symbolState add:@"--"];
+	[t.symbolState add:@"+="];
+	[t.symbolState add:@"-="];
+	[t.symbolState add:@"*="];
+	[t.symbolState add:@"/="];
+	[t.symbolState add:@"%="];
+	[t.symbolState add:@"<<"];
+	[t.symbolState add:@">>"];
+	[t.symbolState add:@">>>"];
+	[t.symbolState add:@"<<="];
+	[t.symbolState add:@">>="];
+	[t.symbolState add:@">>>="];
+	[t.symbolState add:@"&="];
+	[t.symbolState add:@"^="];
+	[t.symbolState add:@"|="];
+
+	t.commentState.reportsCommentTokens = YES;
+	
+	[t setTokenizerState:t.commentState from:'/' to:'/'];
+	[t.commentState addSingleLineStartMarker:@"//"];
+	[t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 }
 
 
