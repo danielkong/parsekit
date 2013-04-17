@@ -14,15 +14,15 @@ See: http://developer.apple.com/documentation/Cocoa/Conceptual/Predicates/Articl
 
 // Expressions
     expr                 = orTerm orOrTerm*;
-    orOrTerm             = or orTerm;
+    orOrTerm             = orKeyword orTerm;
     orTerm               = andTerm andAndTerm*;
-    andAndTerm           = and andTerm;
+    andAndTerm           = andKeyword andTerm;
     andTerm              = primaryExpr | compoundExpr; 
     compoundExpr         = '('! expr ')'!;
     primaryExpr          = predicate | negatedPredicate;
-    negatedPredicate     = not predicate;
+    negatedPredicate     = notKeyword predicate;
 
-    predicate      = boolPredicate | comparisonPredicate | stringTestPredicate | collectionTestPredicate;
+    predicate      = collectionTestPredicate | boolPredicate | comparisonPredicate | stringTestPredicate;
 
 
 // values
@@ -30,9 +30,9 @@ See: http://developer.apple.com/documentation/Cocoa/Conceptual/Predicates/Articl
 
     string  = QuotedString;
     num     = Number;
-    bool    = true | false;
-    true    = 'true'!;
-    false   = 'false'!;
+    bool    = trueLiteral | falseLiteral;
+    trueLiteral    = 'true'!;
+    falseLiteral   = 'false'!;
 
 // arrays
     array               = '{' arrayContentsOpt '}'!;
@@ -88,9 +88,9 @@ See: http://developer.apple.com/documentation/Cocoa/Conceptual/Predicates/Articl
 
 
 // Compound Expressions
-    and = 'AND'! | '&&'!;
-    or  = 'OR'!  | '||'!;
-    not = 'NOT'! | '!'!;
+    andKeyword = 'AND'! | '&&'!;
+    orKeyword  = 'OR'!  | '||'!;
+    notKeyword = 'NOT'! | '!'!;
 
 
 
@@ -107,9 +107,9 @@ See: http://developer.apple.com/documentation/Cocoa/Conceptual/Predicates/Articl
 
 
 // Collection Tests
-    collectionTestPredicate = value in collection;
+    collectionTestPredicate = value inKeyword collection;
     collection              = keyPath | array;
-    in                      = 'IN'!;
+    inKeyword               = 'IN'!;
 
 
 // Aggregate Operators

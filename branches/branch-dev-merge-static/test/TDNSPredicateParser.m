@@ -86,9 +86,9 @@
 @property (nonatomic, retain) NSMutableDictionary *boolPredicate_memo;
 @property (nonatomic, retain) NSMutableDictionary *truePredicate_memo;
 @property (nonatomic, retain) NSMutableDictionary *falsePredicate_memo;
-@property (nonatomic, retain) NSMutableDictionary *and_memo;
-@property (nonatomic, retain) NSMutableDictionary *or_memo;
-@property (nonatomic, retain) NSMutableDictionary *not_memo;
+@property (nonatomic, retain) NSMutableDictionary *andKeyword_memo;
+@property (nonatomic, retain) NSMutableDictionary *orKeyword_memo;
+@property (nonatomic, retain) NSMutableDictionary *notKeyword_memo;
 @property (nonatomic, retain) NSMutableDictionary *stringTestPredicate_memo;
 @property (nonatomic, retain) NSMutableDictionary *stringTestOp_memo;
 @property (nonatomic, retain) NSMutableDictionary *beginswith_memo;
@@ -98,7 +98,7 @@
 @property (nonatomic, retain) NSMutableDictionary *matches_memo;
 @property (nonatomic, retain) NSMutableDictionary *collectionTestPredicate_memo;
 @property (nonatomic, retain) NSMutableDictionary *collection_memo;
-@property (nonatomic, retain) NSMutableDictionary *in_memo;
+@property (nonatomic, retain) NSMutableDictionary *inKeyword_memo;
 @property (nonatomic, retain) NSMutableDictionary *aggregateOp_memo;
 @property (nonatomic, retain) NSMutableDictionary *any_memo;
 @property (nonatomic, retain) NSMutableDictionary *some_memo;
@@ -126,7 +126,7 @@
         self._tokenKindTab[@"OR"] = @(TOKEN_KIND_OR_UPPER);
         self._tokenKindTab[@"!"] = @(TOKEN_KIND_BANG);
         self._tokenKindTab[@"SOME"] = @(TOKEN_KIND_SOME);
-        self._tokenKindTab[@"in"] = @(TOKEN_KIND_IN);
+        self._tokenKindTab[@"IN"] = @(TOKEN_KIND_INKEYWORD);
         self._tokenKindTab[@"BEGINSWITH"] = @(TOKEN_KIND_BEGINSWITH);
         self._tokenKindTab[@"<"] = @(TOKEN_KIND_LT);
         self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
@@ -189,9 +189,9 @@
         self.boolPredicate_memo = [NSMutableDictionary dictionary];
         self.truePredicate_memo = [NSMutableDictionary dictionary];
         self.falsePredicate_memo = [NSMutableDictionary dictionary];
-        self.and_memo = [NSMutableDictionary dictionary];
-        self.or_memo = [NSMutableDictionary dictionary];
-        self.not_memo = [NSMutableDictionary dictionary];
+        self.andKeyword_memo = [NSMutableDictionary dictionary];
+        self.orKeyword_memo = [NSMutableDictionary dictionary];
+        self.notKeyword_memo = [NSMutableDictionary dictionary];
         self.stringTestPredicate_memo = [NSMutableDictionary dictionary];
         self.stringTestOp_memo = [NSMutableDictionary dictionary];
         self.beginswith_memo = [NSMutableDictionary dictionary];
@@ -201,7 +201,7 @@
         self.matches_memo = [NSMutableDictionary dictionary];
         self.collectionTestPredicate_memo = [NSMutableDictionary dictionary];
         self.collection_memo = [NSMutableDictionary dictionary];
-        self.in_memo = [NSMutableDictionary dictionary];
+        self.inKeyword_memo = [NSMutableDictionary dictionary];
         self.aggregateOp_memo = [NSMutableDictionary dictionary];
         self.any_memo = [NSMutableDictionary dictionary];
         self.some_memo = [NSMutableDictionary dictionary];
@@ -253,9 +253,9 @@
     self.boolPredicate_memo = nil;
     self.truePredicate_memo = nil;
     self.falsePredicate_memo = nil;
-    self.and_memo = nil;
-    self.or_memo = nil;
-    self.not_memo = nil;
+    self.andKeyword_memo = nil;
+    self.orKeyword_memo = nil;
+    self.notKeyword_memo = nil;
     self.stringTestPredicate_memo = nil;
     self.stringTestOp_memo = nil;
     self.beginswith_memo = nil;
@@ -265,7 +265,7 @@
     self.matches_memo = nil;
     self.collectionTestPredicate_memo = nil;
     self.collection_memo = nil;
-    self.in_memo = nil;
+    self.inKeyword_memo = nil;
     self.aggregateOp_memo = nil;
     self.any_memo = nil;
     self.some_memo = nil;
@@ -317,9 +317,9 @@
     [_boolPredicate_memo removeAllObjects];
     [_truePredicate_memo removeAllObjects];
     [_falsePredicate_memo removeAllObjects];
-    [_and_memo removeAllObjects];
-    [_or_memo removeAllObjects];
-    [_not_memo removeAllObjects];
+    [_andKeyword_memo removeAllObjects];
+    [_orKeyword_memo removeAllObjects];
+    [_notKeyword_memo removeAllObjects];
     [_stringTestPredicate_memo removeAllObjects];
     [_stringTestOp_memo removeAllObjects];
     [_beginswith_memo removeAllObjects];
@@ -329,7 +329,7 @@
     [_matches_memo removeAllObjects];
     [_collectionTestPredicate_memo removeAllObjects];
     [_collection_memo removeAllObjects];
-    [_in_memo removeAllObjects];
+    [_inKeyword_memo removeAllObjects];
     [_aggregateOp_memo removeAllObjects];
     [_any_memo removeAllObjects];
     [_some_memo removeAllObjects];
@@ -364,7 +364,7 @@
 
 - (void)__orOrTerm {
     
-    [self or]; 
+    [self orKeyword]; 
     [self orTerm]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrOrTerm:)];
@@ -394,7 +394,7 @@
 
 - (void)__andAndTerm {
     
-    [self and]; 
+    [self andKeyword]; 
     [self andTerm]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndAndTerm:)];
@@ -453,7 +453,7 @@
 
 - (void)__negatedPredicate {
     
-    [self not]; 
+    [self notKeyword]; 
     [self predicate]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNegatedPredicate:)];
@@ -465,14 +465,14 @@
 
 - (void)__predicate {
     
-    if ([self speculate:^{ [self boolPredicate]; }]) {
+    if ([self speculate:^{ [self collectionTestPredicate]; }]) {
+        [self collectionTestPredicate]; 
+    } else if ([self speculate:^{ [self boolPredicate]; }]) {
         [self boolPredicate]; 
     } else if ([self speculate:^{ [self comparisonPredicate]; }]) {
         [self comparisonPredicate]; 
     } else if ([self speculate:^{ [self stringTestPredicate]; }]) {
         [self stringTestPredicate]; 
-    } else if ([self speculate:^{ [self collectionTestPredicate]; }]) {
-        [self collectionTestPredicate]; 
     } else {
         [self raise:@"no viable alternative found in predicate"];
     }
@@ -958,55 +958,55 @@
     [self parseRule:@selector(__falsePredicate) withMemo:_falsePredicate_memo];
 }
 
-- (void)__and {
+- (void)__andKeyword {
     
     if ([self predicts:TOKEN_KIND_AND_UPPER, 0]) {
         [self match:TOKEN_KIND_AND_UPPER]; [self discard:1];
     } else if ([self predicts:TOKEN_KIND_DOUBLE_AMPERSAND, 0]) {
         [self match:TOKEN_KIND_DOUBLE_AMPERSAND]; [self discard:1];
     } else {
-        [self raise:@"no viable alternative found in and"];
+        [self raise:@"no viable alternative found in andKeyword"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchAndKeyword:)];
 }
 
-- (void)and {
-    [self parseRule:@selector(__and) withMemo:_and_memo];
+- (void)andKeyword {
+    [self parseRule:@selector(__andKeyword) withMemo:_andKeyword_memo];
 }
 
-- (void)__or {
+- (void)__orKeyword {
     
     if ([self predicts:TOKEN_KIND_OR_UPPER, 0]) {
         [self match:TOKEN_KIND_OR_UPPER]; [self discard:1];
     } else if ([self predicts:TOKEN_KIND_DOUBLE_PIPE, 0]) {
         [self match:TOKEN_KIND_DOUBLE_PIPE]; [self discard:1];
     } else {
-        [self raise:@"no viable alternative found in or"];
+        [self raise:@"no viable alternative found in orKeyword"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchOrKeyword:)];
 }
 
-- (void)or {
-    [self parseRule:@selector(__or) withMemo:_or_memo];
+- (void)orKeyword {
+    [self parseRule:@selector(__orKeyword) withMemo:_orKeyword_memo];
 }
 
-- (void)__not {
+- (void)__notKeyword {
     
     if ([self predicts:TOKEN_KIND_NOT_UPPER, 0]) {
         [self match:TOKEN_KIND_NOT_UPPER]; [self discard:1];
     } else if ([self predicts:TOKEN_KIND_BANG, 0]) {
         [self match:TOKEN_KIND_BANG]; [self discard:1];
     } else {
-        [self raise:@"no viable alternative found in not"];
+        [self raise:@"no viable alternative found in notKeyword"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchNot:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchNotKeyword:)];
 }
 
-- (void)not {
-    [self parseRule:@selector(__not) withMemo:_not_memo];
+- (void)notKeyword {
+    [self parseRule:@selector(__notKeyword) withMemo:_notKeyword_memo];
 }
 
 - (void)__stringTestPredicate {
@@ -1103,7 +1103,7 @@
 - (void)__collectionTestPredicate {
     
     [self value]; 
-    [self in]; 
+    [self inKeyword]; 
     [self collection]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionTestPredicate:)];
@@ -1130,15 +1130,15 @@
     [self parseRule:@selector(__collection) withMemo:_collection_memo];
 }
 
-- (void)__in {
+- (void)__inKeyword {
     
-    [self match:TOKEN_KIND_IN]; [self discard:1];
+    [self match:TOKEN_KIND_INKEYWORD]; [self discard:1];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchIn:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchInKeyword:)];
 }
 
-- (void)in {
-    [self parseRule:@selector(__in) withMemo:_in_memo];
+- (void)inKeyword {
+    [self parseRule:@selector(__inKeyword) withMemo:_inKeyword_memo];
 }
 
 - (void)__aggregateOp {
