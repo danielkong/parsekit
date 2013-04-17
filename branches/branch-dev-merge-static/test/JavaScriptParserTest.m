@@ -71,7 +71,7 @@
 - (void)testDocWriteNewDate {
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"document.write(new Date().toUTCString());" assembler:nil error:&err];
-    TDEqualObjects(@"[var, foo, =, 'bar', ;]var/foo/=/'bar'/;^", [res description]);
+    TDEqualObjects(@"[document, ., write, (, new, Date, (, ), ., toUTCString, (, ), ), ;]document/./write/(/new/Date/(/)/./toUTCString/(/)/)/;^", [res description]);
 }
 
 - (void)testDocWriteDate {
