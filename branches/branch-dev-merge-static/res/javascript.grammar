@@ -18,7 +18,7 @@ with                = 'with';
 return              = 'return';
 var                 = 'var';
 delete              = 'delete';
-new                 = 'new';
+keywordNew          = 'new';
 this                = 'this';
 falseLiteral        = 'false';
 trueLiteral         = 'true';
@@ -359,7 +359,7 @@ unaryExpr1          = unaryOperator unaryExpr;
 unaryExpr2          = minus unaryExpr;
 unaryExpr3          = incrementOperator memberExpr;
 unaryExpr4          = memberExpr incrementOperator;
-unaryExpr5          = new constructor;
+unaryExpr5          = keywordNew constructor;
 unaryExpr6          = delete memberExpr;
 
 
