@@ -74,6 +74,12 @@
     TDEqualObjects(@"[document, ., write, (, new, Date, (, ), ., toUTCString, (, ), ), ;]document/./write/(/new/Date/(/)/./toUTCString/(/)/)/;^", [res description]);
 }
 
+- (void)testDocWriteNewDateWithParen {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"document.write((new Date()).toUTCString());" assembler:nil error:&err];
+    TDEqualObjects(@"[document, ., write, (, (, new, Date, (, ), ), ., toUTCString, (, ), ), ;]document/./write/(/(/new/Date/(/)/)/./toUTCString/(/)/)/;^", [res description]);
+}
+
 - (void)testDocWriteDate {
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"document.write(foo.toUTCString());" assembler:nil error:&err];

@@ -181,7 +181,7 @@
 @property (nonatomic, retain) NSMutableDictionary *unaryExpr2_memo;
 @property (nonatomic, retain) NSMutableDictionary *unaryExpr3_memo;
 @property (nonatomic, retain) NSMutableDictionary *unaryExpr4_memo;
-@property (nonatomic, retain) NSMutableDictionary *unaryExpr5_memo;
+@property (nonatomic, retain) NSMutableDictionary *callNewExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *unaryExpr6_memo;
 @property (nonatomic, retain) NSMutableDictionary *constructor_memo;
 @property (nonatomic, retain) NSMutableDictionary *constructorCall_memo;
@@ -411,7 +411,7 @@
         self.unaryExpr2_memo = [NSMutableDictionary dictionary];
         self.unaryExpr3_memo = [NSMutableDictionary dictionary];
         self.unaryExpr4_memo = [NSMutableDictionary dictionary];
-        self.unaryExpr5_memo = [NSMutableDictionary dictionary];
+        self.callNewExpr_memo = [NSMutableDictionary dictionary];
         self.unaryExpr6_memo = [NSMutableDictionary dictionary];
         self.constructor_memo = [NSMutableDictionary dictionary];
         self.constructorCall_memo = [NSMutableDictionary dictionary];
@@ -569,7 +569,7 @@
     self.unaryExpr2_memo = nil;
     self.unaryExpr3_memo = nil;
     self.unaryExpr4_memo = nil;
-    self.unaryExpr5_memo = nil;
+    self.callNewExpr_memo = nil;
     self.unaryExpr6_memo = nil;
     self.constructor_memo = nil;
     self.constructorCall_memo = nil;
@@ -727,7 +727,7 @@
     [_unaryExpr2_memo removeAllObjects];
     [_unaryExpr3_memo removeAllObjects];
     [_unaryExpr4_memo removeAllObjects];
-    [_unaryExpr5_memo removeAllObjects];
+    [_callNewExpr_memo removeAllObjects];
     [_unaryExpr6_memo removeAllObjects];
     [_constructor_memo removeAllObjects];
     [_constructorCall_memo removeAllObjects];
@@ -2482,8 +2482,6 @@
         [self unaryExpr3]; 
     } else if ([self speculate:^{ [self unaryExpr4]; }]) {
         [self unaryExpr4]; 
-    } else if ([self speculate:^{ [self unaryExpr5]; }]) {
-        [self unaryExpr5]; 
     } else if ([self speculate:^{ [self unaryExpr6]; }]) {
         [self unaryExpr6]; 
     } else {
@@ -2545,16 +2543,16 @@
     [self parseRule:@selector(__unaryExpr4) withMemo:_unaryExpr4_memo];
 }
 
-- (void)__unaryExpr5 {
+- (void)__callNewExpr {
     
     [self keywordNew]; 
     [self constructor]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr5:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchCallNewExpr:)];
 }
 
-- (void)unaryExpr5 {
-    [self parseRule:@selector(__unaryExpr5) withMemo:_unaryExpr5_memo];
+- (void)callNewExpr {
+    [self parseRule:@selector(__callNewExpr) withMemo:_callNewExpr_memo];
 }
 
 - (void)__unaryExpr6 {
@@ -2734,7 +2732,9 @@
 
 - (void)__primaryExpr {
     
-    if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {
+    if ([self predicts:TOKEN_KIND_KEYWORDNEW, 0]) {
+        [self callNewExpr]; 
+    } else if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {
         [self parenExprParen]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self identifier]; 
