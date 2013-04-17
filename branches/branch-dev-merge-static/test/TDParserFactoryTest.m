@@ -61,8 +61,8 @@
     s = @"var foo = 'bar';";
     lp.tokenizer.string = s;
     a = [PKTokenAssembly assemblyWithTokenizer:lp.tokenizer];
-//    res = [lp bestMatchFor:a];
-//    TDEqualObjects(@"[var, foo, =, 'bar', ;]var/foo/=/bar/;^", [res description]);
+    res = [lp bestMatchFor:a];
+    TDEqualObjects(@"[var, foo, =, 'bar', ;]var/foo/=/'bar'/;^", [res description]);
 }
 
 
