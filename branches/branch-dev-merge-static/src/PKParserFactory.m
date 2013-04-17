@@ -31,6 +31,10 @@
 #import "PKDefinitionPhaseVisitor.h"
 #import "PKResolutionPhaseVisitor.h"
 
+@interface PKSParser (PKParserFactoryAdditionsFriend)
+- (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError;
+@end
+
 @interface PKParser (PKParserFactoryAdditionsFriend)
 - (void)setTokenizer:(PKTokenizer *)t;
 @end
@@ -338,8 +342,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKTokenizer *t = [self tokenizerForParsingGrammar];
     t.string = g;
-
-//    - (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError
 
     [grammarParser _doParseWithTokenizer:t assembler:self error:outError];
 //    grammarParser.parser.tokenizer = t;

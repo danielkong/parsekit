@@ -40,9 +40,6 @@ enum {
 - (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outErr;
 - (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outErr;
 
-// TODO REMOVE
-- (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError;
-
 @property (nonatomic, assign) BOOL disableActions;
 @end
 
