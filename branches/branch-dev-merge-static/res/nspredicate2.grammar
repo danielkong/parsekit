@@ -10,7 +10,27 @@ See: http://developer.apple.com/documentation/Cocoa/Conceptual/Predicates/Articl
 
 @symbols = '==' '>=' '=>' '<=' '=<' '!=' '<>' '&&' '||';
 
-@start = expr;
+@start 
+@before {
+	PKTokenizer *t = self._tokenizer;
+	[t setTokenizerState:t.wordState from:'#' to:'#'];
+	[t.wordState setWordChars:YES from:'.' to:'.'];
+	[t.wordState setWordChars:YES from:'[' to:'['];
+	[t.wordState setWordChars:YES from:']' to:']'];
+
+	[t.symbolState add:@"=="];
+	[t.symbolState add:@">="];
+	[t.symbolState add:@"=>"];
+	[t.symbolState add:@"<="];
+	[t.symbolState add:@"=<"];
+	[t.symbolState add:@"!="];
+	[t.symbolState add:@"<>"];
+	[t.symbolState add:@"&&"];
+	[t.symbolState add:@"||"];
+ }
+
+
+	= expr;
 
 // Expressions
     expr                 = orTerm orOrTerm*;

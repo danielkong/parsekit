@@ -339,6 +339,25 @@
 
 - (void)_start {
     
+    [self execute:(id)^{
+        
+	PKTokenizer *t = self._tokenizer;
+	[t setTokenizerState:t.wordState from:'#' to:'#'];
+	[t.wordState setWordChars:YES from:'.' to:'.'];
+	[t.wordState setWordChars:YES from:'[' to:'['];
+	[t.wordState setWordChars:YES from:']' to:']'];
+
+	[t.symbolState add:@"=="];
+	[t.symbolState add:@">="];
+	[t.symbolState add:@"=>"];
+	[t.symbolState add:@"<="];
+	[t.symbolState add:@"=<"];
+	[t.symbolState add:@"!="];
+	[t.symbolState add:@"<>"];
+	[t.symbolState add:@"&&"];
+	[t.symbolState add:@"||"];
+ 
+    }];
     [self expr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
