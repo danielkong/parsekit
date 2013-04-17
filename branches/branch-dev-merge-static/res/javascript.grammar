@@ -368,7 +368,7 @@ unaryExpr6          = delete memberExpr;
 //           this . ConstructorCall
 //           ConstructorCall
 
-constructor         = constructorCall; // TODO ???
+constructor         = (this dot)? constructorCall; // TODO ???
 
 
 
@@ -377,7 +377,7 @@ constructor         = constructorCall; // TODO ???
 //           Identifier ( ArgumentListOpt )
 //           Identifier . ConstructorCall
 
-constructorCall     = identifier parenArgListParen?;  // TODO
+constructorCall     = identifier (parenArgListParen | dot constructorCall)?;  // TODO
 parenArgListParen   = openParen argListOpt closeParen;
 
 

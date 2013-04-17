@@ -68,4 +68,16 @@
     TDEqualObjects(@"[var, foo, =, 'bar', ;]var/foo/=/'bar'/;^", [res description]);
 }
 
+- (void)testDocWriteNewDate {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"document.write(new Date().toUTCString());" assembler:nil error:&err];
+    TDEqualObjects(@"[var, foo, =, 'bar', ;]var/foo/=/'bar'/;^", [res description]);
+}
+
+- (void)testDocWriteDate {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"document.write(foo.toUTCString());" assembler:nil error:&err];
+    TDEqualObjects(@"[document, ., write, (, foo, ., toUTCString, (, ), ), ;]document/./write/(/foo/./toUTCString/(/)/)/;^", [res description]);
+}
+
 @end
