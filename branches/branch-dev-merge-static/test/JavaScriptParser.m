@@ -57,8 +57,8 @@
 @property (nonatomic, retain) NSMutableDictionary *delete_memo;
 @property (nonatomic, retain) NSMutableDictionary *new_memo;
 @property (nonatomic, retain) NSMutableDictionary *this_memo;
-@property (nonatomic, retain) NSMutableDictionary *false_memo;
-@property (nonatomic, retain) NSMutableDictionary *true_memo;
+@property (nonatomic, retain) NSMutableDictionary *falseLiteral_memo;
+@property (nonatomic, retain) NSMutableDictionary *trueLiteral_memo;
 @property (nonatomic, retain) NSMutableDictionary *null_memo;
 @property (nonatomic, retain) NSMutableDictionary *undefined_memo;
 @property (nonatomic, retain) NSMutableDictionary *void_memo;
@@ -222,7 +222,7 @@
         self._tokenKindTab[@"if"] = @(TOKEN_KIND_IF);
         self._tokenKindTab[@"-"] = @(TOKEN_KIND_MINUS);
         self._tokenKindTab[@"null"] = @(TOKEN_KIND_NULL);
-        self._tokenKindTab[@"false"] = @(TOKEN_KIND_FALSE);
+        self._tokenKindTab[@"false"] = @(TOKEN_KIND_FALSELITERAL);
         self._tokenKindTab[@"."] = @(TOKEN_KIND_DOT);
         self._tokenKindTab[@"<<"] = @(TOKEN_KIND_SHIFTLEFT);
         self._tokenKindTab[@"/"] = @(TOKEN_KIND_DIV);
@@ -266,7 +266,7 @@
         self._tokenKindTab[@"new"] = @(TOKEN_KIND_NEW);
         self._tokenKindTab[@"!"] = @(TOKEN_KIND_NOT);
         self._tokenKindTab[@">>>"] = @(TOKEN_KIND_SHIFTRIGHTEXT);
-        self._tokenKindTab[@"true"] = @(TOKEN_KIND_TRUE);
+        self._tokenKindTab[@"true"] = @(TOKEN_KIND_TRUELITERAL);
         self._tokenKindTab[@"this"] = @(TOKEN_KIND_THIS);
         self._tokenKindTab[@"with"] = @(TOKEN_KIND_WITH);
         self._tokenKindTab[@"==="] = @(TOKEN_KIND_IS);
@@ -287,8 +287,8 @@
         self.delete_memo = [NSMutableDictionary dictionary];
         self.new_memo = [NSMutableDictionary dictionary];
         self.this_memo = [NSMutableDictionary dictionary];
-        self.false_memo = [NSMutableDictionary dictionary];
-        self.true_memo = [NSMutableDictionary dictionary];
+        self.falseLiteral_memo = [NSMutableDictionary dictionary];
+        self.trueLiteral_memo = [NSMutableDictionary dictionary];
         self.null_memo = [NSMutableDictionary dictionary];
         self.undefined_memo = [NSMutableDictionary dictionary];
         self.void_memo = [NSMutableDictionary dictionary];
@@ -445,8 +445,8 @@
     self.delete_memo = nil;
     self.new_memo = nil;
     self.this_memo = nil;
-    self.false_memo = nil;
-    self.true_memo = nil;
+    self.falseLiteral_memo = nil;
+    self.trueLiteral_memo = nil;
     self.null_memo = nil;
     self.undefined_memo = nil;
     self.void_memo = nil;
@@ -603,8 +603,8 @@
     [_delete_memo removeAllObjects];
     [_new_memo removeAllObjects];
     [_this_memo removeAllObjects];
-    [_false_memo removeAllObjects];
-    [_true_memo removeAllObjects];
+    [_falseLiteral_memo removeAllObjects];
+    [_trueLiteral_memo removeAllObjects];
     [_null_memo removeAllObjects];
     [_undefined_memo removeAllObjects];
     [_void_memo removeAllObjects];
@@ -895,26 +895,26 @@
     [self parseRule:@selector(__this) withMemo:_this_memo];
 }
 
-- (void)__false {
+- (void)__falseLiteral {
     
-    [self match:TOKEN_KIND_FALSE]; 
+    [self match:TOKEN_KIND_FALSELITERAL]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchFalse:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
 }
 
 - (void)falseLiteral {
-    [self parseRule:@selector(__false) withMemo:_false_memo];
+    [self parseRule:@selector(__falseLiteral) withMemo:_falseLiteral_memo];
 }
 
-- (void)__true {
+- (void)__trueLiteral {
     
-    [self match:TOKEN_KIND_TRUE];
+    [self match:TOKEN_KIND_TRUELITERAL]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchTrue:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
 }
 
 - (void)trueLiteral {
-    [self parseRule:@selector(__true) withMemo:_true_memo];
+    [self parseRule:@selector(__trueLiteral) withMemo:_trueLiteral_memo];
 }
 
 - (void)__null {
@@ -1672,7 +1672,7 @@
     
     do {
         [self element]; 
-    } while (([self predicts:TOKEN_KIND_BREAK, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CONTINUE, TOKEN_KIND_DELETE, TOKEN_KIND_FALSE, TOKEN_KIND_FOR, TOKEN_KIND_FUNCTION, TOKEN_KIND_IF, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENCURLY, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_RETURN, TOKEN_KIND_SEMI, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUE, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VAR, TOKEN_KIND_VOID, TOKEN_KIND_WHILE, TOKEN_KIND_WITH, 0]) && ([self speculate:^{ [self element]; }]));
+    } while (([self predicts:TOKEN_KIND_BREAK, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CONTINUE, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_FOR, TOKEN_KIND_FUNCTION, TOKEN_KIND_IF, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENCURLY, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_RETURN, TOKEN_KIND_SEMI, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VAR, TOKEN_KIND_VOID, TOKEN_KIND_WHILE, TOKEN_KIND_WITH, 0]) && ([self speculate:^{ [self element]; }]));
 
     [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }
@@ -1685,7 +1685,7 @@
     
     if ([self predicts:TOKEN_KIND_FUNCTION, 0]) {
         [self func]; 
-    } else if ([self predicts:TOKEN_KIND_BREAK, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CONTINUE, TOKEN_KIND_DELETE, TOKEN_KIND_FALSE, TOKEN_KIND_FOR, TOKEN_KIND_IF, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENCURLY, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_RETURN, TOKEN_KIND_SEMI, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUE, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VAR, TOKEN_KIND_VOID, TOKEN_KIND_WHILE, TOKEN_KIND_WITH, 0]) {
+    } else if ([self predicts:TOKEN_KIND_BREAK, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CONTINUE, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_FOR, TOKEN_KIND_IF, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENCURLY, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_RETURN, TOKEN_KIND_SEMI, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VAR, TOKEN_KIND_VOID, TOKEN_KIND_WHILE, TOKEN_KIND_WITH, 0]) {
         [self stmt]; 
     } else {
         [self raise:@"no viable alternative found in element"];
@@ -1772,7 +1772,7 @@
 
 - (void)__stmts {
     
-    while ([self predicts:TOKEN_KIND_BREAK, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CONTINUE, TOKEN_KIND_DELETE, TOKEN_KIND_FALSE, TOKEN_KIND_FOR, TOKEN_KIND_IF, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENCURLY, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_RETURN, TOKEN_KIND_SEMI, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUE, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VAR, TOKEN_KIND_VOID, TOKEN_KIND_WHILE, TOKEN_KIND_WITH, 0]) {
+    while ([self predicts:TOKEN_KIND_BREAK, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CONTINUE, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_FOR, TOKEN_KIND_IF, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENCURLY, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_RETURN, TOKEN_KIND_SEMI, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VAR, TOKEN_KIND_VOID, TOKEN_KIND_WHILE, TOKEN_KIND_WITH, 0]) {
         if ([self speculate:^{ [self stmt]; }]) {
             [self stmt]; 
         } else {
@@ -2021,7 +2021,7 @@
     
     if ([self predicts:TOKEN_KIND_VAR, 0]) {
         [self varVariables]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_DELETE, TOKEN_KIND_FALSE, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUE, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VOID, 0]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VOID, 0]) {
         [self expr]; 
     } else {
         [self raise:@"no viable alternative found in variablesOrExpr"];
@@ -2104,7 +2104,7 @@
 
 - (void)__exprOpt {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_DELETE, TOKEN_KIND_FALSE, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUE, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VOID, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VOID, 0]) {
         [self expr]; 
     }
 
@@ -2680,7 +2680,7 @@
 
 - (void)__argListOpt {
     
-    if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_DELETE, TOKEN_KIND_FALSE, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUE, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VOID, 0]) && ([self speculate:^{ [self argList]; }])) {
+    if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NEW, TOKEN_KIND_NULL, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VOID, 0]) && ([self speculate:^{ [self argList]; }])) {
         [self argList]; 
     }
 
@@ -2731,10 +2731,10 @@
         [self Number]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self QuotedString]; 
-    } else if ([self predicts:TOKEN_KIND_FALSE, 0]) {
-        [self falseLiteral];
-    } else if ([self predicts:TOKEN_KIND_TRUE, 0]) {
-        [self trueLiteral];
+    } else if ([self predicts:TOKEN_KIND_FALSELITERAL, 0]) {
+        [self falseLiteral]; 
+    } else if ([self predicts:TOKEN_KIND_TRUELITERAL, 0]) {
+        [self trueLiteral]; 
     } else if ([self predicts:TOKEN_KIND_NULL, 0]) {
         [self null]; 
     } else if ([self predicts:TOKEN_KIND_UNDEFINED, 0]) {
