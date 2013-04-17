@@ -5,7 +5,38 @@
 @singleLineComments = '//';
 @multiLineComments  = '/*' '*/';
 
-@start              = program;
+@start              
+@before {
+	[self._tokenizer.symbolState add:@"||"];
+	[self._tokenizer.symbolState add:@"&&"];
+	[self._tokenizer.symbolState add:@"!="];
+	[self._tokenizer.symbolState add:@"!=="];
+	[self._tokenizer.symbolState add:@"=="];
+	[self._tokenizer.symbolState add:@"==="];
+	[self._tokenizer.symbolState add:@"<="];
+	[self._tokenizer.symbolState add:@">="];
+	[self._tokenizer.symbolState add:@"++"];
+	[self._tokenizer.symbolState add:@"--"];
+	[self._tokenizer.symbolState add:@"+="];
+	[self._tokenizer.symbolState add:@"-="];
+	[self._tokenizer.symbolState add:@"*="];
+	[self._tokenizer.symbolState add:@"/="];
+	[self._tokenizer.symbolState add:@"%="];
+	[self._tokenizer.symbolState add:@"<<"];
+	[self._tokenizer.symbolState add:@">>"];
+	[self._tokenizer.symbolState add:@">>>"];
+	[self._tokenizer.symbolState add:@"<<="];
+	[self._tokenizer.symbolState add:@">>="];
+	[self._tokenizer.symbolState add:@">>>="];
+	[self._tokenizer.symbolState add:@"&="];
+	[self._tokenizer.symbolState add:@"^="];
+	[self._tokenizer.symbolState add:@"|="];
+
+	self._tokenizer.commentState.reportsCommentTokens = YES;
+}
+
+
+					= program;
 
 if                  = 'if';
 else                = 'else';

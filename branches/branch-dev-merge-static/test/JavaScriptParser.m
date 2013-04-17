@@ -29,6 +29,7 @@
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
 @interface PKSParser ()
+@property (nonatomic, retain) PKTokenizer *_tokenizer;
 @property (nonatomic, retain) PKAssembly *_assembly;
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 
@@ -747,6 +748,36 @@
 
 - (void)_start {
     
+    [self execute:(id)^{
+        
+	[self._tokenizer.symbolState add:@"||"];
+	[self._tokenizer.symbolState add:@"&&"];
+	[self._tokenizer.symbolState add:@"!="];
+	[self._tokenizer.symbolState add:@"!=="];
+	[self._tokenizer.symbolState add:@"=="];
+	[self._tokenizer.symbolState add:@"==="];
+	[self._tokenizer.symbolState add:@"<="];
+	[self._tokenizer.symbolState add:@">="];
+	[self._tokenizer.symbolState add:@"++"];
+	[self._tokenizer.symbolState add:@"--"];
+	[self._tokenizer.symbolState add:@"+="];
+	[self._tokenizer.symbolState add:@"-="];
+	[self._tokenizer.symbolState add:@"*="];
+	[self._tokenizer.symbolState add:@"/="];
+	[self._tokenizer.symbolState add:@"%="];
+	[self._tokenizer.symbolState add:@"<<"];
+	[self._tokenizer.symbolState add:@">>"];
+	[self._tokenizer.symbolState add:@">>>"];
+	[self._tokenizer.symbolState add:@"<<="];
+	[self._tokenizer.symbolState add:@">>="];
+	[self._tokenizer.symbolState add:@">>>="];
+	[self._tokenizer.symbolState add:@"&="];
+	[self._tokenizer.symbolState add:@"^="];
+	[self._tokenizer.symbolState add:@"|="];
+
+	self._tokenizer.commentState.reportsCommentTokens = YES;
+
+    }];
     [self program]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
