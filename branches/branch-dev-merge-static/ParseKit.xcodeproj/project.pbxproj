@@ -429,6 +429,8 @@
 		D36934751038E28F00527AF3 /* PKTokenNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D369345C1038DE5300527AF3 /* PKTokenNode.m */; };
 		D36C560C0FD363D500141CB7 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
 		D36D4972166AB06E00ACD071 /* PKCompositeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D325FFE5161F482F00D4EBCC /* PKCompositeParser.m */; };
+		D36E68B3171F378B007B4353 /* JavaScriptParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E68B2171F378B007B4353 /* JavaScriptParserTest.m */; };
+		D36E68B6171F37D7007B4353 /* JavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E68B5171F37D7007B4353 /* JavaScriptParser.m */; };
 		D36E98E00E58C12800496BD3 /* DebugAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98DD0E58C12800496BD3 /* DebugAppDelegate.m */; };
 		D36E98E10E58C12800496BD3 /* DebugAppMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D36E98DE0E58C12800496BD3 /* DebugAppMainMenu.xib */; };
 		D36E98E20E58C12800496BD3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98DF0E58C12800496BD3 /* main.m */; };
@@ -1534,6 +1536,10 @@
 		D36C560B0FD363D500141CB7 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		D36C56290FD365DB00141CB7 /* TDPatternTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPatternTest.h; path = test/TDPatternTest.h; sourceTree = "<group>"; };
 		D36C562A0FD365DB00141CB7 /* TDPatternTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPatternTest.m; path = test/TDPatternTest.m; sourceTree = "<group>"; };
+		D36E68B1171F378B007B4353 /* JavaScriptParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JavaScriptParserTest.h; path = test/JavaScriptParserTest.h; sourceTree = "<group>"; };
+		D36E68B2171F378B007B4353 /* JavaScriptParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JavaScriptParserTest.m; path = test/JavaScriptParserTest.m; sourceTree = "<group>"; };
+		D36E68B4171F37D7007B4353 /* JavaScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JavaScriptParser.h; path = test/JavaScriptParser.h; sourceTree = "<group>"; };
+		D36E68B5171F37D7007B4353 /* JavaScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JavaScriptParser.m; path = test/JavaScriptParser.m; sourceTree = "<group>"; };
 		D36E95440E578ECC00496BD3 /* XPathParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPathParser.h; path = test/XPathParser.h; sourceTree = "<group>"; };
 		D36E95450E578ECC00496BD3 /* XPathParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPathParser.m; path = test/XPathParser.m; sourceTree = "<group>"; };
 		D36E95D60E57B08400496BD3 /* XPathParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPathParserTest.h; path = test/XPathParserTest.h; sourceTree = "<group>"; };
@@ -2957,6 +2963,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D36E68B4171F37D7007B4353 /* JavaScriptParser.h */,
+				D36E68B5171F37D7007B4353 /* JavaScriptParser.m */,
 				D33830C9171DBEB100CCE513 /* NamedActionParser.h */,
 				D33830CA171DBEB100CCE513 /* NamedActionParser.m */,
 				D38BC8AF1716006B00BF530D /* SemanticPredicateParser.h */,
@@ -3008,6 +3016,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D36E68B1171F378B007B4353 /* JavaScriptParserTest.h */,
+				D36E68B2171F378B007B4353 /* JavaScriptParserTest.m */,
 				D33830CC171DBEE200CCE513 /* NamedActionParserTest.h */,
 				D33830CD171DBEE200CCE513 /* NamedActionParserTest.m */,
 				D38BC8B4171600A900BF530D /* SemanticPredicateParserTest.h */,
@@ -3061,6 +3071,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D31A15250F6DE449002AFDF1 /* javascript.grammar */,
 				D33830C7171DBE8A00CCE513 /* named_action.grammar */,
 				D38BC8B21716008D00BF530D /* semantic_predicate.grammar */,
 				D38BC8A21714A77700BF530D /* unfinished_seq.grammar */,
@@ -3135,7 +3146,6 @@
 				D3F741BD0EF9F28D00559B9F /* css2_1.grammar */,
 				D3F741430EF8E96A00559B9F /* xpath1_0.grammar */,
 				D3D01CA90EFDB89900C24DDE /* json_with_discards.grammar */,
-				D31A15250F6DE449002AFDF1 /* javascript.grammar */,
 				D385FD400F05A88C00DB2946 /* TDMiniCSSAssembler.h */,
 				D385FD410F05A88C00DB2946 /* TDMiniCSSAssembler.m */,
 				D385FD420F05A88C00DB2946 /* TDMiniCSSAssemblerTest.h */,
@@ -4642,6 +4652,8 @@
 				D33830C3171CA55300CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */,
 				D33830CB171DBEB100CCE513 /* NamedActionParser.m in Sources */,
 				D33830CE171DBEE200CCE513 /* NamedActionParserTest.m in Sources */,
+				D36E68B3171F378B007B4353 /* JavaScriptParserTest.m in Sources */,
+				D36E68B6171F37D7007B4353 /* JavaScriptParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5500,6 +5512,7 @@
 				D338304D171C923700CCE513 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		D34185090E520D410081B0DC /* Build configuration list for PBXNativeTarget "DebugApp" */ = {
 			isa = XCConfigurationList;

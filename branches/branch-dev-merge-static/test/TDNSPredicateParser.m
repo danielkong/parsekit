@@ -125,7 +125,7 @@
         self._tokenKindTab[@"OR"] = @(TOKEN_KIND_OR_UPPER);
         self._tokenKindTab[@"!"] = @(TOKEN_KIND_BANG);
         self._tokenKindTab[@"SOME"] = @(TOKEN_KIND_SOME);
-        self._tokenKindTab[@"IN"] = @(TOKEN_KIND_IN);
+        self._tokenKindTab[@"in"] = @(TOKEN_KIND_IN);
         self._tokenKindTab[@"BEGINSWITH"] = @(TOKEN_KIND_BEGINSWITH);
         self._tokenKindTab[@"<"] = @(TOKEN_KIND_LT);
         self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
