@@ -312,8 +312,7 @@ equalityOpEqualityExpr = equalityOperator equalityExpr;
 //           ShiftExpression
 //           RelationalExpression RelationalationalOperator ShiftExpression
 
-relationalExpr      = shiftExpr | relationalExprRHS;
-relationalExprRHS   = relationalExpr relationalOperator shiftExpr;
+relationalExpr      = shiftExpr (relationalOperator shiftExpr)*;
 
 
 
