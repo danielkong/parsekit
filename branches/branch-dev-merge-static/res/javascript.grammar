@@ -20,8 +20,8 @@ var                 = 'var';
 delete              = 'delete';
 new                 = 'new';
 this                = 'this';
-false               = 'false';
-true                = 'true';
+falseLiteral        = 'false';
+trueLiteral         = 'true';
 null                = 'null';
 undefined           = 'undefined';
 void                = 'void';
@@ -424,6 +424,6 @@ commaAssignmentExpr = comma assignmentExpr;
 //           null
 //           this
 
-primaryExpr         = parenExprParen | identifier | Number | QuotedString | false | true | null | undefined | this;
+primaryExpr         = parenExprParen | identifier | Number | QuotedString | falseLiteral | trueLiteral | null | undefined | this;
 parenExprParen      = openParen expr closeParen;
 identifier          = Word;

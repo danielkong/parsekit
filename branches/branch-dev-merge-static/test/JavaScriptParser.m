@@ -2732,9 +2732,9 @@
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self QuotedString]; 
     } else if ([self predicts:TOKEN_KIND_FALSE, 0]) {
-        [self false]; 
+        [self falseLiteral];
     } else if ([self predicts:TOKEN_KIND_TRUE, 0]) {
-        [self true]; 
+        [self trueLiteral];
     } else if ([self predicts:TOKEN_KIND_NULL, 0]) {
         [self null]; 
     } else if ([self predicts:TOKEN_KIND_UNDEFINED, 0]) {
