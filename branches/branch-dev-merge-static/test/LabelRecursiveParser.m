@@ -110,7 +110,7 @@
 
 - (void)__label {
     
-    if ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self Word]; 
         [self match:TOKEN_KIND_COLON]; 
         [self label]; 

@@ -55,8 +55,7 @@ enum {
 
 - (void)match:(NSInteger)x;
 - (void)discard:(NSInteger)n;
-- (BOOL)predictsOne:(NSInteger)tokenKind;
-- (BOOL)predictsAny:(NSInteger)tokenKind, ...;
+- (BOOL)predicts:(NSInteger)tokenKind, ...;
 - (BOOL)speculate:(PKSSpeculateBlock)block;
 - (id)execute:(PKSActionBlock)block;
 - (BOOL)test:(PKSPredicateBlock)block;

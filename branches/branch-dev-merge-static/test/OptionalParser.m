@@ -91,7 +91,7 @@
 
 - (void)__s {
     
-    if (([self predictsAny:TOKEN_KIND_FOO, 0]) && ([self speculate:^{ [self expr]; }])) {
+    if (([self predicts:TOKEN_KIND_FOO, 0]) && ([self speculate:^{ [self expr]; }])) {
         [self expr]; 
     }
     [self foo]; 

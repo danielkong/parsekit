@@ -82,7 +82,7 @@
 
 - (void)__s {
     
-    if (![self predictsAny:TOKEN_KIND_FOO, 0]) {
+    if (![self predicts:TOKEN_KIND_FOO, 0]) {
         [self match:TOKEN_KIND_BUILTIN_ANY];
     } else {
         [self raise:@"negation test failed in s"];

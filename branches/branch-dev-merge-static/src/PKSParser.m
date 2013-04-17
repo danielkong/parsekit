@@ -370,20 +370,7 @@
 }
 
 
-- (BOOL)predictsOne:(NSInteger)firstTokenKind {
-    NSParameterAssert(firstTokenKind != TOKEN_KIND_BUILTIN_INVALID);
-    
-    NSInteger la = LA(1);
-    
-    if ([self lookahead:la predicts:firstTokenKind]) {
-        return YES;
-    }
-    
-    return NO;
-}
-
-
-- (BOOL)predictsAny:(NSInteger)firstTokenKind, ... {
+- (BOOL)predicts:(NSInteger)firstTokenKind, ... {
     NSParameterAssert(firstTokenKind != TOKEN_KIND_BUILTIN_INVALID);
     
     NSInteger la = LA(1);
@@ -396,7 +383,7 @@
     
     va_list vargs;
     va_start(vargs, firstTokenKind);
-
+    
     int nextTokenKind;
     while ((nextTokenKind = va_arg(vargs, int)) > 0) {
         if ([self lookahead:la predicts:nextTokenKind]) {
@@ -404,7 +391,7 @@
             break;
         }
     }
-
+    
     va_end(vargs);
     
     return result;

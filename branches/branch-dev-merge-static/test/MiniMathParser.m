@@ -93,7 +93,7 @@
 - (void)__expr {
     
     [self mult]; 
-    while ([self predictsAny:TOKEN_KIND_PLUS, 0]) {
+    while ([self predicts:TOKEN_KIND_PLUS, 0]) {
         if ([self speculate:^{ [self match:TOKEN_KIND_PLUS]; [self discard:1];[self mult]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); }];}]) {
             [self match:TOKEN_KIND_PLUS]; [self discard:1];
             [self mult]; 
@@ -115,7 +115,7 @@
 - (void)__mult {
     
     [self pow]; 
-    while ([self predictsAny:TOKEN_KIND_STAR, 0]) {
+    while ([self predicts:TOKEN_KIND_STAR, 0]) {
         if ([self speculate:^{ [self match:TOKEN_KIND_STAR]; [self discard:1];[self pow]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); }];}]) {
             [self match:TOKEN_KIND_STAR]; [self discard:1];
             [self pow]; 
@@ -137,7 +137,7 @@
 - (void)__pow {
     
     [self atom]; 
-    if (([self predictsAny:TOKEN_KIND_CARET, 0]) && ([self speculate:^{ [self match:TOKEN_KIND_CARET]; [self discard:1];[self pow]; [self execute:(id)^{ 		double exp = POP_FLOAT();		double base = POP_FLOAT();		double result = base;	for (NSUInteger i = 1; i < exp; i++) 			result *= base;		PUSH_FLOAT(result); 	}];}])) {
+    if (([self predicts:TOKEN_KIND_CARET, 0]) && ([self speculate:^{ [self match:TOKEN_KIND_CARET]; [self discard:1];[self pow]; [self execute:(id)^{ 		double exp = POP_FLOAT();		double base = POP_FLOAT();		double result = base;	for (NSUInteger i = 1; i < exp; i++) 			result *= base;		PUSH_FLOAT(result); 	}];}])) {
         [self match:TOKEN_KIND_CARET]; [self discard:1];
         [self pow]; 
         [self execute:(id)^{

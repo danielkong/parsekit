@@ -219,7 +219,7 @@
 - (void)__orExpr {
     
     [self andExpr]; 
-    while ([self predictsAny:TOKEN_KIND_OR, 0]) {
+    while ([self predicts:TOKEN_KIND_OR, 0]) {
         if ([self speculate:^{ [self orTerm]; }]) {
             [self orTerm]; 
         } else {
@@ -249,7 +249,7 @@
 - (void)__andExpr {
     
     [self relExpr]; 
-    while ([self predictsAny:TOKEN_KIND_AND, 0]) {
+    while ([self predicts:TOKEN_KIND_AND, 0]) {
         if ([self speculate:^{ [self andTerm]; }]) {
             [self andTerm]; 
         } else {
@@ -279,7 +279,7 @@
 - (void)__relExpr {
     
     [self callExpr]; 
-    while ([self predictsAny:TOKEN_KIND_EQ, TOKEN_KIND_GE, TOKEN_KIND_GT, TOKEN_KIND_LE, TOKEN_KIND_LT, TOKEN_KIND_NE, 0]) {
+    while ([self predicts:TOKEN_KIND_EQ, TOKEN_KIND_GE, TOKEN_KIND_GT, TOKEN_KIND_LE, TOKEN_KIND_LT, TOKEN_KIND_NE, 0]) {
         if ([self speculate:^{ [self relOp]; [self callExpr]; }]) {
             [self relOp]; 
             [self callExpr]; 
@@ -297,17 +297,17 @@
 
 - (void)__relOp {
     
-    if ([self predictsAny:TOKEN_KIND_LT, 0]) {
+    if ([self predicts:TOKEN_KIND_LT, 0]) {
         [self lt]; 
-    } else if ([self predictsAny:TOKEN_KIND_GT, 0]) {
+    } else if ([self predicts:TOKEN_KIND_GT, 0]) {
         [self gt]; 
-    } else if ([self predictsAny:TOKEN_KIND_EQ, 0]) {
+    } else if ([self predicts:TOKEN_KIND_EQ, 0]) {
         [self eq]; 
-    } else if ([self predictsAny:TOKEN_KIND_NE, 0]) {
+    } else if ([self predicts:TOKEN_KIND_NE, 0]) {
         [self ne]; 
-    } else if ([self predictsAny:TOKEN_KIND_LE, 0]) {
+    } else if ([self predicts:TOKEN_KIND_LE, 0]) {
         [self le]; 
-    } else if ([self predictsAny:TOKEN_KIND_GE, 0]) {
+    } else if ([self predicts:TOKEN_KIND_GE, 0]) {
         [self ge]; 
     } else {
         [self raise:@"no viable alternative found in relOp"];
@@ -323,9 +323,9 @@
 - (void)__callExpr {
     
     [self primary]; 
-    if (([self predictsAny:TOKEN_KIND_OPENPAREN, 0]) && ([self speculate:^{ [self openParen]; if (([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) && ([self speculate:^{ [self argList]; }])) {[self argList]; }[self closeParen]; }])) {
+    if (([self predicts:TOKEN_KIND_OPENPAREN, 0]) && ([self speculate:^{ [self openParen]; if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) && ([self speculate:^{ [self argList]; }])) {[self argList]; }[self closeParen]; }])) {
         [self openParen]; 
-        if (([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) && ([self speculate:^{ [self argList]; }])) {
+        if (([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) && ([self speculate:^{ [self argList]; }])) {
             [self argList]; 
         }
         [self closeParen]; 
@@ -341,7 +341,7 @@
 - (void)__argList {
     
     [self atom]; 
-    while ([self predictsAny:TOKEN_KIND_COMMA, 0]) {
+    while ([self predicts:TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self comma]; [self atom]; }]) {
             [self comma]; 
             [self atom]; 
@@ -359,9 +359,9 @@
 
 - (void)__primary {
     
-    if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) {
         [self atom]; 
-    } else if ([self predictsAny:TOKEN_KIND_OPENPAREN, 0]) {
+    } else if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {
         [self openParen]; 
         [self expr]; 
         [self closeParen]; 
@@ -378,9 +378,9 @@
 
 - (void)__atom {
     
-    if ([self predictsAny:TOKEN_KIND_BUILTIN_WORD, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self obj]; 
-    } else if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -396,7 +396,7 @@
 - (void)__obj {
     
     [self id]; 
-    while ([self predictsAny:TOKEN_KIND_DOT, 0]) {
+    while ([self predicts:TOKEN_KIND_DOT, 0]) {
         if ([self speculate:^{ [self member]; }]) {
             [self member]; 
         } else {
@@ -436,11 +436,11 @@
 
 - (void)__literal {
     
-    if ([self predictsAny:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self QuotedString]; 
-    } else if ([self predictsAny:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self Number]; 
-    } else if ([self predictsAny:TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) {
+    } else if ([self predicts:TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) {
         [self bool]; 
     } else {
         [self raise:@"no viable alternative found in literal"];
@@ -455,9 +455,9 @@
 
 - (void)__bool {
     
-    if ([self predictsAny:TOKEN_KIND_YES, 0]) {
+    if ([self predicts:TOKEN_KIND_YES, 0]) {
         [self yes]; 
-    } else if ([self predictsAny:TOKEN_KIND_NO, 0]) {
+    } else if ([self predicts:TOKEN_KIND_NO, 0]) {
         [self no]; 
     } else {
         [self raise:@"no viable alternative found in bool"];
