@@ -385,7 +385,7 @@
     va_start(vargs, firstTokenKind);
     
     int nextTokenKind;
-    while ((nextTokenKind = va_arg(vargs, int)) > 0) {
+    while ((nextTokenKind = va_arg(vargs, int))) {
         if ([self lookahead:la predicts:nextTokenKind]) {
             result = YES;
             break;
