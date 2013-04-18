@@ -13,10 +13,6 @@
 #import "PKRootNode.h"
 #import "UnfinishedSeqParser.h"
 
-@interface UnfinishedSeqParser ()
-- (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError;
-@end
-
 @interface UnfinishedSeqParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;

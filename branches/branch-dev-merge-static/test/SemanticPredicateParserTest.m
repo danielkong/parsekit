@@ -13,10 +13,6 @@
 #import "PKRootNode.h"
 #import "SemanticPredicateParser.h"
 
-@interface SemanticPredicateParser ()
-- (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError;
-@end
-
 @interface SemanticPredicateParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;
