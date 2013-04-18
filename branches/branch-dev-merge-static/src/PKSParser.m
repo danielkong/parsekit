@@ -75,7 +75,7 @@
     self._exception = nil;
     self.tokenizer = nil;
     self._assembler = nil;
-    self._assembly = nil;
+    self.assembly = nil;
     self._lookahead = nil;
     self._markers = nil;
     self._tokenKindTab = nil;
@@ -137,7 +137,7 @@
     // setup
     self._assembler = a;
     self.tokenizer = t;
-    self._assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
+    self.assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
     
     self.tokenizer.delegate = self;
     
@@ -191,7 +191,7 @@
         self.tokenizer.delegate = nil;
         self.tokenizer = nil;
         self._assembler = nil;
-        self._assembly = nil;
+        self.assembly = nil;
         self._lookahead = nil;
         self._markers = nil;
     }
@@ -500,19 +500,19 @@
 
 
 - (BOOL)_popBool {
-    id obj = [self._assembly pop];
+    id obj = [self.assembly pop];
     return [obj boolValue];
 }
 
 
 - (NSInteger)_popInteger {
-    id obj = [self._assembly pop];
+    id obj = [self.assembly pop];
     return [obj integerValue];
 }
 
 
 - (double)_popDouble {
-    id obj = [self._assembly pop];
+    id obj = [self.assembly pop];
     if ([obj respondsToSelector:@selector(doubleValue)]) {
         return [obj doubleValue];
     } else {
@@ -522,14 +522,14 @@
 
 
 - (PKToken *)_popToken {
-    PKToken *tok = [self._assembly pop];
+    PKToken *tok = [self.assembly pop];
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
     return tok;
 }
 
 
 - (NSString *)_popString {
-    id obj = [self._assembly pop];
+    id obj = [self.assembly pop];
     if ([obj respondsToSelector:@selector(stringValue)]) {
         return [obj stringValue];
     } else {
@@ -539,17 +539,17 @@
 
 
 - (void)_pushBool:(BOOL)yn {
-    [self._assembly push:(id)(yn ? kCFBooleanTrue : kCFBooleanFalse)];
+    [self.assembly push:(id)(yn ? kCFBooleanTrue : kCFBooleanFalse)];
 }
 
 
 - (void)_pushInteger:(NSInteger)i {
-    [self._assembly push:@(i)];
+    [self.assembly push:@(i)];
 }
 
 
 - (void)_pushDouble:(double)d {
-    [self._assembly push:@(d)];
+    [self.assembly push:@(d)];
 }
 
 
@@ -641,7 +641,6 @@
 
 @synthesize _exception = _exception;
 @synthesize _assembler = _assembler;
-@synthesize _assembly = _assembly;
 @synthesize _lookahead = _lookahead;
 @synthesize _markers = _markers;
 @synthesize _p = _p;

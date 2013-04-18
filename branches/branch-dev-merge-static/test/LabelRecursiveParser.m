@@ -7,14 +7,14 @@
 #define LS(i) [self LS:(i)]
 #define LF(i) [self LF:(i)]
 
-#define POP()       [self._assembly pop]
+#define POP()       [self.assembly pop]
 #define POP_STR()   [self _popString]
 #define POP_TOK()   [self _popToken]
 #define POP_BOOL()  [self _popBool]
 #define POP_INT()   [self _popInteger]
 #define POP_FLOAT() [self _popDouble]
 
-#define PUSH(obj)     [self._assembly push:(id)(obj)]
+#define PUSH(obj)     [self.assembly push:(id)(obj)]
 #define PUSH_BOOL(yn) [self _pushBool:(BOOL)(yn)]
 #define PUSH_INT(i)   [self _pushInteger:(NSInteger)(i)]
 #define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
@@ -23,7 +23,7 @@
 #define NE(a, b) (![(a) isEqual:(b)])
 #define EQ_IGNORE_CASE(a, b) (NSOrderedSame == [(a) compare:(b)])
 
-#define ABOVE(fence) [self._assembly objectsAbove:(fence)]
+#define ABOVE(fence) [self.assembly objectsAbove:(fence)]
 
 #define LOG(obj) do { NSLog(@"%@", (obj)); } while (0);
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
