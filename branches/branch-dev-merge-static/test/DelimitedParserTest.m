@@ -13,10 +13,6 @@
 #import "PKRootNode.h"
 #import "DelimitedParser.h"
 
-@interface DelimitedParser ()
-- (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError;
-@end
-
 @interface DelimitedParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;
@@ -63,12 +59,8 @@
 }
 
 - (void)testFoo1 {
-    PKTokenizer *t = [PKTokenizer tokenizerWithString:@"<foo>"];
-    [t.delimitState addStartMarker:@"<" endMarker:@">" allowedCharacterSet:nil];
-    [t setTokenizerState:t.delimitState from:'<' to:'<'];
-    
     NSError *err = nil;
-    PKAssembly *res = [_parser _doParseWithTokenizer:t assembler:nil error:&err];
+    PKAssembly *res = [_parser parseString:@"<foo>" assembler:nil error:&err];
     
     TDEqualObjects(@"[<foo>]<foo>^", [res description]);
 }
