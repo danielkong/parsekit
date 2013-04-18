@@ -73,7 +73,7 @@
 
 - (void)dealloc {
     self._exception = nil;
-    self._tokenizer = nil;
+    self.tokenizer = nil;
     self._assembler = nil;
     self._assembly = nil;
     self._lookahead = nil;
@@ -136,10 +136,10 @@
     
     // setup
     self._assembler = a;
-    self._tokenizer = t;
+    self.tokenizer = t;
     self._assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
     
-    self._tokenizer.delegate = self;
+    self.tokenizer.delegate = self;
     
     // setup speculation
     self._p = 0;
@@ -188,8 +188,8 @@
         }
     }
     @finally {
-        self._tokenizer.delegate = nil;
-        self._tokenizer = nil;
+        self.tokenizer.delegate = nil;
+        self.tokenizer = nil;
         self._assembler = nil;
         self._assembly = nil;
         self._lookahead = nil;
@@ -640,7 +640,6 @@
 }
 
 @synthesize _exception = _exception;
-@synthesize _tokenizer = _tokenizer;
 @synthesize _assembler = _assembler;
 @synthesize _assembly = _assembly;
 @synthesize _lookahead = _lookahead;

@@ -12,7 +12,7 @@ See: http://developer.apple.com/documentation/Cocoa/Conceptual/Predicates/Articl
 
 @start 
 @before {
-	PKTokenizer *t = self._tokenizer;
+	PKTokenizer *t = self.tokenizer;
 	[t setTokenizerState:t.wordState from:'#' to:'#'];
 	[t.wordState setWordChars:YES from:'.' to:'.'];
 	[t.wordState setWordChars:YES from:'[' to:'['];

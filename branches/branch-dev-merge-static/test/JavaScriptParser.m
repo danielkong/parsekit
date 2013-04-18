@@ -749,7 +749,7 @@
     [self execute:(id)^{
         
 	
-	PKTokenizer *t = self._tokenizer;
+	PKTokenizer *t = self.tokenizer;
 	
 	[t.symbolState add:@"||"];
 	[t.symbolState add:@"&&"];

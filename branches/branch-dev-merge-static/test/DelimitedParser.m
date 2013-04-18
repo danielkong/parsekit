@@ -72,7 +72,7 @@
     
     [self execute:(id)^{
         
-    PKTokenizer *t = self._tokenizer;
+    PKTokenizer *t = self.tokenizer;
 
     [t.delimitState addStartMarker:@"<" endMarker:@">" allowedCharacterSet:nil];
     [t setTokenizerState:t.delimitState from:'<' to:'<'];

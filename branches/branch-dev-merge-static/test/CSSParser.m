@@ -217,7 +217,7 @@
     
     [self execute:(id)^{
         
-    PKTokenizer *t = self._tokenizer;
+    PKTokenizer *t = self.tokenizer;
 
     // symbols
     [t.symbolState add:@"/*"];

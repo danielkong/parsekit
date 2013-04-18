@@ -42,7 +42,7 @@ enum {
 - (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outErr;
 - (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outErr;
 
-@property (nonatomic, retain) PKTokenizer *_tokenizer;
+@property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, retain) PKSTokenAssembly *_assembly;
 @property (nonatomic, assign) BOOL disableActions;
 @end

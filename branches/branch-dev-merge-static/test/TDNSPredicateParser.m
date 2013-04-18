@@ -339,7 +339,7 @@
     
     [self execute:(id)^{
         
-	PKTokenizer *t = self._tokenizer;
+	PKTokenizer *t = self.tokenizer;
 	[t setTokenizerState:t.wordState from:'#' to:'#'];
 	[t.wordState setWordChars:YES from:'.' to:'.'];
 	[t.wordState setWordChars:YES from:'[' to:'['];
