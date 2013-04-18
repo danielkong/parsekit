@@ -54,6 +54,10 @@
 @property (nonatomic, retain) NSMutableDictionary *decl_memo;
 @property (nonatomic, retain) NSMutableDictionary *property_memo;
 @property (nonatomic, retain) NSMutableDictionary *expr_memo;
+@property (nonatomic, retain) NSMutableDictionary *url_memo;
+@property (nonatomic, retain) NSMutableDictionary *urlLower_memo;
+@property (nonatomic, retain) NSMutableDictionary *urlUpper_memo;
+@property (nonatomic, retain) NSMutableDictionary *nonTerminatingSymbol_memo;
 @property (nonatomic, retain) NSMutableDictionary *important_memo;
 @property (nonatomic, retain) NSMutableDictionary *string_memo;
 @property (nonatomic, retain) NSMutableDictionary *constant_memo;
@@ -83,24 +87,26 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"!"] = @(TOKEN_KIND_BANG);
-        self._tokenKindTab[@":"] = @(TOKEN_KIND_COLON);
-        self._tokenKindTab[@"#"] = @(TOKEN_KIND_HASHSYM);
-        self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI);
         self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
-        self._tokenKindTab[@"["] = @(TOKEN_KIND_OPENBRACKET);
-        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQ);
-        self._tokenKindTab[@"."] = @(TOKEN_KIND_DOT);
-        self._tokenKindTab[@"{"] = @(TOKEN_KIND_OPENCURLY);
-        self._tokenKindTab[@">"] = @(TOKEN_KIND_GT);
-        self._tokenKindTab[@"]"] = @(TOKEN_KIND_CLOSEBRACKET);
-        self._tokenKindTab[@"|"] = @(TOKEN_KIND_PIPE);
-        self._tokenKindTab[@"("] = @(TOKEN_KIND_OPENPAREN);
-        self._tokenKindTab[@"/"] = @(TOKEN_KIND_FWDSLASH);
-        self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSECURLY);
-        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSEPAREN);
-        self._tokenKindTab[@"@"] = @(TOKEN_KIND_AT);
+        self._tokenKindTab[@":"] = @(TOKEN_KIND_COLON);
         self._tokenKindTab[@"~"] = @(TOKEN_KIND_TILDE);
+        self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI);
+        self._tokenKindTab[@"."] = @(TOKEN_KIND_DOT);
+        self._tokenKindTab[@"!"] = @(TOKEN_KIND_BANG);
+        self._tokenKindTab[@"/"] = @(TOKEN_KIND_FWDSLASH);
+        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQ);
+        self._tokenKindTab[@">"] = @(TOKEN_KIND_GT);
+        self._tokenKindTab[@"#"] = @(TOKEN_KIND_HASHSYM);
+        self._tokenKindTab[@"["] = @(TOKEN_KIND_OPENBRACKET);
+        self._tokenKindTab[@"@"] = @(TOKEN_KIND_AT);
+        self._tokenKindTab[@"]"] = @(TOKEN_KIND_CLOSEBRACKET);
+        self._tokenKindTab[@"("] = @(TOKEN_KIND_OPENPAREN);
+        self._tokenKindTab[@"{"] = @(TOKEN_KIND_OPENCURLY);
+        self._tokenKindTab[@"URL(,)"] = @(TOKEN_KIND_URLUPPER);
+        self._tokenKindTab[@"url(,)"] = @(TOKEN_KIND_URLLOWER);
+        self._tokenKindTab[@"|"] = @(TOKEN_KIND_PIPE);
+        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSEPAREN);
+        self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSECURLY);
 
         self.ruleset_memo = [NSMutableDictionary dictionary];
         self.selectors_memo = [NSMutableDictionary dictionary];
@@ -113,6 +119,10 @@
         self.decl_memo = [NSMutableDictionary dictionary];
         self.property_memo = [NSMutableDictionary dictionary];
         self.expr_memo = [NSMutableDictionary dictionary];
+        self.url_memo = [NSMutableDictionary dictionary];
+        self.urlLower_memo = [NSMutableDictionary dictionary];
+        self.urlUpper_memo = [NSMutableDictionary dictionary];
+        self.nonTerminatingSymbol_memo = [NSMutableDictionary dictionary];
         self.important_memo = [NSMutableDictionary dictionary];
         self.string_memo = [NSMutableDictionary dictionary];
         self.constant_memo = [NSMutableDictionary dictionary];
@@ -151,6 +161,10 @@
     self.decl_memo = nil;
     self.property_memo = nil;
     self.expr_memo = nil;
+    self.url_memo = nil;
+    self.urlLower_memo = nil;
+    self.urlUpper_memo = nil;
+    self.nonTerminatingSymbol_memo = nil;
     self.important_memo = nil;
     self.string_memo = nil;
     self.constant_memo = nil;
@@ -189,6 +203,10 @@
     [_decl_memo removeAllObjects];
     [_property_memo removeAllObjects];
     [_expr_memo removeAllObjects];
+    [_url_memo removeAllObjects];
+    [_urlLower_memo removeAllObjects];
+    [_urlUpper_memo removeAllObjects];
+    [_nonTerminatingSymbol_memo removeAllObjects];
     [_important_memo removeAllObjects];
     [_string_memo removeAllObjects];
     [_constant_memo removeAllObjects];
@@ -223,18 +241,34 @@
     [t.symbolState add:@"/*"];
     [t.symbolState add:@"*/"];
     [t.symbolState add:@"//"];
+    [t.symbolState add:@"url("];
+    [t.symbolState add:@"URL("];
 
-    // word chars -moz, -webkit, @media
+    // word chars -moz, -webkit, @media, #id, .class, :hover
     [t setTokenizerState:t.wordState from:'-' to:'-'];
+    [t setTokenizerState:t.wordState from:'@' to:'@'];
+    [t setTokenizerState:t.wordState from:'.' to:'.'];
+    [t setTokenizerState:t.wordState from:'#' to:'#'];
     [t.wordState setWordChars:YES from:'-' to:'-'];
     [t.wordState setWordChars:YES from:'@' to:'@'];
-    [t.wordState setFallbackState:t.symbolState from:'-' to:'-'];
+    [t.wordState setWordChars:YES from:'.' to:'.'];
+    [t.wordState setWordChars:YES from:'#' to:'#'];
+/*    [t.wordState setFallbackState:t.symbolState from:'-' to:'-'];
     [t.wordState setFallbackState:t.symbolState from:'@' to:'@'];
-
+    [t.wordState setFallbackState:t.symbolState from:'.' to:'.'];
+    [t.wordState setFallbackState:t.symbolState from:'#' to:'#'];
+*/
     // comments
     [t setTokenizerState:t.commentState from:'/' to:'/'];
+    [t.commentState setFallbackState:t.symbolState from:'/' to:'/'];
     [t.commentState addSingleLineStartMarker:@"//"];
     [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
+	
+	// urls
+    [t setTokenizerState:t.delimitState from:'u' to:'u'];
+    [t setTokenizerState:t.delimitState from:'U' to:'U'];
+	[t.delimitState addStartMarker:@"url(" endMarker:@")" allowedCharacterSet:nil];
+	[t.delimitState addStartMarker:@"URL(" endMarker:@")" allowedCharacterSet:nil];
 
     }];
     while ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CLOSEBRACKET, TOKEN_KIND_COLON, TOKEN_KIND_DOT, TOKEN_KIND_EQ, TOKEN_KIND_GT, TOKEN_KIND_HASHSYM, TOKEN_KIND_OPENBRACKET, TOKEN_KIND_PIPE, TOKEN_KIND_TILDE, 0]) {
@@ -419,24 +453,83 @@
             [self constant]; 
         } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
             [self num]; 
+        } else if ([self predicts:TOKEN_KIND_URLLOWER, TOKEN_KIND_URLUPPER, 0]) {
+            [self url]; 
         } else if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {
             [self openParen]; 
         } else if ([self predicts:TOKEN_KIND_CLOSEPAREN, 0]) {
             [self closeParen]; 
         } else if ([self predicts:TOKEN_KIND_COMMA, 0]) {
             [self comma]; 
-        } else if ([self predicts:TOKEN_KIND_FWDSLASH, 0]) {
-            [self fwdSlash]; 
+        } else if ([self predicts:TOKEN_KIND_BUILTIN_SYMBOL, TOKEN_KIND_FWDSLASH, 0]) {
+            [self nonTerminatingSymbol]; 
         } else {
             [self raise:@"no viable alternative found in expr"];
         }
-    } while ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CLOSEPAREN, TOKEN_KIND_COMMA, TOKEN_KIND_FWDSLASH, TOKEN_KIND_OPENPAREN, 0]);
+    } while ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_SYMBOL, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CLOSEPAREN, TOKEN_KIND_COMMA, TOKEN_KIND_FWDSLASH, TOKEN_KIND_OPENPAREN, TOKEN_KIND_URLLOWER, TOKEN_KIND_URLUPPER, 0]);
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)expr {
     [self parseRule:@selector(__expr) withMemo:_expr_memo];
+}
+
+- (void)__url {
+    
+    if ([self predicts:TOKEN_KIND_URLLOWER, 0]) {
+        [self urlLower]; 
+    } else if ([self predicts:TOKEN_KIND_URLUPPER, 0]) {
+        [self urlUpper]; 
+    } else {
+        [self raise:@"no viable alternative found in url"];
+    }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchUrl:)];
+}
+
+- (void)url {
+    [self parseRule:@selector(__url) withMemo:_url_memo];
+}
+
+- (void)__urlLower {
+    
+    [self match:TOKEN_KIND_URLLOWER]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchUrlLower:)];
+}
+
+- (void)urlLower {
+    [self parseRule:@selector(__urlLower) withMemo:_urlLower_memo];
+}
+
+- (void)__urlUpper {
+    
+    [self match:TOKEN_KIND_URLUPPER]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchUrlUpper:)];
+}
+
+- (void)urlUpper {
+    [self parseRule:@selector(__urlUpper) withMemo:_urlUpper_memo];
+}
+
+- (void)__nonTerminatingSymbol {
+    
+    if ([self predicts:TOKEN_KIND_FWDSLASH, 0]) {
+        [self testAndThrow:(id)^{ return NE(LS(1), @";") && NE(LS(1), @"!"); }]; 
+        [self fwdSlash]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_SYMBOL, 0]) {
+        [self Symbol]; 
+    } else {
+        [self raise:@"no viable alternative found in nonTerminatingSymbol"];
+    }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchNonTerminatingSymbol:)];
+}
+
+- (void)nonTerminatingSymbol {
+    [self parseRule:@selector(__nonTerminatingSymbol) withMemo:_nonTerminatingSymbol_memo];
 }
 
 - (void)__important {
