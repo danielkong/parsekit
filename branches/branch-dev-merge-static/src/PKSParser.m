@@ -114,7 +114,7 @@
     
     PKTokenizer *t = [PKTokenizer tokenizerWithStream:input];
 
-    id result = [self _doParseWithTokenizer:t assembler:a error:outError];
+    id result = [self _parseWithTokenizer:t assembler:a error:outError];
     
     [input close];
     [input removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
@@ -128,12 +128,12 @@
 
     PKTokenizer *t = [PKTokenizer tokenizerWithString:input];
     
-    id result = [self _doParseWithTokenizer:t assembler:a error:outError];
+    id result = [self _parseWithTokenizer:t assembler:a error:outError];
     return result;
 }
 
 
-- (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError {
+- (id)_parseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError {
     id result = nil;
     
     // setup
