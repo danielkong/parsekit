@@ -61,7 +61,7 @@
 - (void)testVarFooEqBar {
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"foo {color:red;}" assembler:nil error:&err];
-    TDEqualObjects(@"[var, foo, =, 'bar', ;]var/foo/=/'bar'/;^", [res description]);
+    TDEqualObjects(@"[foo, {, color, :, red, ;, }]foo/{/color/:/red/;/}^", [res description]);
 }
 
 @end
