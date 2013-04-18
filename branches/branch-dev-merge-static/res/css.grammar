@@ -6,21 +6,45 @@
     
 */
 
+@symbols = '//';
+@singleLineComments = '//';
 @multiLineComments = '/*' '*/';
-@wordState = '-';
+@wordState = '-' '@';
 
-@start                  = ruleset*;
+@start                  
+@before {
+    PKTokenizer *t = self._tokenizer;
+
+    // symbols
+    [t.symbolState add:@"/*"];
+    [t.symbolState add:@"*/"];
+    [t.symbolState add:@"//"];
+
+    // word chars -moz, -webkit, @media
+    [t setTokenizerState:t.wordState from:'-' to:'-'];
+    [t.wordState setWordChars:YES from:'-' to:'-'];
+    [t.wordState setWordChars:YES from:'@' to:'@'];
+    [t.wordState setFallbackState:t.symbolState from:'-' to:'-'];
+    [t.wordState setFallbackState:t.symbolState from:'@' to:'@'];
+
+    // comments
+    [t setTokenizerState:t.commentState from:'/' to:'/'];
+    [t.commentState addSingleLineStartMarker:@"//"];
+    [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
+}
+                        = ruleset*;
 ruleset                 = selectors openCurly decls closeCurly;
 selectors               = selector commaSelector*;
-selector                = (selectorWord | hash | dot |colon | gt | openBracket | closeBracket | eq | selectorQuotedString | tilde | pipe)+;
+selector                = (selectorWord | hashSym | dot | colon | gt | openBracket | closeBracket | eq | selectorQuotedString | tilde | pipe)+;
 selectorWord            = Word;
 selectorQuotedString    = QuotedString;
 commaSelector           = comma selector;
 decls                   = Empty | actualDecls;
 actualDecls             = decl decl*;
-decl                    = property colon expr semi;
+decl                    = property colon expr important? semi;
 property                = Word;
 expr                    = (string | constant | num | openParen | closeParen | comma | fwdSlash)+;
+important               = bang Word;
 string                  = QuotedString;
 constant                = Word;
 
@@ -38,7 +62,9 @@ gt              = '>';
 tilde           = '~';
 pipe            = '|';
 fwdSlash        = '/';
-hash            = '#';
+hashSym         = '#';
 dot             = '.';
+at              = '@';
+bang            = '!';
 
 num = Number;
