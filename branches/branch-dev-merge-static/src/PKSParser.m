@@ -23,9 +23,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKSRecognitionException *_exception;
-@property (nonatomic, retain) PKTokenizer *_tokenizer;
 @property (nonatomic, assign) id _assembler; // weak ref
-@property (nonatomic, retain) PKSTokenAssembly *_assembly;
 @property (nonatomic, retain) NSMutableArray *_lookahead;
 @property (nonatomic, retain) NSMutableArray *_markers;
 @property (nonatomic, assign) NSInteger _p;

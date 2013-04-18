@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <ParseKit/PKTokenizer.h>
+#import <ParseKit/PKTokenizer.h>
 
 @class PKToken;
+@class PKSTokenAssembly;
 
 typedef id   (^PKSActionBlock)   (void);
 typedef void (^PKSSpeculateBlock)(void);
@@ -40,6 +42,8 @@ enum {
 - (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outErr;
 - (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outErr;
 
+@property (nonatomic, retain) PKTokenizer *_tokenizer;
+@property (nonatomic, retain) PKSTokenAssembly *_assembly;
 @property (nonatomic, assign) BOOL disableActions;
 @end
 

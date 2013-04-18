@@ -29,8 +29,6 @@
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
 @interface PKSParser ()
-@property (nonatomic, retain) PKTokenizer *_tokenizer;
-@property (nonatomic, retain) PKAssembly *_assembly;
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 
 - (BOOL)_popBool;
