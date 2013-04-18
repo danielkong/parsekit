@@ -58,10 +58,16 @@
     self.factory = nil;
 }
 
-- (void)testVarFooEqBar {
+- (void)testVarFooColorRed {
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"foo {color:red;}" assembler:nil error:&err];
     TDEqualObjects(@"[foo, {, color, :, red, ;, }]foo/{/color/:/red/;/}^", [res description]);
+}
+
+- (void)testVarFooColorRedImportant {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"foo {color:red !important;}" assembler:nil error:&err];
+    TDEqualObjects(@"[foo, {, color, :, red, !, important, ;, }]foo/{/color/:/red/!/important/;/}^", [res description]);
 }
 
 @end
