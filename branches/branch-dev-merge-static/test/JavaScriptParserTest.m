@@ -13,10 +13,6 @@
 #import "PKRootNode.h"
 #import "JavaScriptParser.h"
 
-@interface JavaScriptParser ()
-- (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError;
-@end
-
 @interface JavaScriptParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;

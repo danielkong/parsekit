@@ -13,10 +13,6 @@
 #import "PKRootNode.h"
 #import "PatternParser.h"
 
-@interface PatternParser ()
-- (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError;
-@end
-
 @interface PatternParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;

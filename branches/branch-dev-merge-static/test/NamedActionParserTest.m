@@ -13,10 +13,6 @@
 #import "PKRootNode.h"
 #import "NamedActionParser.h"
 
-@interface NamedActionParser ()
-- (id)_doParseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError;
-@end
-
 @interface NamedActionParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;
