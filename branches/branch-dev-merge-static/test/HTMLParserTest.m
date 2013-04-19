@@ -61,13 +61,13 @@
 - (void)testPHi {
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"<p>hi" assembler:nil error:&err];
-    TDEqualObjects(@"[<, p, >]</p/>^", [res description]);
+    TDEqualObjects(@"[<, p, >, hi]</p/>/hi^", [res description]);
 }
 
 - (void)testPHiP {
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"<p>hi</p>" assembler:nil error:&err];
-    TDEqualObjects(@"[<, p, >]</p/>^", [res description]);
+    TDEqualObjects(@"[<, p, >, hi, <, /, p, >]</p/>/hi/<///p/>^", [res description]);
 }
 
 @end
