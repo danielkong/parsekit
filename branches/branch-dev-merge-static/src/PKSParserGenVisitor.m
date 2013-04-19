@@ -373,7 +373,7 @@
     [output appendString:[self semanticPredicateForNode:node throws:YES]];
 
     NSString *templateName = nil;
-    if (_enableHybridDFA && [self hasTerminalPath:child]) { // ????
+    if (_enableHybridDFA && [self isLL1:child]) { // ????
         templateName = @"PKSNegationTerminalTemplate";
     } else {
         templateName = @"PKSNegationNonTerminalTemplate";
@@ -412,10 +412,10 @@
     vars[LAST] = @([set count] - 1);
 
     // Only need to speculate if this repetition's child is non-terminal
-    BOOL isChildTerminal = (_enableHybridDFA && [self hasTerminalPath:child]);
+    BOOL isLL1 = (_enableHybridDFA && [self isLL1:child]);
     
     // rep body is always wrapped in an while AND an IF. so increase depth twice
-    NSInteger depth = isChildTerminal ? 1 : 2;
+    NSInteger depth = isLL1 ? 1 : 2;
 
     // recurse
     self.depth += depth;
@@ -427,7 +427,7 @@
     vars[CHILD_STRING] = [[childStr copy] autorelease];
     
     NSString *templateName = nil;
-    if (isChildTerminal) { // ????
+    if (isLL1) { // ????
         templateName = @"PKSRepetitionTerminalTemplate";
     } else {
         vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
@@ -694,7 +694,7 @@
     [output appendString:[self semanticPredicateForNode:node throws:YES]];
 
     NSString *templateName = nil;
-    if (_enableHybridDFA && [self hasTerminalPath:child]) { // ????
+    if (_enableHybridDFA && [self isLL1:child]) { // ????
         templateName = @"PKSOptionalTerminalTemplate";
     } else {
         templateName = @"PKSOptionalNonTerminalTemplate";
@@ -710,7 +710,7 @@
 }
 
 
-- (BOOL)hasTerminalPath:(PKBaseNode *)inNode {
+- (BOOL)isLL1:(PKBaseNode *)inNode {
     BOOL result = YES;
     
     PKBaseNode *node = inNode;
@@ -727,7 +727,7 @@
     
     if ([node isKindOfClass:[PKAlternationNode class]]) {
         for (PKBaseNode *child in node.children) {
-            if (![self hasTerminalPath:child]) {
+            if (![self isLL1:child]) {
                 result = NO;
                 break;
             }
@@ -768,7 +768,7 @@
     [output appendString:[self semanticPredicateForNode:node throws:YES]];
 
     NSString *templateName = nil;
-    if (_enableHybridDFA && [self hasTerminalPath:child]) { // ????
+    if (_enableHybridDFA && [self isLL1:child]) { // ????
         templateName = @"PKSMultipleTerminalTemplate";
     } else {
         templateName = @"PKSMultipleNonTerminalTemplate";
