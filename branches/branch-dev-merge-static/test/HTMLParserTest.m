@@ -70,4 +70,10 @@
     TDEqualObjects(@"[<, p, >, hi, <, /, p, >]</p/>/hi/<///p/>^", [res description]);
 }
 
+- (void)testDoctypePHiP {
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'><p>hi</p>" assembler:nil error:&err];
+    TDEqualObjects(@"[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>, <, p, >, hi, <, /, p, >]<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>/</p/>/hi/<///p/>^", [res description]);
+}
+
 @end
