@@ -4,7 +4,10 @@ stat = assign dot | list semi;
 
 assign = list eq list;
 
-list = lbracket elements rbracket;
+list =      lbracket
+            elements
+            rbracket;
+
 elements = element (comma element)*;
 element = Number | list;
 

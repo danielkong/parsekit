@@ -61,8 +61,8 @@
     s = @"var foo = 'bar';";
     lp.tokenizer.string = s;
     a = [PKTokenAssembly assemblyWithTokenizer:lp.tokenizer];
-//    res = [lp bestMatchFor:a];
-//    TDEqualObjects(@"[var, foo, =, 'bar', ;]var/foo/=/bar/;^", [res description]);
+    res = [lp bestMatchFor:a];
+    TDEqualObjects(@"[var, foo, =, 'bar', ;]var/foo/=/'bar'/;^", [res description]);
 }
 
 
@@ -90,7 +90,7 @@
     PKParser *selectorParser = [lp parserNamed:@"selector"];
     TDNotNil(selectorParser);
     TDEqualObjects(selectorParser.name, @"selector");
-    TDEqualObjects([selectorParser class], [PKLowercaseWord class]);
+    TDEqualObjects([selectorParser class], [PKWord class]);
 
     PKParser *declParser = [lp parserNamed:@"decl"];
     TDNotNil(declParser);

@@ -26,8 +26,8 @@ static PKTokenEOF *EOFToken = nil;
 
 + (PKTokenEOF *)instance {
     @synchronized(self) {
-        if (!EOFToken) {
-            EOFToken = [[self alloc] init];
+        if (!EOFToken) { 
+            EOFToken = [[self alloc] initWithTokenType:PKTokenTypeEOF stringValue:nil floatValue:0.0];
         }
     }
     return EOFToken;

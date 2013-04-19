@@ -15,7 +15,7 @@
 @property (nonatomic, retain) id preassembler;
 @property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
 
-@property (nonatomic, retain) NSMutableArray *tokenKinds;
-@property (nonatomic, retain) NSString *currentDefName;
+@property (nonatomic, retain) NSMutableDictionary *tokenKinds;
 @property (nonatomic, assign) BOOL collectTokenKinds;
+@property (nonatomic, retain) NSDictionary *defaultDefNameTab;
 @end

@@ -1,0 +1,10 @@
+
+- (void)__{{methodName}} {
+    
+{{methodBody}}
+    [self fireAssemblerSelector:@selector(parser:didMatch{{methodName | capitalized}}:)];
+}
+
+- (void){{methodName}} {
+    [self parseRule:@selector(__{{methodName}}) withMemo:_{{methodName}}_memo];
+}

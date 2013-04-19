@@ -5,7 +5,45 @@
 @singleLineComments = '//';
 @multiLineComments  = '/*' '*/';
 
-@start              = program;
+@start              
+@before {
+	
+	PKTokenizer *t = self.tokenizer;
+	
+	[t.symbolState add:@"||"];
+	[t.symbolState add:@"&&"];
+	[t.symbolState add:@"!="];
+	[t.symbolState add:@"!=="];
+	[t.symbolState add:@"=="];
+	[t.symbolState add:@"==="];
+	[t.symbolState add:@"<="];
+	[t.symbolState add:@">="];
+	[t.symbolState add:@"++"];
+	[t.symbolState add:@"--"];
+	[t.symbolState add:@"+="];
+	[t.symbolState add:@"-="];
+	[t.symbolState add:@"*="];
+	[t.symbolState add:@"/="];
+	[t.symbolState add:@"%="];
+	[t.symbolState add:@"<<"];
+	[t.symbolState add:@">>"];
+	[t.symbolState add:@">>>"];
+	[t.symbolState add:@"<<="];
+	[t.symbolState add:@">>="];
+	[t.symbolState add:@">>>="];
+	[t.symbolState add:@"&="];
+	[t.symbolState add:@"^="];
+	[t.symbolState add:@"|="];
+
+	t.commentState.reportsCommentTokens = YES;
+	
+	[t setTokenizerState:t.commentState from:'/' to:'/'];
+	[t.commentState addSingleLineStartMarker:@"//"];
+	[t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
+}
+
+
+					= program;
 
 if                  = 'if';
 else                = 'else';
@@ -18,10 +56,10 @@ with                = 'with';
 return              = 'return';
 var                 = 'var';
 delete              = 'delete';
-new                 = 'new';
+keywordNew          = 'new';
 this                = 'this';
-false               = 'false';
-true                = 'true';
+falseLiteral        = 'false';
+trueLiteral         = 'true';
 null                = 'null';
 undefined           = 'undefined';
 void                = 'void';
@@ -312,8 +350,7 @@ equalityOpEqualityExpr = equalityOperator equalityExpr;
 //           ShiftExpression
 //           RelationalExpression RelationalationalOperator ShiftExpression
 
-relationalExpr      = shiftExpr | relationalExprRHS;
-relationalExprRHS   = relationalExpr relationalOperator shiftExpr;
+relationalExpr      = shiftExpr (relationalOperator shiftExpr)*;
 
 
 
@@ -355,12 +392,12 @@ multiplicativeExpr  = unaryExpr (multiplicativeOperator multiplicativeExpr)?;
 //           new Constructor
 //           delete MemberExpression
 
-unaryExpr           = memberExpr | unaryExpr1 | unaryExpr2 | unaryExpr3 | unaryExpr4 | unaryExpr5 | unaryExpr6;
+unaryExpr           = memberExpr | unaryExpr1 | unaryExpr2 | unaryExpr3 | unaryExpr4 | /*callNewExpr |*/ unaryExpr6;
 unaryExpr1          = unaryOperator unaryExpr;
 unaryExpr2          = minus unaryExpr;
 unaryExpr3          = incrementOperator memberExpr;
 unaryExpr4          = memberExpr incrementOperator;
-unaryExpr5          = new constructor;
+callNewExpr             = keywordNew constructor;
 unaryExpr6          = delete memberExpr;
 
 
@@ -369,7 +406,7 @@ unaryExpr6          = delete memberExpr;
 //           this . ConstructorCall
 //           ConstructorCall
 
-constructor         = constructorCall; // TODO ???
+constructor         = (this dot)? constructorCall; // TODO ???
 
 
 
@@ -378,7 +415,7 @@ constructor         = constructorCall; // TODO ???
 //           Identifier ( ArgumentListOpt )
 //           Identifier . ConstructorCall
 
-constructorCall     = identifier parenArgListParen?;  // TODO
+constructorCall     = identifier (parenArgListParen | dot constructorCall)?;  // TODO
 parenArgListParen   = openParen argListOpt closeParen;
 
 
@@ -425,6 +462,6 @@ commaAssignmentExpr = comma assignmentExpr;
 //           null
 //           this
 
-primaryExpr         = parenExprParen | identifier | Number | QuotedString | false | true | null | undefined | this;
+primaryExpr         = callNewExpr | parenExprParen | identifier | Number | QuotedString | falseLiteral | trueLiteral | null | undefined | this;
 parenExprParen      = openParen expr closeParen;
 identifier          = Word;

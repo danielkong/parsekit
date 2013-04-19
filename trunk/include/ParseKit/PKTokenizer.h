@@ -15,6 +15,7 @@
 #import <Foundation/Foundation.h>
 #import <ParseKit/PKTypes.h>
 
+@class PKTokenizer;
 @class PKToken;
 @class PKTokenizerState;
 @class PKNumberState;
@@ -33,6 +34,10 @@
 @class PKHashtagState;
 #endif
 @class PKReader;
+
+@protocol PKTokenizerDelegate <NSObject>
+- (NSInteger)tokenizer:(PKTokenizer *)t tokenKindForStringValue:(NSString *)str;
+@end
 
 /*!
     @class      PKTokenizer
@@ -82,7 +87,7 @@
 #endif
     
     NSUInteger lineNumber;
-
+    id <PKTokenizerDelegate>delegate;
 }
 
 /*!
@@ -187,4 +192,5 @@
 #endif
 
 @property (nonatomic, readonly) NSUInteger lineNumber;
+@property (nonatomic, assign) id <PKTokenizerDelegate>delegate;
 @end
