@@ -511,9 +511,11 @@
 - (void)__attr {
     
     [self attrName]; 
-    if ([self speculate:^{ [self eq]; [self attrValue]; }]) {
+    if ([self speculate:^{ [self eq]; if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {[self attrValue]; }}]) {
         [self eq]; 
-        [self attrValue]; 
+        if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
+            [self attrValue]; 
+        }
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAttr:)];
