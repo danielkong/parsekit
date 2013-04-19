@@ -216,14 +216,14 @@
 		D3383084171CA3BA00CCE513 /* PKSSpeculateElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */; };
 		D3383085171CA3BA00CCE513 /* PKSPredictElseTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3E17026FBE00446945 /* PKSPredictElseTemplate.txt */; };
 		D3383086171CA3BA00CCE513 /* PKSPredictEndIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A4E170918E700BA9DBF /* PKSPredictEndIfTemplate.txt */; };
-		D3383087171CA3BA00CCE513 /* PKSOptionalNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A431702993B00446945 /* PKSOptionalNonTerminalTemplate.txt */; };
-		D3383088171CA3BA00CCE513 /* PKSOptionalTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A76170A460800BA9DBF /* PKSOptionalTerminalTemplate.txt */; };
-		D3383089171CA3BA00CCE513 /* PKSMultipleNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A481702A11600446945 /* PKSMultipleNonTerminalTemplate.txt */; };
-		D338308A171CA3BA00CCE513 /* PKSMultipleTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A471702A11600446945 /* PKSMultipleTerminalTemplate.txt */; };
-		D338308B171CA3BA00CCE513 /* PKSRepetitionNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A4C1702A1F800446945 /* PKSRepetitionNonTerminalTemplate.txt */; };
-		D338308C171CA3BA00CCE513 /* PKSRepetitionTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionTerminalTemplate.txt */; };
-		D338308D171CA3BA00CCE513 /* PKSNegationNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4B170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt */; };
-		D338308E171CA3BA00CCE513 /* PKSNegationTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4D170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt */; };
+		D3383087171CA3BA00CCE513 /* PKSOptionalSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A431702993B00446945 /* PKSOptionalSpeculateTemplate.txt */; };
+		D3383088171CA3BA00CCE513 /* PKSOptionalPredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A76170A460800BA9DBF /* PKSOptionalPredictTemplate.txt */; };
+		D3383089171CA3BA00CCE513 /* PKSMultipleSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A481702A11600446945 /* PKSMultipleSpeculateTemplate.txt */; };
+		D338308A171CA3BA00CCE513 /* PKSMultiplePredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A471702A11600446945 /* PKSMultiplePredictTemplate.txt */; };
+		D338308B171CA3BA00CCE513 /* PKSRepetitionSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A4C1702A1F800446945 /* PKSRepetitionSpeculateTemplate.txt */; };
+		D338308C171CA3BA00CCE513 /* PKSRepetitionPredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionPredictTemplate.txt */; };
+		D338308D171CA3BA00CCE513 /* PKSNegationSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4B170CFB93001796F4 /* PKSNegationSpeculateTemplate.txt */; };
+		D338308E171CA3BA00CCE513 /* PKSNegationPredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4D170CFBCC001796F4 /* PKSNegationPredictTemplate.txt */; };
 		D338308F171CA3BB00CCE513 /* PKSClassInterfaceTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A5E1703DB9700446945 /* PKSClassInterfaceTemplate.txt */; };
 		D3383090171CA3BB00CCE513 /* PKSClassImplementationTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D302272A17020F9400594F16 /* PKSClassImplementationTemplate.txt */; };
 		D3383091171CA3BB00CCE513 /* PKSActionTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3017075C3000BA9DBF /* PKSActionTemplate.txt */; };
@@ -245,14 +245,14 @@
 		D33830A1171CA3BB00CCE513 /* PKSSpeculateElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */; };
 		D33830A2171CA3BB00CCE513 /* PKSPredictElseTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3E17026FBE00446945 /* PKSPredictElseTemplate.txt */; };
 		D33830A3171CA3BB00CCE513 /* PKSPredictEndIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A4E170918E700BA9DBF /* PKSPredictEndIfTemplate.txt */; };
-		D33830A4171CA3BB00CCE513 /* PKSOptionalNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A431702993B00446945 /* PKSOptionalNonTerminalTemplate.txt */; };
-		D33830A5171CA3BB00CCE513 /* PKSOptionalTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A76170A460800BA9DBF /* PKSOptionalTerminalTemplate.txt */; };
-		D33830A6171CA3BB00CCE513 /* PKSMultipleNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A481702A11600446945 /* PKSMultipleNonTerminalTemplate.txt */; };
-		D33830A7171CA3BB00CCE513 /* PKSMultipleTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A471702A11600446945 /* PKSMultipleTerminalTemplate.txt */; };
-		D33830A8171CA3BB00CCE513 /* PKSRepetitionNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A4C1702A1F800446945 /* PKSRepetitionNonTerminalTemplate.txt */; };
-		D33830A9171CA3BB00CCE513 /* PKSRepetitionTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionTerminalTemplate.txt */; };
-		D33830AA171CA3BB00CCE513 /* PKSNegationNonTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4B170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt */; };
-		D33830AB171CA3BB00CCE513 /* PKSNegationTerminalTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4D170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt */; };
+		D33830A4171CA3BB00CCE513 /* PKSOptionalSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A431702993B00446945 /* PKSOptionalSpeculateTemplate.txt */; };
+		D33830A5171CA3BB00CCE513 /* PKSOptionalPredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A76170A460800BA9DBF /* PKSOptionalPredictTemplate.txt */; };
+		D33830A6171CA3BB00CCE513 /* PKSMultipleSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A481702A11600446945 /* PKSMultipleSpeculateTemplate.txt */; };
+		D33830A7171CA3BB00CCE513 /* PKSMultiplePredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A471702A11600446945 /* PKSMultiplePredictTemplate.txt */; };
+		D33830A8171CA3BB00CCE513 /* PKSRepetitionSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A4C1702A1F800446945 /* PKSRepetitionSpeculateTemplate.txt */; };
+		D33830A9171CA3BB00CCE513 /* PKSRepetitionPredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionPredictTemplate.txt */; };
+		D33830AA171CA3BB00CCE513 /* PKSNegationSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4B170CFB93001796F4 /* PKSNegationSpeculateTemplate.txt */; };
+		D33830AB171CA3BB00CCE513 /* PKSNegationPredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F4D170CFBCC001796F4 /* PKSNegationPredictTemplate.txt */; };
 		D33830B2171CA46200CCE513 /* MGTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270A170208C800594F16 /* MGTemplateEngine.m */; };
 		D33830B3171CA46200CCE513 /* MGTemplateStandardMarkers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022710170208C800594F16 /* MGTemplateStandardMarkers.m */; };
 		D33830B4171CA46200CCE513 /* MGTemplateStandardFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270E170208C800594F16 /* MGTemplateStandardFilters.m */; };
@@ -1131,8 +1131,8 @@
 		D30B8F46170CFA9A001796F4 /* negation.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = negation.grammar; path = res/negation.grammar; sourceTree = "<group>"; };
 		D30B8F48170CFAAC001796F4 /* NegationParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NegationParserTest.h; path = test/NegationParserTest.h; sourceTree = "<group>"; };
 		D30B8F49170CFAAD001796F4 /* NegationParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NegationParserTest.m; path = test/NegationParserTest.m; sourceTree = "<group>"; };
-		D30B8F4B170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSNegationNonTerminalTemplate.txt; path = res/PKSNegationNonTerminalTemplate.txt; sourceTree = "<group>"; };
-		D30B8F4D170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSNegationTerminalTemplate.txt; path = res/PKSNegationTerminalTemplate.txt; sourceTree = "<group>"; };
+		D30B8F4B170CFB93001796F4 /* PKSNegationSpeculateTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSNegationSpeculateTemplate.txt; path = res/PKSNegationSpeculateTemplate.txt; sourceTree = "<group>"; };
+		D30B8F4D170CFBCC001796F4 /* PKSNegationPredictTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSNegationPredictTemplate.txt; path = res/PKSNegationPredictTemplate.txt; sourceTree = "<group>"; };
 		D30B8F4F170CFF16001796F4 /* parsekit.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = parsekit.grammar; path = res/parsekit.grammar; sourceTree = "<group>"; };
 		D30B8F51170CFF2A001796F4 /* ParseKitParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseKitParserTest.h; path = test/ParseKitParserTest.h; sourceTree = "<group>"; };
 		D30B8F52170CFF2A001796F4 /* ParseKitParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseKitParserTest.m; path = test/ParseKitParserTest.m; sourceTree = "<group>"; };
@@ -1701,10 +1701,10 @@
 		D3B22A3D17026FBE00446945 /* PKSPredictElseIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPredictElseIfTemplate.txt; path = res/PKSPredictElseIfTemplate.txt; sourceTree = "<group>"; };
 		D3B22A3E17026FBE00446945 /* PKSPredictElseTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPredictElseTemplate.txt; path = res/PKSPredictElseTemplate.txt; sourceTree = "<group>"; };
 		D3B22A3F17026FBE00446945 /* PKSPredictIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPredictIfTemplate.txt; path = res/PKSPredictIfTemplate.txt; sourceTree = "<group>"; };
-		D3B22A431702993B00446945 /* PKSOptionalNonTerminalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSOptionalNonTerminalTemplate.txt; path = res/PKSOptionalNonTerminalTemplate.txt; sourceTree = "<group>"; };
-		D3B22A471702A11600446945 /* PKSMultipleTerminalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSMultipleTerminalTemplate.txt; path = res/PKSMultipleTerminalTemplate.txt; sourceTree = "<group>"; };
-		D3B22A481702A11600446945 /* PKSMultipleNonTerminalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSMultipleNonTerminalTemplate.txt; path = res/PKSMultipleNonTerminalTemplate.txt; sourceTree = "<group>"; };
-		D3B22A4C1702A1F800446945 /* PKSRepetitionNonTerminalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSRepetitionNonTerminalTemplate.txt; path = res/PKSRepetitionNonTerminalTemplate.txt; sourceTree = "<group>"; };
+		D3B22A431702993B00446945 /* PKSOptionalSpeculateTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSOptionalSpeculateTemplate.txt; path = res/PKSOptionalSpeculateTemplate.txt; sourceTree = "<group>"; };
+		D3B22A471702A11600446945 /* PKSMultiplePredictTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSMultiplePredictTemplate.txt; path = res/PKSMultiplePredictTemplate.txt; sourceTree = "<group>"; };
+		D3B22A481702A11600446945 /* PKSMultipleSpeculateTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSMultipleSpeculateTemplate.txt; path = res/PKSMultipleSpeculateTemplate.txt; sourceTree = "<group>"; };
+		D3B22A4C1702A1F800446945 /* PKSRepetitionSpeculateTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSRepetitionSpeculateTemplate.txt; path = res/PKSRepetitionSpeculateTemplate.txt; sourceTree = "<group>"; };
 		D3B22A4F1702AFB500446945 /* ElementParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ElementParser.m; path = test/ElementParser.m; sourceTree = "<group>"; };
 		D3B22A531702B14000446945 /* ElementParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ElementParser.h; path = test/ElementParser.h; sourceTree = "<group>"; };
 		D3B22A541703D03700446945 /* ExpressionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpressionParser.h; path = test/ExpressionParser.h; sourceTree = "<group>"; };
@@ -1759,13 +1759,13 @@
 		D3B63A67170A064000BA9DBF /* LabelRecursiveParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LabelRecursiveParser.m; path = test/LabelRecursiveParser.m; sourceTree = "<group>"; };
 		D3B63A69170A065300BA9DBF /* LabelEBNFParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LabelEBNFParser.h; path = test/LabelEBNFParser.h; sourceTree = "<group>"; };
 		D3B63A6A170A065500BA9DBF /* LabelEBNFParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LabelEBNFParser.m; path = test/LabelEBNFParser.m; sourceTree = "<group>"; };
-		D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionTerminalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSRepetitionTerminalTemplate.txt; path = res/PKSRepetitionTerminalTemplate.txt; sourceTree = "<group>"; };
+		D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionPredictTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSRepetitionPredictTemplate.txt; path = res/PKSRepetitionPredictTemplate.txt; sourceTree = "<group>"; };
 		D3B63A6E170A3F7500BA9DBF /* OptionalParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionalParserTest.h; path = test/OptionalParserTest.h; sourceTree = "<group>"; };
 		D3B63A6F170A3F7700BA9DBF /* OptionalParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OptionalParserTest.m; path = test/OptionalParserTest.m; sourceTree = "<group>"; };
 		D3B63A71170A3FCE00BA9DBF /* optional.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = optional.grammar; path = res/optional.grammar; sourceTree = "<group>"; };
 		D3B63A73170A3FE900BA9DBF /* OptionalParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionalParser.h; path = test/OptionalParser.h; sourceTree = "<group>"; };
 		D3B63A74170A3FEB00BA9DBF /* OptionalParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OptionalParser.m; path = test/OptionalParser.m; sourceTree = "<group>"; };
-		D3B63A76170A460800BA9DBF /* PKSOptionalTerminalTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSOptionalTerminalTemplate.txt; path = res/PKSOptionalTerminalTemplate.txt; sourceTree = "<group>"; };
+		D3B63A76170A460800BA9DBF /* PKSOptionalPredictTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSOptionalPredictTemplate.txt; path = res/PKSOptionalPredictTemplate.txt; sourceTree = "<group>"; };
 		D3B63A78170A55C100BA9DBF /* multiple.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = multiple.grammar; path = res/multiple.grammar; sourceTree = "<group>"; };
 		D3B63A7A170A55D700BA9DBF /* MultipleParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultipleParser.h; path = test/MultipleParser.h; sourceTree = "<group>"; };
 		D3B63A7B170A55DB00BA9DBF /* MultipleParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MultipleParser.m; path = test/MultipleParser.m; sourceTree = "<group>"; };
@@ -2960,14 +2960,14 @@
 				D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */,
 				D3B22A3E17026FBE00446945 /* PKSPredictElseTemplate.txt */,
 				D3B63A4E170918E700BA9DBF /* PKSPredictEndIfTemplate.txt */,
-				D3B22A431702993B00446945 /* PKSOptionalNonTerminalTemplate.txt */,
-				D3B63A76170A460800BA9DBF /* PKSOptionalTerminalTemplate.txt */,
-				D3B22A481702A11600446945 /* PKSMultipleNonTerminalTemplate.txt */,
-				D3B22A471702A11600446945 /* PKSMultipleTerminalTemplate.txt */,
-				D3B22A4C1702A1F800446945 /* PKSRepetitionNonTerminalTemplate.txt */,
-				D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionTerminalTemplate.txt */,
-				D30B8F4B170CFB93001796F4 /* PKSNegationNonTerminalTemplate.txt */,
-				D30B8F4D170CFBCC001796F4 /* PKSNegationTerminalTemplate.txt */,
+				D3B22A431702993B00446945 /* PKSOptionalSpeculateTemplate.txt */,
+				D3B63A76170A460800BA9DBF /* PKSOptionalPredictTemplate.txt */,
+				D3B22A481702A11600446945 /* PKSMultipleSpeculateTemplate.txt */,
+				D3B22A471702A11600446945 /* PKSMultiplePredictTemplate.txt */,
+				D3B22A4C1702A1F800446945 /* PKSRepetitionSpeculateTemplate.txt */,
+				D3B63A6C170A1F6C00BA9DBF /* PKSRepetitionPredictTemplate.txt */,
+				D30B8F4B170CFB93001796F4 /* PKSNegationSpeculateTemplate.txt */,
+				D30B8F4D170CFBCC001796F4 /* PKSNegationPredictTemplate.txt */,
 			);
 			name = PKSTemplates;
 			sourceTree = "<group>";
@@ -4133,14 +4133,14 @@
 				D33830A1171CA3BB00CCE513 /* PKSSpeculateElseIfTemplate.txt in Resources */,
 				D33830A2171CA3BB00CCE513 /* PKSPredictElseTemplate.txt in Resources */,
 				D33830A3171CA3BB00CCE513 /* PKSPredictEndIfTemplate.txt in Resources */,
-				D33830A4171CA3BB00CCE513 /* PKSOptionalNonTerminalTemplate.txt in Resources */,
-				D33830A5171CA3BB00CCE513 /* PKSOptionalTerminalTemplate.txt in Resources */,
-				D33830A6171CA3BB00CCE513 /* PKSMultipleNonTerminalTemplate.txt in Resources */,
-				D33830A7171CA3BB00CCE513 /* PKSMultipleTerminalTemplate.txt in Resources */,
-				D33830A8171CA3BB00CCE513 /* PKSRepetitionNonTerminalTemplate.txt in Resources */,
-				D33830A9171CA3BB00CCE513 /* PKSRepetitionTerminalTemplate.txt in Resources */,
-				D33830AA171CA3BB00CCE513 /* PKSNegationNonTerminalTemplate.txt in Resources */,
-				D33830AB171CA3BB00CCE513 /* PKSNegationTerminalTemplate.txt in Resources */,
+				D33830A4171CA3BB00CCE513 /* PKSOptionalSpeculateTemplate.txt in Resources */,
+				D33830A5171CA3BB00CCE513 /* PKSOptionalPredictTemplate.txt in Resources */,
+				D33830A6171CA3BB00CCE513 /* PKSMultipleSpeculateTemplate.txt in Resources */,
+				D33830A7171CA3BB00CCE513 /* PKSMultiplePredictTemplate.txt in Resources */,
+				D33830A8171CA3BB00CCE513 /* PKSRepetitionSpeculateTemplate.txt in Resources */,
+				D33830A9171CA3BB00CCE513 /* PKSRepetitionPredictTemplate.txt in Resources */,
+				D33830AA171CA3BB00CCE513 /* PKSNegationSpeculateTemplate.txt in Resources */,
+				D33830AB171CA3BB00CCE513 /* PKSNegationPredictTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4266,14 +4266,14 @@
 				D3383084171CA3BA00CCE513 /* PKSSpeculateElseIfTemplate.txt in Resources */,
 				D3383085171CA3BA00CCE513 /* PKSPredictElseTemplate.txt in Resources */,
 				D3383086171CA3BA00CCE513 /* PKSPredictEndIfTemplate.txt in Resources */,
-				D3383087171CA3BA00CCE513 /* PKSOptionalNonTerminalTemplate.txt in Resources */,
-				D3383088171CA3BA00CCE513 /* PKSOptionalTerminalTemplate.txt in Resources */,
-				D3383089171CA3BA00CCE513 /* PKSMultipleNonTerminalTemplate.txt in Resources */,
-				D338308A171CA3BA00CCE513 /* PKSMultipleTerminalTemplate.txt in Resources */,
-				D338308B171CA3BA00CCE513 /* PKSRepetitionNonTerminalTemplate.txt in Resources */,
-				D338308C171CA3BA00CCE513 /* PKSRepetitionTerminalTemplate.txt in Resources */,
-				D338308D171CA3BA00CCE513 /* PKSNegationNonTerminalTemplate.txt in Resources */,
-				D338308E171CA3BA00CCE513 /* PKSNegationTerminalTemplate.txt in Resources */,
+				D3383087171CA3BA00CCE513 /* PKSOptionalSpeculateTemplate.txt in Resources */,
+				D3383088171CA3BA00CCE513 /* PKSOptionalPredictTemplate.txt in Resources */,
+				D3383089171CA3BA00CCE513 /* PKSMultipleSpeculateTemplate.txt in Resources */,
+				D338308A171CA3BA00CCE513 /* PKSMultiplePredictTemplate.txt in Resources */,
+				D338308B171CA3BA00CCE513 /* PKSRepetitionSpeculateTemplate.txt in Resources */,
+				D338308C171CA3BA00CCE513 /* PKSRepetitionPredictTemplate.txt in Resources */,
+				D338308D171CA3BA00CCE513 /* PKSNegationSpeculateTemplate.txt in Resources */,
+				D338308E171CA3BA00CCE513 /* PKSNegationPredictTemplate.txt in Resources */,
 				D33830C8171DBE8A00CCE513 /* named_action.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

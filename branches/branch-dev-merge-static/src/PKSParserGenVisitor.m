@@ -374,9 +374,9 @@
 
     NSString *templateName = nil;
     if (_enableHybridDFA && [self isLL1:child]) { // ????
-        templateName = @"PKSNegationTerminalTemplate";
+        templateName = @"PKSNegationPredictTemplate";
     } else {
-        templateName = @"PKSNegationNonTerminalTemplate";
+        templateName = @"PKSNegationSpeculateTemplate";
     }
     
     [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
@@ -428,10 +428,10 @@
     
     NSString *templateName = nil;
     if (isLL1) { // ????
-        templateName = @"PKSRepetitionTerminalTemplate";
+        templateName = @"PKSRepetitionPredictTemplate";
     } else {
         vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
-        templateName = @"PKSRepetitionNonTerminalTemplate";
+        templateName = @"PKSRepetitionSpeculateTemplate";
     }
     
     // repetition
@@ -695,9 +695,9 @@
 
     NSString *templateName = nil;
     if (_enableHybridDFA && [self isLL1:child]) { // ????
-        templateName = @"PKSOptionalTerminalTemplate";
+        templateName = @"PKSOptionalPredictTemplate";
     } else {
-        templateName = @"PKSOptionalNonTerminalTemplate";
+        templateName = @"PKSOptionalSpeculateTemplate";
     }
     
     [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
@@ -769,9 +769,9 @@
 
     NSString *templateName = nil;
     if (_enableHybridDFA && [self isLL1:child]) { // ????
-        templateName = @"PKSMultipleTerminalTemplate";
+        templateName = @"PKSMultiplePredictTemplate";
     } else {
-        templateName = @"PKSMultipleNonTerminalTemplate";
+        templateName = @"PKSMultipleSpeculateTemplate";
     }
     
     [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
