@@ -10,6 +10,7 @@
 @commentState.fallbackState = delimitState;
 
 @delimitedString = '<?' '?>' nil;
+@delimitedString = '<!DOCTYPE' '>' nil;
 @delimitState.fallbackState = symbolState;
 
 @start          
@@ -29,13 +30,17 @@
 
 	// pi
 	[t.delimitState addStartMarker:@"<?" endMarker:@"?>" allowedCharacterSet:nil];
+	
+	// doctype
+	[t.delimitState addStartMarker:@"<!DOCTYPE" endMarker:@">" allowedCharacterSet:nil];
+	
     [t.delimitState setFallbackState:t.symbolState from:'<' to:'<'];
 }
-
-= anything*;
-anything        = tag | procInstr | comment | text;
+				= anything*;
+anything        = tag | procInstr | comment | doctype | text;
 
 procInstr       = %{'<?', '?>'};
+doctype         = %{'<!DOCTYPE', '>'};
 
 text            = Any; // ~lt; // /[^<]+/
 

@@ -45,6 +45,7 @@
 @interface HTMLParser ()
 @property (nonatomic, retain) NSMutableDictionary *anything_memo;
 @property (nonatomic, retain) NSMutableDictionary *procInstr_memo;
+@property (nonatomic, retain) NSMutableDictionary *doctype_memo;
 @property (nonatomic, retain) NSMutableDictionary *text_memo;
 @property (nonatomic, retain) NSMutableDictionary *tag_memo;
 @property (nonatomic, retain) NSMutableDictionary *emptyTag_memo;
@@ -67,6 +68,7 @@
 	self = [super init];
 	if (self) {
         self._tokenKindTab[@"<?,?>"] = @(TOKEN_KIND_PROCINSTR);
+        self._tokenKindTab[@"<!DOCTYPE,>"] = @(TOKEN_KIND_DOCTYPE);
         self._tokenKindTab[@"="] = @(TOKEN_KIND_EQ);
         self._tokenKindTab[@"/"] = @(TOKEN_KIND_FWDSLASH);
         self._tokenKindTab[@">"] = @(TOKEN_KIND_GT);
@@ -74,6 +76,7 @@
 
         self.anything_memo = [NSMutableDictionary dictionary];
         self.procInstr_memo = [NSMutableDictionary dictionary];
+        self.doctype_memo = [NSMutableDictionary dictionary];
         self.text_memo = [NSMutableDictionary dictionary];
         self.tag_memo = [NSMutableDictionary dictionary];
         self.emptyTag_memo = [NSMutableDictionary dictionary];
@@ -95,6 +98,7 @@
 - (void)dealloc {
     self.anything_memo = nil;
     self.procInstr_memo = nil;
+    self.doctype_memo = nil;
     self.text_memo = nil;
     self.tag_memo = nil;
     self.emptyTag_memo = nil;
@@ -116,6 +120,7 @@
 - (void)_clearMemo {
     [_anything_memo removeAllObjects];
     [_procInstr_memo removeAllObjects];
+    [_doctype_memo removeAllObjects];
     [_text_memo removeAllObjects];
     [_tag_memo removeAllObjects];
     [_emptyTag_memo removeAllObjects];
@@ -151,10 +156,14 @@
 
 	// pi
 	[t.delimitState addStartMarker:@"<?" endMarker:@"?>" allowedCharacterSet:nil];
+	
+	// doctype
+	[t.delimitState addStartMarker:@"<!DOCTYPE" endMarker:@">" allowedCharacterSet:nil];
+	
     [t.delimitState setFallbackState:t.symbolState from:'<' to:'<'];
 
     }];
-    while ([self predicts:TOKEN_KIND_BUILTIN_ANY, TOKEN_KIND_BUILTIN_COMMENT, TOKEN_KIND_LT, TOKEN_KIND_PROCINSTR, 0]) {
+    while ([self predicts:TOKEN_KIND_BUILTIN_ANY, TOKEN_KIND_BUILTIN_COMMENT, TOKEN_KIND_DOCTYPE, TOKEN_KIND_LT, TOKEN_KIND_PROCINSTR, 0]) {
         if ([self speculate:^{ [self anything]; }]) {
             [self anything]; 
         } else {
@@ -173,6 +182,8 @@
         [self procInstr]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
         [self comment]; 
+    } else if ([self predicts:TOKEN_KIND_DOCTYPE, 0]) {
+        [self doctype]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]) {
         [self text]; 
     } else {
@@ -195,6 +206,17 @@
 
 - (void)procInstr {
     [self parseRule:@selector(__procInstr) withMemo:_procInstr_memo];
+}
+
+- (void)__doctype {
+    
+    [self match:TOKEN_KIND_DOCTYPE]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchDoctype:)];
+}
+
+- (void)doctype {
+    [self parseRule:@selector(__doctype) withMemo:_doctype_memo];
 }
 
 - (void)__text {
