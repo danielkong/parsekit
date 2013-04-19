@@ -40,8 +40,17 @@
 				= anything*;
 anything        = scriptElement | styleElement | tag | procInstr | comment | doctype | text;
 
-scriptElement   = tag; // TODO
-styleElement    = tag; // TODO
+scriptElement   = scriptStartTag scriptElementContent scriptEndTag;
+scriptStartTag  = lt scriptTagName attr* gt;
+scriptEndTag    = lt fwdSlash scriptTagName gt;
+scriptTagName	= 'script';
+scriptElementContent = ~scriptEndTag;
+
+styleElement    = styleStartTag styleElementContent styleEndTag;
+styleStartTag   = lt styleTagName attr* gt;
+styleEndTag     = lt fwdSlash styleTagName gt;
+styleTagName	= 'style';
+styleElementContent = ~styleEndTag;
 
 procInstr       = %{'<?', '?>'};
 doctype         = %{'<!DOCTYPE', '>'};
