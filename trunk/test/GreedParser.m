@@ -1,6 +1,6 @@
 #import "GreedParser.h"
 #import <ParseKit/ParseKit.h>
-#import "PKSRecognitionException.h"
+#import <ParseKit/PKSRecognitionException.h>
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
