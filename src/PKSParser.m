@@ -10,7 +10,7 @@
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
 #import <ParseKit/PKSTokenAssembly.h>
-#import "PKSRecognitionException.h"
+#import <ParseKit/PKSRecognitionException.h>
 
 #define FAILED -1
 
