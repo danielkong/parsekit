@@ -58,6 +58,15 @@
     self.factory = nil;
 }
 
+- (void)testExamplePlist {
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"example" ofType:@"html"];
+    NSString *input = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:input assembler:nil error:&err];
+    TDEqualObjects(@"[<?xml version=\"1.1\"?>, <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">, <!-- foo -->, <, plist, version, =, \"1.0\", >, <, dict, >, <, key, >, CFBundleDevelopmentRegion, <, /, key, >, <, string, >, English, <, /, string, >, <, key, >, CFBundleExecutable, <, /, key, >, <, string, >, $, {, EXECUTABLE_NAME, }, <, /, string, >, <!-- foo -->, <, key, >, CFBundleName, <, /, key, >, <, string, >, $, {, PRODUCT_NAME, }, <, /, string, >, <, key, >, CFBundleIconFile, <, /, key, >, <, string, >, <, /, string, >, <, key, >, CFBundleIdentifier, <, /, key, >, <, string, >, com, ., parsekit, ., ParseKit, <, /, string, >, <, key, >, CFBundleInfoDictionaryVersion, <, /, key, >, <, string, >, 6.0, <, /, string, >, <, key, >, CFBundlePackageType, <, /, key, >, <, string, >, FMWK, <, /, string, >, <, key, >, CFBundleSignature, <, /, key, >, <, string, >, ?, ?, ?, ?, <, /, string, >, <, key, >, CFBundleVersion, <, /, key, >, <, string, >, 1.4, <, /, string, >, <, key, >, NSPrincipalClass, <, /, key, >, <, string, >, <, /, string, >, <, /, dict, >, <, /, plist, >]<?xml version=\"1.1\"?>/<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">/<!-- foo -->/</plist/version/=/\"1.0\"/>/</dict/>/</key/>/CFBundleDevelopmentRegion/<///key/>/</string/>/English/<///string/>/</key/>/CFBundleExecutable/<///key/>/</string/>/$/{/EXECUTABLE_NAME/}/<///string/>/<!-- foo -->/</key/>/CFBundleName/<///key/>/</string/>/$/{/PRODUCT_NAME/}/<///string/>/</key/>/CFBundleIconFile/<///key/>/</string/>/<///string/>/</key/>/CFBundleIdentifier/<///key/>/</string/>/com/./parsekit/./ParseKit/<///string/>/</key/>/CFBundleInfoDictionaryVersion/<///key/>/</string/>/6.0/<///string/>/</key/>/CFBundlePackageType/<///key/>/</string/>/FMWK/<///string/>/</key/>/CFBundleSignature/<///key/>/</string/>/?/?/?/?/<///string/>/</key/>/CFBundleVersion/<///key/>/</string/>/1.4/<///string/>/</key/>/NSPrincipalClass/<///key/>/</string/>/<///string/>/<///dict/>/<///plist/>^", [res description]);
+}
+
 - (void)testPHi {
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"<p>hi" assembler:nil error:&err];
