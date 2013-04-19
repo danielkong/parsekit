@@ -1,6 +1,5 @@
 #import "CSSParser.h"
 #import <ParseKit/ParseKit.h>
-#import <ParseKit/PKSRecognitionException.h>
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
