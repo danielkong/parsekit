@@ -25,6 +25,7 @@
 - (id)initWithString:(NSString *)str stream:(NSInputStream *)stm;
 - (PKTokenizerState *)tokenizerStateFor:(PKUniChar)c;
 - (PKTokenizerState *)defaultTokenizerStateFor:(PKUniChar)c;
+- (NSInteger)tokenKindForStringValue:(NSString *)str;
 @property (nonatomic, retain) PKReader *reader;
 @property (nonatomic, retain) NSMutableArray *tokenizerStates;
 @property (nonatomic, readwrite) NSUInteger lineNumber;
@@ -152,6 +153,7 @@
     self.twitterState = nil;
     self.hashtagState = nil;
 #endif
+    self.delegate = nil;
     [super dealloc];
 }
 
@@ -343,6 +345,15 @@
     }
 }
 
+
+- (NSInteger)tokenKindForStringValue:(NSString *)str {
+    NSInteger x = 0;
+    if (delegate) {
+        x = [delegate tokenizer:self tokenKindForStringValue:str];
+    }
+    return x;
+}
+
 @synthesize numberState;
 @synthesize quoteState;
 @synthesize commentState;
@@ -363,4 +374,5 @@
 @synthesize reader;
 @synthesize tokenizerStates;
 @synthesize lineNumber;
+@synthesize delegate;
 @end

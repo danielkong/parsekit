@@ -14,6 +14,10 @@
 @property (nonatomic, retain) MGTemplateEngine *engine;
 @property (nonatomic, retain) NSString *interfaceOutputString;
 @property (nonatomic, retain) NSString *implementationOutputString;
+@property (nonatomic, retain) NSMutableArray *ruleMethodNames;
 @property (nonatomic, assign) NSUInteger depth;
 @property (nonatomic, assign) BOOL needsBacktracking;
+@property (nonatomic, assign) BOOL isSpeculating;
+@property (nonatomic, assign) BOOL enableHybridDFA;
+@property (nonatomic, assign) BOOL enableMemoization;
 @end

@@ -1,0 +1,17 @@
+#import <ParseKit/PKSParser.h>
+
+enum {
+    TOKEN_KIND_SCRIPTTAGNAME = 14,
+    TOKEN_KIND_STYLETAGNAME,
+    TOKEN_KIND_DOCTYPE,
+    TOKEN_KIND_LT,
+    TOKEN_KIND_PROCINSTR,
+    TOKEN_KIND_EQ,
+    TOKEN_KIND_FWDSLASH,
+    TOKEN_KIND_GT,
+};
+
+@interface HTMLParser : PKSParser
+
+@end
+

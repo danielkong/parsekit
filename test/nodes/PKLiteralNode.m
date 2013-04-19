@@ -36,4 +36,9 @@
     }
 }
 
+
+- (BOOL)isTerminal {
+    return YES;
+}
+
 @end

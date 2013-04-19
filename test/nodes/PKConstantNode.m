@@ -38,6 +38,7 @@ static NSDictionary *sClassTab = nil;
 
 - (void)dealloc {
     self.literal = nil;
+    self.tokenKind = nil;
     [super dealloc];
 }
 
@@ -70,6 +71,11 @@ static NSDictionary *sClassTab = nil;
     Class cls = sClassTab[typeName];
     NSAssert1(cls, @"missing constant class for token %@", typeName);
     return cls;
+}
+
+
+- (BOOL)isTerminal {
+    return YES;
 }
 
 @end
