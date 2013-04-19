@@ -64,7 +64,7 @@ endTag          = lt fwdSlash tagName gt;
 
 tagName         = Word;
 
-attr            = attrName (eq attrValue)?;
+attr            = attrName (eq attrValue?)?;
 attrName        = Word;
 attrValue       = Word | QuotedString;
 
