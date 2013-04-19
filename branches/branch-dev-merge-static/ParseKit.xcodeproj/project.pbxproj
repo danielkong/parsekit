@@ -433,6 +433,8 @@
 		D36E68B6171F37D7007B4353 /* JavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E68B5171F37D7007B4353 /* JavaScriptParser.m */; };
 		D36E68B9172074EF007B4353 /* CSSParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E68B8172074EF007B4353 /* CSSParserTest.m */; };
 		D36E68BC17207542007B4353 /* CSSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E68BB17207542007B4353 /* CSSParser.m */; };
+		D36E68BF1720C840007B4353 /* HTMLParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E68BE1720C83C007B4353 /* HTMLParserTest.m */; };
+		D36E68C21720C84F007B4353 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E68C11720C84C007B4353 /* HTMLParser.m */; };
 		D36E98E00E58C12800496BD3 /* DebugAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98DD0E58C12800496BD3 /* DebugAppDelegate.m */; };
 		D36E98E10E58C12800496BD3 /* DebugAppMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D36E98DE0E58C12800496BD3 /* DebugAppMainMenu.xib */; };
 		D36E98E20E58C12800496BD3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98DF0E58C12800496BD3 /* main.m */; };
@@ -1546,6 +1548,10 @@
 		D36E68B8172074EF007B4353 /* CSSParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSSParserTest.m; path = test/CSSParserTest.m; sourceTree = "<group>"; };
 		D36E68BA17207542007B4353 /* CSSParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSSParser.h; path = test/CSSParser.h; sourceTree = "<group>"; };
 		D36E68BB17207542007B4353 /* CSSParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSSParser.m; path = test/CSSParser.m; sourceTree = "<group>"; };
+		D36E68BD1720C83B007B4353 /* HTMLParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLParserTest.h; path = test/HTMLParserTest.h; sourceTree = "<group>"; };
+		D36E68BE1720C83C007B4353 /* HTMLParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLParserTest.m; path = test/HTMLParserTest.m; sourceTree = "<group>"; };
+		D36E68C01720C848007B4353 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLParser.h; path = test/HTMLParser.h; sourceTree = "<group>"; };
+		D36E68C11720C84C007B4353 /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLParser.m; path = test/HTMLParser.m; sourceTree = "<group>"; };
 		D36E95440E578ECC00496BD3 /* XPathParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPathParser.h; path = test/XPathParser.h; sourceTree = "<group>"; };
 		D36E95450E578ECC00496BD3 /* XPathParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPathParser.m; path = test/XPathParser.m; sourceTree = "<group>"; };
 		D36E95D60E57B08400496BD3 /* XPathParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPathParserTest.h; path = test/XPathParserTest.h; sourceTree = "<group>"; };
@@ -2969,6 +2975,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D36E68C01720C848007B4353 /* HTMLParser.h */,
+				D36E68C11720C84C007B4353 /* HTMLParser.m */,
 				D36E68BA17207542007B4353 /* CSSParser.h */,
 				D36E68BB17207542007B4353 /* CSSParser.m */,
 				D36E68B4171F37D7007B4353 /* JavaScriptParser.h */,
@@ -3024,6 +3032,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D36E68BD1720C83B007B4353 /* HTMLParserTest.h */,
+				D36E68BE1720C83C007B4353 /* HTMLParserTest.m */,
 				D36E68B7172074EF007B4353 /* CSSParserTest.h */,
 				D36E68B8172074EF007B4353 /* CSSParserTest.m */,
 				D36E68B1171F378B007B4353 /* JavaScriptParserTest.h */,
@@ -3081,6 +3091,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D380AFBC0F0C54B60009EC13 /* html.grammar */,
 				D380B5080F0D71A90009EC13 /* css.grammar */,
 				D31A15250F6DE449002AFDF1 /* javascript.grammar */,
 				D33830C7171DBE8A00CCE513 /* named_action.grammar */,
@@ -3146,7 +3157,6 @@
 				D380B5930F0D82F60009EC13 /* example.css */,
 				D3F741BD0EF9F28D00559B9F /* css2_1.grammar */,
 				D380AFBB0F0C54B60009EC13 /* html.css */,
-				D380AFBC0F0C54B60009EC13 /* html.grammar */,
 				D3DCB4C20EF6015300DE5110 /* json.grammar */,
 				D385FA240F04993500DB2946 /* json.css */,
 				D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */,
@@ -4666,6 +4676,8 @@
 				D36E68B6171F37D7007B4353 /* JavaScriptParser.m in Sources */,
 				D36E68B9172074EF007B4353 /* CSSParserTest.m in Sources */,
 				D36E68BC17207542007B4353 /* CSSParser.m in Sources */,
+				D36E68BF1720C840007B4353 /* HTMLParserTest.m in Sources */,
+				D36E68C21720C84F007B4353 /* HTMLParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
