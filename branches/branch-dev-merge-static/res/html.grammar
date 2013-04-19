@@ -33,11 +33,11 @@
 }
 
 = anything*;
-anything        = tag | text | procInstr | comment;
+anything        = tag | procInstr | comment | text;
 
 procInstr       = %{'<?', '?>'};
 
-text            = ~lt; // /[^<]+/
+text            = Any; // ~lt; // /[^<]+/
 
 tag			    = emptyTag | startTag | endTag;
 emptyTag        = lt tagName attr* fwdSlash gt;

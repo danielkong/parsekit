@@ -154,7 +154,7 @@
     [t.delimitState setFallbackState:t.symbolState from:'<' to:'<'];
 
     }];
-    while ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, TOKEN_KIND_LT, TOKEN_KIND_PROCINSTR, 0]) {
+    while ([self predicts:TOKEN_KIND_BUILTIN_ANY, TOKEN_KIND_BUILTIN_COMMENT, TOKEN_KIND_LT, TOKEN_KIND_PROCINSTR, 0]) {
         if ([self speculate:^{ [self anything]; }]) {
             [self anything]; 
         } else {
@@ -167,14 +167,14 @@
 
 - (void)__anything {
     
-    if ([self speculate:^{ [self tag]; }]) {
+    if ([self predicts:TOKEN_KIND_LT, 0]) {
         [self tag]; 
-    } else if ([self speculate:^{ [self text]; }]) {
-        [self text]; 
-    } else if ([self speculate:^{ [self procInstr]; }]) {
+    } else if ([self predicts:TOKEN_KIND_PROCINSTR, 0]) {
         [self procInstr]; 
-    } else if ([self speculate:^{ [self comment]; }]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
         [self comment]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]) {
+        [self text]; 
     } else {
         [self raise:@"no viable alternative found in anything"];
     }
@@ -199,11 +199,7 @@
 
 - (void)__text {
     
-    if (![self predicts:TOKEN_KIND_LT, 0]) {
-        [self match:TOKEN_KIND_BUILTIN_ANY];
-    } else {
-        [self raise:@"negation test failed in text"];
-    }
+    [self Any]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchText:)];
 }
