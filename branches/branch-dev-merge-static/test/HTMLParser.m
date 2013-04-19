@@ -153,6 +153,7 @@
     [t setTokenizerState:t.commentState from:'<' to:'<'];
     [t.commentState addMultiLineStartMarker:@"<!--" endMarker:@"-->"];
     [t.commentState setFallbackState:t.delimitState from:'<' to:'<'];
+	t.commentState.reportsCommentTokens = YES;
 
 	// pi
 	[t.delimitState addStartMarker:@"<?" endMarker:@"?>" allowedCharacterSet:nil];
