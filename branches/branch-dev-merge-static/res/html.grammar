@@ -1,5 +1,5 @@
 /*
-    An HTML grammar for use with TDParseKit
+    An HTML grammar for use with ParseKit
 
     this grammar is intentionally very forgiving (non-strict)
     the point here is to highlight, not validate, HTML.
@@ -10,28 +10,45 @@
 @commentState.fallbackState = delimitState;
 
 @delimitedString = '<?' '?>' nil;
-@delimitedString = '<!DOCTYPE' '>' nil;
 @delimitState.fallbackState = symbolState;
 
-@start          = any*;
-any             = element | text | doctype | pi | comment;
+@start          
+@before {
+    PKTokenizer *t = self.tokenizer;
 
-pi              = %{'<?', '?>'};
+    // symbols
+    [t.symbolState add:@"<!--"];
+    [t.symbolState add:@"-->"];
+    [t.symbolState add:@"<?"];
+    [t.symbolState add:@"?>"];
 
-doctype         = %{'<!DOCTYPE', '>'};
-element         = emptyTag | startTag elementContent* endTag;
-elementContent  = element | text | comment | pi;
-text            = /[^<]+/;
+	// comments	
+    [t setTokenizerState:t.commentState from:'<' to:'<'];
+    [t.commentState addMultiLineStartMarker:@"<!--" endMarker:@"-->"];
+    [t.commentState setFallbackState:t.delimitState from:'<' to:'<'];
 
+	// pi
+	[t.delimitState addStartMarker:@"<?" endMarker:@"?>" allowedCharacterSet:nil];
+    [t.delimitState setFallbackState:t.symbolState from:'<' to:'<'];
+}
+
+= anything*;
+anything        = tag | text | procInstr | comment;
+
+procInstr       = %{'<?', '?>'};
+
+text            = ~lt; // /[^<]+/
+
+tag			    = emptyTag | startTag | endTag;
 emptyTag        = lt tagName attr* fwdSlash gt;
-startTag        = lt junk? tagName attr* gt;
+startTag        = lt tagName attr* gt;
 endTag          = lt fwdSlash tagName gt;
 
 tagName         = Word;
 
 attr            = attrName (eq attrValue)?;
 attrName        = Word;
-attrValue       = QuotedString;
+attrValue       = Word | QuotedString;
 
 eq              = '=';
 lt              = '<';
