@@ -44,6 +44,8 @@
 
 @interface HTMLParser ()
 @property (nonatomic, retain) NSMutableDictionary *anything_memo;
+@property (nonatomic, retain) NSMutableDictionary *scriptElement_memo;
+@property (nonatomic, retain) NSMutableDictionary *styleElement_memo;
 @property (nonatomic, retain) NSMutableDictionary *procInstr_memo;
 @property (nonatomic, retain) NSMutableDictionary *doctype_memo;
 @property (nonatomic, retain) NSMutableDictionary *text_memo;
@@ -75,6 +77,8 @@
         self._tokenKindTab[@"<"] = @(TOKEN_KIND_LT);
 
         self.anything_memo = [NSMutableDictionary dictionary];
+        self.scriptElement_memo = [NSMutableDictionary dictionary];
+        self.styleElement_memo = [NSMutableDictionary dictionary];
         self.procInstr_memo = [NSMutableDictionary dictionary];
         self.doctype_memo = [NSMutableDictionary dictionary];
         self.text_memo = [NSMutableDictionary dictionary];
@@ -97,6 +101,8 @@
 
 - (void)dealloc {
     self.anything_memo = nil;
+    self.scriptElement_memo = nil;
+    self.styleElement_memo = nil;
     self.procInstr_memo = nil;
     self.doctype_memo = nil;
     self.text_memo = nil;
@@ -119,6 +125,8 @@
 
 - (void)_clearMemo {
     [_anything_memo removeAllObjects];
+    [_scriptElement_memo removeAllObjects];
+    [_styleElement_memo removeAllObjects];
     [_procInstr_memo removeAllObjects];
     [_doctype_memo removeAllObjects];
     [_text_memo removeAllObjects];
@@ -177,15 +185,19 @@
 
 - (void)__anything {
     
-    if ([self predicts:TOKEN_KIND_LT, 0]) {
+    if ([self speculate:^{ [self scriptElement]; }]) {
+        [self scriptElement]; 
+    } else if ([self speculate:^{ [self styleElement]; }]) {
+        [self styleElement]; 
+    } else if ([self speculate:^{ [self tag]; }]) {
         [self tag]; 
-    } else if ([self predicts:TOKEN_KIND_PROCINSTR, 0]) {
+    } else if ([self speculate:^{ [self procInstr]; }]) {
         [self procInstr]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
+    } else if ([self speculate:^{ [self comment]; }]) {
         [self comment]; 
-    } else if ([self predicts:TOKEN_KIND_DOCTYPE, 0]) {
+    } else if ([self speculate:^{ [self doctype]; }]) {
         [self doctype]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]) {
+    } else if ([self speculate:^{ [self text]; }]) {
         [self text]; 
     } else {
         [self raise:@"no viable alternative found in anything"];
@@ -196,6 +208,28 @@
 
 - (void)anything {
     [self parseRule:@selector(__anything) withMemo:_anything_memo];
+}
+
+- (void)__scriptElement {
+    
+    [self tag]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchScriptElement:)];
+}
+
+- (void)scriptElement {
+    [self parseRule:@selector(__scriptElement) withMemo:_scriptElement_memo];
+}
+
+- (void)__styleElement {
+    
+    [self tag]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchStyleElement:)];
+}
+
+- (void)styleElement {
+    [self parseRule:@selector(__styleElement) withMemo:_styleElement_memo];
 }
 
 - (void)__procInstr {

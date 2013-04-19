@@ -38,7 +38,10 @@
     [t.delimitState setFallbackState:t.symbolState from:'<' to:'<'];
 }
 				= anything*;
-anything        = tag | procInstr | comment | doctype | text;
+anything        = scriptElement | styleElement | tag | procInstr | comment | doctype | text;
+
+scriptElement   = tag; // TODO
+styleElement    = tag; // TODO
 
 procInstr       = %{'<?', '?>'};
 doctype         = %{'<!DOCTYPE', '>'};
