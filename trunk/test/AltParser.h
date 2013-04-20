@@ -1,9 +1,9 @@
 #import <ParseKit/PKSParser.h>
 
 enum {
-    TOKEN_KIND_FOO = 14,
-    TOKEN_KIND_BAR,
-    TOKEN_KIND_BAZ,
+    ALT_TOKEN_KIND_FOO = 14,
+    ALT_TOKEN_KIND_BAR,
+    ALT_TOKEN_KIND_BAZ,
 };
 
 @interface AltParser : PKSParser

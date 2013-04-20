@@ -30,6 +30,7 @@
     NSAssert(self.symbolTable, @"");
     
     if (_collectTokenKinds) {
+        [PKSTokenKindDescriptor clearCache];
         self.tokenKinds = [NSMutableDictionary dictionary];
         self.defaultDefNameTab = @{
             @"~": @"TILDE",

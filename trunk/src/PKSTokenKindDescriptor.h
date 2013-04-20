@@ -13,6 +13,8 @@
 + (PKSTokenKindDescriptor *)descriptorWithStringValue:(NSString *)s name:(NSString *)name;
 + (PKSTokenKindDescriptor *)anyDescriptor;
 
++ (void)clearCache;
+
 @property (nonatomic, copy) NSString *stringValue;
 @property (nonatomic, copy) NSString *name;
 @end

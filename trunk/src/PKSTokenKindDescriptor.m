@@ -40,6 +40,11 @@ static NSMutableDictionary *sCache = nil;
 }
 
 
++ (void)clearCache {
+    [sCache removeAllObjects];
+}
+
+
 - (void)dealloc {
     self.stringValue = nil;
     self.name = nil;

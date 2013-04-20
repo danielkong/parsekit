@@ -76,14 +76,14 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"script"] = @(TOKEN_KIND_SCRIPTTAGNAME);
-        self._tokenKindTab[@"style"] = @(TOKEN_KIND_STYLETAGNAME);
-        self._tokenKindTab[@"<!DOCTYPE,>"] = @(TOKEN_KIND_DOCTYPE);
-        self._tokenKindTab[@"<"] = @(TOKEN_KIND_LT);
-        self._tokenKindTab[@"<?,?>"] = @(TOKEN_KIND_PROCINSTR);
-        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQ);
-        self._tokenKindTab[@"/"] = @(TOKEN_KIND_FWDSLASH);
-        self._tokenKindTab[@">"] = @(TOKEN_KIND_GT);
+        self._tokenKindTab[@"script"] = @(HTML_TOKEN_KIND_SCRIPTTAGNAME);
+        self._tokenKindTab[@"style"] = @(HTML_TOKEN_KIND_STYLETAGNAME);
+        self._tokenKindTab[@"<!DOCTYPE,>"] = @(HTML_TOKEN_KIND_DOCTYPE);
+        self._tokenKindTab[@"<"] = @(HTML_TOKEN_KIND_LT);
+        self._tokenKindTab[@"<?,?>"] = @(HTML_TOKEN_KIND_PROCINSTR);
+        self._tokenKindTab[@"="] = @(HTML_TOKEN_KIND_EQ);
+        self._tokenKindTab[@"/"] = @(HTML_TOKEN_KIND_FWDSLASH);
+        self._tokenKindTab[@">"] = @(HTML_TOKEN_KIND_GT);
 
         self.anything_memo = [NSMutableDictionary dictionary];
         self.scriptElement_memo = [NSMutableDictionary dictionary];
@@ -205,7 +205,7 @@
     [t.delimitState setFallbackState:t.symbolState from:'<' to:'<'];
 
     }];
-    while ([self predicts:TOKEN_KIND_BUILTIN_ANY, TOKEN_KIND_BUILTIN_COMMENT, TOKEN_KIND_DOCTYPE, TOKEN_KIND_LT, TOKEN_KIND_PROCINSTR, 0]) {
+    while ([self predicts:HTML_TOKEN_KIND_DOCTYPE, HTML_TOKEN_KIND_LT, HTML_TOKEN_KIND_PROCINSTR, TOKEN_KIND_BUILTIN_ANY, TOKEN_KIND_BUILTIN_COMMENT, 0]) {
         if ([self speculate:^{ [self anything]; }]) {
             [self anything]; 
         } else {
@@ -292,7 +292,7 @@
 
 - (void)__scriptTagName {
     
-    [self match:TOKEN_KIND_SCRIPTTAGNAME]; 
+    [self match:HTML_TOKEN_KIND_SCRIPTTAGNAME]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchScriptTagName:)];
 }
@@ -365,7 +365,7 @@
 
 - (void)__styleTagName {
     
-    [self match:TOKEN_KIND_STYLETAGNAME]; 
+    [self match:HTML_TOKEN_KIND_STYLETAGNAME]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStyleTagName:)];
 }
@@ -391,7 +391,7 @@
 
 - (void)__procInstr {
     
-    [self match:TOKEN_KIND_PROCINSTR]; 
+    [self match:HTML_TOKEN_KIND_PROCINSTR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchProcInstr:)];
 }
@@ -402,7 +402,7 @@
 
 - (void)__doctype {
     
-    [self match:TOKEN_KIND_DOCTYPE]; 
+    [self match:HTML_TOKEN_KIND_DOCTYPE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDoctype:)];
 }
@@ -554,7 +554,7 @@
 
 - (void)__eq {
     
-    [self match:TOKEN_KIND_EQ]; 
+    [self match:HTML_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
@@ -565,7 +565,7 @@
 
 - (void)__lt {
     
-    [self match:TOKEN_KIND_LT]; 
+    [self match:HTML_TOKEN_KIND_LT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
@@ -576,7 +576,7 @@
 
 - (void)__gt {
     
-    [self match:TOKEN_KIND_GT]; 
+    [self match:HTML_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
@@ -587,7 +587,7 @@
 
 - (void)__fwdSlash {
     
-    [self match:TOKEN_KIND_FWDSLASH]; 
+    [self match:HTML_TOKEN_KIND_FWDSLASH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];
 }

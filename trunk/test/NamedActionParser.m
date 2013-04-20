@@ -51,8 +51,8 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"a"] = @(TOKEN_KIND_A);
-        self._tokenKindTab[@"b"] = @(TOKEN_KIND_B);
+        self._tokenKindTab[@"a"] = @(NAMEDACTION_TOKEN_KIND_A);
+        self._tokenKindTab[@"b"] = @(NAMEDACTION_TOKEN_KIND_B);
 
         self.a_memo = [NSMutableDictionary dictionary];
         self.b_memo = [NSMutableDictionary dictionary];
@@ -85,7 +85,7 @@
     [self execute:(id)^{
         PUSH(@"foo");
     }];
-    [self match:TOKEN_KIND_A]; 
+    [self match:NAMEDACTION_TOKEN_KIND_A]; 
     [self execute:(id)^{
         PUSH(@"bar");
     }];
@@ -99,7 +99,7 @@
 
 - (void)__b {
     
-    [self match:TOKEN_KIND_B]; 
+    [self match:NAMEDACTION_TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }

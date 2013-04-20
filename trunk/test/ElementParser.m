@@ -55,9 +55,9 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"["] = @(TOKEN_KIND_LBRACKET);
-        self._tokenKindTab[@"]"] = @(TOKEN_KIND_RBRACKET);
-        self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"["] = @(ELEMENT_TOKEN_KIND_LBRACKET);
+        self._tokenKindTab[@"]"] = @(ELEMENT_TOKEN_KIND_RBRACKET);
+        self._tokenKindTab[@","] = @(ELEMENT_TOKEN_KIND_COMMA);
 
         self.list_memo = [NSMutableDictionary dictionary];
         self.elements_memo = [NSMutableDictionary dictionary];
@@ -112,7 +112,7 @@
 - (void)__elements {
     
     [self element]; 
-    while ([self predicts:TOKEN_KIND_COMMA, 0]) {
+    while ([self predicts:ELEMENT_TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self comma]; [self element]; }]) {
             [self comma]; 
             [self element]; 
@@ -132,7 +132,7 @@
     
     if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self Number]; 
-    } else if ([self predicts:TOKEN_KIND_LBRACKET, 0]) {
+    } else if ([self predicts:ELEMENT_TOKEN_KIND_LBRACKET, 0]) {
         [self list]; 
     } else {
         [self raise:@"no viable alternative found in element"];
@@ -147,7 +147,7 @@
 
 - (void)__lbracket {
     
-    [self match:TOKEN_KIND_LBRACKET]; 
+    [self match:ELEMENT_TOKEN_KIND_LBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
@@ -158,7 +158,7 @@
 
 - (void)__rbracket {
     
-    [self match:TOKEN_KIND_RBRACKET]; [self discard:1];
+    [self match:ELEMENT_TOKEN_KIND_RBRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
@@ -169,7 +169,7 @@
 
 - (void)__comma {
     
-    [self match:TOKEN_KIND_COMMA]; [self discard:1];
+    [self match:ELEMENT_TOKEN_KIND_COMMA]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }

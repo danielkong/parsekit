@@ -60,12 +60,12 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"]"] = @(TOKEN_KIND_RBRACKET);
-        self._tokenKindTab[@"["] = @(TOKEN_KIND_LBRACKET);
-        self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
-        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQ);
-        self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI);
-        self._tokenKindTab[@"."] = @(TOKEN_KIND_DOT);
+        self._tokenKindTab[@"]"] = @(ELEMENTASSIGN_TOKEN_KIND_RBRACKET);
+        self._tokenKindTab[@"["] = @(ELEMENTASSIGN_TOKEN_KIND_LBRACKET);
+        self._tokenKindTab[@","] = @(ELEMENTASSIGN_TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"="] = @(ELEMENTASSIGN_TOKEN_KIND_EQ);
+        self._tokenKindTab[@";"] = @(ELEMENTASSIGN_TOKEN_KIND_SEMI);
+        self._tokenKindTab[@"."] = @(ELEMENTASSIGN_TOKEN_KIND_DOT);
 
         self.stat_memo = [NSMutableDictionary dictionary];
         self.assign_memo = [NSMutableDictionary dictionary];
@@ -167,7 +167,7 @@
 - (void)__elements {
     
     [self element]; 
-    while ([self predicts:TOKEN_KIND_COMMA, 0]) {
+    while ([self predicts:ELEMENTASSIGN_TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self comma]; [self element]; }]) {
             [self comma]; 
             [self element]; 
@@ -187,7 +187,7 @@
     
     if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self Number]; 
-    } else if ([self predicts:TOKEN_KIND_LBRACKET, 0]) {
+    } else if ([self predicts:ELEMENTASSIGN_TOKEN_KIND_LBRACKET, 0]) {
         [self list]; 
     } else {
         [self raise:@"no viable alternative found in element"];
@@ -202,7 +202,7 @@
 
 - (void)__lbracket {
     
-    [self match:TOKEN_KIND_LBRACKET]; 
+    [self match:ELEMENTASSIGN_TOKEN_KIND_LBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
@@ -213,7 +213,7 @@
 
 - (void)__rbracket {
     
-    [self match:TOKEN_KIND_RBRACKET]; [self discard:1];
+    [self match:ELEMENTASSIGN_TOKEN_KIND_RBRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
@@ -224,7 +224,7 @@
 
 - (void)__comma {
     
-    [self match:TOKEN_KIND_COMMA]; [self discard:1];
+    [self match:ELEMENTASSIGN_TOKEN_KIND_COMMA]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
@@ -235,7 +235,7 @@
 
 - (void)__eq {
     
-    [self match:TOKEN_KIND_EQ]; 
+    [self match:ELEMENTASSIGN_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
@@ -246,7 +246,7 @@
 
 - (void)__dot {
     
-    [self match:TOKEN_KIND_DOT]; 
+    [self match:ELEMENTASSIGN_TOKEN_KIND_DOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
 }
@@ -257,7 +257,7 @@
 
 - (void)__semi {
     
-    [self match:TOKEN_KIND_SEMI]; 
+    [self match:ELEMENTASSIGN_TOKEN_KIND_SEMI]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
 }

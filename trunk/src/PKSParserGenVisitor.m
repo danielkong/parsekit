@@ -198,6 +198,12 @@
     self.outputStringStack = [NSMutableArray array];
     
     self.ruleMethodNames = [NSMutableArray array];
+    
+    // add namespace to token kinds
+    for (PKSTokenKindDescriptor *desc in node.tokenKinds) {
+        NSString *newName = [NSString stringWithFormat:@"%@_%@", [node.grammarName uppercaseString], desc.name];
+        desc.name = newName;
+    }
 
     // setup vars
     id vars = [NSMutableDictionary dictionary];

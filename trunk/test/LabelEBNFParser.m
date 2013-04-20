@@ -52,9 +52,9 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
-        self._tokenKindTab[@"return"] = @(TOKEN_KIND_RETURN);
-        self._tokenKindTab[@":"] = @(TOKEN_KIND_COLON);
+        self._tokenKindTab[@"="] = @(LABELEBNF_TOKEN_KIND_EQUALS);
+        self._tokenKindTab[@"return"] = @(LABELEBNF_TOKEN_KIND_RETURN);
+        self._tokenKindTab[@":"] = @(LABELEBNF_TOKEN_KIND_COLON);
 
         self.s_memo = [NSMutableDictionary dictionary];
         self.label_memo = [NSMutableDictionary dictionary];
@@ -86,14 +86,14 @@
 
 - (void)__s {
     
-    if ([self speculate:^{ [self label]; [self Word]; [self match:TOKEN_KIND_EQUALS]; [self expr]; }]) {
+    if ([self speculate:^{ [self label]; [self Word]; [self match:LABELEBNF_TOKEN_KIND_EQUALS]; [self expr]; }]) {
         [self label]; 
         [self Word]; 
-        [self match:TOKEN_KIND_EQUALS]; 
+        [self match:LABELEBNF_TOKEN_KIND_EQUALS]; 
         [self expr]; 
-    } else if ([self speculate:^{ [self label]; [self match:TOKEN_KIND_RETURN]; [self expr]; }]) {
+    } else if ([self speculate:^{ [self label]; [self match:LABELEBNF_TOKEN_KIND_RETURN]; [self expr]; }]) {
         [self label]; 
-        [self match:TOKEN_KIND_RETURN]; 
+        [self match:LABELEBNF_TOKEN_KIND_RETURN]; 
         [self expr]; 
     } else {
         [self raise:@"no viable alternative found in s"];
@@ -109,9 +109,9 @@
 - (void)__label {
     
     while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self Word]; [self match:TOKEN_KIND_COLON]; }]) {
+        if ([self speculate:^{ [self Word]; [self match:LABELEBNF_TOKEN_KIND_COLON]; }]) {
             [self Word]; 
-            [self match:TOKEN_KIND_COLON]; 
+            [self match:LABELEBNF_TOKEN_KIND_COLON]; 
         } else {
             break;
         }

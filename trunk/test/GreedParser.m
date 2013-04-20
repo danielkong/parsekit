@@ -51,8 +51,8 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"a"] = @(TOKEN_KIND_A);
-        self._tokenKindTab[@"b"] = @(TOKEN_KIND_B);
+        self._tokenKindTab[@"a"] = @(GREED_TOKEN_KIND_A);
+        self._tokenKindTab[@"b"] = @(GREED_TOKEN_KIND_B);
 
         self.a_memo = [NSMutableDictionary dictionary];
         self.b_memo = [NSMutableDictionary dictionary];
@@ -74,13 +74,13 @@
 
 - (void)_start {
     
-    if ([self predicts:TOKEN_KIND_A, 0]) {
+    if ([self predicts:GREED_TOKEN_KIND_A, 0]) {
         [self a]; 
         while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]) {
             [self Any]; 
         }
         [self a]; 
-    } else if ([self predicts:TOKEN_KIND_B, 0]) {
+    } else if ([self predicts:GREED_TOKEN_KIND_B, 0]) {
         [self b]; 
         do {
             [self Any]; 
@@ -95,7 +95,7 @@
 
 - (void)__a {
     
-    [self match:TOKEN_KIND_A]; 
+    [self match:GREED_TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
@@ -106,7 +106,7 @@
 
 - (void)__b {
     
-    [self match:TOKEN_KIND_B]; 
+    [self match:GREED_TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }

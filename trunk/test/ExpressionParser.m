@@ -79,20 +79,20 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@">="] = @(TOKEN_KIND_GE);
-        self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
-        self._tokenKindTab[@"or"] = @(TOKEN_KIND_OR);
-        self._tokenKindTab[@"<"] = @(TOKEN_KIND_LT);
-        self._tokenKindTab[@"<="] = @(TOKEN_KIND_LE);
-        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQ);
-        self._tokenKindTab[@"."] = @(TOKEN_KIND_DOT);
-        self._tokenKindTab[@">"] = @(TOKEN_KIND_GT);
-        self._tokenKindTab[@"("] = @(TOKEN_KIND_OPENPAREN);
-        self._tokenKindTab[@"yes"] = @(TOKEN_KIND_YES);
-        self._tokenKindTab[@"no"] = @(TOKEN_KIND_NO);
-        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSEPAREN);
-        self._tokenKindTab[@"!="] = @(TOKEN_KIND_NE);
-        self._tokenKindTab[@"and"] = @(TOKEN_KIND_AND);
+        self._tokenKindTab[@">="] = @(EXPRESSION_TOKEN_KIND_GE);
+        self._tokenKindTab[@","] = @(EXPRESSION_TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"or"] = @(EXPRESSION_TOKEN_KIND_OR);
+        self._tokenKindTab[@"<"] = @(EXPRESSION_TOKEN_KIND_LT);
+        self._tokenKindTab[@"<="] = @(EXPRESSION_TOKEN_KIND_LE);
+        self._tokenKindTab[@"="] = @(EXPRESSION_TOKEN_KIND_EQ);
+        self._tokenKindTab[@"."] = @(EXPRESSION_TOKEN_KIND_DOT);
+        self._tokenKindTab[@">"] = @(EXPRESSION_TOKEN_KIND_GT);
+        self._tokenKindTab[@"("] = @(EXPRESSION_TOKEN_KIND_OPENPAREN);
+        self._tokenKindTab[@"yes"] = @(EXPRESSION_TOKEN_KIND_YES);
+        self._tokenKindTab[@"no"] = @(EXPRESSION_TOKEN_KIND_NO);
+        self._tokenKindTab[@")"] = @(EXPRESSION_TOKEN_KIND_CLOSEPAREN);
+        self._tokenKindTab[@"!="] = @(EXPRESSION_TOKEN_KIND_NE);
+        self._tokenKindTab[@"and"] = @(EXPRESSION_TOKEN_KIND_AND);
 
         self.expr_memo = [NSMutableDictionary dictionary];
         self.orExpr_memo = [NSMutableDictionary dictionary];
@@ -217,7 +217,7 @@
 - (void)__orExpr {
     
     [self andExpr]; 
-    while ([self predicts:TOKEN_KIND_OR, 0]) {
+    while ([self predicts:EXPRESSION_TOKEN_KIND_OR, 0]) {
         if ([self speculate:^{ [self orTerm]; }]) {
             [self orTerm]; 
         } else {
@@ -247,7 +247,7 @@
 - (void)__andExpr {
     
     [self relExpr]; 
-    while ([self predicts:TOKEN_KIND_AND, 0]) {
+    while ([self predicts:EXPRESSION_TOKEN_KIND_AND, 0]) {
         if ([self speculate:^{ [self andTerm]; }]) {
             [self andTerm]; 
         } else {
@@ -277,7 +277,7 @@
 - (void)__relExpr {
     
     [self callExpr]; 
-    while ([self predicts:TOKEN_KIND_EQ, TOKEN_KIND_GE, TOKEN_KIND_GT, TOKEN_KIND_LE, TOKEN_KIND_LT, TOKEN_KIND_NE, 0]) {
+    while ([self predicts:EXPRESSION_TOKEN_KIND_EQ, EXPRESSION_TOKEN_KIND_GE, EXPRESSION_TOKEN_KIND_GT, EXPRESSION_TOKEN_KIND_LE, EXPRESSION_TOKEN_KIND_LT, EXPRESSION_TOKEN_KIND_NE, 0]) {
         if ([self speculate:^{ [self relOp]; [self callExpr]; }]) {
             [self relOp]; 
             [self callExpr]; 
@@ -295,17 +295,17 @@
 
 - (void)__relOp {
     
-    if ([self predicts:TOKEN_KIND_LT, 0]) {
+    if ([self predicts:EXPRESSION_TOKEN_KIND_LT, 0]) {
         [self lt]; 
-    } else if ([self predicts:TOKEN_KIND_GT, 0]) {
+    } else if ([self predicts:EXPRESSION_TOKEN_KIND_GT, 0]) {
         [self gt]; 
-    } else if ([self predicts:TOKEN_KIND_EQ, 0]) {
+    } else if ([self predicts:EXPRESSION_TOKEN_KIND_EQ, 0]) {
         [self eq]; 
-    } else if ([self predicts:TOKEN_KIND_NE, 0]) {
+    } else if ([self predicts:EXPRESSION_TOKEN_KIND_NE, 0]) {
         [self ne]; 
-    } else if ([self predicts:TOKEN_KIND_LE, 0]) {
+    } else if ([self predicts:EXPRESSION_TOKEN_KIND_LE, 0]) {
         [self le]; 
-    } else if ([self predicts:TOKEN_KIND_GE, 0]) {
+    } else if ([self predicts:EXPRESSION_TOKEN_KIND_GE, 0]) {
         [self ge]; 
     } else {
         [self raise:@"no viable alternative found in relOp"];
@@ -339,7 +339,7 @@
 - (void)__argList {
     
     [self atom]; 
-    while ([self predicts:TOKEN_KIND_COMMA, 0]) {
+    while ([self predicts:EXPRESSION_TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self comma]; [self atom]; }]) {
             [self comma]; 
             [self atom]; 
@@ -357,9 +357,9 @@
 
 - (void)__primary {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) {
+    if ([self predicts:EXPRESSION_TOKEN_KIND_NO, EXPRESSION_TOKEN_KIND_YES, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self atom]; 
-    } else if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {
+    } else if ([self predicts:EXPRESSION_TOKEN_KIND_OPENPAREN, 0]) {
         [self openParen]; 
         [self expr]; 
         [self closeParen]; 
@@ -378,7 +378,7 @@
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self obj]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) {
+    } else if ([self predicts:EXPRESSION_TOKEN_KIND_NO, EXPRESSION_TOKEN_KIND_YES, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -394,7 +394,7 @@
 - (void)__obj {
     
     [self id]; 
-    while ([self predicts:TOKEN_KIND_DOT, 0]) {
+    while ([self predicts:EXPRESSION_TOKEN_KIND_DOT, 0]) {
         if ([self speculate:^{ [self member]; }]) {
             [self member]; 
         } else {
@@ -438,7 +438,7 @@
         [self QuotedString]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self Number]; 
-    } else if ([self predicts:TOKEN_KIND_NO, TOKEN_KIND_YES, 0]) {
+    } else if ([self predicts:EXPRESSION_TOKEN_KIND_NO, EXPRESSION_TOKEN_KIND_YES, 0]) {
         [self bool]; 
     } else {
         [self raise:@"no viable alternative found in literal"];
@@ -453,9 +453,9 @@
 
 - (void)__bool {
     
-    if ([self predicts:TOKEN_KIND_YES, 0]) {
+    if ([self predicts:EXPRESSION_TOKEN_KIND_YES, 0]) {
         [self yes]; 
-    } else if ([self predicts:TOKEN_KIND_NO, 0]) {
+    } else if ([self predicts:EXPRESSION_TOKEN_KIND_NO, 0]) {
         [self no]; 
     } else {
         [self raise:@"no viable alternative found in bool"];
@@ -470,7 +470,7 @@
 
 - (void)__lt {
     
-    [self match:TOKEN_KIND_LT]; 
+    [self match:EXPRESSION_TOKEN_KIND_LT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
@@ -481,7 +481,7 @@
 
 - (void)__gt {
     
-    [self match:TOKEN_KIND_GT]; 
+    [self match:EXPRESSION_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
@@ -492,7 +492,7 @@
 
 - (void)__eq {
     
-    [self match:TOKEN_KIND_EQ]; 
+    [self match:EXPRESSION_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
@@ -503,7 +503,7 @@
 
 - (void)__ne {
     
-    [self match:TOKEN_KIND_NE]; 
+    [self match:EXPRESSION_TOKEN_KIND_NE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNe:)];
 }
@@ -514,7 +514,7 @@
 
 - (void)__le {
     
-    [self match:TOKEN_KIND_LE]; 
+    [self match:EXPRESSION_TOKEN_KIND_LE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLe:)];
 }
@@ -525,7 +525,7 @@
 
 - (void)__ge {
     
-    [self match:TOKEN_KIND_GE]; 
+    [self match:EXPRESSION_TOKEN_KIND_GE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGe:)];
 }
@@ -536,7 +536,7 @@
 
 - (void)__openParen {
     
-    [self match:TOKEN_KIND_OPENPAREN]; 
+    [self match:EXPRESSION_TOKEN_KIND_OPENPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
 }
@@ -547,7 +547,7 @@
 
 - (void)__closeParen {
     
-    [self match:TOKEN_KIND_CLOSEPAREN]; [self discard:1];
+    [self match:EXPRESSION_TOKEN_KIND_CLOSEPAREN]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
 }
@@ -558,7 +558,7 @@
 
 - (void)__yes {
     
-    [self match:TOKEN_KIND_YES]; 
+    [self match:EXPRESSION_TOKEN_KIND_YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchYes:)];
 }
@@ -569,7 +569,7 @@
 
 - (void)__no {
     
-    [self match:TOKEN_KIND_NO]; 
+    [self match:EXPRESSION_TOKEN_KIND_NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNo:)];
 }
@@ -580,7 +580,7 @@
 
 - (void)__dot {
     
-    [self match:TOKEN_KIND_DOT]; 
+    [self match:EXPRESSION_TOKEN_KIND_DOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
 }
@@ -591,7 +591,7 @@
 
 - (void)__comma {
     
-    [self match:TOKEN_KIND_COMMA]; 
+    [self match:EXPRESSION_TOKEN_KIND_COMMA]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
@@ -602,7 +602,7 @@
 
 - (void)__or {
     
-    [self match:TOKEN_KIND_OR]; 
+    [self match:EXPRESSION_TOKEN_KIND_OR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
 }
@@ -613,7 +613,7 @@
 
 - (void)__and {
     
-    [self match:TOKEN_KIND_AND]; 
+    [self match:EXPRESSION_TOKEN_KIND_AND]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];
 }
