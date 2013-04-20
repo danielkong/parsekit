@@ -53,14 +53,14 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"int"] = @(TOKEN_KIND_INT);
-        self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSE_CURLY);
-        self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
-        self._tokenKindTab[@"void"] = @(TOKEN_KIND_VOID);
-        self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
-        self._tokenKindTab[@"{"] = @(TOKEN_KIND_OPEN_CURLY);
-        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
-        self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI_COLON);
+        self._tokenKindTab[@"int"] = @(METHODSFACTORED_TOKEN_KIND_INT);
+        self._tokenKindTab[@"}"] = @(METHODSFACTORED_TOKEN_KIND_CLOSE_CURLY);
+        self._tokenKindTab[@","] = @(METHODSFACTORED_TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"void"] = @(METHODSFACTORED_TOKEN_KIND_VOID);
+        self._tokenKindTab[@"("] = @(METHODSFACTORED_TOKEN_KIND_OPEN_PAREN);
+        self._tokenKindTab[@"{"] = @(METHODSFACTORED_TOKEN_KIND_OPEN_CURLY);
+        self._tokenKindTab[@")"] = @(METHODSFACTORED_TOKEN_KIND_CLOSE_PAREN);
+        self._tokenKindTab[@";"] = @(METHODSFACTORED_TOKEN_KIND_SEMI_COLON);
 
         self.method_memo = [NSMutableDictionary dictionary];
         self.type_memo = [NSMutableDictionary dictionary];
@@ -99,14 +99,14 @@
     
     [self type]; 
     [self Word]; 
-    [self match:TOKEN_KIND_OPEN_PAREN]; 
+    [self match:METHODSFACTORED_TOKEN_KIND_OPEN_PAREN]; 
     [self args]; 
-    [self match:TOKEN_KIND_CLOSE_PAREN]; 
-    if ([self predicts:TOKEN_KIND_SEMI_COLON, 0]) {
-        [self match:TOKEN_KIND_SEMI_COLON]; 
-    } else if ([self predicts:TOKEN_KIND_OPEN_CURLY, 0]) {
-        [self match:TOKEN_KIND_OPEN_CURLY]; 
-        [self match:TOKEN_KIND_CLOSE_CURLY]; 
+    [self match:METHODSFACTORED_TOKEN_KIND_CLOSE_PAREN]; 
+    if ([self predicts:METHODSFACTORED_TOKEN_KIND_SEMI_COLON, 0]) {
+        [self match:METHODSFACTORED_TOKEN_KIND_SEMI_COLON]; 
+    } else if ([self predicts:METHODSFACTORED_TOKEN_KIND_OPEN_CURLY, 0]) {
+        [self match:METHODSFACTORED_TOKEN_KIND_OPEN_CURLY]; 
+        [self match:METHODSFACTORED_TOKEN_KIND_CLOSE_CURLY]; 
     } else {
         [self raise:@"no viable alternative found in method"];
     }
@@ -120,10 +120,10 @@
 
 - (void)__type {
     
-    if ([self predicts:TOKEN_KIND_VOID, 0]) {
-        [self match:TOKEN_KIND_VOID]; 
-    } else if ([self predicts:TOKEN_KIND_INT, 0]) {
-        [self match:TOKEN_KIND_INT]; 
+    if ([self predicts:METHODSFACTORED_TOKEN_KIND_VOID, 0]) {
+        [self match:METHODSFACTORED_TOKEN_KIND_VOID]; 
+    } else if ([self predicts:METHODSFACTORED_TOKEN_KIND_INT, 0]) {
+        [self match:METHODSFACTORED_TOKEN_KIND_INT]; 
     } else {
         [self raise:@"no viable alternative found in type"];
     }
@@ -137,11 +137,11 @@
 
 - (void)__args {
     
-    if ([self predicts:TOKEN_KIND_INT, 0]) {
+    if ([self predicts:METHODSFACTORED_TOKEN_KIND_INT, 0]) {
         [self arg]; 
-        while ([self predicts:TOKEN_KIND_COMMA, 0]) {
-            if ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self arg]; }]) {
-                [self match:TOKEN_KIND_COMMA]; 
+        while ([self predicts:METHODSFACTORED_TOKEN_KIND_COMMA, 0]) {
+            if ([self speculate:^{ [self match:METHODSFACTORED_TOKEN_KIND_COMMA]; [self arg]; }]) {
+                [self match:METHODSFACTORED_TOKEN_KIND_COMMA]; 
                 [self arg]; 
             } else {
                 break;
@@ -158,7 +158,7 @@
 
 - (void)__arg {
     
-    [self match:TOKEN_KIND_INT]; 
+    [self match:METHODSFACTORED_TOKEN_KIND_INT]; 
     [self Word]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchArg:)];

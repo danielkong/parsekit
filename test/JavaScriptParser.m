@@ -202,75 +202,75 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"|"] = @(TOKEN_KIND_PIPE);
-        self._tokenKindTab[@"!="] = @(TOKEN_KIND_NE);
-        self._tokenKindTab[@"("] = @(TOKEN_KIND_OPENPAREN);
-        self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSECURLY);
-        self._tokenKindTab[@"return"] = @(TOKEN_KIND_RETURN);
-        self._tokenKindTab[@"~"] = @(TOKEN_KIND_TILDE);
-        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSEPAREN);
-        self._tokenKindTab[@"*"] = @(TOKEN_KIND_TIMES);
-        self._tokenKindTab[@"delete"] = @(TOKEN_KIND_DELETE);
-        self._tokenKindTab[@"!=="] = @(TOKEN_KIND_ISNOT);
-        self._tokenKindTab[@"+"] = @(TOKEN_KIND_PLUS);
-        self._tokenKindTab[@"*="] = @(TOKEN_KIND_TIMESEQ);
-        self._tokenKindTab[@"instanceof"] = @(TOKEN_KIND_INSTANCEOF);
-        self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
-        self._tokenKindTab[@"<<="] = @(TOKEN_KIND_SHIFTLEFTEQ);
-        self._tokenKindTab[@"if"] = @(TOKEN_KIND_IF);
-        self._tokenKindTab[@"-"] = @(TOKEN_KIND_MINUS);
-        self._tokenKindTab[@"null"] = @(TOKEN_KIND_NULL);
-        self._tokenKindTab[@"false"] = @(TOKEN_KIND_FALSELITERAL);
-        self._tokenKindTab[@"."] = @(TOKEN_KIND_DOT);
-        self._tokenKindTab[@"<<"] = @(TOKEN_KIND_SHIFTLEFT);
-        self._tokenKindTab[@"/"] = @(TOKEN_KIND_DIV);
-        self._tokenKindTab[@"+="] = @(TOKEN_KIND_PLUSEQ);
-        self._tokenKindTab[@"<="] = @(TOKEN_KIND_LE);
-        self._tokenKindTab[@"^="] = @(TOKEN_KIND_XOREQ);
-        self._tokenKindTab[@"["] = @(TOKEN_KIND_OPENBRACKET);
-        self._tokenKindTab[@"undefined"] = @(TOKEN_KIND_UNDEFINED);
-        self._tokenKindTab[@"typeof"] = @(TOKEN_KIND_TYPEOF);
-        self._tokenKindTab[@"or"] = @(TOKEN_KIND_OR);
-        self._tokenKindTab[@"function"] = @(TOKEN_KIND_FUNCTION);
-        self._tokenKindTab[@"]"] = @(TOKEN_KIND_CLOSEBRACKET);
-        self._tokenKindTab[@"^"] = @(TOKEN_KIND_CARET);
-        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQ);
-        self._tokenKindTab[@"continue"] = @(TOKEN_KIND_CONTINUE);
-        self._tokenKindTab[@"break"] = @(TOKEN_KIND_BREAK);
-        self._tokenKindTab[@"-="] = @(TOKEN_KIND_MINUSEQ);
-        self._tokenKindTab[@">="] = @(TOKEN_KIND_GE);
-        self._tokenKindTab[@":"] = @(TOKEN_KIND_COLON);
-        self._tokenKindTab[@"in"] = @(TOKEN_KIND_IN);
-        self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI);
-        self._tokenKindTab[@"for"] = @(TOKEN_KIND_FOR);
-        self._tokenKindTab[@"++"] = @(TOKEN_KIND_PLUSPLUS);
-        self._tokenKindTab[@"<"] = @(TOKEN_KIND_LT);
-        self._tokenKindTab[@"%="] = @(TOKEN_KIND_MODEQ);
-        self._tokenKindTab[@">>"] = @(TOKEN_KIND_SHIFTRIGHT);
-        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
-        self._tokenKindTab[@">"] = @(TOKEN_KIND_GT);
-        self._tokenKindTab[@"void"] = @(TOKEN_KIND_VOID);
-        self._tokenKindTab[@"?"] = @(TOKEN_KIND_QUESTION);
-        self._tokenKindTab[@"while"] = @(TOKEN_KIND_WHILE);
-        self._tokenKindTab[@"&="] = @(TOKEN_KIND_ANDEQ);
-        self._tokenKindTab[@">>>="] = @(TOKEN_KIND_SHIFTRIGHTEXTEQ);
-        self._tokenKindTab[@"else"] = @(TOKEN_KIND_ELSE);
-        self._tokenKindTab[@"/="] = @(TOKEN_KIND_DIVEQ);
-        self._tokenKindTab[@"and"] = @(TOKEN_KIND_AND);
-        self._tokenKindTab[@"var"] = @(TOKEN_KIND_VAR);
-        self._tokenKindTab[@"|="] = @(TOKEN_KIND_OREQ);
-        self._tokenKindTab[@">>="] = @(TOKEN_KIND_SHIFTRIGHTEQ);
-        self._tokenKindTab[@"--"] = @(TOKEN_KIND_MINUSMINUS);
-        self._tokenKindTab[@"new"] = @(TOKEN_KIND_KEYWORDNEW);
-        self._tokenKindTab[@"!"] = @(TOKEN_KIND_NOT);
-        self._tokenKindTab[@">>>"] = @(TOKEN_KIND_SHIFTRIGHTEXT);
-        self._tokenKindTab[@"true"] = @(TOKEN_KIND_TRUELITERAL);
-        self._tokenKindTab[@"this"] = @(TOKEN_KIND_THIS);
-        self._tokenKindTab[@"with"] = @(TOKEN_KIND_WITH);
-        self._tokenKindTab[@"==="] = @(TOKEN_KIND_IS);
-        self._tokenKindTab[@"%"] = @(TOKEN_KIND_MOD);
-        self._tokenKindTab[@"&"] = @(TOKEN_KIND_AMP);
-        self._tokenKindTab[@"{"] = @(TOKEN_KIND_OPENCURLY);
+        self._tokenKindTab[@"|"] = @(JAVASCRIPT_TOKEN_KIND_PIPE);
+        self._tokenKindTab[@"!="] = @(JAVASCRIPT_TOKEN_KIND_NE);
+        self._tokenKindTab[@"("] = @(JAVASCRIPT_TOKEN_KIND_OPENPAREN);
+        self._tokenKindTab[@"}"] = @(JAVASCRIPT_TOKEN_KIND_CLOSECURLY);
+        self._tokenKindTab[@"return"] = @(JAVASCRIPT_TOKEN_KIND_RETURN);
+        self._tokenKindTab[@"~"] = @(JAVASCRIPT_TOKEN_KIND_TILDE);
+        self._tokenKindTab[@")"] = @(JAVASCRIPT_TOKEN_KIND_CLOSEPAREN);
+        self._tokenKindTab[@"*"] = @(JAVASCRIPT_TOKEN_KIND_TIMES);
+        self._tokenKindTab[@"delete"] = @(JAVASCRIPT_TOKEN_KIND_DELETE);
+        self._tokenKindTab[@"!=="] = @(JAVASCRIPT_TOKEN_KIND_ISNOT);
+        self._tokenKindTab[@"+"] = @(JAVASCRIPT_TOKEN_KIND_PLUS);
+        self._tokenKindTab[@"*="] = @(JAVASCRIPT_TOKEN_KIND_TIMESEQ);
+        self._tokenKindTab[@"instanceof"] = @(JAVASCRIPT_TOKEN_KIND_INSTANCEOF);
+        self._tokenKindTab[@","] = @(JAVASCRIPT_TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"<<="] = @(JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ);
+        self._tokenKindTab[@"if"] = @(JAVASCRIPT_TOKEN_KIND_IF);
+        self._tokenKindTab[@"-"] = @(JAVASCRIPT_TOKEN_KIND_MINUS);
+        self._tokenKindTab[@"null"] = @(JAVASCRIPT_TOKEN_KIND_NULL);
+        self._tokenKindTab[@"false"] = @(JAVASCRIPT_TOKEN_KIND_FALSELITERAL);
+        self._tokenKindTab[@"."] = @(JAVASCRIPT_TOKEN_KIND_DOT);
+        self._tokenKindTab[@"<<"] = @(JAVASCRIPT_TOKEN_KIND_SHIFTLEFT);
+        self._tokenKindTab[@"/"] = @(JAVASCRIPT_TOKEN_KIND_DIV);
+        self._tokenKindTab[@"+="] = @(JAVASCRIPT_TOKEN_KIND_PLUSEQ);
+        self._tokenKindTab[@"<="] = @(JAVASCRIPT_TOKEN_KIND_LE);
+        self._tokenKindTab[@"^="] = @(JAVASCRIPT_TOKEN_KIND_XOREQ);
+        self._tokenKindTab[@"["] = @(JAVASCRIPT_TOKEN_KIND_OPENBRACKET);
+        self._tokenKindTab[@"undefined"] = @(JAVASCRIPT_TOKEN_KIND_UNDEFINED);
+        self._tokenKindTab[@"typeof"] = @(JAVASCRIPT_TOKEN_KIND_TYPEOF);
+        self._tokenKindTab[@"||"] = @(JAVASCRIPT_TOKEN_KIND_OR);
+        self._tokenKindTab[@"function"] = @(JAVASCRIPT_TOKEN_KIND_FUNCTION);
+        self._tokenKindTab[@"]"] = @(JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET);
+        self._tokenKindTab[@"^"] = @(JAVASCRIPT_TOKEN_KIND_CARET);
+        self._tokenKindTab[@"=="] = @(JAVASCRIPT_TOKEN_KIND_EQ);
+        self._tokenKindTab[@"continue"] = @(JAVASCRIPT_TOKEN_KIND_CONTINUE);
+        self._tokenKindTab[@"break"] = @(JAVASCRIPT_TOKEN_KIND_BREAK);
+        self._tokenKindTab[@"-="] = @(JAVASCRIPT_TOKEN_KIND_MINUSEQ);
+        self._tokenKindTab[@">="] = @(JAVASCRIPT_TOKEN_KIND_GE);
+        self._tokenKindTab[@":"] = @(JAVASCRIPT_TOKEN_KIND_COLON);
+        self._tokenKindTab[@"in"] = @(JAVASCRIPT_TOKEN_KIND_IN);
+        self._tokenKindTab[@";"] = @(JAVASCRIPT_TOKEN_KIND_SEMI);
+        self._tokenKindTab[@"for"] = @(JAVASCRIPT_TOKEN_KIND_FOR);
+        self._tokenKindTab[@"++"] = @(JAVASCRIPT_TOKEN_KIND_PLUSPLUS);
+        self._tokenKindTab[@"<"] = @(JAVASCRIPT_TOKEN_KIND_LT);
+        self._tokenKindTab[@"%="] = @(JAVASCRIPT_TOKEN_KIND_MODEQ);
+        self._tokenKindTab[@">>"] = @(JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT);
+        self._tokenKindTab[@"="] = @(JAVASCRIPT_TOKEN_KIND_EQUALS);
+        self._tokenKindTab[@">"] = @(JAVASCRIPT_TOKEN_KIND_GT);
+        self._tokenKindTab[@"void"] = @(JAVASCRIPT_TOKEN_KIND_VOID);
+        self._tokenKindTab[@"?"] = @(JAVASCRIPT_TOKEN_KIND_QUESTION);
+        self._tokenKindTab[@"while"] = @(JAVASCRIPT_TOKEN_KIND_WHILE);
+        self._tokenKindTab[@"&="] = @(JAVASCRIPT_TOKEN_KIND_ANDEQ);
+        self._tokenKindTab[@">>>="] = @(JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ);
+        self._tokenKindTab[@"else"] = @(JAVASCRIPT_TOKEN_KIND_ELSE);
+        self._tokenKindTab[@"/="] = @(JAVASCRIPT_TOKEN_KIND_DIVEQ);
+        self._tokenKindTab[@"&&"] = @(JAVASCRIPT_TOKEN_KIND_AND);
+        self._tokenKindTab[@"var"] = @(JAVASCRIPT_TOKEN_KIND_VAR);
+        self._tokenKindTab[@"|="] = @(JAVASCRIPT_TOKEN_KIND_OREQ);
+        self._tokenKindTab[@">>="] = @(JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ);
+        self._tokenKindTab[@"--"] = @(JAVASCRIPT_TOKEN_KIND_MINUSMINUS);
+        self._tokenKindTab[@"new"] = @(JAVASCRIPT_TOKEN_KIND_KEYWORDNEW);
+        self._tokenKindTab[@"!"] = @(JAVASCRIPT_TOKEN_KIND_NOT);
+        self._tokenKindTab[@">>>"] = @(JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT);
+        self._tokenKindTab[@"true"] = @(JAVASCRIPT_TOKEN_KIND_TRUELITERAL);
+        self._tokenKindTab[@"this"] = @(JAVASCRIPT_TOKEN_KIND_THIS);
+        self._tokenKindTab[@"with"] = @(JAVASCRIPT_TOKEN_KIND_WITH);
+        self._tokenKindTab[@"==="] = @(JAVASCRIPT_TOKEN_KIND_IS);
+        self._tokenKindTab[@"%"] = @(JAVASCRIPT_TOKEN_KIND_MOD);
+        self._tokenKindTab[@"&"] = @(JAVASCRIPT_TOKEN_KIND_AMP);
+        self._tokenKindTab[@"{"] = @(JAVASCRIPT_TOKEN_KIND_OPENCURLY);
 
         self.if_memo = [NSMutableDictionary dictionary];
         self.else_memo = [NSMutableDictionary dictionary];
@@ -789,7 +789,7 @@
 
 - (void)__if {
     
-    [self match:TOKEN_KIND_IF]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_IF]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIf:)];
 }
@@ -800,7 +800,7 @@
 
 - (void)__else {
     
-    [self match:TOKEN_KIND_ELSE]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_ELSE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchElse:)];
 }
@@ -811,7 +811,7 @@
 
 - (void)__while {
     
-    [self match:TOKEN_KIND_WHILE]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_WHILE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchWhile:)];
 }
@@ -822,7 +822,7 @@
 
 - (void)__for {
     
-    [self match:TOKEN_KIND_FOR]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_FOR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFor:)];
 }
@@ -833,7 +833,7 @@
 
 - (void)__in {
     
-    [self match:TOKEN_KIND_IN]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_IN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIn:)];
 }
@@ -844,7 +844,7 @@
 
 - (void)__break {
     
-    [self match:TOKEN_KIND_BREAK]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_BREAK]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBreak:)];
 }
@@ -855,7 +855,7 @@
 
 - (void)__continue {
     
-    [self match:TOKEN_KIND_CONTINUE]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_CONTINUE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchContinue:)];
 }
@@ -866,7 +866,7 @@
 
 - (void)__with {
     
-    [self match:TOKEN_KIND_WITH]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_WITH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchWith:)];
 }
@@ -877,7 +877,7 @@
 
 - (void)__return {
     
-    [self match:TOKEN_KIND_RETURN]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_RETURN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchReturn:)];
 }
@@ -888,7 +888,7 @@
 
 - (void)__var {
     
-    [self match:TOKEN_KIND_VAR]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_VAR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchVar:)];
 }
@@ -899,7 +899,7 @@
 
 - (void)__delete {
     
-    [self match:TOKEN_KIND_DELETE]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_DELETE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDelete:)];
 }
@@ -910,7 +910,7 @@
 
 - (void)__keywordNew {
     
-    [self match:TOKEN_KIND_KEYWORDNEW]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_KEYWORDNEW]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchKeywordNew:)];
 }
@@ -921,7 +921,7 @@
 
 - (void)__this {
     
-    [self match:TOKEN_KIND_THIS]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_THIS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchThis:)];
 }
@@ -932,7 +932,7 @@
 
 - (void)__falseLiteral {
     
-    [self match:TOKEN_KIND_FALSELITERAL]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_FALSELITERAL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
 }
@@ -943,7 +943,7 @@
 
 - (void)__trueLiteral {
     
-    [self match:TOKEN_KIND_TRUELITERAL]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_TRUELITERAL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
 }
@@ -954,7 +954,7 @@
 
 - (void)__null {
     
-    [self match:TOKEN_KIND_NULL]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_NULL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNull:)];
 }
@@ -965,7 +965,7 @@
 
 - (void)__undefined {
     
-    [self match:TOKEN_KIND_UNDEFINED]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_UNDEFINED]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchUndefined:)];
 }
@@ -976,7 +976,7 @@
 
 - (void)__void {
     
-    [self match:TOKEN_KIND_VOID]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_VOID]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchVoid:)];
 }
@@ -987,7 +987,7 @@
 
 - (void)__typeof {
     
-    [self match:TOKEN_KIND_TYPEOF]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_TYPEOF]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTypeof:)];
 }
@@ -998,7 +998,7 @@
 
 - (void)__instanceof {
     
-    [self match:TOKEN_KIND_INSTANCEOF]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_INSTANCEOF]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchInstanceof:)];
 }
@@ -1009,7 +1009,7 @@
 
 - (void)__function {
     
-    [self match:TOKEN_KIND_FUNCTION]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_FUNCTION]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFunction:)];
 }
@@ -1020,7 +1020,7 @@
 
 - (void)__openCurly {
     
-    [self match:TOKEN_KIND_OPENCURLY]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_OPENCURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
 }
@@ -1031,7 +1031,7 @@
 
 - (void)__closeCurly {
     
-    [self match:TOKEN_KIND_CLOSECURLY]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_CLOSECURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
 }
@@ -1042,7 +1042,7 @@
 
 - (void)__openParen {
     
-    [self match:TOKEN_KIND_OPENPAREN]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_OPENPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
 }
@@ -1053,7 +1053,7 @@
 
 - (void)__closeParen {
     
-    [self match:TOKEN_KIND_CLOSEPAREN]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
 }
@@ -1064,7 +1064,7 @@
 
 - (void)__openBracket {
     
-    [self match:TOKEN_KIND_OPENBRACKET]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_OPENBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
 }
@@ -1075,7 +1075,7 @@
 
 - (void)__closeBracket {
     
-    [self match:TOKEN_KIND_CLOSEBRACKET]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
 }
@@ -1086,7 +1086,7 @@
 
 - (void)__comma {
     
-    [self match:TOKEN_KIND_COMMA]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_COMMA]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
@@ -1097,7 +1097,7 @@
 
 - (void)__dot {
     
-    [self match:TOKEN_KIND_DOT]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_DOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
 }
@@ -1108,7 +1108,7 @@
 
 - (void)__semi {
     
-    [self match:TOKEN_KIND_SEMI]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_SEMI]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
 }
@@ -1119,7 +1119,7 @@
 
 - (void)__colon {
     
-    [self match:TOKEN_KIND_COLON]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_COLON]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
 }
@@ -1130,7 +1130,7 @@
 
 - (void)__equals {
     
-    [self match:TOKEN_KIND_EQUALS]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_EQUALS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEquals:)];
 }
@@ -1141,7 +1141,7 @@
 
 - (void)__not {
     
-    [self match:TOKEN_KIND_NOT]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_NOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNot:)];
 }
@@ -1152,7 +1152,7 @@
 
 - (void)__lt {
     
-    [self match:TOKEN_KIND_LT]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_LT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
@@ -1163,7 +1163,7 @@
 
 - (void)__gt {
     
-    [self match:TOKEN_KIND_GT]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
@@ -1174,7 +1174,7 @@
 
 - (void)__amp {
     
-    [self match:TOKEN_KIND_AMP]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_AMP]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAmp:)];
 }
@@ -1185,7 +1185,7 @@
 
 - (void)__pipe {
     
-    [self match:TOKEN_KIND_PIPE]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_PIPE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPipe:)];
 }
@@ -1196,7 +1196,7 @@
 
 - (void)__caret {
     
-    [self match:TOKEN_KIND_CARET]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_CARET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCaret:)];
 }
@@ -1207,7 +1207,7 @@
 
 - (void)__tilde {
     
-    [self match:TOKEN_KIND_TILDE]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_TILDE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTilde:)];
 }
@@ -1218,7 +1218,7 @@
 
 - (void)__question {
     
-    [self match:TOKEN_KIND_QUESTION]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_QUESTION]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchQuestion:)];
 }
@@ -1229,7 +1229,7 @@
 
 - (void)__plus {
     
-    [self match:TOKEN_KIND_PLUS]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_PLUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlus:)];
 }
@@ -1240,7 +1240,7 @@
 
 - (void)__minus {
     
-    [self match:TOKEN_KIND_MINUS]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_MINUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinus:)];
 }
@@ -1251,7 +1251,7 @@
 
 - (void)__times {
     
-    [self match:TOKEN_KIND_TIMES]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_TIMES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTimes:)];
 }
@@ -1262,7 +1262,7 @@
 
 - (void)__div {
     
-    [self match:TOKEN_KIND_DIV]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_DIV]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDiv:)];
 }
@@ -1273,7 +1273,7 @@
 
 - (void)__mod {
     
-    [self match:TOKEN_KIND_MOD]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_MOD]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMod:)];
 }
@@ -1284,7 +1284,7 @@
 
 - (void)__or {
     
-    [self match:TOKEN_KIND_OR]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_OR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
 }
@@ -1295,7 +1295,7 @@
 
 - (void)__and {
     
-    [self match:TOKEN_KIND_AND]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_AND]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];
 }
@@ -1306,7 +1306,7 @@
 
 - (void)__ne {
     
-    [self match:TOKEN_KIND_NE]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_NE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNe:)];
 }
@@ -1317,7 +1317,7 @@
 
 - (void)__isnot {
     
-    [self match:TOKEN_KIND_ISNOT]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_ISNOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIsnot:)];
 }
@@ -1328,7 +1328,7 @@
 
 - (void)__eq {
     
-    [self match:TOKEN_KIND_EQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
@@ -1339,7 +1339,7 @@
 
 - (void)__is {
     
-    [self match:TOKEN_KIND_IS]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_IS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIs:)];
 }
@@ -1350,7 +1350,7 @@
 
 - (void)__le {
     
-    [self match:TOKEN_KIND_LE]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_LE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLe:)];
 }
@@ -1361,7 +1361,7 @@
 
 - (void)__ge {
     
-    [self match:TOKEN_KIND_GE]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_GE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGe:)];
 }
@@ -1372,7 +1372,7 @@
 
 - (void)__plusPlus {
     
-    [self match:TOKEN_KIND_PLUSPLUS]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_PLUSPLUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlusPlus:)];
 }
@@ -1383,7 +1383,7 @@
 
 - (void)__minusMinus {
     
-    [self match:TOKEN_KIND_MINUSMINUS]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_MINUSMINUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinusMinus:)];
 }
@@ -1394,7 +1394,7 @@
 
 - (void)__plusEq {
     
-    [self match:TOKEN_KIND_PLUSEQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_PLUSEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlusEq:)];
 }
@@ -1405,7 +1405,7 @@
 
 - (void)__minusEq {
     
-    [self match:TOKEN_KIND_MINUSEQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_MINUSEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinusEq:)];
 }
@@ -1416,7 +1416,7 @@
 
 - (void)__timesEq {
     
-    [self match:TOKEN_KIND_TIMESEQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_TIMESEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTimesEq:)];
 }
@@ -1427,7 +1427,7 @@
 
 - (void)__divEq {
     
-    [self match:TOKEN_KIND_DIVEQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_DIVEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDivEq:)];
 }
@@ -1438,7 +1438,7 @@
 
 - (void)__modEq {
     
-    [self match:TOKEN_KIND_MODEQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_MODEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchModEq:)];
 }
@@ -1449,7 +1449,7 @@
 
 - (void)__shiftLeft {
     
-    [self match:TOKEN_KIND_SHIFTLEFT]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftLeft:)];
 }
@@ -1460,7 +1460,7 @@
 
 - (void)__shiftRight {
     
-    [self match:TOKEN_KIND_SHIFTRIGHT]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRight:)];
 }
@@ -1471,7 +1471,7 @@
 
 - (void)__shiftRightExt {
     
-    [self match:TOKEN_KIND_SHIFTRIGHTEXT]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExt:)];
 }
@@ -1482,7 +1482,7 @@
 
 - (void)__shiftLeftEq {
     
-    [self match:TOKEN_KIND_SHIFTLEFTEQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftLeftEq:)];
 }
@@ -1493,7 +1493,7 @@
 
 - (void)__shiftRightEq {
     
-    [self match:TOKEN_KIND_SHIFTRIGHTEQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightEq:)];
 }
@@ -1504,7 +1504,7 @@
 
 - (void)__shiftRightExtEq {
     
-    [self match:TOKEN_KIND_SHIFTRIGHTEXTEQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExtEq:)];
 }
@@ -1515,7 +1515,7 @@
 
 - (void)__andEq {
     
-    [self match:TOKEN_KIND_ANDEQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_ANDEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndEq:)];
 }
@@ -1526,7 +1526,7 @@
 
 - (void)__xorEq {
     
-    [self match:TOKEN_KIND_XOREQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_XOREQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchXorEq:)];
 }
@@ -1537,7 +1537,7 @@
 
 - (void)__orEq {
     
-    [self match:TOKEN_KIND_OREQ]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_OREQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrEq:)];
 }
@@ -1548,29 +1548,29 @@
 
 - (void)__assignmentOperator {
     
-    if ([self predicts:TOKEN_KIND_EQUALS, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_EQUALS, 0]) {
         [self equals]; 
-    } else if ([self predicts:TOKEN_KIND_PLUSEQ, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_PLUSEQ, 0]) {
         [self plusEq]; 
-    } else if ([self predicts:TOKEN_KIND_MINUSEQ, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MINUSEQ, 0]) {
         [self minusEq]; 
-    } else if ([self predicts:TOKEN_KIND_TIMESEQ, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_TIMESEQ, 0]) {
         [self timesEq]; 
-    } else if ([self predicts:TOKEN_KIND_DIVEQ, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DIVEQ, 0]) {
         [self divEq]; 
-    } else if ([self predicts:TOKEN_KIND_MODEQ, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MODEQ, 0]) {
         [self modEq]; 
-    } else if ([self predicts:TOKEN_KIND_SHIFTLEFTEQ, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ, 0]) {
         [self shiftLeftEq]; 
-    } else if ([self predicts:TOKEN_KIND_SHIFTRIGHTEQ, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ, 0]) {
         [self shiftRightEq]; 
-    } else if ([self predicts:TOKEN_KIND_SHIFTRIGHTEXTEQ, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ, 0]) {
         [self shiftRightExtEq]; 
-    } else if ([self predicts:TOKEN_KIND_ANDEQ, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_ANDEQ, 0]) {
         [self andEq]; 
-    } else if ([self predicts:TOKEN_KIND_XOREQ, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_XOREQ, 0]) {
         [self xorEq]; 
-    } else if ([self predicts:TOKEN_KIND_OREQ, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OREQ, 0]) {
         [self orEq]; 
     } else {
         [self raise:@"no viable alternative found in assignmentOperator"];
@@ -1585,15 +1585,15 @@
 
 - (void)__relationalOperator {
     
-    if ([self predicts:TOKEN_KIND_LT, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_LT, 0]) {
         [self lt]; 
-    } else if ([self predicts:TOKEN_KIND_GT, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_GT, 0]) {
         [self gt]; 
-    } else if ([self predicts:TOKEN_KIND_GE, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_GE, 0]) {
         [self ge]; 
-    } else if ([self predicts:TOKEN_KIND_LE, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_LE, 0]) {
         [self le]; 
-    } else if ([self predicts:TOKEN_KIND_INSTANCEOF, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_INSTANCEOF, 0]) {
         [self instanceof]; 
     } else {
         [self raise:@"no viable alternative found in relationalOperator"];
@@ -1608,13 +1608,13 @@
 
 - (void)__equalityOperator {
     
-    if ([self predicts:TOKEN_KIND_EQ, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_EQ, 0]) {
         [self eq]; 
-    } else if ([self predicts:TOKEN_KIND_NE, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_NE, 0]) {
         [self ne]; 
-    } else if ([self predicts:TOKEN_KIND_IS, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_IS, 0]) {
         [self is]; 
-    } else if ([self predicts:TOKEN_KIND_ISNOT, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_ISNOT, 0]) {
         [self isnot]; 
     } else {
         [self raise:@"no viable alternative found in equalityOperator"];
@@ -1629,11 +1629,11 @@
 
 - (void)__shiftOperator {
     
-    if ([self predicts:TOKEN_KIND_SHIFTLEFT, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTLEFT, 0]) {
         [self shiftLeft]; 
-    } else if ([self predicts:TOKEN_KIND_SHIFTRIGHT, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT, 0]) {
         [self shiftRight]; 
-    } else if ([self predicts:TOKEN_KIND_SHIFTRIGHTEXT, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT, 0]) {
         [self shiftRightExt]; 
     } else {
         [self raise:@"no viable alternative found in shiftOperator"];
@@ -1648,9 +1648,9 @@
 
 - (void)__incrementOperator {
     
-    if ([self predicts:TOKEN_KIND_PLUSPLUS, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_PLUSPLUS, 0]) {
         [self plusPlus]; 
-    } else if ([self predicts:TOKEN_KIND_MINUSMINUS, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MINUSMINUS, 0]) {
         [self minusMinus]; 
     } else {
         [self raise:@"no viable alternative found in incrementOperator"];
@@ -1665,13 +1665,13 @@
 
 - (void)__unaryOperator {
     
-    if ([self predicts:TOKEN_KIND_TILDE, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_TILDE, 0]) {
         [self tilde]; 
-    } else if ([self predicts:TOKEN_KIND_DELETE, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DELETE, 0]) {
         [self delete]; 
-    } else if ([self predicts:TOKEN_KIND_TYPEOF, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_TYPEOF, 0]) {
         [self typeof]; 
-    } else if ([self predicts:TOKEN_KIND_VOID, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_VOID, 0]) {
         [self void]; 
     } else {
         [self raise:@"no viable alternative found in unaryOperator"];
@@ -1686,11 +1686,11 @@
 
 - (void)__multiplicativeOperator {
     
-    if ([self predicts:TOKEN_KIND_TIMES, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_TIMES, 0]) {
         [self times]; 
-    } else if ([self predicts:TOKEN_KIND_DIV, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DIV, 0]) {
         [self div]; 
-    } else if ([self predicts:TOKEN_KIND_MOD, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MOD, 0]) {
         [self mod]; 
     } else {
         [self raise:@"no viable alternative found in multiplicativeOperator"];
@@ -1718,9 +1718,9 @@
 
 - (void)__element {
     
-    if ([self predicts:TOKEN_KIND_FUNCTION, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_FUNCTION, 0]) {
         [self func]; 
-    } else if ([self predicts:TOKEN_KIND_BREAK, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CONTINUE, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_FOR, TOKEN_KIND_IF, TOKEN_KIND_KEYWORDNEW, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NULL, TOKEN_KIND_OPENCURLY, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_RETURN, TOKEN_KIND_SEMI, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VAR, TOKEN_KIND_VOID, TOKEN_KIND_WHILE, TOKEN_KIND_WITH, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_BREAK, JAVASCRIPT_TOKEN_KIND_CONTINUE, JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_FOR, JAVASCRIPT_TOKEN_KIND_IF, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENCURLY, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_RETURN, JAVASCRIPT_TOKEN_KIND_SEMI, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VAR, JAVASCRIPT_TOKEN_KIND_VOID, JAVASCRIPT_TOKEN_KIND_WHILE, JAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self stmt]; 
     } else {
         [self raise:@"no viable alternative found in element"];
@@ -1765,7 +1765,7 @@
 - (void)__paramList {
     
     [self identifier]; 
-    while ([self predicts:TOKEN_KIND_COMMA, 0]) {
+    while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self commaIdentifier]; }]) {
             [self commaIdentifier]; 
         } else {
@@ -1807,7 +1807,7 @@
 
 - (void)__stmts {
     
-    while ([self predicts:TOKEN_KIND_BREAK, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CONTINUE, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_FOR, TOKEN_KIND_IF, TOKEN_KIND_KEYWORDNEW, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NULL, TOKEN_KIND_OPENCURLY, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_RETURN, TOKEN_KIND_SEMI, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VAR, TOKEN_KIND_VOID, TOKEN_KIND_WHILE, TOKEN_KIND_WITH, 0]) {
+    while ([self predicts:JAVASCRIPT_TOKEN_KIND_BREAK, JAVASCRIPT_TOKEN_KIND_CONTINUE, JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_FOR, JAVASCRIPT_TOKEN_KIND_IF, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENCURLY, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_RETURN, JAVASCRIPT_TOKEN_KIND_SEMI, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VAR, JAVASCRIPT_TOKEN_KIND_VOID, JAVASCRIPT_TOKEN_KIND_WHILE, JAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         if ([self speculate:^{ [self stmt]; }]) {
             [self stmt]; 
         } else {
@@ -2054,9 +2054,9 @@
 
 - (void)__variablesOrExpr {
     
-    if ([self predicts:TOKEN_KIND_VAR, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_VAR, 0]) {
         [self varVariables]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_KEYWORDNEW, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NULL, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VOID, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VOID, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self expr]; 
     } else {
         [self raise:@"no viable alternative found in variablesOrExpr"];
@@ -2084,7 +2084,7 @@
 - (void)__variables {
     
     [self variable]; 
-    while ([self predicts:TOKEN_KIND_COMMA, 0]) {
+    while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self commaVariable]; }]) {
             [self commaVariable]; 
         } else {
@@ -2139,7 +2139,7 @@
 
 - (void)__exprOpt {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_DELETE, TOKEN_KIND_FALSELITERAL, TOKEN_KIND_KEYWORDNEW, TOKEN_KIND_MINUS, TOKEN_KIND_MINUSMINUS, TOKEN_KIND_NULL, TOKEN_KIND_OPENPAREN, TOKEN_KIND_PLUSPLUS, TOKEN_KIND_THIS, TOKEN_KIND_TILDE, TOKEN_KIND_TRUELITERAL, TOKEN_KIND_TYPEOF, TOKEN_KIND_UNDEFINED, TOKEN_KIND_VOID, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VOID, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self expr]; 
     }
 
@@ -2233,7 +2233,7 @@
 - (void)__orExpr {
     
     [self andExpr]; 
-    while ([self predicts:TOKEN_KIND_OR, 0]) {
+    while ([self predicts:JAVASCRIPT_TOKEN_KIND_OR, 0]) {
         if ([self speculate:^{ [self orAndExpr]; }]) {
             [self orAndExpr]; 
         } else {
@@ -2393,7 +2393,7 @@
 - (void)__relationalExpr {
     
     [self shiftExpr]; 
-    while ([self predicts:TOKEN_KIND_GE, TOKEN_KIND_GT, TOKEN_KIND_INSTANCEOF, TOKEN_KIND_LE, TOKEN_KIND_LT, 0]) {
+    while ([self predicts:JAVASCRIPT_TOKEN_KIND_GE, JAVASCRIPT_TOKEN_KIND_GT, JAVASCRIPT_TOKEN_KIND_INSTANCEOF, JAVASCRIPT_TOKEN_KIND_LE, JAVASCRIPT_TOKEN_KIND_LT, 0]) {
         if ([self speculate:^{ [self relationalOperator]; [self shiftExpr]; }]) {
             [self relationalOperator]; 
             [self shiftExpr]; 
@@ -2451,9 +2451,9 @@
 
 - (void)__plusOrMinusExpr {
     
-    if ([self predicts:TOKEN_KIND_PLUS, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_PLUS, 0]) {
         [self plusExpr]; 
-    } else if ([self predicts:TOKEN_KIND_MINUS, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MINUS, 0]) {
         [self minusExpr]; 
     } else {
         [self raise:@"no viable alternative found in plusOrMinusExpr"];
@@ -2620,10 +2620,10 @@
 - (void)__constructorCall {
     
     [self identifier]; 
-    if ([self speculate:^{ if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"no viable alternative found in constructorCall"];}}]) {
-        if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {
+    if ([self speculate:^{ if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"no viable alternative found in constructorCall"];}}]) {
+        if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
             [self parenArgListParen]; 
-        } else if ([self predicts:TOKEN_KIND_DOT, 0]) {
+        } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {
             [self dot]; 
             [self constructorCall]; 
         } else {
@@ -2667,11 +2667,11 @@
 
 - (void)__dotBracketOrParenExpr {
     
-    if ([self predicts:TOKEN_KIND_DOT, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {
         [self dotMemberExpr]; 
-    } else if ([self predicts:TOKEN_KIND_OPENBRACKET, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENBRACKET, 0]) {
         [self bracketMemberExpr]; 
-    } else if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
         [self parenMemberExpr]; 
     } else {
         [self raise:@"no viable alternative found in dotBracketOrParenExpr"];
@@ -2738,7 +2738,7 @@
 - (void)__argList {
     
     [self assignmentExpr]; 
-    while ([self predicts:TOKEN_KIND_COMMA, 0]) {
+    while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self commaAssignmentExpr]; }]) {
             [self commaAssignmentExpr]; 
         } else {
@@ -2767,9 +2767,9 @@
 
 - (void)__primaryExpr {
     
-    if ([self predicts:TOKEN_KIND_KEYWORDNEW, 0]) {
+    if ([self predicts:JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, 0]) {
         [self callNewExpr]; 
-    } else if ([self predicts:TOKEN_KIND_OPENPAREN, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
         [self parenExprParen]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self identifier]; 
@@ -2777,15 +2777,15 @@
         [self Number]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self QuotedString]; 
-    } else if ([self predicts:TOKEN_KIND_FALSELITERAL, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_FALSELITERAL, 0]) {
         [self falseLiteral]; 
-    } else if ([self predicts:TOKEN_KIND_TRUELITERAL, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_TRUELITERAL, 0]) {
         [self trueLiteral]; 
-    } else if ([self predicts:TOKEN_KIND_NULL, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_NULL, 0]) {
         [self null]; 
-    } else if ([self predicts:TOKEN_KIND_UNDEFINED, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_UNDEFINED, 0]) {
         [self undefined]; 
-    } else if ([self predicts:TOKEN_KIND_THIS, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_THIS, 0]) {
         [self this]; 
     } else {
         [self raise:@"no viable alternative found in primaryExpr"];

@@ -88,43 +88,43 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"Symbol"] = @(TOKEN_KIND_SYMBOL_TITLE);
-        self._tokenKindTab[@"{,}?"] = @(TOKEN_KIND_SEMANTICPREDICATE);
-        self._tokenKindTab[@"|"] = @(TOKEN_KIND_PIPE);
-        self._tokenKindTab[@"after"] = @(TOKEN_KIND_AFTERKEY);
-        self._tokenKindTab[@"}"] = @(TOKEN_KIND_CLOSE_CURLY);
-        self._tokenKindTab[@"~"] = @(TOKEN_KIND_TILDE);
-        self._tokenKindTab[@"start"] = @(TOKEN_KIND_START);
-        self._tokenKindTab[@"Comment"] = @(TOKEN_KIND_COMMENT_TITLE);
-        self._tokenKindTab[@"!"] = @(TOKEN_KIND_DISCARD);
-        self._tokenKindTab[@"Number"] = @(TOKEN_KIND_NUMBER_TITLE);
-        self._tokenKindTab[@"Any"] = @(TOKEN_KIND_ANY_TITLE);
-        self._tokenKindTab[@";"] = @(TOKEN_KIND_SEMI_COLON);
-        self._tokenKindTab[@"S"] = @(TOKEN_KIND_S_TITLE);
-        self._tokenKindTab[@"{,}"] = @(TOKEN_KIND_ACTION);
-        self._tokenKindTab[@"="] = @(TOKEN_KIND_EQUALS);
-        self._tokenKindTab[@"&"] = @(TOKEN_KIND_AMPERSAND);
-        self._tokenKindTab[@"/,/"] = @(TOKEN_KIND_PATTERNNOOPTS);
-        self._tokenKindTab[@"?"] = @(TOKEN_KIND_PHRASEQUESTION);
-        self._tokenKindTab[@"QuotedString"] = @(TOKEN_KIND_QUOTEDSTRING_TITLE);
-        self._tokenKindTab[@"("] = @(TOKEN_KIND_OPEN_PAREN);
-        self._tokenKindTab[@"@"] = @(TOKEN_KIND_AT);
-        self._tokenKindTab[@"/,/i"] = @(TOKEN_KIND_PATTERNIGNORECASE);
-        self._tokenKindTab[@"before"] = @(TOKEN_KIND_BEFOREKEY);
-        self._tokenKindTab[@")"] = @(TOKEN_KIND_CLOSE_PAREN);
-        self._tokenKindTab[@"Letter"] = @(TOKEN_KIND_LETTER_TITLE);
-        self._tokenKindTab[@"*"] = @(TOKEN_KIND_PHRASESTAR);
-        self._tokenKindTab[@"Empty"] = @(TOKEN_KIND_EMPTY_TITLE);
-        self._tokenKindTab[@"+"] = @(TOKEN_KIND_PHRASEPLUS);
-        self._tokenKindTab[@"["] = @(TOKEN_KIND_OPEN_BRACKET);
-        self._tokenKindTab[@","] = @(TOKEN_KIND_COMMA);
-        self._tokenKindTab[@"SpecificChar"] = @(TOKEN_KIND_SPECIFICCHAR_TITLE);
-        self._tokenKindTab[@"-"] = @(TOKEN_KIND_MINUS);
-        self._tokenKindTab[@"Word"] = @(TOKEN_KIND_WORD_TITLE);
-        self._tokenKindTab[@"]"] = @(TOKEN_KIND_CLOSE_BRACKET);
-        self._tokenKindTab[@"Char"] = @(TOKEN_KIND_CHAR_TITLE);
-        self._tokenKindTab[@"Digit"] = @(TOKEN_KIND_DIGIT_TITLE);
-        self._tokenKindTab[@"%{"] = @(TOKEN_KIND_DELIMOPEN);
+        self._tokenKindTab[@"Symbol"] = @(PARSEKIT_TOKEN_KIND_SYMBOL_TITLE);
+        self._tokenKindTab[@"{,}?"] = @(PARSEKIT_TOKEN_KIND_SEMANTICPREDICATE);
+        self._tokenKindTab[@"|"] = @(PARSEKIT_TOKEN_KIND_PIPE);
+        self._tokenKindTab[@"after"] = @(PARSEKIT_TOKEN_KIND_AFTERKEY);
+        self._tokenKindTab[@"}"] = @(PARSEKIT_TOKEN_KIND_CLOSE_CURLY);
+        self._tokenKindTab[@"~"] = @(PARSEKIT_TOKEN_KIND_TILDE);
+        self._tokenKindTab[@"start"] = @(PARSEKIT_TOKEN_KIND_START);
+        self._tokenKindTab[@"Comment"] = @(PARSEKIT_TOKEN_KIND_COMMENT_TITLE);
+        self._tokenKindTab[@"!"] = @(PARSEKIT_TOKEN_KIND_DISCARD);
+        self._tokenKindTab[@"Number"] = @(PARSEKIT_TOKEN_KIND_NUMBER_TITLE);
+        self._tokenKindTab[@"Any"] = @(PARSEKIT_TOKEN_KIND_ANY_TITLE);
+        self._tokenKindTab[@";"] = @(PARSEKIT_TOKEN_KIND_SEMI_COLON);
+        self._tokenKindTab[@"S"] = @(PARSEKIT_TOKEN_KIND_S_TITLE);
+        self._tokenKindTab[@"{,}"] = @(PARSEKIT_TOKEN_KIND_ACTION);
+        self._tokenKindTab[@"="] = @(PARSEKIT_TOKEN_KIND_EQUALS);
+        self._tokenKindTab[@"&"] = @(PARSEKIT_TOKEN_KIND_AMPERSAND);
+        self._tokenKindTab[@"/,/"] = @(PARSEKIT_TOKEN_KIND_PATTERNNOOPTS);
+        self._tokenKindTab[@"?"] = @(PARSEKIT_TOKEN_KIND_PHRASEQUESTION);
+        self._tokenKindTab[@"QuotedString"] = @(PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE);
+        self._tokenKindTab[@"("] = @(PARSEKIT_TOKEN_KIND_OPEN_PAREN);
+        self._tokenKindTab[@"@"] = @(PARSEKIT_TOKEN_KIND_AT);
+        self._tokenKindTab[@"/,/i"] = @(PARSEKIT_TOKEN_KIND_PATTERNIGNORECASE);
+        self._tokenKindTab[@"before"] = @(PARSEKIT_TOKEN_KIND_BEFOREKEY);
+        self._tokenKindTab[@")"] = @(PARSEKIT_TOKEN_KIND_CLOSE_PAREN);
+        self._tokenKindTab[@"Letter"] = @(PARSEKIT_TOKEN_KIND_LETTER_TITLE);
+        self._tokenKindTab[@"*"] = @(PARSEKIT_TOKEN_KIND_PHRASESTAR);
+        self._tokenKindTab[@"Empty"] = @(PARSEKIT_TOKEN_KIND_EMPTY_TITLE);
+        self._tokenKindTab[@"+"] = @(PARSEKIT_TOKEN_KIND_PHRASEPLUS);
+        self._tokenKindTab[@"["] = @(PARSEKIT_TOKEN_KIND_OPEN_BRACKET);
+        self._tokenKindTab[@","] = @(PARSEKIT_TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"SpecificChar"] = @(PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE);
+        self._tokenKindTab[@"-"] = @(PARSEKIT_TOKEN_KIND_MINUS);
+        self._tokenKindTab[@"Word"] = @(PARSEKIT_TOKEN_KIND_WORD_TITLE);
+        self._tokenKindTab[@"]"] = @(PARSEKIT_TOKEN_KIND_CLOSE_BRACKET);
+        self._tokenKindTab[@"Char"] = @(PARSEKIT_TOKEN_KIND_CHAR_TITLE);
+        self._tokenKindTab[@"Digit"] = @(PARSEKIT_TOKEN_KIND_DIGIT_TITLE);
+        self._tokenKindTab[@"%{"] = @(PARSEKIT_TOKEN_KIND_DELIMOPEN);
 
         self.statement_memo = [NSMutableDictionary dictionary];
         self.tokenizerDirective_memo = [NSMutableDictionary dictionary];
@@ -283,9 +283,9 @@
 
 - (void)__tokenizerDirective {
     
-    [self match:TOKEN_KIND_AT]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_AT]; [self discard:1];
     [self Word]; 
-    [self match:TOKEN_KIND_EQUALS]; 
+    [self match:PARSEKIT_TOKEN_KIND_EQUALS]; 
     do {
         if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
             [self Word]; 
@@ -295,7 +295,7 @@
             [self raise:@"no viable alternative found in tokenizerDirective"];
         }
     } while ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]);
-    [self match:TOKEN_KIND_SEMI_COLON]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_SEMI_COLON]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTokenizerDirective:)];
 }
@@ -307,19 +307,19 @@
 - (void)__decl {
     
     [self production]; 
-    while ([self predicts:TOKEN_KIND_AT, 0]) {
+    while ([self predicts:PARSEKIT_TOKEN_KIND_AT, 0]) {
         if ([self speculate:^{ [self namedAction]; }]) {
             [self namedAction]; 
         } else {
             break;
         }
     }
-    [self match:TOKEN_KIND_EQUALS]; 
-    if ([self predicts:TOKEN_KIND_ACTION, 0]) {
+    [self match:PARSEKIT_TOKEN_KIND_EQUALS]; 
+    if ([self predicts:PARSEKIT_TOKEN_KIND_ACTION, 0]) {
         [self action]; 
     }
     [self expr]; 
-    [self match:TOKEN_KIND_SEMI_COLON]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_SEMI_COLON]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDecl:)];
 }
@@ -330,7 +330,7 @@
 
 - (void)__production {
     
-    if ([self predicts:TOKEN_KIND_AT, 0]) {
+    if ([self predicts:PARSEKIT_TOKEN_KIND_AT, 0]) {
         [self startProduction]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self varProduction]; 
@@ -347,8 +347,8 @@
 
 - (void)__startProduction {
     
-    [self match:TOKEN_KIND_AT]; [self discard:1];
-    [self match:TOKEN_KIND_START]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_AT]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_START]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchStartProduction:)];
 }
@@ -359,10 +359,10 @@
 
 - (void)__namedAction {
     
-    [self match:TOKEN_KIND_AT]; [self discard:1];
-    if ([self predicts:TOKEN_KIND_BEFOREKEY, 0]) {
+    [self match:PARSEKIT_TOKEN_KIND_AT]; [self discard:1];
+    if ([self predicts:PARSEKIT_TOKEN_KIND_BEFOREKEY, 0]) {
         [self beforeKey]; 
-    } else if ([self predicts:TOKEN_KIND_AFTERKEY, 0]) {
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_AFTERKEY, 0]) {
         [self afterKey]; 
     } else {
         [self raise:@"no viable alternative found in namedAction"];
@@ -378,7 +378,7 @@
 
 - (void)__beforeKey {
     
-    [self match:TOKEN_KIND_BEFOREKEY]; 
+    [self match:PARSEKIT_TOKEN_KIND_BEFOREKEY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBeforeKey:)];
 }
@@ -389,7 +389,7 @@
 
 - (void)__afterKey {
     
-    [self match:TOKEN_KIND_AFTERKEY]; 
+    [self match:PARSEKIT_TOKEN_KIND_AFTERKEY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAfterKey:)];
 }
@@ -412,7 +412,7 @@
 - (void)__expr {
     
     [self term]; 
-    while ([self predicts:TOKEN_KIND_PIPE, 0]) {
+    while ([self predicts:PARSEKIT_TOKEN_KIND_PIPE, 0]) {
         if ([self speculate:^{ [self orTerm]; }]) {
             [self orTerm]; 
         } else {
@@ -429,11 +429,11 @@
 
 - (void)__term {
     
-    if ([self predicts:TOKEN_KIND_SEMANTICPREDICATE, 0]) {
+    if ([self predicts:PARSEKIT_TOKEN_KIND_SEMANTICPREDICATE, 0]) {
         [self semanticPredicate]; 
     }
     [self factor]; 
-    while ([self predicts:TOKEN_KIND_ANY_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CHAR_TITLE, TOKEN_KIND_COMMENT_TITLE, TOKEN_KIND_DELIMOPEN, TOKEN_KIND_DIGIT_TITLE, TOKEN_KIND_EMPTY_TITLE, TOKEN_KIND_LETTER_TITLE, TOKEN_KIND_NUMBER_TITLE, TOKEN_KIND_OPEN_BRACKET, TOKEN_KIND_OPEN_PAREN, TOKEN_KIND_PATTERNIGNORECASE, TOKEN_KIND_PATTERNNOOPTS, TOKEN_KIND_QUOTEDSTRING_TITLE, TOKEN_KIND_SPECIFICCHAR_TITLE, TOKEN_KIND_SYMBOL_TITLE, TOKEN_KIND_S_TITLE, TOKEN_KIND_TILDE, TOKEN_KIND_WORD_TITLE, 0]) {
+    while ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, PARSEKIT_TOKEN_KIND_CHAR_TITLE, PARSEKIT_TOKEN_KIND_COMMENT_TITLE, PARSEKIT_TOKEN_KIND_DELIMOPEN, PARSEKIT_TOKEN_KIND_DIGIT_TITLE, PARSEKIT_TOKEN_KIND_EMPTY_TITLE, PARSEKIT_TOKEN_KIND_LETTER_TITLE, PARSEKIT_TOKEN_KIND_NUMBER_TITLE, PARSEKIT_TOKEN_KIND_OPEN_BRACKET, PARSEKIT_TOKEN_KIND_OPEN_PAREN, PARSEKIT_TOKEN_KIND_PATTERNIGNORECASE, PARSEKIT_TOKEN_KIND_PATTERNNOOPTS, PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, PARSEKIT_TOKEN_KIND_S_TITLE, PARSEKIT_TOKEN_KIND_TILDE, PARSEKIT_TOKEN_KIND_WORD_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         if ([self speculate:^{ [self nextFactor]; }]) {
             [self nextFactor]; 
         } else {
@@ -450,7 +450,7 @@
 
 - (void)__orTerm {
     
-    [self match:TOKEN_KIND_PIPE]; 
+    [self match:PARSEKIT_TOKEN_KIND_PIPE]; 
     [self term]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
@@ -463,18 +463,18 @@
 - (void)__factor {
     
     [self phrase]; 
-    if ([self predicts:TOKEN_KIND_PHRASEPLUS, TOKEN_KIND_PHRASEQUESTION, TOKEN_KIND_PHRASESTAR, 0]) {
-        if ([self predicts:TOKEN_KIND_PHRASESTAR, 0]) {
+    if ([self predicts:PARSEKIT_TOKEN_KIND_PHRASEPLUS, PARSEKIT_TOKEN_KIND_PHRASEQUESTION, PARSEKIT_TOKEN_KIND_PHRASESTAR, 0]) {
+        if ([self predicts:PARSEKIT_TOKEN_KIND_PHRASESTAR, 0]) {
             [self phraseStar]; 
-        } else if ([self predicts:TOKEN_KIND_PHRASEPLUS, 0]) {
+        } else if ([self predicts:PARSEKIT_TOKEN_KIND_PHRASEPLUS, 0]) {
             [self phrasePlus]; 
-        } else if ([self predicts:TOKEN_KIND_PHRASEQUESTION, 0]) {
+        } else if ([self predicts:PARSEKIT_TOKEN_KIND_PHRASEQUESTION, 0]) {
             [self phraseQuestion]; 
         } else {
             [self raise:@"no viable alternative found in factor"];
         }
     }
-    if ([self predicts:TOKEN_KIND_ACTION, 0]) {
+    if ([self predicts:PARSEKIT_TOKEN_KIND_ACTION, 0]) {
         [self action]; 
     }
 
@@ -499,7 +499,7 @@
 - (void)__phrase {
     
     [self primaryExpr]; 
-    while ([self predicts:TOKEN_KIND_AMPERSAND, TOKEN_KIND_MINUS, 0]) {
+    while ([self predicts:PARSEKIT_TOKEN_KIND_AMPERSAND, PARSEKIT_TOKEN_KIND_MINUS, 0]) {
         if ([self speculate:^{ [self predicate]; }]) {
             [self predicate]; 
         } else {
@@ -516,7 +516,7 @@
 
 - (void)__phraseStar {
     
-    [self match:TOKEN_KIND_PHRASESTAR]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_PHRASESTAR]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPhraseStar:)];
 }
@@ -527,7 +527,7 @@
 
 - (void)__phrasePlus {
     
-    [self match:TOKEN_KIND_PHRASEPLUS]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_PHRASEPLUS]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPhrasePlus:)];
 }
@@ -538,7 +538,7 @@
 
 - (void)__phraseQuestion {
     
-    [self match:TOKEN_KIND_PHRASEQUESTION]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_PHRASEQUESTION]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPhraseQuestion:)];
 }
@@ -549,7 +549,7 @@
 
 - (void)__action {
     
-    [self match:TOKEN_KIND_ACTION]; 
+    [self match:PARSEKIT_TOKEN_KIND_ACTION]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAction:)];
 }
@@ -560,7 +560,7 @@
 
 - (void)__semanticPredicate {
     
-    [self match:TOKEN_KIND_SEMANTICPREDICATE]; 
+    [self match:PARSEKIT_TOKEN_KIND_SEMANTICPREDICATE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemanticPredicate:)];
 }
@@ -571,9 +571,9 @@
 
 - (void)__predicate {
     
-    if ([self predicts:TOKEN_KIND_AMPERSAND, 0]) {
+    if ([self predicts:PARSEKIT_TOKEN_KIND_AMPERSAND, 0]) {
         [self intersection]; 
-    } else if ([self predicts:TOKEN_KIND_MINUS, 0]) {
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_MINUS, 0]) {
         [self difference]; 
     } else {
         [self raise:@"no viable alternative found in predicate"];
@@ -588,7 +588,7 @@
 
 - (void)__intersection {
     
-    [self match:TOKEN_KIND_AMPERSAND]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_AMPERSAND]; [self discard:1];
     [self primaryExpr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIntersection:)];
@@ -600,7 +600,7 @@
 
 - (void)__difference {
     
-    [self match:TOKEN_KIND_MINUS]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_MINUS]; [self discard:1];
     [self primaryExpr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDifference:)];
@@ -612,9 +612,9 @@
 
 - (void)__primaryExpr {
     
-    if ([self predicts:TOKEN_KIND_TILDE, 0]) {
+    if ([self predicts:PARSEKIT_TOKEN_KIND_TILDE, 0]) {
         [self negatedPrimaryExpr]; 
-    } else if ([self predicts:TOKEN_KIND_ANY_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CHAR_TITLE, TOKEN_KIND_COMMENT_TITLE, TOKEN_KIND_DELIMOPEN, TOKEN_KIND_DIGIT_TITLE, TOKEN_KIND_EMPTY_TITLE, TOKEN_KIND_LETTER_TITLE, TOKEN_KIND_NUMBER_TITLE, TOKEN_KIND_OPEN_BRACKET, TOKEN_KIND_OPEN_PAREN, TOKEN_KIND_PATTERNIGNORECASE, TOKEN_KIND_PATTERNNOOPTS, TOKEN_KIND_QUOTEDSTRING_TITLE, TOKEN_KIND_SPECIFICCHAR_TITLE, TOKEN_KIND_SYMBOL_TITLE, TOKEN_KIND_S_TITLE, TOKEN_KIND_WORD_TITLE, 0]) {
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, PARSEKIT_TOKEN_KIND_CHAR_TITLE, PARSEKIT_TOKEN_KIND_COMMENT_TITLE, PARSEKIT_TOKEN_KIND_DELIMOPEN, PARSEKIT_TOKEN_KIND_DIGIT_TITLE, PARSEKIT_TOKEN_KIND_EMPTY_TITLE, PARSEKIT_TOKEN_KIND_LETTER_TITLE, PARSEKIT_TOKEN_KIND_NUMBER_TITLE, PARSEKIT_TOKEN_KIND_OPEN_BRACKET, PARSEKIT_TOKEN_KIND_OPEN_PAREN, PARSEKIT_TOKEN_KIND_PATTERNIGNORECASE, PARSEKIT_TOKEN_KIND_PATTERNNOOPTS, PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, PARSEKIT_TOKEN_KIND_S_TITLE, PARSEKIT_TOKEN_KIND_WORD_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self barePrimaryExpr]; 
     } else {
         [self raise:@"no viable alternative found in primaryExpr"];
@@ -629,7 +629,7 @@
 
 - (void)__negatedPrimaryExpr {
     
-    [self match:TOKEN_KIND_TILDE]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_TILDE]; [self discard:1];
     [self barePrimaryExpr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNegatedPrimaryExpr:)];
@@ -641,11 +641,11 @@
 
 - (void)__barePrimaryExpr {
     
-    if ([self predicts:TOKEN_KIND_ANY_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TOKEN_KIND_CHAR_TITLE, TOKEN_KIND_COMMENT_TITLE, TOKEN_KIND_DELIMOPEN, TOKEN_KIND_DIGIT_TITLE, TOKEN_KIND_EMPTY_TITLE, TOKEN_KIND_LETTER_TITLE, TOKEN_KIND_NUMBER_TITLE, TOKEN_KIND_PATTERNIGNORECASE, TOKEN_KIND_PATTERNNOOPTS, TOKEN_KIND_QUOTEDSTRING_TITLE, TOKEN_KIND_SPECIFICCHAR_TITLE, TOKEN_KIND_SYMBOL_TITLE, TOKEN_KIND_S_TITLE, TOKEN_KIND_WORD_TITLE, 0]) {
+    if ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, PARSEKIT_TOKEN_KIND_CHAR_TITLE, PARSEKIT_TOKEN_KIND_COMMENT_TITLE, PARSEKIT_TOKEN_KIND_DELIMOPEN, PARSEKIT_TOKEN_KIND_DIGIT_TITLE, PARSEKIT_TOKEN_KIND_EMPTY_TITLE, PARSEKIT_TOKEN_KIND_LETTER_TITLE, PARSEKIT_TOKEN_KIND_NUMBER_TITLE, PARSEKIT_TOKEN_KIND_PATTERNIGNORECASE, PARSEKIT_TOKEN_KIND_PATTERNNOOPTS, PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, PARSEKIT_TOKEN_KIND_S_TITLE, PARSEKIT_TOKEN_KIND_WORD_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self atomicValue]; 
-    } else if ([self predicts:TOKEN_KIND_OPEN_PAREN, 0]) {
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_OPEN_PAREN, 0]) {
         [self subSeqExpr]; 
-    } else if ([self predicts:TOKEN_KIND_OPEN_BRACKET, 0]) {
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_OPEN_BRACKET, 0]) {
         [self subTrackExpr]; 
     } else {
         [self raise:@"no viable alternative found in barePrimaryExpr"];
@@ -660,9 +660,9 @@
 
 - (void)__subSeqExpr {
     
-    [self match:TOKEN_KIND_OPEN_PAREN]; 
+    [self match:PARSEKIT_TOKEN_KIND_OPEN_PAREN]; 
     [self expr]; 
-    [self match:TOKEN_KIND_CLOSE_PAREN]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_CLOSE_PAREN]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSubSeqExpr:)];
 }
@@ -673,9 +673,9 @@
 
 - (void)__subTrackExpr {
     
-    [self match:TOKEN_KIND_OPEN_BRACKET]; 
+    [self match:PARSEKIT_TOKEN_KIND_OPEN_BRACKET]; 
     [self expr]; 
-    [self match:TOKEN_KIND_CLOSE_BRACKET]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_CLOSE_BRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSubTrackExpr:)];
 }
@@ -687,7 +687,7 @@
 - (void)__atomicValue {
     
     [self parser]; 
-    if ([self predicts:TOKEN_KIND_DISCARD, 0]) {
+    if ([self predicts:PARSEKIT_TOKEN_KIND_DISCARD, 0]) {
         [self discard]; 
     }
 
@@ -704,11 +704,11 @@
         [self variable]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self literal]; 
-    } else if ([self predicts:TOKEN_KIND_PATTERNIGNORECASE, TOKEN_KIND_PATTERNNOOPTS, 0]) {
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_PATTERNIGNORECASE, PARSEKIT_TOKEN_KIND_PATTERNNOOPTS, 0]) {
         [self pattern]; 
-    } else if ([self predicts:TOKEN_KIND_DELIMOPEN, 0]) {
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_DELIMOPEN, 0]) {
         [self delimitedString]; 
-    } else if ([self predicts:TOKEN_KIND_ANY_TITLE, TOKEN_KIND_CHAR_TITLE, TOKEN_KIND_COMMENT_TITLE, TOKEN_KIND_DIGIT_TITLE, TOKEN_KIND_EMPTY_TITLE, TOKEN_KIND_LETTER_TITLE, TOKEN_KIND_NUMBER_TITLE, TOKEN_KIND_QUOTEDSTRING_TITLE, TOKEN_KIND_SPECIFICCHAR_TITLE, TOKEN_KIND_SYMBOL_TITLE, TOKEN_KIND_S_TITLE, TOKEN_KIND_WORD_TITLE, 0]) {
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, PARSEKIT_TOKEN_KIND_CHAR_TITLE, PARSEKIT_TOKEN_KIND_COMMENT_TITLE, PARSEKIT_TOKEN_KIND_DIGIT_TITLE, PARSEKIT_TOKEN_KIND_EMPTY_TITLE, PARSEKIT_TOKEN_KIND_LETTER_TITLE, PARSEKIT_TOKEN_KIND_NUMBER_TITLE, PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, PARSEKIT_TOKEN_KIND_S_TITLE, PARSEKIT_TOKEN_KIND_WORD_TITLE, 0]) {
         [self constant]; 
     } else {
         [self raise:@"no viable alternative found in parser"];
@@ -723,7 +723,7 @@
 
 - (void)__discard {
     
-    [self match:TOKEN_KIND_DISCARD]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_DISCARD]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDiscard:)];
 }
@@ -734,9 +734,9 @@
 
 - (void)__pattern {
     
-    if ([self predicts:TOKEN_KIND_PATTERNNOOPTS, 0]) {
+    if ([self predicts:PARSEKIT_TOKEN_KIND_PATTERNNOOPTS, 0]) {
         [self patternNoOpts]; 
-    } else if ([self predicts:TOKEN_KIND_PATTERNIGNORECASE, 0]) {
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_PATTERNIGNORECASE, 0]) {
         [self patternIgnoreCase]; 
     } else {
         [self raise:@"no viable alternative found in pattern"];
@@ -751,7 +751,7 @@
 
 - (void)__patternNoOpts {
     
-    [self match:TOKEN_KIND_PATTERNNOOPTS]; 
+    [self match:PARSEKIT_TOKEN_KIND_PATTERNNOOPTS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPatternNoOpts:)];
 }
@@ -762,7 +762,7 @@
 
 - (void)__patternIgnoreCase {
     
-    [self match:TOKEN_KIND_PATTERNIGNORECASE]; 
+    [self match:PARSEKIT_TOKEN_KIND_PATTERNIGNORECASE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPatternIgnoreCase:)];
 }
@@ -775,11 +775,11 @@
     
     [self delimOpen]; 
     [self QuotedString]; 
-    if ([self speculate:^{ [self match:TOKEN_KIND_COMMA]; [self discard:1];[self QuotedString]; }]) {
-        [self match:TOKEN_KIND_COMMA]; [self discard:1];
+    if ([self speculate:^{ [self match:PARSEKIT_TOKEN_KIND_COMMA]; [self discard:1];[self QuotedString]; }]) {
+        [self match:PARSEKIT_TOKEN_KIND_COMMA]; [self discard:1];
         [self QuotedString]; 
     }
-    [self match:TOKEN_KIND_CLOSE_CURLY]; [self discard:1];
+    [self match:PARSEKIT_TOKEN_KIND_CLOSE_CURLY]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDelimitedString:)];
 }
@@ -801,30 +801,30 @@
 
 - (void)__constant {
     
-    if ([self predicts:TOKEN_KIND_WORD_TITLE, 0]) {
-        [self match:TOKEN_KIND_WORD_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_NUMBER_TITLE, 0]) {
-        [self match:TOKEN_KIND_NUMBER_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_QUOTEDSTRING_TITLE, 0]) {
-        [self match:TOKEN_KIND_QUOTEDSTRING_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_SYMBOL_TITLE, 0]) {
-        [self match:TOKEN_KIND_SYMBOL_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_COMMENT_TITLE, 0]) {
-        [self match:TOKEN_KIND_COMMENT_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_EMPTY_TITLE, 0]) {
-        [self match:TOKEN_KIND_EMPTY_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_ANY_TITLE, 0]) {
-        [self match:TOKEN_KIND_ANY_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_S_TITLE, 0]) {
-        [self match:TOKEN_KIND_S_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_DIGIT_TITLE, 0]) {
-        [self match:TOKEN_KIND_DIGIT_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_LETTER_TITLE, 0]) {
-        [self match:TOKEN_KIND_LETTER_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_CHAR_TITLE, 0]) {
-        [self match:TOKEN_KIND_CHAR_TITLE]; 
-    } else if ([self predicts:TOKEN_KIND_SPECIFICCHAR_TITLE, 0]) {
-        [self match:TOKEN_KIND_SPECIFICCHAR_TITLE]; 
+    if ([self predicts:PARSEKIT_TOKEN_KIND_WORD_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_WORD_TITLE]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_NUMBER_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_NUMBER_TITLE]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_SYMBOL_TITLE]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_COMMENT_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_COMMENT_TITLE]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_EMPTY_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_EMPTY_TITLE]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_ANY_TITLE]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_S_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_S_TITLE]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_DIGIT_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_DIGIT_TITLE]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_LETTER_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_LETTER_TITLE]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_CHAR_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_CHAR_TITLE]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, 0]) {
+        [self match:PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE]; 
     } else {
         [self raise:@"no viable alternative found in constant"];
     }
@@ -849,7 +849,7 @@
 
 - (void)__delimOpen {
     
-    [self match:TOKEN_KIND_DELIMOPEN]; 
+    [self match:PARSEKIT_TOKEN_KIND_DELIMOPEN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDelimOpen:)];
 }

@@ -1,9 +1,9 @@
 #import <ParseKit/PKSParser.h>
 
 enum {
-    TOKEN_KIND_EQUALS = 14,
-    TOKEN_KIND_RETURN,
-    TOKEN_KIND_COLON,
+    LABELRECURSIVE_TOKEN_KIND_EQUALS = 14,
+    LABELRECURSIVE_TOKEN_KIND_RETURN,
+    LABELRECURSIVE_TOKEN_KIND_COLON,
 };
 
 @interface LabelRecursiveParser : PKSParser

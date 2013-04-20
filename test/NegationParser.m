@@ -51,7 +51,7 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"foo"] = @(TOKEN_KIND_FOO);
+        self._tokenKindTab[@"foo"] = @(NEGATION_TOKEN_KIND_FOO);
 
         self.s_memo = [NSMutableDictionary dictionary];
         self.foo_memo = [NSMutableDictionary dictionary];
@@ -80,7 +80,7 @@
 
 - (void)__s {
     
-    if (![self predicts:TOKEN_KIND_FOO, 0]) {
+    if (![self predicts:NEGATION_TOKEN_KIND_FOO, 0]) {
         [self match:TOKEN_KIND_BUILTIN_ANY];
     } else {
         [self raise:@"negation test failed in s"];
@@ -95,7 +95,7 @@
 
 - (void)__foo {
     
-    [self match:TOKEN_KIND_FOO]; 
+    [self match:NEGATION_TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }

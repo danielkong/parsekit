@@ -1,8 +1,8 @@
 #import <ParseKit/PKSParser.h>
 
 enum {
-    TOKEN_KIND_A = 14,
-    TOKEN_KIND_B,
+    NAMEDACTION_TOKEN_KIND_A = 14,
+    NAMEDACTION_TOKEN_KIND_B,
 };
 
 @interface NamedActionParser : PKSParser

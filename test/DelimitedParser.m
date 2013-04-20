@@ -50,7 +50,7 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"<,>"] = @(TOKEN_KIND_S);
+        self._tokenKindTab[@"<,>"] = @(DELIMITED_TOKEN_KIND_S);
 
         self.s_memo = [NSMutableDictionary dictionary];
     }
@@ -84,7 +84,7 @@
 
 - (void)__s {
     
-    [self match:TOKEN_KIND_S]; 
+    [self match:DELIMITED_TOKEN_KIND_S]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }

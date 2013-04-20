@@ -1,9 +1,9 @@
 #import <ParseKit/PKSParser.h>
 
 enum {
-    TOKEN_KIND_PLUS = 14,
-    TOKEN_KIND_STAR,
-    TOKEN_KIND_CARET,
+    MINIMATH_TOKEN_KIND_PLUS = 14,
+    MINIMATH_TOKEN_KIND_STAR,
+    MINIMATH_TOKEN_KIND_CARET,
 };
 
 @interface MiniMathParser : PKSParser
