@@ -236,6 +236,10 @@
         
     PKTokenizer *t = self.tokenizer;
 
+    // whitespace
+//    t.whitespaceState.reportsWhitespaceTokens = YES;
+//    self.assembly.preservesWhitespaceTokens = YES;
+
     // symbols
     [t.symbolState add:@"/*"];
     [t.symbolState add:@"*/"];
@@ -262,7 +266,8 @@
     [t.commentState setFallbackState:t.symbolState from:'/' to:'/'];
     [t.commentState addSingleLineStartMarker:@"//"];
     [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
-	
+    t.commentState.reportsCommentTokens = YES;
+
 	// urls
     [t setTokenizerState:t.delimitState from:'u' to:'u'];
     [t setTokenizerState:t.delimitState from:'U' to:'U'];

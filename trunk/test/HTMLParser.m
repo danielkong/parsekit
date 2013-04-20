@@ -184,6 +184,10 @@
         
     PKTokenizer *t = self.tokenizer;
 
+    // whitespace
+//    t.whitespaceState.reportsWhitespaceTokens = YES;
+//    self.assembly.preservesWhitespaceTokens = YES;
+
     // symbols
     [t.symbolState add:@"<!--"];
     [t.symbolState add:@"-->"];
