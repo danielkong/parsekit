@@ -45,6 +45,7 @@ enum {
 @property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, retain) PKSTokenAssembly *assembly;
 @property (nonatomic, assign) BOOL disableActions;
+@property (nonatomic, assign) BOOL silentlyConsumesWhitespace;
 @end
 
 @interface PKSParser (Subclass)
