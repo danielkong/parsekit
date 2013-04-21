@@ -36,10 +36,8 @@
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnTerminals;
+    _visitor.enableMemoization = NO;
     [_root visit:_visitor];
-    
-    self.parser = [[[JSONParser alloc] init] autorelease];
-
 #if TD_EMIT
     path = [@"~/work/parsekit/trunk/test/JSONParser.h" stringByExpandingTildeInPath];
     err = nil;
@@ -53,6 +51,8 @@
         NSLog(@"%@", err);
     }
 #endif
+
+    self.parser = [[[JSONParser alloc] init] autorelease];
 }
 
 - (void)tearDown {
@@ -96,7 +96,7 @@
     
     input = @"['foo', true, null]";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, 'foo'][/'foo'/,/true/,/null/]^", [res description]);
+    TDEqualObjects(@"[[, 'foo', ,,  , true, ,,  , null, ]][/'foo'/,/ /true/,/ /null/]^", [res description]);
 }
 
 - (void)testArray1 {

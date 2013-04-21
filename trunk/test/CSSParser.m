@@ -237,6 +237,7 @@
     PKTokenizer *t = self.tokenizer;
 
     // whitespace
+//    self.silentlyConsumesWhitespace = YES;
 //    t.whitespaceState.reportsWhitespaceTokens = YES;
 //    self.assembly.preservesWhitespaceTokens = YES;
 
