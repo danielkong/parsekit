@@ -34,7 +34,7 @@ arrayContent  = Empty | actualArray;
 actualArray   = value commaValue*;
 commaValue    = comma comment? value;
 
-value         = (null | true | false | number | string | array | object) comment?;
+value         = (nullLiteral | trueLiteral | falseLiteral | number | string | array | object) comment?;
 
 comment       = Comment;
 string        = QuotedString;

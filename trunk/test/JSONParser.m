@@ -42,33 +42,29 @@
 @end
 
 @interface JSONParser ()
-@property (nonatomic, retain) NSMutableDictionary *anything_memo;
-@property (nonatomic, retain) NSMutableDictionary *scriptElement_memo;
-@property (nonatomic, retain) NSMutableDictionary *scriptStartTag_memo;
-@property (nonatomic, retain) NSMutableDictionary *scriptEndTag_memo;
-@property (nonatomic, retain) NSMutableDictionary *scriptTagName_memo;
-@property (nonatomic, retain) NSMutableDictionary *scriptElementContent_memo;
-@property (nonatomic, retain) NSMutableDictionary *styleElement_memo;
-@property (nonatomic, retain) NSMutableDictionary *styleStartTag_memo;
-@property (nonatomic, retain) NSMutableDictionary *styleEndTag_memo;
-@property (nonatomic, retain) NSMutableDictionary *styleTagName_memo;
-@property (nonatomic, retain) NSMutableDictionary *styleElementContent_memo;
-@property (nonatomic, retain) NSMutableDictionary *procInstr_memo;
-@property (nonatomic, retain) NSMutableDictionary *doctype_memo;
-@property (nonatomic, retain) NSMutableDictionary *text_memo;
-@property (nonatomic, retain) NSMutableDictionary *tag_memo;
-@property (nonatomic, retain) NSMutableDictionary *emptyTag_memo;
-@property (nonatomic, retain) NSMutableDictionary *startTag_memo;
-@property (nonatomic, retain) NSMutableDictionary *endTag_memo;
-@property (nonatomic, retain) NSMutableDictionary *tagName_memo;
-@property (nonatomic, retain) NSMutableDictionary *attr_memo;
-@property (nonatomic, retain) NSMutableDictionary *attrName_memo;
-@property (nonatomic, retain) NSMutableDictionary *attrValue_memo;
-@property (nonatomic, retain) NSMutableDictionary *eq_memo;
-@property (nonatomic, retain) NSMutableDictionary *lt_memo;
-@property (nonatomic, retain) NSMutableDictionary *gt_memo;
-@property (nonatomic, retain) NSMutableDictionary *fwdSlash_memo;
+@property (nonatomic, retain) NSMutableDictionary *object_memo;
+@property (nonatomic, retain) NSMutableDictionary *objectContent_memo;
+@property (nonatomic, retain) NSMutableDictionary *actualObject_memo;
+@property (nonatomic, retain) NSMutableDictionary *property_memo;
+@property (nonatomic, retain) NSMutableDictionary *commaProperty_memo;
+@property (nonatomic, retain) NSMutableDictionary *propertyName_memo;
+@property (nonatomic, retain) NSMutableDictionary *array_memo;
+@property (nonatomic, retain) NSMutableDictionary *arrayContent_memo;
+@property (nonatomic, retain) NSMutableDictionary *actualArray_memo;
+@property (nonatomic, retain) NSMutableDictionary *commaValue_memo;
+@property (nonatomic, retain) NSMutableDictionary *value_memo;
 @property (nonatomic, retain) NSMutableDictionary *comment_memo;
+@property (nonatomic, retain) NSMutableDictionary *string_memo;
+@property (nonatomic, retain) NSMutableDictionary *number_memo;
+@property (nonatomic, retain) NSMutableDictionary *nullLiteral_memo;
+@property (nonatomic, retain) NSMutableDictionary *trueLiteral_memo;
+@property (nonatomic, retain) NSMutableDictionary *falseLiteral_memo;
+@property (nonatomic, retain) NSMutableDictionary *openCurly_memo;
+@property (nonatomic, retain) NSMutableDictionary *closeCurly_memo;
+@property (nonatomic, retain) NSMutableDictionary *openBracket_memo;
+@property (nonatomic, retain) NSMutableDictionary *closeBracket_memo;
+@property (nonatomic, retain) NSMutableDictionary *comma_memo;
+@property (nonatomic, retain) NSMutableDictionary *colon_memo;
 @end
 
 @implementation JSONParser
@@ -76,512 +72,294 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-        self._tokenKindTab[@"script"] = @(JSON_TOKEN_KIND_SCRIPTTAGNAME);
-        self._tokenKindTab[@"style"] = @(JSON_TOKEN_KIND_STYLETAGNAME);
-        self._tokenKindTab[@"<!DOCTYPE,>"] = @(JSON_TOKEN_KIND_DOCTYPE);
-        self._tokenKindTab[@"<"] = @(JSON_TOKEN_KIND_LT);
-        self._tokenKindTab[@"<?,?>"] = @(JSON_TOKEN_KIND_PROCINSTR);
-        self._tokenKindTab[@"="] = @(JSON_TOKEN_KIND_EQ);
-        self._tokenKindTab[@"/"] = @(JSON_TOKEN_KIND_FWDSLASH);
-        self._tokenKindTab[@">"] = @(JSON_TOKEN_KIND_GT);
+        self._tokenKindTab[@"false"] = @(JSON_TOKEN_KIND_FALSELITERAL);
+        self._tokenKindTab[@"}"] = @(JSON_TOKEN_KIND_CLOSECURLY);
+        self._tokenKindTab[@"["] = @(JSON_TOKEN_KIND_OPENBRACKET);
+        self._tokenKindTab[@"null"] = @(JSON_TOKEN_KIND_NULLLITERAL);
+        self._tokenKindTab[@","] = @(JSON_TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"true"] = @(JSON_TOKEN_KIND_TRUELITERAL);
+        self._tokenKindTab[@"]"] = @(JSON_TOKEN_KIND_CLOSEBRACKET);
+        self._tokenKindTab[@"{"] = @(JSON_TOKEN_KIND_OPENCURLY);
+        self._tokenKindTab[@":"] = @(JSON_TOKEN_KIND_COLON);
 
-        self.anything_memo = [NSMutableDictionary dictionary];
-        self.scriptElement_memo = [NSMutableDictionary dictionary];
-        self.scriptStartTag_memo = [NSMutableDictionary dictionary];
-        self.scriptEndTag_memo = [NSMutableDictionary dictionary];
-        self.scriptTagName_memo = [NSMutableDictionary dictionary];
-        self.scriptElementContent_memo = [NSMutableDictionary dictionary];
-        self.styleElement_memo = [NSMutableDictionary dictionary];
-        self.styleStartTag_memo = [NSMutableDictionary dictionary];
-        self.styleEndTag_memo = [NSMutableDictionary dictionary];
-        self.styleTagName_memo = [NSMutableDictionary dictionary];
-        self.styleElementContent_memo = [NSMutableDictionary dictionary];
-        self.procInstr_memo = [NSMutableDictionary dictionary];
-        self.doctype_memo = [NSMutableDictionary dictionary];
-        self.text_memo = [NSMutableDictionary dictionary];
-        self.tag_memo = [NSMutableDictionary dictionary];
-        self.emptyTag_memo = [NSMutableDictionary dictionary];
-        self.startTag_memo = [NSMutableDictionary dictionary];
-        self.endTag_memo = [NSMutableDictionary dictionary];
-        self.tagName_memo = [NSMutableDictionary dictionary];
-        self.attr_memo = [NSMutableDictionary dictionary];
-        self.attrName_memo = [NSMutableDictionary dictionary];
-        self.attrValue_memo = [NSMutableDictionary dictionary];
-        self.eq_memo = [NSMutableDictionary dictionary];
-        self.lt_memo = [NSMutableDictionary dictionary];
-        self.gt_memo = [NSMutableDictionary dictionary];
-        self.fwdSlash_memo = [NSMutableDictionary dictionary];
+        self.object_memo = [NSMutableDictionary dictionary];
+        self.objectContent_memo = [NSMutableDictionary dictionary];
+        self.actualObject_memo = [NSMutableDictionary dictionary];
+        self.property_memo = [NSMutableDictionary dictionary];
+        self.commaProperty_memo = [NSMutableDictionary dictionary];
+        self.propertyName_memo = [NSMutableDictionary dictionary];
+        self.array_memo = [NSMutableDictionary dictionary];
+        self.arrayContent_memo = [NSMutableDictionary dictionary];
+        self.actualArray_memo = [NSMutableDictionary dictionary];
+        self.commaValue_memo = [NSMutableDictionary dictionary];
+        self.value_memo = [NSMutableDictionary dictionary];
         self.comment_memo = [NSMutableDictionary dictionary];
+        self.string_memo = [NSMutableDictionary dictionary];
+        self.number_memo = [NSMutableDictionary dictionary];
+        self.nullLiteral_memo = [NSMutableDictionary dictionary];
+        self.trueLiteral_memo = [NSMutableDictionary dictionary];
+        self.falseLiteral_memo = [NSMutableDictionary dictionary];
+        self.openCurly_memo = [NSMutableDictionary dictionary];
+        self.closeCurly_memo = [NSMutableDictionary dictionary];
+        self.openBracket_memo = [NSMutableDictionary dictionary];
+        self.closeBracket_memo = [NSMutableDictionary dictionary];
+        self.comma_memo = [NSMutableDictionary dictionary];
+        self.colon_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
 
 - (void)dealloc {
-    self.anything_memo = nil;
-    self.scriptElement_memo = nil;
-    self.scriptStartTag_memo = nil;
-    self.scriptEndTag_memo = nil;
-    self.scriptTagName_memo = nil;
-    self.scriptElementContent_memo = nil;
-    self.styleElement_memo = nil;
-    self.styleStartTag_memo = nil;
-    self.styleEndTag_memo = nil;
-    self.styleTagName_memo = nil;
-    self.styleElementContent_memo = nil;
-    self.procInstr_memo = nil;
-    self.doctype_memo = nil;
-    self.text_memo = nil;
-    self.tag_memo = nil;
-    self.emptyTag_memo = nil;
-    self.startTag_memo = nil;
-    self.endTag_memo = nil;
-    self.tagName_memo = nil;
-    self.attr_memo = nil;
-    self.attrName_memo = nil;
-    self.attrValue_memo = nil;
-    self.eq_memo = nil;
-    self.lt_memo = nil;
-    self.gt_memo = nil;
-    self.fwdSlash_memo = nil;
+    self.object_memo = nil;
+    self.objectContent_memo = nil;
+    self.actualObject_memo = nil;
+    self.property_memo = nil;
+    self.commaProperty_memo = nil;
+    self.propertyName_memo = nil;
+    self.array_memo = nil;
+    self.arrayContent_memo = nil;
+    self.actualArray_memo = nil;
+    self.commaValue_memo = nil;
+    self.value_memo = nil;
     self.comment_memo = nil;
+    self.string_memo = nil;
+    self.number_memo = nil;
+    self.nullLiteral_memo = nil;
+    self.trueLiteral_memo = nil;
+    self.falseLiteral_memo = nil;
+    self.openCurly_memo = nil;
+    self.closeCurly_memo = nil;
+    self.openBracket_memo = nil;
+    self.closeBracket_memo = nil;
+    self.comma_memo = nil;
+    self.colon_memo = nil;
 
     [super dealloc];
 }
 
 - (void)_clearMemo {
-    [_anything_memo removeAllObjects];
-    [_scriptElement_memo removeAllObjects];
-    [_scriptStartTag_memo removeAllObjects];
-    [_scriptEndTag_memo removeAllObjects];
-    [_scriptTagName_memo removeAllObjects];
-    [_scriptElementContent_memo removeAllObjects];
-    [_styleElement_memo removeAllObjects];
-    [_styleStartTag_memo removeAllObjects];
-    [_styleEndTag_memo removeAllObjects];
-    [_styleTagName_memo removeAllObjects];
-    [_styleElementContent_memo removeAllObjects];
-    [_procInstr_memo removeAllObjects];
-    [_doctype_memo removeAllObjects];
-    [_text_memo removeAllObjects];
-    [_tag_memo removeAllObjects];
-    [_emptyTag_memo removeAllObjects];
-    [_startTag_memo removeAllObjects];
-    [_endTag_memo removeAllObjects];
-    [_tagName_memo removeAllObjects];
-    [_attr_memo removeAllObjects];
-    [_attrName_memo removeAllObjects];
-    [_attrValue_memo removeAllObjects];
-    [_eq_memo removeAllObjects];
-    [_lt_memo removeAllObjects];
-    [_gt_memo removeAllObjects];
-    [_fwdSlash_memo removeAllObjects];
+    [_object_memo removeAllObjects];
+    [_objectContent_memo removeAllObjects];
+    [_actualObject_memo removeAllObjects];
+    [_property_memo removeAllObjects];
+    [_commaProperty_memo removeAllObjects];
+    [_propertyName_memo removeAllObjects];
+    [_array_memo removeAllObjects];
+    [_arrayContent_memo removeAllObjects];
+    [_actualArray_memo removeAllObjects];
+    [_commaValue_memo removeAllObjects];
+    [_value_memo removeAllObjects];
     [_comment_memo removeAllObjects];
+    [_string_memo removeAllObjects];
+    [_number_memo removeAllObjects];
+    [_nullLiteral_memo removeAllObjects];
+    [_trueLiteral_memo removeAllObjects];
+    [_falseLiteral_memo removeAllObjects];
+    [_openCurly_memo removeAllObjects];
+    [_closeCurly_memo removeAllObjects];
+    [_openBracket_memo removeAllObjects];
+    [_closeBracket_memo removeAllObjects];
+    [_comma_memo removeAllObjects];
+    [_colon_memo removeAllObjects];
 }
 
 - (void)_start {
     
     [self execute:(id)^{
         
-    PKTokenizer *t = self.tokenizer;
-
+	PKTokenizer *t = self.tokenizer;
+	
     // whitespace
-//    t.whitespaceState.reportsWhitespaceTokens = YES;
-//    self.assembly.preservesWhitespaceTokens = YES;
+    t.whitespaceState.reportsWhitespaceTokens = YES;
+    self.assembly.preservesWhitespaceTokens = YES;
 
-    // symbols
-    [t.symbolState add:@"<!--"];
-    [t.symbolState add:@"-->"];
-    [t.symbolState add:@"<?"];
-    [t.symbolState add:@"?>"];
-
-	// comments	
-    [t setTokenizerState:t.commentState from:'<' to:'<'];
-    [t.commentState addMultiLineStartMarker:@"<!--" endMarker:@"-->"];
-    [t.commentState setFallbackState:t.delimitState from:'<' to:'<'];
+    // comments
 	t.commentState.reportsCommentTokens = YES;
-
-	// pi
-	[t.delimitState addStartMarker:@"<?" endMarker:@"?>" allowedCharacterSet:nil];
-	
-	// doctype
-	[t.delimitState addStartMarker:@"<!DOCTYPE" endMarker:@">" allowedCharacterSet:nil];
-	
-    [t.delimitState setFallbackState:t.symbolState from:'<' to:'<'];
+	[t setTokenizerState:t.commentState from:'/' to:'/'];
+	[t.commentState addSingleLineStartMarker:@"//"];
+	[t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 
     }];
-    while ([self predicts:JSON_TOKEN_KIND_DOCTYPE, JSON_TOKEN_KIND_LT, JSON_TOKEN_KIND_PROCINSTR, TOKEN_KIND_BUILTIN_ANY, TOKEN_KIND_BUILTIN_COMMENT, 0]) {
-        if ([self speculate:^{ [self anything]; }]) {
-            [self anything]; 
-        } else {
-            break;
-        }
+    if ([self predicts:JSON_TOKEN_KIND_OPENBRACKET, 0]) {
+        [self array]; 
+    } else if ([self predicts:JSON_TOKEN_KIND_OPENCURLY, 0]) {
+        [self object]; 
     }
-
-}
-
-- (void)__anything {
-    
-    if ([self speculate:^{ [self scriptElement]; }]) {
-        [self scriptElement]; 
-    } else if ([self speculate:^{ [self styleElement]; }]) {
-        [self styleElement]; 
-    } else if ([self speculate:^{ [self tag]; }]) {
-        [self tag]; 
-    } else if ([self speculate:^{ [self procInstr]; }]) {
-        [self procInstr]; 
-    } else if ([self speculate:^{ [self comment]; }]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
         [self comment]; 
-    } else if ([self speculate:^{ [self doctype]; }]) {
-        [self doctype]; 
-    } else if ([self speculate:^{ [self text]; }]) {
-        [self text]; 
-    } else {
-        [self raise:@"no viable alternative found in anything"];
     }
 
 }
 
-- (void)anything {
-    [self parseRule:@selector(__anything) withMemo:_anything_memo];
-}
-
-- (void)__scriptElement {
+- (void)__object {
     
-    [self scriptStartTag]; 
-    [self scriptElementContent]; 
-    [self scriptEndTag]; 
+    [self openCurly]; 
+    if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
+        [self comment]; 
+    }
+    [self objectContent]; 
+    [self closeCurly]; 
 
 }
 
-- (void)scriptElement {
-    [self parseRule:@selector(__scriptElement) withMemo:_scriptElement_memo];
+- (void)object {
+    [self parseRule:@selector(__object) withMemo:_object_memo];
 }
 
-- (void)__scriptStartTag {
+- (void)__objectContent {
     
-    [self lt]; 
-    [self scriptTagName]; 
-    while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr]; }]) {
-            [self attr]; 
+    if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+        [self actualObject]; 
+    }
+
+}
+
+- (void)objectContent {
+    [self parseRule:@selector(__objectContent) withMemo:_objectContent_memo];
+}
+
+- (void)__actualObject {
+    
+    [self property]; 
+    while ([self predicts:JSON_TOKEN_KIND_COMMA, 0]) {
+        if ([self speculate:^{ [self commaProperty]; }]) {
+            [self commaProperty]; 
         } else {
             break;
         }
     }
-    [self gt]; 
 
 }
 
-- (void)scriptStartTag {
-    [self parseRule:@selector(__scriptStartTag) withMemo:_scriptStartTag_memo];
+- (void)actualObject {
+    [self parseRule:@selector(__actualObject) withMemo:_actualObject_memo];
 }
 
-- (void)__scriptEndTag {
+- (void)__property {
     
-    [self lt]; 
-    [self fwdSlash]; 
-    [self scriptTagName]; 
-    [self gt]; 
+    [self propertyName]; 
+    [self colon]; 
+    if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
+        [self comment]; 
+    }
+    [self value]; 
 
 }
 
-- (void)scriptEndTag {
-    [self parseRule:@selector(__scriptEndTag) withMemo:_scriptEndTag_memo];
+- (void)property {
+    [self parseRule:@selector(__property) withMemo:_property_memo];
 }
 
-- (void)__scriptTagName {
+- (void)__commaProperty {
     
-    [self match:JSON_TOKEN_KIND_SCRIPTTAGNAME]; 
+    [self comma]; 
+    if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
+        [self comment]; 
+    }
+    [self property]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchScriptTagName:)];
 }
 
-- (void)scriptTagName {
-    [self parseRule:@selector(__scriptTagName) withMemo:_scriptTagName_memo];
+- (void)commaProperty {
+    [self parseRule:@selector(__commaProperty) withMemo:_commaProperty_memo];
 }
 
-- (void)__scriptElementContent {
+- (void)__propertyName {
     
-    if (![self speculate:^{ [self scriptEndTag]; }]) {
-        [self match:TOKEN_KIND_BUILTIN_ANY];
-    } else {
-        [self raise:@"negation test failed in scriptElementContent"];
+    [self QuotedString]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchPropertyName:)];
+}
+
+- (void)propertyName {
+    [self parseRule:@selector(__propertyName) withMemo:_propertyName_memo];
+}
+
+- (void)__array {
+    
+    [self openBracket]; 
+    if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
+        [self comment]; 
+    }
+    [self arrayContent]; 
+    [self closeBracket]; 
+
+}
+
+- (void)array {
+    [self parseRule:@selector(__array) withMemo:_array_memo];
+}
+
+- (void)__arrayContent {
+    
+    if ([self predicts:JSON_TOKEN_KIND_FALSELITERAL, JSON_TOKEN_KIND_NULLLITERAL, JSON_TOKEN_KIND_OPENBRACKET, JSON_TOKEN_KIND_OPENCURLY, JSON_TOKEN_KIND_TRUELITERAL, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+        [self actualArray]; 
     }
 
 }
 
-- (void)scriptElementContent {
-    [self parseRule:@selector(__scriptElementContent) withMemo:_scriptElementContent_memo];
+- (void)arrayContent {
+    [self parseRule:@selector(__arrayContent) withMemo:_arrayContent_memo];
 }
 
-- (void)__styleElement {
+- (void)__actualArray {
     
-    [self styleStartTag]; 
-    [self styleElementContent]; 
-    [self styleEndTag]; 
-
-}
-
-- (void)styleElement {
-    [self parseRule:@selector(__styleElement) withMemo:_styleElement_memo];
-}
-
-- (void)__styleStartTag {
-    
-    [self lt]; 
-    [self styleTagName]; 
-    while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr]; }]) {
-            [self attr]; 
+    [self value]; 
+    while ([self predicts:JSON_TOKEN_KIND_COMMA, 0]) {
+        if ([self speculate:^{ [self commaValue]; }]) {
+            [self commaValue]; 
         } else {
             break;
         }
     }
-    [self gt]; 
 
 }
 
-- (void)styleStartTag {
-    [self parseRule:@selector(__styleStartTag) withMemo:_styleStartTag_memo];
+- (void)actualArray {
+    [self parseRule:@selector(__actualArray) withMemo:_actualArray_memo];
 }
 
-- (void)__styleEndTag {
+- (void)__commaValue {
     
-    [self lt]; 
-    [self fwdSlash]; 
-    [self styleTagName]; 
-    [self gt]; 
-
-}
-
-- (void)styleEndTag {
-    [self parseRule:@selector(__styleEndTag) withMemo:_styleEndTag_memo];
-}
-
-- (void)__styleTagName {
-    
-    [self match:JSON_TOKEN_KIND_STYLETAGNAME]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchStyleTagName:)];
-}
-
-- (void)styleTagName {
-    [self parseRule:@selector(__styleTagName) withMemo:_styleTagName_memo];
-}
-
-- (void)__styleElementContent {
-    
-    if (![self speculate:^{ [self styleEndTag]; }]) {
-        [self match:TOKEN_KIND_BUILTIN_ANY];
-    } else {
-        [self raise:@"negation test failed in styleElementContent"];
+    [self comma]; 
+    if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
+        [self comment]; 
     }
+    [self value]; 
 
 }
 
-- (void)styleElementContent {
-    [self parseRule:@selector(__styleElementContent) withMemo:_styleElementContent_memo];
+- (void)commaValue {
+    [self parseRule:@selector(__commaValue) withMemo:_commaValue_memo];
 }
 
-- (void)__procInstr {
+- (void)__value {
     
-    [self match:JSON_TOKEN_KIND_PROCINSTR]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchProcInstr:)];
-}
-
-- (void)procInstr {
-    [self parseRule:@selector(__procInstr) withMemo:_procInstr_memo];
-}
-
-- (void)__doctype {
-    
-    [self match:JSON_TOKEN_KIND_DOCTYPE]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchDoctype:)];
-}
-
-- (void)doctype {
-    [self parseRule:@selector(__doctype) withMemo:_doctype_memo];
-}
-
-- (void)__text {
-    
-    [self Any]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchText:)];
-}
-
-- (void)text {
-    [self parseRule:@selector(__text) withMemo:_text_memo];
-}
-
-- (void)__tag {
-    
-    if ([self speculate:^{ [self emptyTag]; }]) {
-        [self emptyTag]; 
-    } else if ([self speculate:^{ [self startTag]; }]) {
-        [self startTag]; 
-    } else if ([self speculate:^{ [self endTag]; }]) {
-        [self endTag]; 
-    } else {
-        [self raise:@"no viable alternative found in tag"];
-    }
-
-}
-
-- (void)tag {
-    [self parseRule:@selector(__tag) withMemo:_tag_memo];
-}
-
-- (void)__emptyTag {
-    
-    [self lt]; 
-    [self tagName]; 
-    while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr]; }]) {
-            [self attr]; 
-        } else {
-            break;
-        }
-    }
-    [self fwdSlash]; 
-    [self gt]; 
-
-}
-
-- (void)emptyTag {
-    [self parseRule:@selector(__emptyTag) withMemo:_emptyTag_memo];
-}
-
-- (void)__startTag {
-    
-    [self lt]; 
-    [self tagName]; 
-    while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr]; }]) {
-            [self attr]; 
-        } else {
-            break;
-        }
-    }
-    [self gt]; 
-
-}
-
-- (void)startTag {
-    [self parseRule:@selector(__startTag) withMemo:_startTag_memo];
-}
-
-- (void)__endTag {
-    
-    [self lt]; 
-    [self fwdSlash]; 
-    [self tagName]; 
-    [self gt]; 
-
-}
-
-- (void)endTag {
-    [self parseRule:@selector(__endTag) withMemo:_endTag_memo];
-}
-
-- (void)__tagName {
-    
-    [self Word]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchTagName:)];
-}
-
-- (void)tagName {
-    [self parseRule:@selector(__tagName) withMemo:_tagName_memo];
-}
-
-- (void)__attr {
-    
-    [self attrName]; 
-    if ([self speculate:^{ [self eq]; if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {[self attrValue]; }}]) {
-        [self eq]; 
-        if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-            [self attrValue]; 
-        }
-    }
-
-}
-
-- (void)attr {
-    [self parseRule:@selector(__attr) withMemo:_attr_memo];
-}
-
-- (void)__attrName {
-    
-    [self Word]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAttrName:)];
-}
-
-- (void)attrName {
-    [self parseRule:@selector(__attrName) withMemo:_attrName_memo];
-}
-
-- (void)__attrValue {
-    
-    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self Word]; 
+    if ([self predicts:JSON_TOKEN_KIND_NULLLITERAL, 0]) {
+        [self nullLiteral]; 
+    } else if ([self predicts:JSON_TOKEN_KIND_TRUELITERAL, 0]) {
+        [self trueLiteral]; 
+    } else if ([self predicts:JSON_TOKEN_KIND_FALSELITERAL, 0]) {
+        [self falseLiteral]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
+        [self number]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self QuotedString]; 
+        [self string]; 
+    } else if ([self predicts:JSON_TOKEN_KIND_OPENBRACKET, 0]) {
+        [self array]; 
+    } else if ([self predicts:JSON_TOKEN_KIND_OPENCURLY, 0]) {
+        [self object]; 
     } else {
-        [self raise:@"no viable alternative found in attrValue"];
+        [self raise:@"no viable alternative found in value"];
+    }
+    if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
+        [self comment]; 
     }
 
 }
 
-- (void)attrValue {
-    [self parseRule:@selector(__attrValue) withMemo:_attrValue_memo];
-}
-
-- (void)__eq {
-    
-    [self match:JSON_TOKEN_KIND_EQ]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
-}
-
-- (void)eq {
-    [self parseRule:@selector(__eq) withMemo:_eq_memo];
-}
-
-- (void)__lt {
-    
-    [self match:JSON_TOKEN_KIND_LT]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
-}
-
-- (void)lt {
-    [self parseRule:@selector(__lt) withMemo:_lt_memo];
-}
-
-- (void)__gt {
-    
-    [self match:JSON_TOKEN_KIND_GT]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
-}
-
-- (void)gt {
-    [self parseRule:@selector(__gt) withMemo:_gt_memo];
-}
-
-- (void)__fwdSlash {
-    
-    [self match:JSON_TOKEN_KIND_FWDSLASH]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];
-}
-
-- (void)fwdSlash {
-    [self parseRule:@selector(__fwdSlash) withMemo:_fwdSlash_memo];
+- (void)value {
+    [self parseRule:@selector(__value) withMemo:_value_memo];
 }
 
 - (void)__comment {
@@ -593,6 +371,127 @@
 
 - (void)comment {
     [self parseRule:@selector(__comment) withMemo:_comment_memo];
+}
+
+- (void)__string {
+    
+    [self QuotedString]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchString:)];
+}
+
+- (void)string {
+    [self parseRule:@selector(__string) withMemo:_string_memo];
+}
+
+- (void)__number {
+    
+    [self Number]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchNumber:)];
+}
+
+- (void)number {
+    [self parseRule:@selector(__number) withMemo:_number_memo];
+}
+
+- (void)__nullLiteral {
+    
+    [self match:JSON_TOKEN_KIND_NULLLITERAL]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchNullLiteral:)];
+}
+
+- (void)nullLiteral {
+    [self parseRule:@selector(__nullLiteral) withMemo:_nullLiteral_memo];
+}
+
+- (void)__trueLiteral {
+    
+    [self match:JSON_TOKEN_KIND_TRUELITERAL]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
+}
+
+- (void)trueLiteral {
+    [self parseRule:@selector(__trueLiteral) withMemo:_trueLiteral_memo];
+}
+
+- (void)__falseLiteral {
+    
+    [self match:JSON_TOKEN_KIND_FALSELITERAL]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
+}
+
+- (void)falseLiteral {
+    [self parseRule:@selector(__falseLiteral) withMemo:_falseLiteral_memo];
+}
+
+- (void)__openCurly {
+    
+    [self match:JSON_TOKEN_KIND_OPENCURLY]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
+}
+
+- (void)openCurly {
+    [self parseRule:@selector(__openCurly) withMemo:_openCurly_memo];
+}
+
+- (void)__closeCurly {
+    
+    [self match:JSON_TOKEN_KIND_CLOSECURLY]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
+}
+
+- (void)closeCurly {
+    [self parseRule:@selector(__closeCurly) withMemo:_closeCurly_memo];
+}
+
+- (void)__openBracket {
+    
+    [self match:JSON_TOKEN_KIND_OPENBRACKET]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
+}
+
+- (void)openBracket {
+    [self parseRule:@selector(__openBracket) withMemo:_openBracket_memo];
+}
+
+- (void)__closeBracket {
+    
+    [self match:JSON_TOKEN_KIND_CLOSEBRACKET]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
+}
+
+- (void)closeBracket {
+    [self parseRule:@selector(__closeBracket) withMemo:_closeBracket_memo];
+}
+
+- (void)__comma {
+    
+    [self match:JSON_TOKEN_KIND_COMMA]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
+}
+
+- (void)comma {
+    [self parseRule:@selector(__comma) withMemo:_comma_memo];
+}
+
+- (void)__colon {
+    
+    [self match:JSON_TOKEN_KIND_COLON]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
+}
+
+- (void)colon {
+    [self parseRule:@selector(__colon) withMemo:_colon_memo];
 }
 
 @end
