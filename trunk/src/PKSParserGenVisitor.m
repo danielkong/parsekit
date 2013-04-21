@@ -24,6 +24,7 @@
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
 #define METHOD_BODY @"methodBody"
+#define FIRE_CALLBACK @"fireCallback"
 #define TOKEN_KIND @"tokenKind"
 #define CHILD_NAME @"childName"
 #define DEPTH @"depth"
@@ -59,6 +60,7 @@
     if (self) {
         self.enableHybridDFA = YES;
         self.enableMemoization = YES;
+        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
         
         [self setUpTemplateEngine];
     }
@@ -292,6 +294,25 @@
     // merge
     vars[METHOD_BODY] = childStr;
     
+    // determine if we should include an assembler callback call
+    BOOL fireCallback = YES;
+    switch (_assemblerSettingBehavior) {
+        case PKParserFactoryAssemblerSettingBehaviorOnNone:
+            fireCallback = NO;
+            break;
+        case PKParserFactoryAssemblerSettingBehaviorOnAll:
+            fireCallback = YES;
+            break;
+        case PKParserFactoryAssemblerSettingBehaviorOnTerminals: {
+            BOOL isTerminal = 1 == [node.children count] && [[self concreteNodeForNode:node.children[0]] isTerminal];
+            fireCallback = isTerminal;
+        } break;
+        default:
+            NSAssert1(0, @"unsupported assembler callback setting behavior %d", _assemblerSettingBehavior);
+            break;
+    }
+    vars[FIRE_CALLBACK] = @(fireCallback);
+
     NSString *templateName = nil;
     if (!isStartMethod && self.enableMemoization) {
         templateName = @"PKSMethodMemoizationTemplate";
@@ -716,9 +737,8 @@
 }
 
 
-- (BOOL)isLL1:(PKBaseNode *)inNode {
-    BOOL result = YES;
-    
+// if inNode is a #ref or $def, resolve to actual concrete node.
+- (PKBaseNode *)concreteNodeForNode:(PKBaseNode *)inNode {
     PKBaseNode *node = inNode;
     while ([node isKindOfClass:[PKReferenceNode class]] || [node isKindOfClass:[PKDefinitionNode class]]) {
         while ([node isKindOfClass:[PKReferenceNode class]]) {
@@ -730,6 +750,14 @@
             node = node.children[0];
         }
     }
+    return node;
+}
+
+
+- (BOOL)isLL1:(PKBaseNode *)inNode {
+    BOOL result = YES;
+    
+    PKBaseNode *node = [self concreteNodeForNode:inNode];
     
     if ([node isKindOfClass:[PKAlternationNode class]]) {
         for (PKBaseNode *child in node.children) {
