@@ -30,6 +30,8 @@
 		D30B8F65170D0EB0001796F4 /* PatternParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F64170D0EAF001796F4 /* PatternParserTest.m */; };
 		D30B8F67170D0ED5001796F4 /* pattern.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D30B8F66170D0ED5001796F4 /* pattern.grammar */; };
 		D30B8F6A170D0EEB001796F4 /* PatternParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30B8F69170D0EEA001796F4 /* PatternParser.m */; };
+		D30DA1771724AD0100A1A3EC /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1761724AD0100A1A3EC /* JSONParser.m */; };
+		D30DA17A1724ADE700A1A3EC /* JSONParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1791724ADE700A1A3EC /* JSONParserTest.m */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
@@ -1151,6 +1153,10 @@
 		D30B8F68170D0EEA001796F4 /* PatternParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PatternParser.h; path = test/PatternParser.h; sourceTree = "<group>"; };
 		D30B8F69170D0EEA001796F4 /* PatternParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PatternParser.m; path = test/PatternParser.m; sourceTree = "<group>"; };
 		D30B8F6B170D111B001796F4 /* PKSPatternPrefixTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPatternPrefixTemplate.txt; path = res/PKSPatternPrefixTemplate.txt; sourceTree = "<group>"; };
+		D30DA1751724AD0100A1A3EC /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONParser.h; path = test/JSONParser.h; sourceTree = "<group>"; };
+		D30DA1761724AD0100A1A3EC /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONParser.m; path = test/JSONParser.m; sourceTree = "<group>"; };
+		D30DA1781724ADE700A1A3EC /* JSONParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONParserTest.h; path = test/JSONParserTest.h; sourceTree = "<group>"; };
+		D30DA1791724ADE700A1A3EC /* JSONParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONParserTest.m; path = test/JSONParserTest.m; sourceTree = "<group>"; };
 		D3126D040FFD9BA700CBF4C4 /* PKNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNegation.m; path = src/PKNegation.m; sourceTree = "<group>"; };
 		D3126D090FFD9E4B00CBF4C4 /* TDNegationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNegationTest.h; path = test/TDNegationTest.h; sourceTree = "<group>"; };
 		D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationTest.m; path = test/TDNegationTest.m; sourceTree = "<group>"; };
@@ -2975,6 +2981,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D30DA1751724AD0100A1A3EC /* JSONParser.h */,
+				D30DA1761724AD0100A1A3EC /* JSONParser.m */,
 				D36E68C01720C848007B4353 /* HTMLParser.h */,
 				D36E68C11720C84C007B4353 /* HTMLParser.m */,
 				D36E68BA17207542007B4353 /* CSSParser.h */,
@@ -3032,6 +3040,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D30DA1781724ADE700A1A3EC /* JSONParserTest.h */,
+				D30DA1791724ADE700A1A3EC /* JSONParserTest.m */,
 				D36E68BD1720C83B007B4353 /* HTMLParserTest.h */,
 				D36E68BE1720C83C007B4353 /* HTMLParserTest.m */,
 				D36E68B7172074EF007B4353 /* CSSParserTest.h */,
@@ -3091,6 +3101,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */,
 				D380AFBC0F0C54B60009EC13 /* html.grammar */,
 				D380B5080F0D71A90009EC13 /* css.grammar */,
 				D31A15250F6DE449002AFDF1 /* javascript.grammar */,
@@ -3159,7 +3170,6 @@
 				D380AFBB0F0C54B60009EC13 /* html.css */,
 				D3DCB4C20EF6015300DE5110 /* json.grammar */,
 				D385FA240F04993500DB2946 /* json.css */,
-				D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */,
 				D38349BB0F0C0D910055E4E0 /* json_with_comments.css */,
 				D3834A470F0C14B60055E4E0 /* yahoo_with_comments.json */,
 				D3FD791F0F4CC86800BAD816 /* rubyhash.grammar */,
@@ -4678,6 +4688,8 @@
 				D36E68BC17207542007B4353 /* CSSParser.m in Sources */,
 				D36E68BF1720C840007B4353 /* HTMLParserTest.m in Sources */,
 				D36E68C21720C84F007B4353 /* HTMLParser.m in Sources */,
+				D30DA1771724AD0100A1A3EC /* JSONParser.m in Sources */,
+				D30DA17A1724ADE700A1A3EC /* JSONParserTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
