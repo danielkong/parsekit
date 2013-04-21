@@ -44,7 +44,7 @@
 - (void)_pushDouble:(double)d;
 
 // backtracking
-- (void)_consume;
+- (void)consume:(PKToken *)tok;
 - (NSInteger)_mark;
 - (void)_unmark;
 - (void)_seek:(NSInteger)index;
@@ -211,19 +211,19 @@
     PKToken *lt = LT(1);
 //    NSLog(@"%@", lt);
     if (lt.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
-        if (!self._isSpeculating) {
-            [_assembly consume:lt];
-//            NSLog(@"%@", _assembly);
-        }
-        
-        [self _consume];
+        [self consume:lt];
     } else {
         [self raise:@"expecting %ld; found %@", x, lt];
     }
 }
 
 
-- (void)_consume {
+- (void)consume:(PKToken *)tok {
+    if (!self._isSpeculating) {
+        [_assembly consume:tok];
+        //NSLog(@"%@", _assembly);
+    }
+
     self._p++;
     
     // have we hit end of buffer when not backtracking?
@@ -269,7 +269,7 @@
         
         tok = _lookahead[idx];
         if (_silentlyConsumesWhitespace && tok.isWhitespace) {
-            [self match:TOKEN_KIND_BUILTIN_ANY];
+            [self consume:tok];
         } else {
             //NSLog(@"LT(%ld) : %@", i, [tok debugDescription]);
             break;
