@@ -59,7 +59,7 @@
     self.factory = nil;
 }
 
-- (void)testJSONStuff {
+- (void)testDict {
     NSError *err = nil;
     PKAssembly *res = nil;
     NSString *input = nil;
@@ -67,22 +67,52 @@
     input = @"{'foo':'bar'}";
     res = [_parser parseString:input assembler:nil error:&err];
     TDEqualObjects(@"[{, 'foo', :, 'bar', }]{/'foo'/:/'bar'/}^", [res description]);
+}
+
+- (void)testDict1 {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
     
     input = @"{'foo':{}}";
     res = [_parser parseString:input assembler:nil error:&err];
     TDEqualObjects(@"[{, 'foo', :, {, }, }]{/'foo'/:/{/}/}^", [res description]);
+}
+
+- (void)testDict2 {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
     
     input = @"{'foo':{'bar':[]}}";
     res = [_parser parseString:input assembler:nil error:&err];
     TDEqualObjects(@"[{, 'foo', :, {, 'bar', :, [, ], }, }]{/'foo'/:/{/'bar'/:/[/]/}/}^", [res description]);
+}
+
+- (void)testArray {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
     
     input = @"['foo', true, null]";
     res = [_parser parseString:input assembler:nil error:&err];
     TDEqualObjects(@"[[, 'foo'][/'foo'/,/true/,/null/]^", [res description]);
+}
+
+- (void)testArray1 {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
     
     input = @"[[]]";
     res = [_parser parseString:input assembler:nil error:&err];
     TDEqualObjects(@"[[, [, ], ]][/[/]/]^", [res description]);
+}
+
+- (void)testArray2 {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
     
     input = @"[[[1]]]";
     res = [_parser parseString:input assembler:nil error:&err];
