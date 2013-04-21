@@ -788,7 +788,6 @@
     }];
     [self program]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__if {
@@ -1580,7 +1579,6 @@
         [self raise:@"no viable alternative found in assignmentOperator"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchAssignmentOperator:)];
 }
 
 - (void)assignmentOperator {
@@ -1603,7 +1601,6 @@
         [self raise:@"no viable alternative found in relationalOperator"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchRelationalOperator:)];
 }
 
 - (void)relationalOperator {
@@ -1624,7 +1621,6 @@
         [self raise:@"no viable alternative found in equalityOperator"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchEqualityOperator:)];
 }
 
 - (void)equalityOperator {
@@ -1643,7 +1639,6 @@
         [self raise:@"no viable alternative found in shiftOperator"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftOperator:)];
 }
 
 - (void)shiftOperator {
@@ -1660,7 +1655,6 @@
         [self raise:@"no viable alternative found in incrementOperator"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchIncrementOperator:)];
 }
 
 - (void)incrementOperator {
@@ -1681,7 +1675,6 @@
         [self raise:@"no viable alternative found in unaryOperator"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryOperator:)];
 }
 
 - (void)unaryOperator {
@@ -1700,7 +1693,6 @@
         [self raise:@"no viable alternative found in multiplicativeOperator"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchMultiplicativeOperator:)];
 }
 
 - (void)multiplicativeOperator {
@@ -1713,7 +1705,6 @@
         [self element]; 
     } while ([self speculate:^{ [self element]; }]);
 
-    [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }
 
 - (void)program {
@@ -1730,7 +1721,6 @@
         [self raise:@"no viable alternative found in element"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
 }
 
 - (void)element {
@@ -1746,7 +1736,6 @@
     [self closeParen]; 
     [self compoundStmt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchFunc:)];
 }
 
 - (void)func {
@@ -1759,7 +1748,6 @@
         [self paramList]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchParamListOpt:)];
 }
 
 - (void)paramListOpt {
@@ -1777,7 +1765,6 @@
         }
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchParamList:)];
 }
 
 - (void)paramList {
@@ -1789,7 +1776,6 @@
     [self comma]; 
     [self identifier]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchCommaIdentifier:)];
 }
 
 - (void)commaIdentifier {
@@ -1802,7 +1788,6 @@
     [self stmts]; 
     [self closeCurly]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchCompoundStmt:)];
 }
 
 - (void)compoundStmt {
@@ -1819,7 +1804,6 @@
         }
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchStmts:)];
 }
 
 - (void)stmts {
@@ -1858,7 +1842,6 @@
         [self raise:@"no viable alternative found in stmt"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchStmt:)];
 }
 
 - (void)stmt {
@@ -1871,7 +1854,6 @@
     [self condition]; 
     [self stmt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchIfStmt:)];
 }
 
 - (void)ifStmt {
@@ -1886,7 +1868,6 @@
     [self else]; 
     [self stmt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchIfElseStmt:)];
 }
 
 - (void)ifElseStmt {
@@ -1899,7 +1880,6 @@
     [self condition]; 
     [self stmt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchWhileStmt:)];
 }
 
 - (void)whileStmt {
@@ -1916,7 +1896,6 @@
     [self closeParen]; 
     [self stmt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchForParenStmt:)];
 }
 
 - (void)forParenStmt {
@@ -1933,7 +1912,6 @@
     [self closeParen]; 
     [self stmt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchForBeginStmt:)];
 }
 
 - (void)forBeginStmt {
@@ -1948,7 +1926,6 @@
     [self closeParen]; 
     [self stmt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchForInStmt:)];
 }
 
 - (void)forInStmt {
@@ -1960,7 +1937,6 @@
     [self break]; 
     [self semi]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchBreakStmt:)];
 }
 
 - (void)breakStmt {
@@ -1972,7 +1948,6 @@
     [self continue]; 
     [self semi]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchContinueStmt:)];
 }
 
 - (void)continueStmt {
@@ -1987,7 +1962,6 @@
     [self closeParen]; 
     [self stmt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchWithStmt:)];
 }
 
 - (void)withStmt {
@@ -2000,7 +1974,6 @@
     [self exprOpt]; 
     [self semi]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchReturnStmt:)];
 }
 
 - (void)returnStmt {
@@ -2012,7 +1985,6 @@
     [self variablesOrExpr]; 
     [self semi]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchVariablesOrExprStmt:)];
 }
 
 - (void)variablesOrExprStmt {
@@ -2025,7 +1997,6 @@
     [self expr]; 
     [self closeParen]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchCondition:)];
 }
 
 - (void)condition {
@@ -2037,7 +2008,6 @@
     [self for]; 
     [self openParen]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchForParen:)];
 }
 
 - (void)forParen {
@@ -2049,7 +2019,6 @@
     [self forParen]; 
     [self variablesOrExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchForBegin:)];
 }
 
 - (void)forBegin {
@@ -2066,7 +2035,6 @@
         [self raise:@"no viable alternative found in variablesOrExpr"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchVariablesOrExpr:)];
 }
 
 - (void)variablesOrExpr {
@@ -2078,7 +2046,6 @@
     [self var]; 
     [self variables]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchVarVariables:)];
 }
 
 - (void)varVariables {
@@ -2096,7 +2063,6 @@
         }
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchVariables:)];
 }
 
 - (void)variables {
@@ -2108,7 +2074,6 @@
     [self comma]; 
     [self variable]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchCommaVariable:)];
 }
 
 - (void)commaVariable {
@@ -2122,7 +2087,6 @@
         [self assignment]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchVariable:)];
 }
 
 - (void)variable {
@@ -2134,7 +2098,6 @@
     [self equals]; 
     [self assignmentExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchAssignment:)];
 }
 
 - (void)assignment {
@@ -2147,7 +2110,6 @@
         [self expr]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchExprOpt:)];
 }
 
 - (void)exprOpt {
@@ -2161,7 +2123,6 @@
         [self commaExpr]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)expr {
@@ -2173,7 +2134,6 @@
     [self comma]; 
     [self expr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchCommaExpr:)];
 }
 
 - (void)commaExpr {
@@ -2187,7 +2147,6 @@
         [self extraAssignment]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchAssignmentExpr:)];
 }
 
 - (void)assignmentExpr {
@@ -2199,7 +2158,6 @@
     [self assignmentOperator]; 
     [self assignmentExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchExtraAssignment:)];
 }
 
 - (void)extraAssignment {
@@ -2213,7 +2171,6 @@
         [self ternaryExpr]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchConditionalExpr:)];
 }
 
 - (void)conditionalExpr {
@@ -2227,7 +2184,6 @@
     [self colon]; 
     [self assignmentExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchTernaryExpr:)];
 }
 
 - (void)ternaryExpr {
@@ -2245,7 +2201,6 @@
         }
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
 }
 
 - (void)orExpr {
@@ -2257,7 +2212,6 @@
     [self or]; 
     [self andExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchOrAndExpr:)];
 }
 
 - (void)orAndExpr {
@@ -2271,7 +2225,6 @@
         [self andAndExpr]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchAndExpr:)];
 }
 
 - (void)andExpr {
@@ -2283,7 +2236,6 @@
     [self and]; 
     [self andExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchAndAndExpr:)];
 }
 
 - (void)andAndExpr {
@@ -2297,7 +2249,6 @@
         [self pipeBitwiseOrExpr]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchBitwiseOrExpr:)];
 }
 
 - (void)bitwiseOrExpr {
@@ -2309,7 +2260,6 @@
     [self pipe]; 
     [self bitwiseOrExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchPipeBitwiseOrExpr:)];
 }
 
 - (void)pipeBitwiseOrExpr {
@@ -2323,7 +2273,6 @@
         [self caretBitwiseXorExpr]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchBitwiseXorExpr:)];
 }
 
 - (void)bitwiseXorExpr {
@@ -2335,7 +2284,6 @@
     [self caret]; 
     [self bitwiseXorExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchCaretBitwiseXorExpr:)];
 }
 
 - (void)caretBitwiseXorExpr {
@@ -2349,7 +2297,6 @@
         [self ampBitwiseAndExpression]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchBitwiseAndExpr:)];
 }
 
 - (void)bitwiseAndExpr {
@@ -2361,7 +2308,6 @@
     [self amp]; 
     [self bitwiseAndExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchAmpBitwiseAndExpression:)];
 }
 
 - (void)ampBitwiseAndExpression {
@@ -2375,7 +2321,6 @@
         [self equalityOpEqualityExpr]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchEqualityExpr:)];
 }
 
 - (void)equalityExpr {
@@ -2387,7 +2332,6 @@
     [self equalityOperator]; 
     [self equalityExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchEqualityOpEqualityExpr:)];
 }
 
 - (void)equalityOpEqualityExpr {
@@ -2406,7 +2350,6 @@
         }
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchRelationalExpr:)];
 }
 
 - (void)relationalExpr {
@@ -2420,7 +2363,6 @@
         [self shiftOpShiftExpr]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftExpr:)];
 }
 
 - (void)shiftExpr {
@@ -2432,7 +2374,6 @@
     [self shiftOperator]; 
     [self shiftExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftOpShiftExpr:)];
 }
 
 - (void)shiftOpShiftExpr {
@@ -2446,7 +2387,6 @@
         [self plusOrMinusExpr]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchAdditiveExpr:)];
 }
 
 - (void)additiveExpr {
@@ -2463,7 +2403,6 @@
         [self raise:@"no viable alternative found in plusOrMinusExpr"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchPlusOrMinusExpr:)];
 }
 
 - (void)plusOrMinusExpr {
@@ -2475,7 +2414,6 @@
     [self plus]; 
     [self additiveExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchPlusExpr:)];
 }
 
 - (void)plusExpr {
@@ -2487,7 +2425,6 @@
     [self minus]; 
     [self additiveExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchMinusExpr:)];
 }
 
 - (void)minusExpr {
@@ -2502,7 +2439,6 @@
         [self multiplicativeExpr]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchMultiplicativeExpr:)];
 }
 
 - (void)multiplicativeExpr {
@@ -2527,7 +2463,6 @@
         [self raise:@"no viable alternative found in unaryExpr"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr:)];
 }
 
 - (void)unaryExpr {
@@ -2539,7 +2474,6 @@
     [self unaryOperator]; 
     [self unaryExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr1:)];
 }
 
 - (void)unaryExpr1 {
@@ -2551,7 +2485,6 @@
     [self minus]; 
     [self unaryExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr2:)];
 }
 
 - (void)unaryExpr2 {
@@ -2563,7 +2496,6 @@
     [self incrementOperator]; 
     [self memberExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr3:)];
 }
 
 - (void)unaryExpr3 {
@@ -2575,7 +2507,6 @@
     [self memberExpr]; 
     [self incrementOperator]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr4:)];
 }
 
 - (void)unaryExpr4 {
@@ -2587,7 +2518,6 @@
     [self keywordNew]; 
     [self constructor]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchCallNewExpr:)];
 }
 
 - (void)callNewExpr {
@@ -2599,7 +2529,6 @@
     [self delete]; 
     [self memberExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr6:)];
 }
 
 - (void)unaryExpr6 {
@@ -2614,7 +2543,6 @@
     }
     [self constructorCall]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchConstructor:)];
 }
 
 - (void)constructor {
@@ -2635,7 +2563,6 @@
         }
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchConstructorCall:)];
 }
 
 - (void)constructorCall {
@@ -2648,7 +2575,6 @@
     [self argListOpt]; 
     [self closeParen]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchParenArgListParen:)];
 }
 
 - (void)parenArgListParen {
@@ -2662,7 +2588,6 @@
         [self dotBracketOrParenExpr]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchMemberExpr:)];
 }
 
 - (void)memberExpr {
@@ -2681,7 +2606,6 @@
         [self raise:@"no viable alternative found in dotBracketOrParenExpr"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchDotBracketOrParenExpr:)];
 }
 
 - (void)dotBracketOrParenExpr {
@@ -2693,7 +2617,6 @@
     [self dot]; 
     [self memberExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchDotMemberExpr:)];
 }
 
 - (void)dotMemberExpr {
@@ -2706,7 +2629,6 @@
     [self expr]; 
     [self closeBracket]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchBracketMemberExpr:)];
 }
 
 - (void)bracketMemberExpr {
@@ -2719,7 +2641,6 @@
     [self argListOpt]; 
     [self closeParen]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchParenMemberExpr:)];
 }
 
 - (void)parenMemberExpr {
@@ -2732,7 +2653,6 @@
         [self argList]; 
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchArgListOpt:)];
 }
 
 - (void)argListOpt {
@@ -2750,7 +2670,6 @@
         }
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchArgList:)];
 }
 
 - (void)argList {
@@ -2762,7 +2681,6 @@
     [self comma]; 
     [self assignmentExpr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchCommaAssignmentExpr:)];
 }
 
 - (void)commaAssignmentExpr {
@@ -2795,7 +2713,6 @@
         [self raise:@"no viable alternative found in primaryExpr"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchPrimaryExpr:)];
 }
 
 - (void)primaryExpr {
@@ -2808,7 +2725,6 @@
     [self expr]; 
     [self closeParen]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchParenExprParen:)];
 }
 
 - (void)parenExprParen {

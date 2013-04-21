@@ -217,7 +217,6 @@
         }
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__anything {
@@ -240,7 +239,6 @@
         [self raise:@"no viable alternative found in anything"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchAnything:)];
 }
 
 - (void)anything {
@@ -253,7 +251,6 @@
     [self scriptElementContent]; 
     [self scriptEndTag]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchScriptElement:)];
 }
 
 - (void)scriptElement {
@@ -273,7 +270,6 @@
     }
     [self gt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchScriptStartTag:)];
 }
 
 - (void)scriptStartTag {
@@ -287,7 +283,6 @@
     [self scriptTagName]; 
     [self gt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchScriptEndTag:)];
 }
 
 - (void)scriptEndTag {
@@ -313,7 +308,6 @@
         [self raise:@"negation test failed in scriptElementContent"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchScriptElementContent:)];
 }
 
 - (void)scriptElementContent {
@@ -326,7 +320,6 @@
     [self styleElementContent]; 
     [self styleEndTag]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchStyleElement:)];
 }
 
 - (void)styleElement {
@@ -346,7 +339,6 @@
     }
     [self gt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchStyleStartTag:)];
 }
 
 - (void)styleStartTag {
@@ -360,7 +352,6 @@
     [self styleTagName]; 
     [self gt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchStyleEndTag:)];
 }
 
 - (void)styleEndTag {
@@ -386,7 +377,6 @@
         [self raise:@"negation test failed in styleElementContent"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchStyleElementContent:)];
 }
 
 - (void)styleElementContent {
@@ -438,7 +428,6 @@
         [self raise:@"no viable alternative found in tag"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchTag:)];
 }
 
 - (void)tag {
@@ -459,7 +448,6 @@
     [self fwdSlash]; 
     [self gt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchEmptyTag:)];
 }
 
 - (void)emptyTag {
@@ -479,7 +467,6 @@
     }
     [self gt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchStartTag:)];
 }
 
 - (void)startTag {
@@ -493,7 +480,6 @@
     [self tagName]; 
     [self gt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchEndTag:)];
 }
 
 - (void)endTag {
@@ -521,7 +507,6 @@
         }
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchAttr:)];
 }
 
 - (void)attr {
@@ -549,7 +534,6 @@
         [self raise:@"no viable alternative found in attrValue"];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchAttrValue:)];
 }
 
 - (void)attrValue {

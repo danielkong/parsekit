@@ -7,6 +7,7 @@
 //
 
 #import "PKBaseVisitor.h"
+#import "PKParserFactory.h"
 #import "MGTemplateEngine.h"
 
 @interface PKSParserGenVisitor : PKBaseVisitor <MGTemplateEngineDelegate>
@@ -20,4 +21,5 @@
 @property (nonatomic, assign) BOOL isSpeculating;
 @property (nonatomic, assign) BOOL enableHybridDFA;
 @property (nonatomic, assign) BOOL enableMemoization;
+@property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
 @end
