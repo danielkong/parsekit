@@ -259,13 +259,23 @@
 
 
 - (PKToken *)LT:(NSInteger)i {
-    [self _sync:i];
+    PKToken *tok = nil;
     
-    NSUInteger idx = _p + i - 1;
-    NSAssert(idx < [_lookahead count], @"");
+    for (;;) {
+        [self _sync:i];
 
-    PKToken *tok = _lookahead[idx];
-    //NSLog(@"LT(%ld) : %@", i, [tok debugDescription]);
+        NSUInteger idx = _p + i - 1;
+        NSAssert(idx < [_lookahead count], @"");
+        
+        tok = _lookahead[idx];
+        if (_silentlyConsumesWhitespace && tok.isWhitespace) {
+            [self match:TOKEN_KIND_BUILTIN_ANY];
+        } else {
+            //NSLog(@"LT(%ld) : %@", i, [tok debugDescription]);
+            break;
+        }
+    }
+    
     return tok;
 }
 
@@ -332,13 +342,7 @@
         NSAssert(tok, @"");
         //NSLog(@"-nextToken: %@", [tok debugDescription]);
 
-        if (_silentlyConsumesWhitespace && tok.isWhitespace) {
-            [_assembly consume:tok];
-            --i; // ??
-        } else {
-            // buffer in lookahead
-            [_lookahead addObject:tok];
-        }
+        [_lookahead addObject:tok];
     }
 }
 
