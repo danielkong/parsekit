@@ -59,22 +59,22 @@
     self.factory = nil;
 }
 
-- (void)testPHi {
+- (void)testJSONStuff {
     NSError *err = nil;
     PKAssembly *res = nil;
     NSString *input = nil;
 
     input = @"{'foo':'bar'}";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[{, 'foo', 'bar']{/'foo'/:/'bar'/}^", [res description]);
+    TDEqualObjects(@"[{, 'foo', :, 'bar', }]{/'foo'/:/'bar'/}^", [res description]);
     
     input = @"{'foo':{}}";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[{, 'foo', {]{/'foo'/:/{/}/}^", [res description]);
+    TDEqualObjects(@"[{, 'foo', :, {, }, }]{/'foo'/:/{/}/}^", [res description]);
     
     input = @"{'foo':{'bar':[]}}";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[{, 'foo', {, 'bar', []{/'foo'/:/{/'bar'/:/[/]/}/}^", [res description]);
+    TDEqualObjects(@"[{, 'foo', :, {, 'bar', :, [, ], }, }]{/'foo'/:/{/'bar'/:/[/]/}/}^", [res description]);
     
     input = @"['foo', true, null]";
     res = [_parser parseString:input assembler:nil error:&err];
@@ -82,11 +82,11 @@
     
     input = @"[[]]";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, [][/[/]/]^", [res description]);
+    TDEqualObjects(@"[[, [, ], ]][/[/]/]^", [res description]);
     
     input = @"[[[1]]]";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, [, [, 1][/[/[/1/]/]/]^", [res description]);
+    TDEqualObjects(@"[[, [, [, 1, ], ], ]][/[/[/1/]/]/]^", [res description]);
 }
 
 @end
