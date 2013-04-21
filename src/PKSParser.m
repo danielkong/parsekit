@@ -321,7 +321,7 @@
 
 
 - (void)_fill:(NSInteger)n {
-    for (NSUInteger i = 0; i <= n; ++i) { // <= ?? fetches an extra lookahead tok
+    for (NSInteger i = 0; i <= n; ++i) { // <= ?? fetches an extra lookahead tok
         PKToken *tok = [_tokenizer nextToken];
 
         // set token kind
@@ -329,10 +329,16 @@
             tok.tokenKind = [self _tokenKindForToken:tok];
         }
         
-        // buffer in lookahead
         NSAssert(tok, @"");
         //NSLog(@"-nextToken: %@", [tok debugDescription]);
-        [_lookahead addObject:tok];
+
+        if (_silentlyConsumesWhitespace && tok.isWhitespace) {
+            [_assembly consume:tok];
+            --i; // ??
+        } else {
+            // buffer in lookahead
+            [_lookahead addObject:tok];
+        }
     }
 }
 
