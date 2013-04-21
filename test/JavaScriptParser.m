@@ -195,6 +195,8 @@
 @property (nonatomic, retain) NSMutableDictionary *primaryExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *parenExprParen_memo;
 @property (nonatomic, retain) NSMutableDictionary *identifier_memo;
+@property (nonatomic, retain) NSMutableDictionary *numLiteral_memo;
+@property (nonatomic, retain) NSMutableDictionary *stringLiteral_memo;
 @end
 
 @implementation JavaScriptParser
@@ -425,6 +427,8 @@
         self.primaryExpr_memo = [NSMutableDictionary dictionary];
         self.parenExprParen_memo = [NSMutableDictionary dictionary];
         self.identifier_memo = [NSMutableDictionary dictionary];
+        self.numLiteral_memo = [NSMutableDictionary dictionary];
+        self.stringLiteral_memo = [NSMutableDictionary dictionary];
     }
 	return self;
 }
@@ -583,6 +587,8 @@
     self.primaryExpr_memo = nil;
     self.parenExprParen_memo = nil;
     self.identifier_memo = nil;
+    self.numLiteral_memo = nil;
+    self.stringLiteral_memo = nil;
 
     [super dealloc];
 }
@@ -741,6 +747,8 @@
     [_primaryExpr_memo removeAllObjects];
     [_parenExprParen_memo removeAllObjects];
     [_identifier_memo removeAllObjects];
+    [_numLiteral_memo removeAllObjects];
+    [_stringLiteral_memo removeAllObjects];
 }
 
 - (void)_start {
@@ -2696,9 +2704,9 @@
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self identifier]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-        [self Number]; 
+        [self numLiteral]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self QuotedString]; 
+        [self stringLiteral]; 
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_FALSELITERAL, 0]) {
         [self falseLiteral]; 
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_TRUELITERAL, 0]) {
@@ -2740,6 +2748,28 @@
 
 - (void)identifier {
     [self parseRule:@selector(__identifier) withMemo:_identifier_memo];
+}
+
+- (void)__numLiteral {
+    
+    [self Number]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchNumLiteral:)];
+}
+
+- (void)numLiteral {
+    [self parseRule:@selector(__numLiteral) withMemo:_numLiteral_memo];
+}
+
+- (void)__stringLiteral {
+    
+    [self QuotedString]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchStringLiteral:)];
+}
+
+- (void)stringLiteral {
+    [self parseRule:@selector(__stringLiteral) withMemo:_stringLiteral_memo];
 }
 
 @end
