@@ -184,6 +184,9 @@
 
 - (void)__orTerm {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_OR && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_OR) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_OR]; [self discard:1];
     [self andExpr]; 
     [self execute:(id)^{
@@ -221,6 +224,9 @@
 
 - (void)__andTerm {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_AND && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_AND) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_AND]; [self discard:1];
     [self relExpr]; 
     [self execute:(id)^{
@@ -259,16 +265,34 @@
 - (void)__relOp {
     
     if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_LT, 0]) {
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_LT && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_LT) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_LT]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_GT, 0]) {
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_GT && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_GT) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_GT]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_EQUALS, 0]) {
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_EQUALS && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_EQUALS) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_EQUALS]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NE, 0]) {
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_NE && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_NE) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_NE]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_LE, 0]) {
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_LE && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_LE) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_LE]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_GE, 0]) {
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_GE && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_GE) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_GE]; 
     } else {
         [self raise:@"no viable alternative found in relOp"];
@@ -310,10 +334,16 @@
 - (void)__callExpr {
     
     [self primary]; 
-    if ([self speculate:^{ [self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN]; if ([self speculate:^{ [self argList]; }]) {[self argList]; }[self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN]; }]) {
+    if ([self speculate:^{ if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN) {[self consume:LT(1)];}[self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN]; if ([self speculate:^{ [self argList]; }]) {[self argList]; }if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN) {[self consume:LT(1)];}[self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN]; }]) {
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN]; 
         if ([self speculate:^{ [self argList]; }]) {
             [self argList]; 
+        }
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN) {
+            [self consume:LT(1)];
         }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN]; 
     }
@@ -329,7 +359,10 @@
     
     [self atom]; 
     while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA]; [self atom]; }]) {
+        if ([self speculate:^{ if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_COMMA && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_COMMA) {[self consume:LT(1)];}[self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA]; [self atom]; }]) {
+            if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_COMMA && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_COMMA) {
+                [self consume:LT(1)];
+            }
             [self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA]; 
             [self atom]; 
         } else {
@@ -349,8 +382,14 @@
     if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NO, EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER, EXPRESSIONACTIONS_TOKEN_KIND_YES, EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self atom]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN, 0]) {
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN]; 
         [self expr]; 
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN]; 
     } else {
         [self raise:@"no viable alternative found in primary"];
@@ -411,6 +450,9 @@
 
 - (void)__member {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_DOT && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_DOT) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_DOT]; 
     [self id]; 
 
@@ -453,13 +495,25 @@
 - (void)__bool {
     
     if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_YES, 0]) {
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_YES && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_YES) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_YES]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER, 0]) {
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NO, 0]) {
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_NO && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_NO) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_NO]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER, 0]) {
         [self testAndThrow:(id)^{ return NE(LS(1), @"NO"); }]; 
+        if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER && LA(2) == EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER) {
+            [self consume:LT(1)];
+        }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER]; 
     } else {
         [self raise:@"no viable alternative found in bool"];

@@ -115,6 +115,9 @@
 
 - (void)__a {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != MULTIPLE_TOKEN_KIND_A && LA(2) == MULTIPLE_TOKEN_KIND_A) {
+        [self consume:LT(1)];
+    }
     [self match:MULTIPLE_TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
@@ -126,6 +129,9 @@
 
 - (void)__b {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != MULTIPLE_TOKEN_KIND_B && LA(2) == MULTIPLE_TOKEN_KIND_B) {
+        [self consume:LT(1)];
+    }
     [self match:MULTIPLE_TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];

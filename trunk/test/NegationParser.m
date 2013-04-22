@@ -95,6 +95,9 @@
 
 - (void)__foo {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != NEGATION_TOKEN_KIND_FOO && LA(2) == NEGATION_TOKEN_KIND_FOO) {
+        [self consume:LT(1)];
+    }
     [self match:NEGATION_TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];

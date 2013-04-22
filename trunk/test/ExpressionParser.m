@@ -470,6 +470,9 @@
 
 - (void)__lt {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_LT && LA(2) == EXPRESSION_TOKEN_KIND_LT) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_LT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
@@ -481,6 +484,9 @@
 
 - (void)__gt {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_GT && LA(2) == EXPRESSION_TOKEN_KIND_GT) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
@@ -492,6 +498,9 @@
 
 - (void)__eq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_EQ && LA(2) == EXPRESSION_TOKEN_KIND_EQ) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
@@ -503,6 +512,9 @@
 
 - (void)__ne {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_NE && LA(2) == EXPRESSION_TOKEN_KIND_NE) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_NE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNe:)];
@@ -514,6 +526,9 @@
 
 - (void)__le {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_LE && LA(2) == EXPRESSION_TOKEN_KIND_LE) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_LE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLe:)];
@@ -525,6 +540,9 @@
 
 - (void)__ge {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_GE && LA(2) == EXPRESSION_TOKEN_KIND_GE) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_GE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGe:)];
@@ -536,6 +554,9 @@
 
 - (void)__openParen {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_OPENPAREN && LA(2) == EXPRESSION_TOKEN_KIND_OPENPAREN) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_OPENPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
@@ -547,6 +568,9 @@
 
 - (void)__closeParen {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_CLOSEPAREN && LA(2) == EXPRESSION_TOKEN_KIND_CLOSEPAREN) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_CLOSEPAREN]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
@@ -558,6 +582,9 @@
 
 - (void)__yes {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_YES && LA(2) == EXPRESSION_TOKEN_KIND_YES) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchYes:)];
@@ -569,6 +596,9 @@
 
 - (void)__no {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_NO && LA(2) == EXPRESSION_TOKEN_KIND_NO) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNo:)];
@@ -580,6 +610,9 @@
 
 - (void)__dot {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_DOT && LA(2) == EXPRESSION_TOKEN_KIND_DOT) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_DOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
@@ -591,6 +624,9 @@
 
 - (void)__comma {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_COMMA && LA(2) == EXPRESSION_TOKEN_KIND_COMMA) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_COMMA]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
@@ -602,6 +638,9 @@
 
 - (void)__or {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_OR && LA(2) == EXPRESSION_TOKEN_KIND_OR) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_OR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
@@ -613,6 +652,9 @@
 
 - (void)__and {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != EXPRESSION_TOKEN_KIND_AND && LA(2) == EXPRESSION_TOKEN_KIND_AND) {
+        [self consume:LT(1)];
+    }
     [self match:EXPRESSION_TOKEN_KIND_AND]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];

@@ -292,6 +292,9 @@
 
 - (void)__scriptTagName {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != HTML_TOKEN_KIND_SCRIPTTAGNAME && LA(2) == HTML_TOKEN_KIND_SCRIPTTAGNAME) {
+        [self consume:LT(1)];
+    }
     [self match:HTML_TOKEN_KIND_SCRIPTTAGNAME]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchScriptTagName:)];
@@ -361,6 +364,9 @@
 
 - (void)__styleTagName {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != HTML_TOKEN_KIND_STYLETAGNAME && LA(2) == HTML_TOKEN_KIND_STYLETAGNAME) {
+        [self consume:LT(1)];
+    }
     [self match:HTML_TOKEN_KIND_STYLETAGNAME]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStyleTagName:)];
@@ -543,6 +549,9 @@
 
 - (void)__eq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != HTML_TOKEN_KIND_EQ && LA(2) == HTML_TOKEN_KIND_EQ) {
+        [self consume:LT(1)];
+    }
     [self match:HTML_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
@@ -554,6 +563,9 @@
 
 - (void)__lt {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != HTML_TOKEN_KIND_LT && LA(2) == HTML_TOKEN_KIND_LT) {
+        [self consume:LT(1)];
+    }
     [self match:HTML_TOKEN_KIND_LT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
@@ -565,6 +577,9 @@
 
 - (void)__gt {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != HTML_TOKEN_KIND_GT && LA(2) == HTML_TOKEN_KIND_GT) {
+        [self consume:LT(1)];
+    }
     [self match:HTML_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
@@ -576,6 +591,9 @@
 
 - (void)__fwdSlash {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != HTML_TOKEN_KIND_FWDSLASH && LA(2) == HTML_TOKEN_KIND_FWDSLASH) {
+        [self consume:LT(1)];
+    }
     [self match:HTML_TOKEN_KIND_FWDSLASH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];

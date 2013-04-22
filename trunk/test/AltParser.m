@@ -145,6 +145,9 @@
 
 - (void)__foo {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != ALT_TOKEN_KIND_FOO && LA(2) == ALT_TOKEN_KIND_FOO) {
+        [self consume:LT(1)];
+    }
     [self match:ALT_TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
@@ -156,6 +159,9 @@
 
 - (void)__bar {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != ALT_TOKEN_KIND_BAR && LA(2) == ALT_TOKEN_KIND_BAR) {
+        [self consume:LT(1)];
+    }
     [self match:ALT_TOKEN_KIND_BAR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
@@ -167,6 +173,9 @@
 
 - (void)__baz {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != ALT_TOKEN_KIND_BAZ && LA(2) == ALT_TOKEN_KIND_BAZ) {
+        [self consume:LT(1)];
+    }
     [self match:ALT_TOKEN_KIND_BAZ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBaz:)];
