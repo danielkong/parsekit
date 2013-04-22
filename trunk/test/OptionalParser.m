@@ -82,18 +82,18 @@
 
 - (void)_start {
     
-    [self s]; 
+    [self s];
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__s {
     
-    if ([self speculate:^{ [self expr]; }]) {
-        [self expr]; 
+    if ([self speculate:^{ [self expr];}]) {
+        [self expr];
     }
-    [self foo]; 
-    [self bar]; 
+    [self foo];
+    [self bar];
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
@@ -104,9 +104,9 @@
 
 - (void)__expr {
     
-    [self foo]; 
-    [self bar]; 
-    [self bar]; 
+    [self foo];
+    [self bar];
+    [self bar];
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }

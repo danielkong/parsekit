@@ -89,28 +89,28 @@
 - (void)_start {
     
     do {
-        [self method]; 
-    } while ([self speculate:^{ [self method]; }]);
+        [self method];
+    } while ([self speculate:^{ [self method];}]);
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__method {
     
-    if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type]; [self matchWord:NO];[self match:METHODS_TOKEN_KIND_OPEN_PAREN discard:NO];[self args]; [self match:METHODS_TOKEN_KIND_CLOSE_PAREN discard:NO];[self match:METHODS_TOKEN_KIND_SEMI_COLON discard:NO];}]) {
+    if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type];[self matchWord:NO];[self match:METHODS_TOKEN_KIND_OPEN_PAREN discard:NO];[self args];[self match:METHODS_TOKEN_KIND_CLOSE_PAREN discard:NO];[self match:METHODS_TOKEN_KIND_SEMI_COLON discard:NO];}]) {
         [self testAndThrow:(id)^{ return NO; }]; 
-        [self type]; 
+        [self type];
         [self matchWord:NO];
         [self match:METHODS_TOKEN_KIND_OPEN_PAREN discard:NO];
-        [self args]; 
+        [self args];
         [self match:METHODS_TOKEN_KIND_CLOSE_PAREN discard:NO];
         [self match:METHODS_TOKEN_KIND_SEMI_COLON discard:NO];
-    } else if ([self speculate:^{ [self testAndThrow:(id)^{ return 1; }]; [self type]; [self matchWord:NO];[self match:METHODS_TOKEN_KIND_OPEN_PAREN discard:NO];[self args]; [self match:METHODS_TOKEN_KIND_CLOSE_PAREN discard:NO];[self match:METHODS_TOKEN_KIND_OPEN_CURLY discard:NO];[self match:METHODS_TOKEN_KIND_CLOSE_CURLY discard:NO];}]) {
+    } else if ([self speculate:^{ [self testAndThrow:(id)^{ return 1; }]; [self type];[self matchWord:NO];[self match:METHODS_TOKEN_KIND_OPEN_PAREN discard:NO];[self args];[self match:METHODS_TOKEN_KIND_CLOSE_PAREN discard:NO];[self match:METHODS_TOKEN_KIND_OPEN_CURLY discard:NO];[self match:METHODS_TOKEN_KIND_CLOSE_CURLY discard:NO];}]) {
         [self testAndThrow:(id)^{ return 1; }]; 
-        [self type]; 
+        [self type];
         [self matchWord:NO];
         [self match:METHODS_TOKEN_KIND_OPEN_PAREN discard:NO];
-        [self args]; 
+        [self args];
         [self match:METHODS_TOKEN_KIND_CLOSE_PAREN discard:NO];
         [self match:METHODS_TOKEN_KIND_OPEN_CURLY discard:NO];
         [self match:METHODS_TOKEN_KIND_CLOSE_CURLY discard:NO];
@@ -145,11 +145,11 @@
 - (void)__args {
     
     if ([self predicts:METHODS_TOKEN_KIND_INT, 0]) {
-        [self arg]; 
+        [self arg];
         while ([self predicts:METHODS_TOKEN_KIND_COMMA, 0]) {
-            if ([self speculate:^{ [self match:METHODS_TOKEN_KIND_COMMA discard:NO];[self arg]; }]) {
+            if ([self speculate:^{ [self match:METHODS_TOKEN_KIND_COMMA discard:NO];[self arg];}]) {
                 [self match:METHODS_TOKEN_KIND_COMMA discard:NO];
-                [self arg]; 
+                [self arg];
             } else {
                 break;
             }

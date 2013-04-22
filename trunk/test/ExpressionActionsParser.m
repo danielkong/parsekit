@@ -148,14 +148,14 @@
 
 - (void)_start {
     
-    [self expr]; 
+    [self expr];
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__expr {
     
-    [self orExpr]; 
+    [self orExpr];
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
@@ -166,10 +166,10 @@
 
 - (void)__orExpr {
     
-    [self andExpr]; 
+    [self andExpr];
     while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_OR, 0]) {
-        if ([self speculate:^{ [self orTerm]; }]) {
-            [self orTerm]; 
+        if ([self speculate:^{ [self orTerm];}]) {
+            [self orTerm];
         } else {
             break;
         }
@@ -185,7 +185,7 @@
 - (void)__orTerm {
     
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_OR discard:YES];
-    [self andExpr]; 
+    [self andExpr];
     [self execute:(id)^{
         
 	BOOL rhs = POP_BOOL();
@@ -203,10 +203,10 @@
 
 - (void)__andExpr {
     
-    [self relExpr]; 
+    [self relExpr];
     while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_AND, 0]) {
-        if ([self speculate:^{ [self andTerm]; }]) {
-            [self andTerm]; 
+        if ([self speculate:^{ [self andTerm];}]) {
+            [self andTerm];
         } else {
             break;
         }
@@ -222,7 +222,7 @@
 - (void)__andTerm {
     
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_AND discard:YES];
-    [self relExpr]; 
+    [self relExpr];
     [self execute:(id)^{
         
 	BOOL rhs = POP_BOOL();
@@ -240,10 +240,10 @@
 
 - (void)__relExpr {
     
-    [self callExpr]; 
+    [self callExpr];
     while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_EQUALS, EXPRESSIONACTIONS_TOKEN_KIND_GE, EXPRESSIONACTIONS_TOKEN_KIND_GT, EXPRESSIONACTIONS_TOKEN_KIND_LE, EXPRESSIONACTIONS_TOKEN_KIND_LT, EXPRESSIONACTIONS_TOKEN_KIND_NE, 0]) {
-        if ([self speculate:^{ [self relOpTerm]; }]) {
-            [self relOpTerm]; 
+        if ([self speculate:^{ [self relOpTerm];}]) {
+            [self relOpTerm];
         } else {
             break;
         }
@@ -283,8 +283,8 @@
 
 - (void)__relOpTerm {
     
-    [self relOp]; 
-    [self callExpr]; 
+    [self relOp];
+    [self callExpr];
     [self execute:(id)^{
         
 	NSInteger rhs = POP_INT();
@@ -309,11 +309,11 @@
 
 - (void)__callExpr {
     
-    [self primary]; 
-    if ([self speculate:^{ [self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN discard:NO];if ([self speculate:^{ [self argList]; }]) {[self argList]; }[self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN discard:NO];}]) {
+    [self primary];
+    if ([self speculate:^{ [self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN discard:NO];if ([self speculate:^{ [self argList];}]) {[self argList];}[self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN discard:NO];}]) {
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN discard:NO];
-        if ([self speculate:^{ [self argList]; }]) {
-            [self argList]; 
+        if ([self speculate:^{ [self argList];}]) {
+            [self argList];
         }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN discard:NO];
     }
@@ -327,11 +327,11 @@
 
 - (void)__argList {
     
-    [self atom]; 
+    [self atom];
     while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA discard:NO];[self atom]; }]) {
+        if ([self speculate:^{ [self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA discard:NO];[self atom];}]) {
             [self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA discard:NO];
-            [self atom]; 
+            [self atom];
         } else {
             break;
         }
@@ -347,10 +347,10 @@
 - (void)__primary {
     
     if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NO, EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER, EXPRESSIONACTIONS_TOKEN_KIND_YES, EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self atom]; 
+        [self atom];
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN, 0]) {
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN discard:NO];
-        [self expr]; 
+        [self expr];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN discard:NO];
     } else {
         [self raise:@"no viable alternative found in primary"];
@@ -366,9 +366,9 @@
 - (void)__atom {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self obj]; 
+        [self obj];
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NO, EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER, EXPRESSIONACTIONS_TOKEN_KIND_YES, EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self literal]; 
+        [self literal];
     } else {
         [self raise:@"no viable alternative found in atom"];
     }
@@ -382,10 +382,10 @@
 
 - (void)__obj {
     
-    [self id]; 
+    [self id];
     while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_DOT, 0]) {
-        if ([self speculate:^{ [self member]; }]) {
-            [self member]; 
+        if ([self speculate:^{ [self member];}]) {
+            [self member];
         } else {
             break;
         }
@@ -412,7 +412,7 @@
 - (void)__member {
     
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_DOT discard:NO];
-    [self id]; 
+    [self id];
 
     [self fireAssemblerSelector:@selector(parser:didMatchMember:)];
 }
@@ -425,7 +425,7 @@
     
     if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NO, EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER, EXPRESSIONACTIONS_TOKEN_KIND_YES, EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER, 0]) {
         [self testAndThrow:(id)^{ return LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER; }]; 
-        [self bool]; 
+        [self bool];
         [self execute:(id)^{
              PUSH_BOOL(EQ_IGNORE_CASE(POP_STR(), @"yes")); 
         }];
