@@ -40,14 +40,29 @@
     TDEqualObjects(@"[[, 3, ;][/3/]/;^", [res description]);
 }
 
-- (void)testExtraParen {
+- (void)testExtraBracket {
     NSError *err = nil;
     PKAssembly *res = nil;
     NSString *input = nil;
     
+    _parser.enableAutomaticErrorRecovery = NO;
+    
     input = @"[3]];";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, 3, ;][/3/]/;^", [res description]);
+    TDNotNil(err);
+    TDNil(res);
+}
+
+- (void)testExtraBracketWithRecovery {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
+    
+    _parser.enableAutomaticErrorRecovery = YES;
+    
+    input = @"[3]];";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDEqualObjects(@"[[, 3, ], ;][/3/]/]/;^", [res description]);
 }
 
 @end

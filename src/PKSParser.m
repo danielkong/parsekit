@@ -44,7 +44,6 @@
 - (void)_pushDouble:(double)d;
 
 // backtracking
-- (void)consume:(PKToken *)tok;
 - (NSInteger)_mark;
 - (void)_unmark;
 - (void)_seek:(NSInteger)index;

@@ -801,6 +801,9 @@
 
 - (void)__if {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_IF && LA(2) == JAVASCRIPT_TOKEN_KIND_IF) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_IF]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIf:)];
@@ -812,6 +815,9 @@
 
 - (void)__else {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_ELSE && LA(2) == JAVASCRIPT_TOKEN_KIND_ELSE) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_ELSE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchElse:)];
@@ -823,6 +829,9 @@
 
 - (void)__while {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_WHILE && LA(2) == JAVASCRIPT_TOKEN_KIND_WHILE) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_WHILE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchWhile:)];
@@ -834,6 +843,9 @@
 
 - (void)__for {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_FOR && LA(2) == JAVASCRIPT_TOKEN_KIND_FOR) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_FOR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFor:)];
@@ -845,6 +857,9 @@
 
 - (void)__in {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_IN && LA(2) == JAVASCRIPT_TOKEN_KIND_IN) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_IN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIn:)];
@@ -856,6 +871,9 @@
 
 - (void)__break {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_BREAK && LA(2) == JAVASCRIPT_TOKEN_KIND_BREAK) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_BREAK]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBreak:)];
@@ -867,6 +885,9 @@
 
 - (void)__continue {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_CONTINUE && LA(2) == JAVASCRIPT_TOKEN_KIND_CONTINUE) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_CONTINUE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchContinue:)];
@@ -878,6 +899,9 @@
 
 - (void)__with {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_WITH && LA(2) == JAVASCRIPT_TOKEN_KIND_WITH) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_WITH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchWith:)];
@@ -889,6 +913,9 @@
 
 - (void)__return {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_RETURN && LA(2) == JAVASCRIPT_TOKEN_KIND_RETURN) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_RETURN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchReturn:)];
@@ -900,6 +927,9 @@
 
 - (void)__var {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_VAR && LA(2) == JAVASCRIPT_TOKEN_KIND_VAR) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_VAR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchVar:)];
@@ -911,6 +941,9 @@
 
 - (void)__delete {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_DELETE && LA(2) == JAVASCRIPT_TOKEN_KIND_DELETE) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_DELETE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDelete:)];
@@ -922,6 +955,9 @@
 
 - (void)__keywordNew {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_KEYWORDNEW && LA(2) == JAVASCRIPT_TOKEN_KIND_KEYWORDNEW) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_KEYWORDNEW]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchKeywordNew:)];
@@ -933,6 +969,9 @@
 
 - (void)__this {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_THIS && LA(2) == JAVASCRIPT_TOKEN_KIND_THIS) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_THIS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchThis:)];
@@ -944,6 +983,9 @@
 
 - (void)__falseLiteral {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_FALSELITERAL && LA(2) == JAVASCRIPT_TOKEN_KIND_FALSELITERAL) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_FALSELITERAL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
@@ -955,6 +997,9 @@
 
 - (void)__trueLiteral {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_TRUELITERAL && LA(2) == JAVASCRIPT_TOKEN_KIND_TRUELITERAL) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_TRUELITERAL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
@@ -966,6 +1011,9 @@
 
 - (void)__null {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_NULL && LA(2) == JAVASCRIPT_TOKEN_KIND_NULL) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_NULL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNull:)];
@@ -977,6 +1025,9 @@
 
 - (void)__undefined {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_UNDEFINED && LA(2) == JAVASCRIPT_TOKEN_KIND_UNDEFINED) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_UNDEFINED]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchUndefined:)];
@@ -988,6 +1039,9 @@
 
 - (void)__void {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_VOID && LA(2) == JAVASCRIPT_TOKEN_KIND_VOID) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_VOID]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchVoid:)];
@@ -999,6 +1053,9 @@
 
 - (void)__typeof {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_TYPEOF && LA(2) == JAVASCRIPT_TOKEN_KIND_TYPEOF) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_TYPEOF]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTypeof:)];
@@ -1010,6 +1067,9 @@
 
 - (void)__instanceof {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_INSTANCEOF && LA(2) == JAVASCRIPT_TOKEN_KIND_INSTANCEOF) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_INSTANCEOF]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchInstanceof:)];
@@ -1021,6 +1081,9 @@
 
 - (void)__function {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_FUNCTION && LA(2) == JAVASCRIPT_TOKEN_KIND_FUNCTION) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_FUNCTION]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFunction:)];
@@ -1032,6 +1095,9 @@
 
 - (void)__openCurly {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_OPENCURLY && LA(2) == JAVASCRIPT_TOKEN_KIND_OPENCURLY) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_OPENCURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
@@ -1043,6 +1109,9 @@
 
 - (void)__closeCurly {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_CLOSECURLY && LA(2) == JAVASCRIPT_TOKEN_KIND_CLOSECURLY) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSECURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
@@ -1054,6 +1123,9 @@
 
 - (void)__openParen {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_OPENPAREN && LA(2) == JAVASCRIPT_TOKEN_KIND_OPENPAREN) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_OPENPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
@@ -1065,6 +1137,9 @@
 
 - (void)__closeParen {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_CLOSEPAREN && LA(2) == JAVASCRIPT_TOKEN_KIND_CLOSEPAREN) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
@@ -1076,6 +1151,9 @@
 
 - (void)__openBracket {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_OPENBRACKET && LA(2) == JAVASCRIPT_TOKEN_KIND_OPENBRACKET) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_OPENBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
@@ -1087,6 +1165,9 @@
 
 - (void)__closeBracket {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET && LA(2) == JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
@@ -1098,6 +1179,9 @@
 
 - (void)__comma {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_COMMA && LA(2) == JAVASCRIPT_TOKEN_KIND_COMMA) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_COMMA]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
@@ -1109,6 +1193,9 @@
 
 - (void)__dot {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_DOT && LA(2) == JAVASCRIPT_TOKEN_KIND_DOT) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_DOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
@@ -1120,6 +1207,9 @@
 
 - (void)__semi {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_SEMI && LA(2) == JAVASCRIPT_TOKEN_KIND_SEMI) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_SEMI]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
@@ -1131,6 +1221,9 @@
 
 - (void)__colon {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_COLON && LA(2) == JAVASCRIPT_TOKEN_KIND_COLON) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_COLON]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
@@ -1142,6 +1235,9 @@
 
 - (void)__equals {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_EQUALS && LA(2) == JAVASCRIPT_TOKEN_KIND_EQUALS) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_EQUALS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEquals:)];
@@ -1153,6 +1249,9 @@
 
 - (void)__not {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_NOT && LA(2) == JAVASCRIPT_TOKEN_KIND_NOT) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_NOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNot:)];
@@ -1164,6 +1263,9 @@
 
 - (void)__lt {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_LT && LA(2) == JAVASCRIPT_TOKEN_KIND_LT) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_LT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
@@ -1175,6 +1277,9 @@
 
 - (void)__gt {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_GT && LA(2) == JAVASCRIPT_TOKEN_KIND_GT) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
@@ -1186,6 +1291,9 @@
 
 - (void)__amp {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_AMP && LA(2) == JAVASCRIPT_TOKEN_KIND_AMP) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_AMP]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAmp:)];
@@ -1197,6 +1305,9 @@
 
 - (void)__pipe {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_PIPE && LA(2) == JAVASCRIPT_TOKEN_KIND_PIPE) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_PIPE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPipe:)];
@@ -1208,6 +1319,9 @@
 
 - (void)__caret {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_CARET && LA(2) == JAVASCRIPT_TOKEN_KIND_CARET) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_CARET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCaret:)];
@@ -1219,6 +1333,9 @@
 
 - (void)__tilde {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_TILDE && LA(2) == JAVASCRIPT_TOKEN_KIND_TILDE) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_TILDE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTilde:)];
@@ -1230,6 +1347,9 @@
 
 - (void)__question {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_QUESTION && LA(2) == JAVASCRIPT_TOKEN_KIND_QUESTION) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_QUESTION]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchQuestion:)];
@@ -1241,6 +1361,9 @@
 
 - (void)__plus {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_PLUS && LA(2) == JAVASCRIPT_TOKEN_KIND_PLUS) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_PLUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlus:)];
@@ -1252,6 +1375,9 @@
 
 - (void)__minus {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_MINUS && LA(2) == JAVASCRIPT_TOKEN_KIND_MINUS) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_MINUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinus:)];
@@ -1263,6 +1389,9 @@
 
 - (void)__times {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_TIMES && LA(2) == JAVASCRIPT_TOKEN_KIND_TIMES) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_TIMES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTimes:)];
@@ -1274,6 +1403,9 @@
 
 - (void)__div {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_DIV && LA(2) == JAVASCRIPT_TOKEN_KIND_DIV) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_DIV]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDiv:)];
@@ -1285,6 +1417,9 @@
 
 - (void)__mod {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_MOD && LA(2) == JAVASCRIPT_TOKEN_KIND_MOD) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_MOD]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMod:)];
@@ -1296,6 +1431,9 @@
 
 - (void)__or {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_OR && LA(2) == JAVASCRIPT_TOKEN_KIND_OR) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_OR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
@@ -1307,6 +1445,9 @@
 
 - (void)__and {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_AND && LA(2) == JAVASCRIPT_TOKEN_KIND_AND) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_AND]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];
@@ -1318,6 +1459,9 @@
 
 - (void)__ne {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_NE && LA(2) == JAVASCRIPT_TOKEN_KIND_NE) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_NE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNe:)];
@@ -1329,6 +1473,9 @@
 
 - (void)__isnot {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_ISNOT && LA(2) == JAVASCRIPT_TOKEN_KIND_ISNOT) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_ISNOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIsnot:)];
@@ -1340,6 +1487,9 @@
 
 - (void)__eq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_EQ && LA(2) == JAVASCRIPT_TOKEN_KIND_EQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
@@ -1351,6 +1501,9 @@
 
 - (void)__is {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_IS && LA(2) == JAVASCRIPT_TOKEN_KIND_IS) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_IS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIs:)];
@@ -1362,6 +1515,9 @@
 
 - (void)__le {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_LE && LA(2) == JAVASCRIPT_TOKEN_KIND_LE) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_LE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLe:)];
@@ -1373,6 +1529,9 @@
 
 - (void)__ge {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_GE && LA(2) == JAVASCRIPT_TOKEN_KIND_GE) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_GE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGe:)];
@@ -1384,6 +1543,9 @@
 
 - (void)__plusPlus {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_PLUSPLUS && LA(2) == JAVASCRIPT_TOKEN_KIND_PLUSPLUS) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_PLUSPLUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlusPlus:)];
@@ -1395,6 +1557,9 @@
 
 - (void)__minusMinus {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_MINUSMINUS && LA(2) == JAVASCRIPT_TOKEN_KIND_MINUSMINUS) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_MINUSMINUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinusMinus:)];
@@ -1406,6 +1571,9 @@
 
 - (void)__plusEq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_PLUSEQ && LA(2) == JAVASCRIPT_TOKEN_KIND_PLUSEQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_PLUSEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlusEq:)];
@@ -1417,6 +1585,9 @@
 
 - (void)__minusEq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_MINUSEQ && LA(2) == JAVASCRIPT_TOKEN_KIND_MINUSEQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_MINUSEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinusEq:)];
@@ -1428,6 +1599,9 @@
 
 - (void)__timesEq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_TIMESEQ && LA(2) == JAVASCRIPT_TOKEN_KIND_TIMESEQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_TIMESEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTimesEq:)];
@@ -1439,6 +1613,9 @@
 
 - (void)__divEq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_DIVEQ && LA(2) == JAVASCRIPT_TOKEN_KIND_DIVEQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_DIVEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDivEq:)];
@@ -1450,6 +1627,9 @@
 
 - (void)__modEq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_MODEQ && LA(2) == JAVASCRIPT_TOKEN_KIND_MODEQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_MODEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchModEq:)];
@@ -1461,6 +1641,9 @@
 
 - (void)__shiftLeft {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_SHIFTLEFT && LA(2) == JAVASCRIPT_TOKEN_KIND_SHIFTLEFT) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftLeft:)];
@@ -1472,6 +1655,9 @@
 
 - (void)__shiftRight {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT && LA(2) == JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRight:)];
@@ -1483,6 +1669,9 @@
 
 - (void)__shiftRightExt {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT && LA(2) == JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExt:)];
@@ -1494,6 +1683,9 @@
 
 - (void)__shiftLeftEq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ && LA(2) == JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftLeftEq:)];
@@ -1505,6 +1697,9 @@
 
 - (void)__shiftRightEq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ && LA(2) == JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightEq:)];
@@ -1516,6 +1711,9 @@
 
 - (void)__shiftRightExtEq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ && LA(2) == JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExtEq:)];
@@ -1527,6 +1725,9 @@
 
 - (void)__andEq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_ANDEQ && LA(2) == JAVASCRIPT_TOKEN_KIND_ANDEQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_ANDEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndEq:)];
@@ -1538,6 +1739,9 @@
 
 - (void)__xorEq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_XOREQ && LA(2) == JAVASCRIPT_TOKEN_KIND_XOREQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_XOREQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchXorEq:)];
@@ -1549,6 +1753,9 @@
 
 - (void)__orEq {
     
+    if (self.enableAutomaticErrorRecovery && LA(1) != JAVASCRIPT_TOKEN_KIND_OREQ && LA(2) == JAVASCRIPT_TOKEN_KIND_OREQ) {
+        [self consume:LT(1)];
+    }
     [self match:JAVASCRIPT_TOKEN_KIND_OREQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrEq:)];

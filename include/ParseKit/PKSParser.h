@@ -46,6 +46,7 @@ enum {
 @property (nonatomic, retain) PKSTokenAssembly *assembly;
 @property (nonatomic, assign) BOOL disableActions;
 @property (nonatomic, assign) BOOL silentlyConsumesWhitespace;
+@property (nonatomic, assign) BOOL enableAutomaticErrorRecovery;
 @end
 
 @interface PKSParser (Subclass)
@@ -55,6 +56,7 @@ enum {
 - (double)LF:(NSInteger)i;
 - (NSString *)LS:(NSInteger)i;
 
+- (void)consume:(PKToken *)tok;
 - (void)match:(NSInteger)x;
 - (void)discard:(NSInteger)n;
 - (BOOL)predicts:(NSInteger)tokenKind, ...;
