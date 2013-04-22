@@ -97,23 +97,23 @@
 
 - (void)__method {
     
-    if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type]; [self Word]; [self match:METHODS_TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; [self match:METHODS_TOKEN_KIND_SEMI_COLON]; }]) {
+    if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type]; [self matchWord:NO];[self match:METHODS_TOKEN_KIND_OPEN_PAREN discard:NO];[self args]; [self match:METHODS_TOKEN_KIND_CLOSE_PAREN discard:NO];[self match:METHODS_TOKEN_KIND_SEMI_COLON discard:NO];}]) {
         [self testAndThrow:(id)^{ return NO; }]; 
         [self type]; 
-        [self Word]; 
-        [self match:METHODS_TOKEN_KIND_OPEN_PAREN]; 
+        [self matchWord:NO];
+        [self match:METHODS_TOKEN_KIND_OPEN_PAREN discard:NO];
         [self args]; 
-        [self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; 
-        [self match:METHODS_TOKEN_KIND_SEMI_COLON]; 
-    } else if ([self speculate:^{ [self testAndThrow:(id)^{ return 1; }]; [self type]; [self Word]; [self match:METHODS_TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; [self match:METHODS_TOKEN_KIND_OPEN_CURLY]; [self match:METHODS_TOKEN_KIND_CLOSE_CURLY]; }]) {
+        [self match:METHODS_TOKEN_KIND_CLOSE_PAREN discard:NO];
+        [self match:METHODS_TOKEN_KIND_SEMI_COLON discard:NO];
+    } else if ([self speculate:^{ [self testAndThrow:(id)^{ return 1; }]; [self type]; [self matchWord:NO];[self match:METHODS_TOKEN_KIND_OPEN_PAREN discard:NO];[self args]; [self match:METHODS_TOKEN_KIND_CLOSE_PAREN discard:NO];[self match:METHODS_TOKEN_KIND_OPEN_CURLY discard:NO];[self match:METHODS_TOKEN_KIND_CLOSE_CURLY discard:NO];}]) {
         [self testAndThrow:(id)^{ return 1; }]; 
         [self type]; 
-        [self Word]; 
-        [self match:METHODS_TOKEN_KIND_OPEN_PAREN]; 
+        [self matchWord:NO];
+        [self match:METHODS_TOKEN_KIND_OPEN_PAREN discard:NO];
         [self args]; 
-        [self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; 
-        [self match:METHODS_TOKEN_KIND_OPEN_CURLY]; 
-        [self match:METHODS_TOKEN_KIND_CLOSE_CURLY]; 
+        [self match:METHODS_TOKEN_KIND_CLOSE_PAREN discard:NO];
+        [self match:METHODS_TOKEN_KIND_OPEN_CURLY discard:NO];
+        [self match:METHODS_TOKEN_KIND_CLOSE_CURLY discard:NO];
     } else {
         [self raise:@"no viable alternative found in method"];
     }
@@ -128,9 +128,9 @@
 - (void)__type {
     
     if ([self predicts:METHODS_TOKEN_KIND_VOID, 0]) {
-        [self match:METHODS_TOKEN_KIND_VOID]; 
+        [self match:METHODS_TOKEN_KIND_VOID discard:NO];
     } else if ([self predicts:METHODS_TOKEN_KIND_INT, 0]) {
-        [self match:METHODS_TOKEN_KIND_INT]; 
+        [self match:METHODS_TOKEN_KIND_INT discard:NO];
     } else {
         [self raise:@"no viable alternative found in type"];
     }
@@ -147,8 +147,8 @@
     if ([self predicts:METHODS_TOKEN_KIND_INT, 0]) {
         [self arg]; 
         while ([self predicts:METHODS_TOKEN_KIND_COMMA, 0]) {
-            if ([self speculate:^{ [self match:METHODS_TOKEN_KIND_COMMA]; [self arg]; }]) {
-                [self match:METHODS_TOKEN_KIND_COMMA]; 
+            if ([self speculate:^{ [self match:METHODS_TOKEN_KIND_COMMA discard:NO];[self arg]; }]) {
+                [self match:METHODS_TOKEN_KIND_COMMA discard:NO];
                 [self arg]; 
             } else {
                 break;
@@ -165,8 +165,8 @@
 
 - (void)__arg {
     
-    [self match:METHODS_TOKEN_KIND_INT]; 
-    [self Word]; 
+    [self match:METHODS_TOKEN_KIND_INT discard:NO];
+    [self matchWord:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchArg:)];
 }

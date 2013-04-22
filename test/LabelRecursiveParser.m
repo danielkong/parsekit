@@ -86,14 +86,14 @@
 
 - (void)__s {
     
-    if ([self speculate:^{ [self label]; [self Word]; [self match:LABELRECURSIVE_TOKEN_KIND_EQUALS]; [self expr]; }]) {
+    if ([self speculate:^{ [self label]; [self matchWord:NO];[self match:LABELRECURSIVE_TOKEN_KIND_EQUALS discard:NO];[self expr]; }]) {
         [self label]; 
-        [self Word]; 
-        [self match:LABELRECURSIVE_TOKEN_KIND_EQUALS]; 
+        [self matchWord:NO];
+        [self match:LABELRECURSIVE_TOKEN_KIND_EQUALS discard:NO];
         [self expr]; 
-    } else if ([self speculate:^{ [self label]; [self match:LABELRECURSIVE_TOKEN_KIND_RETURN]; [self expr]; }]) {
+    } else if ([self speculate:^{ [self label]; [self match:LABELRECURSIVE_TOKEN_KIND_RETURN discard:NO];[self expr]; }]) {
         [self label]; 
-        [self match:LABELRECURSIVE_TOKEN_KIND_RETURN]; 
+        [self match:LABELRECURSIVE_TOKEN_KIND_RETURN discard:NO];
         [self expr]; 
     } else {
         [self raise:@"no viable alternative found in s"];
@@ -109,8 +109,8 @@
 - (void)__label {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self Word]; 
-        [self match:LABELRECURSIVE_TOKEN_KIND_COLON]; 
+        [self matchWord:NO];
+        [self match:LABELRECURSIVE_TOKEN_KIND_COLON discard:NO];
         [self label]; 
     }
 
@@ -123,7 +123,7 @@
 
 - (void)__expr {
     
-    [self Number]; 
+    [self matchNumber:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }

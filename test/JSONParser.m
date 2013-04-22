@@ -148,7 +148,7 @@
 
 - (void)propertyName {
     
-    [self QuotedString]; 
+    [self matchQuotedString:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPropertyName:)];
 }
@@ -222,84 +222,84 @@
 
 - (void)comment {
     
-    [self Comment]; 
+    [self matchComment:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComment:)];
 }
 
 - (void)string {
     
-    [self QuotedString]; 
+    [self matchQuotedString:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchString:)];
 }
 
 - (void)number {
     
-    [self Number]; 
+    [self matchNumber:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchNumber:)];
 }
 
 - (void)nullLiteral {
     
-    [self match:JSON_TOKEN_KIND_NULLLITERAL]; 
+    [self match:JSON_TOKEN_KIND_NULLLITERAL discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchNullLiteral:)];
 }
 
 - (void)trueLiteral {
     
-    [self match:JSON_TOKEN_KIND_TRUELITERAL]; 
+    [self match:JSON_TOKEN_KIND_TRUELITERAL discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
 }
 
 - (void)falseLiteral {
     
-    [self match:JSON_TOKEN_KIND_FALSELITERAL]; 
+    [self match:JSON_TOKEN_KIND_FALSELITERAL discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
 }
 
 - (void)openCurly {
     
-    [self match:JSON_TOKEN_KIND_OPENCURLY]; 
+    [self match:JSON_TOKEN_KIND_OPENCURLY discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
 }
 
 - (void)closeCurly {
     
-    [self match:JSON_TOKEN_KIND_CLOSECURLY]; 
+    [self match:JSON_TOKEN_KIND_CLOSECURLY discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
 }
 
 - (void)openBracket {
     
-    [self match:JSON_TOKEN_KIND_OPENBRACKET]; 
+    [self match:JSON_TOKEN_KIND_OPENBRACKET discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
 }
 
 - (void)closeBracket {
     
-    [self match:JSON_TOKEN_KIND_CLOSEBRACKET]; 
+    [self match:JSON_TOKEN_KIND_CLOSEBRACKET discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
 }
 
 - (void)comma {
     
-    [self match:JSON_TOKEN_KIND_COMMA]; 
+    [self match:JSON_TOKEN_KIND_COMMA discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
 - (void)colon {
     
-    [self match:JSON_TOKEN_KIND_COLON]; 
+    [self match:JSON_TOKEN_KIND_COLON discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
 }

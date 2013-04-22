@@ -201,7 +201,7 @@
 }
 
 
-- (void)match:(NSInteger)tokenKind {
+- (void)match:(NSInteger)tokenKind discard:(BOOL)discard {
     NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_EOF);
     NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
@@ -222,6 +222,7 @@
 
         if (matches) {
             [self consume:lt];
+            if (discard) [self discard:1];
         } else {
             [self raise:@"expecting %ld; found %@", tokenKind, lt];
         }
@@ -235,11 +236,6 @@
         //NSLog(@"%@", _assembly);
     }
 
-    [self advance:1];
-}
-
-
-- (void)advance:(NSInteger)n {
     self._p++;
     
     // have we hit end of buffer when not backtracking?
@@ -595,85 +591,85 @@
 }
 
 
-- (void)Any {
+- (void)matchAny:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self match:TOKEN_KIND_BUILTIN_ANY];
+    [self match:TOKEN_KIND_BUILTIN_ANY discard:discard];
 }
 
 
-- (void)Empty {
+- (void)matchEmpty:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
 }
 
 
-- (void)Word {
+- (void)matchWord:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self match:TOKEN_KIND_BUILTIN_WORD];
+    [self match:TOKEN_KIND_BUILTIN_WORD discard:discard];
 }
 
 
-- (void)LowercaseWord {
+- (void)matchLowercaseWord:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
     NSString *str = [self LS:1];
     if ([str length] && islower([str characterAtIndex:0])) {
-        [self match:TOKEN_KIND_BUILTIN_WORD];
+        [self match:TOKEN_KIND_BUILTIN_WORD discard:discard];
     }
 }
 
 
-- (void)UppercaseWord {
+- (void)matchUppercaseWord:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
     NSString *str = [self LS:1];
     if ([str length] && isupper([str characterAtIndex:0])) {
-        [self match:TOKEN_KIND_BUILTIN_WORD];
+        [self match:TOKEN_KIND_BUILTIN_WORD discard:discard];
     }
 }
 
 
-- (void)Number {
+- (void)matchNumber:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self match:TOKEN_KIND_BUILTIN_NUMBER];
+    [self match:TOKEN_KIND_BUILTIN_NUMBER discard:discard];
 }
 
 
-- (void)Symbol {
+- (void)matchSymbol:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self match:TOKEN_KIND_BUILTIN_SYMBOL];
+    [self match:TOKEN_KIND_BUILTIN_SYMBOL discard:discard];
 }
 
 
-- (void)Comment {
+- (void)matchComment:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self match:TOKEN_KIND_BUILTIN_COMMENT];
+    [self match:TOKEN_KIND_BUILTIN_COMMENT discard:discard];
 }
 
 
-- (void)Whitespace {
+- (void)matchWhitespace:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self match:TOKEN_KIND_BUILTIN_WHITESPACE];
+    [self match:TOKEN_KIND_BUILTIN_WHITESPACE discard:discard];
 }
 
 
-- (void)QuotedString {
+- (void)matchQuotedString:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self match:TOKEN_KIND_BUILTIN_QUOTEDSTRING];
+    [self match:TOKEN_KIND_BUILTIN_QUOTEDSTRING discard:discard];
 }
 
 
-- (void)DelimitedString {
+- (void)matchDelimitedString:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
-    [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING];
+    [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING discard:discard];
 }
 
 @synthesize _exception = _exception;

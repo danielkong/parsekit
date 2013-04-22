@@ -145,7 +145,7 @@
 
 - (void)__foo {
     
-    [self match:ALT_TOKEN_KIND_FOO]; 
+    [self match:ALT_TOKEN_KIND_FOO discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
@@ -156,7 +156,7 @@
 
 - (void)__bar {
     
-    [self match:ALT_TOKEN_KIND_BAR]; 
+    [self match:ALT_TOKEN_KIND_BAR discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
 }
@@ -167,7 +167,7 @@
 
 - (void)__baz {
     
-    [self match:ALT_TOKEN_KIND_BAZ]; 
+    [self match:ALT_TOKEN_KIND_BAZ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchBaz:)];
 }

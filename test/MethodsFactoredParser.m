@@ -98,15 +98,15 @@
 - (void)__method {
     
     [self type]; 
-    [self Word]; 
-    [self match:METHODSFACTORED_TOKEN_KIND_OPEN_PAREN]; 
+    [self matchWord:NO];
+    [self match:METHODSFACTORED_TOKEN_KIND_OPEN_PAREN discard:NO];
     [self args]; 
-    [self match:METHODSFACTORED_TOKEN_KIND_CLOSE_PAREN]; 
+    [self match:METHODSFACTORED_TOKEN_KIND_CLOSE_PAREN discard:NO];
     if ([self predicts:METHODSFACTORED_TOKEN_KIND_SEMI_COLON, 0]) {
-        [self match:METHODSFACTORED_TOKEN_KIND_SEMI_COLON]; 
+        [self match:METHODSFACTORED_TOKEN_KIND_SEMI_COLON discard:NO];
     } else if ([self predicts:METHODSFACTORED_TOKEN_KIND_OPEN_CURLY, 0]) {
-        [self match:METHODSFACTORED_TOKEN_KIND_OPEN_CURLY]; 
-        [self match:METHODSFACTORED_TOKEN_KIND_CLOSE_CURLY]; 
+        [self match:METHODSFACTORED_TOKEN_KIND_OPEN_CURLY discard:NO];
+        [self match:METHODSFACTORED_TOKEN_KIND_CLOSE_CURLY discard:NO];
     } else {
         [self raise:@"no viable alternative found in method"];
     }
@@ -121,9 +121,9 @@
 - (void)__type {
     
     if ([self predicts:METHODSFACTORED_TOKEN_KIND_VOID, 0]) {
-        [self match:METHODSFACTORED_TOKEN_KIND_VOID]; 
+        [self match:METHODSFACTORED_TOKEN_KIND_VOID discard:NO];
     } else if ([self predicts:METHODSFACTORED_TOKEN_KIND_INT, 0]) {
-        [self match:METHODSFACTORED_TOKEN_KIND_INT]; 
+        [self match:METHODSFACTORED_TOKEN_KIND_INT discard:NO];
     } else {
         [self raise:@"no viable alternative found in type"];
     }
@@ -140,8 +140,8 @@
     if ([self predicts:METHODSFACTORED_TOKEN_KIND_INT, 0]) {
         [self arg]; 
         while ([self predicts:METHODSFACTORED_TOKEN_KIND_COMMA, 0]) {
-            if ([self speculate:^{ [self match:METHODSFACTORED_TOKEN_KIND_COMMA]; [self arg]; }]) {
-                [self match:METHODSFACTORED_TOKEN_KIND_COMMA]; 
+            if ([self speculate:^{ [self match:METHODSFACTORED_TOKEN_KIND_COMMA discard:NO];[self arg]; }]) {
+                [self match:METHODSFACTORED_TOKEN_KIND_COMMA discard:NO];
                 [self arg]; 
             } else {
                 break;
@@ -158,8 +158,8 @@
 
 - (void)__arg {
     
-    [self match:METHODSFACTORED_TOKEN_KIND_INT]; 
-    [self Word]; 
+    [self match:METHODSFACTORED_TOKEN_KIND_INT discard:NO];
+    [self matchWord:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchArg:)];
 }

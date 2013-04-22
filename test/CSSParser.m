@@ -354,7 +354,7 @@
 
 - (void)__selectorWord {
     
-    [self Word]; 
+    [self matchWord:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSelectorWord:)];
 }
@@ -365,7 +365,7 @@
 
 - (void)__selectorQuotedString {
     
-    [self QuotedString]; 
+    [self matchQuotedString:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSelectorQuotedString:)];
 }
@@ -432,7 +432,7 @@
 
 - (void)__property {
     
-    [self Word]; 
+    [self matchWord:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchProperty:)];
 }
@@ -489,7 +489,7 @@
 
 - (void)__urlLower {
     
-    [self match:CSS_TOKEN_KIND_URLLOWER]; 
+    [self match:CSS_TOKEN_KIND_URLLOWER discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchUrlLower:)];
 }
@@ -500,7 +500,7 @@
 
 - (void)__urlUpper {
     
-    [self match:CSS_TOKEN_KIND_URLUPPER]; 
+    [self match:CSS_TOKEN_KIND_URLUPPER discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchUrlUpper:)];
 }
@@ -515,7 +515,7 @@
         [self testAndThrow:(id)^{ return NE(LS(1), @";") && NE(LS(1), @"!"); }]; 
         [self fwdSlash]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_SYMBOL, 0]) {
-        [self Symbol]; 
+        [self matchSymbol:NO];
     } else {
         [self raise:@"no viable alternative found in nonTerminatingSymbol"];
     }
@@ -529,7 +529,7 @@
 - (void)__important {
     
     [self bang]; 
-    [self Word]; 
+    [self matchWord:NO];
 
 }
 
@@ -539,7 +539,7 @@
 
 - (void)__string {
     
-    [self QuotedString]; 
+    [self matchQuotedString:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchString:)];
 }
@@ -550,7 +550,7 @@
 
 - (void)__constant {
     
-    [self Word]; 
+    [self matchWord:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchConstant:)];
 }
@@ -561,7 +561,7 @@
 
 - (void)__openCurly {
     
-    [self match:CSS_TOKEN_KIND_OPENCURLY]; 
+    [self match:CSS_TOKEN_KIND_OPENCURLY discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
 }
@@ -572,7 +572,7 @@
 
 - (void)__closeCurly {
     
-    [self match:CSS_TOKEN_KIND_CLOSECURLY]; 
+    [self match:CSS_TOKEN_KIND_CLOSECURLY discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
 }
@@ -583,7 +583,7 @@
 
 - (void)__openBracket {
     
-    [self match:CSS_TOKEN_KIND_OPENBRACKET]; 
+    [self match:CSS_TOKEN_KIND_OPENBRACKET discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
 }
@@ -594,7 +594,7 @@
 
 - (void)__closeBracket {
     
-    [self match:CSS_TOKEN_KIND_CLOSEBRACKET]; 
+    [self match:CSS_TOKEN_KIND_CLOSEBRACKET discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
 }
@@ -605,7 +605,7 @@
 
 - (void)__eq {
     
-    [self match:CSS_TOKEN_KIND_EQ]; 
+    [self match:CSS_TOKEN_KIND_EQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
@@ -616,7 +616,7 @@
 
 - (void)__comma {
     
-    [self match:CSS_TOKEN_KIND_COMMA]; 
+    [self match:CSS_TOKEN_KIND_COMMA discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
@@ -627,7 +627,7 @@
 
 - (void)__colon {
     
-    [self match:CSS_TOKEN_KIND_COLON]; 
+    [self match:CSS_TOKEN_KIND_COLON discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
 }
@@ -638,7 +638,7 @@
 
 - (void)__semi {
     
-    [self match:CSS_TOKEN_KIND_SEMI]; 
+    [self match:CSS_TOKEN_KIND_SEMI discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
 }
@@ -649,7 +649,7 @@
 
 - (void)__openParen {
     
-    [self match:CSS_TOKEN_KIND_OPENPAREN]; 
+    [self match:CSS_TOKEN_KIND_OPENPAREN discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
 }
@@ -660,7 +660,7 @@
 
 - (void)__closeParen {
     
-    [self match:CSS_TOKEN_KIND_CLOSEPAREN]; 
+    [self match:CSS_TOKEN_KIND_CLOSEPAREN discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
 }
@@ -671,7 +671,7 @@
 
 - (void)__gt {
     
-    [self match:CSS_TOKEN_KIND_GT]; 
+    [self match:CSS_TOKEN_KIND_GT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
@@ -682,7 +682,7 @@
 
 - (void)__tilde {
     
-    [self match:CSS_TOKEN_KIND_TILDE]; 
+    [self match:CSS_TOKEN_KIND_TILDE discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTilde:)];
 }
@@ -693,7 +693,7 @@
 
 - (void)__pipe {
     
-    [self match:CSS_TOKEN_KIND_PIPE]; 
+    [self match:CSS_TOKEN_KIND_PIPE discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPipe:)];
 }
@@ -704,7 +704,7 @@
 
 - (void)__fwdSlash {
     
-    [self match:CSS_TOKEN_KIND_FWDSLASH]; 
+    [self match:CSS_TOKEN_KIND_FWDSLASH discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];
 }
@@ -715,7 +715,7 @@
 
 - (void)__hashSym {
     
-    [self match:CSS_TOKEN_KIND_HASHSYM]; 
+    [self match:CSS_TOKEN_KIND_HASHSYM discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchHashSym:)];
 }
@@ -726,7 +726,7 @@
 
 - (void)__dot {
     
-    [self match:CSS_TOKEN_KIND_DOT]; 
+    [self match:CSS_TOKEN_KIND_DOT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
 }
@@ -737,7 +737,7 @@
 
 - (void)__at {
     
-    [self match:CSS_TOKEN_KIND_AT]; 
+    [self match:CSS_TOKEN_KIND_AT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchAt:)];
 }
@@ -748,7 +748,7 @@
 
 - (void)__bang {
     
-    [self match:CSS_TOKEN_KIND_BANG]; 
+    [self match:CSS_TOKEN_KIND_BANG discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchBang:)];
 }
@@ -759,7 +759,7 @@
 
 - (void)__num {
     
-    [self Number]; 
+    [self matchNumber:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchNum:)];
 }

@@ -57,8 +57,7 @@ enum {
 - (NSString *)LS:(NSInteger)i;
 
 - (void)consume:(PKToken *)tok;
-- (void)match:(NSInteger)tokenKind;
-- (void)advance:(NSInteger)n;
+- (void)match:(NSInteger)tokenKind discard:(BOOL)discard;
 - (void)discard:(NSInteger)n;
 - (BOOL)predicts:(NSInteger)tokenKind, ...;
 - (BOOL)speculate:(PKSSpeculateBlock)block;
@@ -72,16 +71,16 @@ enum {
 - (void)attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind;
 
 // builtin token types
-- (void)Any;
-- (void)Empty;
-- (void)Word;
-- (void)LowercaseWord;
-- (void)UppercaseWord;
-- (void)Number;
-- (void)Symbol;
-- (void)Comment;
-- (void)Whitespace;
-- (void)QuotedString;
-- (void)DelimitedString;
+- (void)matchAny:(BOOL)discard;
+- (void)matchEmpty:(BOOL)discard;
+- (void)matchWord:(BOOL)discard;
+- (void)matchLowercaseWord:(BOOL)discard;
+- (void)matchUppercaseWord:(BOOL)discard;
+- (void)matchNumber:(BOOL)discard;
+- (void)matchSymbol:(BOOL)discard;
+- (void)matchComment:(BOOL)discard;
+- (void)matchWhitespace:(BOOL)discard;
+- (void)matchQuotedString:(BOOL)discard;
+- (void)matchDelimitedString:(BOOL)discard;
 
 @end

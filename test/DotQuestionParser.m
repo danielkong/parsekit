@@ -71,7 +71,7 @@
     
     [self a]; 
     if ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]) {
-        [self Any]; 
+        [self matchAny:NO];
     }
     [self a]; 
 
@@ -80,7 +80,7 @@
 
 - (void)__a {
     
-    [self match:DOTQUESTION_TOKEN_KIND_A]; 
+    [self match:DOTQUESTION_TOKEN_KIND_A discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
