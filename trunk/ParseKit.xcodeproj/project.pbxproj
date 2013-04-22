@@ -33,6 +33,7 @@
 		D30DA1771724AD0100A1A3EC /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1761724AD0100A1A3EC /* JSONParser.m */; };
 		D30DA17A1724ADE700A1A3EC /* JSONParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1791724ADE700A1A3EC /* JSONParserTest.m */; };
 		D30DA18A1725B6A800A1A3EC /* RecoverySymbolDeletionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1891725B6A800A1A3EC /* RecoverySymbolDeletionTest.m */; };
+		D30DA18D1725BB5700A1A3EC /* RecoverySymbolInsertionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA18C1725BB5700A1A3EC /* RecoverySymbolInsertionTest.m */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
@@ -1160,6 +1161,8 @@
 		D30DA1791724ADE700A1A3EC /* JSONParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONParserTest.m; path = test/JSONParserTest.m; sourceTree = "<group>"; };
 		D30DA1881725B6A800A1A3EC /* RecoverySymbolDeletionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecoverySymbolDeletionTest.h; path = test/RecoverySymbolDeletionTest.h; sourceTree = "<group>"; };
 		D30DA1891725B6A800A1A3EC /* RecoverySymbolDeletionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecoverySymbolDeletionTest.m; path = test/RecoverySymbolDeletionTest.m; sourceTree = "<group>"; };
+		D30DA18B1725BB5700A1A3EC /* RecoverySymbolInsertionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecoverySymbolInsertionTest.h; path = test/RecoverySymbolInsertionTest.h; sourceTree = "<group>"; };
+		D30DA18C1725BB5700A1A3EC /* RecoverySymbolInsertionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecoverySymbolInsertionTest.m; path = test/RecoverySymbolInsertionTest.m; sourceTree = "<group>"; };
 		D3126D040FFD9BA700CBF4C4 /* PKNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNegation.m; path = src/PKNegation.m; sourceTree = "<group>"; };
 		D3126D090FFD9E4B00CBF4C4 /* TDNegationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNegationTest.h; path = test/TDNegationTest.h; sourceTree = "<group>"; };
 		D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationTest.m; path = test/TDNegationTest.m; sourceTree = "<group>"; };
@@ -3043,6 +3046,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D30DA18B1725BB5700A1A3EC /* RecoverySymbolInsertionTest.h */,
+				D30DA18C1725BB5700A1A3EC /* RecoverySymbolInsertionTest.m */,
 				D30DA1881725B6A800A1A3EC /* RecoverySymbolDeletionTest.h */,
 				D30DA1891725B6A800A1A3EC /* RecoverySymbolDeletionTest.m */,
 				D30DA1781724ADE700A1A3EC /* JSONParserTest.h */,
@@ -4696,6 +4701,7 @@
 				D30DA1771724AD0100A1A3EC /* JSONParser.m in Sources */,
 				D30DA17A1724ADE700A1A3EC /* JSONParserTest.m in Sources */,
 				D30DA18A1725B6A800A1A3EC /* RecoverySymbolDeletionTest.m in Sources */,
+				D30DA18D1725BB5700A1A3EC /* RecoverySymbolInsertionTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
