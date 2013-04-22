@@ -72,8 +72,6 @@ enum {
 - (void)matchAny:(BOOL)discard;
 - (void)matchEmpty:(BOOL)discard;
 - (void)matchWord:(BOOL)discard;
-- (void)matchLowercaseWord:(BOOL)discard;
-- (void)matchUppercaseWord:(BOOL)discard;
 - (void)matchNumber:(BOOL)discard;
 - (void)matchSymbol:(BOOL)discard;
 - (void)matchComment:(BOOL)discard;
