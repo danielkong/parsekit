@@ -77,13 +77,13 @@
     if ([self predicts:GREED_TOKEN_KIND_A, 0]) {
         [self a]; 
         while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]) {
-            [self Any]; 
+            [self matchAny:NO];
         }
         [self a]; 
     } else if ([self predicts:GREED_TOKEN_KIND_B, 0]) {
         [self b]; 
         do {
-            [self Any]; 
+            [self matchAny:NO];
         } while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]);
         [self b]; 
     } else {
@@ -95,7 +95,7 @@
 
 - (void)__a {
     
-    [self match:GREED_TOKEN_KIND_A]; 
+    [self match:GREED_TOKEN_KIND_A discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
@@ -106,7 +106,7 @@
 
 - (void)__b {
     
-    [self match:GREED_TOKEN_KIND_B]; 
+    [self match:GREED_TOKEN_KIND_B discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }

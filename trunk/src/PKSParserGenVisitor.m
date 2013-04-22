@@ -832,7 +832,7 @@
     NSMutableString *output = [NSMutableString string];
     [output appendString:[self semanticPredicateForNode:node throws:YES]];
     
-    NSString *template = [self templateStringNamed:@"PKSMethodCallTemplate"];
+    NSString *template = [self templateStringNamed:@"PKSConstantMethodCallTemplate"];
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node.actionNode]];

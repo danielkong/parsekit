@@ -186,7 +186,7 @@
 - (void)__element {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-        [self Number]; 
+        [self matchNumber:NO];
     } else if ([self predicts:ELEMENTASSIGN_TOKEN_KIND_LBRACKET, 0]) {
         [self list]; 
     } else {
@@ -202,7 +202,7 @@
 
 - (void)__lbracket {
     
-    [self match:ELEMENTASSIGN_TOKEN_KIND_LBRACKET]; 
+    [self match:ELEMENTASSIGN_TOKEN_KIND_LBRACKET discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
@@ -213,7 +213,7 @@
 
 - (void)__rbracket {
     
-    [self match:ELEMENTASSIGN_TOKEN_KIND_RBRACKET]; [self discard:1];
+    [self match:ELEMENTASSIGN_TOKEN_KIND_RBRACKET discard:YES];
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
@@ -224,7 +224,7 @@
 
 - (void)__comma {
     
-    [self match:ELEMENTASSIGN_TOKEN_KIND_COMMA]; [self discard:1];
+    [self match:ELEMENTASSIGN_TOKEN_KIND_COMMA discard:YES];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
@@ -235,7 +235,7 @@
 
 - (void)__eq {
     
-    [self match:ELEMENTASSIGN_TOKEN_KIND_EQ]; 
+    [self match:ELEMENTASSIGN_TOKEN_KIND_EQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
@@ -246,7 +246,7 @@
 
 - (void)__dot {
     
-    [self match:ELEMENTASSIGN_TOKEN_KIND_DOT]; 
+    [self match:ELEMENTASSIGN_TOKEN_KIND_DOT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
 }
@@ -257,7 +257,7 @@
 
 - (void)__semi {
     
-    [self match:ELEMENTASSIGN_TOKEN_KIND_SEMI]; 
+    [self match:ELEMENTASSIGN_TOKEN_KIND_SEMI discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
 }
