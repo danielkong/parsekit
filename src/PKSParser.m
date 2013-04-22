@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSMutableArray *_lookahead;
 @property (nonatomic, retain) NSMutableArray *_markers;
 @property (nonatomic, assign) NSInteger _p;
+@property (nonatomic, assign) NSInteger _skip;
 @property (nonatomic, assign, readonly) BOOL _isSpeculating;
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 
@@ -142,6 +143,7 @@
     
     // setup speculation
     self._p = 0;
+    self._skip = 0;
     self._lookahead = [NSMutableArray array];
     self._markers = [NSMutableArray array];
 
@@ -209,11 +211,20 @@
 
     [self attemptSingleTokenInsertionDeletion:tokenKind];
     
-    PKToken *lt = LT(1); //NSLog(@"%@", lt);
-    if (lt.tokenKind == tokenKind || TOKEN_KIND_BUILTIN_ANY == tokenKind) {
-        [self consume:lt];
+    if (_skip > 0) {
+        self._skip--;
+        // skip
+
     } else {
-        [self raise:@"expecting %ld; found %@", tokenKind, lt];
+        PKToken *lt = LT(1); //NSLog(@"%@", lt);
+        
+        BOOL matches = lt.tokenKind == tokenKind || TOKEN_KIND_BUILTIN_ANY == tokenKind;
+
+        if (matches) {
+            [self consume:lt];
+        } else {
+            [self raise:@"expecting %ld; found %@", tokenKind, lt];
+        }
     }
 }
 
@@ -386,9 +397,9 @@
 - (void)attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind {
     if (_enableAutomaticErrorRecovery && LA(1) != tokenKind) {
         if (LA(2) == tokenKind) {
-            [self consume:LT(1)]; // single symbol deletion
+            [self consume:LT(1)]; // single token deletion
         } else {
-            [self advance:1]; // single symbol insertion
+            self._skip++; // single token insertion
         }
     }
 }
@@ -670,5 +681,6 @@
 @synthesize _lookahead = _lookahead;
 @synthesize _markers = _markers;
 @synthesize _p = _p;
+@synthesize _skip = _skip;
 @synthesize _tokenKindTab = _tokenKindTab;
 @end
