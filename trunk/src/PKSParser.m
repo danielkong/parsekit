@@ -611,26 +611,6 @@
 }
 
 
-- (void)matchLowercaseWord:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
-    NSString *str = [self LS:1];
-    if ([str length] && islower([str characterAtIndex:0])) {
-        [self match:TOKEN_KIND_BUILTIN_WORD discard:discard];
-    }
-}
-
-
-- (void)matchUppercaseWord:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
-    NSString *str = [self LS:1];
-    if ([str length] && isupper([str characterAtIndex:0])) {
-        [self match:TOKEN_KIND_BUILTIN_WORD discard:discard];
-    }
-}
-
-
 - (void)matchNumber:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     
