@@ -202,7 +202,6 @@
 
 - (void)__lbracket {
     
-    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_LBRACKET];
     [self match:ELEMENTASSIGN_TOKEN_KIND_LBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
@@ -214,7 +213,6 @@
 
 - (void)__rbracket {
     
-    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
     [self match:ELEMENTASSIGN_TOKEN_KIND_RBRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
@@ -226,7 +224,6 @@
 
 - (void)__comma {
     
-    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_COMMA];
     [self match:ELEMENTASSIGN_TOKEN_KIND_COMMA]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
@@ -238,7 +235,6 @@
 
 - (void)__eq {
     
-    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_EQ];
     [self match:ELEMENTASSIGN_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
@@ -250,7 +246,6 @@
 
 - (void)__dot {
     
-    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_DOT];
     [self match:ELEMENTASSIGN_TOKEN_KIND_DOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
@@ -262,7 +257,6 @@
 
 - (void)__semi {
     
-    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_SEMI];
     [self match:ELEMENTASSIGN_TOKEN_KIND_SEMI]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];

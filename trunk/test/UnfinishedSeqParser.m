@@ -83,7 +83,6 @@
 
 - (void)__a {
     
-    [self attemptSingleTokenInsertionDeletion:UNFINISHEDSEQ_TOKEN_KIND_A];
     [self match:UNFINISHEDSEQ_TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
@@ -95,7 +94,6 @@
 
 - (void)__b {
     
-    [self attemptSingleTokenInsertionDeletion:UNFINISHEDSEQ_TOKEN_KIND_B];
     [self match:UNFINISHEDSEQ_TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];

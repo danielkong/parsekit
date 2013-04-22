@@ -115,7 +115,6 @@
 
 - (void)__a {
     
-    [self attemptSingleTokenInsertionDeletion:MULTIPLE_TOKEN_KIND_A];
     [self match:MULTIPLE_TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
@@ -127,7 +126,6 @@
 
 - (void)__b {
     
-    [self attemptSingleTokenInsertionDeletion:MULTIPLE_TOKEN_KIND_B];
     [self match:MULTIPLE_TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];

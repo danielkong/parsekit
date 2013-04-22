@@ -283,10 +283,8 @@
 
 - (void)__tokenizerDirective {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_AT];
     [self match:PARSEKIT_TOKEN_KIND_AT]; [self discard:1];
     [self Word]; 
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_EQUALS];
     [self match:PARSEKIT_TOKEN_KIND_EQUALS]; 
     do {
         if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
@@ -297,7 +295,6 @@
             [self raise:@"no viable alternative found in tokenizerDirective"];
         }
     } while ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]);
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_SEMI_COLON];
     [self match:PARSEKIT_TOKEN_KIND_SEMI_COLON]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTokenizerDirective:)];
@@ -317,13 +314,11 @@
             break;
         }
     }
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_EQUALS];
     [self match:PARSEKIT_TOKEN_KIND_EQUALS]; 
     if ([self predicts:PARSEKIT_TOKEN_KIND_ACTION, 0]) {
         [self action]; 
     }
     [self expr]; 
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_SEMI_COLON];
     [self match:PARSEKIT_TOKEN_KIND_SEMI_COLON]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDecl:)];
@@ -352,9 +347,7 @@
 
 - (void)__startProduction {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_AT];
     [self match:PARSEKIT_TOKEN_KIND_AT]; [self discard:1];
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_START];
     [self match:PARSEKIT_TOKEN_KIND_START]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchStartProduction:)];
@@ -366,7 +359,6 @@
 
 - (void)__namedAction {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_AT];
     [self match:PARSEKIT_TOKEN_KIND_AT]; [self discard:1];
     if ([self predicts:PARSEKIT_TOKEN_KIND_BEFOREKEY, 0]) {
         [self beforeKey]; 
@@ -386,7 +378,6 @@
 
 - (void)__beforeKey {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_BEFOREKEY];
     [self match:PARSEKIT_TOKEN_KIND_BEFOREKEY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBeforeKey:)];
@@ -398,7 +389,6 @@
 
 - (void)__afterKey {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_AFTERKEY];
     [self match:PARSEKIT_TOKEN_KIND_AFTERKEY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAfterKey:)];
@@ -460,7 +450,6 @@
 
 - (void)__orTerm {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_PIPE];
     [self match:PARSEKIT_TOKEN_KIND_PIPE]; 
     [self term]; 
 
@@ -527,7 +516,6 @@
 
 - (void)__phraseStar {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_PHRASESTAR];
     [self match:PARSEKIT_TOKEN_KIND_PHRASESTAR]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPhraseStar:)];
@@ -539,7 +527,6 @@
 
 - (void)__phrasePlus {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_PHRASEPLUS];
     [self match:PARSEKIT_TOKEN_KIND_PHRASEPLUS]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPhrasePlus:)];
@@ -551,7 +538,6 @@
 
 - (void)__phraseQuestion {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_PHRASEQUESTION];
     [self match:PARSEKIT_TOKEN_KIND_PHRASEQUESTION]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPhraseQuestion:)];
@@ -602,7 +588,6 @@
 
 - (void)__intersection {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_AMPERSAND];
     [self match:PARSEKIT_TOKEN_KIND_AMPERSAND]; [self discard:1];
     [self primaryExpr]; 
 
@@ -615,7 +600,6 @@
 
 - (void)__difference {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_MINUS];
     [self match:PARSEKIT_TOKEN_KIND_MINUS]; [self discard:1];
     [self primaryExpr]; 
 
@@ -645,7 +629,6 @@
 
 - (void)__negatedPrimaryExpr {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_TILDE];
     [self match:PARSEKIT_TOKEN_KIND_TILDE]; [self discard:1];
     [self barePrimaryExpr]; 
 
@@ -677,10 +660,8 @@
 
 - (void)__subSeqExpr {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_OPEN_PAREN];
     [self match:PARSEKIT_TOKEN_KIND_OPEN_PAREN]; 
     [self expr]; 
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_CLOSE_PAREN];
     [self match:PARSEKIT_TOKEN_KIND_CLOSE_PAREN]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSubSeqExpr:)];
@@ -692,10 +673,8 @@
 
 - (void)__subTrackExpr {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_OPEN_BRACKET];
     [self match:PARSEKIT_TOKEN_KIND_OPEN_BRACKET]; 
     [self expr]; 
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_CLOSE_BRACKET];
     [self match:PARSEKIT_TOKEN_KIND_CLOSE_BRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSubTrackExpr:)];
@@ -744,7 +723,6 @@
 
 - (void)__discard {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_DISCARD];
     [self match:PARSEKIT_TOKEN_KIND_DISCARD]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDiscard:)];
@@ -797,12 +775,10 @@
     
     [self delimOpen]; 
     [self QuotedString]; 
-    if ([self speculate:^{ [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_COMMA];[self match:PARSEKIT_TOKEN_KIND_COMMA]; [self discard:1];[self QuotedString]; }]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_COMMA];
+    if ([self speculate:^{ [self match:PARSEKIT_TOKEN_KIND_COMMA]; [self discard:1];[self QuotedString]; }]) {
         [self match:PARSEKIT_TOKEN_KIND_COMMA]; [self discard:1];
         [self QuotedString]; 
     }
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_CLOSE_CURLY];
     [self match:PARSEKIT_TOKEN_KIND_CLOSE_CURLY]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDelimitedString:)];
@@ -826,40 +802,28 @@
 - (void)__constant {
     
     if ([self predicts:PARSEKIT_TOKEN_KIND_WORD_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_WORD_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_WORD_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_NUMBER_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_NUMBER_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_NUMBER_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_SYMBOL_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_SYMBOL_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_COMMENT_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_COMMENT_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_COMMENT_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_EMPTY_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_EMPTY_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_EMPTY_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_ANY_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_ANY_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_S_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_S_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_S_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_DIGIT_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_DIGIT_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_DIGIT_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_LETTER_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_LETTER_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_LETTER_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_CHAR_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_CHAR_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_CHAR_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE]; 
     } else {
         [self raise:@"no viable alternative found in constant"];
@@ -885,7 +849,6 @@
 
 - (void)__delimOpen {
     
-    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_DELIMOPEN];
     [self match:PARSEKIT_TOKEN_KIND_DELIMOPEN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDelimOpen:)];

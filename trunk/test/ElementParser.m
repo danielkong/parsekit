@@ -147,7 +147,6 @@
 
 - (void)__lbracket {
     
-    [self attemptSingleTokenInsertionDeletion:ELEMENT_TOKEN_KIND_LBRACKET];
     [self match:ELEMENT_TOKEN_KIND_LBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
@@ -159,7 +158,6 @@
 
 - (void)__rbracket {
     
-    [self attemptSingleTokenInsertionDeletion:ELEMENT_TOKEN_KIND_RBRACKET];
     [self match:ELEMENT_TOKEN_KIND_RBRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
@@ -171,7 +169,6 @@
 
 - (void)__comma {
     
-    [self attemptSingleTokenInsertionDeletion:ELEMENT_TOKEN_KIND_COMMA];
     [self match:ELEMENT_TOKEN_KIND_COMMA]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];

@@ -80,7 +80,6 @@
 
 - (void)__a {
     
-    [self attemptSingleTokenInsertionDeletion:DOTQUESTION_TOKEN_KIND_A];
     [self match:DOTQUESTION_TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];

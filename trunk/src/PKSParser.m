@@ -199,20 +199,21 @@
 }
 
 
-- (void)match:(NSInteger)x {
-    NSParameterAssert(x != TOKEN_KIND_BUILTIN_EOF);
-    NSParameterAssert(x != TOKEN_KIND_BUILTIN_INVALID);
+- (void)match:(NSInteger)tokenKind {
+    NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_EOF);
+    NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
     // always match empty without consuming
-    if (TOKEN_KIND_BUILTIN_EMPTY == x) return;
+    if (TOKEN_KIND_BUILTIN_EMPTY == tokenKind) return;
+
+    [self attemptSingleTokenInsertionDeletion:tokenKind];
     
-    PKToken *lt = LT(1);
-    //NSLog(@"%@", lt);
-    if (lt.tokenKind == x || TOKEN_KIND_BUILTIN_ANY == x) {
+    PKToken *lt = LT(1); //NSLog(@"%@", lt);
+    if (lt.tokenKind == tokenKind || TOKEN_KIND_BUILTIN_ANY == tokenKind) {
         [self consume:lt];
     } else {
-        [self raise:@"expecting %ld; found %@", x, lt];
+        [self raise:@"expecting %ld; found %@", tokenKind, lt];
     }
 }
 
@@ -383,7 +384,7 @@
 
 
 - (void)attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind {
-    if (self.enableAutomaticErrorRecovery && LA(1) != tokenKind) {
+    if (_enableAutomaticErrorRecovery && LA(1) != tokenKind) {
         if (LA(2) == tokenKind) {
             [self consume:LT(1)]; // single symbol deletion
         } else {

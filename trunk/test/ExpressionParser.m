@@ -470,7 +470,6 @@
 
 - (void)__lt {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_LT];
     [self match:EXPRESSION_TOKEN_KIND_LT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
@@ -482,7 +481,6 @@
 
 - (void)__gt {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_GT];
     [self match:EXPRESSION_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
@@ -494,7 +492,6 @@
 
 - (void)__eq {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_EQ];
     [self match:EXPRESSION_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
@@ -506,7 +503,6 @@
 
 - (void)__ne {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_NE];
     [self match:EXPRESSION_TOKEN_KIND_NE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNe:)];
@@ -518,7 +514,6 @@
 
 - (void)__le {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_LE];
     [self match:EXPRESSION_TOKEN_KIND_LE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLe:)];
@@ -530,7 +525,6 @@
 
 - (void)__ge {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_GE];
     [self match:EXPRESSION_TOKEN_KIND_GE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGe:)];
@@ -542,7 +536,6 @@
 
 - (void)__openParen {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_OPENPAREN];
     [self match:EXPRESSION_TOKEN_KIND_OPENPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
@@ -554,7 +547,6 @@
 
 - (void)__closeParen {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_CLOSEPAREN];
     [self match:EXPRESSION_TOKEN_KIND_CLOSEPAREN]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
@@ -566,7 +558,6 @@
 
 - (void)__yes {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_YES];
     [self match:EXPRESSION_TOKEN_KIND_YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchYes:)];
@@ -578,7 +569,6 @@
 
 - (void)__no {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_NO];
     [self match:EXPRESSION_TOKEN_KIND_NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNo:)];
@@ -590,7 +580,6 @@
 
 - (void)__dot {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_DOT];
     [self match:EXPRESSION_TOKEN_KIND_DOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
@@ -602,7 +591,6 @@
 
 - (void)__comma {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_COMMA];
     [self match:EXPRESSION_TOKEN_KIND_COMMA]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
@@ -614,7 +602,6 @@
 
 - (void)__or {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_OR];
     [self match:EXPRESSION_TOKEN_KIND_OR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
@@ -626,7 +613,6 @@
 
 - (void)__and {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSION_TOKEN_KIND_AND];
     [self match:EXPRESSION_TOKEN_KIND_AND]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];

@@ -117,7 +117,6 @@
 
 - (void)__foo {
     
-    [self attemptSingleTokenInsertionDeletion:OPTIONAL_TOKEN_KIND_FOO];
     [self match:OPTIONAL_TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
@@ -129,7 +128,6 @@
 
 - (void)__bar {
     
-    [self attemptSingleTokenInsertionDeletion:OPTIONAL_TOKEN_KIND_BAR];
     [self match:OPTIONAL_TOKEN_KIND_BAR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
