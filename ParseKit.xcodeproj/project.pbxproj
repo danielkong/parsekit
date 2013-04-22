@@ -36,6 +36,7 @@
 		D30DA18D1725BB5700A1A3EC /* RecoverySingleTokenInsertionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA18C1725BB5700A1A3EC /* RecoverySingleTokenInsertionTest.m */; };
 		D30DA18F1725CBE000A1A3EC /* PKSConstantMethodCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30DA18E1725CBE000A1A3EC /* PKSConstantMethodCallTemplate.txt */; };
 		D30DA1901725CBE000A1A3EC /* PKSConstantMethodCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30DA18E1725CBE000A1A3EC /* PKSConstantMethodCallTemplate.txt */; };
+		D30DA1931726028500A1A3EC /* RecoveryResyncSetTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1921726028500A1A3EC /* RecoveryResyncSetTest.m */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
@@ -1166,6 +1167,8 @@
 		D30DA18B1725BB5700A1A3EC /* RecoverySingleTokenInsertionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecoverySingleTokenInsertionTest.h; path = test/RecoverySingleTokenInsertionTest.h; sourceTree = "<group>"; };
 		D30DA18C1725BB5700A1A3EC /* RecoverySingleTokenInsertionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecoverySingleTokenInsertionTest.m; path = test/RecoverySingleTokenInsertionTest.m; sourceTree = "<group>"; };
 		D30DA18E1725CBE000A1A3EC /* PKSConstantMethodCallTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSConstantMethodCallTemplate.txt; path = res/PKSConstantMethodCallTemplate.txt; sourceTree = "<group>"; };
+		D30DA1911726028500A1A3EC /* RecoveryResyncSetTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecoveryResyncSetTest.h; path = test/RecoveryResyncSetTest.h; sourceTree = "<group>"; };
+		D30DA1921726028500A1A3EC /* RecoveryResyncSetTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecoveryResyncSetTest.m; path = test/RecoveryResyncSetTest.m; sourceTree = "<group>"; };
 		D3126D040FFD9BA700CBF4C4 /* PKNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNegation.m; path = src/PKNegation.m; sourceTree = "<group>"; };
 		D3126D090FFD9E4B00CBF4C4 /* TDNegationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNegationTest.h; path = test/TDNegationTest.h; sourceTree = "<group>"; };
 		D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationTest.m; path = test/TDNegationTest.m; sourceTree = "<group>"; };
@@ -3050,6 +3053,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D30DA1911726028500A1A3EC /* RecoveryResyncSetTest.h */,
+				D30DA1921726028500A1A3EC /* RecoveryResyncSetTest.m */,
 				D30DA18B1725BB5700A1A3EC /* RecoverySingleTokenInsertionTest.h */,
 				D30DA18C1725BB5700A1A3EC /* RecoverySingleTokenInsertionTest.m */,
 				D30DA1881725B6A800A1A3EC /* RecoverySingleTokenDeletionTest.h */,
@@ -4708,6 +4713,7 @@
 				D30DA17A1724ADE700A1A3EC /* JSONParserTest.m in Sources */,
 				D30DA18A1725B6A800A1A3EC /* RecoverySingleTokenDeletionTest.m in Sources */,
 				D30DA18D1725BB5700A1A3EC /* RecoverySingleTokenInsertionTest.m in Sources */,
+				D30DA1931726028500A1A3EC /* RecoveryResyncSetTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
