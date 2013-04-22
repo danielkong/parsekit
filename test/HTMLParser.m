@@ -211,8 +211,8 @@
 
     }];
     while ([self predicts:HTML_TOKEN_KIND_DOCTYPE, HTML_TOKEN_KIND_LT, HTML_TOKEN_KIND_PROCINSTR, TOKEN_KIND_BUILTIN_ANY, TOKEN_KIND_BUILTIN_COMMENT, 0]) {
-        if ([self speculate:^{ [self anything];}]) {
-            [self anything];
+        if ([self speculate:^{ [self anything]; }]) {
+            [self anything]; 
         } else {
             break;
         }
@@ -222,20 +222,20 @@
 
 - (void)__anything {
     
-    if ([self speculate:^{ [self scriptElement];}]) {
-        [self scriptElement];
-    } else if ([self speculate:^{ [self styleElement];}]) {
-        [self styleElement];
-    } else if ([self speculate:^{ [self tag];}]) {
-        [self tag];
-    } else if ([self speculate:^{ [self procInstr];}]) {
-        [self procInstr];
-    } else if ([self speculate:^{ [self comment];}]) {
-        [self comment];
-    } else if ([self speculate:^{ [self doctype];}]) {
-        [self doctype];
-    } else if ([self speculate:^{ [self text];}]) {
-        [self text];
+    if ([self speculate:^{ [self scriptElement]; }]) {
+        [self scriptElement]; 
+    } else if ([self speculate:^{ [self styleElement]; }]) {
+        [self styleElement]; 
+    } else if ([self speculate:^{ [self tag]; }]) {
+        [self tag]; 
+    } else if ([self speculate:^{ [self procInstr]; }]) {
+        [self procInstr]; 
+    } else if ([self speculate:^{ [self comment]; }]) {
+        [self comment]; 
+    } else if ([self speculate:^{ [self doctype]; }]) {
+        [self doctype]; 
+    } else if ([self speculate:^{ [self text]; }]) {
+        [self text]; 
     } else {
         [self raise:@"no viable alternative found in anything"];
     }
@@ -248,9 +248,9 @@
 
 - (void)__scriptElement {
     
-    [self scriptStartTag];
-    [self scriptElementContent];
-    [self scriptEndTag];
+    [self scriptStartTag]; 
+    [self scriptElementContent]; 
+    [self scriptEndTag]; 
 
 }
 
@@ -260,16 +260,16 @@
 
 - (void)__scriptStartTag {
     
-    [self lt];
-    [self scriptTagName];
+    [self lt]; 
+    [self scriptTagName]; 
     while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr];}]) {
-            [self attr];
+        if ([self speculate:^{ [self attr]; }]) {
+            [self attr]; 
         } else {
             break;
         }
     }
-    [self gt];
+    [self gt]; 
 
 }
 
@@ -279,10 +279,10 @@
 
 - (void)__scriptEndTag {
     
-    [self lt];
-    [self fwdSlash];
-    [self scriptTagName];
-    [self gt];
+    [self lt]; 
+    [self fwdSlash]; 
+    [self scriptTagName]; 
+    [self gt]; 
 
 }
 
@@ -303,7 +303,7 @@
 
 - (void)__scriptElementContent {
     
-    if (![self speculate:^{ [self scriptEndTag];}]) {
+    if (![self speculate:^{ [self scriptEndTag]; }]) {
         [self match:TOKEN_KIND_BUILTIN_ANY discard:NO];
     } else {
         [self raise:@"negation test failed in scriptElementContent"];
@@ -317,9 +317,9 @@
 
 - (void)__styleElement {
     
-    [self styleStartTag];
-    [self styleElementContent];
-    [self styleEndTag];
+    [self styleStartTag]; 
+    [self styleElementContent]; 
+    [self styleEndTag]; 
 
 }
 
@@ -329,16 +329,16 @@
 
 - (void)__styleStartTag {
     
-    [self lt];
-    [self styleTagName];
+    [self lt]; 
+    [self styleTagName]; 
     while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr];}]) {
-            [self attr];
+        if ([self speculate:^{ [self attr]; }]) {
+            [self attr]; 
         } else {
             break;
         }
     }
-    [self gt];
+    [self gt]; 
 
 }
 
@@ -348,10 +348,10 @@
 
 - (void)__styleEndTag {
     
-    [self lt];
-    [self fwdSlash];
-    [self styleTagName];
-    [self gt];
+    [self lt]; 
+    [self fwdSlash]; 
+    [self styleTagName]; 
+    [self gt]; 
 
 }
 
@@ -372,7 +372,7 @@
 
 - (void)__styleElementContent {
     
-    if (![self speculate:^{ [self styleEndTag];}]) {
+    if (![self speculate:^{ [self styleEndTag]; }]) {
         [self match:TOKEN_KIND_BUILTIN_ANY discard:NO];
     } else {
         [self raise:@"negation test failed in styleElementContent"];
@@ -419,12 +419,12 @@
 
 - (void)__tag {
     
-    if ([self speculate:^{ [self emptyTag];}]) {
-        [self emptyTag];
-    } else if ([self speculate:^{ [self startTag];}]) {
-        [self startTag];
-    } else if ([self speculate:^{ [self endTag];}]) {
-        [self endTag];
+    if ([self speculate:^{ [self emptyTag]; }]) {
+        [self emptyTag]; 
+    } else if ([self speculate:^{ [self startTag]; }]) {
+        [self startTag]; 
+    } else if ([self speculate:^{ [self endTag]; }]) {
+        [self endTag]; 
     } else {
         [self raise:@"no viable alternative found in tag"];
     }
@@ -437,17 +437,17 @@
 
 - (void)__emptyTag {
     
-    [self lt];
-    [self tagName];
+    [self lt]; 
+    [self tagName]; 
     while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr];}]) {
-            [self attr];
+        if ([self speculate:^{ [self attr]; }]) {
+            [self attr]; 
         } else {
             break;
         }
     }
-    [self fwdSlash];
-    [self gt];
+    [self fwdSlash]; 
+    [self gt]; 
 
 }
 
@@ -457,16 +457,16 @@
 
 - (void)__startTag {
     
-    [self lt];
-    [self tagName];
+    [self lt]; 
+    [self tagName]; 
     while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr];}]) {
-            [self attr];
+        if ([self speculate:^{ [self attr]; }]) {
+            [self attr]; 
         } else {
             break;
         }
     }
-    [self gt];
+    [self gt]; 
 
 }
 
@@ -476,10 +476,10 @@
 
 - (void)__endTag {
     
-    [self lt];
-    [self fwdSlash];
-    [self tagName];
-    [self gt];
+    [self lt]; 
+    [self fwdSlash]; 
+    [self tagName]; 
+    [self gt]; 
 
 }
 
@@ -500,11 +500,11 @@
 
 - (void)__attr {
     
-    [self attrName];
-    if ([self speculate:^{ [self eq];if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {[self attrValue];}}]) {
-        [self eq];
+    [self attrName]; 
+    if ([self speculate:^{ [self eq]; if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {[self attrValue]; }}]) {
+        [self eq]; 
         if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-            [self attrValue];
+            [self attrValue]; 
         }
     }
 

@@ -277,8 +277,8 @@
 
     }];
     while ([self predicts:CSS_TOKEN_KIND_CLOSEBRACKET, CSS_TOKEN_KIND_COLON, CSS_TOKEN_KIND_DOT, CSS_TOKEN_KIND_EQ, CSS_TOKEN_KIND_GT, CSS_TOKEN_KIND_HASHSYM, CSS_TOKEN_KIND_OPENBRACKET, CSS_TOKEN_KIND_PIPE, CSS_TOKEN_KIND_TILDE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self ruleset];}]) {
-            [self ruleset];
+        if ([self speculate:^{ [self ruleset]; }]) {
+            [self ruleset]; 
         } else {
             break;
         }
@@ -288,10 +288,10 @@
 
 - (void)__ruleset {
     
-    [self selectors];
-    [self openCurly];
-    [self decls];
-    [self closeCurly];
+    [self selectors]; 
+    [self openCurly]; 
+    [self decls]; 
+    [self closeCurly]; 
 
 }
 
@@ -301,10 +301,10 @@
 
 - (void)__selectors {
     
-    [self selector];
+    [self selector]; 
     while ([self predicts:CSS_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaSelector];}]) {
-            [self commaSelector];
+        if ([self speculate:^{ [self commaSelector]; }]) {
+            [self commaSelector]; 
         } else {
             break;
         }
@@ -320,27 +320,27 @@
     
     do {
         if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-            [self selectorWord];
+            [self selectorWord]; 
         } else if ([self predicts:CSS_TOKEN_KIND_HASHSYM, 0]) {
-            [self hashSym];
+            [self hashSym]; 
         } else if ([self predicts:CSS_TOKEN_KIND_DOT, 0]) {
-            [self dot];
+            [self dot]; 
         } else if ([self predicts:CSS_TOKEN_KIND_COLON, 0]) {
-            [self colon];
+            [self colon]; 
         } else if ([self predicts:CSS_TOKEN_KIND_GT, 0]) {
-            [self gt];
+            [self gt]; 
         } else if ([self predicts:CSS_TOKEN_KIND_OPENBRACKET, 0]) {
-            [self openBracket];
+            [self openBracket]; 
         } else if ([self predicts:CSS_TOKEN_KIND_CLOSEBRACKET, 0]) {
-            [self closeBracket];
+            [self closeBracket]; 
         } else if ([self predicts:CSS_TOKEN_KIND_EQ, 0]) {
-            [self eq];
+            [self eq]; 
         } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-            [self selectorQuotedString];
+            [self selectorQuotedString]; 
         } else if ([self predicts:CSS_TOKEN_KIND_TILDE, 0]) {
-            [self tilde];
+            [self tilde]; 
         } else if ([self predicts:CSS_TOKEN_KIND_PIPE, 0]) {
-            [self pipe];
+            [self pipe]; 
         } else {
             [self raise:@"no viable alternative found in selector"];
         }
@@ -376,8 +376,8 @@
 
 - (void)__commaSelector {
     
-    [self comma];
-    [self selector];
+    [self comma]; 
+    [self selector]; 
 
 }
 
@@ -388,7 +388,7 @@
 - (void)__decls {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self actualDecls];
+        [self actualDecls]; 
     }
 
 }
@@ -399,10 +399,10 @@
 
 - (void)__actualDecls {
     
-    [self decl];
+    [self decl]; 
     while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self decl];}]) {
-            [self decl];
+        if ([self speculate:^{ [self decl]; }]) {
+            [self decl]; 
         } else {
             break;
         }
@@ -416,13 +416,13 @@
 
 - (void)__decl {
     
-    [self property];
-    [self colon];
-    [self expr];
-    if ([self speculate:^{ [self important];}]) {
-        [self important];
+    [self property]; 
+    [self colon]; 
+    [self expr]; 
+    if ([self speculate:^{ [self important]; }]) {
+        [self important]; 
     }
-    [self semi];
+    [self semi]; 
 
 }
 
@@ -445,21 +445,21 @@
     
     do {
         if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-            [self string];
+            [self string]; 
         } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-            [self constant];
+            [self constant]; 
         } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-            [self num];
+            [self num]; 
         } else if ([self predicts:CSS_TOKEN_KIND_URLLOWER, CSS_TOKEN_KIND_URLUPPER, 0]) {
-            [self url];
+            [self url]; 
         } else if ([self predicts:CSS_TOKEN_KIND_OPENPAREN, 0]) {
-            [self openParen];
+            [self openParen]; 
         } else if ([self predicts:CSS_TOKEN_KIND_CLOSEPAREN, 0]) {
-            [self closeParen];
+            [self closeParen]; 
         } else if ([self predicts:CSS_TOKEN_KIND_COMMA, 0]) {
-            [self comma];
+            [self comma]; 
         } else if ([self predicts:CSS_TOKEN_KIND_FWDSLASH, TOKEN_KIND_BUILTIN_SYMBOL, 0]) {
-            [self nonTerminatingSymbol];
+            [self nonTerminatingSymbol]; 
         } else {
             [self raise:@"no viable alternative found in expr"];
         }
@@ -474,9 +474,9 @@
 - (void)__url {
     
     if ([self predicts:CSS_TOKEN_KIND_URLLOWER, 0]) {
-        [self urlLower];
+        [self urlLower]; 
     } else if ([self predicts:CSS_TOKEN_KIND_URLUPPER, 0]) {
-        [self urlUpper];
+        [self urlUpper]; 
     } else {
         [self raise:@"no viable alternative found in url"];
     }
@@ -513,7 +513,7 @@
     
     if ([self predicts:CSS_TOKEN_KIND_FWDSLASH, 0]) {
         [self testAndThrow:(id)^{ return NE(LS(1), @";") && NE(LS(1), @"!"); }]; 
-        [self fwdSlash];
+        [self fwdSlash]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_SYMBOL, 0]) {
         [self matchSymbol:NO];
     } else {
@@ -528,7 +528,7 @@
 
 - (void)__important {
     
-    [self bang];
+    [self bang]; 
     [self matchWord:NO];
 
 }

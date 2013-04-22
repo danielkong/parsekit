@@ -77,7 +77,7 @@
     [t setTokenizerState:t.delimitState from:'<' to:'<'];
 
     }];
-    [self s];
+    [self s]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }

@@ -74,8 +74,8 @@
 
 - (void)_start {
     
-    [self a];
-    [self b];
+    [self a]; 
+    [self b]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }

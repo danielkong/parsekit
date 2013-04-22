@@ -91,16 +91,16 @@
 
 - (void)_start {
     
-    [self list];
+    [self list]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__list {
     
-    [self lbracket];
-    [self elements];
-    [self rbracket];
+    [self lbracket]; 
+    [self elements]; 
+    [self rbracket]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
@@ -111,11 +111,11 @@
 
 - (void)__elements {
     
-    [self element];
+    [self element]; 
     while ([self predicts:ELEMENT_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self comma];[self element];}]) {
-            [self comma];
-            [self element];
+        if ([self speculate:^{ [self comma]; [self element]; }]) {
+            [self comma]; 
+            [self element]; 
         } else {
             break;
         }
@@ -133,7 +133,7 @@
     if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self matchNumber:NO];
     } else if ([self predicts:ELEMENT_TOKEN_KIND_LBRACKET, 0]) {
-        [self list];
+        [self list]; 
     } else {
         [self raise:@"no viable alternative found in element"];
     }

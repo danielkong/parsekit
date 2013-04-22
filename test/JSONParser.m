@@ -83,41 +83,41 @@
 
     }];
     if ([self predicts:JSON_TOKEN_KIND_OPENBRACKET, 0]) {
-        [self array];
+        [self array]; 
     } else if ([self predicts:JSON_TOKEN_KIND_OPENCURLY, 0]) {
-        [self object];
+        [self object]; 
     }
     if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
-        [self comment];
+        [self comment]; 
     }
 
 }
 
 - (void)object {
     
-    [self openCurly];
+    [self openCurly]; 
     if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
-        [self comment];
+        [self comment]; 
     }
-    [self objectContent];
-    [self closeCurly];
+    [self objectContent]; 
+    [self closeCurly]; 
 
 }
 
 - (void)objectContent {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self actualObject];
+        [self actualObject]; 
     }
 
 }
 
 - (void)actualObject {
     
-    [self property];
+    [self property]; 
     while ([self predicts:JSON_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaProperty];}]) {
-            [self commaProperty];
+        if ([self speculate:^{ [self commaProperty]; }]) {
+            [self commaProperty]; 
         } else {
             break;
         }
@@ -127,22 +127,22 @@
 
 - (void)property {
     
-    [self propertyName];
-    [self colon];
+    [self propertyName]; 
+    [self colon]; 
     if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
-        [self comment];
+        [self comment]; 
     }
-    [self value];
+    [self value]; 
 
 }
 
 - (void)commaProperty {
     
-    [self comma];
+    [self comma]; 
     if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
-        [self comment];
+        [self comment]; 
     }
-    [self property];
+    [self property]; 
 
 }
 
@@ -155,29 +155,29 @@
 
 - (void)array {
     
-    [self openBracket];
+    [self openBracket]; 
     if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
-        [self comment];
+        [self comment]; 
     }
-    [self arrayContent];
-    [self closeBracket];
+    [self arrayContent]; 
+    [self closeBracket]; 
 
 }
 
 - (void)arrayContent {
     
     if ([self predicts:JSON_TOKEN_KIND_FALSELITERAL, JSON_TOKEN_KIND_NULLLITERAL, JSON_TOKEN_KIND_OPENBRACKET, JSON_TOKEN_KIND_OPENCURLY, JSON_TOKEN_KIND_TRUELITERAL, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self actualArray];
+        [self actualArray]; 
     }
 
 }
 
 - (void)actualArray {
     
-    [self value];
+    [self value]; 
     while ([self predicts:JSON_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaValue];}]) {
-            [self commaValue];
+        if ([self speculate:^{ [self commaValue]; }]) {
+            [self commaValue]; 
         } else {
             break;
         }
@@ -187,35 +187,35 @@
 
 - (void)commaValue {
     
-    [self comma];
+    [self comma]; 
     if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
-        [self comment];
+        [self comment]; 
     }
-    [self value];
+    [self value]; 
 
 }
 
 - (void)value {
     
     if ([self predicts:JSON_TOKEN_KIND_NULLLITERAL, 0]) {
-        [self nullLiteral];
+        [self nullLiteral]; 
     } else if ([self predicts:JSON_TOKEN_KIND_TRUELITERAL, 0]) {
-        [self trueLiteral];
+        [self trueLiteral]; 
     } else if ([self predicts:JSON_TOKEN_KIND_FALSELITERAL, 0]) {
-        [self falseLiteral];
+        [self falseLiteral]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-        [self number];
+        [self number]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self string];
+        [self string]; 
     } else if ([self predicts:JSON_TOKEN_KIND_OPENBRACKET, 0]) {
-        [self array];
+        [self array]; 
     } else if ([self predicts:JSON_TOKEN_KIND_OPENCURLY, 0]) {
-        [self object];
+        [self object]; 
     } else {
         [self raise:@"no viable alternative found in value"];
     }
     if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
-        [self comment];
+        [self comment]; 
     }
 
 }

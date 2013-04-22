@@ -18,7 +18,7 @@
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 
 #define RUN_ALL_TEST_CASES 1
-#define SOLO_TEST_CASE @"RecoverySymbolDeletionTest" // TDParserFactoryASTTest TDParserFactorySymbolTableTest TDParserFactoryParserTest TDParseTreeTest TDParserFactoryASTRewriteTest
+#define SOLO_TEST_CASE @"RecoverySymbolInsertionTest" // TDParserFactoryASTTest TDParserFactorySymbolTableTest TDParserFactoryParserTest TDParseTreeTest TDParserFactoryASTRewriteTest
 
 @interface SenTestSuite (TDAdditions)
 - (void)addSuitesForClassNames:(NSArray *)classNames;
