@@ -243,7 +243,6 @@
 
 - (void)nullLiteral {
     
-    [self attemptSingleTokenInsertionDeletion:JSON_TOKEN_KIND_NULLLITERAL];
     [self match:JSON_TOKEN_KIND_NULLLITERAL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNullLiteral:)];
@@ -251,7 +250,6 @@
 
 - (void)trueLiteral {
     
-    [self attemptSingleTokenInsertionDeletion:JSON_TOKEN_KIND_TRUELITERAL];
     [self match:JSON_TOKEN_KIND_TRUELITERAL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
@@ -259,7 +257,6 @@
 
 - (void)falseLiteral {
     
-    [self attemptSingleTokenInsertionDeletion:JSON_TOKEN_KIND_FALSELITERAL];
     [self match:JSON_TOKEN_KIND_FALSELITERAL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
@@ -267,7 +264,6 @@
 
 - (void)openCurly {
     
-    [self attemptSingleTokenInsertionDeletion:JSON_TOKEN_KIND_OPENCURLY];
     [self match:JSON_TOKEN_KIND_OPENCURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
@@ -275,7 +271,6 @@
 
 - (void)closeCurly {
     
-    [self attemptSingleTokenInsertionDeletion:JSON_TOKEN_KIND_CLOSECURLY];
     [self match:JSON_TOKEN_KIND_CLOSECURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
@@ -283,7 +278,6 @@
 
 - (void)openBracket {
     
-    [self attemptSingleTokenInsertionDeletion:JSON_TOKEN_KIND_OPENBRACKET];
     [self match:JSON_TOKEN_KIND_OPENBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
@@ -291,7 +285,6 @@
 
 - (void)closeBracket {
     
-    [self attemptSingleTokenInsertionDeletion:JSON_TOKEN_KIND_CLOSEBRACKET];
     [self match:JSON_TOKEN_KIND_CLOSEBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
@@ -299,7 +292,6 @@
 
 - (void)comma {
     
-    [self attemptSingleTokenInsertionDeletion:JSON_TOKEN_KIND_COMMA];
     [self match:JSON_TOKEN_KIND_COMMA]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
@@ -307,7 +299,6 @@
 
 - (void)colon {
     
-    [self attemptSingleTokenInsertionDeletion:JSON_TOKEN_KIND_COLON];
     [self match:JSON_TOKEN_KIND_COLON]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];

@@ -801,7 +801,6 @@
 
 - (void)__if {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_IF];
     [self match:JAVASCRIPT_TOKEN_KIND_IF]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIf:)];
@@ -813,7 +812,6 @@
 
 - (void)__else {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_ELSE];
     [self match:JAVASCRIPT_TOKEN_KIND_ELSE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchElse:)];
@@ -825,7 +823,6 @@
 
 - (void)__while {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_WHILE];
     [self match:JAVASCRIPT_TOKEN_KIND_WHILE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchWhile:)];
@@ -837,7 +834,6 @@
 
 - (void)__for {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_FOR];
     [self match:JAVASCRIPT_TOKEN_KIND_FOR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFor:)];
@@ -849,7 +845,6 @@
 
 - (void)__in {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_IN];
     [self match:JAVASCRIPT_TOKEN_KIND_IN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIn:)];
@@ -861,7 +856,6 @@
 
 - (void)__break {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_BREAK];
     [self match:JAVASCRIPT_TOKEN_KIND_BREAK]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBreak:)];
@@ -873,7 +867,6 @@
 
 - (void)__continue {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_CONTINUE];
     [self match:JAVASCRIPT_TOKEN_KIND_CONTINUE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchContinue:)];
@@ -885,7 +878,6 @@
 
 - (void)__with {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_WITH];
     [self match:JAVASCRIPT_TOKEN_KIND_WITH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchWith:)];
@@ -897,7 +889,6 @@
 
 - (void)__return {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_RETURN];
     [self match:JAVASCRIPT_TOKEN_KIND_RETURN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchReturn:)];
@@ -909,7 +900,6 @@
 
 - (void)__var {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_VAR];
     [self match:JAVASCRIPT_TOKEN_KIND_VAR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchVar:)];
@@ -921,7 +911,6 @@
 
 - (void)__delete {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_DELETE];
     [self match:JAVASCRIPT_TOKEN_KIND_DELETE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDelete:)];
@@ -933,7 +922,6 @@
 
 - (void)__keywordNew {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_KEYWORDNEW];
     [self match:JAVASCRIPT_TOKEN_KIND_KEYWORDNEW]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchKeywordNew:)];
@@ -945,7 +933,6 @@
 
 - (void)__this {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_THIS];
     [self match:JAVASCRIPT_TOKEN_KIND_THIS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchThis:)];
@@ -957,7 +944,6 @@
 
 - (void)__falseLiteral {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_FALSELITERAL];
     [self match:JAVASCRIPT_TOKEN_KIND_FALSELITERAL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
@@ -969,7 +955,6 @@
 
 - (void)__trueLiteral {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_TRUELITERAL];
     [self match:JAVASCRIPT_TOKEN_KIND_TRUELITERAL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
@@ -981,7 +966,6 @@
 
 - (void)__null {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_NULL];
     [self match:JAVASCRIPT_TOKEN_KIND_NULL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNull:)];
@@ -993,7 +977,6 @@
 
 - (void)__undefined {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_UNDEFINED];
     [self match:JAVASCRIPT_TOKEN_KIND_UNDEFINED]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchUndefined:)];
@@ -1005,7 +988,6 @@
 
 - (void)__void {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_VOID];
     [self match:JAVASCRIPT_TOKEN_KIND_VOID]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchVoid:)];
@@ -1017,7 +999,6 @@
 
 - (void)__typeof {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_TYPEOF];
     [self match:JAVASCRIPT_TOKEN_KIND_TYPEOF]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTypeof:)];
@@ -1029,7 +1010,6 @@
 
 - (void)__instanceof {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_INSTANCEOF];
     [self match:JAVASCRIPT_TOKEN_KIND_INSTANCEOF]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchInstanceof:)];
@@ -1041,7 +1021,6 @@
 
 - (void)__function {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_FUNCTION];
     [self match:JAVASCRIPT_TOKEN_KIND_FUNCTION]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFunction:)];
@@ -1053,7 +1032,6 @@
 
 - (void)__openCurly {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_OPENCURLY];
     [self match:JAVASCRIPT_TOKEN_KIND_OPENCURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
@@ -1065,7 +1043,6 @@
 
 - (void)__closeCurly {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_CLOSECURLY];
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSECURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
@@ -1077,7 +1054,6 @@
 
 - (void)__openParen {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_OPENPAREN];
     [self match:JAVASCRIPT_TOKEN_KIND_OPENPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
@@ -1089,7 +1065,6 @@
 
 - (void)__closeParen {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
@@ -1101,7 +1076,6 @@
 
 - (void)__openBracket {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_OPENBRACKET];
     [self match:JAVASCRIPT_TOKEN_KIND_OPENBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
@@ -1113,7 +1087,6 @@
 
 - (void)__closeBracket {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET];
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
@@ -1125,7 +1098,6 @@
 
 - (void)__comma {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_COMMA];
     [self match:JAVASCRIPT_TOKEN_KIND_COMMA]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
@@ -1137,7 +1109,6 @@
 
 - (void)__dot {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_DOT];
     [self match:JAVASCRIPT_TOKEN_KIND_DOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
@@ -1149,7 +1120,6 @@
 
 - (void)__semi {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_SEMI];
     [self match:JAVASCRIPT_TOKEN_KIND_SEMI]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
@@ -1161,7 +1131,6 @@
 
 - (void)__colon {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_COLON];
     [self match:JAVASCRIPT_TOKEN_KIND_COLON]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
@@ -1173,7 +1142,6 @@
 
 - (void)__equals {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_EQUALS];
     [self match:JAVASCRIPT_TOKEN_KIND_EQUALS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEquals:)];
@@ -1185,7 +1153,6 @@
 
 - (void)__not {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_NOT];
     [self match:JAVASCRIPT_TOKEN_KIND_NOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNot:)];
@@ -1197,7 +1164,6 @@
 
 - (void)__lt {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_LT];
     [self match:JAVASCRIPT_TOKEN_KIND_LT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
@@ -1209,7 +1175,6 @@
 
 - (void)__gt {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_GT];
     [self match:JAVASCRIPT_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
@@ -1221,7 +1186,6 @@
 
 - (void)__amp {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_AMP];
     [self match:JAVASCRIPT_TOKEN_KIND_AMP]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAmp:)];
@@ -1233,7 +1197,6 @@
 
 - (void)__pipe {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_PIPE];
     [self match:JAVASCRIPT_TOKEN_KIND_PIPE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPipe:)];
@@ -1245,7 +1208,6 @@
 
 - (void)__caret {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_CARET];
     [self match:JAVASCRIPT_TOKEN_KIND_CARET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCaret:)];
@@ -1257,7 +1219,6 @@
 
 - (void)__tilde {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_TILDE];
     [self match:JAVASCRIPT_TOKEN_KIND_TILDE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTilde:)];
@@ -1269,7 +1230,6 @@
 
 - (void)__question {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_QUESTION];
     [self match:JAVASCRIPT_TOKEN_KIND_QUESTION]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchQuestion:)];
@@ -1281,7 +1241,6 @@
 
 - (void)__plus {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_PLUS];
     [self match:JAVASCRIPT_TOKEN_KIND_PLUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlus:)];
@@ -1293,7 +1252,6 @@
 
 - (void)__minus {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_MINUS];
     [self match:JAVASCRIPT_TOKEN_KIND_MINUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinus:)];
@@ -1305,7 +1263,6 @@
 
 - (void)__times {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_TIMES];
     [self match:JAVASCRIPT_TOKEN_KIND_TIMES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTimes:)];
@@ -1317,7 +1274,6 @@
 
 - (void)__div {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_DIV];
     [self match:JAVASCRIPT_TOKEN_KIND_DIV]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDiv:)];
@@ -1329,7 +1285,6 @@
 
 - (void)__mod {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_MOD];
     [self match:JAVASCRIPT_TOKEN_KIND_MOD]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMod:)];
@@ -1341,7 +1296,6 @@
 
 - (void)__or {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_OR];
     [self match:JAVASCRIPT_TOKEN_KIND_OR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
@@ -1353,7 +1307,6 @@
 
 - (void)__and {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_AND];
     [self match:JAVASCRIPT_TOKEN_KIND_AND]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];
@@ -1365,7 +1318,6 @@
 
 - (void)__ne {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_NE];
     [self match:JAVASCRIPT_TOKEN_KIND_NE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNe:)];
@@ -1377,7 +1329,6 @@
 
 - (void)__isnot {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_ISNOT];
     [self match:JAVASCRIPT_TOKEN_KIND_ISNOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIsnot:)];
@@ -1389,7 +1340,6 @@
 
 - (void)__eq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_EQ];
     [self match:JAVASCRIPT_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
@@ -1401,7 +1351,6 @@
 
 - (void)__is {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_IS];
     [self match:JAVASCRIPT_TOKEN_KIND_IS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIs:)];
@@ -1413,7 +1362,6 @@
 
 - (void)__le {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_LE];
     [self match:JAVASCRIPT_TOKEN_KIND_LE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLe:)];
@@ -1425,7 +1373,6 @@
 
 - (void)__ge {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_GE];
     [self match:JAVASCRIPT_TOKEN_KIND_GE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGe:)];
@@ -1437,7 +1384,6 @@
 
 - (void)__plusPlus {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_PLUSPLUS];
     [self match:JAVASCRIPT_TOKEN_KIND_PLUSPLUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlusPlus:)];
@@ -1449,7 +1395,6 @@
 
 - (void)__minusMinus {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_MINUSMINUS];
     [self match:JAVASCRIPT_TOKEN_KIND_MINUSMINUS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinusMinus:)];
@@ -1461,7 +1406,6 @@
 
 - (void)__plusEq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_PLUSEQ];
     [self match:JAVASCRIPT_TOKEN_KIND_PLUSEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlusEq:)];
@@ -1473,7 +1417,6 @@
 
 - (void)__minusEq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_MINUSEQ];
     [self match:JAVASCRIPT_TOKEN_KIND_MINUSEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinusEq:)];
@@ -1485,7 +1428,6 @@
 
 - (void)__timesEq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_TIMESEQ];
     [self match:JAVASCRIPT_TOKEN_KIND_TIMESEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTimesEq:)];
@@ -1497,7 +1439,6 @@
 
 - (void)__divEq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_DIVEQ];
     [self match:JAVASCRIPT_TOKEN_KIND_DIVEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDivEq:)];
@@ -1509,7 +1450,6 @@
 
 - (void)__modEq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_MODEQ];
     [self match:JAVASCRIPT_TOKEN_KIND_MODEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchModEq:)];
@@ -1521,7 +1461,6 @@
 
 - (void)__shiftLeft {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_SHIFTLEFT];
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftLeft:)];
@@ -1533,7 +1472,6 @@
 
 - (void)__shiftRight {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT];
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRight:)];
@@ -1545,7 +1483,6 @@
 
 - (void)__shiftRightExt {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT];
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExt:)];
@@ -1557,7 +1494,6 @@
 
 - (void)__shiftLeftEq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ];
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftLeftEq:)];
@@ -1569,7 +1505,6 @@
 
 - (void)__shiftRightEq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ];
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightEq:)];
@@ -1581,7 +1516,6 @@
 
 - (void)__shiftRightExtEq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ];
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExtEq:)];
@@ -1593,7 +1527,6 @@
 
 - (void)__andEq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_ANDEQ];
     [self match:JAVASCRIPT_TOKEN_KIND_ANDEQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndEq:)];
@@ -1605,7 +1538,6 @@
 
 - (void)__xorEq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_XOREQ];
     [self match:JAVASCRIPT_TOKEN_KIND_XOREQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchXorEq:)];
@@ -1617,7 +1549,6 @@
 
 - (void)__orEq {
     
-    [self attemptSingleTokenInsertionDeletion:JAVASCRIPT_TOKEN_KIND_OREQ];
     [self match:JAVASCRIPT_TOKEN_KIND_OREQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrEq:)];

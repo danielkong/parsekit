@@ -184,7 +184,6 @@
 
 - (void)__orTerm {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_OR];
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_OR]; [self discard:1];
     [self andExpr]; 
     [self execute:(id)^{
@@ -222,7 +221,6 @@
 
 - (void)__andTerm {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_AND];
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_AND]; [self discard:1];
     [self relExpr]; 
     [self execute:(id)^{
@@ -261,22 +259,16 @@
 - (void)__relOp {
     
     if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_LT, 0]) {
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_LT];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_LT]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_GT, 0]) {
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_GT];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_GT]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_EQUALS, 0]) {
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_EQUALS];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_EQUALS]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_NE];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_NE]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_LE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_LE];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_LE]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_GE, 0]) {
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_GE];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_GE]; 
     } else {
         [self raise:@"no viable alternative found in relOp"];
@@ -318,13 +310,11 @@
 - (void)__callExpr {
     
     [self primary]; 
-    if ([self speculate:^{ [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN];[self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN]; if ([self speculate:^{ [self argList]; }]) {[self argList]; }[self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN];[self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN]; }]) {
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN];
+    if ([self speculate:^{ [self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN]; if ([self speculate:^{ [self argList]; }]) {[self argList]; }[self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN]; }]) {
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN]; 
         if ([self speculate:^{ [self argList]; }]) {
             [self argList]; 
         }
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN]; 
     }
 
@@ -339,8 +329,7 @@
     
     [self atom]; 
     while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_COMMA];[self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA]; [self atom]; }]) {
-            [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_COMMA];
+        if ([self speculate:^{ [self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA]; [self atom]; }]) {
             [self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA]; 
             [self atom]; 
         } else {
@@ -360,10 +349,8 @@
     if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NO, EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER, EXPRESSIONACTIONS_TOKEN_KIND_YES, EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self atom]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN, 0]) {
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_OPEN_PAREN]; 
         [self expr]; 
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN]; 
     } else {
         [self raise:@"no viable alternative found in primary"];
@@ -424,7 +411,6 @@
 
 - (void)__member {
     
-    [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_DOT];
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_DOT]; 
     [self id]; 
 
@@ -467,17 +453,13 @@
 - (void)__bool {
     
     if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_YES, 0]) {
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_YES];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_YES]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER, 0]) {
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NO, 0]) {
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_NO];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_NO]; 
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER, 0]) {
         [self testAndThrow:(id)^{ return NE(LS(1), @"NO"); }]; 
-        [self attemptSingleTokenInsertionDeletion:EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER];
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER]; 
     } else {
         [self raise:@"no viable alternative found in bool"];

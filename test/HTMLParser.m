@@ -292,7 +292,6 @@
 
 - (void)__scriptTagName {
     
-    [self attemptSingleTokenInsertionDeletion:HTML_TOKEN_KIND_SCRIPTTAGNAME];
     [self match:HTML_TOKEN_KIND_SCRIPTTAGNAME]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchScriptTagName:)];
@@ -362,7 +361,6 @@
 
 - (void)__styleTagName {
     
-    [self attemptSingleTokenInsertionDeletion:HTML_TOKEN_KIND_STYLETAGNAME];
     [self match:HTML_TOKEN_KIND_STYLETAGNAME]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStyleTagName:)];
@@ -545,7 +543,6 @@
 
 - (void)__eq {
     
-    [self attemptSingleTokenInsertionDeletion:HTML_TOKEN_KIND_EQ];
     [self match:HTML_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
@@ -557,7 +554,6 @@
 
 - (void)__lt {
     
-    [self attemptSingleTokenInsertionDeletion:HTML_TOKEN_KIND_LT];
     [self match:HTML_TOKEN_KIND_LT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
@@ -569,7 +565,6 @@
 
 - (void)__gt {
     
-    [self attemptSingleTokenInsertionDeletion:HTML_TOKEN_KIND_GT];
     [self match:HTML_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
@@ -581,7 +576,6 @@
 
 - (void)__fwdSlash {
     
-    [self attemptSingleTokenInsertionDeletion:HTML_TOKEN_KIND_FWDSLASH];
     [self match:HTML_TOKEN_KIND_FWDSLASH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];

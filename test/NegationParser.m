@@ -95,7 +95,6 @@
 
 - (void)__foo {
     
-    [self attemptSingleTokenInsertionDeletion:NEGATION_TOKEN_KIND_FOO];
     [self match:NEGATION_TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];

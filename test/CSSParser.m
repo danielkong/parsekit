@@ -561,7 +561,6 @@
 
 - (void)__openCurly {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_OPENCURLY];
     [self match:CSS_TOKEN_KIND_OPENCURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
@@ -573,7 +572,6 @@
 
 - (void)__closeCurly {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_CLOSECURLY];
     [self match:CSS_TOKEN_KIND_CLOSECURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
@@ -585,7 +583,6 @@
 
 - (void)__openBracket {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_OPENBRACKET];
     [self match:CSS_TOKEN_KIND_OPENBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
@@ -597,7 +594,6 @@
 
 - (void)__closeBracket {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_CLOSEBRACKET];
     [self match:CSS_TOKEN_KIND_CLOSEBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
@@ -609,7 +605,6 @@
 
 - (void)__eq {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_EQ];
     [self match:CSS_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
@@ -621,7 +616,6 @@
 
 - (void)__comma {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_COMMA];
     [self match:CSS_TOKEN_KIND_COMMA]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
@@ -633,7 +627,6 @@
 
 - (void)__colon {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_COLON];
     [self match:CSS_TOKEN_KIND_COLON]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
@@ -645,7 +638,6 @@
 
 - (void)__semi {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_SEMI];
     [self match:CSS_TOKEN_KIND_SEMI]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
@@ -657,7 +649,6 @@
 
 - (void)__openParen {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_OPENPAREN];
     [self match:CSS_TOKEN_KIND_OPENPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
@@ -669,7 +660,6 @@
 
 - (void)__closeParen {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_CLOSEPAREN];
     [self match:CSS_TOKEN_KIND_CLOSEPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
@@ -681,7 +671,6 @@
 
 - (void)__gt {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_GT];
     [self match:CSS_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
@@ -693,7 +682,6 @@
 
 - (void)__tilde {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_TILDE];
     [self match:CSS_TOKEN_KIND_TILDE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTilde:)];
@@ -705,7 +693,6 @@
 
 - (void)__pipe {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_PIPE];
     [self match:CSS_TOKEN_KIND_PIPE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPipe:)];
@@ -717,7 +704,6 @@
 
 - (void)__fwdSlash {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_FWDSLASH];
     [self match:CSS_TOKEN_KIND_FWDSLASH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];
@@ -729,7 +715,6 @@
 
 - (void)__hashSym {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_HASHSYM];
     [self match:CSS_TOKEN_KIND_HASHSYM]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchHashSym:)];
@@ -741,7 +726,6 @@
 
 - (void)__dot {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_DOT];
     [self match:CSS_TOKEN_KIND_DOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
@@ -753,7 +737,6 @@
 
 - (void)__at {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_AT];
     [self match:CSS_TOKEN_KIND_AT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAt:)];
@@ -765,7 +748,6 @@
 
 - (void)__bang {
     
-    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_BANG];
     [self match:CSS_TOKEN_KIND_BANG]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBang:)];

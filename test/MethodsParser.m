@@ -97,29 +97,22 @@
 
 - (void)__method {
     
-    if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type]; [self Word]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_PAREN];[self match:METHODS_TOKEN_KIND_OPEN_PAREN]; [self args]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_PAREN];[self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_SEMI_COLON];[self match:METHODS_TOKEN_KIND_SEMI_COLON]; }]) {
+    if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type]; [self Word]; [self match:METHODS_TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; [self match:METHODS_TOKEN_KIND_SEMI_COLON]; }]) {
         [self testAndThrow:(id)^{ return NO; }]; 
         [self type]; 
         [self Word]; 
-        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_PAREN];
         [self match:METHODS_TOKEN_KIND_OPEN_PAREN]; 
         [self args]; 
-        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_PAREN];
         [self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; 
-        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_SEMI_COLON];
         [self match:METHODS_TOKEN_KIND_SEMI_COLON]; 
-    } else if ([self speculate:^{ [self testAndThrow:(id)^{ return 1; }]; [self type]; [self Word]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_PAREN];[self match:METHODS_TOKEN_KIND_OPEN_PAREN]; [self args]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_PAREN];[self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_CURLY];[self match:METHODS_TOKEN_KIND_OPEN_CURLY]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_CURLY];[self match:METHODS_TOKEN_KIND_CLOSE_CURLY]; }]) {
+    } else if ([self speculate:^{ [self testAndThrow:(id)^{ return 1; }]; [self type]; [self Word]; [self match:METHODS_TOKEN_KIND_OPEN_PAREN]; [self args]; [self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; [self match:METHODS_TOKEN_KIND_OPEN_CURLY]; [self match:METHODS_TOKEN_KIND_CLOSE_CURLY]; }]) {
         [self testAndThrow:(id)^{ return 1; }]; 
         [self type]; 
         [self Word]; 
-        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_PAREN];
         [self match:METHODS_TOKEN_KIND_OPEN_PAREN]; 
         [self args]; 
-        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_PAREN];
         [self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; 
-        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_CURLY];
         [self match:METHODS_TOKEN_KIND_OPEN_CURLY]; 
-        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_CURLY];
         [self match:METHODS_TOKEN_KIND_CLOSE_CURLY]; 
     } else {
         [self raise:@"no viable alternative found in method"];
@@ -135,10 +128,8 @@
 - (void)__type {
     
     if ([self predicts:METHODS_TOKEN_KIND_VOID, 0]) {
-        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_VOID];
         [self match:METHODS_TOKEN_KIND_VOID]; 
     } else if ([self predicts:METHODS_TOKEN_KIND_INT, 0]) {
-        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_INT];
         [self match:METHODS_TOKEN_KIND_INT]; 
     } else {
         [self raise:@"no viable alternative found in type"];
@@ -156,8 +147,7 @@
     if ([self predicts:METHODS_TOKEN_KIND_INT, 0]) {
         [self arg]; 
         while ([self predicts:METHODS_TOKEN_KIND_COMMA, 0]) {
-            if ([self speculate:^{ [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_COMMA];[self match:METHODS_TOKEN_KIND_COMMA]; [self arg]; }]) {
-                [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_COMMA];
+            if ([self speculate:^{ [self match:METHODS_TOKEN_KIND_COMMA]; [self arg]; }]) {
                 [self match:METHODS_TOKEN_KIND_COMMA]; 
                 [self arg]; 
             } else {
@@ -175,7 +165,6 @@
 
 - (void)__arg {
     
-    [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_INT];
     [self match:METHODS_TOKEN_KIND_INT]; 
     [self Word]; 
 

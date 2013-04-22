@@ -103,7 +103,6 @@
 
 - (void)__a {
     
-    [self attemptSingleTokenInsertionDeletion:DREADED_TOKEN_KIND_A];
     [self match:DREADED_TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
@@ -115,7 +114,6 @@
 
 - (void)__b {
     
-    [self attemptSingleTokenInsertionDeletion:DREADED_TOKEN_KIND_B];
     [self match:DREADED_TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];

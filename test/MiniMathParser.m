@@ -92,8 +92,7 @@
     
     [self mult]; 
     while ([self predicts:MINIMATH_TOKEN_KIND_PLUS, 0]) {
-        if ([self speculate:^{ [self attemptSingleTokenInsertionDeletion:MINIMATH_TOKEN_KIND_PLUS];[self match:MINIMATH_TOKEN_KIND_PLUS]; [self discard:1];[self mult]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); }];}]) {
-            [self attemptSingleTokenInsertionDeletion:MINIMATH_TOKEN_KIND_PLUS];
+        if ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_PLUS]; [self discard:1];[self mult]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); }];}]) {
             [self match:MINIMATH_TOKEN_KIND_PLUS]; [self discard:1];
             [self mult]; 
             [self execute:(id)^{
@@ -115,8 +114,7 @@
     
     [self pow]; 
     while ([self predicts:MINIMATH_TOKEN_KIND_STAR, 0]) {
-        if ([self speculate:^{ [self attemptSingleTokenInsertionDeletion:MINIMATH_TOKEN_KIND_STAR];[self match:MINIMATH_TOKEN_KIND_STAR]; [self discard:1];[self pow]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); }];}]) {
-            [self attemptSingleTokenInsertionDeletion:MINIMATH_TOKEN_KIND_STAR];
+        if ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_STAR]; [self discard:1];[self pow]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); }];}]) {
             [self match:MINIMATH_TOKEN_KIND_STAR]; [self discard:1];
             [self pow]; 
             [self execute:(id)^{
@@ -137,8 +135,7 @@
 - (void)__pow {
     
     [self atom]; 
-    if ([self speculate:^{ [self attemptSingleTokenInsertionDeletion:MINIMATH_TOKEN_KIND_CARET];[self match:MINIMATH_TOKEN_KIND_CARET]; [self discard:1];[self pow]; [self execute:(id)^{ 		double exp = POP_FLOAT();		double base = POP_FLOAT();		double result = base;	for (NSUInteger i = 1; i < exp; i++) 			result *= base;		PUSH_FLOAT(result); 	}];}]) {
-        [self attemptSingleTokenInsertionDeletion:MINIMATH_TOKEN_KIND_CARET];
+    if ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_CARET]; [self discard:1];[self pow]; [self execute:(id)^{ 		double exp = POP_FLOAT();		double base = POP_FLOAT();		double result = base;	for (NSUInteger i = 1; i < exp; i++) 			result *= base;		PUSH_FLOAT(result); 	}];}]) {
         [self match:MINIMATH_TOKEN_KIND_CARET]; [self discard:1];
         [self pow]; 
         [self execute:(id)^{

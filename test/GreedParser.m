@@ -95,7 +95,6 @@
 
 - (void)__a {
     
-    [self attemptSingleTokenInsertionDeletion:GREED_TOKEN_KIND_A];
     [self match:GREED_TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
@@ -107,7 +106,6 @@
 
 - (void)__b {
     
-    [self attemptSingleTokenInsertionDeletion:GREED_TOKEN_KIND_B];
     [self match:GREED_TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];

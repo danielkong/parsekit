@@ -99,18 +99,13 @@
     
     [self type]; 
     [self Word]; 
-    [self attemptSingleTokenInsertionDeletion:METHODSFACTORED_TOKEN_KIND_OPEN_PAREN];
     [self match:METHODSFACTORED_TOKEN_KIND_OPEN_PAREN]; 
     [self args]; 
-    [self attemptSingleTokenInsertionDeletion:METHODSFACTORED_TOKEN_KIND_CLOSE_PAREN];
     [self match:METHODSFACTORED_TOKEN_KIND_CLOSE_PAREN]; 
     if ([self predicts:METHODSFACTORED_TOKEN_KIND_SEMI_COLON, 0]) {
-        [self attemptSingleTokenInsertionDeletion:METHODSFACTORED_TOKEN_KIND_SEMI_COLON];
         [self match:METHODSFACTORED_TOKEN_KIND_SEMI_COLON]; 
     } else if ([self predicts:METHODSFACTORED_TOKEN_KIND_OPEN_CURLY, 0]) {
-        [self attemptSingleTokenInsertionDeletion:METHODSFACTORED_TOKEN_KIND_OPEN_CURLY];
         [self match:METHODSFACTORED_TOKEN_KIND_OPEN_CURLY]; 
-        [self attemptSingleTokenInsertionDeletion:METHODSFACTORED_TOKEN_KIND_CLOSE_CURLY];
         [self match:METHODSFACTORED_TOKEN_KIND_CLOSE_CURLY]; 
     } else {
         [self raise:@"no viable alternative found in method"];
@@ -126,10 +121,8 @@
 - (void)__type {
     
     if ([self predicts:METHODSFACTORED_TOKEN_KIND_VOID, 0]) {
-        [self attemptSingleTokenInsertionDeletion:METHODSFACTORED_TOKEN_KIND_VOID];
         [self match:METHODSFACTORED_TOKEN_KIND_VOID]; 
     } else if ([self predicts:METHODSFACTORED_TOKEN_KIND_INT, 0]) {
-        [self attemptSingleTokenInsertionDeletion:METHODSFACTORED_TOKEN_KIND_INT];
         [self match:METHODSFACTORED_TOKEN_KIND_INT]; 
     } else {
         [self raise:@"no viable alternative found in type"];
@@ -147,8 +140,7 @@
     if ([self predicts:METHODSFACTORED_TOKEN_KIND_INT, 0]) {
         [self arg]; 
         while ([self predicts:METHODSFACTORED_TOKEN_KIND_COMMA, 0]) {
-            if ([self speculate:^{ [self attemptSingleTokenInsertionDeletion:METHODSFACTORED_TOKEN_KIND_COMMA];[self match:METHODSFACTORED_TOKEN_KIND_COMMA]; [self arg]; }]) {
-                [self attemptSingleTokenInsertionDeletion:METHODSFACTORED_TOKEN_KIND_COMMA];
+            if ([self speculate:^{ [self match:METHODSFACTORED_TOKEN_KIND_COMMA]; [self arg]; }]) {
                 [self match:METHODSFACTORED_TOKEN_KIND_COMMA]; 
                 [self arg]; 
             } else {
@@ -166,7 +158,6 @@
 
 - (void)__arg {
     
-    [self attemptSingleTokenInsertionDeletion:METHODSFACTORED_TOKEN_KIND_INT];
     [self match:METHODSFACTORED_TOKEN_KIND_INT]; 
     [self Word]; 
 

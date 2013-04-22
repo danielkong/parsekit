@@ -85,7 +85,6 @@
     [self execute:(id)^{
         PUSH(@"foo");
     }];
-    [self attemptSingleTokenInsertionDeletion:NAMEDACTION_TOKEN_KIND_A];
     [self match:NAMEDACTION_TOKEN_KIND_A]; 
     [self execute:(id)^{
         PUSH(@"bar");
@@ -100,7 +99,6 @@
 
 - (void)__b {
     
-    [self attemptSingleTokenInsertionDeletion:NAMEDACTION_TOKEN_KIND_B];
     [self match:NAMEDACTION_TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
