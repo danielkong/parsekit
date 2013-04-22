@@ -30,6 +30,7 @@
 @property (nonatomic, assign) NSInteger _skip;
 @property (nonatomic, assign, readonly) BOOL _isSpeculating;
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableSet *_resyncSet;
 
 - (NSInteger)tokenKindForString:(NSString *)s;
 - (BOOL)lookahead:(NSInteger)x predicts:(NSInteger)tokenKind;
@@ -75,13 +76,14 @@
 
 
 - (void)dealloc {
-    self._exception = nil;
     self.tokenizer = nil;
-    self._assembler = nil;
     self.assembly = nil;
+    self._exception = nil;
+    self._assembler = nil;
     self._lookahead = nil;
     self._markers = nil;
     self._tokenKindTab = nil;
+    self._resyncSet = nil;
     [super dealloc];
 }
 
@@ -146,9 +148,13 @@
     
     // setup speculation
     self._p = 0;
-    self._skip = 0;
     self._lookahead = [NSMutableArray array];
     self._markers = [NSMutableArray array];
+
+    if (_enableAutomaticErrorRecovery) {
+        self._skip = 0;
+        self._resyncSet = [NSMutableSet set];
+    }
 
     [self _clearMemo];
     
@@ -401,6 +407,22 @@
             self._skip++; // single token insertion
         }
     }
+}
+
+
+- (void)pushFollow:(NSInteger)tokenKind {
+    [_resyncSet addObject:@(tokenKind)];
+}
+
+
+- (void)popFollow:(NSInteger)tokenKind {
+    [_resyncSet removeObject:@(tokenKind)];
+}
+
+
+- (BOOL)resync:(NSInteger)tokenKind {
+    BOOL result = [_resyncSet containsObject:@(tokenKind)];
+    return result;
 }
 
 
@@ -662,4 +684,5 @@
 @synthesize _p = _p;
 @synthesize _skip = _skip;
 @synthesize _tokenKindTab = _tokenKindTab;
+@synthesize _resyncSet = _resyncSet;
 @end
