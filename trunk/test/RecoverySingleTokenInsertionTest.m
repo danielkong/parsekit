@@ -1,26 +1,24 @@
-
 //
-//  RecoverySymbolDeletionTest.m
-//  JSON
+//  RecoverySingleTokenInsertionTest.m
 //
 //  Created by Todd Ditchendorf on 3/27/13.
 //
 //
 
-#import "RecoverySymbolDeletionTest.h"
+#import "RecoverySingleTokenInsertionTest.h"
 #import "PKParserFactory.h"
 #import "PKSParserGenVisitor.h"
 #import "PKRootNode.h"
 #import "ElementAssignParser.h"
 
-@interface RecoverySymbolDeletionTest ()
+@interface RecoverySingleTokenInsertionTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;
 @property (nonatomic, retain) PKSParserGenVisitor *visitor;
 @property (nonatomic, retain) ElementAssignParser *parser;
 @end
 
-@implementation RecoverySymbolDeletionTest
+@implementation RecoverySingleTokenInsertionTest
 
 - (void)setUp {
     self.parser = [[[ElementAssignParser alloc] init] autorelease];
@@ -40,29 +38,42 @@
     TDEqualObjects(@"[[, 3, ;][/3/]/;^", [res description]);
 }
 
-- (void)testExtraBracket {
+- (void)testMissingBracket {
     NSError *err = nil;
     PKAssembly *res = nil;
     NSString *input = nil;
     
     _parser.enableAutomaticErrorRecovery = NO;
     
-    input = @"[3]];";
+    input = @"[3;";
     res = [_parser parseString:input assembler:nil error:&err];
     TDNotNil(err);
     TDNil(res);
 }
 
-- (void)testExtraBracketWithRecovery {
+- (void)testMissingBracketWithRecovery {
     NSError *err = nil;
     PKAssembly *res = nil;
     NSString *input = nil;
     
     _parser.enableAutomaticErrorRecovery = YES;
     
-    input = @"[3]];";
+    input = @"[3;";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, 3, ], ;][/3/]/]/;^", [res description]);
+    TDEqualObjects(@"[[, 3, ;][/3/;^", [res description]);
+}
+
+- (void)testMissingBracketWithRecovery2 {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
+    
+    _parser.enableAutomaticErrorRecovery = YES;
+    
+    input = @"[3[";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDNotNil(err);
+    TDNil(res);
 }
 
 @end
