@@ -198,14 +198,14 @@
 
 - (void)_start {
     
-    [self expr];
+    [self expr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__expr {
     
-    [self orExpr];
+    [self orExpr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
@@ -216,10 +216,10 @@
 
 - (void)__orExpr {
     
-    [self andExpr];
+    [self andExpr]; 
     while ([self predicts:EXPRESSION_TOKEN_KIND_OR, 0]) {
-        if ([self speculate:^{ [self orTerm];}]) {
-            [self orTerm];
+        if ([self speculate:^{ [self orTerm]; }]) {
+            [self orTerm]; 
         } else {
             break;
         }
@@ -234,8 +234,8 @@
 
 - (void)__orTerm {
     
-    [self or];
-    [self andExpr];
+    [self or]; 
+    [self andExpr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
 }
@@ -246,10 +246,10 @@
 
 - (void)__andExpr {
     
-    [self relExpr];
+    [self relExpr]; 
     while ([self predicts:EXPRESSION_TOKEN_KIND_AND, 0]) {
-        if ([self speculate:^{ [self andTerm];}]) {
-            [self andTerm];
+        if ([self speculate:^{ [self andTerm]; }]) {
+            [self andTerm]; 
         } else {
             break;
         }
@@ -264,8 +264,8 @@
 
 - (void)__andTerm {
     
-    [self and];
-    [self relExpr];
+    [self and]; 
+    [self relExpr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndTerm:)];
 }
@@ -276,11 +276,11 @@
 
 - (void)__relExpr {
     
-    [self callExpr];
+    [self callExpr]; 
     while ([self predicts:EXPRESSION_TOKEN_KIND_EQ, EXPRESSION_TOKEN_KIND_GE, EXPRESSION_TOKEN_KIND_GT, EXPRESSION_TOKEN_KIND_LE, EXPRESSION_TOKEN_KIND_LT, EXPRESSION_TOKEN_KIND_NE, 0]) {
-        if ([self speculate:^{ [self relOp];[self callExpr];}]) {
-            [self relOp];
-            [self callExpr];
+        if ([self speculate:^{ [self relOp]; [self callExpr]; }]) {
+            [self relOp]; 
+            [self callExpr]; 
         } else {
             break;
         }
@@ -296,17 +296,17 @@
 - (void)__relOp {
     
     if ([self predicts:EXPRESSION_TOKEN_KIND_LT, 0]) {
-        [self lt];
+        [self lt]; 
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_GT, 0]) {
-        [self gt];
+        [self gt]; 
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_EQ, 0]) {
-        [self eq];
+        [self eq]; 
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_NE, 0]) {
-        [self ne];
+        [self ne]; 
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_LE, 0]) {
-        [self le];
+        [self le]; 
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_GE, 0]) {
-        [self ge];
+        [self ge]; 
     } else {
         [self raise:@"no viable alternative found in relOp"];
     }
@@ -320,13 +320,13 @@
 
 - (void)__callExpr {
     
-    [self primary];
-    if ([self speculate:^{ [self openParen];if ([self speculate:^{ [self argList];}]) {[self argList];}[self closeParen];}]) {
-        [self openParen];
-        if ([self speculate:^{ [self argList];}]) {
-            [self argList];
+    [self primary]; 
+    if ([self speculate:^{ [self openParen]; if ([self speculate:^{ [self argList]; }]) {[self argList]; }[self closeParen]; }]) {
+        [self openParen]; 
+        if ([self speculate:^{ [self argList]; }]) {
+            [self argList]; 
         }
-        [self closeParen];
+        [self closeParen]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchCallExpr:)];
@@ -338,11 +338,11 @@
 
 - (void)__argList {
     
-    [self atom];
+    [self atom]; 
     while ([self predicts:EXPRESSION_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self comma];[self atom];}]) {
-            [self comma];
-            [self atom];
+        if ([self speculate:^{ [self comma]; [self atom]; }]) {
+            [self comma]; 
+            [self atom]; 
         } else {
             break;
         }
@@ -358,11 +358,11 @@
 - (void)__primary {
     
     if ([self predicts:EXPRESSION_TOKEN_KIND_NO, EXPRESSION_TOKEN_KIND_YES, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self atom];
+        [self atom]; 
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_OPENPAREN, 0]) {
-        [self openParen];
-        [self expr];
-        [self closeParen];
+        [self openParen]; 
+        [self expr]; 
+        [self closeParen]; 
     } else {
         [self raise:@"no viable alternative found in primary"];
     }
@@ -377,9 +377,9 @@
 - (void)__atom {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self obj];
+        [self obj]; 
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_NO, EXPRESSION_TOKEN_KIND_YES, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self literal];
+        [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
     }
@@ -393,10 +393,10 @@
 
 - (void)__obj {
     
-    [self id];
+    [self id]; 
     while ([self predicts:EXPRESSION_TOKEN_KIND_DOT, 0]) {
-        if ([self speculate:^{ [self member];}]) {
-            [self member];
+        if ([self speculate:^{ [self member]; }]) {
+            [self member]; 
         } else {
             break;
         }
@@ -422,8 +422,8 @@
 
 - (void)__member {
     
-    [self dot];
-    [self id];
+    [self dot]; 
+    [self id]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMember:)];
 }
@@ -439,7 +439,7 @@
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self matchNumber:NO];
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_NO, EXPRESSION_TOKEN_KIND_YES, 0]) {
-        [self bool];
+        [self bool]; 
     } else {
         [self raise:@"no viable alternative found in literal"];
     }
@@ -454,9 +454,9 @@
 - (void)__bool {
     
     if ([self predicts:EXPRESSION_TOKEN_KIND_YES, 0]) {
-        [self yes];
+        [self yes]; 
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_NO, 0]) {
-        [self no];
+        [self no]; 
     } else {
         [self raise:@"no viable alternative found in bool"];
     }

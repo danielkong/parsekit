@@ -89,18 +89,18 @@
 - (void)_start {
     
     do {
-        [self method];
-    } while ([self speculate:^{ [self method];}]);
+        [self method]; 
+    } while ([self speculate:^{ [self method]; }]);
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__method {
     
-    [self type];
+    [self type]; 
     [self matchWord:NO];
     [self match:METHODSFACTORED_TOKEN_KIND_OPEN_PAREN discard:NO];
-    [self args];
+    [self args]; 
     [self match:METHODSFACTORED_TOKEN_KIND_CLOSE_PAREN discard:NO];
     if ([self predicts:METHODSFACTORED_TOKEN_KIND_SEMI_COLON, 0]) {
         [self match:METHODSFACTORED_TOKEN_KIND_SEMI_COLON discard:NO];
@@ -138,11 +138,11 @@
 - (void)__args {
     
     if ([self predicts:METHODSFACTORED_TOKEN_KIND_INT, 0]) {
-        [self arg];
+        [self arg]; 
         while ([self predicts:METHODSFACTORED_TOKEN_KIND_COMMA, 0]) {
-            if ([self speculate:^{ [self match:METHODSFACTORED_TOKEN_KIND_COMMA discard:NO];[self arg];}]) {
+            if ([self speculate:^{ [self match:METHODSFACTORED_TOKEN_KIND_COMMA discard:NO];[self arg]; }]) {
                 [self match:METHODSFACTORED_TOKEN_KIND_COMMA discard:NO];
-                [self arg];
+                [self arg]; 
             } else {
                 break;
             }

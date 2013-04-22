@@ -212,10 +212,13 @@
     // always match empty without consuming
     if (TOKEN_KIND_BUILTIN_EMPTY == tokenKind) return;
 
-    [self _attemptSingleTokenInsertionDeletion:tokenKind];
-    
     if (_skip > 0) {
         self._skip--;
+    } else {
+        [self _attemptSingleTokenInsertionDeletion:tokenKind];
+    }
+
+    if (_skip > 0) {
         // skip
 
     } else {

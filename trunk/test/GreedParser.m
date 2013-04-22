@@ -75,17 +75,17 @@
 - (void)_start {
     
     if ([self predicts:GREED_TOKEN_KIND_A, 0]) {
-        [self a];
+        [self a]; 
         while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]) {
             [self matchAny:NO];
         }
-        [self a];
+        [self a]; 
     } else if ([self predicts:GREED_TOKEN_KIND_B, 0]) {
-        [self b];
+        [self b]; 
         do {
             [self matchAny:NO];
         } while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]);
-        [self b];
+        [self b]; 
     } else {
         [self raise:@"no viable alternative found in _start"];
     }

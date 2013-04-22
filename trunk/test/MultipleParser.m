@@ -82,7 +82,7 @@
 
 - (void)_start {
     
-    [self s];
+    [self s]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
@@ -90,9 +90,9 @@
 - (void)__s {
     
     do {
-        [self ab];
-    } while ([self speculate:^{ [self ab];}]);
-    [self a];
+        [self ab]; 
+    } while ([self speculate:^{ [self ab]; }]);
+    [self a]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
@@ -103,8 +103,8 @@
 
 - (void)__ab {
     
-    [self a];
-    [self b];
+    [self a]; 
+    [self b]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAb:)];
 }
