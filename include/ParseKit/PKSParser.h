@@ -58,7 +58,6 @@ enum {
 
 - (void)consume:(PKToken *)tok;
 - (void)match:(NSInteger)tokenKind discard:(BOOL)discard;
-- (void)discard:(NSInteger)n;
 - (BOOL)predicts:(NSInteger)tokenKind, ...;
 - (BOOL)speculate:(PKSSpeculateBlock)block;
 - (id)execute:(PKSActionBlock)block;
@@ -68,7 +67,6 @@ enum {
 - (void)raise:(NSString *)fmt, ...;
 
 - (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
-- (void)attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind;
 
 // builtin token types
 - (void)matchAny:(BOOL)discard;

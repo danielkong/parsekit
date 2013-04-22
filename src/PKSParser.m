@@ -34,6 +34,9 @@
 - (NSInteger)tokenKindForString:(NSString *)s;
 - (BOOL)lookahead:(NSInteger)x predicts:(NSInteger)tokenKind;
 
+- (void)_discard;
+- (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind;
+
 // conenience
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
@@ -209,7 +212,7 @@
     // always match empty without consuming
     if (TOKEN_KIND_BUILTIN_EMPTY == tokenKind) return;
 
-    [self attemptSingleTokenInsertionDeletion:tokenKind];
+    [self _attemptSingleTokenInsertionDeletion:tokenKind];
     
     if (_skip > 0) {
         self._skip--;
@@ -222,7 +225,7 @@
 
         if (matches) {
             [self consume:lt];
-            if (discard) [self discard:1];
+            if (discard) [self _discard];
         } else {
             [self raise:@"expecting %ld; found %@", tokenKind, lt];
         }
@@ -250,14 +253,11 @@
 }
 
 
-- (void)discard:(NSInteger)n {
+- (void)_discard {
     if (self._isSpeculating) return;
     
-    while (n > 0) {
-        NSAssert(![_assembly isStackEmpty], @"");
-        [_assembly pop];
-        --n;
-    }
+    NSAssert(![_assembly isStackEmpty], @"");
+    [_assembly pop];
 }
 
 
@@ -390,7 +390,7 @@
 }
 
 
-- (void)attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind {
+- (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind {
     if (_enableAutomaticErrorRecovery && LA(1) != tokenKind) {
         if (LA(2) == tokenKind) {
             [self consume:LT(1)]; // single token deletion

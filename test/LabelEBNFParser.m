@@ -79,22 +79,22 @@
 
 - (void)_start {
     
-    [self s]; 
+    [self s];
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__s {
     
-    if ([self speculate:^{ [self label]; [self matchWord:NO];[self match:LABELEBNF_TOKEN_KIND_EQUALS discard:NO];[self expr]; }]) {
-        [self label]; 
+    if ([self speculate:^{ [self label];[self matchWord:NO];[self match:LABELEBNF_TOKEN_KIND_EQUALS discard:NO];[self expr];}]) {
+        [self label];
         [self matchWord:NO];
         [self match:LABELEBNF_TOKEN_KIND_EQUALS discard:NO];
-        [self expr]; 
-    } else if ([self speculate:^{ [self label]; [self match:LABELEBNF_TOKEN_KIND_RETURN discard:NO];[self expr]; }]) {
-        [self label]; 
+        [self expr];
+    } else if ([self speculate:^{ [self label];[self match:LABELEBNF_TOKEN_KIND_RETURN discard:NO];[self expr];}]) {
+        [self label];
         [self match:LABELEBNF_TOKEN_KIND_RETURN discard:NO];
-        [self expr]; 
+        [self expr];
     } else {
         [self raise:@"no viable alternative found in s"];
     }

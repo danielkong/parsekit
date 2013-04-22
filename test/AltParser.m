@@ -91,17 +91,17 @@
 
 - (void)_start {
     
-    [self s]; 
+    [self s];
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__s {
     
-    if ([self speculate:^{ [self a]; }]) {
-        [self a]; 
-    } else if ([self speculate:^{ [self b]; }]) {
-        [self b]; 
+    if ([self speculate:^{ [self a];}]) {
+        [self a];
+    } else if ([self speculate:^{ [self b];}]) {
+        [self b];
     } else {
         [self raise:@"no viable alternative found in s"];
     }
@@ -115,8 +115,8 @@
 
 - (void)__a {
     
-    [self foo]; 
-    [self baz]; 
+    [self foo];
+    [self baz];
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
@@ -127,11 +127,11 @@
 
 - (void)__b {
     
-    if ([self speculate:^{ [self a]; }]) {
-        [self a]; 
-    } else if ([self speculate:^{ [self foo]; [self bar]; }]) {
-        [self foo]; 
-        [self bar]; 
+    if ([self speculate:^{ [self a];}]) {
+        [self a];
+    } else if ([self speculate:^{ [self foo];[self bar];}]) {
+        [self foo];
+        [self bar];
     } else {
         [self raise:@"no viable alternative found in b"];
     }

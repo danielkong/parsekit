@@ -795,7 +795,7 @@
 	[t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 
     }];
-    [self program]; 
+    [self program];
 
 }
 
@@ -1561,29 +1561,29 @@
 - (void)__assignmentOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_EQUALS, 0]) {
-        [self equals]; 
+        [self equals];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_PLUSEQ, 0]) {
-        [self plusEq]; 
+        [self plusEq];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MINUSEQ, 0]) {
-        [self minusEq]; 
+        [self minusEq];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_TIMESEQ, 0]) {
-        [self timesEq]; 
+        [self timesEq];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DIVEQ, 0]) {
-        [self divEq]; 
+        [self divEq];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MODEQ, 0]) {
-        [self modEq]; 
+        [self modEq];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ, 0]) {
-        [self shiftLeftEq]; 
+        [self shiftLeftEq];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ, 0]) {
-        [self shiftRightEq]; 
+        [self shiftRightEq];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ, 0]) {
-        [self shiftRightExtEq]; 
+        [self shiftRightExtEq];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_ANDEQ, 0]) {
-        [self andEq]; 
+        [self andEq];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_XOREQ, 0]) {
-        [self xorEq]; 
+        [self xorEq];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OREQ, 0]) {
-        [self orEq]; 
+        [self orEq];
     } else {
         [self raise:@"no viable alternative found in assignmentOperator"];
     }
@@ -1597,15 +1597,15 @@
 - (void)__relationalOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_LT, 0]) {
-        [self lt]; 
+        [self lt];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_GT, 0]) {
-        [self gt]; 
+        [self gt];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_GE, 0]) {
-        [self ge]; 
+        [self ge];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_LE, 0]) {
-        [self le]; 
+        [self le];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_INSTANCEOF, 0]) {
-        [self instanceof]; 
+        [self instanceof];
     } else {
         [self raise:@"no viable alternative found in relationalOperator"];
     }
@@ -1619,13 +1619,13 @@
 - (void)__equalityOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_EQ, 0]) {
-        [self eq]; 
+        [self eq];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_NE, 0]) {
-        [self ne]; 
+        [self ne];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_IS, 0]) {
-        [self is]; 
+        [self is];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_ISNOT, 0]) {
-        [self isnot]; 
+        [self isnot];
     } else {
         [self raise:@"no viable alternative found in equalityOperator"];
     }
@@ -1639,11 +1639,11 @@
 - (void)__shiftOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTLEFT, 0]) {
-        [self shiftLeft]; 
+        [self shiftLeft];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT, 0]) {
-        [self shiftRight]; 
+        [self shiftRight];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT, 0]) {
-        [self shiftRightExt]; 
+        [self shiftRightExt];
     } else {
         [self raise:@"no viable alternative found in shiftOperator"];
     }
@@ -1657,9 +1657,9 @@
 - (void)__incrementOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_PLUSPLUS, 0]) {
-        [self plusPlus]; 
+        [self plusPlus];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MINUSMINUS, 0]) {
-        [self minusMinus]; 
+        [self minusMinus];
     } else {
         [self raise:@"no viable alternative found in incrementOperator"];
     }
@@ -1673,13 +1673,13 @@
 - (void)__unaryOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_TILDE, 0]) {
-        [self tilde]; 
+        [self tilde];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DELETE, 0]) {
-        [self delete]; 
+        [self delete];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_TYPEOF, 0]) {
-        [self typeof]; 
+        [self typeof];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_VOID, 0]) {
-        [self void]; 
+        [self void];
     } else {
         [self raise:@"no viable alternative found in unaryOperator"];
     }
@@ -1693,11 +1693,11 @@
 - (void)__multiplicativeOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_TIMES, 0]) {
-        [self times]; 
+        [self times];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DIV, 0]) {
-        [self div]; 
+        [self div];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MOD, 0]) {
-        [self mod]; 
+        [self mod];
     } else {
         [self raise:@"no viable alternative found in multiplicativeOperator"];
     }
@@ -1711,8 +1711,8 @@
 - (void)__program {
     
     do {
-        [self element]; 
-    } while ([self speculate:^{ [self element]; }]);
+        [self element];
+    } while ([self speculate:^{ [self element];}]);
 
 }
 
@@ -1723,9 +1723,9 @@
 - (void)__element {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_FUNCTION, 0]) {
-        [self func]; 
+        [self func];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_BREAK, JAVASCRIPT_TOKEN_KIND_CONTINUE, JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_FOR, JAVASCRIPT_TOKEN_KIND_IF, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENCURLY, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_RETURN, JAVASCRIPT_TOKEN_KIND_SEMI, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VAR, JAVASCRIPT_TOKEN_KIND_VOID, JAVASCRIPT_TOKEN_KIND_WHILE, JAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self stmt]; 
+        [self stmt];
     } else {
         [self raise:@"no viable alternative found in element"];
     }
@@ -1738,12 +1738,12 @@
 
 - (void)__func {
     
-    [self function]; 
-    [self identifier]; 
-    [self openParen]; 
-    [self paramListOpt]; 
-    [self closeParen]; 
-    [self compoundStmt]; 
+    [self function];
+    [self identifier];
+    [self openParen];
+    [self paramListOpt];
+    [self closeParen];
+    [self compoundStmt];
 
 }
 
@@ -1754,7 +1754,7 @@
 - (void)__paramListOpt {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self paramList]; 
+        [self paramList];
     }
 
 }
@@ -1765,10 +1765,10 @@
 
 - (void)__paramList {
     
-    [self identifier]; 
+    [self identifier];
     while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaIdentifier]; }]) {
-            [self commaIdentifier]; 
+        if ([self speculate:^{ [self commaIdentifier];}]) {
+            [self commaIdentifier];
         } else {
             break;
         }
@@ -1782,8 +1782,8 @@
 
 - (void)__commaIdentifier {
     
-    [self comma]; 
-    [self identifier]; 
+    [self comma];
+    [self identifier];
 
 }
 
@@ -1793,9 +1793,9 @@
 
 - (void)__compoundStmt {
     
-    [self openCurly]; 
-    [self stmts]; 
-    [self closeCurly]; 
+    [self openCurly];
+    [self stmts];
+    [self closeCurly];
 
 }
 
@@ -1806,8 +1806,8 @@
 - (void)__stmts {
     
     while ([self predicts:JAVASCRIPT_TOKEN_KIND_BREAK, JAVASCRIPT_TOKEN_KIND_CONTINUE, JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_FOR, JAVASCRIPT_TOKEN_KIND_IF, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENCURLY, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_RETURN, JAVASCRIPT_TOKEN_KIND_SEMI, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VAR, JAVASCRIPT_TOKEN_KIND_VOID, JAVASCRIPT_TOKEN_KIND_WHILE, JAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self stmt]; }]) {
-            [self stmt]; 
+        if ([self speculate:^{ [self stmt];}]) {
+            [self stmt];
         } else {
             break;
         }
@@ -1821,32 +1821,32 @@
 
 - (void)__stmt {
     
-    if ([self speculate:^{ [self semi]; }]) {
-        [self semi]; 
-    } else if ([self speculate:^{ [self ifStmt]; }]) {
-        [self ifStmt]; 
-    } else if ([self speculate:^{ [self ifElseStmt]; }]) {
-        [self ifElseStmt]; 
-    } else if ([self speculate:^{ [self whileStmt]; }]) {
-        [self whileStmt]; 
-    } else if ([self speculate:^{ [self forParenStmt]; }]) {
-        [self forParenStmt]; 
-    } else if ([self speculate:^{ [self forBeginStmt]; }]) {
-        [self forBeginStmt]; 
-    } else if ([self speculate:^{ [self forInStmt]; }]) {
-        [self forInStmt]; 
-    } else if ([self speculate:^{ [self breakStmt]; }]) {
-        [self breakStmt]; 
-    } else if ([self speculate:^{ [self continueStmt]; }]) {
-        [self continueStmt]; 
-    } else if ([self speculate:^{ [self withStmt]; }]) {
-        [self withStmt]; 
-    } else if ([self speculate:^{ [self returnStmt]; }]) {
-        [self returnStmt]; 
-    } else if ([self speculate:^{ [self compoundStmt]; }]) {
-        [self compoundStmt]; 
-    } else if ([self speculate:^{ [self variablesOrExprStmt]; }]) {
-        [self variablesOrExprStmt]; 
+    if ([self speculate:^{ [self semi];}]) {
+        [self semi];
+    } else if ([self speculate:^{ [self ifStmt];}]) {
+        [self ifStmt];
+    } else if ([self speculate:^{ [self ifElseStmt];}]) {
+        [self ifElseStmt];
+    } else if ([self speculate:^{ [self whileStmt];}]) {
+        [self whileStmt];
+    } else if ([self speculate:^{ [self forParenStmt];}]) {
+        [self forParenStmt];
+    } else if ([self speculate:^{ [self forBeginStmt];}]) {
+        [self forBeginStmt];
+    } else if ([self speculate:^{ [self forInStmt];}]) {
+        [self forInStmt];
+    } else if ([self speculate:^{ [self breakStmt];}]) {
+        [self breakStmt];
+    } else if ([self speculate:^{ [self continueStmt];}]) {
+        [self continueStmt];
+    } else if ([self speculate:^{ [self withStmt];}]) {
+        [self withStmt];
+    } else if ([self speculate:^{ [self returnStmt];}]) {
+        [self returnStmt];
+    } else if ([self speculate:^{ [self compoundStmt];}]) {
+        [self compoundStmt];
+    } else if ([self speculate:^{ [self variablesOrExprStmt];}]) {
+        [self variablesOrExprStmt];
     } else {
         [self raise:@"no viable alternative found in stmt"];
     }
@@ -1859,9 +1859,9 @@
 
 - (void)__ifStmt {
     
-    [self if]; 
-    [self condition]; 
-    [self stmt]; 
+    [self if];
+    [self condition];
+    [self stmt];
 
 }
 
@@ -1871,11 +1871,11 @@
 
 - (void)__ifElseStmt {
     
-    [self if]; 
-    [self condition]; 
-    [self stmt]; 
-    [self else]; 
-    [self stmt]; 
+    [self if];
+    [self condition];
+    [self stmt];
+    [self else];
+    [self stmt];
 
 }
 
@@ -1885,9 +1885,9 @@
 
 - (void)__whileStmt {
     
-    [self while]; 
-    [self condition]; 
-    [self stmt]; 
+    [self while];
+    [self condition];
+    [self stmt];
 
 }
 
@@ -1897,13 +1897,13 @@
 
 - (void)__forParenStmt {
     
-    [self forParen]; 
-    [self semi]; 
-    [self exprOpt]; 
-    [self semi]; 
-    [self exprOpt]; 
-    [self closeParen]; 
-    [self stmt]; 
+    [self forParen];
+    [self semi];
+    [self exprOpt];
+    [self semi];
+    [self exprOpt];
+    [self closeParen];
+    [self stmt];
 
 }
 
@@ -1913,13 +1913,13 @@
 
 - (void)__forBeginStmt {
     
-    [self forBegin]; 
-    [self semi]; 
-    [self exprOpt]; 
-    [self semi]; 
-    [self exprOpt]; 
-    [self closeParen]; 
-    [self stmt]; 
+    [self forBegin];
+    [self semi];
+    [self exprOpt];
+    [self semi];
+    [self exprOpt];
+    [self closeParen];
+    [self stmt];
 
 }
 
@@ -1929,11 +1929,11 @@
 
 - (void)__forInStmt {
     
-    [self forBegin]; 
-    [self in]; 
-    [self expr]; 
-    [self closeParen]; 
-    [self stmt]; 
+    [self forBegin];
+    [self in];
+    [self expr];
+    [self closeParen];
+    [self stmt];
 
 }
 
@@ -1943,8 +1943,8 @@
 
 - (void)__breakStmt {
     
-    [self break]; 
-    [self semi]; 
+    [self break];
+    [self semi];
 
 }
 
@@ -1954,8 +1954,8 @@
 
 - (void)__continueStmt {
     
-    [self continue]; 
-    [self semi]; 
+    [self continue];
+    [self semi];
 
 }
 
@@ -1965,11 +1965,11 @@
 
 - (void)__withStmt {
     
-    [self with]; 
-    [self openParen]; 
-    [self expr]; 
-    [self closeParen]; 
-    [self stmt]; 
+    [self with];
+    [self openParen];
+    [self expr];
+    [self closeParen];
+    [self stmt];
 
 }
 
@@ -1979,9 +1979,9 @@
 
 - (void)__returnStmt {
     
-    [self return]; 
-    [self exprOpt]; 
-    [self semi]; 
+    [self return];
+    [self exprOpt];
+    [self semi];
 
 }
 
@@ -1991,8 +1991,8 @@
 
 - (void)__variablesOrExprStmt {
     
-    [self variablesOrExpr]; 
-    [self semi]; 
+    [self variablesOrExpr];
+    [self semi];
 
 }
 
@@ -2002,9 +2002,9 @@
 
 - (void)__condition {
     
-    [self openParen]; 
-    [self expr]; 
-    [self closeParen]; 
+    [self openParen];
+    [self expr];
+    [self closeParen];
 
 }
 
@@ -2014,8 +2014,8 @@
 
 - (void)__forParen {
     
-    [self for]; 
-    [self openParen]; 
+    [self for];
+    [self openParen];
 
 }
 
@@ -2025,8 +2025,8 @@
 
 - (void)__forBegin {
     
-    [self forParen]; 
-    [self variablesOrExpr]; 
+    [self forParen];
+    [self variablesOrExpr];
 
 }
 
@@ -2037,9 +2037,9 @@
 - (void)__variablesOrExpr {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_VAR, 0]) {
-        [self varVariables]; 
+        [self varVariables];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VOID, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self expr]; 
+        [self expr];
     } else {
         [self raise:@"no viable alternative found in variablesOrExpr"];
     }
@@ -2052,8 +2052,8 @@
 
 - (void)__varVariables {
     
-    [self var]; 
-    [self variables]; 
+    [self var];
+    [self variables];
 
 }
 
@@ -2063,10 +2063,10 @@
 
 - (void)__variables {
     
-    [self variable]; 
+    [self variable];
     while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaVariable]; }]) {
-            [self commaVariable]; 
+        if ([self speculate:^{ [self commaVariable];}]) {
+            [self commaVariable];
         } else {
             break;
         }
@@ -2080,8 +2080,8 @@
 
 - (void)__commaVariable {
     
-    [self comma]; 
-    [self variable]; 
+    [self comma];
+    [self variable];
 
 }
 
@@ -2091,9 +2091,9 @@
 
 - (void)__variable {
     
-    [self identifier]; 
-    if ([self speculate:^{ [self assignment]; }]) {
-        [self assignment]; 
+    [self identifier];
+    if ([self speculate:^{ [self assignment];}]) {
+        [self assignment];
     }
 
 }
@@ -2104,8 +2104,8 @@
 
 - (void)__assignment {
     
-    [self equals]; 
-    [self assignmentExpr]; 
+    [self equals];
+    [self assignmentExpr];
 
 }
 
@@ -2116,7 +2116,7 @@
 - (void)__exprOpt {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VOID, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self expr]; 
+        [self expr];
     }
 
 }
@@ -2127,9 +2127,9 @@
 
 - (void)__expr {
     
-    [self assignmentExpr]; 
-    if ([self speculate:^{ [self commaExpr]; }]) {
-        [self commaExpr]; 
+    [self assignmentExpr];
+    if ([self speculate:^{ [self commaExpr];}]) {
+        [self commaExpr];
     }
 
 }
@@ -2140,8 +2140,8 @@
 
 - (void)__commaExpr {
     
-    [self comma]; 
-    [self expr]; 
+    [self comma];
+    [self expr];
 
 }
 
@@ -2151,9 +2151,9 @@
 
 - (void)__assignmentExpr {
     
-    [self conditionalExpr]; 
-    if ([self speculate:^{ [self extraAssignment]; }]) {
-        [self extraAssignment]; 
+    [self conditionalExpr];
+    if ([self speculate:^{ [self extraAssignment];}]) {
+        [self extraAssignment];
     }
 
 }
@@ -2164,8 +2164,8 @@
 
 - (void)__extraAssignment {
     
-    [self assignmentOperator]; 
-    [self assignmentExpr]; 
+    [self assignmentOperator];
+    [self assignmentExpr];
 
 }
 
@@ -2175,9 +2175,9 @@
 
 - (void)__conditionalExpr {
     
-    [self orExpr]; 
-    if ([self speculate:^{ [self ternaryExpr]; }]) {
-        [self ternaryExpr]; 
+    [self orExpr];
+    if ([self speculate:^{ [self ternaryExpr];}]) {
+        [self ternaryExpr];
     }
 
 }
@@ -2188,10 +2188,10 @@
 
 - (void)__ternaryExpr {
     
-    [self question]; 
-    [self assignmentExpr]; 
-    [self colon]; 
-    [self assignmentExpr]; 
+    [self question];
+    [self assignmentExpr];
+    [self colon];
+    [self assignmentExpr];
 
 }
 
@@ -2201,10 +2201,10 @@
 
 - (void)__orExpr {
     
-    [self andExpr]; 
+    [self andExpr];
     while ([self predicts:JAVASCRIPT_TOKEN_KIND_OR, 0]) {
-        if ([self speculate:^{ [self orAndExpr]; }]) {
-            [self orAndExpr]; 
+        if ([self speculate:^{ [self orAndExpr];}]) {
+            [self orAndExpr];
         } else {
             break;
         }
@@ -2218,8 +2218,8 @@
 
 - (void)__orAndExpr {
     
-    [self or]; 
-    [self andExpr]; 
+    [self or];
+    [self andExpr];
 
 }
 
@@ -2229,9 +2229,9 @@
 
 - (void)__andExpr {
     
-    [self bitwiseOrExpr]; 
-    if ([self speculate:^{ [self andAndExpr]; }]) {
-        [self andAndExpr]; 
+    [self bitwiseOrExpr];
+    if ([self speculate:^{ [self andAndExpr];}]) {
+        [self andAndExpr];
     }
 
 }
@@ -2242,8 +2242,8 @@
 
 - (void)__andAndExpr {
     
-    [self and]; 
-    [self andExpr]; 
+    [self and];
+    [self andExpr];
 
 }
 
@@ -2253,9 +2253,9 @@
 
 - (void)__bitwiseOrExpr {
     
-    [self bitwiseXorExpr]; 
-    if ([self speculate:^{ [self pipeBitwiseOrExpr]; }]) {
-        [self pipeBitwiseOrExpr]; 
+    [self bitwiseXorExpr];
+    if ([self speculate:^{ [self pipeBitwiseOrExpr];}]) {
+        [self pipeBitwiseOrExpr];
     }
 
 }
@@ -2266,8 +2266,8 @@
 
 - (void)__pipeBitwiseOrExpr {
     
-    [self pipe]; 
-    [self bitwiseOrExpr]; 
+    [self pipe];
+    [self bitwiseOrExpr];
 
 }
 
@@ -2277,9 +2277,9 @@
 
 - (void)__bitwiseXorExpr {
     
-    [self bitwiseAndExpr]; 
-    if ([self speculate:^{ [self caretBitwiseXorExpr]; }]) {
-        [self caretBitwiseXorExpr]; 
+    [self bitwiseAndExpr];
+    if ([self speculate:^{ [self caretBitwiseXorExpr];}]) {
+        [self caretBitwiseXorExpr];
     }
 
 }
@@ -2290,8 +2290,8 @@
 
 - (void)__caretBitwiseXorExpr {
     
-    [self caret]; 
-    [self bitwiseXorExpr]; 
+    [self caret];
+    [self bitwiseXorExpr];
 
 }
 
@@ -2301,9 +2301,9 @@
 
 - (void)__bitwiseAndExpr {
     
-    [self equalityExpr]; 
-    if ([self speculate:^{ [self ampBitwiseAndExpression]; }]) {
-        [self ampBitwiseAndExpression]; 
+    [self equalityExpr];
+    if ([self speculate:^{ [self ampBitwiseAndExpression];}]) {
+        [self ampBitwiseAndExpression];
     }
 
 }
@@ -2314,8 +2314,8 @@
 
 - (void)__ampBitwiseAndExpression {
     
-    [self amp]; 
-    [self bitwiseAndExpr]; 
+    [self amp];
+    [self bitwiseAndExpr];
 
 }
 
@@ -2325,9 +2325,9 @@
 
 - (void)__equalityExpr {
     
-    [self relationalExpr]; 
-    if ([self speculate:^{ [self equalityOpEqualityExpr]; }]) {
-        [self equalityOpEqualityExpr]; 
+    [self relationalExpr];
+    if ([self speculate:^{ [self equalityOpEqualityExpr];}]) {
+        [self equalityOpEqualityExpr];
     }
 
 }
@@ -2338,8 +2338,8 @@
 
 - (void)__equalityOpEqualityExpr {
     
-    [self equalityOperator]; 
-    [self equalityExpr]; 
+    [self equalityOperator];
+    [self equalityExpr];
 
 }
 
@@ -2349,11 +2349,11 @@
 
 - (void)__relationalExpr {
     
-    [self shiftExpr]; 
+    [self shiftExpr];
     while ([self predicts:JAVASCRIPT_TOKEN_KIND_GE, JAVASCRIPT_TOKEN_KIND_GT, JAVASCRIPT_TOKEN_KIND_INSTANCEOF, JAVASCRIPT_TOKEN_KIND_LE, JAVASCRIPT_TOKEN_KIND_LT, 0]) {
-        if ([self speculate:^{ [self relationalOperator]; [self shiftExpr]; }]) {
-            [self relationalOperator]; 
-            [self shiftExpr]; 
+        if ([self speculate:^{ [self relationalOperator];[self shiftExpr];}]) {
+            [self relationalOperator];
+            [self shiftExpr];
         } else {
             break;
         }
@@ -2367,9 +2367,9 @@
 
 - (void)__shiftExpr {
     
-    [self additiveExpr]; 
-    if ([self speculate:^{ [self shiftOpShiftExpr]; }]) {
-        [self shiftOpShiftExpr]; 
+    [self additiveExpr];
+    if ([self speculate:^{ [self shiftOpShiftExpr];}]) {
+        [self shiftOpShiftExpr];
     }
 
 }
@@ -2380,8 +2380,8 @@
 
 - (void)__shiftOpShiftExpr {
     
-    [self shiftOperator]; 
-    [self shiftExpr]; 
+    [self shiftOperator];
+    [self shiftExpr];
 
 }
 
@@ -2391,9 +2391,9 @@
 
 - (void)__additiveExpr {
     
-    [self multiplicativeExpr]; 
-    if ([self speculate:^{ [self plusOrMinusExpr]; }]) {
-        [self plusOrMinusExpr]; 
+    [self multiplicativeExpr];
+    if ([self speculate:^{ [self plusOrMinusExpr];}]) {
+        [self plusOrMinusExpr];
     }
 
 }
@@ -2405,9 +2405,9 @@
 - (void)__plusOrMinusExpr {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_PLUS, 0]) {
-        [self plusExpr]; 
+        [self plusExpr];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MINUS, 0]) {
-        [self minusExpr]; 
+        [self minusExpr];
     } else {
         [self raise:@"no viable alternative found in plusOrMinusExpr"];
     }
@@ -2420,8 +2420,8 @@
 
 - (void)__plusExpr {
     
-    [self plus]; 
-    [self additiveExpr]; 
+    [self plus];
+    [self additiveExpr];
 
 }
 
@@ -2431,8 +2431,8 @@
 
 - (void)__minusExpr {
     
-    [self minus]; 
-    [self additiveExpr]; 
+    [self minus];
+    [self additiveExpr];
 
 }
 
@@ -2442,10 +2442,10 @@
 
 - (void)__multiplicativeExpr {
     
-    [self unaryExpr]; 
-    if ([self speculate:^{ [self multiplicativeOperator]; [self multiplicativeExpr]; }]) {
-        [self multiplicativeOperator]; 
-        [self multiplicativeExpr]; 
+    [self unaryExpr];
+    if ([self speculate:^{ [self multiplicativeOperator];[self multiplicativeExpr];}]) {
+        [self multiplicativeOperator];
+        [self multiplicativeExpr];
     }
 
 }
@@ -2456,18 +2456,18 @@
 
 - (void)__unaryExpr {
     
-    if ([self speculate:^{ [self memberExpr]; }]) {
-        [self memberExpr]; 
-    } else if ([self speculate:^{ [self unaryExpr1]; }]) {
-        [self unaryExpr1]; 
-    } else if ([self speculate:^{ [self unaryExpr2]; }]) {
-        [self unaryExpr2]; 
-    } else if ([self speculate:^{ [self unaryExpr3]; }]) {
-        [self unaryExpr3]; 
-    } else if ([self speculate:^{ [self unaryExpr4]; }]) {
-        [self unaryExpr4]; 
-    } else if ([self speculate:^{ [self unaryExpr6]; }]) {
-        [self unaryExpr6]; 
+    if ([self speculate:^{ [self memberExpr];}]) {
+        [self memberExpr];
+    } else if ([self speculate:^{ [self unaryExpr1];}]) {
+        [self unaryExpr1];
+    } else if ([self speculate:^{ [self unaryExpr2];}]) {
+        [self unaryExpr2];
+    } else if ([self speculate:^{ [self unaryExpr3];}]) {
+        [self unaryExpr3];
+    } else if ([self speculate:^{ [self unaryExpr4];}]) {
+        [self unaryExpr4];
+    } else if ([self speculate:^{ [self unaryExpr6];}]) {
+        [self unaryExpr6];
     } else {
         [self raise:@"no viable alternative found in unaryExpr"];
     }
@@ -2480,8 +2480,8 @@
 
 - (void)__unaryExpr1 {
     
-    [self unaryOperator]; 
-    [self unaryExpr]; 
+    [self unaryOperator];
+    [self unaryExpr];
 
 }
 
@@ -2491,8 +2491,8 @@
 
 - (void)__unaryExpr2 {
     
-    [self minus]; 
-    [self unaryExpr]; 
+    [self minus];
+    [self unaryExpr];
 
 }
 
@@ -2502,8 +2502,8 @@
 
 - (void)__unaryExpr3 {
     
-    [self incrementOperator]; 
-    [self memberExpr]; 
+    [self incrementOperator];
+    [self memberExpr];
 
 }
 
@@ -2513,8 +2513,8 @@
 
 - (void)__unaryExpr4 {
     
-    [self memberExpr]; 
-    [self incrementOperator]; 
+    [self memberExpr];
+    [self incrementOperator];
 
 }
 
@@ -2524,8 +2524,8 @@
 
 - (void)__callNewExpr {
     
-    [self keywordNew]; 
-    [self constructor]; 
+    [self keywordNew];
+    [self constructor];
 
 }
 
@@ -2535,8 +2535,8 @@
 
 - (void)__unaryExpr6 {
     
-    [self delete]; 
-    [self memberExpr]; 
+    [self delete];
+    [self memberExpr];
 
 }
 
@@ -2546,11 +2546,11 @@
 
 - (void)__constructor {
     
-    if ([self speculate:^{ [self this]; [self dot]; }]) {
-        [self this]; 
-        [self dot]; 
+    if ([self speculate:^{ [self this];[self dot];}]) {
+        [self this];
+        [self dot];
     }
-    [self constructorCall]; 
+    [self constructorCall];
 
 }
 
@@ -2560,13 +2560,13 @@
 
 - (void)__constructorCall {
     
-    [self identifier]; 
-    if ([self speculate:^{ if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"no viable alternative found in constructorCall"];}}]) {
+    [self identifier];
+    if ([self speculate:^{ if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen];} else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {[self dot];[self constructorCall];} else {[self raise:@"no viable alternative found in constructorCall"];}}]) {
         if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
-            [self parenArgListParen]; 
+            [self parenArgListParen];
         } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {
-            [self dot]; 
-            [self constructorCall]; 
+            [self dot];
+            [self constructorCall];
         } else {
             [self raise:@"no viable alternative found in constructorCall"];
         }
@@ -2580,9 +2580,9 @@
 
 - (void)__parenArgListParen {
     
-    [self openParen]; 
-    [self argListOpt]; 
-    [self closeParen]; 
+    [self openParen];
+    [self argListOpt];
+    [self closeParen];
 
 }
 
@@ -2592,9 +2592,9 @@
 
 - (void)__memberExpr {
     
-    [self primaryExpr]; 
-    if ([self speculate:^{ [self dotBracketOrParenExpr]; }]) {
-        [self dotBracketOrParenExpr]; 
+    [self primaryExpr];
+    if ([self speculate:^{ [self dotBracketOrParenExpr];}]) {
+        [self dotBracketOrParenExpr];
     }
 
 }
@@ -2606,11 +2606,11 @@
 - (void)__dotBracketOrParenExpr {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {
-        [self dotMemberExpr]; 
+        [self dotMemberExpr];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENBRACKET, 0]) {
-        [self bracketMemberExpr]; 
+        [self bracketMemberExpr];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
-        [self parenMemberExpr]; 
+        [self parenMemberExpr];
     } else {
         [self raise:@"no viable alternative found in dotBracketOrParenExpr"];
     }
@@ -2623,8 +2623,8 @@
 
 - (void)__dotMemberExpr {
     
-    [self dot]; 
-    [self memberExpr]; 
+    [self dot];
+    [self memberExpr];
 
 }
 
@@ -2634,9 +2634,9 @@
 
 - (void)__bracketMemberExpr {
     
-    [self openBracket]; 
-    [self expr]; 
-    [self closeBracket]; 
+    [self openBracket];
+    [self expr];
+    [self closeBracket];
 
 }
 
@@ -2646,9 +2646,9 @@
 
 - (void)__parenMemberExpr {
     
-    [self openParen]; 
-    [self argListOpt]; 
-    [self closeParen]; 
+    [self openParen];
+    [self argListOpt];
+    [self closeParen];
 
 }
 
@@ -2658,8 +2658,8 @@
 
 - (void)__argListOpt {
     
-    if ([self speculate:^{ [self argList]; }]) {
-        [self argList]; 
+    if ([self speculate:^{ [self argList];}]) {
+        [self argList];
     }
 
 }
@@ -2670,10 +2670,10 @@
 
 - (void)__argList {
     
-    [self assignmentExpr]; 
+    [self assignmentExpr];
     while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaAssignmentExpr]; }]) {
-            [self commaAssignmentExpr]; 
+        if ([self speculate:^{ [self commaAssignmentExpr];}]) {
+            [self commaAssignmentExpr];
         } else {
             break;
         }
@@ -2687,8 +2687,8 @@
 
 - (void)__commaAssignmentExpr {
     
-    [self comma]; 
-    [self assignmentExpr]; 
+    [self comma];
+    [self assignmentExpr];
 
 }
 
@@ -2699,25 +2699,25 @@
 - (void)__primaryExpr {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, 0]) {
-        [self callNewExpr]; 
+        [self callNewExpr];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
-        [self parenExprParen]; 
+        [self parenExprParen];
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self identifier]; 
+        [self identifier];
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-        [self numLiteral]; 
+        [self numLiteral];
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self stringLiteral]; 
+        [self stringLiteral];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_FALSELITERAL, 0]) {
-        [self falseLiteral]; 
+        [self falseLiteral];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_TRUELITERAL, 0]) {
-        [self trueLiteral]; 
+        [self trueLiteral];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_NULL, 0]) {
-        [self null]; 
+        [self null];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_UNDEFINED, 0]) {
-        [self undefined]; 
+        [self undefined];
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_THIS, 0]) {
-        [self this]; 
+        [self this];
     } else {
         [self raise:@"no viable alternative found in primaryExpr"];
     }
@@ -2730,9 +2730,9 @@
 
 - (void)__parenExprParen {
     
-    [self openParen]; 
-    [self expr]; 
-    [self closeParen]; 
+    [self openParen];
+    [self expr];
+    [self closeParen];
 
 }
 
