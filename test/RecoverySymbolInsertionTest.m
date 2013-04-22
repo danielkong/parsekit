@@ -65,4 +65,17 @@
     TDEqualObjects(@"[[, 3, ;][/3/;^", [res description]);
 }
 
+- (void)testMissingBracketWithRecovery2 {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
+    
+    _parser.enableAutomaticErrorRecovery = YES;
+    
+    input = @"[3[";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDNotNil(err);
+    TDNil(res);
+}
+
 @end
