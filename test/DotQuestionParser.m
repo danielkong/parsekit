@@ -80,9 +80,7 @@
 
 - (void)__a {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != DOTQUESTION_TOKEN_KIND_A && LA(2) == DOTQUESTION_TOKEN_KIND_A) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:DOTQUESTION_TOKEN_KIND_A];
     [self match:DOTQUESTION_TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];

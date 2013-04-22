@@ -561,9 +561,7 @@
 
 - (void)__openCurly {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_OPENCURLY && LA(2) == CSS_TOKEN_KIND_OPENCURLY) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_OPENCURLY];
     [self match:CSS_TOKEN_KIND_OPENCURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
@@ -575,9 +573,7 @@
 
 - (void)__closeCurly {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_CLOSECURLY && LA(2) == CSS_TOKEN_KIND_CLOSECURLY) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_CLOSECURLY];
     [self match:CSS_TOKEN_KIND_CLOSECURLY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
@@ -589,9 +585,7 @@
 
 - (void)__openBracket {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_OPENBRACKET && LA(2) == CSS_TOKEN_KIND_OPENBRACKET) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_OPENBRACKET];
     [self match:CSS_TOKEN_KIND_OPENBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
@@ -603,9 +597,7 @@
 
 - (void)__closeBracket {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_CLOSEBRACKET && LA(2) == CSS_TOKEN_KIND_CLOSEBRACKET) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_CLOSEBRACKET];
     [self match:CSS_TOKEN_KIND_CLOSEBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
@@ -617,9 +609,7 @@
 
 - (void)__eq {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_EQ && LA(2) == CSS_TOKEN_KIND_EQ) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_EQ];
     [self match:CSS_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
@@ -631,9 +621,7 @@
 
 - (void)__comma {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_COMMA && LA(2) == CSS_TOKEN_KIND_COMMA) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_COMMA];
     [self match:CSS_TOKEN_KIND_COMMA]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
@@ -645,9 +633,7 @@
 
 - (void)__colon {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_COLON && LA(2) == CSS_TOKEN_KIND_COLON) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_COLON];
     [self match:CSS_TOKEN_KIND_COLON]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
@@ -659,9 +645,7 @@
 
 - (void)__semi {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_SEMI && LA(2) == CSS_TOKEN_KIND_SEMI) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_SEMI];
     [self match:CSS_TOKEN_KIND_SEMI]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
@@ -673,9 +657,7 @@
 
 - (void)__openParen {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_OPENPAREN && LA(2) == CSS_TOKEN_KIND_OPENPAREN) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_OPENPAREN];
     [self match:CSS_TOKEN_KIND_OPENPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
@@ -687,9 +669,7 @@
 
 - (void)__closeParen {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_CLOSEPAREN && LA(2) == CSS_TOKEN_KIND_CLOSEPAREN) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_CLOSEPAREN];
     [self match:CSS_TOKEN_KIND_CLOSEPAREN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
@@ -701,9 +681,7 @@
 
 - (void)__gt {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_GT && LA(2) == CSS_TOKEN_KIND_GT) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_GT];
     [self match:CSS_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
@@ -715,9 +693,7 @@
 
 - (void)__tilde {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_TILDE && LA(2) == CSS_TOKEN_KIND_TILDE) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_TILDE];
     [self match:CSS_TOKEN_KIND_TILDE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTilde:)];
@@ -729,9 +705,7 @@
 
 - (void)__pipe {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_PIPE && LA(2) == CSS_TOKEN_KIND_PIPE) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_PIPE];
     [self match:CSS_TOKEN_KIND_PIPE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPipe:)];
@@ -743,9 +717,7 @@
 
 - (void)__fwdSlash {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_FWDSLASH && LA(2) == CSS_TOKEN_KIND_FWDSLASH) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_FWDSLASH];
     [self match:CSS_TOKEN_KIND_FWDSLASH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];
@@ -757,9 +729,7 @@
 
 - (void)__hashSym {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_HASHSYM && LA(2) == CSS_TOKEN_KIND_HASHSYM) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_HASHSYM];
     [self match:CSS_TOKEN_KIND_HASHSYM]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchHashSym:)];
@@ -771,9 +741,7 @@
 
 - (void)__dot {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_DOT && LA(2) == CSS_TOKEN_KIND_DOT) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_DOT];
     [self match:CSS_TOKEN_KIND_DOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
@@ -785,9 +753,7 @@
 
 - (void)__at {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_AT && LA(2) == CSS_TOKEN_KIND_AT) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_AT];
     [self match:CSS_TOKEN_KIND_AT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAt:)];
@@ -799,9 +765,7 @@
 
 - (void)__bang {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != CSS_TOKEN_KIND_BANG && LA(2) == CSS_TOKEN_KIND_BANG) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:CSS_TOKEN_KIND_BANG];
     [self match:CSS_TOKEN_KIND_BANG]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBang:)];

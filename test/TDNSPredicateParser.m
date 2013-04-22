@@ -439,14 +439,10 @@
 
 - (void)__compoundExpr {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_OPEN_PAREN && LA(2) == TDNSPREDICATE_TOKEN_KIND_OPEN_PAREN) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_OPEN_PAREN];
     [self match:TDNSPREDICATE_TOKEN_KIND_OPEN_PAREN]; [self discard:1];
     [self expr]; 
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_CLOSE_PAREN && LA(2) == TDNSPREDICATE_TOKEN_KIND_CLOSE_PAREN) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_CLOSE_PAREN];
     [self match:TDNSPREDICATE_TOKEN_KIND_CLOSE_PAREN]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCompoundExpr:)];
@@ -570,9 +566,7 @@
 
 - (void)__trueLiteral {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_TRUELITERAL && LA(2) == TDNSPREDICATE_TOKEN_KIND_TRUELITERAL) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_TRUELITERAL];
     [self match:TDNSPREDICATE_TOKEN_KIND_TRUELITERAL]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
@@ -584,9 +578,7 @@
 
 - (void)__falseLiteral {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_FALSELITERAL && LA(2) == TDNSPREDICATE_TOKEN_KIND_FALSELITERAL) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_FALSELITERAL];
     [self match:TDNSPREDICATE_TOKEN_KIND_FALSELITERAL]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
@@ -598,14 +590,10 @@
 
 - (void)__array {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY && LA(2) == TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY];
     [self match:TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY]; 
     [self arrayContentsOpt]; 
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_CLOSE_CURLY && LA(2) == TDNSPREDICATE_TOKEN_KIND_CLOSE_CURLY) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_CLOSE_CURLY];
     [self match:TDNSPREDICATE_TOKEN_KIND_CLOSE_CURLY]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchArray:)];
@@ -648,9 +636,7 @@
 
 - (void)__commaValue {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_COMMA && LA(2) == TDNSPREDICATE_TOKEN_KIND_COMMA) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_COMMA];
     [self match:TDNSPREDICATE_TOKEN_KIND_COMMA]; [self discard:1];
     [self value]; 
 
@@ -749,14 +735,10 @@
 - (void)__eq {
     
     if ([self predicts:TDNSPREDICATE_TOKEN_KIND_EQUALS, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_EQUALS && LA(2) == TDNSPREDICATE_TOKEN_KIND_EQUALS) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_EQUALS];
         [self match:TDNSPREDICATE_TOKEN_KIND_EQUALS]; 
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_DOUBLE_EQUALS, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_DOUBLE_EQUALS && LA(2) == TDNSPREDICATE_TOKEN_KIND_DOUBLE_EQUALS) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_DOUBLE_EQUALS];
         [self match:TDNSPREDICATE_TOKEN_KIND_DOUBLE_EQUALS]; 
     } else {
         [self raise:@"no viable alternative found in eq"];
@@ -771,9 +753,7 @@
 
 - (void)__gt {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_GT && LA(2) == TDNSPREDICATE_TOKEN_KIND_GT) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_GT];
     [self match:TDNSPREDICATE_TOKEN_KIND_GT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
@@ -785,9 +765,7 @@
 
 - (void)__lt {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_LT && LA(2) == TDNSPREDICATE_TOKEN_KIND_LT) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_LT];
     [self match:TDNSPREDICATE_TOKEN_KIND_LT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
@@ -800,14 +778,10 @@
 - (void)__gtEq {
     
     if ([self predicts:TDNSPREDICATE_TOKEN_KIND_GE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_GE && LA(2) == TDNSPREDICATE_TOKEN_KIND_GE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_GE];
         [self match:TDNSPREDICATE_TOKEN_KIND_GE]; 
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_HASH_ROCKET, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_HASH_ROCKET && LA(2) == TDNSPREDICATE_TOKEN_KIND_HASH_ROCKET) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_HASH_ROCKET];
         [self match:TDNSPREDICATE_TOKEN_KIND_HASH_ROCKET]; 
     } else {
         [self raise:@"no viable alternative found in gtEq"];
@@ -823,14 +797,10 @@
 - (void)__ltEq {
     
     if ([self predicts:TDNSPREDICATE_TOKEN_KIND_LE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_LE && LA(2) == TDNSPREDICATE_TOKEN_KIND_LE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_LE];
         [self match:TDNSPREDICATE_TOKEN_KIND_LE]; 
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_EL, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_EL && LA(2) == TDNSPREDICATE_TOKEN_KIND_EL) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_EL];
         [self match:TDNSPREDICATE_TOKEN_KIND_EL]; 
     } else {
         [self raise:@"no viable alternative found in ltEq"];
@@ -846,14 +816,10 @@
 - (void)__notEq {
     
     if ([self predicts:TDNSPREDICATE_TOKEN_KIND_NE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_NE && LA(2) == TDNSPREDICATE_TOKEN_KIND_NE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_NE];
         [self match:TDNSPREDICATE_TOKEN_KIND_NE]; 
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_NOT_EQUAL, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_NOT_EQUAL && LA(2) == TDNSPREDICATE_TOKEN_KIND_NOT_EQUAL) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_NOT_EQUAL];
         [self match:TDNSPREDICATE_TOKEN_KIND_NOT_EQUAL]; 
     } else {
         [self raise:@"no viable alternative found in notEq"];
@@ -868,9 +834,7 @@
 
 - (void)__between {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_BETWEEN && LA(2) == TDNSPREDICATE_TOKEN_KIND_BETWEEN) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_BETWEEN];
     [self match:TDNSPREDICATE_TOKEN_KIND_BETWEEN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBetween:)];
@@ -1008,9 +972,7 @@
 
 - (void)__truePredicate {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE && LA(2) == TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE];
     [self match:TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTruePredicate:)];
@@ -1022,9 +984,7 @@
 
 - (void)__falsePredicate {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE && LA(2) == TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE];
     [self match:TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalsePredicate:)];
@@ -1037,14 +997,10 @@
 - (void)__andKeyword {
     
     if ([self predicts:TDNSPREDICATE_TOKEN_KIND_AND_UPPER, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_AND_UPPER && LA(2) == TDNSPREDICATE_TOKEN_KIND_AND_UPPER) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_AND_UPPER];
         [self match:TDNSPREDICATE_TOKEN_KIND_AND_UPPER]; [self discard:1];
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_DOUBLE_AMPERSAND, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_DOUBLE_AMPERSAND && LA(2) == TDNSPREDICATE_TOKEN_KIND_DOUBLE_AMPERSAND) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_DOUBLE_AMPERSAND];
         [self match:TDNSPREDICATE_TOKEN_KIND_DOUBLE_AMPERSAND]; [self discard:1];
     } else {
         [self raise:@"no viable alternative found in andKeyword"];
@@ -1060,14 +1016,10 @@
 - (void)__orKeyword {
     
     if ([self predicts:TDNSPREDICATE_TOKEN_KIND_OR_UPPER, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_OR_UPPER && LA(2) == TDNSPREDICATE_TOKEN_KIND_OR_UPPER) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_OR_UPPER];
         [self match:TDNSPREDICATE_TOKEN_KIND_OR_UPPER]; [self discard:1];
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_DOUBLE_PIPE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_DOUBLE_PIPE && LA(2) == TDNSPREDICATE_TOKEN_KIND_DOUBLE_PIPE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_DOUBLE_PIPE];
         [self match:TDNSPREDICATE_TOKEN_KIND_DOUBLE_PIPE]; [self discard:1];
     } else {
         [self raise:@"no viable alternative found in orKeyword"];
@@ -1083,14 +1035,10 @@
 - (void)__notKeyword {
     
     if ([self predicts:TDNSPREDICATE_TOKEN_KIND_NOT_UPPER, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_NOT_UPPER && LA(2) == TDNSPREDICATE_TOKEN_KIND_NOT_UPPER) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_NOT_UPPER];
         [self match:TDNSPREDICATE_TOKEN_KIND_NOT_UPPER]; [self discard:1];
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_BANG, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_BANG && LA(2) == TDNSPREDICATE_TOKEN_KIND_BANG) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_BANG];
         [self match:TDNSPREDICATE_TOKEN_KIND_BANG]; [self discard:1];
     } else {
         [self raise:@"no viable alternative found in notKeyword"];
@@ -1141,9 +1089,7 @@
 
 - (void)__beginswith {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_BEGINSWITH && LA(2) == TDNSPREDICATE_TOKEN_KIND_BEGINSWITH) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_BEGINSWITH];
     [self match:TDNSPREDICATE_TOKEN_KIND_BEGINSWITH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBeginswith:)];
@@ -1155,9 +1101,7 @@
 
 - (void)__contains {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_CONTAINS && LA(2) == TDNSPREDICATE_TOKEN_KIND_CONTAINS) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_CONTAINS];
     [self match:TDNSPREDICATE_TOKEN_KIND_CONTAINS]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchContains:)];
@@ -1169,9 +1113,7 @@
 
 - (void)__endswith {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_ENDSWITH && LA(2) == TDNSPREDICATE_TOKEN_KIND_ENDSWITH) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_ENDSWITH];
     [self match:TDNSPREDICATE_TOKEN_KIND_ENDSWITH]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEndswith:)];
@@ -1183,9 +1125,7 @@
 
 - (void)__like {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_LIKE && LA(2) == TDNSPREDICATE_TOKEN_KIND_LIKE) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_LIKE];
     [self match:TDNSPREDICATE_TOKEN_KIND_LIKE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLike:)];
@@ -1197,9 +1137,7 @@
 
 - (void)__matches {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_MATCHES && LA(2) == TDNSPREDICATE_TOKEN_KIND_MATCHES) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_MATCHES];
     [self match:TDNSPREDICATE_TOKEN_KIND_MATCHES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMatches:)];
@@ -1241,9 +1179,7 @@
 
 - (void)__inKeyword {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_INKEYWORD && LA(2) == TDNSPREDICATE_TOKEN_KIND_INKEYWORD) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_INKEYWORD];
     [self match:TDNSPREDICATE_TOKEN_KIND_INKEYWORD]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchInKeyword:)];
@@ -1276,9 +1212,7 @@
 
 - (void)__any {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_ANY && LA(2) == TDNSPREDICATE_TOKEN_KIND_ANY) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_ANY];
     [self match:TDNSPREDICATE_TOKEN_KIND_ANY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAny:)];
@@ -1290,9 +1224,7 @@
 
 - (void)__some {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_SOME && LA(2) == TDNSPREDICATE_TOKEN_KIND_SOME) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_SOME];
     [self match:TDNSPREDICATE_TOKEN_KIND_SOME]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSome:)];
@@ -1304,9 +1236,7 @@
 
 - (void)__all {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_ALL && LA(2) == TDNSPREDICATE_TOKEN_KIND_ALL) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_ALL];
     [self match:TDNSPREDICATE_TOKEN_KIND_ALL]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAll:)];
@@ -1318,9 +1248,7 @@
 
 - (void)__none {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != TDNSPREDICATE_TOKEN_KIND_NONE && LA(2) == TDNSPREDICATE_TOKEN_KIND_NONE) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:TDNSPREDICATE_TOKEN_KIND_NONE];
     [self match:TDNSPREDICATE_TOKEN_KIND_NONE]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNone:)];

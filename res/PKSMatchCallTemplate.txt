@@ -1,4 +1,2 @@
-{%for 1 to depth %}    {%/for%}if (self.enableAutomaticErrorRecovery && LA(1) != {{tokenKind.name}} && LA(2) == {{tokenKind.name}}) {
-{%for 1 to depth %}    {%/for%}    [self consume:LT(1)];
-{%for 1 to depth %}    {%/for%}}
+{%for 1 to depth %}    {%/for%}[self attemptSingleTokenInsertionDeletion:{{tokenKind.name}}];
 {%for 1 to depth %}    {%/for%}[self match:{{tokenKind.name}}]; {%if discard %}[self discard:1];{%/if%}

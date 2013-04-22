@@ -202,9 +202,7 @@
 
 - (void)__lbracket {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != ELEMENTASSIGN_TOKEN_KIND_LBRACKET && LA(2) == ELEMENTASSIGN_TOKEN_KIND_LBRACKET) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_LBRACKET];
     [self match:ELEMENTASSIGN_TOKEN_KIND_LBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
@@ -216,9 +214,7 @@
 
 - (void)__rbracket {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != ELEMENTASSIGN_TOKEN_KIND_RBRACKET && LA(2) == ELEMENTASSIGN_TOKEN_KIND_RBRACKET) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
     [self match:ELEMENTASSIGN_TOKEN_KIND_RBRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
@@ -230,9 +226,7 @@
 
 - (void)__comma {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != ELEMENTASSIGN_TOKEN_KIND_COMMA && LA(2) == ELEMENTASSIGN_TOKEN_KIND_COMMA) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_COMMA];
     [self match:ELEMENTASSIGN_TOKEN_KIND_COMMA]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
@@ -244,9 +238,7 @@
 
 - (void)__eq {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != ELEMENTASSIGN_TOKEN_KIND_EQ && LA(2) == ELEMENTASSIGN_TOKEN_KIND_EQ) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_EQ];
     [self match:ELEMENTASSIGN_TOKEN_KIND_EQ]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
@@ -258,9 +250,7 @@
 
 - (void)__dot {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != ELEMENTASSIGN_TOKEN_KIND_DOT && LA(2) == ELEMENTASSIGN_TOKEN_KIND_DOT) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_DOT];
     [self match:ELEMENTASSIGN_TOKEN_KIND_DOT]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
@@ -272,9 +262,7 @@
 
 - (void)__semi {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != ELEMENTASSIGN_TOKEN_KIND_SEMI && LA(2) == ELEMENTASSIGN_TOKEN_KIND_SEMI) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:ELEMENTASSIGN_TOKEN_KIND_SEMI];
     [self match:ELEMENTASSIGN_TOKEN_KIND_SEMI]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];

@@ -86,19 +86,15 @@
 
 - (void)__s {
     
-    if ([self speculate:^{ [self label]; [self Word]; if (self.enableAutomaticErrorRecovery && LA(1) != LABELEBNF_TOKEN_KIND_EQUALS && LA(2) == LABELEBNF_TOKEN_KIND_EQUALS) {[self consume:LT(1)];}[self match:LABELEBNF_TOKEN_KIND_EQUALS]; [self expr]; }]) {
+    if ([self speculate:^{ [self label]; [self Word]; [self attemptSingleTokenInsertionDeletion:LABELEBNF_TOKEN_KIND_EQUALS];[self match:LABELEBNF_TOKEN_KIND_EQUALS]; [self expr]; }]) {
         [self label]; 
         [self Word]; 
-        if (self.enableAutomaticErrorRecovery && LA(1) != LABELEBNF_TOKEN_KIND_EQUALS && LA(2) == LABELEBNF_TOKEN_KIND_EQUALS) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:LABELEBNF_TOKEN_KIND_EQUALS];
         [self match:LABELEBNF_TOKEN_KIND_EQUALS]; 
         [self expr]; 
-    } else if ([self speculate:^{ [self label]; if (self.enableAutomaticErrorRecovery && LA(1) != LABELEBNF_TOKEN_KIND_RETURN && LA(2) == LABELEBNF_TOKEN_KIND_RETURN) {[self consume:LT(1)];}[self match:LABELEBNF_TOKEN_KIND_RETURN]; [self expr]; }]) {
+    } else if ([self speculate:^{ [self label]; [self attemptSingleTokenInsertionDeletion:LABELEBNF_TOKEN_KIND_RETURN];[self match:LABELEBNF_TOKEN_KIND_RETURN]; [self expr]; }]) {
         [self label]; 
-        if (self.enableAutomaticErrorRecovery && LA(1) != LABELEBNF_TOKEN_KIND_RETURN && LA(2) == LABELEBNF_TOKEN_KIND_RETURN) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:LABELEBNF_TOKEN_KIND_RETURN];
         [self match:LABELEBNF_TOKEN_KIND_RETURN]; 
         [self expr]; 
     } else {
@@ -115,11 +111,9 @@
 - (void)__label {
     
     while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self Word]; if (self.enableAutomaticErrorRecovery && LA(1) != LABELEBNF_TOKEN_KIND_COLON && LA(2) == LABELEBNF_TOKEN_KIND_COLON) {[self consume:LT(1)];}[self match:LABELEBNF_TOKEN_KIND_COLON]; }]) {
+        if ([self speculate:^{ [self Word]; [self attemptSingleTokenInsertionDeletion:LABELEBNF_TOKEN_KIND_COLON];[self match:LABELEBNF_TOKEN_KIND_COLON]; }]) {
             [self Word]; 
-            if (self.enableAutomaticErrorRecovery && LA(1) != LABELEBNF_TOKEN_KIND_COLON && LA(2) == LABELEBNF_TOKEN_KIND_COLON) {
-                [self consume:LT(1)];
-            }
+            [self attemptSingleTokenInsertionDeletion:LABELEBNF_TOKEN_KIND_COLON];
             [self match:LABELEBNF_TOKEN_KIND_COLON]; 
         } else {
             break;
