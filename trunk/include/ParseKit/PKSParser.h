@@ -66,6 +66,10 @@ enum {
 - (void)fireAssemblerSelector:(SEL)sel;
 - (void)raise:(NSString *)fmt, ...;
 
+- (void)popFollow:(NSInteger)tokenKind;
+- (void)pushFollow:(NSInteger)tokenKind;
+- (BOOL)resync:(NSInteger)tokenKind;
+
 - (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
 
 // builtin token types
