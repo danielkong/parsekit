@@ -97,43 +97,29 @@
 
 - (void)__method {
     
-    if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type]; [self Word]; if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_OPEN_PAREN && LA(2) == METHODS_TOKEN_KIND_OPEN_PAREN) {[self consume:LT(1)];}[self match:METHODS_TOKEN_KIND_OPEN_PAREN]; [self args]; if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_CLOSE_PAREN && LA(2) == METHODS_TOKEN_KIND_CLOSE_PAREN) {[self consume:LT(1)];}[self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_SEMI_COLON && LA(2) == METHODS_TOKEN_KIND_SEMI_COLON) {[self consume:LT(1)];}[self match:METHODS_TOKEN_KIND_SEMI_COLON]; }]) {
+    if ([self speculate:^{ [self testAndThrow:(id)^{ return NO; }]; [self type]; [self Word]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_PAREN];[self match:METHODS_TOKEN_KIND_OPEN_PAREN]; [self args]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_PAREN];[self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_SEMI_COLON];[self match:METHODS_TOKEN_KIND_SEMI_COLON]; }]) {
         [self testAndThrow:(id)^{ return NO; }]; 
         [self type]; 
         [self Word]; 
-        if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_OPEN_PAREN && LA(2) == METHODS_TOKEN_KIND_OPEN_PAREN) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_PAREN];
         [self match:METHODS_TOKEN_KIND_OPEN_PAREN]; 
         [self args]; 
-        if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_CLOSE_PAREN && LA(2) == METHODS_TOKEN_KIND_CLOSE_PAREN) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_PAREN];
         [self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; 
-        if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_SEMI_COLON && LA(2) == METHODS_TOKEN_KIND_SEMI_COLON) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_SEMI_COLON];
         [self match:METHODS_TOKEN_KIND_SEMI_COLON]; 
-    } else if ([self speculate:^{ [self testAndThrow:(id)^{ return 1; }]; [self type]; [self Word]; if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_OPEN_PAREN && LA(2) == METHODS_TOKEN_KIND_OPEN_PAREN) {[self consume:LT(1)];}[self match:METHODS_TOKEN_KIND_OPEN_PAREN]; [self args]; if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_CLOSE_PAREN && LA(2) == METHODS_TOKEN_KIND_CLOSE_PAREN) {[self consume:LT(1)];}[self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_OPEN_CURLY && LA(2) == METHODS_TOKEN_KIND_OPEN_CURLY) {[self consume:LT(1)];}[self match:METHODS_TOKEN_KIND_OPEN_CURLY]; if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_CLOSE_CURLY && LA(2) == METHODS_TOKEN_KIND_CLOSE_CURLY) {[self consume:LT(1)];}[self match:METHODS_TOKEN_KIND_CLOSE_CURLY]; }]) {
+    } else if ([self speculate:^{ [self testAndThrow:(id)^{ return 1; }]; [self type]; [self Word]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_PAREN];[self match:METHODS_TOKEN_KIND_OPEN_PAREN]; [self args]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_PAREN];[self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_CURLY];[self match:METHODS_TOKEN_KIND_OPEN_CURLY]; [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_CURLY];[self match:METHODS_TOKEN_KIND_CLOSE_CURLY]; }]) {
         [self testAndThrow:(id)^{ return 1; }]; 
         [self type]; 
         [self Word]; 
-        if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_OPEN_PAREN && LA(2) == METHODS_TOKEN_KIND_OPEN_PAREN) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_PAREN];
         [self match:METHODS_TOKEN_KIND_OPEN_PAREN]; 
         [self args]; 
-        if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_CLOSE_PAREN && LA(2) == METHODS_TOKEN_KIND_CLOSE_PAREN) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_PAREN];
         [self match:METHODS_TOKEN_KIND_CLOSE_PAREN]; 
-        if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_OPEN_CURLY && LA(2) == METHODS_TOKEN_KIND_OPEN_CURLY) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_OPEN_CURLY];
         [self match:METHODS_TOKEN_KIND_OPEN_CURLY]; 
-        if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_CLOSE_CURLY && LA(2) == METHODS_TOKEN_KIND_CLOSE_CURLY) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_CLOSE_CURLY];
         [self match:METHODS_TOKEN_KIND_CLOSE_CURLY]; 
     } else {
         [self raise:@"no viable alternative found in method"];
@@ -149,14 +135,10 @@
 - (void)__type {
     
     if ([self predicts:METHODS_TOKEN_KIND_VOID, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_VOID && LA(2) == METHODS_TOKEN_KIND_VOID) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_VOID];
         [self match:METHODS_TOKEN_KIND_VOID]; 
     } else if ([self predicts:METHODS_TOKEN_KIND_INT, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_INT && LA(2) == METHODS_TOKEN_KIND_INT) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_INT];
         [self match:METHODS_TOKEN_KIND_INT]; 
     } else {
         [self raise:@"no viable alternative found in type"];
@@ -174,10 +156,8 @@
     if ([self predicts:METHODS_TOKEN_KIND_INT, 0]) {
         [self arg]; 
         while ([self predicts:METHODS_TOKEN_KIND_COMMA, 0]) {
-            if ([self speculate:^{ if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_COMMA && LA(2) == METHODS_TOKEN_KIND_COMMA) {[self consume:LT(1)];}[self match:METHODS_TOKEN_KIND_COMMA]; [self arg]; }]) {
-                if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_COMMA && LA(2) == METHODS_TOKEN_KIND_COMMA) {
-                    [self consume:LT(1)];
-                }
+            if ([self speculate:^{ [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_COMMA];[self match:METHODS_TOKEN_KIND_COMMA]; [self arg]; }]) {
+                [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_COMMA];
                 [self match:METHODS_TOKEN_KIND_COMMA]; 
                 [self arg]; 
             } else {
@@ -195,9 +175,7 @@
 
 - (void)__arg {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != METHODS_TOKEN_KIND_INT && LA(2) == METHODS_TOKEN_KIND_INT) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:METHODS_TOKEN_KIND_INT];
     [self match:METHODS_TOKEN_KIND_INT]; 
     [self Word]; 
 

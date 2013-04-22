@@ -223,6 +223,11 @@
         //NSLog(@"%@", _assembly);
     }
 
+    [self advance:1];
+}
+
+
+- (void)advance:(NSInteger)n {
     self._p++;
     
     // have we hit end of buffer when not backtracking?
@@ -232,7 +237,7 @@
         [_lookahead removeAllObjects]; // size goes to 0, but retains memory on heap
         [self _clearMemo]; // clear all rule_memo dictionaries
     }
-
+    
     [self _sync:1];
 }
 
@@ -374,6 +379,17 @@
     @throw _exception;
     
     va_end(vargs);
+}
+
+
+- (void)attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind {
+    if (self.enableAutomaticErrorRecovery && LA(1) != tokenKind) {
+        if (LA(2) == tokenKind) {
+            [self consume:LT(1)]; // single symbol deletion
+        } else {
+            [self advance:1]; // single symbol insertion
+        }
+    }
 }
 
 

@@ -147,9 +147,7 @@
 
 - (void)__lbracket {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != ELEMENT_TOKEN_KIND_LBRACKET && LA(2) == ELEMENT_TOKEN_KIND_LBRACKET) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:ELEMENT_TOKEN_KIND_LBRACKET];
     [self match:ELEMENT_TOKEN_KIND_LBRACKET]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
@@ -161,9 +159,7 @@
 
 - (void)__rbracket {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != ELEMENT_TOKEN_KIND_RBRACKET && LA(2) == ELEMENT_TOKEN_KIND_RBRACKET) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:ELEMENT_TOKEN_KIND_RBRACKET];
     [self match:ELEMENT_TOKEN_KIND_RBRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
@@ -175,9 +171,7 @@
 
 - (void)__comma {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != ELEMENT_TOKEN_KIND_COMMA && LA(2) == ELEMENT_TOKEN_KIND_COMMA) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:ELEMENT_TOKEN_KIND_COMMA];
     [self match:ELEMENT_TOKEN_KIND_COMMA]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];

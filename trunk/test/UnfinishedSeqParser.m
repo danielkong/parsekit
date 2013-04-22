@@ -83,9 +83,7 @@
 
 - (void)__a {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != UNFINISHEDSEQ_TOKEN_KIND_A && LA(2) == UNFINISHEDSEQ_TOKEN_KIND_A) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:UNFINISHEDSEQ_TOKEN_KIND_A];
     [self match:UNFINISHEDSEQ_TOKEN_KIND_A]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
@@ -97,9 +95,7 @@
 
 - (void)__b {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != UNFINISHEDSEQ_TOKEN_KIND_B && LA(2) == UNFINISHEDSEQ_TOKEN_KIND_B) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:UNFINISHEDSEQ_TOKEN_KIND_B];
     [self match:UNFINISHEDSEQ_TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];

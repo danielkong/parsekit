@@ -283,14 +283,10 @@
 
 - (void)__tokenizerDirective {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_AT && LA(2) == PARSEKIT_TOKEN_KIND_AT) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_AT];
     [self match:PARSEKIT_TOKEN_KIND_AT]; [self discard:1];
     [self Word]; 
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_EQUALS && LA(2) == PARSEKIT_TOKEN_KIND_EQUALS) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_EQUALS];
     [self match:PARSEKIT_TOKEN_KIND_EQUALS]; 
     do {
         if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
@@ -301,9 +297,7 @@
             [self raise:@"no viable alternative found in tokenizerDirective"];
         }
     } while ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]);
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_SEMI_COLON && LA(2) == PARSEKIT_TOKEN_KIND_SEMI_COLON) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_SEMI_COLON];
     [self match:PARSEKIT_TOKEN_KIND_SEMI_COLON]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTokenizerDirective:)];
@@ -323,17 +317,13 @@
             break;
         }
     }
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_EQUALS && LA(2) == PARSEKIT_TOKEN_KIND_EQUALS) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_EQUALS];
     [self match:PARSEKIT_TOKEN_KIND_EQUALS]; 
     if ([self predicts:PARSEKIT_TOKEN_KIND_ACTION, 0]) {
         [self action]; 
     }
     [self expr]; 
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_SEMI_COLON && LA(2) == PARSEKIT_TOKEN_KIND_SEMI_COLON) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_SEMI_COLON];
     [self match:PARSEKIT_TOKEN_KIND_SEMI_COLON]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDecl:)];
@@ -362,13 +352,9 @@
 
 - (void)__startProduction {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_AT && LA(2) == PARSEKIT_TOKEN_KIND_AT) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_AT];
     [self match:PARSEKIT_TOKEN_KIND_AT]; [self discard:1];
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_START && LA(2) == PARSEKIT_TOKEN_KIND_START) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_START];
     [self match:PARSEKIT_TOKEN_KIND_START]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchStartProduction:)];
@@ -380,9 +366,7 @@
 
 - (void)__namedAction {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_AT && LA(2) == PARSEKIT_TOKEN_KIND_AT) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_AT];
     [self match:PARSEKIT_TOKEN_KIND_AT]; [self discard:1];
     if ([self predicts:PARSEKIT_TOKEN_KIND_BEFOREKEY, 0]) {
         [self beforeKey]; 
@@ -402,9 +386,7 @@
 
 - (void)__beforeKey {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_BEFOREKEY && LA(2) == PARSEKIT_TOKEN_KIND_BEFOREKEY) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_BEFOREKEY];
     [self match:PARSEKIT_TOKEN_KIND_BEFOREKEY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBeforeKey:)];
@@ -416,9 +398,7 @@
 
 - (void)__afterKey {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_AFTERKEY && LA(2) == PARSEKIT_TOKEN_KIND_AFTERKEY) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_AFTERKEY];
     [self match:PARSEKIT_TOKEN_KIND_AFTERKEY]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAfterKey:)];
@@ -480,9 +460,7 @@
 
 - (void)__orTerm {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_PIPE && LA(2) == PARSEKIT_TOKEN_KIND_PIPE) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_PIPE];
     [self match:PARSEKIT_TOKEN_KIND_PIPE]; 
     [self term]; 
 
@@ -549,9 +527,7 @@
 
 - (void)__phraseStar {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_PHRASESTAR && LA(2) == PARSEKIT_TOKEN_KIND_PHRASESTAR) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_PHRASESTAR];
     [self match:PARSEKIT_TOKEN_KIND_PHRASESTAR]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPhraseStar:)];
@@ -563,9 +539,7 @@
 
 - (void)__phrasePlus {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_PHRASEPLUS && LA(2) == PARSEKIT_TOKEN_KIND_PHRASEPLUS) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_PHRASEPLUS];
     [self match:PARSEKIT_TOKEN_KIND_PHRASEPLUS]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPhrasePlus:)];
@@ -577,9 +551,7 @@
 
 - (void)__phraseQuestion {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_PHRASEQUESTION && LA(2) == PARSEKIT_TOKEN_KIND_PHRASEQUESTION) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_PHRASEQUESTION];
     [self match:PARSEKIT_TOKEN_KIND_PHRASEQUESTION]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPhraseQuestion:)];
@@ -630,9 +602,7 @@
 
 - (void)__intersection {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_AMPERSAND && LA(2) == PARSEKIT_TOKEN_KIND_AMPERSAND) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_AMPERSAND];
     [self match:PARSEKIT_TOKEN_KIND_AMPERSAND]; [self discard:1];
     [self primaryExpr]; 
 
@@ -645,9 +615,7 @@
 
 - (void)__difference {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_MINUS && LA(2) == PARSEKIT_TOKEN_KIND_MINUS) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_MINUS];
     [self match:PARSEKIT_TOKEN_KIND_MINUS]; [self discard:1];
     [self primaryExpr]; 
 
@@ -677,9 +645,7 @@
 
 - (void)__negatedPrimaryExpr {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_TILDE && LA(2) == PARSEKIT_TOKEN_KIND_TILDE) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_TILDE];
     [self match:PARSEKIT_TOKEN_KIND_TILDE]; [self discard:1];
     [self barePrimaryExpr]; 
 
@@ -711,14 +677,10 @@
 
 - (void)__subSeqExpr {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_OPEN_PAREN && LA(2) == PARSEKIT_TOKEN_KIND_OPEN_PAREN) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_OPEN_PAREN];
     [self match:PARSEKIT_TOKEN_KIND_OPEN_PAREN]; 
     [self expr]; 
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_CLOSE_PAREN && LA(2) == PARSEKIT_TOKEN_KIND_CLOSE_PAREN) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_CLOSE_PAREN];
     [self match:PARSEKIT_TOKEN_KIND_CLOSE_PAREN]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSubSeqExpr:)];
@@ -730,14 +692,10 @@
 
 - (void)__subTrackExpr {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_OPEN_BRACKET && LA(2) == PARSEKIT_TOKEN_KIND_OPEN_BRACKET) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_OPEN_BRACKET];
     [self match:PARSEKIT_TOKEN_KIND_OPEN_BRACKET]; 
     [self expr]; 
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_CLOSE_BRACKET && LA(2) == PARSEKIT_TOKEN_KIND_CLOSE_BRACKET) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_CLOSE_BRACKET];
     [self match:PARSEKIT_TOKEN_KIND_CLOSE_BRACKET]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSubTrackExpr:)];
@@ -786,9 +744,7 @@
 
 - (void)__discard {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_DISCARD && LA(2) == PARSEKIT_TOKEN_KIND_DISCARD) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_DISCARD];
     [self match:PARSEKIT_TOKEN_KIND_DISCARD]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDiscard:)];
@@ -841,16 +797,12 @@
     
     [self delimOpen]; 
     [self QuotedString]; 
-    if ([self speculate:^{ if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_COMMA && LA(2) == PARSEKIT_TOKEN_KIND_COMMA) {[self consume:LT(1)];}[self match:PARSEKIT_TOKEN_KIND_COMMA]; [self discard:1];[self QuotedString]; }]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_COMMA && LA(2) == PARSEKIT_TOKEN_KIND_COMMA) {
-            [self consume:LT(1)];
-        }
+    if ([self speculate:^{ [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_COMMA];[self match:PARSEKIT_TOKEN_KIND_COMMA]; [self discard:1];[self QuotedString]; }]) {
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_COMMA];
         [self match:PARSEKIT_TOKEN_KIND_COMMA]; [self discard:1];
         [self QuotedString]; 
     }
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_CLOSE_CURLY && LA(2) == PARSEKIT_TOKEN_KIND_CLOSE_CURLY) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_CLOSE_CURLY];
     [self match:PARSEKIT_TOKEN_KIND_CLOSE_CURLY]; [self discard:1];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDelimitedString:)];
@@ -874,64 +826,40 @@
 - (void)__constant {
     
     if ([self predicts:PARSEKIT_TOKEN_KIND_WORD_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_WORD_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_WORD_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_WORD_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_WORD_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_NUMBER_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_NUMBER_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_NUMBER_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_NUMBER_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_NUMBER_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_SYMBOL_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_SYMBOL_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_SYMBOL_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_SYMBOL_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_COMMENT_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_COMMENT_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_COMMENT_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_COMMENT_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_COMMENT_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_EMPTY_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_EMPTY_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_EMPTY_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_EMPTY_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_EMPTY_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_ANY_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_ANY_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_ANY_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_ANY_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_S_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_S_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_S_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_S_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_S_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_DIGIT_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_DIGIT_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_DIGIT_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_DIGIT_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_DIGIT_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_LETTER_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_LETTER_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_LETTER_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_LETTER_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_LETTER_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_CHAR_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_CHAR_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_CHAR_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_CHAR_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_CHAR_TITLE]; 
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, 0]) {
-        if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE && LA(2) == PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE) {
-            [self consume:LT(1)];
-        }
+        [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE];
         [self match:PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE]; 
     } else {
         [self raise:@"no viable alternative found in constant"];
@@ -957,9 +885,7 @@
 
 - (void)__delimOpen {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != PARSEKIT_TOKEN_KIND_DELIMOPEN && LA(2) == PARSEKIT_TOKEN_KIND_DELIMOPEN) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:PARSEKIT_TOKEN_KIND_DELIMOPEN];
     [self match:PARSEKIT_TOKEN_KIND_DELIMOPEN]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDelimOpen:)];

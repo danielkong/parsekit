@@ -117,9 +117,7 @@
 
 - (void)__foo {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != OPTIONAL_TOKEN_KIND_FOO && LA(2) == OPTIONAL_TOKEN_KIND_FOO) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:OPTIONAL_TOKEN_KIND_FOO];
     [self match:OPTIONAL_TOKEN_KIND_FOO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
@@ -131,9 +129,7 @@
 
 - (void)__bar {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != OPTIONAL_TOKEN_KIND_BAR && LA(2) == OPTIONAL_TOKEN_KIND_BAR) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:OPTIONAL_TOKEN_KIND_BAR];
     [self match:OPTIONAL_TOKEN_KIND_BAR]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];

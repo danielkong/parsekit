@@ -85,9 +85,7 @@
     [self execute:(id)^{
         PUSH(@"foo");
     }];
-    if (self.enableAutomaticErrorRecovery && LA(1) != NAMEDACTION_TOKEN_KIND_A && LA(2) == NAMEDACTION_TOKEN_KIND_A) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:NAMEDACTION_TOKEN_KIND_A];
     [self match:NAMEDACTION_TOKEN_KIND_A]; 
     [self execute:(id)^{
         PUSH(@"bar");
@@ -102,9 +100,7 @@
 
 - (void)__b {
     
-    if (self.enableAutomaticErrorRecovery && LA(1) != NAMEDACTION_TOKEN_KIND_B && LA(2) == NAMEDACTION_TOKEN_KIND_B) {
-        [self consume:LT(1)];
-    }
+    [self attemptSingleTokenInsertionDeletion:NAMEDACTION_TOKEN_KIND_B];
     [self match:NAMEDACTION_TOKEN_KIND_B]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
