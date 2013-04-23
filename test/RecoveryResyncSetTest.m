@@ -33,9 +33,9 @@
     PKAssembly *res = nil;
     NSString *input = nil;
     
-    input = @"[3];";
+    input = @"[3];[2];";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, 3, ;][/3/]/;^", [res description]);
+    TDEqualObjects(@"[[, 3, ;, [, 2, ;][/3/]/;/[/2/]/;^", [res description]);
 }
 
 - (void)testMissingElement {
@@ -71,9 +71,9 @@
     
     _parser.enableAutomaticErrorRecovery = YES;
     
-    input = @"foobar]=[2].";
+    input = @"1]=[2].";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[foobar, =, [, 2, .]foobar/]/=/[/2/]/.^", [res description]);
+    TDEqualObjects(@"[1, ], =, [, 2, .]1/]/=/[/2/]/.^", [res description]);
 }
 
 - (void)testJunkBeforeSemi {

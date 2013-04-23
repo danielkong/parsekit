@@ -67,6 +67,7 @@
 
     @try {
         [self stat];
+        [self stat];
         [self matchEOF:YES];
     }
     @catch (PKSRecognitionException *ex) {
@@ -85,9 +86,44 @@
 
 - (void)stat {
     
-    if ([self speculate:^{ [self assign]; [self dot]; }]) {
-        [self assign]; 
-        [self dot]; 
+    if ([self speculate:^{
+    
+        [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];
+        
+        @try {
+            [self assign];
+            [self dot];
+        }
+        @catch (PKSRecognitionException *ex) {
+            if ([self resync]) {
+                [self dot];
+            } else {
+                @throw ex;
+            }
+        }
+        @finally {
+            [self popFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];
+        }
+
+    }]) {
+
+        [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];
+        
+        @try {
+            [self assign];
+            [self dot];
+        }
+        @catch (PKSRecognitionException *ex) {
+            if ([self resync]) {
+                [self dot];
+            } else {
+                @throw ex;
+            }
+        }
+        @finally {
+            [self popFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];
+        }
+
     } else if ([self speculate:^{
         
         [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];
