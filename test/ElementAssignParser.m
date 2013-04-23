@@ -89,15 +89,19 @@
 
     @try {
         [self list];
+        [self eq];
     }
     @catch (PKSRecognitionException *ex) {
-        if (![self resync]) @throw ex;
+        if ([self resync]) {
+            [self eq];
+        } else {
+            @throw ex;
+        }
     }
     @finally {
         [self popFollow:ELEMENTASSIGN_TOKEN_KIND_EQ];
     }
     
-    [self eq];
     [self list]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAssign:)];
@@ -111,15 +115,18 @@
 
     @try {
         [self elements];
+        [self rbracket];
     }
     @catch (PKSRecognitionException *ex) {
-        if (![self resync]) @throw ex;
+        if ([self resync]) {
+            [self rbracket];
+        } else {
+            @throw ex;
+        }
     }
     @finally {
         [self popFollow:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
     }
-
-    [self rbracket];
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
