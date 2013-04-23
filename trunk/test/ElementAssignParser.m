@@ -66,8 +66,9 @@
     [self pushFollow:TOKEN_KIND_BUILTIN_EOF];
 
     @try {
-        [self stat];
-        [self stat];
+        do {
+            [self stat];
+        } while ([self speculate:^{ [self stat]; }]);
         [self matchEOF:YES];
     }
     @catch (PKSRecognitionException *ex) {

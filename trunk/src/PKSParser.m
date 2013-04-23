@@ -233,7 +233,7 @@
 
         if (matches) {
             if (TOKEN_KIND_BUILTIN_EOF != tokenKind) { // TODO remove this guard.
-                NSLog(@"matched %@", lt);
+                //NSLog(@"matched %@", lt);
                 [self consume:lt];
                 if (discard) [self _discard];
             }
@@ -407,7 +407,7 @@
     if (_enableAutomaticErrorRecovery && LA(1) != tokenKind) {
         if (LA(2) == tokenKind) {
             [self consume:LT(1)]; // single token deletion
-        } else { //if ([_resyncSet containsObject:@(LA(2))]){
+        } else {
             //self._skip++; // single token insertion
         }
     }
@@ -438,8 +438,8 @@
     BOOL result = NO;
     if (_enableAutomaticErrorRecovery) {
         for (;;) {
-            NSLog(@"LT(1) : %@", LT(1));
-            NSLog(@"is %ld in %@ ?", LA(1), _resyncSet);
+//            NSLog(@"LT(1) : %@", LT(1));
+//            NSLog(@"is %ld in %@ ?", LA(1), _resyncSet);
             NSAssert([_resyncSet count], @"");
             result = [_resyncSet containsObject:@(LA(1))];
 

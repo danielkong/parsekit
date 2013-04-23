@@ -33,9 +33,9 @@
     PKAssembly *res = nil;
     NSString *input = nil;
     
-    input = @"[3];";
+    input = @"[3];[2];";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, 3, ;][/3/]/;^", [res description]);
+    TDEqualObjects(@"[[, 3, ;, [, 2, ;][/3/]/;/[/2/]/;^", [res description]);
 }
 
 - (void)testMissingBracket {
@@ -72,8 +72,11 @@
     
     input = @"[3[";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDNotNil(err);
-    TDNil(res);
+//    TDNotNil(err);
+//    TDNil(res);
+
+    // this one works but not because of single token insertion. it works because of resyncSet
+    TDEqualObjects(@"[[, 3, [][/3/[^", [res description]);
 }
 
 @end
