@@ -51,26 +51,18 @@ enum {
 
 @interface PKSParser (Subclass)
 
+// lookahead
 - (PKToken *)LT:(NSInteger)i;
 - (NSInteger)LA:(NSInteger)i;
 - (double)LF:(NSInteger)i;
 - (NSString *)LS:(NSInteger)i;
 
+// parsing control flow
 - (void)consume:(PKToken *)tok;
-- (void)match:(NSInteger)tokenKind discard:(BOOL)discard;
 - (BOOL)predicts:(NSInteger)tokenKind, ...;
 - (BOOL)speculate:(PKSSpeculateBlock)block;
-- (id)execute:(PKSActionBlock)block;
-- (BOOL)test:(PKSPredicateBlock)block;
-- (void)testAndThrow:(PKSPredicateBlock)block;
-- (void)fireAssemblerSelector:(SEL)sel;
 - (void)raise:(NSString *)fmt, ...;
-
-- (void)popFollow:(NSInteger)tokenKind;
-- (void)pushFollow:(NSInteger)tokenKind;
-- (BOOL)resync;
-
-- (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
+- (void)match:(NSInteger)tokenKind discard:(BOOL)discard;
 
 // builtin token types
 - (void)matchEOF:(BOOL)discard;
@@ -83,5 +75,23 @@ enum {
 - (void)matchWhitespace:(BOOL)discard;
 - (void)matchQuotedString:(BOOL)discard;
 - (void)matchDelimitedString:(BOOL)discard;
+
+// semantic predicates
+- (BOOL)test:(PKSPredicateBlock)block;
+- (void)testAndThrow:(PKSPredicateBlock)block;
+
+// actions
+- (id)execute:(PKSActionBlock)block;
+
+// assembler callbacks
+- (void)fireAssemblerSelector:(SEL)sel;
+
+// memoization
+- (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
+
+// error recovery
+- (void)pushFollow:(NSInteger)tokenKind;
+- (void)popFollow:(NSInteger)tokenKind;
+- (BOOL)resync;
 
 @end
