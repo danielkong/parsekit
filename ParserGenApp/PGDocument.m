@@ -24,6 +24,8 @@
         self.factory = [PKParserFactory factory];
         _factory.collectTokenKinds = YES;
         
+        self.enableHybridDFA = YES;
+        
         self.destinationPath = [@"~/Desktop" stringByExpandingTildeInPath];
         self.parserName = @"ExpressionParser";
         
@@ -172,8 +174,9 @@
     _root.grammarName = self.parserName;
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
-    _visitor.enableHybridDFA = YES;
-    _visitor.enableMemoization = YES;
+    _visitor.enableHybridDFA = _enableHybridDFA;
+    _visitor.enableMemoization = _enableMemoization;
+    _visitor.enableAutomaticErrorRecovery = _enableAutomaticErrorRecovery;
     
     [_root visit:_visitor];
     

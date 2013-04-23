@@ -19,6 +19,7 @@
 @property (nonatomic, assign) NSUInteger depth;
 @property (nonatomic, assign) BOOL needsBacktracking;
 @property (nonatomic, assign) BOOL isSpeculating;
+
 @property (nonatomic, assign) BOOL enableHybridDFA;
 @property (nonatomic, assign) BOOL enableMemoization;
 @property (nonatomic, assign) BOOL enableAutomaticErrorRecovery;
