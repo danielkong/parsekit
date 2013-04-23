@@ -67,7 +67,7 @@
 
 
 - (void)consume:(PKToken *)tok {
-    if (preservesWhitespaceTokens || tok.tokenType != PKTokenTypeWhitespace) {
+    if (preservesWhitespaceTokens || !tok.isWhitespace) {
         [self push:tok];
         ++index;
 

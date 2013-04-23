@@ -164,7 +164,7 @@
             // parse
             [self _start];
             
-            //NSLog(@"%@", _assembly);
+            NSLog(@"%@", _assembly);
             
             // get result
             if (_assembly.target) {
@@ -232,7 +232,7 @@
         BOOL matches = lt.tokenKind == tokenKind || TOKEN_KIND_BUILTIN_ANY == tokenKind;
 
         if (matches) {
-            if (TOKEN_KIND_BUILTIN_EOF != tokenKind) {
+            if (TOKEN_KIND_BUILTIN_EOF != tokenKind) { // TODO remove this guard.
                 [self consume:lt];
                 if (discard) [self _discard];
             }
