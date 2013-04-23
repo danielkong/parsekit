@@ -94,9 +94,9 @@
 
 - (void)list {
     
-    [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
-
     [self lbracket];
+
+    [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
 
     @try {
         [self elements];
