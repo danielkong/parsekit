@@ -96,21 +96,19 @@
     
     [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
 
+    [self lbracket];
+
     @try {
-        [self lbracket];
         [self elements];
-        [self rbracket];
     }
     @catch (PKSRecognitionException *ex) {
-        if ([self resync:LA(1)]) {
-            [self rbracket];
-        } else {
-            @throw ex;
-        }
+        if (![self resync:LA(1)]) @throw ex;
     }
     @finally {
         [self popFollow:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
     }
+
+    [self rbracket];
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }

@@ -411,17 +411,32 @@
 
 
 - (void)pushFollow:(NSInteger)tokenKind {
+    NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
+    if (!_enableAutomaticErrorRecovery) return;
+    
+    NSAssert(_resyncSet, @"");
     [_resyncSet addObject:@(tokenKind)];
 }
 
 
 - (void)popFollow:(NSInteger)tokenKind {
+    NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
+    if (!_enableAutomaticErrorRecovery) return;
+
+    NSAssert(_resyncSet, @"");
     [_resyncSet removeObject:@(tokenKind)];
 }
 
 
 - (BOOL)resync:(NSInteger)tokenKind {
-    BOOL result = [_resyncSet containsObject:@(tokenKind)];
+    NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
+
+    BOOL result = NO;
+    if (_enableAutomaticErrorRecovery) {
+        NSAssert(_resyncSet, @"");
+        result = [_resyncSet containsObject:@(tokenKind)];
+    }
+    
     return result;
 }
 
