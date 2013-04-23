@@ -254,7 +254,7 @@
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     self.depth = 1; // 1 for the try/catch wrapper
 
@@ -500,7 +500,7 @@
 
 
 - (void)visitSequence:(PKCollectionNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // setup vars
     id vars = [NSMutableDictionary dictionary];
@@ -523,7 +523,7 @@
         [partialChildStr appendString:terminalCallStr];
         
         PKBaseNode *concreteNode = [self concreteNodeForNode:child];
-        if (1 && concreteNode.isTerminal && partialCount > 0) {
+        if (_enableAutomaticErrorRecovery && concreteNode.isTerminal && partialCount > 0) {
             
             PKSTokenKindDescriptor *desc = [(PKConstantNode *)concreteNode tokenKind];
             id resyncVars = @{TOKEN_KIND: desc, DEPTH: @(_depth), CHILD_STRING: partialChildStr, TERMINAL_CALL_STRING: terminalCallStr};

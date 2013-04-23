@@ -34,6 +34,8 @@
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     _visitor.enableMemoization = NO;
+    _visitor.enableAutomaticErrorRecovery = YES;
+    
     [_root visit:_visitor];
     
 #if TD_EMIT
