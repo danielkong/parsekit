@@ -87,15 +87,15 @@
     
     [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_EQ];
 
-//    @try {
+    @try {
         [self list];
-//    }
-//    @catch (PKSRecognitionException *ex) {
-//        if (![self resync:LA(1)]) @throw ex;
-//    }
-//    @finally {
-//        [self popFollow:ELEMENTASSIGN_TOKEN_KIND_EQ];
-//    }
+    }
+    @catch (PKSRecognitionException *ex) {
+        if (![self resync]) @throw ex;
+    }
+    @finally {
+        [self popFollow:ELEMENTASSIGN_TOKEN_KIND_EQ];
+    }
     
     [self eq];
     [self list]; 
@@ -113,7 +113,7 @@
         [self elements];
     }
     @catch (PKSRecognitionException *ex) {
-        if (![self resync:LA(1)]) @throw ex;
+        if (![self resync]) @throw ex;
     }
     @finally {
         [self popFollow:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
