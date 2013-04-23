@@ -88,4 +88,16 @@
     TDEqualObjects(@"[[, 1, foobar, baz, bat, ;][/1/]/foobar/baz/bat/;^", [res description]);
 }
 
+- (void)testJunkBeforeSemi2 {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
+    
+    _parser.enableAutomaticErrorRecovery = YES;
+    
+    input = @"[1]foobar baz ;[2];";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDEqualObjects(@"[[, 1, foobar, baz, ;, [, 2, ;][/1/]/foobar/baz/;/[/2/]/;^", [res description]);
+}
+
 @end
