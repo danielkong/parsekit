@@ -436,12 +436,16 @@
 
     BOOL result = NO;
     if (_enableAutomaticErrorRecovery) {
-        while (LT(1) != [PKToken EOFToken]) {
+        for (;;) {
+            //NSLog(@"is %ld in %@ ?", LA(1), _resyncSet);
             NSAssert([_resyncSet count], @"");
             result = [_resyncSet containsObject:@(LA(1))];
 
             if (result) break;
+            NSLog(@"LT(1) : %@", LT(1));
+            BOOL done = (LT(1) == [PKToken EOFToken]);
             [self consume:LT(1)];
+            if (done) break;
         }
     }
     

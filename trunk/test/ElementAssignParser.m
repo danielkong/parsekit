@@ -63,7 +63,22 @@
 
 - (void)_start {
     
-    [self stat]; 
+    [self pushFollow:TOKEN_KIND_BUILTIN_EOF];
+
+    @try {
+        [self stat];
+        [self matchEOF:YES];
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+            [self matchEOF:YES];
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:TOKEN_KIND_BUILTIN_EOF];
+    }
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
