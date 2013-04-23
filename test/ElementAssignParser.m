@@ -63,41 +63,25 @@
 
 - (void)_start {
     
-    [self pushFollow:TOKEN_KIND_BUILTIN_EOF];
-
-    @try {
-        do {
-            [self stat];
-        } while ([self speculate:^{ [self stat]; }]);
-        [self matchEOF:YES];
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
-            [self matchEOF:YES];
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:TOKEN_KIND_BUILTIN_EOF];
-    }
+    do {
+        [self stat]; 
+    } while ([self speculate:^{ [self stat]; }]);
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)stat {
     
-    if ([self speculate:^{
-    
+    if ([self speculate:^{ [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];@try {[self assign]; [self dot]; }@catch (PKSRecognitionException *ex) {if ([self resync]) {[self dot]; } else {@throw ex;}}@finally {[self popFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];}}]) {
         [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];
-        
         @try {
-            [self assign];
-            [self dot];
+        [self assign]; 
+        [self dot]; 
         }
         @catch (PKSRecognitionException *ex) {
             if ([self resync]) {
-                [self dot];
+                [self dot]; 
             } else {
                 @throw ex;
             }
@@ -105,37 +89,15 @@
         @finally {
             [self popFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];
         }
-
-    }]) {
-
-        [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];
-        
-        @try {
-            [self assign];
-            [self dot];
-        }
-        @catch (PKSRecognitionException *ex) {
-            if ([self resync]) {
-                [self dot];
-            } else {
-                @throw ex;
-            }
-        }
-        @finally {
-            [self popFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];
-        }
-
-    } else if ([self speculate:^{
-        
+    } else if ([self speculate:^{ [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];@try {[self list]; [self semi]; }@catch (PKSRecognitionException *ex) {if ([self resync]) {[self semi]; } else {@throw ex;}}@finally {[self popFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];}}]) {
         [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];
-        
         @try {
-            [self list];
-            [self semi];
+        [self list]; 
+        [self semi]; 
         }
         @catch (PKSRecognitionException *ex) {
             if ([self resync]) {
-                [self semi];
+                [self semi]; 
             } else {
                 @throw ex;
             }
@@ -143,26 +105,6 @@
         @finally {
             [self popFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];
         }
-
-    }]) {
-        
-        [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];
-        
-        @try {
-            [self list];
-            [self semi];
-        }
-        @catch (PKSRecognitionException *ex) {
-            if ([self resync]) {
-                [self semi];
-            } else {
-                @throw ex;
-            }
-        }
-        @finally {
-            [self popFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];
-        }
-
     } else {
         [self raise:@"no viable alternative found in stat"];
     }
@@ -173,14 +115,13 @@
 - (void)assign {
     
     [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_EQ];
-
     @try {
-        [self list];
-        [self eq];
+    [self list]; 
+    [self eq]; 
     }
     @catch (PKSRecognitionException *ex) {
         if ([self resync]) {
-            [self eq];
+        [self eq]; 
         } else {
             @throw ex;
         }
@@ -188,7 +129,6 @@
     @finally {
         [self popFollow:ELEMENTASSIGN_TOKEN_KIND_EQ];
     }
-    
     [self list]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAssign:)];
@@ -196,17 +136,15 @@
 
 - (void)list {
     
-    [self lbracket];
-
     [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
-
     @try {
-        [self elements];
-        [self rbracket];
+    [self lbracket]; 
+    [self elements]; 
+    [self rbracket]; 
     }
     @catch (PKSRecognitionException *ex) {
         if ([self resync]) {
-            [self rbracket];
+        [self rbracket]; 
         } else {
             @throw ex;
         }
