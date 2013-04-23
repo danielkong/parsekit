@@ -28,53 +28,53 @@
     self.factory = nil;
 }
 
-- (void)testCorrectExpr {
-    NSError *err = nil;
-    PKAssembly *res = nil;
-    NSString *input = nil;
-    
-    input = @"[3];";
-    res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, 3, ;][/3/]/;^", [res description]);
-}
-
-- (void)testMissingElement {
-    NSError *err = nil;
-    PKAssembly *res = nil;
-    NSString *input = nil;
-    
-    _parser.enableAutomaticErrorRecovery = YES;
-    
-    input = @"[];";
-    res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, ;][/]/;^", [res description]);
-}
-
-- (void)testMissingRbracketInAssign {
-    NSError *err = nil;
-    PKAssembly *res = nil;
-    NSString *input = nil;
-    
-    _parser.enableAutomaticErrorRecovery = YES;
-    
-    // not sure if this usses single token insertion or resync ??
-    
-    input = @"[=[2].";
-    res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, =, [, 2, .][/=/[/2/]/.^", [res description]);
-}
-
-- (void)testMissingLbracketInAssign {
-    NSError *err = nil;
-    PKAssembly *res = nil;
-    NSString *input = nil;
-    
-    _parser.enableAutomaticErrorRecovery = YES;
-    
-    input = @"foobar]=[2].";
-    res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[foobar, =, [, 2, .]foobar/]/=/[/2/]/.^", [res description]);
-}
+//- (void)testCorrectExpr {
+//    NSError *err = nil;
+//    PKAssembly *res = nil;
+//    NSString *input = nil;
+//    
+//    input = @"[3];";
+//    res = [_parser parseString:input assembler:nil error:&err];
+//    TDEqualObjects(@"[[, 3, ;][/3/]/;^", [res description]);
+//}
+//
+//- (void)testMissingElement {
+//    NSError *err = nil;
+//    PKAssembly *res = nil;
+//    NSString *input = nil;
+//    
+//    _parser.enableAutomaticErrorRecovery = YES;
+//    
+//    input = @"[];";
+//    res = [_parser parseString:input assembler:nil error:&err];
+//    TDEqualObjects(@"[[, ;][/]/;^", [res description]);
+//}
+//
+//- (void)testMissingRbracketInAssign {
+//    NSError *err = nil;
+//    PKAssembly *res = nil;
+//    NSString *input = nil;
+//    
+//    _parser.enableAutomaticErrorRecovery = YES;
+//    
+//    // not sure if this usses single token insertion or resync ??
+//    
+//    input = @"[=[2].";
+//    res = [_parser parseString:input assembler:nil error:&err];
+//    TDEqualObjects(@"[[, =, [, 2, .][/=/[/2/]/.^", [res description]);
+//}
+//
+//- (void)testMissingLbracketInAssign {
+//    NSError *err = nil;
+//    PKAssembly *res = nil;
+//    NSString *input = nil;
+//    
+//    _parser.enableAutomaticErrorRecovery = YES;
+//    
+//    input = @"foobar]=[2].";
+//    res = [_parser parseString:input assembler:nil error:&err];
+//    TDEqualObjects(@"[foobar, =, [, 2, .]foobar/]/=/[/2/]/.^", [res description]);
+//}
 
 - (void)testJunkBeforeSemi {
     NSError *err = nil;
