@@ -164,7 +164,7 @@
             // parse
             [self _start];
             
-            NSLog(@"%@", _assembly);
+            //NSLog(@"%@", _assembly);
             
             // get result
             if (_assembly.target) {
