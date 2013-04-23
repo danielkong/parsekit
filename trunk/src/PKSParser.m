@@ -400,6 +400,8 @@
 
 
 - (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind {
+    NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
+
     if (_enableAutomaticErrorRecovery && LA(1) != tokenKind) {
         if (LA(2) == tokenKind) {
             [self consume:LT(1)]; // single token deletion
