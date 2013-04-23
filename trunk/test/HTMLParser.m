@@ -217,6 +217,7 @@
             break;
         }
     }
+    [self matchEOF:YES]; 
 
 }
 

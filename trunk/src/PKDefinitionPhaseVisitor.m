@@ -154,6 +154,7 @@
             @"assert": @"ASSERT",
             @"start": @"START",
             
+            @"EOF" : @"EOF_TITLE",
             @"Word" : @"WORD_TITLE",
             @"LowercaseWord" : @"UPPERCASEWORD_TITLE",
             @"UppercaseWord" : @"LOWERCASEWORD_TITLE",
@@ -279,9 +280,6 @@
         NSAssert(_tokenKinds, @"");
         
         NSString *name = node.token.stringValue;
-        //    if ([@"LowercaseWord" isEqualToString:name] || [@"UppercaseWord" isEqualToString:name]) {
-        //        name = @"Word";
-        //    }
         name = [NSString stringWithFormat:@"TOKEN_KIND_BUILTIN_%@", [name uppercaseString]];
         NSAssert([name length], @"");
 

@@ -286,6 +286,12 @@
         // pop
         [childStr appendString:[self pop]];
     }
+    
+    if (isStartMethod) {
+        id eofVars = @{DEPTH: @(_depth)};
+        NSString *eofCallStr = [_engine processTemplate:[self templateStringNamed:@"PKSEOFCallTemplate"] withVariables:eofVars];
+        [childStr appendString:eofCallStr];
+    }
 
     if (node.after) {
         [childStr appendString:[self actionStringFrom:node.after]];

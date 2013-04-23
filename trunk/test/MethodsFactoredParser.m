@@ -91,6 +91,7 @@
     do {
         [self method]; 
     } while ([self speculate:^{ [self method]; }]);
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }

@@ -283,6 +283,7 @@
             break;
         }
     }
+    [self matchEOF:YES]; 
 
 }
 

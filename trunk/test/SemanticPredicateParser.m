@@ -71,6 +71,7 @@
     do {
         [self nonReserved]; 
     } while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]);
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
