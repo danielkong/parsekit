@@ -796,6 +796,7 @@
 
     }];
     [self program]; 
+    [self matchEOF:YES]; 
 
 }
 

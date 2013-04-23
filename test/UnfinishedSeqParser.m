@@ -77,6 +77,7 @@
     [self a]; 
     [self b]; 
     [self a]; 
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }

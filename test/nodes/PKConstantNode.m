@@ -16,6 +16,7 @@ static NSDictionary *sClassTab = nil;
 + (void)initialize {
     if ([PKConstantNode class] == self) {
         sClassTab = [@{
+            @"EOF"              : [PKAny class], // TODO
             @"Word"             : [PKWord class],
             @"LowercaseWord"    : [PKLowercaseWord class],
             @"UppercaseWord"    : [PKUppercaseWord class],

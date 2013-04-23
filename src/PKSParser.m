@@ -211,7 +211,6 @@
 
 
 - (void)match:(NSInteger)tokenKind discard:(BOOL)discard {
-    NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_EOF);
     NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
@@ -233,8 +232,10 @@
         BOOL matches = lt.tokenKind == tokenKind || TOKEN_KIND_BUILTIN_ANY == tokenKind;
 
         if (matches) {
-            [self consume:lt];
-            if (discard) [self _discard];
+            if (TOKEN_KIND_BUILTIN_EOF != tokenKind) {
+                [self consume:lt];
+                if (discard) [self _discard];
+            }
         } else {
             [self raise:@"expecting %ld; found %@", tokenKind, lt];
         }

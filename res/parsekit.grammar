@@ -40,6 +40,6 @@ patternNoOpts		 = %{'/', '/'};
 patternIgnoreCase    = %{'/', '/i'};
 delimitedString      = delimOpen QuotedString (','! QuotedString)? '}'!;
 literal              = QuotedString;
-constant             = 'Word' | 'Number' | 'QuotedString' | 'Symbol' | 'Comment' | 'Empty' | 'Any' | 'S' | 'Digit' | 'Letter' | 'Char' | 'SpecificChar';
+constant             = 'EOF' | 'Word' | 'Number' | 'QuotedString' | 'Symbol' | 'Comment' | 'Empty' | 'Any' | 'S' | 'Digit' | 'Letter' | 'Char' | 'SpecificChar';
 variable             = Word;
 delimOpen		     = '%{';

@@ -89,6 +89,7 @@
     } else {
         [self raise:@"no viable alternative found in _start"];
     }
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
