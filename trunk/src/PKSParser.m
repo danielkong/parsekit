@@ -227,12 +227,13 @@
         // skip
 
     } else {
-        PKToken *lt = LT(1); //NSLog(@"%@", lt);
+        PKToken *lt = LT(1); // NSLog(@"%@", lt);
         
         BOOL matches = lt.tokenKind == tokenKind || TOKEN_KIND_BUILTIN_ANY == tokenKind;
 
         if (matches) {
             if (TOKEN_KIND_BUILTIN_EOF != tokenKind) { // TODO remove this guard.
+                NSLog(@"matched %@", lt);
                 [self consume:lt];
                 if (discard) [self _discard];
             }
@@ -437,12 +438,12 @@
     BOOL result = NO;
     if (_enableAutomaticErrorRecovery) {
         for (;;) {
-            //NSLog(@"is %ld in %@ ?", LA(1), _resyncSet);
+            NSLog(@"LT(1) : %@", LT(1));
+            NSLog(@"is %ld in %@ ?", LA(1), _resyncSet);
             NSAssert([_resyncSet count], @"");
             result = [_resyncSet containsObject:@(LA(1))];
 
             if (result) break;
-            NSLog(@"LT(1) : %@", LT(1));
             BOOL done = (LT(1) == [PKToken EOFToken]);
             [self consume:LT(1)];
             if (done) break;
