@@ -85,8 +85,19 @@
 
 - (void)assign {
     
-    [self list]; 
-    [self eq]; 
+    [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_EQ];
+
+//    @try {
+        [self list];
+//    }
+//    @catch (PKSRecognitionException *ex) {
+//        if (![self resync:LA(1)]) @throw ex;
+//    }
+//    @finally {
+//        [self popFollow:ELEMENTASSIGN_TOKEN_KIND_EQ];
+//    }
+    
+    [self eq];
     [self list]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAssign:)];

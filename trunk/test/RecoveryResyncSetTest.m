@@ -50,4 +50,28 @@
     TDEqualObjects(@"[[, ;][/]/;^", [res description]);
 }
 
+- (void)testMissingRbracketInAssign {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
+    
+    _parser.enableAutomaticErrorRecovery = YES;
+    
+    input = @"[=[2].";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDEqualObjects(@"[[, =, [, 2, .][/=/[/2/]/.^", [res description]);
+}
+
+- (void)testMissingLbracketInAssign {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
+    
+    _parser.enableAutomaticErrorRecovery = YES;
+    
+    input = @"]=[2].";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDEqualObjects(@"[=, [, 2, .]]/=/[/2/]/.^", [res description]);
+}
+
 @end
