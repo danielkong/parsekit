@@ -30,7 +30,7 @@
 @property (nonatomic, assign) NSInteger _skip;
 @property (nonatomic, assign, readonly) BOOL _isSpeculating;
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableSet *_resyncSet;
+@property (nonatomic, retain) NSCountedSet *_resyncSet;
 
 - (NSInteger)tokenKindForString:(NSString *)s;
 - (BOOL)lookahead:(NSInteger)x predicts:(NSInteger)tokenKind;
@@ -153,7 +153,7 @@
 
     if (_enableAutomaticErrorRecovery) {
         self._skip = 0;
-        self._resyncSet = [NSMutableSet set];
+        self._resyncSet = [NSCountedSet set];
     }
 
     [self _clearMemo];
@@ -436,7 +436,7 @@
     BOOL result = NO;
     if (_enableAutomaticErrorRecovery) {
         while (LT(1) != [PKToken EOFToken]) {
-            NSAssert(_resyncSet, @"");
+            NSAssert([_resyncSet count], @"");
             result = [_resyncSet containsObject:@(LA(1))];
 
             if (result) break;
