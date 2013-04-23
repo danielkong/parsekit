@@ -58,7 +58,7 @@
 }
 
 - (void)testAddDisableActions {
-    _parser.disableActions = YES;
+    _parser.enableActions = NO;
     
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"1+2" assembler:nil error:&err];
@@ -67,7 +67,7 @@
 }
 
 - (void)testMultDisableActions {
-    _parser.disableActions = YES;
+    _parser.enableActions = NO;
     
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"3*4" assembler:nil error:&err];
@@ -76,7 +76,7 @@
 }
 
 - (void)testAddMultDisableActions {
-    _parser.disableActions = YES;
+    _parser.enableActions = NO;
     
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"1+2*3+4" assembler:nil error:&err];
@@ -85,7 +85,7 @@
 }
 
 - (void)testAddMultPowDisableActions {
-    _parser.disableActions = YES;
+    _parser.enableActions = NO;
     
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"1+2*3^5+4" assembler:nil error:&err];
@@ -94,7 +94,7 @@
 }
 
 - (void)testAddEnableActions {
-    _parser.disableActions = NO;
+    _parser.enableActions = YES;
     
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"1+2" assembler:nil error:&err];
@@ -103,7 +103,7 @@
 }
 
 - (void)testMultEnableActions {
-    _parser.disableActions = NO;
+    _parser.enableActions = YES;
     
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"3*4" assembler:nil error:&err];
@@ -112,7 +112,7 @@
 }
 
 - (void)testAddMultEnableActions {
-    _parser.disableActions = NO;
+    _parser.enableActions = YES;
     
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"1+2*3+4" assembler:nil error:&err];
@@ -121,7 +121,7 @@
 }
 
 - (void)testPowEnableActions {
-    _parser.disableActions = NO;
+    _parser.enableActions = YES;
     
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"3^3" assembler:nil error:&err];
@@ -130,7 +130,7 @@
 }
 
 - (void)testAddMultPowEnableActions {
-    _parser.disableActions = NO;
+    _parser.enableActions = YES;
     
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"1+2*3^5+4" assembler:nil error:&err];

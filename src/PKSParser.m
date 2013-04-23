@@ -66,6 +66,8 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self.enableActions = YES;
+        
         // create a single exception for reuse in control flow
         self._exception = [[[PKSRecognitionException alloc] initWithName:NSStringFromClass([PKSRecognitionException class]) reason:nil userInfo:nil] autorelease];
         
@@ -515,7 +517,7 @@
 
 - (id)execute:(PKSActionBlock)block {
     NSParameterAssert(block);
-    if (self._isSpeculating || _disableActions) return nil;
+    if (self._isSpeculating || !_enableActions) return nil;
 
     id result = nil;
     if (block) result = block();
