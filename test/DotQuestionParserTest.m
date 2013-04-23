@@ -62,8 +62,7 @@
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"a b a b a" assembler:nil error:&err];
     
-    TDEqualObjects(@"[a, b, a]a/b/a^", [res description]);
-    //TDNil(res);
+    TDNil(res);
 }
 
 - (void)testABA {

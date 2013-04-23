@@ -75,15 +75,17 @@
 - (void)testBarFooOpt {
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"bar foo?" assembler:nil error:&err];
-    
-    TDEqualObjects(@"[bar]bar^", [res description]);
+
+    // junk at end
+    TDNil(res);
 }
 
 - (void)testBarFoo {
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"bar foo" assembler:nil error:&err];
     
-    TDEqualObjects(@"[bar]bar^", [res description]);
+    // junk at end
+    TDNil(res);
 }
 
 @end

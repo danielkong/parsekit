@@ -75,15 +75,16 @@
 - (void)testFoo3 {
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"foo bar bar foo bar bar foo bar" assembler:nil error:&err];
-    
-    TDEqualObjects(@"[foo, bar, bar, foo, bar]foo/bar/bar/foo/bar^", [res description]);
+
+    // junk at end
+    TDNil(res);
 }
 
 - (void)testIncompleteSequence {
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"foo bar bar foo" assembler:nil error:&err];
     
-    TDEqualObjects(nil, res);
+    TDNil(res);
     //TDEqualObjects(@"[foo, bar, bar, foo]foo/bar/bar/foo^", [res description]);
 }
 
