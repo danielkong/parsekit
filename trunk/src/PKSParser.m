@@ -430,13 +430,18 @@
 }
 
 
-- (BOOL)resync:(NSInteger)tokenKind {
-    NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
+- (BOOL)resync {
+//    NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
 
     BOOL result = NO;
     if (_enableAutomaticErrorRecovery) {
-        NSAssert(_resyncSet, @"");
-        result = [_resyncSet containsObject:@(tokenKind)];
+        while (LT(1) != [PKToken EOFToken]) {
+            NSAssert(_resyncSet, @"");
+            result = [_resyncSet containsObject:@(LA(1))];
+
+            if (result) break;
+            [self consume:LT(1)];
+        }
     }
     
     return result;

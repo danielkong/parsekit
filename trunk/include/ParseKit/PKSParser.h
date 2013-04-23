@@ -68,7 +68,7 @@ enum {
 
 - (void)popFollow:(NSInteger)tokenKind;
 - (void)pushFollow:(NSInteger)tokenKind;
-- (BOOL)resync:(NSInteger)tokenKind;
+- (BOOL)resync;
 
 - (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
 

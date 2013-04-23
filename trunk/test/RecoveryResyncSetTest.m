@@ -57,6 +57,8 @@
     
     _parser.enableAutomaticErrorRecovery = YES;
     
+    // not sure if this usses single token insertion or resync ??
+    
     input = @"[=[2].";
     res = [_parser parseString:input assembler:nil error:&err];
     TDEqualObjects(@"[[, =, [, 2, .][/=/[/2/]/.^", [res description]);
@@ -69,9 +71,9 @@
     
     _parser.enableAutomaticErrorRecovery = YES;
     
-    input = @"]=[2].";
+    input = @"foobar]=[2].";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[=, [, 2, .]]/=/[/2/]/.^", [res description]);
+    TDEqualObjects(@"[foobar, =, [, 2, .]foobar/]/=/[/2/]/.^", [res description]);
 }
 
 @end
