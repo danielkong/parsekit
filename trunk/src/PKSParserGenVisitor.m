@@ -34,6 +34,7 @@
 #define DISCARD @"discard"
 #define NEEDS_BACKTRACK @"needsBacktrack"
 #define CHILD_STRING @"childString"
+#define TERMINAL_CALL_STRING @"terminalCallString"
 #define IF_TEST @"ifTest"
 #define ACTION_BODY @"actionBody"
 #define PREDICATE_BODY @"predicateBody"
@@ -253,7 +254,7 @@
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     self.depth = 1; // 1 for the try/catch wrapper
 
@@ -499,7 +500,7 @@
 
 
 - (void)visitSequence:(PKCollectionNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // setup vars
     id vars = [NSMutableDictionary dictionary];
@@ -509,14 +510,38 @@
     NSMutableString *childStr = [NSMutableString string];
     [childStr appendString:[self semanticPredicateForNode:node throws:YES]];
 
+    NSMutableString *partialChildStr = [NSMutableString string];
+    NSUInteger partialCount = 0;
+    
     // recurse
     for (PKBaseNode *child in node.children) {
+        
         [child visit:self];
         
         // pop
-        [childStr appendString:[self pop]];
+        NSString *terminalCallStr = [self pop];
+        [partialChildStr appendString:terminalCallStr];
+        
+        PKBaseNode *concreteNode = [self concreteNodeForNode:child];
+        if (1 && concreteNode.isTerminal && partialCount > 0) {
+            
+            PKSTokenKindDescriptor *desc = [(PKConstantNode *)concreteNode tokenKind];
+            id resyncVars = @{TOKEN_KIND: desc, DEPTH: @(_depth), CHILD_STRING: partialChildStr, TERMINAL_CALL_STRING: terminalCallStr};
+            NSString *tryAndResyncStr = [_engine processTemplate:[self templateStringNamed:@"PKSTryAndResyncTemplate"] withVariables:resyncVars];
+            
+            [childStr appendString:tryAndResyncStr];
+            
+            // reset
+            partialCount = 0;
+            [partialChildStr setString:@""];
+        } else {
+            NSAssert([partialChildStr length], @"");
+            ++partialCount;
+        }
     }
     
+    [childStr appendString:partialChildStr];
+
     [childStr appendString:[self actionStringFrom:node.actionNode]];
 
     // push
