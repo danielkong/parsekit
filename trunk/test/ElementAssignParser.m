@@ -73,9 +73,44 @@
     if ([self speculate:^{ [self assign]; [self dot]; }]) {
         [self assign]; 
         [self dot]; 
-    } else if ([self speculate:^{ [self list]; [self semi]; }]) {
-        [self list]; 
-        [self semi]; 
+    } else if ([self speculate:^{
+        
+        [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];
+        
+        @try {
+            [self list];
+            [self semi];
+        }
+        @catch (PKSRecognitionException *ex) {
+            if ([self resync]) {
+                [self semi];
+            } else {
+                @throw ex;
+            }
+        }
+        @finally {
+            [self popFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];
+        }
+
+    }]) {
+        
+        [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];
+        
+        @try {
+            [self list];
+            [self semi];
+        }
+        @catch (PKSRecognitionException *ex) {
+            if ([self resync]) {
+                [self semi];
+            } else {
+                @throw ex;
+            }
+        }
+        @finally {
+            [self popFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];
+        }
+
     } else {
         [self raise:@"no viable alternative found in stat"];
     }
