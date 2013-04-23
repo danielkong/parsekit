@@ -435,19 +435,21 @@
 
 
 - (BOOL)resync {
-//    NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
-
     BOOL result = NO;
+
     if (_enableAutomaticErrorRecovery) {
         for (;;) {
-//            NSLog(@"LT(1) : %@", LT(1));
-//            NSLog(@"is %ld in %@ ?", LA(1), _resyncSet);
+            PKToken *lt = LT(1);
+            //NSLog(@"LT(1) : %@", lt); NSLog(@"is %ld in %@ ?", LA(1), _resyncSet);
+            
             NSAssert([_resyncSet count], @"");
-            result = [_resyncSet containsObject:@(LA(1))];
+            result = [_resyncSet containsObject:@(lt.tokenKind)];
 
             if (result) break;
-            BOOL done = (LT(1) == [PKToken EOFToken]);
-            [self consume:LT(1)];
+            
+            BOOL done = (lt == [PKToken EOFToken]);
+            [self consume:lt];
+            
             if (done) break;
         }
     }
@@ -647,70 +649,51 @@
 
 
 - (void)matchEOF:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
     [self match:TOKEN_KIND_BUILTIN_EOF discard:discard];
 }
 
 
 - (void)matchAny:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
     [self match:TOKEN_KIND_BUILTIN_ANY discard:discard];
 }
 
 
 - (void)matchEmpty:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
+    NSParameterAssert(!discard);
 }
 
 
 - (void)matchWord:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
     [self match:TOKEN_KIND_BUILTIN_WORD discard:discard];
 }
 
 
 - (void)matchNumber:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
     [self match:TOKEN_KIND_BUILTIN_NUMBER discard:discard];
 }
 
 
 - (void)matchSymbol:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
     [self match:TOKEN_KIND_BUILTIN_SYMBOL discard:discard];
 }
 
 
 - (void)matchComment:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
     [self match:TOKEN_KIND_BUILTIN_COMMENT discard:discard];
 }
 
 
 - (void)matchWhitespace:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
     [self match:TOKEN_KIND_BUILTIN_WHITESPACE discard:discard];
 }
 
 
 - (void)matchQuotedString:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
     [self match:TOKEN_KIND_BUILTIN_QUOTEDSTRING discard:discard];
 }
 
 
 - (void)matchDelimitedString:(BOOL)discard {
-	//NSLog(@"%s", _PRETTY_FUNCTION_);
-    
     [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING discard:discard];
 }
 
