@@ -33,7 +33,7 @@
     _root.grammarName = @"ElementAssign";
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
-    _visitor.enableMemoization = YES;
+    _visitor.enableMemoization = NO;
     [_root visit:_visitor];
     
 #if TD_EMIT

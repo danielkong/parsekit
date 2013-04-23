@@ -47,7 +47,7 @@
     
     input = @"[];";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[][/]/;^", [res description]);
+    TDEqualObjects(@"[[, ;][/]/;^", [res description]);
 }
 
 @end
