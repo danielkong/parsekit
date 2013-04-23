@@ -638,6 +638,13 @@
 }
 
 
+- (void)matchEOF:(BOOL)discard {
+	//NSLog(@"%s", _PRETTY_FUNCTION_);
+    
+    [self match:TOKEN_KIND_BUILTIN_EOF discard:discard];
+}
+
+
 - (void)matchAny:(BOOL)discard {
 	//NSLog(@"%s", _PRETTY_FUNCTION_);
     

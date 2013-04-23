@@ -73,6 +73,7 @@ enum {
 - (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
 
 // builtin token types
+- (void)matchEOF:(BOOL)discard;
 - (void)matchAny:(BOOL)discard;
 - (void)matchEmpty:(BOOL)discard;
 - (void)matchWord:(BOOL)discard;
