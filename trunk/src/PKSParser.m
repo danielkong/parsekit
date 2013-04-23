@@ -407,8 +407,8 @@
     if (_enableAutomaticErrorRecovery && LA(1) != tokenKind) {
         if (LA(2) == tokenKind) {
             [self consume:LT(1)]; // single token deletion
-        } else {
-            self._skip++; // single token insertion
+        } else { //if ([_resyncSet containsObject:@(LA(2))]){
+            //self._skip++; // single token insertion
         }
     }
 }
