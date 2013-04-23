@@ -42,11 +42,12 @@ enum {
 - (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outErr;
 - (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outErr;
 
-@property (nonatomic, retain) PKTokenizer *tokenizer;
-@property (nonatomic, retain) PKSTokenAssembly *assembly;
 @property (nonatomic, assign) BOOL silentlyConsumesWhitespace;
 @property (nonatomic, assign) BOOL enableActions; // default YES
 @property (nonatomic, assign) BOOL enableAutomaticErrorRecovery; // default NO
+
+@property (nonatomic, retain) PKTokenizer *tokenizer;
+@property (nonatomic, retain) PKSTokenAssembly *assembly;
 @end
 
 @interface PKSParser (Subclass)
