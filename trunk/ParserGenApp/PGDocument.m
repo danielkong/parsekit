@@ -76,6 +76,9 @@
     if (_destinationPath) tab[@"destinationPath"] = _destinationPath;
     if (_grammar) tab[@"grammar"] = _grammar;
     if (_parserName) tab[@"parserName"] = _parserName;
+    tab[@"enableHybridDFA"] = @(_enableHybridDFA);
+    tab[@"enableMemoization"] = @(_enableMemoization);
+    tab[@"enableAutomaticErrorRecovery"] = @(_enableAutomaticErrorRecovery);
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tab];
     return data;
@@ -88,6 +91,9 @@
     self.destinationPath = tab[@"destinationPath"];
     self.grammar = tab[@"grammar"];
     self.parserName = tab[@"parserName"];
+    self.enableHybridDFA = [tab[@"enableHybridDFA"] boolValue];
+    self.enableMemoization = [tab[@"enableMemoization"] boolValue];
+    self.enableAutomaticErrorRecovery = [tab[@"enableAutomaticErrorRecovery"] boolValue];
 
     return YES;
 }
