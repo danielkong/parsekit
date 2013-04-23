@@ -292,6 +292,12 @@
         id eofVars = @{DEPTH: @(_depth)};
         NSString *eofCallStr = [_engine processTemplate:[self templateStringNamed:@"PKSEOFCallTemplate"] withVariables:eofVars];
         [childStr appendString:eofCallStr];
+        
+        if (_enableAutomaticErrorRecovery) {
+            id resyncVars = @{DEPTH: @(_depth), CHILD_STRING: childStr};
+            NSString *newChildStr = [_engine processTemplate:[self templateStringNamed:@"PKSTryAndResyncEOFTemplate"] withVariables:resyncVars];
+            [childStr setString:newChildStr];
+        }
     }
 
     if (node.after) {
