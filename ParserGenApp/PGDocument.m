@@ -95,7 +95,7 @@
     self.enableHybridDFA = [tab[@"enableHybridDFA"] boolValue];
     self.enableMemoization = [tab[@"enableMemoization"] boolValue];
     self.enableAutomaticErrorRecovery = [tab[@"enableAutomaticErrorRecovery"] boolValue];
-    self.assemblerSettingBehavior = [tab[@"assemblerSettingBehavior"] boolValue];
+    self.assemblerSettingBehavior = [tab[@"assemblerSettingBehavior"] integerValue];
 
     return YES;
 }

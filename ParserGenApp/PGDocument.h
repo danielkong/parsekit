@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PKParserFactory.h"
 
 @interface PGDocument : NSDocument
 
@@ -23,7 +22,7 @@
 @property (nonatomic, assign) BOOL enableHybridDFA;
 @property (nonatomic, assign) BOOL enableMemoization;
 @property (nonatomic, assign) BOOL enableAutomaticErrorRecovery;
-@property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
+@property (nonatomic, assign) NSInteger assemblerSettingBehavior;
 
 @property (nonatomic, retain) IBOutlet NSTextView *textView;
 @end
