@@ -55,6 +55,29 @@
 		D30DA1AD172850FA00A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
 		D30DA1AE1728510100A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
 		D30DA1AF1728515E00A1A3EC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
+		D30DA1C5172854B500A1A3EC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D30DA1C3172854B500A1A3EC /* InfoPlist.strings */; };
+		D30DA1D1172854B500A1A3EC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1D0172854B500A1A3EC /* SenTestingKit.framework */; };
+		D30DA1D2172854B500A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1BA172854B500A1A3EC /* Cocoa.framework */; };
+		D30DA1D5172854B500A1A3EC /* OkudaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1B8172854B500A1A3EC /* OkudaKit.framework */; };
+		D30DA1DB172854B500A1A3EC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D30DA1D9172854B500A1A3EC /* InfoPlist.strings */; };
+		D30DA1E61728552900A1A3EC /* OkudaKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1E51728552900A1A3EC /* OkudaKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D30DA1E9172855CF00A1A3EC /* OkudaKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1E8172855CF00A1A3EC /* OkudaKitTests.m */; };
+		D30DA1EB1728561E00A1A3EC /* OKSyntaxHighlighter.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1EA1728561E00A1A3EC /* OKSyntaxHighlighter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D30DA1F11728565000A1A3EC /* OKGenericAssembler.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1EC1728565000A1A3EC /* OKGenericAssembler.h */; };
+		D30DA1F21728565000A1A3EC /* OKGenericAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1ED1728565000A1A3EC /* OKGenericAssembler.m */; };
+		D30DA1F31728565000A1A3EC /* OKMiniCSSAssembler.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1EE1728565000A1A3EC /* OKMiniCSSAssembler.h */; };
+		D30DA1F41728565000A1A3EC /* OKMiniCSSAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1EF1728565000A1A3EC /* OKMiniCSSAssembler.m */; };
+		D30DA1F51728565000A1A3EC /* OKSyntaxHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1F01728565000A1A3EC /* OKSyntaxHighlighter.m */; };
+		D30DA1FF1728566000A1A3EC /* CSSParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1F71728566000A1A3EC /* CSSParser.h */; };
+		D30DA2001728566000A1A3EC /* CSSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1F81728566000A1A3EC /* CSSParser.m */; };
+		D30DA2011728566000A1A3EC /* HTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1F91728566000A1A3EC /* HTMLParser.h */; };
+		D30DA2021728566000A1A3EC /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1FA1728566000A1A3EC /* HTMLParser.m */; };
+		D30DA2031728566000A1A3EC /* JavaScriptParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1FB1728566000A1A3EC /* JavaScriptParser.h */; };
+		D30DA2041728566000A1A3EC /* JavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1FC1728566000A1A3EC /* JavaScriptParser.m */; };
+		D30DA2051728566000A1A3EC /* JSONParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1FD1728566000A1A3EC /* JSONParser.h */; };
+		D30DA2061728566000A1A3EC /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1FE1728566000A1A3EC /* JSONParser.m */; };
+		D30DA209172856CE00A1A3EC /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
+		D30DA20B172856DC00A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
@@ -1035,6 +1058,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D30DA1D3172854B500A1A3EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D30DA1B7172854B500A1A3EC;
+			remoteInfo = OkudaKit;
+		};
+		D30DA207172856C400A1A3EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = ParseKit;
+		};
 		D334949F0E296AA900406085 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1181,6 +1218,35 @@
 		D30DA1A217284F5100A1A3EC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D30DA1A7172850A400A1A3EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D30DA1A9172850BB00A1A3EC /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib/libicucore.dylib; sourceTree = DEVELOPER_DIR; };
+		D30DA1B8172854B500A1A3EC /* OkudaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OkudaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D30DA1BA172854B500A1A3EC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		D30DA1BD172854B500A1A3EC /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		D30DA1BE172854B500A1A3EC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D30DA1BF172854B500A1A3EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D30DA1C2172854B500A1A3EC /* OkudaKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OkudaKit-Info.plist"; sourceTree = "<group>"; };
+		D30DA1C4172854B500A1A3EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D30DA1C6172854B500A1A3EC /* OkudaKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OkudaKit-Prefix.pch"; sourceTree = "<group>"; };
+		D30DA1CF172854B500A1A3EC /* OkudaKitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OkudaKitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D30DA1D0172854B500A1A3EC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		D30DA1D8172854B500A1A3EC /* OkudaKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OkudaKitTests-Info.plist"; path = "../okudakit/test/OkudaKitTests-Info.plist"; sourceTree = "<group>"; };
+		D30DA1DA172854B500A1A3EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D30DA1E51728552900A1A3EC /* OkudaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OkudaKit.h; path = okudakit/include/OkudaKit/OkudaKit.h; sourceTree = SOURCE_ROOT; };
+		D30DA1E7172855CF00A1A3EC /* OkudaKitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OkudaKitTests.h; path = okudakit/test/OkudaKitTests.h; sourceTree = SOURCE_ROOT; };
+		D30DA1E8172855CF00A1A3EC /* OkudaKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OkudaKitTests.m; path = okudakit/test/OkudaKitTests.m; sourceTree = SOURCE_ROOT; };
+		D30DA1EA1728561E00A1A3EC /* OKSyntaxHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKSyntaxHighlighter.h; path = okudakit/include/OkudaKit/OKSyntaxHighlighter.h; sourceTree = SOURCE_ROOT; };
+		D30DA1EC1728565000A1A3EC /* OKGenericAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKGenericAssembler.h; path = okudakit/src/OKGenericAssembler.h; sourceTree = SOURCE_ROOT; };
+		D30DA1ED1728565000A1A3EC /* OKGenericAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKGenericAssembler.m; path = okudakit/src/OKGenericAssembler.m; sourceTree = SOURCE_ROOT; };
+		D30DA1EE1728565000A1A3EC /* OKMiniCSSAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKMiniCSSAssembler.h; path = okudakit/src/OKMiniCSSAssembler.h; sourceTree = SOURCE_ROOT; };
+		D30DA1EF1728565000A1A3EC /* OKMiniCSSAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKMiniCSSAssembler.m; path = okudakit/src/OKMiniCSSAssembler.m; sourceTree = SOURCE_ROOT; };
+		D30DA1F01728565000A1A3EC /* OKSyntaxHighlighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKSyntaxHighlighter.m; path = okudakit/src/OKSyntaxHighlighter.m; sourceTree = SOURCE_ROOT; };
+		D30DA1F71728566000A1A3EC /* CSSParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSParser.h; sourceTree = "<group>"; };
+		D30DA1F81728566000A1A3EC /* CSSParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSParser.m; sourceTree = "<group>"; };
+		D30DA1F91728566000A1A3EC /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
+		D30DA1FA1728566000A1A3EC /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
+		D30DA1FB1728566000A1A3EC /* JavaScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JavaScriptParser.h; sourceTree = "<group>"; };
+		D30DA1FC1728566000A1A3EC /* JavaScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JavaScriptParser.m; sourceTree = "<group>"; };
+		D30DA1FD1728566000A1A3EC /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
+		D30DA1FE1728566000A1A3EC /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParser.m; sourceTree = "<group>"; };
 		D3126D040FFD9BA700CBF4C4 /* PKNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNegation.m; path = src/PKNegation.m; sourceTree = "<group>"; };
 		D3126D090FFD9E4B00CBF4C4 /* TDNegationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNegationTest.h; path = test/TDNegationTest.h; sourceTree = "<group>"; };
 		D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationTest.m; path = test/TDNegationTest.m; sourceTree = "<group>"; };
@@ -1957,6 +2023,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D30DA1B4172854B500A1A3EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D30DA20B172856DC00A1A3EC /* Cocoa.framework in Frameworks */,
+				D30DA209172856CE00A1A3EC /* ParseKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D30DA1CB172854B500A1A3EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D30DA1D1172854B500A1A3EC /* SenTestingKit.framework in Frameworks */,
+				D30DA1D2172854B500A1A3EC /* Cocoa.framework in Frameworks */,
+				D30DA1D5172854B500A1A3EC /* OkudaKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D334940E0E2963FD00406085 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2057,6 +2142,8 @@
 				D37D8DC61571A4F700CDB822 /* Tests.octest */,
 				D3D9753216E7F36700D55EAB /* libParseKit.a */,
 				D338302F171C923700CCE513 /* ParserGenApp.app */,
+				D30DA1B8172854B500A1A3EC /* OkudaKit.framework */,
+				D30DA1CF172854B500A1A3EC /* OkudaKitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2069,10 +2156,14 @@
 				D36E98CB0E58C08F00496BD3 /* DebugApp */,
 				D334941B0E29641300406085 /* DemoApp */,
 				D3383037171C923700CCE513 /* ParserGenApp */,
+				D30DA1C0172854B500A1A3EC /* OkudaKit */,
+				D30DA1D6172854B500A1A3EC /* OkudaKitTests */,
+				D30DA1B21728548B00A1A3EC /* OKDemoApp */,
 				D380BA950F0F1C450009EC13 /* JSParseKit Framework */,
 				D389F2CA0F196ACF00558235 /* JSDemoApp */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				D30DA1B9172854B500A1A3EC /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
 			name = TODParseKit;
@@ -2214,6 +2305,94 @@
 			);
 			name = ParserGen;
 			sourceTree = "<group>";
+		};
+		D30DA1B21728548B00A1A3EC /* OKDemoApp */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = OKDemoApp;
+			sourceTree = "<group>";
+		};
+		D30DA1B9172854B500A1A3EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D30DA1BA172854B500A1A3EC /* Cocoa.framework */,
+				D30DA1D0172854B500A1A3EC /* SenTestingKit.framework */,
+				D30DA1BC172854B500A1A3EC /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D30DA1BC172854B500A1A3EC /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D30DA1BD172854B500A1A3EC /* AppKit.framework */,
+				D30DA1BE172854B500A1A3EC /* CoreData.framework */,
+				D30DA1BF172854B500A1A3EC /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		D30DA1C0172854B500A1A3EC /* OkudaKit */ = {
+			isa = PBXGroup;
+			children = (
+				D30DA1E51728552900A1A3EC /* OkudaKit.h */,
+				D30DA1EA1728561E00A1A3EC /* OKSyntaxHighlighter.h */,
+				D30DA1F01728565000A1A3EC /* OKSyntaxHighlighter.m */,
+				D30DA1EE1728565000A1A3EC /* OKMiniCSSAssembler.h */,
+				D30DA1EF1728565000A1A3EC /* OKMiniCSSAssembler.m */,
+				D30DA1EC1728565000A1A3EC /* OKGenericAssembler.h */,
+				D30DA1ED1728565000A1A3EC /* OKGenericAssembler.m */,
+				D30DA1F61728566000A1A3EC /* parsers */,
+				D30DA1C1172854B500A1A3EC /* Supporting Files */,
+			);
+			path = OkudaKit;
+			sourceTree = "<group>";
+		};
+		D30DA1C1172854B500A1A3EC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D30DA1C2172854B500A1A3EC /* OkudaKit-Info.plist */,
+				D30DA1C3172854B500A1A3EC /* InfoPlist.strings */,
+				D30DA1C6172854B500A1A3EC /* OkudaKit-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D30DA1D6172854B500A1A3EC /* OkudaKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				D30DA1E7172855CF00A1A3EC /* OkudaKitTests.h */,
+				D30DA1E8172855CF00A1A3EC /* OkudaKitTests.m */,
+				D30DA1D7172854B500A1A3EC /* Supporting Files */,
+			);
+			path = OkudaKitTests;
+			sourceTree = "<group>";
+		};
+		D30DA1D7172854B500A1A3EC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D30DA1D8172854B500A1A3EC /* OkudaKitTests-Info.plist */,
+				D30DA1D9172854B500A1A3EC /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D30DA1F61728566000A1A3EC /* parsers */ = {
+			isa = PBXGroup;
+			children = (
+				D30DA1F71728566000A1A3EC /* CSSParser.h */,
+				D30DA1F81728566000A1A3EC /* CSSParser.m */,
+				D30DA1F91728566000A1A3EC /* HTMLParser.h */,
+				D30DA1FA1728566000A1A3EC /* HTMLParser.m */,
+				D30DA1FB1728566000A1A3EC /* JavaScriptParser.h */,
+				D30DA1FC1728566000A1A3EC /* JavaScriptParser.m */,
+				D30DA1FD1728566000A1A3EC /* JSONParser.h */,
+				D30DA1FE1728566000A1A3EC /* JSONParser.m */,
+			);
+			name = parsers;
+			path = okudakit/src/parsers;
+			sourceTree = SOURCE_ROOT;
 		};
 		D318EAE30E2FD5B6009F47DF /* json */ = {
 			isa = PBXGroup;
@@ -3663,6 +3842,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D30DA1B5172854B500A1A3EC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D30DA1E61728552900A1A3EC /* OkudaKit.h in Headers */,
+				D30DA1EB1728561E00A1A3EC /* OKSyntaxHighlighter.h in Headers */,
+				D30DA1F11728565000A1A3EC /* OKGenericAssembler.h in Headers */,
+				D30DA1F31728565000A1A3EC /* OKMiniCSSAssembler.h in Headers */,
+				D30DA1FF1728566000A1A3EC /* CSSParser.h in Headers */,
+				D30DA2011728566000A1A3EC /* HTMLParser.h in Headers */,
+				D30DA2031728566000A1A3EC /* JavaScriptParser.h in Headers */,
+				D30DA2051728566000A1A3EC /* JSONParser.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D389F1C90F1965E600558235 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3913,6 +4107,44 @@
 			productReference = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		D30DA1B7172854B500A1A3EC /* OkudaKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D30DA1DF172854B500A1A3EC /* Build configuration list for PBXNativeTarget "OkudaKit" */;
+			buildPhases = (
+				D30DA1B3172854B500A1A3EC /* Sources */,
+				D30DA1B4172854B500A1A3EC /* Frameworks */,
+				D30DA1B5172854B500A1A3EC /* Headers */,
+				D30DA1B6172854B500A1A3EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D30DA208172856C400A1A3EC /* PBXTargetDependency */,
+			);
+			name = OkudaKit;
+			productName = OkudaKit;
+			productReference = D30DA1B8172854B500A1A3EC /* OkudaKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D30DA1CE172854B500A1A3EC /* OkudaKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D30DA1E2172854B500A1A3EC /* Build configuration list for PBXNativeTarget "OkudaKitTests" */;
+			buildPhases = (
+				D30DA1CA172854B500A1A3EC /* Sources */,
+				D30DA1CB172854B500A1A3EC /* Frameworks */,
+				D30DA1CC172854B500A1A3EC /* Resources */,
+				D30DA1CD172854B500A1A3EC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D30DA1D4172854B500A1A3EC /* PBXTargetDependency */,
+			);
+			name = OkudaKitTests;
+			productName = OkudaKitTests;
+			productReference = D30DA1CF172854B500A1A3EC /* OkudaKitTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		D334940F0E2963FD00406085 /* DemoApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D33494150E2963FE00406085 /* Build configuration list for PBXNativeTarget "DemoApp" */;
@@ -3968,9 +4200,9 @@
 			productReference = D34185040E520D3F0081B0DC /* DebugApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D37D8DC51571A4F700CDB822 /* Tests */ = {
+		D37D8DC51571A4F700CDB822 /* ParseKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D37D8DDC1571A4F700CDB822 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildConfigurationList = D37D8DDC1571A4F700CDB822 /* Build configuration list for PBXNativeTarget "ParseKitTests" */;
 			buildPhases = (
 				D37D8DC11571A4F700CDB822 /* Sources */,
 				D37D8DC21571A4F700CDB822 /* Frameworks */,
@@ -3983,7 +4215,7 @@
 			dependencies = (
 				D3D975D716E8067900D55EAB /* PBXTargetDependency */,
 			);
-			name = Tests;
+			name = ParseKitTests;
 			productName = NewTests;
 			productReference = D37D8DC61571A4F700CDB822 /* Tests.octest */;
 			productType = "com.apple.product-type.bundle";
@@ -4087,11 +4319,13 @@
 				D389F1CD0F1965E600558235 /* JSParseKit */,
 				D3D9753116E7F36700D55EAB /* libParseKit */,
 				D3FDC5820FFC4BFC00F1F797 /* ParseKitMobile */,
-				D37D8DC51571A4F700CDB822 /* Tests */,
+				D37D8DC51571A4F700CDB822 /* ParseKitTests */,
 				D334940F0E2963FD00406085 /* DemoApp */,
 				D34185030E520D3F0081B0DC /* DebugApp */,
 				D389F2020F196A7500558235 /* JSDemoApp */,
 				D338302E171C923700CCE513 /* ParserGenApp */,
+				D30DA1B7172854B500A1A3EC /* OkudaKit */,
+				D30DA1CE172854B500A1A3EC /* OkudaKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -4102,6 +4336,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D30DA1B6172854B500A1A3EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D30DA1C5172854B500A1A3EC /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D30DA1CC172854B500A1A3EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D30DA1DB172854B500A1A3EC /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4325,6 +4575,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		D30DA1CD172854B500A1A3EC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
 		D36C65E7100ED81B000361A0 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4441,6 +4704,28 @@
 				D3382F9F171C810B00CCE513 /* PKSTokenAssembly.m in Sources */,
 				D3382FA3171C811B00CCE513 /* PKSTokenKindDescriptor.m in Sources */,
 				D3382FD7171C8C9200CCE513 /* PKSRecognitionException.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D30DA1B3172854B500A1A3EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D30DA1F21728565000A1A3EC /* OKGenericAssembler.m in Sources */,
+				D30DA1F41728565000A1A3EC /* OKMiniCSSAssembler.m in Sources */,
+				D30DA1F51728565000A1A3EC /* OKSyntaxHighlighter.m in Sources */,
+				D30DA2001728566000A1A3EC /* CSSParser.m in Sources */,
+				D30DA2021728566000A1A3EC /* HTMLParser.m in Sources */,
+				D30DA2041728566000A1A3EC /* JavaScriptParser.m in Sources */,
+				D30DA2061728566000A1A3EC /* JSONParser.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D30DA1CA172854B500A1A3EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D30DA1E9172855CF00A1A3EC /* OkudaKitTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4943,6 +5228,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D30DA1D4172854B500A1A3EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D30DA1B7172854B500A1A3EC /* OkudaKit */;
+			targetProxy = D30DA1D3172854B500A1A3EC /* PBXContainerItemProxy */;
+		};
+		D30DA208172856C400A1A3EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;
+			targetProxy = D30DA207172856C400A1A3EC /* PBXContainerItemProxy */;
+		};
 		D33494A00E296AA900406085 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;
@@ -4982,6 +5277,23 @@
 				089C1667FE841158C02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D30DA1C3172854B500A1A3EC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D30DA1C4172854B500A1A3EC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D30DA1D9172854B500A1A3EC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D30DA1DA172854B500A1A3EC /* en */,
+			);
+			name = InfoPlist.strings;
+			path = ../okudakit/test;
 			sourceTree = "<group>";
 		};
 		D337F07C15D5AE7B00C83AED /* InfoPlist.strings */ = {
@@ -5110,6 +5422,132 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		D30DA1E0172854B500A1A3EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OkudaKit/OkudaKit-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "OkudaKit/OkudaKit-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		D30DA1E1172854B500A1A3EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OkudaKit/OkudaKit-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "OkudaKit/OkudaKit-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		D30DA1E3172854B500A1A3EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OkudaKit/OkudaKit-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "OkudaKitTests/OkudaKitTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		D30DA1E4172854B500A1A3EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OkudaKit/OkudaKit-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "OkudaKitTests/OkudaKitTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -5548,6 +5986,22 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		D30DA1DF172854B500A1A3EC /* Build configuration list for PBXNativeTarget "OkudaKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D30DA1E0172854B500A1A3EC /* Debug */,
+				D30DA1E1172854B500A1A3EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D30DA1E2172854B500A1A3EC /* Build configuration list for PBXNativeTarget "OkudaKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D30DA1E3172854B500A1A3EC /* Debug */,
+				D30DA1E4172854B500A1A3EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		D33494150E2963FE00406085 /* Build configuration list for PBXNativeTarget "DemoApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -5575,7 +6029,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		D37D8DDC1571A4F700CDB822 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+		D37D8DDC1571A4F700CDB822 /* Build configuration list for PBXNativeTarget "ParseKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D37D8DDA1571A4F700CDB822 /* Debug */,
