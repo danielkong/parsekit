@@ -753,6 +753,8 @@
 
 - (void)_start {
     
+    [self pushFollow:TOKEN_KIND_BUILTIN_EOF];
+    @try {
     [self execute:(id)^{
         
 	
@@ -797,6 +799,17 @@
     }];
     [self program]; 
     [self matchEOF:YES]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+            [self matchEOF:YES];
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:TOKEN_KIND_BUILTIN_EOF];
+    }
 
 }
 
@@ -1739,11 +1752,37 @@
 
 - (void)__func {
     
+    [self pushFollow:TOKEN_KIND_BUILTIN_WORD];
+    @try {
     [self function]; 
     [self identifier]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self identifier]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:TOKEN_KIND_BUILTIN_WORD];
+    }
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self openParen]; 
     [self paramListOpt]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
     [self compoundStmt]; 
 
 }
@@ -1783,8 +1822,21 @@
 
 - (void)__commaIdentifier {
     
+    [self pushFollow:TOKEN_KIND_BUILTIN_WORD];
+    @try {
     [self comma]; 
     [self identifier]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self identifier]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:TOKEN_KIND_BUILTIN_WORD];
+    }
 
 }
 
@@ -1794,9 +1846,22 @@
 
 - (void)__compoundStmt {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSECURLY];
+    @try {
     [self openCurly]; 
     [self stmts]; 
     [self closeCurly]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeCurly]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSECURLY];
+    }
 
 }
 
@@ -1872,10 +1937,23 @@
 
 - (void)__ifElseStmt {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_ELSE];
+    @try {
     [self if]; 
     [self condition]; 
     [self stmt]; 
     [self else]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self else]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_ELSE];
+    }
     [self stmt]; 
 
 }
@@ -1898,12 +1976,51 @@
 
 - (void)__forParenStmt {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self forParen]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    }
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self exprOpt]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    }
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self exprOpt]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
     [self stmt]; 
 
 }
@@ -1914,12 +2031,51 @@
 
 - (void)__forBeginStmt {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self forBegin]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    }
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self exprOpt]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    }
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self exprOpt]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
     [self stmt]; 
 
 }
@@ -1930,10 +2086,36 @@
 
 - (void)__forInStmt {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_IN];
+    @try {
     [self forBegin]; 
     [self in]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self in]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_IN];
+    }
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self expr]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
     [self stmt]; 
 
 }
@@ -1944,8 +2126,21 @@
 
 - (void)__breakStmt {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self break]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    }
 
 }
 
@@ -1955,8 +2150,21 @@
 
 - (void)__continueStmt {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self continue]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    }
 
 }
 
@@ -1966,10 +2174,36 @@
 
 - (void)__withStmt {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_OPENPAREN];
+    @try {
     [self with]; 
     [self openParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self openParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_OPENPAREN];
+    }
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self expr]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
     [self stmt]; 
 
 }
@@ -1980,9 +2214,22 @@
 
 - (void)__returnStmt {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self return]; 
     [self exprOpt]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    }
 
 }
 
@@ -1992,8 +2239,21 @@
 
 - (void)__variablesOrExprStmt {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self variablesOrExpr]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
+    }
 
 }
 
@@ -2003,9 +2263,22 @@
 
 - (void)__condition {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self openParen]; 
     [self expr]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
 
 }
 
@@ -2015,8 +2288,21 @@
 
 - (void)__forParen {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_OPENPAREN];
+    @try {
     [self for]; 
     [self openParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self openParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_OPENPAREN];
+    }
 
 }
 
@@ -2189,9 +2475,22 @@
 
 - (void)__ternaryExpr {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_COLON];
+    @try {
     [self question]; 
     [self assignmentExpr]; 
     [self colon]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self colon]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_COLON];
+    }
     [self assignmentExpr]; 
 
 }
@@ -2547,9 +2846,22 @@
 
 - (void)__constructor {
     
-    if ([self speculate:^{ [self this]; [self dot]; }]) {
+    if ([self speculate:^{ [self pushFollow:JAVASCRIPT_TOKEN_KIND_DOT];@try {[self this]; [self dot]; }@catch (PKSRecognitionException *ex) {if ([self resync]) {[self dot]; } else {@throw ex;}}@finally {[self popFollow:JAVASCRIPT_TOKEN_KIND_DOT];}}]) {
+        [self pushFollow:JAVASCRIPT_TOKEN_KIND_DOT];
+        @try {
         [self this]; 
         [self dot]; 
+        }
+        @catch (PKSRecognitionException *ex) {
+            if ([self resync]) {
+                [self dot]; 
+            } else {
+                @throw ex;
+            }
+        }
+        @finally {
+            [self popFollow:JAVASCRIPT_TOKEN_KIND_DOT];
+        }
     }
     [self constructorCall]; 
 
@@ -2581,9 +2893,22 @@
 
 - (void)__parenArgListParen {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self openParen]; 
     [self argListOpt]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
 
 }
 
@@ -2635,9 +2960,22 @@
 
 - (void)__bracketMemberExpr {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET];
+    @try {
     [self openBracket]; 
     [self expr]; 
     [self closeBracket]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeBracket]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET];
+    }
 
 }
 
@@ -2647,9 +2985,22 @@
 
 - (void)__parenMemberExpr {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self openParen]; 
     [self argListOpt]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
 
 }
 
@@ -2731,9 +3082,22 @@
 
 - (void)__parenExprParen {
     
+    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self openParen]; 
     [self expr]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
 
 }
 
