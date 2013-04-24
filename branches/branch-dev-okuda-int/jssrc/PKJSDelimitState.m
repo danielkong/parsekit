@@ -44,17 +44,17 @@ static JSValueRef PKDelimitState_add(JSContextRef ctx, JSObjectRef function, JSO
     return JSValueMakeUndefined(ctx);
 }
 
-static JSValueRef PKDelimitState_remove(JSContextRef ctx, JSObjectRef function, JSObjectRef this, size_t argc, const JSValueRef argv[], JSValueRef *ex) {
-    PKPreconditionInstaceOf(PKDelimitState_class, "remove");
-    PKPreconditionMethodArgc(1, "PKDelimitState.remove");
-    
-    NSString *start = PKJSValueGetNSString(ctx, argv[0], ex);
-    
-    PKDelimitState *data = JSObjectGetPrivate(this);
-    [data removeStartMarker:start];
-    
-    return JSValueMakeUndefined(ctx);
-}
+//static JSValueRef PKDelimitState_remove(JSContextRef ctx, JSObjectRef function, JSObjectRef this, size_t argc, const JSValueRef argv[], JSValueRef *ex) {
+//    PKPreconditionInstaceOf(PKDelimitState_class, "remove");
+//    PKPreconditionMethodArgc(1, "PKDelimitState.remove");
+//    
+//    NSString *start = PKJSValueGetNSString(ctx, argv[0], ex);
+//    
+//    PKDelimitState *data = JSObjectGetPrivate(this);
+//    [data removeStartMarker:start];
+//    
+//    return JSValueMakeUndefined(ctx);
+//}
 
 #pragma mark -
 #pragma mark Properties
@@ -73,7 +73,7 @@ static void PKDelimitState_finalize(JSObjectRef this) {
 static JSStaticFunction PKDelimitState_staticFunctions[] = {
 { "toString", PKDelimitState_toString, kJSPropertyAttributeDontDelete },
 { "add", PKDelimitState_add, kJSPropertyAttributeDontDelete },
-{ "remove", PKDelimitState_remove, kJSPropertyAttributeDontDelete },
+//{ "remove", PKDelimitState_remove, kJSPropertyAttributeDontDelete },
 { 0, 0, 0 }
 };
 

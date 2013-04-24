@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
-		D302272917020C9200594F16 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FDC7380FFC4D6100F1F797 /* libicucore.dylib */; };
 		D302C69D0EF044810090E714 /* TDPlistParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D36568A60EEF9FE900226554 /* TDPlistParser.m */; };
 		D30805BA155ECB1F0000BC60 /* PKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAF380FF9E18300D7773A /* PKPattern.m */; };
 		D30805BB155ECB220000BC60 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C55FD0FD3617B00141CB7 /* RegexKitLite.m */; };
@@ -43,6 +42,19 @@
 		D30DA1991727410900A1A3EC /* PKSTryAndResyncTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30DA1971727410700A1A3EC /* PKSTryAndResyncTemplate.txt */; };
 		D30DA19B17274BF400A1A3EC /* PKSTryAndResyncEOFTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30DA19A17274BF100A1A3EC /* PKSTryAndResyncEOFTemplate.txt */; };
 		D30DA19C17274BF400A1A3EC /* PKSTryAndResyncEOFTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30DA19A17274BF100A1A3EC /* PKSTryAndResyncEOFTemplate.txt */; };
+		D30DA19F17284EC100A1A3EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA19E17284EC100A1A3EC /* Foundation.framework */; };
+		D30DA1A117284EFF00A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
+		D30DA1A317284F5100A1A3EC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A217284F5100A1A3EC /* CoreData.framework */; };
+		D30DA1A417284F9900A1A3EC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
+		D30DA1A517284FD800A1A3EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA19E17284EC100A1A3EC /* Foundation.framework */; };
+		D30DA1A617284FF100A1A3EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA19E17284EC100A1A3EC /* Foundation.framework */; };
+		D30DA1A8172850A400A1A3EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A7172850A400A1A3EC /* Foundation.framework */; };
+		D30DA1AA172850BB00A1A3EC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A9172850BB00A1A3EC /* libicucore.dylib */; };
+		D30DA1AB172850EC00A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
+		D30DA1AC172850F500A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
+		D30DA1AD172850FA00A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
+		D30DA1AE1728510100A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
+		D30DA1AF1728515E00A1A3EC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
@@ -197,7 +209,6 @@
 		D3382FEE171C8CE100CCE513 /* PKSTokenAssembly.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382F9C171C80F900CCE513 /* PKSTokenAssembly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3382FEF171C8CE600CCE513 /* PKSTokenKindDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382FA0171C811B00CCE513 /* PKSTokenKindDescriptor.h */; };
 		D3382FF1171C8CE900CCE513 /* PKSRecognitionException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3382FD9171C8CB200CCE513 /* PKSRecognitionException.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3383032171C923700CCE513 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3383031171C923700CCE513 /* Cocoa.framework */; };
 		D338303C171C923700CCE513 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D338303A171C923700CCE513 /* InfoPlist.strings */; };
 		D338303E171C923700CCE513 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D338303D171C923700CCE513 /* main.m */; };
 		D3383042171C923700CCE513 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D3383040171C923700CCE513 /* Credits.rtf */; };
@@ -274,7 +285,6 @@
 		D33830B7171CA46200CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022714170208C800594F16 /* NSDictionary_DeepMutableCopy.m */; };
 		D33830BA171CA50F00CCE513 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = D33830B9171CA50F00CCE513 /* RegexKitLite.m */; };
 		D33830BB171CA50F00CCE513 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = D33830B9171CA50F00CCE513 /* RegexKitLite.m */; };
-		D33830BC171CA53400CCE513 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FDC7380FFC4D6100F1F797 /* libicucore.dylib */; };
 		D33830BE171CA55300CCE513 /* MGTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270A170208C800594F16 /* MGTemplateEngine.m */; };
 		D33830BF171CA55300CCE513 /* MGTemplateStandardMarkers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3022710170208C800594F16 /* MGTemplateStandardMarkers.m */; };
 		D33830C0171CA55300CCE513 /* MGTemplateStandardFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D302270E170208C800594F16 /* MGTemplateStandardFilters.m */; };
@@ -422,8 +432,6 @@
 		D34BB1290FF9F36200D7773A /* PKJSWord.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB1130FF9F36200D7773A /* PKJSWord.m */; };
 		D355C62E0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D355C62C0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m */; };
 		D355C6A70FE9F704006A91A4 /* nspredicate.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D35384EC0FE9691100926552 /* nspredicate.grammar */; };
-		D35D18A315D5AD15003DF6BC /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
-		D35D18A515D5AD78003DF6BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35D18A415D5AD78003DF6BC /* CoreGraphics.framework */; };
 		D35F4A8711643630003811F3 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4A8511643630003811F3 /* PKEmailState.m */; };
 		D35F4A8811643630003811F3 /* PKURLState.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4A8611643630003811F3 /* PKURLState.m */; };
 		D35F4A8911643630003811F3 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4A8511643630003811F3 /* PKEmailState.m */; };
@@ -454,12 +462,8 @@
 		D36E98E70E58C14000496BD3 /* DemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98E40E58C14000496BD3 /* DemoAppDelegate.m */; };
 		D36E98E80E58C14000496BD3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E98E50E58C14000496BD3 /* main.m */; };
 		D36E98F80E58C1A000496BD3 /* DemoAppMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D36E98F70E58C1A000496BD3 /* DemoAppMainMenu.xib */; };
-		D377B54B16E7EE4200BDEDBA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
-		D377B54C16E7EE4200BDEDBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		D37A28671013942300E936B7 /* PKGrammarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3376D5810093A1600E4602E /* PKGrammarParser.m */; };
 		D37A28681013942A00E936B7 /* PKGrammarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3376D5710093A1600E4602E /* PKGrammarParser.h */; };
-		D37D3A000FE77A71008C2E4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
-		D37D3A010FE77A72008C2E4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
 		D37D8DC91571A4F700CDB822 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */; };
 		D37D8DDE1571A57300CDB822 /* PKParseTree.m in Sources */ = {isa = PBXBuildFile; fileRef = D36934561038DE5300527AF3 /* PKParseTree.m */; };
 		D37D8DDF1571A57300CDB822 /* PKParseTreeAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D36934581038DE5300527AF3 /* PKParseTreeAssembler.m */; };
@@ -921,7 +925,6 @@
 		D3D9759D16E7F53900D55EAB /* PKWord.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAED40FF9D56400D7773A /* PKWord.m */; };
 		D3D9759E16E7F53900D55EAB /* PKAny.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAE2F0FF9CE6000D7773A /* PKAny.m */; };
 		D3D9759F16E7F55F00D55EAB /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
-		D3D975A016E7F56300D55EAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		D3D975B016E803A400D55EAB /* PKCaseInsensitiveLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAF3C0FF9E19700D7773A /* PKCaseInsensitiveLiteral.m */; };
 		D3D975B216E803A700D55EAB /* PKWhitespace.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAF4A0FF9E19700D7773A /* PKWhitespace.m */; };
 		D3D975B316E803AB00D55EAB /* PKComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAF3E0FF9E19700D7773A /* PKComment.m */; };
@@ -958,7 +961,6 @@
 		D3E27A320E741DD20078CC2C /* small-xml-file.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */; };
 		D3E27A330E741DD20078CC2C /* apple-boss.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36E9FB40E5A944A00496BD3 /* apple-boss.xml */; };
 		D3E785560E53FB54008C7D61 /* apple-boss.json in Resources */ = {isa = PBXBuildFile; fileRef = D3E784BC0E53DA28008C7D61 /* apple-boss.json */; };
-		D3E787A30E5661A9008C7D61 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		D3EAC7EC0F2690620043D6A9 /* OCMock.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D3DCB35C0EF5E52500DE5110 /* OCMock.framework */; };
 		D3EADD810E75E9CC00F78584 /* nasty.html in Resources */ = {isa = PBXBuildFile; fileRef = D3EADD7F0E75E9CC00F78584 /* nasty.html */; };
 		D3EADD8F0E75EAA400F78584 /* TDHtmlSyntaxHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EADD8C0E75EAA400F78584 /* TDHtmlSyntaxHighlighter.m */; };
@@ -1029,8 +1031,6 @@
 		D3FDC71F0FFC4C9E00F1F797 /* PKParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD80FF9E95500D7773A /* PKParserFactory.m */; };
 		D3FDC7200FFC4C9E00F1F797 /* NSArray+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD40FF9E95500D7773A /* NSArray+ParseKitAdditions.m */; };
 		D3FDC7210FFC4C9E00F1F797 /* NSString+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD60FF9E95500D7773A /* NSString+ParseKitAdditions.m */; };
-		D3FDC7370FFC4D6100F1F797 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FDC7360FFC4D6100F1F797 /* Foundation.framework */; };
-		D3FDC7390FFC4D6100F1F797 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FDC7380FFC4D6100F1F797 /* libicucore.dylib */; };
 		D3FDC8DC0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D3FDC8DB0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch */; };
 /* End PBXBuildFile section */
 
@@ -1105,8 +1105,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* ParseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ParseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1178,6 +1176,11 @@
 		D30DA1941727059C00A1A3EC /* PKSEOFCallTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSEOFCallTemplate.txt; path = res/PKSEOFCallTemplate.txt; sourceTree = "<group>"; };
 		D30DA1971727410700A1A3EC /* PKSTryAndResyncTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSTryAndResyncTemplate.txt; path = res/PKSTryAndResyncTemplate.txt; sourceTree = "<group>"; };
 		D30DA19A17274BF100A1A3EC /* PKSTryAndResyncEOFTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSTryAndResyncEOFTemplate.txt; path = res/PKSTryAndResyncEOFTemplate.txt; sourceTree = "<group>"; };
+		D30DA19E17284EC100A1A3EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D30DA1A017284EFF00A1A3EC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		D30DA1A217284F5100A1A3EC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D30DA1A7172850A400A1A3EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		D30DA1A9172850BB00A1A3EC /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib/libicucore.dylib; sourceTree = DEVELOPER_DIR; };
 		D3126D040FFD9BA700CBF4C4 /* PKNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNegation.m; path = src/PKNegation.m; sourceTree = "<group>"; };
 		D3126D090FFD9E4B00CBF4C4 /* TDNegationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNegationTest.h; path = test/TDNegationTest.h; sourceTree = "<group>"; };
 		D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationTest.m; path = test/TDNegationTest.m; sourceTree = "<group>"; };
@@ -1345,10 +1348,6 @@
 		D3382FD6171C8C9100CCE513 /* PKSRecognitionException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSRecognitionException.m; path = src/PKSRecognitionException.m; sourceTree = "<group>"; };
 		D3382FD9171C8CB200CCE513 /* PKSRecognitionException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSRecognitionException.h; path = include/ParseKit/PKSRecognitionException.h; sourceTree = "<group>"; };
 		D338302F171C923700CCE513 /* ParserGenApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParserGenApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3383031171C923700CCE513 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		D3383034171C923700CCE513 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		D3383035171C923700CCE513 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D3383036171C923700CCE513 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D3383039171C923700CCE513 /* ParserGenApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ParserGenApp-Info.plist"; sourceTree = "<group>"; };
 		D338303B171C923700CCE513 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D338303D171C923700CCE513 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1531,7 +1530,6 @@
 		D355C6300FE9EFEA006A91A4 /* TDNSPredicateEvaluatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNSPredicateEvaluatorTest.m; path = test/TDNSPredicateEvaluatorTest.m; sourceTree = "<group>"; };
 		D355C8800FEB36A1006A91A4 /* xml.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xml.grammar; path = res/xml.grammar; sourceTree = "<group>"; };
 		D355C8830FEB4B94006A91A4 /* proto.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = proto.grammar; path = res/proto.grammar; sourceTree = "<group>"; };
-		D35D18A415D5AD78003DF6BC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		D35F4A8511643630003811F3 /* PKEmailState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKEmailState.m; path = src/PKEmailState.m; sourceTree = "<group>"; };
 		D35F4A8611643630003811F3 /* PKURLState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKURLState.m; path = src/PKURLState.m; sourceTree = "<group>"; };
 		D35F4A8B11643662003811F3 /* PKEmailState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKEmailState.h; path = include/ParseKit/PKEmailState.h; sourceTree = "<group>"; };
@@ -1946,8 +1944,6 @@
 		D3F8121F161AB38100DEA1CB /* regex.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = regex.grammar; path = res/regex.grammar; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
 		D3FD791F0F4CC86800BAD816 /* rubyhash.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rubyhash.grammar; path = res/rubyhash.grammar; sourceTree = "<group>"; };
 		D3FDC5830FFC4BFC00F1F797 /* libparsekit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libparsekit.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3FDC7360FFC4D6100F1F797 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		D3FDC7380FFC4D6100F1F797 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		D3FDC8DB0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseKitMobile_Prefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1956,7 +1952,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3E787A30E5661A9008C7D61 /* Foundation.framework in Frameworks */,
+				D30DA19F17284EC100A1A3EC /* Foundation.framework in Frameworks */,
 				D36C560C0FD363D500141CB7 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1965,8 +1961,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D30DA1AB172850EC00A1A3EC /* Cocoa.framework in Frameworks */,
 				D33494720E29670B00406085 /* ParseKit.framework in Frameworks */,
-				D37D3A000FE77A71008C2E4D /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1974,9 +1970,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D33830BC171CA53400CCE513 /* libicucore.dylib in Frameworks */,
+				D30DA1AF1728515E00A1A3EC /* libicucore.dylib in Frameworks */,
+				D30DA1AE1728510100A1A3EC /* Cocoa.framework in Frameworks */,
 				D3383051171C924D00CCE513 /* ParseKit.framework in Frameworks */,
-				D3383032171C923700CCE513 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1985,10 +1981,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D31FE7380E60F36600A0803E /* libxml2.dylib in Frameworks */,
+				D30DA1AC172850F500A1A3EC /* Cocoa.framework in Frameworks */,
 				D341850C0E520D640081B0DC /* ParseKit.framework in Frameworks */,
 				D380B9800F0EF3860009EC13 /* OCMock.framework in Frameworks */,
 				D380BAA30F0F1D980009EC13 /* JavaScriptCore.framework in Frameworks */,
-				D37D3A010FE77A72008C2E4D /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1996,12 +1992,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D302272917020C9200594F16 /* libicucore.dylib in Frameworks */,
 				D381AADC15D5953A004F690C /* libxml2.dylib in Frameworks */,
+				D30DA1A417284F9900A1A3EC /* libicucore.dylib in Frameworks */,
+				D30DA1A117284EFF00A1A3EC /* Cocoa.framework in Frameworks */,
+				D30DA1A317284F5100A1A3EC /* CoreData.framework in Frameworks */,
 				D3D975D516E8067300D55EAB /* ParseKit.framework in Frameworks */,
 				D37D8DC91571A4F700CDB822 /* SenTestingKit.framework in Frameworks */,
 				D37D8E5A1571A5BA00CDB822 /* OCMock.framework in Frameworks */,
-				D35D18A315D5AD15003DF6BC /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2009,6 +2006,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D30DA1A617284FF100A1A3EC /* Foundation.framework in Frameworks */,
 				D389F34E0F197DF500558235 /* JavaScriptCore.framework in Frameworks */,
 				D389F1D50F19666500558235 /* ParseKit.framework in Frameworks */,
 			);
@@ -2018,12 +2016,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D30DA1AD172850FA00A1A3EC /* Cocoa.framework in Frameworks */,
 				D389F3430F197DDC00558235 /* JavaScriptCore.framework in Frameworks */,
 				D389F20E0F196A9200558235 /* WebKit.framework in Frameworks */,
 				D389F20C0F196A9200558235 /* ParseKit.framework in Frameworks */,
 				D389F20B0F196A9200558235 /* JSParseKit.framework in Frameworks */,
-				D377B54B16E7EE4200BDEDBA /* AppKit.framework in Frameworks */,
-				D377B54C16E7EE4200BDEDBA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2032,7 +2029,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3D9759F16E7F55F00D55EAB /* libicucore.dylib in Frameworks */,
-				D3D975A016E7F56300D55EAB /* Foundation.framework in Frameworks */,
+				D30DA1A517284FD800A1A3EC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2040,9 +2037,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D35D18A515D5AD78003DF6BC /* CoreGraphics.framework in Frameworks */,
-				D3FDC7370FFC4D6100F1F797 /* Foundation.framework in Frameworks */,
-				D3FDC7390FFC4D6100F1F797 /* libicucore.dylib in Frameworks */,
+				D30DA1AA172850BB00A1A3EC /* libicucore.dylib in Frameworks */,
+				D30DA1A8172850A400A1A3EC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2075,10 +2071,8 @@
 				D3383037171C923700CCE513 /* ParserGenApp */,
 				D380BA950F0F1C450009EC13 /* JSParseKit Framework */,
 				D389F2CA0F196ACF00558235 /* JSDemoApp */,
-				32C88DFF0371C24200C91783 /* Other Sources (not used) */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
-				D3383030171C923700CCE513 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
 			name = TODParseKit;
@@ -2087,8 +2081,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D3FDC8EF0FFC52CD00F1F797 /* Mobile Frameworks */,
-				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				D3FDC8EF0FFC52CD00F1F797 /* Mobile */,
+				1058C7B0FEA5585E11CA2CBB /* Desktop */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -2117,23 +2111,25 @@
 				D324B77D16F8C892005FE823 /* ast */,
 				D34BAC0F0FF87ED200D7773A /* grammar */,
 				D3A1492B16F8C7D600770DEE /* Foundation categories */,
+				32C88DFF0371C24200C91783 /* Other Sources (not used) */,
 			);
 			name = "ParseKit Framework";
 			sourceTree = "<group>";
 		};
-		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+		1058C7B0FEA5585E11CA2CBB /* Desktop */ = {
 			isa = PBXGroup;
 			children = (
-				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
-				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+				D36E9F860E5A795400496BD3 /* libxml2.dylib */,
+				D36C560B0FD363D500141CB7 /* libicucore.dylib */,
+				D30DA1A017284EFF00A1A3EC /* Cocoa.framework */,
+				D30DA19E17284EC100A1A3EC /* Foundation.framework */,
+				D30DA1A217284F5100A1A3EC /* CoreData.framework */,
 				D389F20D0F196A9200558235 /* WebKit.framework */,
 				D380BAA20F0F1D980009EC13 /* JavaScriptCore.framework */,
 				D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */,
 				D3DCB35C0EF5E52500DE5110 /* OCMock.framework */,
-				D36E9F860E5A795400496BD3 /* libxml2.dylib */,
-				D36C560B0FD363D500141CB7 /* libicucore.dylib */,
 			);
-			name = "Linked Frameworks";
+			name = Desktop;
 			sourceTree = "<group>";
 		};
 		32C88DFF0371C24200C91783 /* Other Sources (not used) */ = {
@@ -2403,25 +2399,6 @@
 				D3382FD6171C8C9100CCE513 /* PKSRecognitionException.m */,
 			);
 			name = static;
-			sourceTree = "<group>";
-		};
-		D3383030171C923700CCE513 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D3383031171C923700CCE513 /* Cocoa.framework */,
-				D3383033171C923700CCE513 /* Other Frameworks */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D3383033171C923700CCE513 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D3383034171C923700CCE513 /* AppKit.framework */,
-				D3383035171C923700CCE513 /* CoreData.framework */,
-				D3383036171C923700CCE513 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		D3383037171C923700CCE513 /* ParserGenApp */ = {
@@ -3580,14 +3557,13 @@
 			name = factory;
 			sourceTree = "<group>";
 		};
-		D3FDC8EF0FFC52CD00F1F797 /* Mobile Frameworks */ = {
+		D3FDC8EF0FFC52CD00F1F797 /* Mobile */ = {
 			isa = PBXGroup;
 			children = (
-				D35D18A415D5AD78003DF6BC /* CoreGraphics.framework */,
-				D3FDC7360FFC4D6100F1F797 /* Foundation.framework */,
-				D3FDC7380FFC4D6100F1F797 /* libicucore.dylib */,
+				D30DA1A9172850BB00A1A3EC /* libicucore.dylib */,
+				D30DA1A7172850A400A1A3EC /* Foundation.framework */,
 			);
-			name = "Mobile Frameworks";
+			name = Mobile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -5385,7 +5361,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5411,7 +5386,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ParseKit_Prefix.pch;
