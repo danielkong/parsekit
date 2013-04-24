@@ -56,7 +56,6 @@
 		D30DA1AE1728510100A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
 		D30DA1AF1728515E00A1A3EC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
 		D30DA1C5172854B500A1A3EC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D30DA1C3172854B500A1A3EC /* InfoPlist.strings */; };
-		D30DA1D2172854B500A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1BA172854B500A1A3EC /* Cocoa.framework */; };
 		D30DA1D5172854B500A1A3EC /* OkudaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1B8172854B500A1A3EC /* OkudaKit.framework */; };
 		D30DA1E61728552900A1A3EC /* OkudaKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1E51728552900A1A3EC /* OkudaKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D30DA1EB1728561E00A1A3EC /* OKSyntaxHighlighter.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1EA1728561E00A1A3EC /* OKSyntaxHighlighter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -90,6 +89,7 @@
 		D30DA2291728584100A1A3EC /* json.css in Resources */ = {isa = PBXBuildFile; fileRef = D30DA21F1728584100A1A3EC /* json.css */; };
 		D30DA22A1728584100A1A3EC /* json.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D30DA2201728584100A1A3EC /* json.grammar */; };
 		D30DA22B1728584100A1A3EC /* OKMini_css.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D30DA2211728584100A1A3EC /* OKMini_css.grammar */; };
+		D30DA22C1728588800A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
@@ -1231,15 +1231,10 @@
 		D30DA1A7172850A400A1A3EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D30DA1A9172850BB00A1A3EC /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib/libicucore.dylib; sourceTree = DEVELOPER_DIR; };
 		D30DA1B8172854B500A1A3EC /* OkudaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OkudaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D30DA1BA172854B500A1A3EC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		D30DA1BD172854B500A1A3EC /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		D30DA1BE172854B500A1A3EC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D30DA1BF172854B500A1A3EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D30DA1C2172854B500A1A3EC /* OkudaKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OkudaKit-Info.plist"; sourceTree = "<group>"; };
 		D30DA1C4172854B500A1A3EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D30DA1C6172854B500A1A3EC /* OkudaKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OkudaKit-Prefix.pch"; sourceTree = "<group>"; };
 		D30DA1CF172854B500A1A3EC /* OkudaKitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OkudaKitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D30DA1D0172854B500A1A3EC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D30DA1D8172854B500A1A3EC /* OkudaKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OkudaKitTests-Info.plist"; path = "../okudakit/test/OkudaKitTests-Info.plist"; sourceTree = "<group>"; };
 		D30DA1E51728552900A1A3EC /* OkudaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OkudaKit.h; path = okudakit/include/OkudaKit/OkudaKit.h; sourceTree = SOURCE_ROOT; };
 		D30DA1EA1728561E00A1A3EC /* OKSyntaxHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKSyntaxHighlighter.h; path = okudakit/include/OkudaKit/OKSyntaxHighlighter.h; sourceTree = SOURCE_ROOT; };
@@ -2061,8 +2056,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D30DA22C1728588800A1A3EC /* Cocoa.framework in Frameworks */,
 				D30DA2161728577800A1A3EC /* ParseKit.framework in Frameworks */,
-				D30DA1D2172854B500A1A3EC /* Cocoa.framework in Frameworks */,
 				D30DA2151728573100A1A3EC /* SenTestingKit.framework in Frameworks */,
 				D30DA1D5172854B500A1A3EC /* OkudaKit.framework in Frameworks */,
 			);
@@ -2189,7 +2184,6 @@
 				D389F2CA0F196ACF00558235 /* JSDemoApp */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
-				D30DA1B9172854B500A1A3EC /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
 			name = TODParseKit;
@@ -2337,26 +2331,6 @@
 			children = (
 			);
 			name = OKDemoApp;
-			sourceTree = "<group>";
-		};
-		D30DA1B9172854B500A1A3EC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D30DA1BA172854B500A1A3EC /* Cocoa.framework */,
-				D30DA1D0172854B500A1A3EC /* SenTestingKit.framework */,
-				D30DA1BC172854B500A1A3EC /* Other Frameworks */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D30DA1BC172854B500A1A3EC /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D30DA1BD172854B500A1A3EC /* AppKit.framework */,
-				D30DA1BE172854B500A1A3EC /* CoreData.framework */,
-				D30DA1BF172854B500A1A3EC /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		D30DA1C0172854B500A1A3EC /* OkudaKit */ = {
