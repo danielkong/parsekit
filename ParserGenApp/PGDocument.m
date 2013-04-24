@@ -189,13 +189,13 @@
     
     [_root visit:_visitor];
     
-    NSString *path = [[NSString stringWithFormat:@"%@/%@.h", destPath, _parserName] stringByExpandingTildeInPath];
+    NSString *path = [[NSString stringWithFormat:@"%@/%@Parser.h", destPath, _parserName] stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
     }
     
-    path = [[NSString stringWithFormat:@"%@/%@.m", destPath, _parserName] stringByExpandingTildeInPath];
+    path = [[NSString stringWithFormat:@"%@/%@Parser.m", destPath, _parserName] stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
