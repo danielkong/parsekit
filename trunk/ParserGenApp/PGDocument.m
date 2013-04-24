@@ -71,7 +71,7 @@
 
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    NSMutableDictionary *tab = [NSMutableDictionary dictionaryWithCapacity:4];
+    NSMutableDictionary *tab = [NSMutableDictionary dictionaryWithCapacity:7];
 
     if (_destinationPath) tab[@"destinationPath"] = _destinationPath;
     if (_grammar) tab[@"grammar"] = _grammar;
@@ -79,6 +79,7 @@
     tab[@"enableHybridDFA"] = @(_enableHybridDFA);
     tab[@"enableMemoization"] = @(_enableMemoization);
     tab[@"enableAutomaticErrorRecovery"] = @(_enableAutomaticErrorRecovery);
+    tab[@"assemblerSettingBehavior"] = @(_assemblerSettingBehavior);
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tab];
     return data;
@@ -94,6 +95,7 @@
     self.enableHybridDFA = [tab[@"enableHybridDFA"] boolValue];
     self.enableMemoization = [tab[@"enableMemoization"] boolValue];
     self.enableAutomaticErrorRecovery = [tab[@"enableAutomaticErrorRecovery"] boolValue];
+    self.assemblerSettingBehavior = [tab[@"assemblerSettingBehavior"] boolValue];
 
     return YES;
 }
@@ -183,6 +185,7 @@
     _visitor.enableHybridDFA = _enableHybridDFA;
     _visitor.enableMemoization = _enableMemoization;
     _visitor.enableAutomaticErrorRecovery = _enableAutomaticErrorRecovery;
+    _visitor.assemblerSettingBehavior = _assemblerSettingBehavior;
     
     [_root visit:_visitor];
     
@@ -198,9 +201,7 @@
         NSLog(@"%@", err);
     }
     
-    double secs = 0.25;
-    dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(secs * NSEC_PER_SEC));
-    dispatch_after(delay, dispatch_get_main_queue(), ^(void){
+    dispatch_async(dispatch_get_main_queue(), ^(void){
         [self done];
     });
 }

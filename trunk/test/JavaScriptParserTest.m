@@ -36,6 +36,9 @@
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnTerminals;
+    _visitor.enableAutomaticErrorRecovery = YES;
+    _visitor.enableMemoization = YES;
+    
     [_root visit:_visitor];
     
     self.parser = [[[JavaScriptParser alloc] init] autorelease];
@@ -89,10 +92,6 @@
     TDEqualObjects(@"[window, ., fluid, ., dockBadge, =, '', ;, setTimeout, (, updateDockBadge, ,, 1000, ), ;, setTimeout, (, updateDockBadge, ,, 3000, ), ;, setInterval, (, updateDockBadge, ,, 5000, ), ;]window/./fluid/./dockBadge/=/''/;/setTimeout/(/updateDockBadge/,/1000/)/;/setTimeout/(/updateDockBadge/,/3000/)/;/setInterval/(/updateDockBadge/,/5000/)/;^", [res description]);
 }
 
-//- (void)testGmailUserscript {
-//    NSError *err = nil;
-//    PKAssembly *res = [_parser parseString:@"window.fluid.dockBadge = ''; setTimeout(updateDockBadge, 1000); setTimeout(updateDockBadge, 3000); setInterval(updateDockBadge, 5000); function updateDockBadge() { var newBadge = '';  var anchorEls = document.getElementsByTagName('a'); var regex = null; for (var i = 0; i < anchorEls.length; i++) { var anchorEl = anchorEls[i]; var text = '' + anchorEl.innerText; if (!text.length) continue; if (-1 == text.indexOf('(')) continue; var res = text.match(regex); if (res && res.length > 1) { newBadge = res[1]; break; } } window.fluid.dockBadge = newBadge; }" assembler:nil error:&err];
-//    TDEqualObjects(@"[window, ., fluid, ., dockBadge, =, '', ;, setTimeout, (, updateDockBadge, ,, 1000, ), ;, setTimeout, (, updateDockBadge, ,, 3000, ), ;, setInterval, (, updateDockBadge, ,, 5000, ), ;]window/./fluid/./dockBadge/=/''/;/setTimeout/(/updateDockBadge/,/1000/)/;/setTimeout/(/updateDockBadge/,/3000/)/;/setInterval/(/updateDockBadge/,/5000/)/;^", [res description]);
-//}
+
 
 @end
