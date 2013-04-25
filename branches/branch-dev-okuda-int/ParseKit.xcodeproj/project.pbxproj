@@ -777,6 +777,7 @@
 		D3BD39791729F1DE00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BD39761729F1DD00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt */; };
 		D3BD397B1729F2ED00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BD39761729F1DD00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt */; };
 		D3BD397C1729F2F100FC6549 /* PKSPostCallbackSyntaxLeafTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BD39751729F1DD00FC6549 /* PKSPostCallbackSyntaxLeafTemplate.txt */; };
+		D3BD397D1729F4E500FC6549 /* OKJavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD395B1729B16C00FC6549 /* OKJavaScriptParser.m */; };
 		D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */; };
 		D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */; };
 		D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -5035,6 +5036,7 @@
 				D3407DD517010AC30047F5FC /* DemoBaseViewController.m in Sources */,
 				D3BD396D1729E13000FC6549 /* PKSParseTreeAssembler.m in Sources */,
 				D3BD39721729E4CA00FC6549 /* ExpressionSyntaxParser.m in Sources */,
+				D3BD397D1729F4E500FC6549 /* OKJavaScriptParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
