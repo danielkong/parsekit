@@ -48,13 +48,15 @@
 @implementation {{className}}
 
 - (id)init {
-	self = [super init];
-	if (self) {
-{%for kind in tokenKinds %}        self._tokenKindTab[@"{{kind.stringValue}}"] = @({{kind.name}});
+    self = [super init];
+    if (self) {
+{%if enableAutomaticErrorRecovery %}        self.enableAutomaticErrorRecovery = YES;
+
+{%/if%}{%for kind in tokenKinds %}        self._tokenKindTab[@"{{kind.stringValue}}"] = @({{kind.name}});
 {%/for%}
 {%if enableMemoization %}{%for methodName in ruleMethodNames %}        self.{{methodName}}_memo = [NSMutableDictionary dictionary];
 {%/for%}{%/if%}    }
-	return self;
+    return self;
 }
 {%if enableMemoization %}
 - (void)dealloc {

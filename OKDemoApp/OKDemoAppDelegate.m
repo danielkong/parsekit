@@ -21,7 +21,7 @@
 
 
 - (void)awakeFromNib {
-    [self performSelector:@selector(highlight:) withObject:nil afterDelay:0.0];
+//    [self performSelector:@selector(highlight:) withObject:nil afterDelay:0.0];
     
     self.viewController = [[[OKSourceEditViewController alloc] init] autorelease];
     [_viewController.view setFrame:[_containerView bounds]];
@@ -29,41 +29,41 @@
 }
 
 
-- (void)doJSONHighlighting {
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"yahoo" ofType:@"json"];
-    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
-    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"json"];
-}
-
-
-- (void)doCSSHighlighting {
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"example" ofType:@"css"];
-    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
-    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"css"];
-}
-
-
-- (void)doHTMLHighlighting {
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"example" ofType:@"html"];
-    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
-    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"html"];
-}
-
-
-- (void)doJavaScriptHighlighting {
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"example" ofType:@"js"];
-    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
-    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"javascript"];
-}
+//- (void)doJSONHighlighting {
+//    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"yahoo" ofType:@"json"];
+//    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
+//    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"json"];
+//}
+//
+//
+//- (void)doCSSHighlighting {
+//    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"example" ofType:@"css"];
+//    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
+//    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"css"];
+//}
+//
+//
+//- (void)doHTMLHighlighting {
+//    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"example" ofType:@"html"];
+//    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
+//    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"html"];
+//}
+//
+//
+//- (void)doJavaScriptHighlighting {
+//    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"example" ofType:@"js"];
+//    NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
+//    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"javascript"];
+//}
 
 
 - (IBAction)highlight:(id)sender {
     [self clear:nil];
-    [self doJavaScriptHighlighting];
+//    [self doJavaScriptHighlighting];
 }
 
 

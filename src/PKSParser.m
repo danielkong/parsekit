@@ -166,7 +166,7 @@
             // parse
             [self _start];
             
-            //NSLog(@"%@", _assembly);
+            NSLog(@"%@", _assembly);
             
             // get result
             if (_assembly.target) {
@@ -437,7 +437,7 @@
 - (BOOL)resync {
     BOOL result = NO;
 
-    if (_enableAutomaticErrorRecovery) {
+    if (!self._isSpeculating && _enableAutomaticErrorRecovery) {
         for (;;) {
             PKToken *lt = LT(1);
             //NSLog(@"LT(1) : %@", lt); NSLog(@"is %ld in %@ ?", LA(1), _resyncSet);

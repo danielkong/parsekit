@@ -149,6 +149,7 @@
 - (NSAttributedString *)highlightedStringForString:(NSString *)s ofGrammar:(NSString *)grammarName {    
     // create or fetch the parser & tokenizer for this grammar
     PKSParser *parser = [self parserForGrammarNamed:grammarName];
+    parser.enableAutomaticErrorRecovery = YES;
     
     // get attributes from css && give to the generic assembler
     self.genericAssembler.attributes = [self attributesForGrammarNamed:grammarName];

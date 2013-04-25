@@ -76,7 +76,7 @@
 
 
 - (void)didMatchTerminalNamed:(NSString *)name withAssembly:(PKAssembly *)a {
-    //NSLog(@"%@ : %@", name, a);
+    NSLog(@"%@ : %@", name, a);
     self.currentAssembly = a;
     NSMutableArray *whitespaceToks = [self popWhitespaceTokensFrom:a];
 
