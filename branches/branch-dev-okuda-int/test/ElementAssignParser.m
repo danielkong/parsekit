@@ -82,7 +82,7 @@
     @finally {
         [self popFollow:TOKEN_KIND_BUILTIN_EOF];
     }
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
+
 }
 
 - (void)stat {
