@@ -1,5 +1,5 @@
 //
-//  TDSourceCodeTextView.h
+//  OKSourceCodeTextView.h
 //  TextTest
 //
 //  Created by Todd Ditchendorf on 9/9/08.
@@ -8,14 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class TDGutterView;
+@class OKGutterView;
 
-@interface TDSourceCodeTextView : NSTextView {
-    IBOutlet TDGutterView *gutterView;
+@interface OKSourceCodeTextView : NSTextView {
+    IBOutlet OKGutterView *gutterView;
     IBOutlet NSScrollView *scrollView;
     CGFloat sourceTextViewOffset;
 }
 - (void)renderGutter;
 
-@property (assign) TDGutterView *gutterView;
+@property (assign) OKGutterView *gutterView;
 @end

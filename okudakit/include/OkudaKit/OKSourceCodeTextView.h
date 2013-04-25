@@ -1,4 +1,4 @@
-//  Copyright 2010 Todd Ditchendorf
+//  Copyright 2009 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -14,19 +14,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class OKSourceCodeTextView;
+@class OKGutterView;
 
-@interface DemoBaseViewController : NSViewController
+@interface OKSourceCodeTextView : NSTextView {
+    OKGutterView *gutterView;
+    NSScrollView *scrollView;
+}
 
-- (IBAction)parse:(id)sender;
+- (void)renderGutter;
 
-- (void)done;
-- (void)renderGutters;
-
-@property (retain) IBOutlet OKSourceCodeTextView *grammarTextView;
-@property (retain) IBOutlet OKSourceCodeTextView *inputTextView;
-
-@property (retain) NSString *grammarString;
-@property (retain) NSString *inputString;
-@property BOOL busy;
+@property (nonatomic, retain) IBOutlet OKGutterView *gutterView;
+@property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
 @end
