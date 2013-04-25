@@ -33,6 +33,7 @@
 
 - (NSInteger)tokenKindForString:(NSString *)s;
 - (BOOL)lookahead:(NSInteger)x predicts:(NSInteger)tokenKind;
+- (void)fireSyntaxSelector:(SEL)sel withRuleName:(NSString *)ruleName;
 
 - (void)_discard;
 - (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind;
@@ -278,6 +279,15 @@
     
     if (_assembler && [_assembler respondsToSelector:sel]) {
         [_assembler performSelector:sel withObject:self withObject:_assembly];
+    }
+}
+
+
+- (void)fireSyntaxSelector:(SEL)sel withRuleName:(NSString *)ruleName {
+    if (self._isSpeculating) return;
+    
+    if (_assembler && [_assembler respondsToSelector:sel]) {
+        [_assembler performSelector:sel withObject:self withObject:ruleName];
     }
 }
 

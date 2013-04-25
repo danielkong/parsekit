@@ -42,7 +42,6 @@
     NSAssert(_saveNode, @"");
 
     self.currentNode = _saveNode;
-    self.saveNode = nil;
 }
 
 

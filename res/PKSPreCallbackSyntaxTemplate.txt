@@ -1,2 +1,2 @@
-    [self.assembler parser:self willMatch{{nodeType}}:@"{{methodName}}"];
+    [self fireSyntaxSelector:@selector(parser:willMatch{{nodeType}}:) withRuleName:@"{{methodName}}"];
 

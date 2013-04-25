@@ -26,14 +26,7 @@
 
 #define LOG(obj) do { NSLog(@"%@", (obj)); } while (0);
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
-{%if parseTree %}
-@interface NSObject ()
-- (void)parser:(PKSParser *)p willMatchInterior:(NSString *)ruleName;
-- (void)parser:(PKSParser *)p didMatchInterior:(NSString *)ruleName;
-- (void)parser:(PKSParser *)p willMatchLeaf:(NSString *)ruleName;
-- (void)parser:(PKSParser *)p didMatchLeaf:(NSString *)ruleName;
-@end
-{%/if%}
+
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 
@@ -46,7 +39,9 @@
 - (void)_pushBool:(BOOL)yn;
 - (void)_pushInteger:(NSInteger)i;
 - (void)_pushDouble:(double)d;
-@end
+{%if parseTree %}
+- (void)fireSyntaxSelector:(SEL)sel withRuleName:(NSString *)ruleName;
+{%/if%}@end
 
 @interface {{className}} ()
 {%if enableMemoization %}{%for methodName in ruleMethodNames %}@property (nonatomic, retain) NSMutableDictionary *{{methodName}}_memo;
