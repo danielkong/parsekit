@@ -64,14 +64,12 @@
 		D30DA1F31728565000A1A3EC /* OKMiniCSSAssembler.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1EE1728565000A1A3EC /* OKMiniCSSAssembler.h */; };
 		D30DA1F41728565000A1A3EC /* OKMiniCSSAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1EF1728565000A1A3EC /* OKMiniCSSAssembler.m */; };
 		D30DA1F51728565000A1A3EC /* OKSyntaxHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1F01728565000A1A3EC /* OKSyntaxHighlighter.m */; };
-		D30DA1FF1728566000A1A3EC /* CSSParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1F71728566000A1A3EC /* CSSParser.h */; };
-		D30DA2001728566000A1A3EC /* CSSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1F81728566000A1A3EC /* CSSParser.m */; };
-		D30DA2011728566000A1A3EC /* HTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1F91728566000A1A3EC /* HTMLParser.h */; };
-		D30DA2021728566000A1A3EC /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1FA1728566000A1A3EC /* HTMLParser.m */; };
-		D30DA2031728566000A1A3EC /* JavaScriptParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1FB1728566000A1A3EC /* JavaScriptParser.h */; };
-		D30DA2041728566000A1A3EC /* JavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1FC1728566000A1A3EC /* JavaScriptParser.m */; };
-		D30DA2051728566000A1A3EC /* JSONParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1FD1728566000A1A3EC /* JSONParser.h */; };
-		D30DA2061728566000A1A3EC /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1FE1728566000A1A3EC /* JSONParser.m */; };
+		D30DA1FF1728566000A1A3EC /* OKCSSParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1F71728566000A1A3EC /* OKCSSParser.h */; };
+		D30DA2001728566000A1A3EC /* OKCSSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1F81728566000A1A3EC /* OKCSSParser.m */; };
+		D30DA2011728566000A1A3EC /* OKHTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1F91728566000A1A3EC /* OKHTMLParser.h */; };
+		D30DA2021728566000A1A3EC /* OKHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1FA1728566000A1A3EC /* OKHTMLParser.m */; };
+		D30DA2051728566000A1A3EC /* OKJSONParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA1FD1728566000A1A3EC /* OKJSONParser.h */; };
+		D30DA2061728566000A1A3EC /* OKJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA1FE1728566000A1A3EC /* OKJSONParser.m */; };
 		D30DA209172856CE00A1A3EC /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D30DA20B172856DC00A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
 		D30DA2121728570B00A1A3EC /* OKGenericAssemblerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA20D1728570B00A1A3EC /* OKGenericAssemblerTest.m */; };
@@ -761,6 +759,8 @@
 		D3BD39541728BFBA00FC6549 /* OKSourceEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3BD39511728BFBA00FC6549 /* OKSourceEditViewController.xib */; };
 		D3BD39561728C01100FC6549 /* OKSourceEditViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BD39551728C01100FC6549 /* OKSourceEditViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3BD39581728C01F00FC6549 /* OKSourceEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD39571728C01F00FC6549 /* OKSourceEditViewController.m */; };
+		D3BD395C1729B16C00FC6549 /* OKJavaScriptParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BD395A1729B16C00FC6549 /* OKJavaScriptParser.h */; };
+		D3BD395D1729B16C00FC6549 /* OKJavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD395B1729B16C00FC6549 /* OKJavaScriptParser.m */; };
 		D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */; };
 		D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */; };
 		D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1273,14 +1273,12 @@
 		D30DA1EE1728565000A1A3EC /* OKMiniCSSAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKMiniCSSAssembler.h; path = okudakit/src/OKMiniCSSAssembler.h; sourceTree = SOURCE_ROOT; };
 		D30DA1EF1728565000A1A3EC /* OKMiniCSSAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKMiniCSSAssembler.m; path = okudakit/src/OKMiniCSSAssembler.m; sourceTree = SOURCE_ROOT; };
 		D30DA1F01728565000A1A3EC /* OKSyntaxHighlighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKSyntaxHighlighter.m; path = okudakit/src/OKSyntaxHighlighter.m; sourceTree = SOURCE_ROOT; };
-		D30DA1F71728566000A1A3EC /* CSSParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSParser.h; sourceTree = "<group>"; };
-		D30DA1F81728566000A1A3EC /* CSSParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSParser.m; sourceTree = "<group>"; };
-		D30DA1F91728566000A1A3EC /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
-		D30DA1FA1728566000A1A3EC /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
-		D30DA1FB1728566000A1A3EC /* JavaScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JavaScriptParser.h; sourceTree = "<group>"; };
-		D30DA1FC1728566000A1A3EC /* JavaScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JavaScriptParser.m; sourceTree = "<group>"; };
-		D30DA1FD1728566000A1A3EC /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
-		D30DA1FE1728566000A1A3EC /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParser.m; sourceTree = "<group>"; };
+		D30DA1F71728566000A1A3EC /* OKCSSParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKCSSParser.h; sourceTree = "<group>"; };
+		D30DA1F81728566000A1A3EC /* OKCSSParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKCSSParser.m; sourceTree = "<group>"; };
+		D30DA1F91728566000A1A3EC /* OKHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKHTMLParser.h; sourceTree = "<group>"; };
+		D30DA1FA1728566000A1A3EC /* OKHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKHTMLParser.m; sourceTree = "<group>"; };
+		D30DA1FD1728566000A1A3EC /* OKJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKJSONParser.h; sourceTree = "<group>"; };
+		D30DA1FE1728566000A1A3EC /* OKJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKJSONParser.m; sourceTree = "<group>"; };
 		D30DA20C1728570B00A1A3EC /* OKGenericAssemblerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKGenericAssemblerTest.h; path = okudakit/test/OKGenericAssemblerTest.h; sourceTree = SOURCE_ROOT; };
 		D30DA20D1728570B00A1A3EC /* OKGenericAssemblerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKGenericAssemblerTest.m; path = okudakit/test/OKGenericAssemblerTest.m; sourceTree = SOURCE_ROOT; };
 		D30DA20E1728570B00A1A3EC /* OKMiniCSSAssemblerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKMiniCSSAssemblerTest.h; path = okudakit/test/OKMiniCSSAssemblerTest.h; sourceTree = SOURCE_ROOT; };
@@ -1955,6 +1953,8 @@
 		D3BD39511728BFBA00FC6549 /* OKSourceEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OKSourceEditViewController.xib; path = okudakit/OKSourceEditViewController.xib; sourceTree = SOURCE_ROOT; };
 		D3BD39551728C01100FC6549 /* OKSourceEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKSourceEditViewController.h; path = okudakit/include/OkudaKit/OKSourceEditViewController.h; sourceTree = SOURCE_ROOT; };
 		D3BD39571728C01F00FC6549 /* OKSourceEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKSourceEditViewController.m; path = okudakit/src/OKSourceEditViewController.m; sourceTree = SOURCE_ROOT; };
+		D3BD395A1729B16C00FC6549 /* OKJavaScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKJavaScriptParser.h; sourceTree = "<group>"; };
+		D3BD395B1729B16C00FC6549 /* OKJavaScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKJavaScriptParser.m; sourceTree = "<group>"; };
 		D3C031EB0EF38D2D00C5ABEB /* TDLowercaseWordTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLowercaseWordTest.h; path = test/TDLowercaseWordTest.h; sourceTree = "<group>"; };
 		D3C031EC0EF38D2D00C5ABEB /* TDLowercaseWordTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLowercaseWordTest.m; path = test/TDLowercaseWordTest.m; sourceTree = "<group>"; };
 		D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseSymbol.h; path = src/PKBaseSymbol.h; sourceTree = "<group>"; };
@@ -2446,14 +2446,14 @@
 		D30DA1F61728566000A1A3EC /* Parsers */ = {
 			isa = PBXGroup;
 			children = (
-				D30DA1F71728566000A1A3EC /* CSSParser.h */,
-				D30DA1F81728566000A1A3EC /* CSSParser.m */,
-				D30DA1F91728566000A1A3EC /* HTMLParser.h */,
-				D30DA1FA1728566000A1A3EC /* HTMLParser.m */,
-				D30DA1FB1728566000A1A3EC /* JavaScriptParser.h */,
-				D30DA1FC1728566000A1A3EC /* JavaScriptParser.m */,
-				D30DA1FD1728566000A1A3EC /* JSONParser.h */,
-				D30DA1FE1728566000A1A3EC /* JSONParser.m */,
+				D3BD395A1729B16C00FC6549 /* OKJavaScriptParser.h */,
+				D3BD395B1729B16C00FC6549 /* OKJavaScriptParser.m */,
+				D30DA1F71728566000A1A3EC /* OKCSSParser.h */,
+				D30DA1F81728566000A1A3EC /* OKCSSParser.m */,
+				D30DA1F91728566000A1A3EC /* OKHTMLParser.h */,
+				D30DA1FA1728566000A1A3EC /* OKHTMLParser.m */,
+				D30DA1FD1728566000A1A3EC /* OKJSONParser.h */,
+				D30DA1FE1728566000A1A3EC /* OKJSONParser.m */,
 			);
 			name = Parsers;
 			path = okudakit/src/parsers;
@@ -4024,14 +4024,14 @@
 				D30DA1EB1728561E00A1A3EC /* OKSyntaxHighlighter.h in Headers */,
 				D30DA1F11728565000A1A3EC /* OKGenericAssembler.h in Headers */,
 				D30DA1F31728565000A1A3EC /* OKMiniCSSAssembler.h in Headers */,
-				D30DA1FF1728566000A1A3EC /* CSSParser.h in Headers */,
-				D30DA2011728566000A1A3EC /* HTMLParser.h in Headers */,
-				D30DA2031728566000A1A3EC /* JavaScriptParser.h in Headers */,
-				D30DA2051728566000A1A3EC /* JSONParser.h in Headers */,
+				D30DA1FF1728566000A1A3EC /* OKCSSParser.h in Headers */,
+				D30DA2011728566000A1A3EC /* OKHTMLParser.h in Headers */,
+				D30DA2051728566000A1A3EC /* OKJSONParser.h in Headers */,
 				D30DA2841728BA7B00A1A3EC /* OKGutterView.h in Headers */,
 				D30DA2851728BA7B00A1A3EC /* OKSourceCodeTextView.h in Headers */,
 				D30DA2871728BB0900A1A3EC /* OKView.h in Headers */,
 				D3BD39561728C01100FC6549 /* OKSourceEditViewController.h in Headers */,
+				D3BD395C1729B16C00FC6549 /* OKJavaScriptParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4937,14 +4937,14 @@
 				D30DA1F21728565000A1A3EC /* OKGenericAssembler.m in Sources */,
 				D30DA1F41728565000A1A3EC /* OKMiniCSSAssembler.m in Sources */,
 				D30DA1F51728565000A1A3EC /* OKSyntaxHighlighter.m in Sources */,
-				D30DA2001728566000A1A3EC /* CSSParser.m in Sources */,
-				D30DA2021728566000A1A3EC /* HTMLParser.m in Sources */,
-				D30DA2041728566000A1A3EC /* JavaScriptParser.m in Sources */,
-				D30DA2061728566000A1A3EC /* JSONParser.m in Sources */,
+				D30DA2001728566000A1A3EC /* OKCSSParser.m in Sources */,
+				D30DA2021728566000A1A3EC /* OKHTMLParser.m in Sources */,
+				D30DA2061728566000A1A3EC /* OKJSONParser.m in Sources */,
 				D30DA2801728BA6F00A1A3EC /* OKGutterView.m in Sources */,
 				D30DA2811728BA6F00A1A3EC /* OKSourceCodeTextView.m in Sources */,
 				D30DA2891728BB3D00A1A3EC /* OKView.m in Sources */,
 				D3BD39581728C01F00FC6549 /* OKSourceEditViewController.m in Sources */,
+				D3BD395D1729B16C00FC6549 /* OKJavaScriptParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

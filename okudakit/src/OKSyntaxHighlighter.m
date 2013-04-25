@@ -11,10 +11,10 @@
 #import "OKMiniCSSAssembler.h"
 #import "OKGenericAssembler.h"
 
-#import "CSSParser.h"
-#import "JavaScriptParser.h"
-#import "HTMLParser.h"
-#import "JSONParser.h"
+#import "OKCSSParser.h"
+#import "OKJavaScriptParser.h"
+#import "OKHTMLParser.h"
+#import "OKJSONParser.h"
 
 @interface OKSyntaxHighlighter ()
 - (NSMutableDictionary *)attributesForGrammarNamed:(NSString *)grammarName;
@@ -43,10 +43,10 @@
     self = [super init];
     if (self) {
         self.parserClassTab = @{
-            @"css": [CSSParser class],
-            @"javascript": [JavaScriptParser class],
-            @"html": [HTMLParser class],
-            @"json": [JSONParser class],
+            @"css": [OKCSSParser class],
+            @"javascript": [OKJavaScriptParser class],
+            @"html": [OKHTMLParser class],
+            @"json": [OKJSONParser class],
         };
     }
     return self;
