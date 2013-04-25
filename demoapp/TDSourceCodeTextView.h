@@ -1,5 +1,5 @@
 //
-//  OKSourceCodeTextView.h
+//  TDSourceCodeTextView.h
 //  TextTest
 //
 //  Created by Todd Ditchendorf on 9/9/08.
@@ -10,7 +10,7 @@
 
 @class OKGutterView;
 
-@interface OKSourceCodeTextView : NSTextView {
+@interface TDSourceCodeTextView : NSTextView {
     IBOutlet OKGutterView *gutterView;
     IBOutlet NSScrollView *scrollView;
     CGFloat sourceTextViewOffset;

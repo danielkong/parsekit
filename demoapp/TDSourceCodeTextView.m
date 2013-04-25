@@ -1,21 +1,21 @@
 //
-//  OKSourceCodeTextView.m
+//  TDSourceCodeTextView.m
 //  TextTest
 //
 //  Created by Todd Ditchendorf on 9/9/08.
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import "OKSourceCodeTextView.h"
+#import "TDSourceCodeTextView.h"
 #import "OKGutterView.h"
 
-@interface OKSourceCodeTextView ()
+@interface TDSourceCodeTextView ()
 - (void)registerForNotifications;
 - (void)getRectsOfVisibleLines:(NSArray **)outRects startingLineNumber:(NSUInteger *)outRect;
 - (NSUInteger)lineNumberForIndex:(NSUInteger)inIndex;
 @end
 
-@implementation OKSourceCodeTextView
+@implementation TDSourceCodeTextView
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

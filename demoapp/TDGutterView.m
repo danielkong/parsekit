@@ -1,18 +1,18 @@
 //
-//  OKGutterView.m
+//  TDGutterView.m
 //  TextTest
 //
 //  Created by Todd Ditchendorf on 9/9/08.
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import "OKGutterView.h"
+#import "TDGutterView.h"
 
-@interface OKGutterView ()
+@interface TDGutterView ()
 @property (retain) NSDictionary *attrs;
 @end
 
-@implementation OKGutterView
+@implementation TDGutterView
 
 - (void)awakeFromNib {
     self.attrs = [NSDictionary dictionaryWithObjectsAndKeys:
