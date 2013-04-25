@@ -104,6 +104,12 @@
 		D30DA25F1728AC4200A1A3EC /* yahoo.json in Resources */ = {isa = PBXBuildFile; fileRef = D30DA25A1728AC4200A1A3EC /* yahoo.json */; };
 		D30DA2611728AC4900A1A3EC /* example.js in Resources */ = {isa = PBXBuildFile; fileRef = D30DA2601728AC4900A1A3EC /* example.js */; };
 		D30DA2641728AD2E00A1A3EC /* OkudaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1B8172854B500A1A3EC /* OkudaKit.framework */; };
+		D30DA2801728BA6F00A1A3EC /* OKGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA27E1728BA6F00A1A3EC /* OKGutterView.m */; };
+		D30DA2811728BA6F00A1A3EC /* OKSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA27F1728BA6F00A1A3EC /* OKSourceCodeTextView.m */; };
+		D30DA2841728BA7B00A1A3EC /* OKGutterView.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA2821728BA7B00A1A3EC /* OKGutterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D30DA2851728BA7B00A1A3EC /* OKSourceCodeTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA2831728BA7B00A1A3EC /* OKSourceCodeTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D30DA2871728BB0900A1A3EC /* OKView.h in Headers */ = {isa = PBXBuildFile; fileRef = D30DA2861728BB0800A1A3EC /* OKView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D30DA2891728BB3D00A1A3EC /* OKView.m in Sources */ = {isa = PBXBuildFile; fileRef = D30DA2881728BB3D00A1A3EC /* OKView.m */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
@@ -1307,6 +1313,12 @@
 		D30DA2591728AC4200A1A3EC /* yahoo-small.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "yahoo-small.json"; sourceTree = "<group>"; };
 		D30DA25A1728AC4200A1A3EC /* yahoo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = yahoo.json; sourceTree = "<group>"; };
 		D30DA2601728AC4900A1A3EC /* example.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = example.js; sourceTree = "<group>"; };
+		D30DA27E1728BA6F00A1A3EC /* OKGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKGutterView.m; path = okudakit/src/OKGutterView.m; sourceTree = SOURCE_ROOT; };
+		D30DA27F1728BA6F00A1A3EC /* OKSourceCodeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKSourceCodeTextView.m; path = okudakit/src/OKSourceCodeTextView.m; sourceTree = SOURCE_ROOT; };
+		D30DA2821728BA7B00A1A3EC /* OKGutterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKGutterView.h; path = okudakit/include/OkudaKit/OKGutterView.h; sourceTree = SOURCE_ROOT; };
+		D30DA2831728BA7B00A1A3EC /* OKSourceCodeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKSourceCodeTextView.h; path = okudakit/include/OkudaKit/OKSourceCodeTextView.h; sourceTree = SOURCE_ROOT; };
+		D30DA2861728BB0800A1A3EC /* OKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKView.h; path = okudakit/include/OkudaKit/OKView.h; sourceTree = SOURCE_ROOT; };
+		D30DA2881728BB3D00A1A3EC /* OKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKView.m; path = okudakit/src/OKView.m; sourceTree = SOURCE_ROOT; };
 		D3126D040FFD9BA700CBF4C4 /* PKNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNegation.m; path = src/PKNegation.m; sourceTree = "<group>"; };
 		D3126D090FFD9E4B00CBF4C4 /* TDNegationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNegationTest.h; path = test/TDNegationTest.h; sourceTree = "<group>"; };
 		D3126D0A0FFD9E4B00CBF4C4 /* TDNegationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationTest.m; path = test/TDNegationTest.m; sourceTree = "<group>"; };
@@ -2376,6 +2388,12 @@
 				D30DA1E51728552900A1A3EC /* OkudaKit.h */,
 				D30DA1EA1728561E00A1A3EC /* OKSyntaxHighlighter.h */,
 				D30DA1F01728565000A1A3EC /* OKSyntaxHighlighter.m */,
+				D30DA2821728BA7B00A1A3EC /* OKGutterView.h */,
+				D30DA27E1728BA6F00A1A3EC /* OKGutterView.m */,
+				D30DA2831728BA7B00A1A3EC /* OKSourceCodeTextView.h */,
+				D30DA27F1728BA6F00A1A3EC /* OKSourceCodeTextView.m */,
+				D30DA2861728BB0800A1A3EC /* OKView.h */,
+				D30DA2881728BB3D00A1A3EC /* OKView.m */,
 				D30DA1F61728566000A1A3EC /* Parsers */,
 				D30DA2651728B3AE00A1A3EC /* Assemblers */,
 				D30DA2171728584100A1A3EC /* res */,
@@ -4001,6 +4019,9 @@
 				D30DA2011728566000A1A3EC /* HTMLParser.h in Headers */,
 				D30DA2031728566000A1A3EC /* JavaScriptParser.h in Headers */,
 				D30DA2051728566000A1A3EC /* JSONParser.h in Headers */,
+				D30DA2841728BA7B00A1A3EC /* OKGutterView.h in Headers */,
+				D30DA2851728BA7B00A1A3EC /* OKSourceCodeTextView.h in Headers */,
+				D30DA2871728BB0900A1A3EC /* OKView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4909,6 +4930,9 @@
 				D30DA2021728566000A1A3EC /* HTMLParser.m in Sources */,
 				D30DA2041728566000A1A3EC /* JavaScriptParser.m in Sources */,
 				D30DA2061728566000A1A3EC /* JSONParser.m in Sources */,
+				D30DA2801728BA6F00A1A3EC /* OKGutterView.m in Sources */,
+				D30DA2811728BA6F00A1A3EC /* OKSourceCodeTextView.m in Sources */,
+				D30DA2891728BB3D00A1A3EC /* OKView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

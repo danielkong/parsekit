@@ -6,5 +6,8 @@
 //
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
+
 #import <OkudaKit/OKSyntaxHighlighter.h>
+#import <OkudaKit/OKSourceCodeTextView.h>
+#import <OkudaKit/OKGutterView.h>

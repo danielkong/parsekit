@@ -5,3 +5,28 @@
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
 #endif
+
+#define OKAssertMainThread() NSAssert1([NSThread isMainThread], @"%s should be called on the main thread only.", __PRETTY_FUNCTION__);
+
+#define OKPerformOnMainThread(block) { \
+    dispatch_sync(dispatch_get_main_queue(), (block)); \
+}
+
+
+#define OKPerformOnBackgroundThread(block) { \
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), (block)); \
+}
+
+
+#define OKPerformOnMainThreadAfterDelay(delay, block) { \
+    double delayInSeconds = (delay); \
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC); \
+    dispatch_after(popTime, dispatch_get_main_queue(), (block)); \
+}
+
+
+#define OKPerformOnBackgroundThreadAfterDelay(delay, block) { \
+    double delayInSeconds = (delay); \
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC); \
+    dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), (block)); \
+}
