@@ -1,2 +1,2 @@
     [_assembler parser:self willMatch{{nodeType}}:@"{{methodName}}"];
-    
+

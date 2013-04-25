@@ -28,6 +28,9 @@
         
         self.destinationPath = [@"~/Desktop" stringByExpandingTildeInPath];
         self.parserName = @"ExpressionParser";
+
+        self.preassemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorNone;
+        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
         
         NSString *path = [[NSBundle mainBundle] pathForResource:@"expression" ofType:@"grammar"];
         self.grammar = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -71,7 +74,7 @@
 
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    NSMutableDictionary *tab = [NSMutableDictionary dictionaryWithCapacity:7];
+    NSMutableDictionary *tab = [NSMutableDictionary dictionaryWithCapacity:8];
 
     if (_destinationPath) tab[@"destinationPath"] = _destinationPath;
     if (_grammar) tab[@"grammar"] = _grammar;
