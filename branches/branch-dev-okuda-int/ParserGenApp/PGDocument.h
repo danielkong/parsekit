@@ -22,6 +22,7 @@
 @property (nonatomic, assign) BOOL enableHybridDFA;
 @property (nonatomic, assign) BOOL enableMemoization;
 @property (nonatomic, assign) BOOL enableAutomaticErrorRecovery;
+@property (nonatomic, assign) NSInteger preassemblerSettingBehavior;
 @property (nonatomic, assign) NSInteger assemblerSettingBehavior;
 
 @property (nonatomic, retain) IBOutlet NSTextView *textView;

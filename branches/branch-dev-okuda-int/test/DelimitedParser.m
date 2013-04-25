@@ -85,6 +85,7 @@
 - (void)__s {
     
     [self match:DELIMITED_TOKEN_KIND_S discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 

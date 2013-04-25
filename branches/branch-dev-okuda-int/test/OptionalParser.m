@@ -94,6 +94,7 @@
     }
     [self foo]; 
     [self bar]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
@@ -106,6 +107,7 @@
     [self foo]; 
     [self bar]; 
     [self bar]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
@@ -116,6 +118,7 @@
 - (void)__foo {
     
     [self match:OPTIONAL_TOKEN_KIND_FOO discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
 
@@ -126,6 +129,7 @@
 - (void)__bar {
     
     [self match:OPTIONAL_TOKEN_KIND_BAR discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
 }
 

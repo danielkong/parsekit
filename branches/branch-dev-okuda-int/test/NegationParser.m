@@ -85,6 +85,7 @@
     } else {
         [self raise:@"negation test failed in s"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
@@ -95,6 +96,7 @@
 - (void)__foo {
     
     [self match:NEGATION_TOKEN_KIND_FOO discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
 

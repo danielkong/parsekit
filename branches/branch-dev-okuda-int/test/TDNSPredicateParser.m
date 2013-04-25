@@ -370,6 +370,7 @@
             break;
         }
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
@@ -381,6 +382,7 @@
     
     [self orKeyword]; 
     [self orTerm]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchOrOrTerm:)];
 }
 
@@ -398,6 +400,7 @@
             break;
         }
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
 }
 
@@ -409,6 +412,7 @@
     
     [self andKeyword]; 
     [self andTerm]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchAndAndTerm:)];
 }
 
@@ -425,6 +429,7 @@
     } else {
         [self raise:@"no viable alternative found in andTerm"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchAndTerm:)];
 }
 
@@ -437,6 +442,7 @@
     [self match:TDNSPREDICATE_TOKEN_KIND_OPEN_PAREN discard:YES];
     [self expr]; 
     [self match:TDNSPREDICATE_TOKEN_KIND_CLOSE_PAREN discard:YES];
+
     [self fireAssemblerSelector:@selector(parser:didMatchCompoundExpr:)];
 }
 
@@ -453,6 +459,7 @@
     } else {
         [self raise:@"no viable alternative found in primaryExpr"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchPrimaryExpr:)];
 }
 
@@ -464,6 +471,7 @@
     
     [self notKeyword]; 
     [self predicate]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchNegatedPredicate:)];
 }
 
@@ -484,6 +492,7 @@
     } else {
         [self raise:@"no viable alternative found in predicate"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchPredicate:)];
 }
 
@@ -506,6 +515,7 @@
     } else {
         [self raise:@"no viable alternative found in value"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchValue:)];
 }
 
@@ -516,6 +526,7 @@
 - (void)__string {
     
     [self matchQuotedString:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchString:)];
 }
 
@@ -526,6 +537,7 @@
 - (void)__num {
     
     [self matchNumber:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchNum:)];
 }
 
@@ -542,6 +554,7 @@
     } else {
         [self raise:@"no viable alternative found in bool"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchBool:)];
 }
 
@@ -552,6 +565,7 @@
 - (void)__trueLiteral {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_TRUELITERAL discard:YES];
+
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
 }
 
@@ -562,6 +576,7 @@
 - (void)__falseLiteral {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_FALSELITERAL discard:YES];
+
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
 }
 
@@ -574,6 +589,7 @@
     [self match:TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY discard:NO];
     [self arrayContentsOpt]; 
     [self match:TDNSPREDICATE_TOKEN_KIND_CLOSE_CURLY discard:YES];
+
     [self fireAssemblerSelector:@selector(parser:didMatchArray:)];
 }
 
@@ -586,6 +602,7 @@
     if ([self predicts:TDNSPREDICATE_TOKEN_KIND_FALSELITERAL, TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY, TDNSPREDICATE_TOKEN_KIND_TRUELITERAL, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self arrayContents]; 
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchArrayContentsOpt:)];
 }
 
@@ -603,6 +620,7 @@
             break;
         }
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchArrayContents:)];
 }
 
@@ -614,6 +632,7 @@
     
     [self match:TDNSPREDICATE_TOKEN_KIND_COMMA discard:YES];
     [self value]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchCommaValue:)];
 }
 
@@ -624,6 +643,7 @@
 - (void)__keyPath {
     
     [self matchWord:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchKeyPath:)];
 }
 
@@ -640,6 +660,7 @@
     } else {
         [self raise:@"no viable alternative found in comparisonPredicate"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchComparisonPredicate:)];
 }
 
@@ -652,6 +673,7 @@
     [self numComparisonValue]; 
     [self comparisonOp]; 
     [self numComparisonValue]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchNumComparisonPredicate:)];
 }
 
@@ -668,6 +690,7 @@
     } else {
         [self raise:@"no viable alternative found in numComparisonValue"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchNumComparisonValue:)];
 }
 
@@ -694,6 +717,7 @@
     } else {
         [self raise:@"no viable alternative found in comparisonOp"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchComparisonOp:)];
 }
 
@@ -710,6 +734,7 @@
     } else {
         [self raise:@"no viable alternative found in eq"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
 
@@ -720,6 +745,7 @@
 - (void)__gt {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_GT discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
 
@@ -730,6 +756,7 @@
 - (void)__lt {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_LT discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
 
@@ -746,6 +773,7 @@
     } else {
         [self raise:@"no viable alternative found in gtEq"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchGtEq:)];
 }
 
@@ -762,6 +790,7 @@
     } else {
         [self raise:@"no viable alternative found in ltEq"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchLtEq:)];
 }
 
@@ -778,6 +807,7 @@
     } else {
         [self raise:@"no viable alternative found in notEq"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchNotEq:)];
 }
 
@@ -788,6 +818,7 @@
 - (void)__between {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_BETWEEN discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchBetween:)];
 }
 
@@ -812,6 +843,7 @@
     } else {
         [self raise:@"no viable alternative found in collectionComparisonPredicate"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionComparisonPredicate:)];
 }
 
@@ -825,6 +857,7 @@
     [self collection]; 
     [self lt]; 
     [self value]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionLtPredicate:)];
 }
 
@@ -838,6 +871,7 @@
     [self collection]; 
     [self gt]; 
     [self value]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionGtPredicate:)];
 }
 
@@ -851,6 +885,7 @@
     [self collection]; 
     [self ltEq]; 
     [self value]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionLtEqPredicate:)];
 }
 
@@ -864,6 +899,7 @@
     [self collection]; 
     [self gtEq]; 
     [self value]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionGtEqPredicate:)];
 }
 
@@ -877,6 +913,7 @@
     [self collection]; 
     [self eq]; 
     [self value]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionEqPredicate:)];
 }
 
@@ -890,6 +927,7 @@
     [self collection]; 
     [self notEq]; 
     [self value]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionNotEqPredicate:)];
 }
 
@@ -906,6 +944,7 @@
     } else {
         [self raise:@"no viable alternative found in boolPredicate"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchBoolPredicate:)];
 }
 
@@ -916,6 +955,7 @@
 - (void)__truePredicate {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE discard:YES];
+
     [self fireAssemblerSelector:@selector(parser:didMatchTruePredicate:)];
 }
 
@@ -926,6 +966,7 @@
 - (void)__falsePredicate {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE discard:YES];
+
     [self fireAssemblerSelector:@selector(parser:didMatchFalsePredicate:)];
 }
 
@@ -942,6 +983,7 @@
     } else {
         [self raise:@"no viable alternative found in andKeyword"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchAndKeyword:)];
 }
 
@@ -958,6 +1000,7 @@
     } else {
         [self raise:@"no viable alternative found in orKeyword"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchOrKeyword:)];
 }
 
@@ -974,6 +1017,7 @@
     } else {
         [self raise:@"no viable alternative found in notKeyword"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchNotKeyword:)];
 }
 
@@ -986,6 +1030,7 @@
     [self string]; 
     [self stringTestOp]; 
     [self value]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchStringTestPredicate:)];
 }
 
@@ -1008,6 +1053,7 @@
     } else {
         [self raise:@"no viable alternative found in stringTestOp"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchStringTestOp:)];
 }
 
@@ -1018,6 +1064,7 @@
 - (void)__beginswith {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_BEGINSWITH discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchBeginswith:)];
 }
 
@@ -1028,6 +1075,7 @@
 - (void)__contains {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_CONTAINS discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchContains:)];
 }
 
@@ -1038,6 +1086,7 @@
 - (void)__endswith {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_ENDSWITH discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchEndswith:)];
 }
 
@@ -1048,6 +1097,7 @@
 - (void)__like {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_LIKE discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchLike:)];
 }
 
@@ -1058,6 +1108,7 @@
 - (void)__matches {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_MATCHES discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchMatches:)];
 }
 
@@ -1070,6 +1121,7 @@
     [self value]; 
     [self inKeyword]; 
     [self collection]; 
+
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionTestPredicate:)];
 }
 
@@ -1086,6 +1138,7 @@
     } else {
         [self raise:@"no viable alternative found in collection"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchCollection:)];
 }
 
@@ -1096,6 +1149,7 @@
 - (void)__inKeyword {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_INKEYWORD discard:YES];
+
     [self fireAssemblerSelector:@selector(parser:didMatchInKeyword:)];
 }
 
@@ -1116,6 +1170,7 @@
     } else {
         [self raise:@"no viable alternative found in aggregateOp"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchAggregateOp:)];
 }
 
@@ -1126,6 +1181,7 @@
 - (void)__any {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_ANY discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchAny:)];
 }
 
@@ -1136,6 +1192,7 @@
 - (void)__some {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_SOME discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchSome:)];
 }
 
@@ -1146,6 +1203,7 @@
 - (void)__all {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_ALL discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchAll:)];
 }
 
@@ -1156,6 +1214,7 @@
 - (void)__none {
     
     [self match:TDNSPREDICATE_TOKEN_KIND_NONE discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchNone:)];
 }
 
