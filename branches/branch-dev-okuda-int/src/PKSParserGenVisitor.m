@@ -21,6 +21,7 @@
 #define TOKEN_KINDS @"tokenKinds"
 #define RULE_METHOD_NAMES @"ruleMethodNames"
 #define ENABLE_MEMOIZATION @"enableMemoization"
+#define ENABLE_ERROR_RECOVERY @"enableAutomaticErrorRecovery"
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
 #define METHOD_BODY @"methodBody"
@@ -234,6 +235,7 @@
     vars[METHODS] = childStr;
     vars[RULE_METHOD_NAMES] = self.ruleMethodNames;
     vars[ENABLE_MEMOIZATION] = @(self.enableMemoization);
+    vars[ENABLE_ERROR_RECOVERY] = @(self.enableAutomaticErrorRecovery);
     
     NSString *implTemplate = [self templateStringNamed:@"PKSClassImplementationTemplate"];
     self.implementationOutputString = [_engine processTemplate:implTemplate withVariables:vars];
