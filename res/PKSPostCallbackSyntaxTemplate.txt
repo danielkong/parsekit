@@ -1,2 +1,2 @@
 
-    [_assembler parser:self didMatch{{nodeType}}:@"{{methodName}}"];
+    [self.assembler parser:self didMatch{{nodeType}}:@"{{methodName}}"];

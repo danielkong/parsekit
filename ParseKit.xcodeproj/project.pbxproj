@@ -771,7 +771,8 @@
 		D3BD39691729D37600FC6549 /* PKSPreCallbackSyntaxTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BD39651729D37600FC6549 /* PKSPreCallbackSyntaxTemplate.txt */; };
 		D3BD396C1729E13000FC6549 /* PKSParseTreeAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD396B1729E13000FC6549 /* PKSParseTreeAssembler.m */; };
 		D3BD396D1729E13000FC6549 /* PKSParseTreeAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD396B1729E13000FC6549 /* PKSParseTreeAssembler.m */; };
-		D3BD396E1729E13000FC6549 /* PKSParseTreeAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD396B1729E13000FC6549 /* PKSParseTreeAssembler.m */; };
+		D3BD39721729E4CA00FC6549 /* ExpressionSyntaxParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD39701729E4CA00FC6549 /* ExpressionSyntaxParser.m */; };
+		D3BD39741729E71900FC6549 /* ExpressionSyntaxParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD39701729E4CA00FC6549 /* ExpressionSyntaxParser.m */; };
 		D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */; };
 		D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */; };
 		D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1972,6 +1973,8 @@
 		D3BD39651729D37600FC6549 /* PKSPreCallbackSyntaxTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPreCallbackSyntaxTemplate.txt; path = res/PKSPreCallbackSyntaxTemplate.txt; sourceTree = "<group>"; };
 		D3BD396A1729E13000FC6549 /* PKSParseTreeAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSParseTreeAssembler.h; path = test/PKSParseTreeAssembler.h; sourceTree = "<group>"; };
 		D3BD396B1729E13000FC6549 /* PKSParseTreeAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSParseTreeAssembler.m; path = test/PKSParseTreeAssembler.m; sourceTree = "<group>"; };
+		D3BD396F1729E4CA00FC6549 /* ExpressionSyntaxParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpressionSyntaxParser.h; path = test/ExpressionSyntaxParser.h; sourceTree = "<group>"; };
+		D3BD39701729E4CA00FC6549 /* ExpressionSyntaxParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExpressionSyntaxParser.m; path = test/ExpressionSyntaxParser.m; sourceTree = "<group>"; };
 		D3C031EB0EF38D2D00C5ABEB /* TDLowercaseWordTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLowercaseWordTest.h; path = test/TDLowercaseWordTest.h; sourceTree = "<group>"; };
 		D3C031EC0EF38D2D00C5ABEB /* TDLowercaseWordTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLowercaseWordTest.m; path = test/TDLowercaseWordTest.m; sourceTree = "<group>"; };
 		D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseSymbol.h; path = src/PKBaseSymbol.h; sourceTree = "<group>"; };
@@ -3912,6 +3915,8 @@
 				D369345A1038DE5300527AF3 /* PKRuleNode.m */,
 				D369345B1038DE5300527AF3 /* PKTokenNode.h */,
 				D369345C1038DE5300527AF3 /* PKTokenNode.m */,
+				D3BD396F1729E4CA00FC6549 /* ExpressionSyntaxParser.h */,
+				D3BD39701729E4CA00FC6549 /* ExpressionSyntaxParser.m */,
 				D3BD396A1729E13000FC6549 /* PKSParseTreeAssembler.h */,
 				D3BD396B1729E13000FC6549 /* PKSParseTreeAssembler.m */,
 			);
@@ -5017,6 +5022,7 @@
 				D3407DD117010A8F0047F5FC /* PKASTView.m in Sources */,
 				D3407DD517010AC30047F5FC /* DemoBaseViewController.m in Sources */,
 				D3BD396D1729E13000FC6549 /* PKSParseTreeAssembler.m in Sources */,
+				D3BD39721729E4CA00FC6549 /* ExpressionSyntaxParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5034,7 +5040,6 @@
 				D33830B6171CA46200CCE513 /* NSArray_DeepMutableCopy.m in Sources */,
 				D33830B7171CA46200CCE513 /* NSDictionary_DeepMutableCopy.m in Sources */,
 				D33830BB171CA50F00CCE513 /* RegexKitLite.m in Sources */,
-				D3BD396E1729E13000FC6549 /* PKSParseTreeAssembler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5265,6 +5270,7 @@
 				D30DA18D1725BB5700A1A3EC /* RecoverySingleTokenInsertionTest.m in Sources */,
 				D30DA1931726028500A1A3EC /* RecoveryResyncSetTest.m in Sources */,
 				D3BD396C1729E13000FC6549 /* PKSParseTreeAssembler.m in Sources */,
+				D3BD39741729E71900FC6549 /* ExpressionSyntaxParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

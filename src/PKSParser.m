@@ -23,7 +23,6 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKSRecognitionException *_exception;
-@property (nonatomic, assign) id _assembler; // weak ref
 @property (nonatomic, retain) NSMutableArray *_lookahead;
 @property (nonatomic, retain) NSMutableArray *_markers;
 @property (nonatomic, assign) NSInteger _p;
@@ -80,8 +79,8 @@
 - (void)dealloc {
     self.tokenizer = nil;
     self.assembly = nil;
+    self.assembler = nil;
     self._exception = nil;
-    self._assembler = nil;
     self._lookahead = nil;
     self._markers = nil;
     self._tokenKindTab = nil;
@@ -142,7 +141,7 @@
     id result = nil;
     
     // setup
-    self._assembler = a;
+    self.assembler = a;
     self.tokenizer = t;
     self.assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
     
@@ -202,7 +201,7 @@
     @finally {
         self.tokenizer.delegate = nil;
         self.tokenizer = nil;
-        self._assembler = nil;
+        self.assembler = nil;
         self.assembly = nil;
         self._lookahead = nil;
         self._markers = nil;
@@ -698,7 +697,6 @@
 }
 
 @synthesize _exception = _exception;
-@synthesize _assembler = _assembler;
 @synthesize _lookahead = _lookahead;
 @synthesize _markers = _markers;
 @synthesize _p = _p;
