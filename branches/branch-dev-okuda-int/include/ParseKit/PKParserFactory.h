@@ -14,10 +14,11 @@
 void PKReleaseSubparserTree(PKParser *p);
 
 typedef enum {
-    PKParserFactoryAssemblerSettingBehaviorOnAll        = 0, // Default
-    PKParserFactoryAssemblerSettingBehaviorOnNone       = 1,
-    PKParserFactoryAssemblerSettingBehaviorOnTerminals  = 2,
-    PKParserFactoryAssemblerSettingBehaviorOnExplicit   = 3,
+    PKParserFactoryAssemblerSettingBehaviorAll        = 0, // Default
+    PKParserFactoryAssemblerSettingBehaviorNone       = 1,
+    PKParserFactoryAssemblerSettingBehaviorTerminals  = 2,
+    PKParserFactoryAssemblerSettingBehaviorExplicit   = 3,
+    PKParserFactoryAssemblerSettingBehaviorSyntax     = 3,
 } PKParserFactoryAssemblerSettingBehavior;
 
 @interface PKParserFactory : NSObject
