@@ -1,1 +1,1 @@
-    [self fireAssemblerSelector:@selector(parser:willMatch{{nodeType}}:{{methodName}}:)];
+    [_assembler parser:self willMatch{{nodeType}}:@"{{methodName}}"];
