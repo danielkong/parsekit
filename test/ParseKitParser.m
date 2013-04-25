@@ -262,7 +262,6 @@
         [self statement]; 
     } while ([self speculate:^{ [self statement]; }]);
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
@@ -275,7 +274,6 @@
     } else {
         [self raise:@"no viable alternative found in statement"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchStatement:)];
 }
 
@@ -298,7 +296,6 @@
         }
     } while ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]);
     [self match:PARSEKIT_TOKEN_KIND_SEMI_COLON discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchTokenizerDirective:)];
 }
 
@@ -322,7 +319,6 @@
     }
     [self expr]; 
     [self match:PARSEKIT_TOKEN_KIND_SEMI_COLON discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchDecl:)];
 }
 
@@ -339,7 +335,6 @@
     } else {
         [self raise:@"no viable alternative found in production"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchProduction:)];
 }
 
@@ -351,7 +346,6 @@
     
     [self match:PARSEKIT_TOKEN_KIND_AT discard:YES];
     [self match:PARSEKIT_TOKEN_KIND_START discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchStartProduction:)];
 }
 
@@ -370,7 +364,6 @@
         [self raise:@"no viable alternative found in namedAction"];
     }
     [self action]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchNamedAction:)];
 }
 
@@ -381,7 +374,6 @@
 - (void)__beforeKey {
     
     [self match:PARSEKIT_TOKEN_KIND_BEFOREKEY discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchBeforeKey:)];
 }
 
@@ -392,7 +384,6 @@
 - (void)__afterKey {
     
     [self match:PARSEKIT_TOKEN_KIND_AFTERKEY discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchAfterKey:)];
 }
 
@@ -403,7 +394,6 @@
 - (void)__varProduction {
     
     [self matchWord:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchVarProduction:)];
 }
 
@@ -421,7 +411,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
@@ -442,7 +431,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchTerm:)];
 }
 
@@ -454,7 +442,6 @@
     
     [self match:PARSEKIT_TOKEN_KIND_PIPE discard:NO];
     [self term]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
 }
 
@@ -479,7 +466,6 @@
     if ([self predicts:PARSEKIT_TOKEN_KIND_ACTION, 0]) {
         [self action]; 
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchFactor:)];
 }
 
@@ -490,7 +476,6 @@
 - (void)__nextFactor {
     
     [self factor]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchNextFactor:)];
 }
 
@@ -508,7 +493,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchPhrase:)];
 }
 
@@ -519,7 +503,6 @@
 - (void)__phraseStar {
     
     [self match:PARSEKIT_TOKEN_KIND_PHRASESTAR discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchPhraseStar:)];
 }
 
@@ -530,7 +513,6 @@
 - (void)__phrasePlus {
     
     [self match:PARSEKIT_TOKEN_KIND_PHRASEPLUS discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchPhrasePlus:)];
 }
 
@@ -541,7 +523,6 @@
 - (void)__phraseQuestion {
     
     [self match:PARSEKIT_TOKEN_KIND_PHRASEQUESTION discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchPhraseQuestion:)];
 }
 
@@ -552,7 +533,6 @@
 - (void)__action {
     
     [self match:PARSEKIT_TOKEN_KIND_ACTION discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchAction:)];
 }
 
@@ -563,7 +543,6 @@
 - (void)__semanticPredicate {
     
     [self match:PARSEKIT_TOKEN_KIND_SEMANTICPREDICATE discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchSemanticPredicate:)];
 }
 
@@ -580,7 +559,6 @@
     } else {
         [self raise:@"no viable alternative found in predicate"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchPredicate:)];
 }
 
@@ -592,7 +570,6 @@
     
     [self match:PARSEKIT_TOKEN_KIND_AMPERSAND discard:YES];
     [self primaryExpr]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchIntersection:)];
 }
 
@@ -604,7 +581,6 @@
     
     [self match:PARSEKIT_TOKEN_KIND_MINUS discard:YES];
     [self primaryExpr]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchDifference:)];
 }
 
@@ -621,7 +597,6 @@
     } else {
         [self raise:@"no viable alternative found in primaryExpr"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchPrimaryExpr:)];
 }
 
@@ -633,7 +608,6 @@
     
     [self match:PARSEKIT_TOKEN_KIND_TILDE discard:YES];
     [self barePrimaryExpr]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchNegatedPrimaryExpr:)];
 }
 
@@ -652,7 +626,6 @@
     } else {
         [self raise:@"no viable alternative found in barePrimaryExpr"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchBarePrimaryExpr:)];
 }
 
@@ -665,7 +638,6 @@
     [self match:PARSEKIT_TOKEN_KIND_OPEN_PAREN discard:NO];
     [self expr]; 
     [self match:PARSEKIT_TOKEN_KIND_CLOSE_PAREN discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchSubSeqExpr:)];
 }
 
@@ -678,7 +650,6 @@
     [self match:PARSEKIT_TOKEN_KIND_OPEN_BRACKET discard:NO];
     [self expr]; 
     [self match:PARSEKIT_TOKEN_KIND_CLOSE_BRACKET discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchSubTrackExpr:)];
 }
 
@@ -692,7 +663,6 @@
     if ([self predicts:PARSEKIT_TOKEN_KIND_DISCARD, 0]) {
         [self discard]; 
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchAtomicValue:)];
 }
 
@@ -715,7 +685,6 @@
     } else {
         [self raise:@"no viable alternative found in parser"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchParser:)];
 }
 
@@ -726,7 +695,6 @@
 - (void)__discard {
     
     [self match:PARSEKIT_TOKEN_KIND_DISCARD discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchDiscard:)];
 }
 
@@ -743,7 +711,6 @@
     } else {
         [self raise:@"no viable alternative found in pattern"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchPattern:)];
 }
 
@@ -754,7 +721,6 @@
 - (void)__patternNoOpts {
     
     [self match:PARSEKIT_TOKEN_KIND_PATTERNNOOPTS discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchPatternNoOpts:)];
 }
 
@@ -765,7 +731,6 @@
 - (void)__patternIgnoreCase {
     
     [self match:PARSEKIT_TOKEN_KIND_PATTERNIGNORECASE discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchPatternIgnoreCase:)];
 }
 
@@ -782,7 +747,6 @@
         [self matchQuotedString:NO];
     }
     [self match:PARSEKIT_TOKEN_KIND_CLOSE_CURLY discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchDelimitedString:)];
 }
 
@@ -793,7 +757,6 @@
 - (void)__literal {
     
     [self matchQuotedString:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchLiteral:)];
 }
 
@@ -832,7 +795,6 @@
     } else {
         [self raise:@"no viable alternative found in constant"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchConstant:)];
 }
 
@@ -843,7 +805,6 @@
 - (void)__variable {
     
     [self matchWord:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchVariable:)];
 }
 
@@ -854,7 +815,6 @@
 - (void)__delimOpen {
     
     [self match:PARSEKIT_TOKEN_KIND_DELIMOPEN discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchDelimOpen:)];
 }
 

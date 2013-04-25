@@ -93,7 +93,6 @@
     
     [self s]; 
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
@@ -106,7 +105,6 @@
     } else {
         [self raise:@"no viable alternative found in s"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
@@ -118,7 +116,6 @@
     
     [self foo]; 
     [self baz]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
@@ -136,7 +133,6 @@
     } else {
         [self raise:@"no viable alternative found in b"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
 
@@ -147,7 +143,6 @@
 - (void)__foo {
     
     [self match:ALT_TOKEN_KIND_FOO discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
 
@@ -158,7 +153,6 @@
 - (void)__bar {
     
     [self match:ALT_TOKEN_KIND_BAR discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
 }
 
@@ -169,7 +163,6 @@
 - (void)__baz {
     
     [self match:ALT_TOKEN_KIND_BAZ discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchBaz:)];
 }
 

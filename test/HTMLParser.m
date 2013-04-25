@@ -294,7 +294,6 @@
 - (void)__scriptTagName {
     
     [self match:HTML_TOKEN_KIND_SCRIPTTAGNAME discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchScriptTagName:)];
 }
 
@@ -363,7 +362,6 @@
 - (void)__styleTagName {
     
     [self match:HTML_TOKEN_KIND_STYLETAGNAME discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchStyleTagName:)];
 }
 
@@ -388,7 +386,6 @@
 - (void)__procInstr {
     
     [self match:HTML_TOKEN_KIND_PROCINSTR discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchProcInstr:)];
 }
 
@@ -399,7 +396,6 @@
 - (void)__doctype {
     
     [self match:HTML_TOKEN_KIND_DOCTYPE discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchDoctype:)];
 }
 
@@ -410,7 +406,6 @@
 - (void)__text {
     
     [self matchAny:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchText:)];
 }
 
@@ -491,7 +486,6 @@
 - (void)__tagName {
     
     [self matchWord:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchTagName:)];
 }
 
@@ -518,7 +512,6 @@
 - (void)__attrName {
     
     [self matchWord:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchAttrName:)];
 }
 
@@ -545,7 +538,6 @@
 - (void)__eq {
     
     [self match:HTML_TOKEN_KIND_EQ discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
 
@@ -556,7 +548,6 @@
 - (void)__lt {
     
     [self match:HTML_TOKEN_KIND_LT discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
 
@@ -567,7 +558,6 @@
 - (void)__gt {
     
     [self match:HTML_TOKEN_KIND_GT discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
 
@@ -578,7 +568,6 @@
 - (void)__fwdSlash {
     
     [self match:HTML_TOKEN_KIND_FWDSLASH discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];
 }
 
@@ -589,7 +578,6 @@
 - (void)__comment {
     
     [self matchComment:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchComment:)];
 }
 

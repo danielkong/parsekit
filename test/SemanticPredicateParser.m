@@ -72,7 +72,6 @@
         [self nonReserved]; 
     } while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]);
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
@@ -80,7 +79,6 @@
     
     [self testAndThrow:(id)^{ return ![@[@"goto", @"const"] containsObject:LS(1)]; }]; 
     [self matchWord:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchNonReserved:)];
 }
 

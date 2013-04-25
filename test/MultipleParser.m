@@ -84,7 +84,6 @@
     
     [self s]; 
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
@@ -94,7 +93,6 @@
         [self ab]; 
     } while ([self speculate:^{ [self ab]; }]);
     [self a]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
@@ -106,7 +104,6 @@
     
     [self a]; 
     [self b]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchAb:)];
 }
 
@@ -117,7 +114,6 @@
 - (void)__a {
     
     [self match:MULTIPLE_TOKEN_KIND_A discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
@@ -128,7 +124,6 @@
 - (void)__b {
     
     [self match:MULTIPLE_TOKEN_KIND_B discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
 

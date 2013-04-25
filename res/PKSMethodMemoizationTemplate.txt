@@ -1,8 +1,7 @@
 
 - (void)__{{methodName}} {
     
-{{methodBody}}{%if fireCallback %}
-    [self fireAssemblerSelector:@selector(parser:didMatch{{methodName | capitalized}}:)];{%/if%}
+{{preCallback}}{{methodBody}}{{postCallback}}
 }
 
 - (void){{methodName}} {

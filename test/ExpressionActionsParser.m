@@ -150,14 +150,12 @@
     
     [self expr]; 
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__expr {
     
     [self orExpr]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
@@ -175,7 +173,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
 }
 
@@ -194,7 +191,6 @@
 	PUSH_BOOL(lhs || rhs);
 
     }];
-
     [self fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
 }
 
@@ -212,7 +208,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchAndExpr:)];
 }
 
@@ -231,7 +226,6 @@
 	PUSH_BOOL(lhs && rhs);
 
     }];
-
     [self fireAssemblerSelector:@selector(parser:didMatchAndTerm:)];
 }
 
@@ -249,7 +243,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchRelExpr:)];
 }
 
@@ -274,7 +267,6 @@
     } else {
         [self raise:@"no viable alternative found in relOp"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchRelOp:)];
 }
 
@@ -300,7 +292,6 @@
 	else if (EQ(op, @">=")) PUSH_BOOL(lhs >= rhs);
 
     }];
-
     [self fireAssemblerSelector:@selector(parser:didMatchRelOpTerm:)];
 }
 
@@ -318,7 +309,6 @@
         }
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN discard:NO];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchCallExpr:)];
 }
 
@@ -337,7 +327,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchArgList:)];
 }
 
@@ -356,7 +345,6 @@
     } else {
         [self raise:@"no viable alternative found in primary"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchPrimary:)];
 }
 
@@ -373,7 +361,6 @@
     } else {
         [self raise:@"no viable alternative found in atom"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
 }
 
@@ -391,7 +378,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchObj:)];
 }
 
@@ -402,7 +388,6 @@
 - (void)__id {
     
     [self matchWord:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchId:)];
 }
 
@@ -414,7 +399,6 @@
     
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_DOT discard:NO];
     [self id]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchMember:)];
 }
 
@@ -443,7 +427,6 @@
     } else {
         [self raise:@"no viable alternative found in literal"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchLiteral:)];
 }
 
@@ -465,7 +448,6 @@
     } else {
         [self raise:@"no viable alternative found in bool"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchBool:)];
 }
 

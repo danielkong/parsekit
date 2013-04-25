@@ -79,14 +79,12 @@
     }];
     [self s]; 
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__s {
     
     [self match:DELIMITED_TOKEN_KIND_S discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 

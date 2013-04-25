@@ -92,7 +92,6 @@
         [self method]; 
     } while ([self speculate:^{ [self method]; }]);
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
@@ -111,7 +110,6 @@
     } else {
         [self raise:@"no viable alternative found in method"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchMethod:)];
 }
 
@@ -128,7 +126,6 @@
     } else {
         [self raise:@"no viable alternative found in type"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchType:)];
 }
 
@@ -149,7 +146,6 @@
             }
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchArgs:)];
 }
 
@@ -161,7 +157,6 @@
     
     [self match:METHODSFACTORED_TOKEN_KIND_INT discard:NO];
     [self matchWord:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchArg:)];
 }
 

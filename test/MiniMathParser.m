@@ -85,7 +85,6 @@
     
     [self expr]; 
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
@@ -103,7 +102,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
@@ -125,7 +123,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchMult:)];
 }
 
@@ -150,7 +147,6 @@
 	
         }];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchPow:)];
 }
 
@@ -164,7 +160,6 @@
     [self execute:(id)^{
         PUSH_FLOAT(POP_FLOAT());
     }];
-
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
 }
 

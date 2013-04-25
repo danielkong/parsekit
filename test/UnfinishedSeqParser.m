@@ -78,14 +78,12 @@
     [self b]; 
     [self a]; 
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__a {
     
     [self match:UNFINISHEDSEQ_TOKEN_KIND_A discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
@@ -96,7 +94,6 @@
 - (void)__b {
     
     [self match:UNFINISHEDSEQ_TOKEN_KIND_B discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
 
