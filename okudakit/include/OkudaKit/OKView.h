@@ -12,5 +12,5 @@
 - (void)setNeedsLayout;
 - (void)layoutSubviews;
 
-@property (nonatomic, retain) NSColor *color;
+@property (nonatomic, retain) NSColor *backgroundColor;
 @end

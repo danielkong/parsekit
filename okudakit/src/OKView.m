@@ -11,7 +11,7 @@
 @implementation OKView
 
 - (void)dealloc {
-    self.color = nil;
+    self.backgroundColor = nil;
     [super dealloc];
 }
 
