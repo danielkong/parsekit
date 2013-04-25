@@ -85,7 +85,7 @@
     
     [self expr]; 
     [self matchEOF:YES]; 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
+
 }
 
 - (void)__expr {

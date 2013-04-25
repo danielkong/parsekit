@@ -262,7 +262,7 @@
         [self statement]; 
     } while ([self speculate:^{ [self statement]; }]);
     [self matchEOF:YES]; 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
+
 }
 
 - (void)__statement {
