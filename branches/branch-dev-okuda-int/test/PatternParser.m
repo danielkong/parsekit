@@ -70,7 +70,6 @@
     
     [self s]; 
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
@@ -92,7 +91,6 @@
     } else {
         [self raise:@"pattern test failed in s"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 

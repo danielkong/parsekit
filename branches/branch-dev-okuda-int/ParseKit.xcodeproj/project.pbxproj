@@ -761,6 +761,10 @@
 		D3BD39581728C01F00FC6549 /* OKSourceEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD39571728C01F00FC6549 /* OKSourceEditViewController.m */; };
 		D3BD395C1729B16C00FC6549 /* OKJavaScriptParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BD395A1729B16C00FC6549 /* OKJavaScriptParser.h */; };
 		D3BD395D1729B16C00FC6549 /* OKJavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD395B1729B16C00FC6549 /* OKJavaScriptParser.m */; };
+		D3BD395F1729D01F00FC6549 /* PKSPreCallbackTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BD395E1729D01F00FC6549 /* PKSPreCallbackTemplate.txt */; };
+		D3BD39601729D01F00FC6549 /* PKSPreCallbackTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BD395E1729D01F00FC6549 /* PKSPreCallbackTemplate.txt */; };
+		D3BD39621729D04400FC6549 /* PKSPostCallbackTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BD39611729D04400FC6549 /* PKSPostCallbackTemplate.txt */; };
+		D3BD39631729D04400FC6549 /* PKSPostCallbackTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BD39611729D04400FC6549 /* PKSPostCallbackTemplate.txt */; };
 		D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */; };
 		D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */; };
 		D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1955,6 +1959,8 @@
 		D3BD39571728C01F00FC6549 /* OKSourceEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKSourceEditViewController.m; path = okudakit/src/OKSourceEditViewController.m; sourceTree = SOURCE_ROOT; };
 		D3BD395A1729B16C00FC6549 /* OKJavaScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKJavaScriptParser.h; sourceTree = "<group>"; };
 		D3BD395B1729B16C00FC6549 /* OKJavaScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKJavaScriptParser.m; sourceTree = "<group>"; };
+		D3BD395E1729D01F00FC6549 /* PKSPreCallbackTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPreCallbackTemplate.txt; path = res/PKSPreCallbackTemplate.txt; sourceTree = "<group>"; };
+		D3BD39611729D04400FC6549 /* PKSPostCallbackTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPostCallbackTemplate.txt; path = res/PKSPostCallbackTemplate.txt; sourceTree = "<group>"; };
 		D3C031EB0EF38D2D00C5ABEB /* TDLowercaseWordTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLowercaseWordTest.h; path = test/TDLowercaseWordTest.h; sourceTree = "<group>"; };
 		D3C031EC0EF38D2D00C5ABEB /* TDLowercaseWordTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLowercaseWordTest.m; path = test/TDLowercaseWordTest.m; sourceTree = "<group>"; };
 		D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseSymbol.h; path = src/PKBaseSymbol.h; sourceTree = "<group>"; };
@@ -3301,6 +3307,8 @@
 				D3B63A3017075C3000BA9DBF /* PKSActionTemplate.txt */,
 				D3B22A3517023F1200446945 /* PKSMethodTemplate.txt */,
 				D38BC88E1710AF6D00BF530D /* PKSMethodMemoizationTemplate.txt */,
+				D3BD395E1729D01F00FC6549 /* PKSPreCallbackTemplate.txt */,
+				D3BD39611729D04400FC6549 /* PKSPostCallbackTemplate.txt */,
 				D30DA1971727410700A1A3EC /* PKSTryAndResyncTemplate.txt */,
 				D30DA19A17274BF100A1A3EC /* PKSTryAndResyncEOFTemplate.txt */,
 				D3B22A37170241F500446945 /* PKSMethodCallTemplate.txt */,
@@ -4635,6 +4643,8 @@
 				D30DA1961727059E00A1A3EC /* PKSEOFCallTemplate.txt in Resources */,
 				D30DA1991727410900A1A3EC /* PKSTryAndResyncTemplate.txt in Resources */,
 				D30DA19C17274BF400A1A3EC /* PKSTryAndResyncEOFTemplate.txt in Resources */,
+				D3BD39601729D01F00FC6549 /* PKSPreCallbackTemplate.txt in Resources */,
+				D3BD39631729D04400FC6549 /* PKSPostCallbackTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4773,6 +4783,8 @@
 				D30DA1951727059E00A1A3EC /* PKSEOFCallTemplate.txt in Resources */,
 				D30DA1981727410900A1A3EC /* PKSTryAndResyncTemplate.txt in Resources */,
 				D30DA19B17274BF400A1A3EC /* PKSTryAndResyncEOFTemplate.txt in Resources */,
+				D3BD395F1729D01F00FC6549 /* PKSPreCallbackTemplate.txt in Resources */,
+				D3BD39621729D04400FC6549 /* PKSPostCallbackTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

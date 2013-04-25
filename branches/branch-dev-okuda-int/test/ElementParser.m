@@ -93,7 +93,6 @@
     
     [self list]; 
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
@@ -102,7 +101,6 @@
     [self lbracket]; 
     [self elements]; 
     [self rbracket]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 
@@ -121,7 +119,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchElements:)];
 }
 
@@ -138,7 +135,6 @@
     } else {
         [self raise:@"no viable alternative found in element"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
 }
 
@@ -149,7 +145,6 @@
 - (void)__lbracket {
     
     [self match:ELEMENT_TOKEN_KIND_LBRACKET discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
 
@@ -160,7 +155,6 @@
 - (void)__rbracket {
     
     [self match:ELEMENT_TOKEN_KIND_RBRACKET discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
 
@@ -171,7 +165,6 @@
 - (void)__comma {
     
     [self match:ELEMENT_TOKEN_KIND_COMMA discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 

@@ -82,7 +82,6 @@
     @finally {
         [self popFollow:TOKEN_KIND_BUILTIN_EOF];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
@@ -123,7 +122,6 @@
     } else {
         [self raise:@"no viable alternative found in stat"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchStat:)];
 }
 
@@ -145,7 +143,6 @@
         [self popFollow:ELEMENTASSIGN_TOKEN_KIND_EQ];
     }
     [self list]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatchAssign:)];
 }
 
@@ -167,7 +164,6 @@
     @finally {
         [self popFollow:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 
@@ -182,7 +178,6 @@
             break;
         }
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchElements:)];
 }
 
@@ -195,49 +190,42 @@
     } else {
         [self raise:@"no viable alternative found in element"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
 }
 
 - (void)lbracket {
     
     [self match:ELEMENTASSIGN_TOKEN_KIND_LBRACKET discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
 
 - (void)rbracket {
     
     [self match:ELEMENTASSIGN_TOKEN_KIND_RBRACKET discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
 
 - (void)comma {
     
     [self match:ELEMENTASSIGN_TOKEN_KIND_COMMA discard:YES];
-
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
 - (void)eq {
     
     [self match:ELEMENTASSIGN_TOKEN_KIND_EQ discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
 
 - (void)dot {
     
     [self match:ELEMENTASSIGN_TOKEN_KIND_DOT discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
 }
 
 - (void)semi {
     
     [self match:ELEMENTASSIGN_TOKEN_KIND_SEMI discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
 }
 

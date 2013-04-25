@@ -25,7 +25,8 @@
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
 #define METHOD_BODY @"methodBody"
-#define FIRE_CALLBACK @"fireCallback"
+#define PRE_CALLBACK @"preCallback"
+#define POST_CALLBACK @"postCallback"
 #define TOKEN_KIND @"tokenKind"
 #define CHILD_NAME @"childName"
 #define DEPTH @"depth"
@@ -62,6 +63,7 @@
     if (self) {
         self.enableHybridDFA = YES;
         self.enableMemoization = YES;
+        self.preassemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorNone;
         self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
         
         [self setUpTemplateEngine];
@@ -255,6 +257,66 @@
 }
 
 
+- (NSString *)preCallbackStringForNode:(PKBaseNode *)node methodName:(NSString *)methodName {
+    // determine if we should include an assembler callback call
+    BOOL firePreCallback = NO;
+    switch (_preassemblerSettingBehavior) {
+        case PKParserFactoryAssemblerSettingBehaviorNone:
+            firePreCallback = NO;
+            break;
+        case PKParserFactoryAssemblerSettingBehaviorAll:
+            firePreCallback = YES;
+            break;
+        case PKParserFactoryAssemblerSettingBehaviorTerminals: {
+            BOOL isTerminal = 1 == [node.children count] && [[self concreteNodeForNode:node.children[0]] isTerminal];
+            firePreCallback = isTerminal;
+        } break;
+        default:
+            NSAssert1(0, @"unsupported assembler callback setting behavior %d", _preassemblerSettingBehavior);
+            break;
+    }
+    
+    NSString *result = @"";
+    
+    if (firePreCallback) {
+        id vars = @{METHOD_NAME: methodName};
+        result = [_engine processTemplate:[self templateStringNamed:@"PKSPreCallbackTemplate"] withVariables:vars];
+    }
+
+    return result;
+}
+
+
+- (NSString *)postCallbackStringForNode:(PKBaseNode *)node methodName:(NSString *)methodName {
+    // determine if we should include an assembler callback call
+    BOOL firePostCallback = YES;
+    switch (_assemblerSettingBehavior) {
+        case PKParserFactoryAssemblerSettingBehaviorNone:
+            firePostCallback = NO;
+            break;
+        case PKParserFactoryAssemblerSettingBehaviorAll:
+            firePostCallback = YES;
+            break;
+        case PKParserFactoryAssemblerSettingBehaviorTerminals: {
+            BOOL isTerminal = 1 == [node.children count] && [[self concreteNodeForNode:node.children[0]] isTerminal];
+            firePostCallback = isTerminal;
+        } break;
+        default:
+            NSAssert1(0, @"unsupported assembler callback setting behavior %d", _assemblerSettingBehavior);
+            break;
+    }
+
+    NSString *result = @"";
+    
+    if (firePostCallback) {
+        id vars = @{METHOD_NAME: methodName};
+        result = [_engine processTemplate:[self templateStringNamed:@"PKSPostCallbackTemplate"] withVariables:vars];
+    }
+    
+    return result;
+}
+
+
 - (void)visitDefinition:(PKDefinitionNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
@@ -309,24 +371,10 @@
     // merge
     vars[METHOD_BODY] = childStr;
     
-    // determine if we should include an assembler callback call
-    BOOL fireCallback = YES;
-    switch (_assemblerSettingBehavior) {
-        case PKParserFactoryAssemblerSettingBehaviorNone:
-            fireCallback = NO;
-            break;
-        case PKParserFactoryAssemblerSettingBehaviorAll:
-            fireCallback = YES;
-            break;
-        case PKParserFactoryAssemblerSettingBehaviorTerminals: {
-            BOOL isTerminal = 1 == [node.children count] && [[self concreteNodeForNode:node.children[0]] isTerminal];
-            fireCallback = isTerminal;
-        } break;
-        default:
-            NSAssert1(0, @"unsupported assembler callback setting behavior %d", _assemblerSettingBehavior);
-            break;
-    }
-    vars[FIRE_CALLBACK] = @(fireCallback);
+    NSString *preCallbackStr = [self preCallbackStringForNode:node methodName:methodName];
+    NSString *postCallbackStr = [self postCallbackStringForNode:node methodName:methodName];
+    vars[PRE_CALLBACK] = preCallbackStr;
+    vars[POST_CALLBACK] = postCallbackStr;
 
     NSString *templateName = nil;
     if (!isStartMethod && self.enableMemoization) {

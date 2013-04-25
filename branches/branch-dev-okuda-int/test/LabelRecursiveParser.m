@@ -81,7 +81,6 @@
     
     [self s]; 
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
@@ -99,7 +98,6 @@
     } else {
         [self raise:@"no viable alternative found in s"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
@@ -114,7 +112,6 @@
         [self match:LABELRECURSIVE_TOKEN_KIND_COLON discard:NO];
         [self label]; 
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchLabel:)];
 }
 
@@ -125,7 +122,6 @@
 - (void)__expr {
     
     [self matchNumber:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 

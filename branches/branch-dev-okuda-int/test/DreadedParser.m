@@ -80,7 +80,6 @@
     
     [self s]; 
     [self matchEOF:YES]; 
-
     [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
@@ -94,7 +93,6 @@
     } else {
         [self raise:@"no viable alternative found in s"];
     }
-
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
@@ -105,7 +103,6 @@
 - (void)__a {
     
     [self match:DREADED_TOKEN_KIND_A discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
@@ -116,7 +113,6 @@
 - (void)__b {
     
     [self match:DREADED_TOKEN_KIND_B discard:NO];
-
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
 
