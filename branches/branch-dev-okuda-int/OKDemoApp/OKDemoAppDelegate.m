@@ -12,7 +12,10 @@
 @implementation OKDemoAppDelegate
 
 - (void)dealloc {
+    self.window = nil;
+    self.containerView = nil;
     self.displayString = nil;
+    
     [super dealloc];
 }
 
@@ -21,8 +24,8 @@
     [self performSelector:@selector(highlight:) withObject:nil afterDelay:0.0];
     
     self.viewController = [[[OKSourceEditViewController alloc] init] autorelease];
-    [_viewController.view setFrame:[containerView bounds]];
-    [containerView addSubview:_viewController.view];
+    [_viewController.view setFrame:[_containerView bounds]];
+    [_containerView addSubview:_viewController.view];
 }
 
 
@@ -30,7 +33,7 @@
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"yahoo" ofType:@"json"];
     NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
-    self.displayString = [shc highlightedStringForString:s ofGrammar:@"json"];
+    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"json"];
 }
 
 
@@ -38,7 +41,7 @@
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"example" ofType:@"css"];
     NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
-    self.displayString = [shc highlightedStringForString:s ofGrammar:@"css"];
+    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"css"];
 }
 
 
@@ -46,7 +49,7 @@
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"example" ofType:@"html"];
     NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
-    self.displayString = [shc highlightedStringForString:s ofGrammar:@"html"];
+    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"html"];
 }
 
 
@@ -54,19 +57,18 @@
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"example" ofType:@"js"];
     NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     OKSyntaxHighlighter *shc = [[[OKSyntaxHighlighter alloc] init] autorelease];
-    self.displayString = [shc highlightedStringForString:s ofGrammar:@"javascript"];
+    _viewController.sourceString = [shc highlightedStringForString:s ofGrammar:@"javascript"];
 }
 
 
 - (IBAction)highlight:(id)sender {
-    self.displayString = nil;
+    [self clear:nil];
     [self doJavaScriptHighlighting];
 }
 
 
 - (IBAction)clear:(id)sender {
-    self.displayString = nil;
+    _viewController.sourceString = nil;
 }
 
-@synthesize displayString;
 @end
