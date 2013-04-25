@@ -17,10 +17,19 @@
 
 @implementation PKSParseTreeAssembler
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.stack = [NSMutableArray array];
+    }
+    return self;
+}
+
+
 - (void)dealloc {
     self.root = nil;
     self.currentNode = nil;
-    self.saveNode = nil;
+    self.stack = nil;
     [super dealloc];
 }
 
@@ -33,15 +42,17 @@
         [_currentNode addChild:r];
     }
     
-    self.saveNode = _currentNode;
+    if (_currentNode) {
+        [_stack addObject:_currentNode];
+    }
+    
     self.currentNode = r;
 }
 
 
 - (void)parser:(PKSParser *)p didMatchInterior:(NSString *)ruleName {
-    NSAssert(_saveNode, @"");
-
-    self.currentNode = _saveNode;
+    self.currentNode = [_stack lastObject];
+    [_stack removeLastObject];
 }
 
 

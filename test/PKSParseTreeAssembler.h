@@ -14,5 +14,5 @@
 
 @property (nonatomic, retain) PKParseTree *root;
 @property (nonatomic, retain) PKParseTree *currentNode;
-@property (nonatomic, retain) PKParseTree *saveNode;
+@property (nonatomic, retain) NSMutableArray *stack;
 @end
