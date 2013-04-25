@@ -49,14 +49,14 @@
 @implementation NegationParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"foo"] = @(NEGATION_TOKEN_KIND_FOO);
 
         self.s_memo = [NSMutableDictionary dictionary];
         self.foo_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

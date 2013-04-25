@@ -50,8 +50,8 @@
 @implementation LabelRecursiveParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"="] = @(LABELRECURSIVE_TOKEN_KIND_EQUALS);
         self._tokenKindTab[@"return"] = @(LABELRECURSIVE_TOKEN_KIND_RETURN);
         self._tokenKindTab[@":"] = @(LABELRECURSIVE_TOKEN_KIND_COLON);
@@ -60,7 +60,7 @@
         self.label_memo = [NSMutableDictionary dictionary];
         self.expr_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

@@ -51,8 +51,8 @@
 @implementation OptionalParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"foo"] = @(OPTIONAL_TOKEN_KIND_FOO);
         self._tokenKindTab[@"bar"] = @(OPTIONAL_TOKEN_KIND_BAR);
 
@@ -61,7 +61,7 @@
         self.foo_memo = [NSMutableDictionary dictionary];
         self.bar_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

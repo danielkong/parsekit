@@ -47,8 +47,8 @@
 @implementation JSONParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"false"] = @(JSON_TOKEN_KIND_FALSELITERAL);
         self._tokenKindTab[@"}"] = @(JSON_TOKEN_KIND_CLOSECURLY);
         self._tokenKindTab[@"["] = @(JSON_TOKEN_KIND_OPENBRACKET);
@@ -60,7 +60,7 @@
         self._tokenKindTab[@":"] = @(JSON_TOKEN_KIND_COLON);
 
     }
-	return self;
+    return self;
 }
 
 

@@ -53,8 +53,8 @@
 @implementation AltParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"foo"] = @(ALT_TOKEN_KIND_FOO);
         self._tokenKindTab[@"bar"] = @(ALT_TOKEN_KIND_BAR);
         self._tokenKindTab[@"baz"] = @(ALT_TOKEN_KIND_BAZ);
@@ -66,7 +66,7 @@
         self.bar_memo = [NSMutableDictionary dictionary];
         self.baz_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

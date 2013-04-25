@@ -86,8 +86,8 @@
 @implementation ParseKitParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"Symbol"] = @(PARSEKIT_TOKEN_KIND_SYMBOL_TITLE);
         self._tokenKindTab[@"{,}?"] = @(PARSEKIT_TOKEN_KIND_SEMANTICPREDICATE);
         self._tokenKindTab[@"|"] = @(PARSEKIT_TOKEN_KIND_PIPE);
@@ -167,7 +167,7 @@
         self.variable_memo = [NSMutableDictionary dictionary];
         self.delimOpen_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

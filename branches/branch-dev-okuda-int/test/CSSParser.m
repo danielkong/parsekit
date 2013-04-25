@@ -84,8 +84,8 @@
 @implementation CSSParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@","] = @(CSS_TOKEN_KIND_COMMA);
         self._tokenKindTab[@":"] = @(CSS_TOKEN_KIND_COLON);
         self._tokenKindTab[@"~"] = @(CSS_TOKEN_KIND_TILDE);
@@ -145,7 +145,7 @@
         self.bang_memo = [NSMutableDictionary dictionary];
         self.num_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

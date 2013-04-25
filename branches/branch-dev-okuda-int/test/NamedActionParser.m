@@ -49,15 +49,15 @@
 @implementation NamedActionParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"a"] = @(NAMEDACTION_TOKEN_KIND_A);
         self._tokenKindTab[@"b"] = @(NAMEDACTION_TOKEN_KIND_B);
 
         self.a_memo = [NSMutableDictionary dictionary];
         self.b_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

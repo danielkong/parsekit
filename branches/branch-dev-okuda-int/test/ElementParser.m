@@ -53,8 +53,8 @@
 @implementation ElementParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"["] = @(ELEMENT_TOKEN_KIND_LBRACKET);
         self._tokenKindTab[@"]"] = @(ELEMENT_TOKEN_KIND_RBRACKET);
         self._tokenKindTab[@","] = @(ELEMENT_TOKEN_KIND_COMMA);
@@ -66,7 +66,7 @@
         self.rbracket_memo = [NSMutableDictionary dictionary];
         self.comma_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

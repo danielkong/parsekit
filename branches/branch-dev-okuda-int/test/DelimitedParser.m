@@ -48,13 +48,13 @@
 @implementation DelimitedParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"<,>"] = @(DELIMITED_TOKEN_KIND_S);
 
         self.s_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

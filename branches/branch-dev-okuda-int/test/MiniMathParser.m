@@ -51,8 +51,8 @@
 @implementation MiniMathParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"+"] = @(MINIMATH_TOKEN_KIND_PLUS);
         self._tokenKindTab[@"*"] = @(MINIMATH_TOKEN_KIND_STAR);
         self._tokenKindTab[@"^"] = @(MINIMATH_TOKEN_KIND_CARET);
@@ -62,7 +62,7 @@
         self.pow_memo = [NSMutableDictionary dictionary];
         self.atom_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

@@ -18,7 +18,7 @@ typedef enum {
     PKParserFactoryAssemblerSettingBehaviorNone       = 1,
     PKParserFactoryAssemblerSettingBehaviorTerminals  = 2,
     PKParserFactoryAssemblerSettingBehaviorExplicit   = 3,
-    PKParserFactoryAssemblerSettingBehaviorSyntax     = 3,
+    PKParserFactoryAssemblerSettingBehaviorSyntax     = 4,
 } PKParserFactoryAssemblerSettingBehavior;
 
 @interface PKParserFactory : NSObject
