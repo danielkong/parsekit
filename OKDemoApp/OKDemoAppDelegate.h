@@ -11,18 +11,15 @@
 @class OKSyntaxHighlighter;
 @class OKSourceEditViewController;
 
-@interface OKDemoAppDelegate : NSObject {
-    IBOutlet NSWindow *window;
-    IBOutlet NSView *containerView;
-    IBOutlet NSTextView *textView;
-    
-    NSAttributedString *displayString;
-}
+@interface OKDemoAppDelegate : NSObject
 
 - (IBAction)highlight:(id)sender;
 - (IBAction)clear:(id)sender;
 
-@property (nonatomic, copy) NSAttributedString *displayString;
+
+@property (nonatomic, retain) IBOutlet NSWindow *window;
+@property (nonatomic, retain) IBOutlet NSView *containerView;
 
 @property (nonatomic, retain) OKSourceEditViewController *viewController;
+@property (nonatomic, copy) NSAttributedString *displayString;
 @end
