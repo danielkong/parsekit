@@ -21,6 +21,7 @@
 #import "PKParseTreeAssembler.h"
 #import <ParseKit/ParseKit.h>
 
+#import "OKJavaScriptParser.h"
 #import "ExpressionSyntaxParser.h"
 #import "PKSParseTreeAssembler.h"
 
@@ -77,7 +78,8 @@
 //    PKParseTree *tr = [p parse:self.inputString error:nil];
 
 
-    PKSParser *p = [[[ExpressionSyntaxParser alloc] init] autorelease];
+//    PKSParser *p = [[[ExpressionSyntaxParser alloc] init] autorelease];
+    PKSParser *p = [[[OKJavaScriptParser alloc] init] autorelease];
     PKSParseTreeAssembler *ass = [[[PKSParseTreeAssembler alloc] init] autorelease];
     
     [p parseString:self.inputString assembler:ass error:nil];
