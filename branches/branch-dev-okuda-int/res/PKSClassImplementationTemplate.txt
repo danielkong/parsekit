@@ -27,7 +27,6 @@
 #define LOG(obj) do { NSLog(@"%@", (obj)); } while (0);
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 {%if parseTree %}
-
 @interface NSObject ()
 - (void)parser:(PKSParser *)p willMatchInterior:(NSString *)ruleName;
 - (void)parser:(PKSParser *)p didMatchInterior:(NSString *)ruleName;

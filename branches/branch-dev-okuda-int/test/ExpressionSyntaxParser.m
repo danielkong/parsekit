@@ -27,6 +27,13 @@
 #define LOG(obj) do { NSLog(@"%@", (obj)); } while (0);
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
+@interface NSObject ()
+- (void)parser:(PKSParser *)p willMatchInterior:(NSString *)ruleName;
+- (void)parser:(PKSParser *)p didMatchInterior:(NSString *)ruleName;
+- (void)parser:(PKSParser *)p willMatchLeaf:(NSString *)ruleName;
+- (void)parser:(PKSParser *)p didMatchLeaf:(NSString *)ruleName;
+@end
+
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 
