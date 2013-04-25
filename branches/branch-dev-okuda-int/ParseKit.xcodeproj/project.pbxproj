@@ -758,6 +758,9 @@
 		D3B986B11700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */; };
 		D3BBBCC10FECD477007DF30D /* xml.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8800FEB36A1006A91A4 /* xml.grammar */; };
+		D3BD39541728BFBA00FC6549 /* OKSourceEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3BD39511728BFBA00FC6549 /* OKSourceEditViewController.xib */; };
+		D3BD39561728C01100FC6549 /* OKSourceEditViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BD39551728C01100FC6549 /* OKSourceEditViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3BD39581728C01F00FC6549 /* OKSourceEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD39571728C01F00FC6549 /* OKSourceEditViewController.m */; };
 		D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */; };
 		D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */; };
 		D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1735,7 +1738,7 @@
 		D36E9FB40E5A944A00496BD3 /* apple-boss.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "apple-boss.xml"; path = "res/apple-boss.xml"; sourceTree = "<group>"; };
 		D36E9FE40E5BA0FC00496BD3 /* SRGSGrammar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SRGSGrammar.txt; path = res/SRGSGrammar.txt; sourceTree = "<group>"; };
 		D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "small-xml-file.xml"; path = "res/small-xml-file.xml"; sourceTree = "<group>"; };
-		D37D8DC61571A4F700CDB822 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D37D8DC61571A4F700CDB822 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = Tests.octest; path = ParseKitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D37F23201453841100A98014 /* PKHashtagState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKHashtagState.m; path = src/PKHashtagState.m; sourceTree = "<group>"; };
 		D37F232A1453842800A98014 /* PKHashtagState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKHashtagState.h; path = include/ParseKit/PKHashtagState.h; sourceTree = "<group>"; };
@@ -1949,6 +1952,9 @@
 		D3BBBC970FEC9722007DF30D /* TDXMLParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDXMLParserTest.m; path = test/TDXMLParserTest.m; sourceTree = "<group>"; };
 		D3BBBC9B0FEC9756007DF30D /* TDXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDXMLParser.h; path = test/TDXMLParser.h; sourceTree = "<group>"; };
 		D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDXMLParser.m; path = test/TDXMLParser.m; sourceTree = "<group>"; };
+		D3BD39511728BFBA00FC6549 /* OKSourceEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OKSourceEditViewController.xib; path = okudakit/OKSourceEditViewController.xib; sourceTree = SOURCE_ROOT; };
+		D3BD39551728C01100FC6549 /* OKSourceEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKSourceEditViewController.h; path = okudakit/include/OkudaKit/OKSourceEditViewController.h; sourceTree = SOURCE_ROOT; };
+		D3BD39571728C01F00FC6549 /* OKSourceEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKSourceEditViewController.m; path = okudakit/src/OKSourceEditViewController.m; sourceTree = SOURCE_ROOT; };
 		D3C031EB0EF38D2D00C5ABEB /* TDLowercaseWordTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLowercaseWordTest.h; path = test/TDLowercaseWordTest.h; sourceTree = "<group>"; };
 		D3C031EC0EF38D2D00C5ABEB /* TDLowercaseWordTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLowercaseWordTest.m; path = test/TDLowercaseWordTest.m; sourceTree = "<group>"; };
 		D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseSymbol.h; path = src/PKBaseSymbol.h; sourceTree = "<group>"; };
@@ -2388,12 +2394,15 @@
 				D30DA1E51728552900A1A3EC /* OkudaKit.h */,
 				D30DA1EA1728561E00A1A3EC /* OKSyntaxHighlighter.h */,
 				D30DA1F01728565000A1A3EC /* OKSyntaxHighlighter.m */,
+				D3BD39551728C01100FC6549 /* OKSourceEditViewController.h */,
+				D3BD39571728C01F00FC6549 /* OKSourceEditViewController.m */,
+				D3BD39511728BFBA00FC6549 /* OKSourceEditViewController.xib */,
+				D30DA2861728BB0800A1A3EC /* OKView.h */,
+				D30DA2881728BB3D00A1A3EC /* OKView.m */,
 				D30DA2821728BA7B00A1A3EC /* OKGutterView.h */,
 				D30DA27E1728BA6F00A1A3EC /* OKGutterView.m */,
 				D30DA2831728BA7B00A1A3EC /* OKSourceCodeTextView.h */,
 				D30DA27F1728BA6F00A1A3EC /* OKSourceCodeTextView.m */,
-				D30DA2861728BB0800A1A3EC /* OKView.h */,
-				D30DA2881728BB3D00A1A3EC /* OKView.m */,
 				D30DA1F61728566000A1A3EC /* Parsers */,
 				D30DA2651728B3AE00A1A3EC /* Assemblers */,
 				D30DA2171728584100A1A3EC /* res */,
@@ -4022,6 +4031,7 @@
 				D30DA2841728BA7B00A1A3EC /* OKGutterView.h in Headers */,
 				D30DA2851728BA7B00A1A3EC /* OKSourceCodeTextView.h in Headers */,
 				D30DA2871728BB0900A1A3EC /* OKView.h in Headers */,
+				D3BD39561728C01100FC6549 /* OKSourceEditViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4541,6 +4551,7 @@
 				D30DA2291728584100A1A3EC /* json.css in Resources */,
 				D30DA22A1728584100A1A3EC /* json.grammar in Resources */,
 				D30DA22B1728584100A1A3EC /* OKMini_css.grammar in Resources */,
+				D3BD39541728BFBA00FC6549 /* OKSourceEditViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4933,6 +4944,7 @@
 				D30DA2801728BA6F00A1A3EC /* OKGutterView.m in Sources */,
 				D30DA2811728BA6F00A1A3EC /* OKSourceCodeTextView.m in Sources */,
 				D30DA2891728BB3D00A1A3EC /* OKView.m in Sources */,
+				D3BD39581728C01F00FC6549 /* OKSourceEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6305,6 +6317,7 @@
 				D30DA1E1172854B500A1A3EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		D30DA1E2172854B500A1A3EC /* Build configuration list for PBXNativeTarget "OkudaKitTests" */ = {
 			isa = XCConfigurationList;
@@ -6313,6 +6326,7 @@
 				D30DA1E4172854B500A1A3EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		D30DA2501728ABB900A1A3EC /* Build configuration list for PBXNativeTarget "OKDemoApp" */ = {
 			isa = XCConfigurationList;
@@ -6321,6 +6335,7 @@
 				D30DA2521728ABB900A1A3EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		D33494150E2963FE00406085 /* Build configuration list for PBXNativeTarget "DemoApp" */ = {
 			isa = XCConfigurationList;

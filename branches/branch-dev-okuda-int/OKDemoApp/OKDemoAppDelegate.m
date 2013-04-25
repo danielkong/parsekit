@@ -19,6 +19,10 @@
 
 - (void)awakeFromNib {
     [self performSelector:@selector(highlight:) withObject:nil afterDelay:0.0];
+    
+    self.viewController = [[[OKSourceEditViewController alloc] init] autorelease];
+    [_viewController.view setFrame:[containerView bounds]];
+    [containerView addSubview:_viewController.view];
 }
 
 
