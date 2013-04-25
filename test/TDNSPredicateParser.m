@@ -106,8 +106,8 @@
 @implementation TDNSPredicateParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"ALL"] = @(TDNSPREDICATE_TOKEN_KIND_ALL);
         self._tokenKindTab[@"FALSEPREDICATE"] = @(TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE);
         self._tokenKindTab[@"NOT"] = @(TDNSPREDICATE_TOKEN_KIND_NOT_UPPER);
@@ -205,7 +205,7 @@
         self.all_memo = [NSMutableDictionary dictionary];
         self.none_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

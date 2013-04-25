@@ -51,8 +51,8 @@
 @implementation MethodsFactoredParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"int"] = @(METHODSFACTORED_TOKEN_KIND_INT);
         self._tokenKindTab[@"}"] = @(METHODSFACTORED_TOKEN_KIND_CLOSE_CURLY);
         self._tokenKindTab[@","] = @(METHODSFACTORED_TOKEN_KIND_COMMA);
@@ -67,7 +67,7 @@
         self.args_memo = [NSMutableDictionary dictionary];
         self.arg_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

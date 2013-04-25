@@ -202,8 +202,10 @@
 @implementation JavaScriptParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
+        self.enableAutomaticErrorRecovery = YES;
+
         self._tokenKindTab[@"|"] = @(JAVASCRIPT_TOKEN_KIND_PIPE);
         self._tokenKindTab[@"!="] = @(JAVASCRIPT_TOKEN_KIND_NE);
         self._tokenKindTab[@"("] = @(JAVASCRIPT_TOKEN_KIND_OPENPAREN);
@@ -430,7 +432,7 @@
         self.numLiteral_memo = [NSMutableDictionary dictionary];
         self.stringLiteral_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

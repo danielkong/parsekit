@@ -77,8 +77,8 @@
 @implementation ExpressionParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@">="] = @(EXPRESSION_TOKEN_KIND_GE);
         self._tokenKindTab[@","] = @(EXPRESSION_TOKEN_KIND_COMMA);
         self._tokenKindTab[@"or"] = @(EXPRESSION_TOKEN_KIND_OR);
@@ -125,7 +125,7 @@
         self.or_memo = [NSMutableDictionary dictionary];
         self.and_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

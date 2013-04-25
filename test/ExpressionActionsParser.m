@@ -64,8 +64,8 @@
 @implementation ExpressionActionsParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"no"] = @(EXPRESSIONACTIONS_TOKEN_KIND_NO);
         self._tokenKindTab[@"NO"] = @(EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER);
         self._tokenKindTab[@">="] = @(EXPRESSIONACTIONS_TOKEN_KIND_GE);
@@ -101,7 +101,7 @@
         self.literal_memo = [NSMutableDictionary dictionary];
         self.bool_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

@@ -49,15 +49,15 @@
 @implementation GreedParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"a"] = @(GREED_TOKEN_KIND_A);
         self._tokenKindTab[@"b"] = @(GREED_TOKEN_KIND_B);
 
         self.a_memo = [NSMutableDictionary dictionary];
         self.b_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

@@ -74,8 +74,8 @@
 @implementation HTMLParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"script"] = @(HTML_TOKEN_KIND_SCRIPTTAGNAME);
         self._tokenKindTab[@"style"] = @(HTML_TOKEN_KIND_STYLETAGNAME);
         self._tokenKindTab[@"<!DOCTYPE,>"] = @(HTML_TOKEN_KIND_DOCTYPE);
@@ -113,7 +113,7 @@
         self.fwdSlash_memo = [NSMutableDictionary dictionary];
         self.comment_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

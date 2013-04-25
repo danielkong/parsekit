@@ -47,8 +47,10 @@
 @implementation ElementAssignParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
+        self.enableAutomaticErrorRecovery = YES;
+
         self._tokenKindTab[@"]"] = @(ELEMENTASSIGN_TOKEN_KIND_RBRACKET);
         self._tokenKindTab[@"["] = @(ELEMENTASSIGN_TOKEN_KIND_LBRACKET);
         self._tokenKindTab[@","] = @(ELEMENTASSIGN_TOKEN_KIND_COMMA);
@@ -57,7 +59,7 @@
         self._tokenKindTab[@"."] = @(ELEMENTASSIGN_TOKEN_KIND_DOT);
 
     }
-	return self;
+    return self;
 }
 
 

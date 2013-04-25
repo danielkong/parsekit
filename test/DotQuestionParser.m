@@ -48,13 +48,13 @@
 @implementation DotQuestionParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"a"] = @(DOTQUESTION_TOKEN_KIND_A);
 
         self.a_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {

@@ -51,8 +51,8 @@
 @implementation MethodsParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"int"] = @(METHODS_TOKEN_KIND_INT);
         self._tokenKindTab[@"}"] = @(METHODS_TOKEN_KIND_CLOSE_CURLY);
         self._tokenKindTab[@","] = @(METHODS_TOKEN_KIND_COMMA);
@@ -67,7 +67,7 @@
         self.args_memo = [NSMutableDictionary dictionary];
         self.arg_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {
