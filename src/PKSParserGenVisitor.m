@@ -28,7 +28,6 @@
 #define METHOD_BODY @"methodBody"
 #define PRE_CALLBACK @"preCallback"
 #define POST_CALLBACK @"postCallback"
-#define NODE_TYPE @"nodeType"
 #define TOKEN_KIND @"tokenKind"
 #define CHILD_NAME @"childName"
 #define DEPTH @"depth"
@@ -266,7 +265,6 @@
     BOOL fireCallback = NO;
     BOOL isTerminal = 1 == [node.children count] && [[self concreteNodeForNode:node.children[0]] isTerminal];
     NSString *templateName = isPre ? @"PKSPreCallbackTemplate" : @"PKSPostCallbackTemplate";
-    NSString *nodeType = @"";
     
     BOOL flag = isPre ? _preassemblerSettingBehavior : _assemblerSettingBehavior;
 
@@ -282,8 +280,11 @@
         } break;
         case PKParserFactoryAssemblerSettingBehaviorSyntax: {
             fireCallback = YES;
-            templateName = isPre ? @"PKSPreCallbackSyntaxTemplate" : @"PKSPostCallbackSyntaxTemplate";
-            nodeType = isTerminal ? @"Leaf" : @"Interior";
+            if (isTerminal) {
+                templateName = isPre ? @"PKSPreCallbackSyntaxLeafTemplate" : @"PKSPostCallbackSyntaxLeafTemplate";
+            } else {
+                templateName = isPre ? @"PKSPreCallbackSyntaxInteriorTemplate" : @"PKSPostCallbackSyntaxInteriorTemplate";
+            }
         } break;
         default:
             NSAssert1(0, @"unsupported assembler callback setting behavior %d", _preassemblerSettingBehavior);
@@ -293,7 +294,7 @@
     NSString *result = @"";
     
     if (fireCallback) {
-        id vars = @{METHOD_NAME: methodName, NODE_TYPE: nodeType};
+        id vars = @{METHOD_NAME: methodName};
         result = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars];
     }
 
