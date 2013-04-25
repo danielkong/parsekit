@@ -32,7 +32,7 @@
                   [NSColor blackColor], NSForegroundColorAttributeName,
                   nil];
     
-    self.color = [NSColor colorWithDeviceWhite:0.9 alpha:1.0];
+    self.backgroundColor = [NSColor colorWithDeviceWhite:0.9 alpha:1.0];
     self.borderColor = [NSColor grayColor];
     self.lineNumberRects = [NSArray arrayWithObject:[NSValue valueWithRect:NSMakeRect(0.0, 0.0, 100.0, 14.0)]];
 }
@@ -65,7 +65,7 @@
     
     CGFloat boundsWidth = bounds.size.width;
     
-    [self.color setFill];
+    [self.backgroundColor setFill];
     NSRectFill(bounds);
 
     // stroke vert line
