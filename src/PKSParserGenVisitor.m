@@ -62,7 +62,7 @@
     if (self) {
         self.enableHybridDFA = YES;
         self.enableMemoization = YES;
-        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
+        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
         
         [self setUpTemplateEngine];
     }
@@ -312,13 +312,13 @@
     // determine if we should include an assembler callback call
     BOOL fireCallback = YES;
     switch (_assemblerSettingBehavior) {
-        case PKParserFactoryAssemblerSettingBehaviorOnNone:
+        case PKParserFactoryAssemblerSettingBehaviorNone:
             fireCallback = NO;
             break;
-        case PKParserFactoryAssemblerSettingBehaviorOnAll:
+        case PKParserFactoryAssemblerSettingBehaviorAll:
             fireCallback = YES;
             break;
-        case PKParserFactoryAssemblerSettingBehaviorOnTerminals: {
+        case PKParserFactoryAssemblerSettingBehaviorTerminals: {
             BOOL isTerminal = 1 == [node.children count] && [[self concreteNodeForNode:node.children[0]] isTerminal];
             fireCallback = isTerminal;
         } break;

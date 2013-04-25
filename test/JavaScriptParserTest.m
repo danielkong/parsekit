@@ -35,7 +35,7 @@
     _root.grammarName = @"JavaScript";
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
-    _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnTerminals;
+    _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorTerminals;
     _visitor.enableAutomaticErrorRecovery = YES;
     _visitor.enableMemoization = YES;
     
