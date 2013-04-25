@@ -2376,11 +2376,8 @@
 				D30DA1E51728552900A1A3EC /* OkudaKit.h */,
 				D30DA1EA1728561E00A1A3EC /* OKSyntaxHighlighter.h */,
 				D30DA1F01728565000A1A3EC /* OKSyntaxHighlighter.m */,
-				D30DA1EE1728565000A1A3EC /* OKMiniCSSAssembler.h */,
-				D30DA1EF1728565000A1A3EC /* OKMiniCSSAssembler.m */,
-				D30DA1EC1728565000A1A3EC /* OKGenericAssembler.h */,
-				D30DA1ED1728565000A1A3EC /* OKGenericAssembler.m */,
-				D30DA1F61728566000A1A3EC /* parsers */,
+				D30DA1F61728566000A1A3EC /* Parsers */,
+				D30DA2651728B3AE00A1A3EC /* Assemblers */,
 				D30DA2171728584100A1A3EC /* res */,
 				D30DA1C1172854B500A1A3EC /* Supporting Files */,
 			);
@@ -2419,7 +2416,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D30DA1F61728566000A1A3EC /* parsers */ = {
+		D30DA1F61728566000A1A3EC /* Parsers */ = {
 			isa = PBXGroup;
 			children = (
 				D30DA1F71728566000A1A3EC /* CSSParser.h */,
@@ -2431,7 +2428,7 @@
 				D30DA1FD1728566000A1A3EC /* JSONParser.h */,
 				D30DA1FE1728566000A1A3EC /* JSONParser.m */,
 			);
-			name = parsers;
+			name = Parsers;
 			path = okudakit/src/parsers;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -2531,6 +2528,17 @@
 				D30DA2471728ABB900A1A3EC /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D30DA2651728B3AE00A1A3EC /* Assemblers */ = {
+			isa = PBXGroup;
+			children = (
+				D30DA1EE1728565000A1A3EC /* OKMiniCSSAssembler.h */,
+				D30DA1EF1728565000A1A3EC /* OKMiniCSSAssembler.m */,
+				D30DA1EC1728565000A1A3EC /* OKGenericAssembler.h */,
+				D30DA1ED1728565000A1A3EC /* OKGenericAssembler.m */,
+			);
+			name = Assemblers;
 			sourceTree = "<group>";
 		};
 		D318EAE30E2FD5B6009F47DF /* json */ = {
