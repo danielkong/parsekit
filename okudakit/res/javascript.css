@@ -30,8 +30,16 @@ numLiteral {
 }
 
 
-symbol, semi, equals {
+function {
     color:rgb(255.0, 0.0, 0.0);
+    background-color:rgb(20, 20, 26);
+    font-family:'Monaco';
+    font-size:11px;
+}
+
+
+openParen, closeParen, openCurly, closeCurly, semi, equals, dot, comma {
+    color:rgb(255.0, 255.0, 255.0);
     background-color:rgb(20, 20, 26);
     font-family:'Monaco';
     font-size:11px;

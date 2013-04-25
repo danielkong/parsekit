@@ -17,6 +17,11 @@
 }
 
 
+- (void)awakeFromNib {
+    [self performSelector:@selector(highlight:) withObject:nil afterDelay:0.0];
+}
+
+
 - (void)doJSONHighlighting {
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"yahoo" ofType:@"json"];
     NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
