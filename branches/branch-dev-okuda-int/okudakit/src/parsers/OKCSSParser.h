@@ -23,7 +23,7 @@ enum {
     CSS_TOKEN_KIND_CLOSECURLY,
 };
 
-@interface CSSParser : PKSParser
+@interface OKCSSParser : PKSParser
 
 @end
 

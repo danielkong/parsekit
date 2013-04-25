@@ -1,4 +1,4 @@
-#import "JSONParser.h"
+#import "OKJSONParser.h"
 #import <ParseKit/ParseKit.h>
 
 #define LT(i) [self LT:(i)]
@@ -41,10 +41,10 @@
 - (void)_pushDouble:(double)d;
 @end
 
-@interface JSONParser ()
+@interface OKJSONParser ()
 @end
 
-@implementation JSONParser
+@implementation OKJSONParser
 
 - (id)init {
 	self = [super init];

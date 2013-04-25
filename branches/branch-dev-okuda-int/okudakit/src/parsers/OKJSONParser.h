@@ -12,7 +12,7 @@ enum {
     JSON_TOKEN_KIND_COLON,
 };
 
-@interface JSONParser : PKSParser
+@interface OKJSONParser : PKSParser
 
 @end
 

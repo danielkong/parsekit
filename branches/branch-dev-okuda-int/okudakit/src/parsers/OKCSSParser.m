@@ -1,4 +1,4 @@
-#import "CSSParser.h"
+#import "OKCSSParser.h"
 #import <ParseKit/ParseKit.h>
 
 #define LT(i) [self LT:(i)]
@@ -41,7 +41,7 @@
 - (void)_pushDouble:(double)d;
 @end
 
-@interface CSSParser ()
+@interface OKCSSParser ()
 @property (nonatomic, retain) NSMutableDictionary *ruleset_memo;
 @property (nonatomic, retain) NSMutableDictionary *selectors_memo;
 @property (nonatomic, retain) NSMutableDictionary *selector_memo;
@@ -81,7 +81,7 @@
 @property (nonatomic, retain) NSMutableDictionary *num_memo;
 @end
 
-@implementation CSSParser
+@implementation OKCSSParser
 
 - (id)init {
 	self = [super init];

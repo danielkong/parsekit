@@ -1,4 +1,4 @@
-#import "HTMLParser.h"
+#import "OKHTMLParser.h"
 #import <ParseKit/ParseKit.h>
 
 #define LT(i) [self LT:(i)]
@@ -41,7 +41,7 @@
 - (void)_pushDouble:(double)d;
 @end
 
-@interface HTMLParser ()
+@interface OKHTMLParser ()
 @property (nonatomic, retain) NSMutableDictionary *anything_memo;
 @property (nonatomic, retain) NSMutableDictionary *scriptElement_memo;
 @property (nonatomic, retain) NSMutableDictionary *scriptStartTag_memo;
@@ -71,7 +71,7 @@
 @property (nonatomic, retain) NSMutableDictionary *comment_memo;
 @end
 
-@implementation HTMLParser
+@implementation OKHTMLParser
 
 - (id)init {
 	self = [super init];

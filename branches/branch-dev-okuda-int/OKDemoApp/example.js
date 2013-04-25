@@ -1,1 +1,1 @@
-window.fluid.dockBadge='';
+var foo;

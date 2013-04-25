@@ -11,7 +11,7 @@ enum {
     HTML_TOKEN_KIND_GT,
 };
 
-@interface HTMLParser : PKSParser
+@interface OKHTMLParser : PKSParser
 
 @end
 
