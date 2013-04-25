@@ -9,9 +9,11 @@
 #import <Cocoa/Cocoa.h>
 
 @class OKSyntaxHighlighter;
+@class OKSourceEditViewController;
 
 @interface OKDemoAppDelegate : NSObject {
     IBOutlet NSWindow *window;
+    IBOutlet NSView *containerView;
     IBOutlet NSTextView *textView;
     
     NSAttributedString *displayString;
@@ -21,4 +23,6 @@
 - (IBAction)clear:(id)sender;
 
 @property (nonatomic, copy) NSAttributedString *displayString;
+
+@property (nonatomic, retain) OKSourceEditViewController *viewController;
 @end

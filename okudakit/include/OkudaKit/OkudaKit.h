@@ -9,5 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 #import <OkudaKit/OKSyntaxHighlighter.h>
+#import <OkudaKit/OKSourceEditViewController.h>
 #import <OkudaKit/OKSourceCodeTextView.h>
 #import <OkudaKit/OKGutterView.h>
