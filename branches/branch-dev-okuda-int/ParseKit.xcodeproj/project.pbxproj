@@ -2698,6 +2698,8 @@
 				D3F562A610266E8D00DD6DB1 /* DemoTreesViewController.m */,
 				D3F5629810266CFC00DD6DB1 /* PKParseTreeView.h */,
 				D3F5629910266CFC00DD6DB1 /* PKParseTreeView.m */,
+				D3BD396F1729E4CA00FC6549 /* ExpressionSyntaxParser.h */,
+				D3BD39701729E4CA00FC6549 /* ExpressionSyntaxParser.m */,
 			);
 			name = ParseTree;
 			sourceTree = "<group>";
@@ -3915,8 +3917,6 @@
 				D369345A1038DE5300527AF3 /* PKRuleNode.m */,
 				D369345B1038DE5300527AF3 /* PKTokenNode.h */,
 				D369345C1038DE5300527AF3 /* PKTokenNode.m */,
-				D3BD396F1729E4CA00FC6549 /* ExpressionSyntaxParser.h */,
-				D3BD39701729E4CA00FC6549 /* ExpressionSyntaxParser.m */,
 				D3BD396A1729E13000FC6549 /* PKSParseTreeAssembler.h */,
 				D3BD396B1729E13000FC6549 /* PKSParseTreeAssembler.m */,
 			);
