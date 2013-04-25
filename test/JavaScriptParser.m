@@ -818,6 +818,7 @@
 - (void)__if {
     
     [self match:JAVASCRIPT_TOKEN_KIND_IF discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchIf:)];
 }
 
@@ -828,6 +829,7 @@
 - (void)__else {
     
     [self match:JAVASCRIPT_TOKEN_KIND_ELSE discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchElse:)];
 }
 
@@ -838,6 +840,7 @@
 - (void)__while {
     
     [self match:JAVASCRIPT_TOKEN_KIND_WHILE discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchWhile:)];
 }
 
@@ -848,6 +851,7 @@
 - (void)__for {
     
     [self match:JAVASCRIPT_TOKEN_KIND_FOR discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchFor:)];
 }
 
@@ -858,6 +862,7 @@
 - (void)__in {
     
     [self match:JAVASCRIPT_TOKEN_KIND_IN discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchIn:)];
 }
 
@@ -868,6 +873,7 @@
 - (void)__break {
     
     [self match:JAVASCRIPT_TOKEN_KIND_BREAK discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchBreak:)];
 }
 
@@ -878,6 +884,7 @@
 - (void)__continue {
     
     [self match:JAVASCRIPT_TOKEN_KIND_CONTINUE discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchContinue:)];
 }
 
@@ -888,6 +895,7 @@
 - (void)__with {
     
     [self match:JAVASCRIPT_TOKEN_KIND_WITH discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchWith:)];
 }
 
@@ -898,6 +906,7 @@
 - (void)__return {
     
     [self match:JAVASCRIPT_TOKEN_KIND_RETURN discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchReturn:)];
 }
 
@@ -908,6 +917,7 @@
 - (void)__var {
     
     [self match:JAVASCRIPT_TOKEN_KIND_VAR discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchVar:)];
 }
 
@@ -918,6 +928,7 @@
 - (void)__delete {
     
     [self match:JAVASCRIPT_TOKEN_KIND_DELETE discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchDelete:)];
 }
 
@@ -928,6 +939,7 @@
 - (void)__keywordNew {
     
     [self match:JAVASCRIPT_TOKEN_KIND_KEYWORDNEW discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchKeywordNew:)];
 }
 
@@ -938,6 +950,7 @@
 - (void)__this {
     
     [self match:JAVASCRIPT_TOKEN_KIND_THIS discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchThis:)];
 }
 
@@ -948,6 +961,7 @@
 - (void)__falseLiteral {
     
     [self match:JAVASCRIPT_TOKEN_KIND_FALSELITERAL discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
 }
 
@@ -958,6 +972,7 @@
 - (void)__trueLiteral {
     
     [self match:JAVASCRIPT_TOKEN_KIND_TRUELITERAL discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
 }
 
@@ -968,6 +983,7 @@
 - (void)__null {
     
     [self match:JAVASCRIPT_TOKEN_KIND_NULL discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchNull:)];
 }
 
@@ -978,6 +994,7 @@
 - (void)__undefined {
     
     [self match:JAVASCRIPT_TOKEN_KIND_UNDEFINED discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchUndefined:)];
 }
 
@@ -988,6 +1005,7 @@
 - (void)__void {
     
     [self match:JAVASCRIPT_TOKEN_KIND_VOID discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchVoid:)];
 }
 
@@ -998,6 +1016,7 @@
 - (void)__typeof {
     
     [self match:JAVASCRIPT_TOKEN_KIND_TYPEOF discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchTypeof:)];
 }
 
@@ -1008,6 +1027,7 @@
 - (void)__instanceof {
     
     [self match:JAVASCRIPT_TOKEN_KIND_INSTANCEOF discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchInstanceof:)];
 }
 
@@ -1018,6 +1038,7 @@
 - (void)__function {
     
     [self match:JAVASCRIPT_TOKEN_KIND_FUNCTION discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchFunction:)];
 }
 
@@ -1028,6 +1049,7 @@
 - (void)__openCurly {
     
     [self match:JAVASCRIPT_TOKEN_KIND_OPENCURLY discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
 }
 
@@ -1038,6 +1060,7 @@
 - (void)__closeCurly {
     
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSECURLY discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
 }
 
@@ -1048,6 +1071,7 @@
 - (void)__openParen {
     
     [self match:JAVASCRIPT_TOKEN_KIND_OPENPAREN discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
 }
 
@@ -1058,6 +1082,7 @@
 - (void)__closeParen {
     
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
 }
 
@@ -1068,6 +1093,7 @@
 - (void)__openBracket {
     
     [self match:JAVASCRIPT_TOKEN_KIND_OPENBRACKET discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
 }
 
@@ -1078,6 +1104,7 @@
 - (void)__closeBracket {
     
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
 }
 
@@ -1088,6 +1115,7 @@
 - (void)__comma {
     
     [self match:JAVASCRIPT_TOKEN_KIND_COMMA discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
@@ -1098,6 +1126,7 @@
 - (void)__dot {
     
     [self match:JAVASCRIPT_TOKEN_KIND_DOT discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
 }
 
@@ -1108,6 +1137,7 @@
 - (void)__semi {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SEMI discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
 }
 
@@ -1118,6 +1148,7 @@
 - (void)__colon {
     
     [self match:JAVASCRIPT_TOKEN_KIND_COLON discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
 }
 
@@ -1128,6 +1159,7 @@
 - (void)__equals {
     
     [self match:JAVASCRIPT_TOKEN_KIND_EQUALS discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchEquals:)];
 }
 
@@ -1138,6 +1170,7 @@
 - (void)__not {
     
     [self match:JAVASCRIPT_TOKEN_KIND_NOT discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchNot:)];
 }
 
@@ -1148,6 +1181,7 @@
 - (void)__lt {
     
     [self match:JAVASCRIPT_TOKEN_KIND_LT discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
 
@@ -1158,6 +1192,7 @@
 - (void)__gt {
     
     [self match:JAVASCRIPT_TOKEN_KIND_GT discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
 
@@ -1168,6 +1203,7 @@
 - (void)__amp {
     
     [self match:JAVASCRIPT_TOKEN_KIND_AMP discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchAmp:)];
 }
 
@@ -1178,6 +1214,7 @@
 - (void)__pipe {
     
     [self match:JAVASCRIPT_TOKEN_KIND_PIPE discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchPipe:)];
 }
 
@@ -1188,6 +1225,7 @@
 - (void)__caret {
     
     [self match:JAVASCRIPT_TOKEN_KIND_CARET discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchCaret:)];
 }
 
@@ -1198,6 +1236,7 @@
 - (void)__tilde {
     
     [self match:JAVASCRIPT_TOKEN_KIND_TILDE discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchTilde:)];
 }
 
@@ -1208,6 +1247,7 @@
 - (void)__question {
     
     [self match:JAVASCRIPT_TOKEN_KIND_QUESTION discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchQuestion:)];
 }
 
@@ -1218,6 +1258,7 @@
 - (void)__plus {
     
     [self match:JAVASCRIPT_TOKEN_KIND_PLUS discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchPlus:)];
 }
 
@@ -1228,6 +1269,7 @@
 - (void)__minus {
     
     [self match:JAVASCRIPT_TOKEN_KIND_MINUS discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchMinus:)];
 }
 
@@ -1238,6 +1280,7 @@
 - (void)__times {
     
     [self match:JAVASCRIPT_TOKEN_KIND_TIMES discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchTimes:)];
 }
 
@@ -1248,6 +1291,7 @@
 - (void)__div {
     
     [self match:JAVASCRIPT_TOKEN_KIND_DIV discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchDiv:)];
 }
 
@@ -1258,6 +1302,7 @@
 - (void)__mod {
     
     [self match:JAVASCRIPT_TOKEN_KIND_MOD discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchMod:)];
 }
 
@@ -1268,6 +1313,7 @@
 - (void)__or {
     
     [self match:JAVASCRIPT_TOKEN_KIND_OR discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
 }
 
@@ -1278,6 +1324,7 @@
 - (void)__and {
     
     [self match:JAVASCRIPT_TOKEN_KIND_AND discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];
 }
 
@@ -1288,6 +1335,7 @@
 - (void)__ne {
     
     [self match:JAVASCRIPT_TOKEN_KIND_NE discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchNe:)];
 }
 
@@ -1298,6 +1346,7 @@
 - (void)__isnot {
     
     [self match:JAVASCRIPT_TOKEN_KIND_ISNOT discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchIsnot:)];
 }
 
@@ -1308,6 +1357,7 @@
 - (void)__eq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_EQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
 
@@ -1318,6 +1368,7 @@
 - (void)__is {
     
     [self match:JAVASCRIPT_TOKEN_KIND_IS discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchIs:)];
 }
 
@@ -1328,6 +1379,7 @@
 - (void)__le {
     
     [self match:JAVASCRIPT_TOKEN_KIND_LE discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchLe:)];
 }
 
@@ -1338,6 +1390,7 @@
 - (void)__ge {
     
     [self match:JAVASCRIPT_TOKEN_KIND_GE discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchGe:)];
 }
 
@@ -1348,6 +1401,7 @@
 - (void)__plusPlus {
     
     [self match:JAVASCRIPT_TOKEN_KIND_PLUSPLUS discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchPlusPlus:)];
 }
 
@@ -1358,6 +1412,7 @@
 - (void)__minusMinus {
     
     [self match:JAVASCRIPT_TOKEN_KIND_MINUSMINUS discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchMinusMinus:)];
 }
 
@@ -1368,6 +1423,7 @@
 - (void)__plusEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_PLUSEQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchPlusEq:)];
 }
 
@@ -1378,6 +1434,7 @@
 - (void)__minusEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_MINUSEQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchMinusEq:)];
 }
 
@@ -1388,6 +1445,7 @@
 - (void)__timesEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_TIMESEQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchTimesEq:)];
 }
 
@@ -1398,6 +1456,7 @@
 - (void)__divEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_DIVEQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchDivEq:)];
 }
 
@@ -1408,6 +1467,7 @@
 - (void)__modEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_MODEQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchModEq:)];
 }
 
@@ -1418,6 +1478,7 @@
 - (void)__shiftLeft {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFT discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchShiftLeft:)];
 }
 
@@ -1428,6 +1489,7 @@
 - (void)__shiftRight {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRight:)];
 }
 
@@ -1438,6 +1500,7 @@
 - (void)__shiftRightExt {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExt:)];
 }
 
@@ -1448,6 +1511,7 @@
 - (void)__shiftLeftEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchShiftLeftEq:)];
 }
 
@@ -1458,6 +1522,7 @@
 - (void)__shiftRightEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightEq:)];
 }
 
@@ -1468,6 +1533,7 @@
 - (void)__shiftRightExtEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExtEq:)];
 }
 
@@ -1478,6 +1544,7 @@
 - (void)__andEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_ANDEQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchAndEq:)];
 }
 
@@ -1488,6 +1555,7 @@
 - (void)__xorEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_XOREQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchXorEq:)];
 }
 
@@ -1498,6 +1566,7 @@
 - (void)__orEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_OREQ discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchOrEq:)];
 }
 
@@ -3041,6 +3110,7 @@
 - (void)__identifier {
     
     [self matchWord:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchIdentifier:)];
 }
 
@@ -3051,6 +3121,7 @@
 - (void)__numLiteral {
     
     [self matchNumber:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchNumLiteral:)];
 }
 
@@ -3061,6 +3132,7 @@
 - (void)__stringLiteral {
     
     [self matchQuotedString:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchStringLiteral:)];
 }
 

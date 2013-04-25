@@ -96,6 +96,7 @@
 - (void)__a {
     
     [self match:GREED_TOKEN_KIND_A discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
@@ -106,6 +107,7 @@
 - (void)__b {
     
     [self match:GREED_TOKEN_KIND_B discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
 

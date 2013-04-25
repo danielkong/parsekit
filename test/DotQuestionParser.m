@@ -81,6 +81,7 @@
 - (void)__a {
     
     [self match:DOTQUESTION_TOKEN_KIND_A discard:NO];
+
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 

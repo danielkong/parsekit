@@ -79,6 +79,7 @@
     tab[@"enableHybridDFA"] = @(_enableHybridDFA);
     tab[@"enableMemoization"] = @(_enableMemoization);
     tab[@"enableAutomaticErrorRecovery"] = @(_enableAutomaticErrorRecovery);
+    tab[@"preassemblerSettingBehavior"] = @(_preassemblerSettingBehavior);
     tab[@"assemblerSettingBehavior"] = @(_assemblerSettingBehavior);
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tab];
@@ -95,6 +96,7 @@
     self.enableHybridDFA = [tab[@"enableHybridDFA"] boolValue];
     self.enableMemoization = [tab[@"enableMemoization"] boolValue];
     self.enableAutomaticErrorRecovery = [tab[@"enableAutomaticErrorRecovery"] boolValue];
+    self.preassemblerSettingBehavior = [tab[@"preassemblerSettingBehavior"] integerValue];
     self.assemblerSettingBehavior = [tab[@"assemblerSettingBehavior"] integerValue];
 
     return YES;
@@ -185,6 +187,7 @@
     _visitor.enableHybridDFA = _enableHybridDFA;
     _visitor.enableMemoization = _enableMemoization;
     _visitor.enableAutomaticErrorRecovery = _enableAutomaticErrorRecovery;
+    _visitor.preassemblerSettingBehavior = _preassemblerSettingBehavior;
     _visitor.assemblerSettingBehavior = _assemblerSettingBehavior;
     
     [_root visit:_visitor];

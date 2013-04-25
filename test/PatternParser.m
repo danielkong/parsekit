@@ -91,6 +91,7 @@
     } else {
         [self raise:@"pattern test failed in s"];
     }
+
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
