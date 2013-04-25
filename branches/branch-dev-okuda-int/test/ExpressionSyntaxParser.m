@@ -262,11 +262,13 @@
 
 - (void)id {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"id"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"id"];
 
     [self matchWord:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"id"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"id"];
 }
 
 - (void)member {
@@ -298,20 +300,24 @@
 
 - (void)string {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"string"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"string"];
 
     [self matchQuotedString:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"string"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"string"];
 }
 
 - (void)num {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"num"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"num"];
 
     [self matchNumber:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"num"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"num"];
 }
 
 - (void)bool {
@@ -331,128 +337,156 @@
 
 - (void)lt {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"lt"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"lt"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_LT discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"lt"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"lt"];
 }
 
 - (void)gt {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"gt"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"gt"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_GT discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"gt"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"gt"];
 }
 
 - (void)eq {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"eq"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"eq"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_EQ discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"eq"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"eq"];
 }
 
 - (void)ne {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"ne"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"ne"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_NE discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"ne"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"ne"];
 }
 
 - (void)le {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"le"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"le"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_LE discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"le"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"le"];
 }
 
 - (void)ge {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"ge"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"ge"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_GE discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"ge"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"ge"];
 }
 
 - (void)openParen {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"openParen"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"openParen"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_OPENPAREN discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"openParen"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"openParen"];
 }
 
 - (void)closeParen {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"closeParen"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"closeParen"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_CLOSEPAREN discard:YES];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"closeParen"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"closeParen"];
 }
 
 - (void)yes {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"yes"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"yes"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_YES discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"yes"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"yes"];
 }
 
 - (void)no {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"no"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"no"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_NO discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"no"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"no"];
 }
 
 - (void)dot {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"dot"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"dot"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_DOT discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"dot"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"dot"];
 }
 
 - (void)comma {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"comma"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"comma"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_COMMA discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"comma"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"comma"];
 }
 
 - (void)or {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"or"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"or"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_OR discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"or"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"or"];
 }
 
 - (void)and {
     
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"and"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"and"];
 
     [self match:EXPRESSIONSYNTAX_TOKEN_KIND_AND discard:NO];
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"and"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"and"];
 }
 
 @end
