@@ -284,9 +284,9 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"literal"];
 
     if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self matchQuotedString:NO];
+        [self string]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-        [self matchNumber:NO];
+        [self num]; 
     } else if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_NO, EXPRESSIONSYNTAX_TOKEN_KIND_YES, 0]) {
         [self bool]; 
     } else {
@@ -294,6 +294,24 @@
     }
 
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"literal"];
+}
+
+- (void)string {
+    
+    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"string"];
+
+    [self matchQuotedString:NO];
+
+    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"string"];
+}
+
+- (void)num {
+    
+    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"num"];
+
+    [self matchNumber:NO];
+
+    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"num"];
 }
 
 - (void)bool {
