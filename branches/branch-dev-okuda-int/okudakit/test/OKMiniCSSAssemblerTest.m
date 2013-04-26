@@ -11,28 +11,25 @@
 @implementation OKMiniCSSAssemblerTest
 
 - (void)setUp {
-    path = [[NSBundle bundleForClass:[OKSyntaxHighlighter class]] pathForResource:@"OKMini_css" ofType:@"grammar"];
-    grammarString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    ass = [[OKMiniCSSAssembler alloc] init];
-    factory = [PKParserFactory factory];
-    lp = [factory parserFromGrammar:grammarString assembler:ass error:nil];
+    cssParser = [[OKMiniCSSParser alloc] init];
+    cssAssembler = [[OKMiniCSSAssembler alloc] init];
 }
 
 
 - (void)tearDown {
-    [ass release];
+    [cssParser release];
+    [cssAssembler release];
 }
 
 
 - (void)testColor {
-    TDNotNil(lp);
+    TDNotNil(cssParser);
     
     s = @"bar { color:rgb(10, 200, 30); }";
-    a = [PKTokenAssembly assemblyWithString:s];
-    a = [lp bestMatchFor:a];
+    a = [cssParser parseString:s assembler:cssAssembler error:nil];
     TDEqualObjects(@"[]bar/{/color/:/rgb/(/10/,/200/,/30/)/;/}^", [a description]);
-    TDNotNil(ass.attributes);
-    id props = [ass.attributes objectForKey:@"bar"];
+    TDNotNil(cssAssembler.attributes);
+    id props = [cssAssembler.attributes objectForKey:@"bar"];
     TDNotNil(props);
     
     NSColor *color = [props objectForKey:NSForegroundColorAttributeName];
@@ -44,15 +41,14 @@
 
 
 - (void)testMultiSelectorColor {
-    TDNotNil(lp);
+    TDNotNil(cssParser);
     
     s = @"foo, bar { color:rgb(10, 200, 30); }";
-    a = [PKTokenAssembly assemblyWithString:s];
-    a = [lp bestMatchFor:a];
+    a = [cssParser parseString:s assembler:cssAssembler error:nil];
     TDEqualObjects(@"[]foo/,/bar/{/color/:/rgb/(/10/,/200/,/30/)/;/}^", [a description]);
-    TDNotNil(ass.attributes);
+    TDNotNil(cssAssembler.attributes);
 
-    id props = [ass.attributes objectForKey:@"bar"];
+    id props = [cssAssembler.attributes objectForKey:@"bar"];
     TDNotNil(props);
     
     NSColor *color = [props objectForKey:NSForegroundColorAttributeName];
@@ -61,7 +57,7 @@
     STAssertEqualsWithAccuracy([color greenComponent], (CGFloat)(200.0/255.0), 0.001, @"");
     STAssertEqualsWithAccuracy([color blueComponent], (CGFloat)(30.0/255.0), 0.001, @"");
 
-    props = [ass.attributes objectForKey:@"foo"];
+    props = [cssAssembler.attributes objectForKey:@"foo"];
     TDNotNil(props);
     
     color = [props objectForKey:NSForegroundColorAttributeName];
@@ -73,15 +69,14 @@
 
 
 - (void)testBackgroundColor {
-    TDNotNil(lp);
+    TDNotNil(cssParser);
     
     s = @"foo { background-color:rgb(255.0, 0.0, 255.0) }";
-    a = [PKTokenAssembly assemblyWithString:s];
-    a = [lp bestMatchFor:a];
+    a = [cssParser parseString:s assembler:cssAssembler error:nil];
     TDEqualObjects(@"[]foo/{/background-color/:/rgb/(/255.0/,/0.0/,/255.0/)/}^", [a description]);
-    TDNotNil(ass.attributes);
+    TDNotNil(cssAssembler.attributes);
     
-    id props = [ass.attributes objectForKey:@"foo"];
+    id props = [cssAssembler.attributes objectForKey:@"foo"];
     TDNotNil(props);
     
     NSColor *color = [props objectForKey:NSBackgroundColorAttributeName];
@@ -93,15 +88,14 @@
 
 
 - (void)testFontSize {
-    TDNotNil(lp);
+    TDNotNil(cssParser);
     
     s = @"decl { font-size:12px }";
-    a = [PKTokenAssembly assemblyWithString:s];
-    a = [lp bestMatchFor:a];
+    a = [cssParser parseString:s assembler:cssAssembler error:nil];
     TDEqualObjects(@"[]decl/{/font-size/:/12/px/}^", [a description]);
-    TDNotNil(ass.attributes);
+    TDNotNil(cssAssembler.attributes);
     
-    id props = [ass.attributes objectForKey:@"decl"];
+    id props = [cssAssembler.attributes objectForKey:@"decl"];
     TDNotNil(props);
     
     NSFont *font = [props objectForKey:NSFontAttributeName];
@@ -112,15 +106,14 @@
 
 
 - (void)testSmallFontSize {
-    TDNotNil(lp);
+    TDNotNil(cssParser);
     
     s = @"decl { font-size:8px }";
-    a = [PKTokenAssembly assemblyWithString:s];
-    a = [lp bestMatchFor:a];
+    a = [cssParser parseString:s assembler:cssAssembler error:nil];
     TDEqualObjects(@"[]decl/{/font-size/:/8/px/}^", [a description]);
-    TDNotNil(ass.attributes);
+    TDNotNil(cssAssembler.attributes);
     
-    id props = [ass.attributes objectForKey:@"decl"];
+    id props = [cssAssembler.attributes objectForKey:@"decl"];
     TDNotNil(props);
     
     NSFont *font = [props objectForKey:NSFontAttributeName];
@@ -131,15 +124,14 @@
 
 
 - (void)testFont {
-    TDNotNil(lp);
+    TDNotNil(cssParser);
     
     s = @"expr { font-size:16px; font-family:'Helvetica' }";
-    a = [PKTokenAssembly assemblyWithString:s];
-    a = [lp bestMatchFor:a];
+    a = [cssParser parseString:s assembler:cssAssembler error:nil];
     TDEqualObjects(@"[]expr/{/font-size/:/16/px/;/font-family/:/'Helvetica'/}^", [a description]);
-    TDNotNil(ass.attributes);
+    TDNotNil(cssAssembler.attributes);
     
-    id props = [ass.attributes objectForKey:@"expr"];
+    id props = [cssAssembler.attributes objectForKey:@"expr"];
     TDNotNil(props);
         
     NSFont *font = [props objectForKey:NSFontAttributeName];
@@ -150,15 +142,14 @@
 
 
 - (void)testAll {
-    TDNotNil(lp);
+    TDNotNil(cssParser);
     
     s = @"expr { font-size:9.0px; font-family:'Courier'; background-color:rgb(255.0, 0.0, 255.0) ;  color:rgb(10, 200, 30);}";
-    a = [PKTokenAssembly assemblyWithString:s];
-    a = [lp bestMatchFor:a];
+    a = [cssParser parseString:s assembler:cssAssembler error:nil];
     TDEqualObjects(@"[]expr/{/font-size/:/9.0/px/;/font-family/:/'Courier'/;/background-color/:/rgb/(/255.0/,/0.0/,/255.0/)/;/color/:/rgb/(/10/,/200/,/30/)/;/}^", [a description]);
-    TDNotNil(ass.attributes);
+    TDNotNil(cssAssembler.attributes);
     
-    id props = [ass.attributes objectForKey:@"expr"];
+    id props = [cssAssembler.attributes objectForKey:@"expr"];
     TDNotNil(props);
     
     NSFont *font = [props objectForKey:NSFontAttributeName];
@@ -181,15 +172,14 @@
 
 
 - (void)testMultiAll {
-    TDNotNil(lp);
+    TDNotNil(cssParser);
     
     s = @"expr, decl { font-size:9.0px; font-family:'Courier'; background-color:rgb(255.0, 0.0, 255.0) ;  color:rgb(10, 200, 30);}";
-    a = [PKTokenAssembly assemblyWithString:s];
-    a = [lp bestMatchFor:a];
+    a = [cssParser parseString:s assembler:cssAssembler error:nil];
     TDEqualObjects(@"[]expr/,/decl/{/font-size/:/9.0/px/;/font-family/:/'Courier'/;/background-color/:/rgb/(/255.0/,/0.0/,/255.0/)/;/color/:/rgb/(/10/,/200/,/30/)/;/}^", [a description]);
-    TDNotNil(ass.attributes);
+    TDNotNil(cssAssembler.attributes);
     
-    id props = [ass.attributes objectForKey:@"expr"];
+    id props = [cssAssembler.attributes objectForKey:@"expr"];
     TDNotNil(props);
     
     NSFont *font = [props objectForKey:NSFontAttributeName];
@@ -209,7 +199,7 @@
     STAssertEqualsWithAccuracy([color greenComponent], (CGFloat)(200.0/255.0), 0.001, @"");
     STAssertEqualsWithAccuracy([color blueComponent], (CGFloat)(30.0/255.0), 0.001, @"");
 
-    props = [ass.attributes objectForKey:@"decl"];
+    props = [cssAssembler.attributes objectForKey:@"decl"];
     TDNotNil(props);
     
     font = [props objectForKey:NSFontAttributeName];
