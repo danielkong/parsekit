@@ -25,12 +25,10 @@
 // all of the ivars for these properties are lazy loaded in the getters.
 // thats so that if an application has syntax highlighting turned off, this class will
 // consume much less memory/fewer resources.
-@property (nonatomic, retain) PKParserFactory *parserFactory;
 @property (nonatomic, retain) PKSParser *miniCSSParser;
 @property (nonatomic, retain) OKMiniCSSAssembler *miniCSSAssembler;
 @property (nonatomic, retain) OKGenericAssembler *genericAssembler;
 @property (nonatomic, retain) NSMutableDictionary *parserCache;
-@property (nonatomic, retain) NSMutableDictionary *tokenizerCache;
 @property (nonatomic, retain) NSDictionary *parserClassTab;
 @end
 
@@ -56,59 +54,46 @@
 
 
 - (void)dealloc {
-    self.parserFactory = nil;
     self.miniCSSParser = nil;
     self.miniCSSAssembler = nil;
     self.genericAssembler = nil;
     self.parserCache = nil;
-    self.tokenizerCache = nil;
     self.parserClassTab = nil;
     [super dealloc];
 }
 
 
-- (PKParserFactory *)parserFactory {
-    if (!parserFactory) {
-        self.parserFactory = [PKParserFactory factory];
-    }
-    return parserFactory;
-}
-
-
 - (OKMiniCSSAssembler *)miniCSSAssembler {
-    if (!miniCSSAssembler) {
+    if (!_miniCSSAssembler) {
         self.miniCSSAssembler = [[[OKMiniCSSAssembler alloc] init] autorelease];
     }
-    return miniCSSAssembler;
+    return _miniCSSAssembler;
 }
 
 
 - (PKSParser *)miniCSSParser {
-    if (!miniCSSParser) {
+    if (!_miniCSSParser) {
         // create mini-css parser
-//        NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"OKMini_css" ofType:@"grammar"];
-//        NSString *grammarString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-//        self.miniCSSParser = [self.parserFactory parserFromGrammar:grammarString assembler:self.miniCSSAssembler error:nil];
         self.miniCSSParser = [[[OKMiniCSSParser alloc] init] autorelease];
         
     }
-    return miniCSSParser;
+    return _miniCSSParser;
 }
 
 
 - (OKGenericAssembler *)genericAssembler {
-    if (!genericAssembler) {
+    if (!_genericAssembler) {
         self.genericAssembler = [[[OKGenericAssembler alloc] init] autorelease];
     }
-    return genericAssembler;
+    return _genericAssembler;
 }
 
 
 - (NSMutableDictionary *)parserCache {
-    if (!parserCache) {
+    if (!_parserCache) {
         self.parserCache = [NSMutableDictionary dictionary];
     }
-    return parserCache;
+    return _parserCache;
 }
 
 
@@ -133,7 +118,7 @@
 - (PKSParser *)parserForGrammarNamed:(NSString *)grammarName {
     // create parser or the grammar requested or fetch parser from cache
     PKSParser *parser = nil;
-    if (cacheParsers) {
+    if (_cacheParsers) {
         parser = [self.parserCache objectForKey:grammarName];
     }
     
@@ -142,9 +127,8 @@
         parser = [[[cls alloc] init] autorelease];
         parser.silentlyConsumesWhitespace = YES;
         
-        if (cacheParsers) {
+        if (_cacheParsers) {
             [self.parserCache setObject:parser forKey:grammarName];
-            [self.tokenizerCache setObject:parser.tokenizer forKey:grammarName];
         }
     }
 
@@ -169,12 +153,4 @@
     return result;
 }
 
-@synthesize parserFactory;
-@synthesize miniCSSParser;
-@synthesize miniCSSAssembler;
-@synthesize genericAssembler;
-@synthesize cacheParsers;
-@synthesize parserCache;
-@synthesize tokenizerCache;
-@synthesize parserClassTab;
 @end
