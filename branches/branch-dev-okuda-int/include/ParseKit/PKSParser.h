@@ -94,8 +94,5 @@ enum {
 
 // error recovery
 - (void)tryWithResync:(NSInteger)tokenKind block:(PKSResyncBlock)block completion:(PKSResyncBlock)completion;
-- (void)pushFollow:(NSInteger)tokenKind;
-- (void)popFollow:(NSInteger)tokenKind;
-- (BOOL)resync;
 
 @end
