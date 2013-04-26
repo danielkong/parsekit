@@ -10,14 +10,8 @@
 
 @class PKAssembly;
 
-@interface OKGenericAssembler : NSObject {
-    NSMutableDictionary *attributes;
-    NSMutableDictionary *defaultProperties;
-    NSMutableDictionary *productionNames;
-    PKAssembly *currentAssembly;
-    NSString *prefix;
-    NSString *suffix;
-}
+@interface OKGenericAssembler : NSObject
+
 @property (nonatomic, retain) NSMutableDictionary *attributes;
 @property (nonatomic, retain) NSMutableDictionary *defaultProperties;
 @property (nonatomic, retain) NSMutableDictionary *productionNames;
