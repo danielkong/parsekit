@@ -16,11 +16,7 @@
 
 @class OKGutterView;
 
-@interface OKSourceCodeTextView : NSTextView {
-    OKGutterView *gutterView;
-    NSScrollView *scrollView;
-}
-
+@interface OKSourceCodeTextView : NSTextView
 - (void)renderGutter;
 
 @property (nonatomic, retain) IBOutlet OKGutterView *gutterView;
