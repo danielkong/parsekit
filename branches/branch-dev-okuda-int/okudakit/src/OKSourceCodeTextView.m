@@ -54,10 +54,10 @@
     NSUInteger start = 0;
     [self getRectsOfVisibleLines:&rects startingLineNumber:&start];
     if ([rects count]) {
-        gutterView.lineNumberRects = rects;
-        gutterView.startLineNumber = start;
+        _gutterView.lineNumberRects = rects;
+        _gutterView.startLineNumber = start;
     }
-    [gutterView setNeedsDisplay:YES];        
+    [_gutterView setNeedsDisplay:YES];
 }
 
 
@@ -67,11 +67,11 @@
                                                  name:NSTextDidChangeNotification
                                                object:self];
     
-    [scrollView.contentView setPostsBoundsChangedNotifications:YES];
+    [_scrollView.contentView setPostsBoundsChangedNotifications:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(viewBoundsChanged:)
                                                  name:NSViewBoundsDidChangeNotification
-                                               object:scrollView.contentView];
+                                               object:_scrollView.contentView];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(viewBoundsChanged:)
                                                  name:NSWindowDidResizeNotification
@@ -86,7 +86,7 @@
     NSString *s = [self string];
     
     NSLayoutManager *layoutMgr = [[self textContainer] layoutManager];
-    NSRect boundingRect = [[scrollView contentView] documentVisibleRect];
+    NSRect boundingRect = [[_scrollView contentView] documentVisibleRect];
     CGFloat scrollY = boundingRect.origin.y;
     NSRange visibleGlyphRange = [layoutMgr glyphRangeForBoundingRect:boundingRect inTextContainer:[self textContainer]];
         
@@ -123,6 +123,4 @@
     return numberOfLines;
 }
 
-@synthesize gutterView;
-@synthesize scrollView;
 @end
