@@ -69,7 +69,7 @@
     NSRectFill(bounds);
 
     // stroke vert line
-    [borderColor set];
+    [_borderColor set];
     CGContextSetLineWidth(ctx, 1.0);
 
     CGPoint p1 = CGPointMake(CGRectGetMaxX(bounds), CGRectGetMinY(bounds));
@@ -89,15 +89,15 @@
 //    CGContextClosePath(ctx);
 //    CGContextStrokePath(ctx);
     
-    if (![lineNumberRects count]) {
+    if (![_lineNumberRects count]) {
         return;
     }
     
     
-    NSUInteger count = startLineNumber + [lineNumberRects count];
+    NSUInteger count = _startLineNumber + [_lineNumberRects count];
     
-    for (NSUInteger i = startLineNumber; i < count; i++) {
-        NSRect r = [[lineNumberRects objectAtIndex:i - startLineNumber] rectValue];
+    for (NSUInteger i = _startLineNumber; i < count; i++) {
+        NSRect r = [[_lineNumberRects objectAtIndex:i - _startLineNumber] rectValue];
 
         // set the x origin of the number according to the number of digits it contains
         CGFloat x = 0.0;
@@ -118,13 +118,13 @@
         }
         
         NSUInteger displayIdx = i + 1;
-        BOOL isHi = displayIdx == highlightedLineNumber;
+        BOOL isHi = displayIdx == _highlightedLineNumber;
         
         NSString *s = [[NSNumber numberWithInteger:displayIdx] stringValue];
         
         NSDictionary *currAttrs = nil;
         if (isHi) {
-            currAttrs = hiAttrs;
+            currAttrs = _hiAttrs;
             
             NSRect hiRect = NSMakeRect(NSMinX(bounds), round(r.origin.y + 3.0) + 0.5, boundsWidth, round(r.size.height));
             
@@ -145,7 +145,7 @@
             CGContextAddLineToPoint(ctx, NSMaxX(hiRect), NSMaxY(hiRect));
             CGContextStrokePath(ctx);
         } else {
-            currAttrs = attrs;
+            currAttrs = _attrs;
         }
         
         NSAttributedString *as = [[[NSAttributedString alloc] initWithString:s attributes:currAttrs] autorelease];
@@ -153,12 +153,4 @@
     }
 }
 
-@synthesize sourceScrollView;
-@synthesize sourceTextView;
-@synthesize lineNumberRects;
-@synthesize startLineNumber;
-@synthesize highlightedLineNumber;
-@synthesize attrs;
-@synthesize hiAttrs;
-@synthesize borderColor;
 @end

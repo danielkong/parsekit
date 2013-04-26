@@ -14,20 +14,7 @@
 
 #import <OkudaKit/OKView.h>
 
-@interface OKGutterView : OKView {
-    NSScrollView *sourceScrollView;
-    NSTextView *sourceTextView;
-
-    NSArray *lineNumberRects;
-    NSUInteger startLineNumber;
-    NSUInteger highlightedLineNumber;
-    
-    NSDictionary *attrs;
-    NSDictionary *hiAttrs;
-    
-    NSColor *borderColor;
-}
-
+@interface OKGutterView : OKView
 @property (nonatomic, assign) IBOutlet NSScrollView *sourceScrollView;
 @property (nonatomic, assign) IBOutlet NSTextView *sourceTextView;
 @property (nonatomic, retain) NSArray *lineNumberRects;
