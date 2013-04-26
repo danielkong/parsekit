@@ -778,6 +778,8 @@
 		D3BD397B1729F2ED00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BD39761729F1DD00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt */; };
 		D3BD397C1729F2F100FC6549 /* PKSPostCallbackSyntaxLeafTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BD39751729F1DD00FC6549 /* PKSPostCallbackSyntaxLeafTemplate.txt */; };
 		D3BD397D1729F4E500FC6549 /* OKJavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD395B1729B16C00FC6549 /* OKJavaScriptParser.m */; };
+		D3BD3980172B046500FC6549 /* OKMiniCSSParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BD397E172B046500FC6549 /* OKMiniCSSParser.h */; };
+		D3BD3981172B046500FC6549 /* OKMiniCSSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD397F172B046500FC6549 /* OKMiniCSSParser.m */; };
 		D3C07E8816F5536E000FB894 /* PKResolutionPhaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C07E8616F5536B000FB894 /* PKResolutionPhaseVisitor.h */; };
 		D3C07E8916F5536E000FB894 /* PKResolutionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8716F5536C000FB894 /* PKResolutionPhaseVisitor.m */; };
 		D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1982,6 +1984,8 @@
 		D3BD39701729E4CA00FC6549 /* ExpressionSyntaxParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExpressionSyntaxParser.m; path = test/ExpressionSyntaxParser.m; sourceTree = "<group>"; };
 		D3BD39751729F1DD00FC6549 /* PKSPostCallbackSyntaxLeafTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPostCallbackSyntaxLeafTemplate.txt; path = res/PKSPostCallbackSyntaxLeafTemplate.txt; sourceTree = "<group>"; };
 		D3BD39761729F1DD00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSPreCallbackSyntaxLeafTemplate.txt; path = res/PKSPreCallbackSyntaxLeafTemplate.txt; sourceTree = "<group>"; };
+		D3BD397E172B046500FC6549 /* OKMiniCSSParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKMiniCSSParser.h; path = ../okudakit/src/parsers/OKMiniCSSParser.h; sourceTree = "<group>"; };
+		D3BD397F172B046500FC6549 /* OKMiniCSSParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKMiniCSSParser.m; path = ../okudakit/src/parsers/OKMiniCSSParser.m; sourceTree = "<group>"; };
 		D3C031EB0EF38D2D00C5ABEB /* TDLowercaseWordTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLowercaseWordTest.h; path = test/TDLowercaseWordTest.h; sourceTree = "<group>"; };
 		D3C031EC0EF38D2D00C5ABEB /* TDLowercaseWordTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLowercaseWordTest.m; path = test/TDLowercaseWordTest.m; sourceTree = "<group>"; };
 		D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseSymbol.h; path = src/PKBaseSymbol.h; sourceTree = "<group>"; };
@@ -2430,6 +2434,7 @@
 				D30DA27E1728BA6F00A1A3EC /* OKGutterView.m */,
 				D30DA2831728BA7B00A1A3EC /* OKSourceCodeTextView.h */,
 				D30DA27F1728BA6F00A1A3EC /* OKSourceCodeTextView.m */,
+				D3BD3982172B074C00FC6549 /* MiniCSS Parser */,
 				D30DA1F61728566000A1A3EC /* Parsers */,
 				D30DA2651728B3AE00A1A3EC /* Assemblers */,
 				D30DA2171728584100A1A3EC /* res */,
@@ -2587,8 +2592,6 @@
 		D30DA2651728B3AE00A1A3EC /* Assemblers */ = {
 			isa = PBXGroup;
 			children = (
-				D30DA1EE1728565000A1A3EC /* OKMiniCSSAssembler.h */,
-				D30DA1EF1728565000A1A3EC /* OKMiniCSSAssembler.m */,
 				D30DA1EC1728565000A1A3EC /* OKGenericAssembler.h */,
 				D30DA1ED1728565000A1A3EC /* OKGenericAssembler.m */,
 			);
@@ -3556,6 +3559,17 @@
 			name = old;
 			sourceTree = "<group>";
 		};
+		D3BD3982172B074C00FC6549 /* MiniCSS Parser */ = {
+			isa = PBXGroup;
+			children = (
+				D3BD397E172B046500FC6549 /* OKMiniCSSParser.h */,
+				D3BD397F172B046500FC6549 /* OKMiniCSSParser.m */,
+				D30DA1EE1728565000A1A3EC /* OKMiniCSSAssembler.h */,
+				D30DA1EF1728565000A1A3EC /* OKMiniCSSAssembler.m */,
+			);
+			name = "MiniCSS Parser";
+			sourceTree = "<group>";
+		};
 		D3C0309C0EF34DD200C5ABEB /* grammar */ = {
 			isa = PBXGroup;
 			children = (
@@ -4069,6 +4083,7 @@
 				D30DA2871728BB0900A1A3EC /* OKView.h in Headers */,
 				D3BD39561728C01100FC6549 /* OKSourceEditViewController.h in Headers */,
 				D3BD395C1729B16C00FC6549 /* OKJavaScriptParser.h in Headers */,
+				D3BD3980172B046500FC6549 /* OKMiniCSSParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4994,6 +5009,7 @@
 				D30DA2891728BB3D00A1A3EC /* OKView.m in Sources */,
 				D3BD39581728C01F00FC6549 /* OKSourceEditViewController.m in Sources */,
 				D3BD395D1729B16C00FC6549 /* OKJavaScriptParser.m in Sources */,
+				D3BD3981172B046500FC6549 /* OKMiniCSSParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

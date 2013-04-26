@@ -8,6 +8,8 @@
 
 #import "OKSyntaxHighlighter.h"
 #import <ParseKit/ParseKit.h>
+
+#import "OKMiniCSSParser.h"
 #import "OKMiniCSSAssembler.h"
 #import "OKGenericAssembler.h"
 
@@ -24,7 +26,7 @@
 // thats so that if an application has syntax highlighting turned off, this class will
 // consume much less memory/fewer resources.
 @property (nonatomic, retain) PKParserFactory *parserFactory;
-@property (nonatomic, retain) PKParser *miniCSSParser;
+@property (nonatomic, retain) PKSParser *miniCSSParser;
 @property (nonatomic, retain) OKMiniCSSAssembler *miniCSSAssembler;
 @property (nonatomic, retain) OKGenericAssembler *genericAssembler;
 @property (nonatomic, retain) NSMutableDictionary *parserCache;
@@ -54,11 +56,6 @@
 
 
 - (void)dealloc {
-    PKReleaseSubparserTree(miniCSSParser);
-    for (PKParser *p in parserCache) {
-        PKReleaseSubparserTree(p);
-    }
-    
     self.parserFactory = nil;
     self.miniCSSParser = nil;
     self.miniCSSAssembler = nil;
@@ -86,14 +83,15 @@
 }
 
 
-- (PKParser *)miniCSSParser {
+- (PKSParser *)miniCSSParser {
     if (!miniCSSParser) {
         // create mini-css parser
-        NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"OKMini_css" ofType:@"grammar"];
-        NSString *grammarString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-
-        self.miniCSSParser = [self.parserFactory parserFromGrammar:grammarString assembler:self.miniCSSAssembler error:nil];
-    } 
+//        NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"OKMini_css" ofType:@"grammar"];
+//        NSString *grammarString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//        self.miniCSSParser = [self.parserFactory parserFromGrammar:grammarString assembler:self.miniCSSAssembler error:nil];
+        self.miniCSSParser = [[[OKMiniCSSParser alloc] init] autorelease];
+        
+    }
     return miniCSSParser;
 }
 
@@ -118,9 +116,18 @@
     // parse CSS
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:grammarName ofType:@"css"];
     NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    PKAssembly *a = [PKTokenAssembly assemblyWithString:s];
-    [self.miniCSSParser bestMatchFor:a]; // produce dict of attributes from the CSS
-    return self.miniCSSAssembler.attributes;
+
+//    PKAssembly *a = [PKTokenAssembly assemblyWithString:s];
+//    [self.miniCSSParser bestMatchFor:a]; // produce dict of attributes from the CSS
+    
+    NSError *err = nil;
+    id result = [self.miniCSSParser parseString:s assembler:self.miniCSSAssembler error:&err];
+    if (err) NSLog(@"%@", err);
+    
+    NSLog(@"%@", result);
+
+    NSMutableDictionary *attrs = self.miniCSSAssembler.attributes;
+    return attrs;
 }
 
 

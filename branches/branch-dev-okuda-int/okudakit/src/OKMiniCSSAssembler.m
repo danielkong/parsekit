@@ -37,50 +37,70 @@
 #pragma mark -
 #pragma mark Assembler Callbacks
 
-//    @start      = ruleset*;
-//    ruleset     = selector '{' decls >'}';
-//    selector    = Word;
-//    decls       = Empty | actualDecls;
-//    actualDecls = decl decl*;
-//    decl        = property >':' expr >';'?;
-//    property    = 'color' | 'background-color' | 'font-family' | 'font-size';
-//    expr        = pixelValue | rgb | string | constants;
-//    pixelValue  = Number >'px';
-//    rgb         = >'rgb' '(' Number >',' Number >',' Number >')';
-//    string      = QuotedString;
-//    constants   = 'bold' | 'normal' | 'italic';
+//    @start        = ruleset*;
+//    ruleset       = selectors '{' decls '}'!;
+//    selectors     = selector commaSelector*;
+//    selector      = Word;
+//    commaSelector = ','! selector;
+//    decls         = Empty | actualDecls;
+//    actualDecls   = decl decl*;
+//    decl          = property ':'! expr ';'!?;
+//    property      = color | backgroundColor | fontFamily | fontSize;
+//    expr          = pixelValue | rgb | string | constants;
+//    pixelValue    = num px;
+//    rgb           = rgb '(' Number ','! Number ','! Number ')'!;
+//    constants     = bold | normal | italic;
+//
+//    num 		  = Number;
+//    string        = QuotedString;
+//
+//    px = 'px'!;
+//    rgb = 'rgb'!;
+//    color = 'color';
+//    backgroundColor = 'background-color';
+//    fontFamily = 'font-family';
+//    fontSize = 'font-size';
+//    bold = 'bold';
+//    normal = 'normal';
+//    italic = 'italic';
 
-- (void)parser:(PKParser *)p didMatchProperty:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchProperty:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     PKToken *tok = [a pop];
     [a push:tok.stringValue];
 }
 
 
-- (void)parser:(PKParser *)p didMatchString:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchString:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     PKToken *tok = [a pop];
     [a push:[tok.stringValue stringByTrimmingQuotes]];
 }
 
 
-- (void)parser:(PKParser *)p didMatchConstant:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchConstant:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     PKToken *tok = [a pop];
     [a push:tok.stringValue];
 }
 
 
-- (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchNum:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     PKToken *tok = [a pop];
     [a push:[NSNumber numberWithFloat:tok.floatValue]];
 }
 
 
-- (void)parser:(PKParser *)p didMatchPixelValue:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchPixelValue:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     PKToken *tok = [a pop];
     [a push:[NSNumber numberWithFloat:tok.floatValue]];
 }
 
 
-- (void)parser:(PKParser *)p didMatchRgb:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchRgbValue:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     NSArray *objs = [a objectsAbove:paren];
     [a pop]; // discard '('
     CGFloat blue  = [(PKToken *)[objs objectAtIndex:0] floatValue]/255.0;
@@ -90,7 +110,8 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchActualDecls:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchActualDecls:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     id d = [NSMutableDictionary dictionary];
     NSArray *objs = [a objectsAbove:curly];
     [a pop]; // discard curly
@@ -107,7 +128,8 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchRuleset:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchRuleset:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     id props = [a pop];
     [self gatherPropertiesIn:props];
 

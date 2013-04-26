@@ -100,4 +100,21 @@
     TDEqualObjects(@"[[, 1, foobar, baz, ;, [, 2, ;][/1/]/foobar/baz/;/[/2/]/;^", [res description]);
 }
 
+
+- (void)parser:(PKSParser *)p didMatchStat:(PKAssembly *)a {
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    [a push:@"flag"];
+}
+- (void)testStatments {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
+    
+    _parser.enableAutomaticErrorRecovery = YES;
+    
+    input = @"[1];[2";
+    res = [_parser parseString:input assembler:self error:&err];
+    TDEqualObjects(@"[[, 1, ;, flag, [, 2][/1/]/;/[/2^", [res description]);
+}
+
 @end
