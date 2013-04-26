@@ -59,14 +59,14 @@
 - (id)performSelector:(SEL)sel withObject:(id)obj1 withObject:(id)obj2 {
     NSString *selName = NSStringFromSelector(sel);
     
-    NSString *productionName = [productionNames objectForKey:selName];
+    NSString *productionName = [_productionNames objectForKey:selName];
     
     if (!productionName) {
-        NSUInteger prefixLen = [prefix length];
+        NSUInteger prefixLen = [_prefix length];
         unichar c = tolower([selName characterAtIndex:prefixLen]);
-        NSRange r = NSMakeRange(prefixLen + 1, selName.length - (prefixLen + suffix.length + 1 /*:*/));
+        NSRange r = NSMakeRange(prefixLen + 1, selName.length - (prefixLen + _suffix.length + 1 /*:*/));
         productionName = [NSString stringWithFormat:@"%C%@", c, [selName substringWithRange:r]];
-        [productionNames setObject:productionName forKey:selName];
+        [_productionNames setObject:productionName forKey:selName];
     }
     
     [self didMatchTerminalNamed:productionName withAssembly:obj2];
@@ -80,8 +80,8 @@
     self.currentAssembly = a;
     NSMutableArray *whitespaceToks = [self popWhitespaceTokensFrom:a];
 
-    id props = [attributes objectForKey:name];
-    if (!props) props = defaultProperties;
+    id props = [_attributes objectForKey:name];
+    if (!props) props = _defaultProperties;
     
     NSMutableArray *toks = nil;
     PKToken *tok = nil;
@@ -109,10 +109,10 @@
 
 
 - (void)appendAttributedStringForObject:(id)obj withAttrs:(id)attrs {
-    NSMutableAttributedString *displayString = currentAssembly.target;
+    NSMutableAttributedString *displayString = _currentAssembly.target;
     if (!displayString) {
         displayString = [[[NSMutableAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
-        currentAssembly.target = displayString;
+        _currentAssembly.target = displayString;
     }
 
     
@@ -160,10 +160,4 @@
     }
 }
 
-@synthesize attributes;
-@synthesize defaultProperties;
-@synthesize productionNames;
-@synthesize currentAssembly;
-@synthesize prefix;
-@synthesize suffix;
 @end
