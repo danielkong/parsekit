@@ -38,7 +38,7 @@ function {
 }
 
 
-openParen, closeParen, openCurly, closeCurly, semi, equals, dot, comma {
+openParen, closeParen, openCurly, closeCurly, semi, equals, dot, comma, keywordNew {
     color:rgb(255.0, 255.0, 255.0);
     background-color:rgb(20, 20, 26);
     font-family:'Monaco';
