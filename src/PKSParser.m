@@ -36,7 +36,12 @@
 - (void)fireSyntaxSelector:(SEL)sel withRuleName:(NSString *)ruleName;
 
 - (void)_discard;
+
+// error recovery
 - (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind;
+- (void)pushFollow:(NSInteger)tokenKind;
+- (void)popFollow:(NSInteger)tokenKind;
+- (BOOL)resync;
 
 // conenience
 - (BOOL)_popBool;
@@ -533,6 +538,27 @@
     id result = nil;
     if (block) result = block();
     return result;
+}
+
+
+- (void)tryWithResync:(NSInteger)tokenKind block:(PKSResyncBlock)block completion:(PKSResyncBlock)completion {
+    NSParameterAssert(block);
+    NSParameterAssert(completion);
+    
+    [self pushFollow:tokenKind];
+    @try {
+        block();
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+            completion();
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:tokenKind];
+    }
 }
 
 

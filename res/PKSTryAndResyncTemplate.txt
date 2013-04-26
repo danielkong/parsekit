@@ -1,12 +1,3 @@
-{%for 1 to depth %}    {%/for%}[self pushFollow:{{tokenKind.name}}];
-{%for 1 to depth %}    {%/for%}@try {
-{{childString}}{%for 1 to depth %}    {%/for%}}
-{%for 1 to depth %}    {%/for%}@catch (PKSRecognitionException *ex) {
-{%for 1 to depth %}    {%/for%}    if ([self resync]) {
-{%for 1 to depth %}    {%/for%}{{terminalCallString}}{%for 1 to depth %}    {%/for%}    } else {
-{%for 1 to depth %}    {%/for%}        @throw ex;
-{%for 1 to depth %}    {%/for%}    }
-{%for 1 to depth %}    {%/for%}}
-{%for 1 to depth %}    {%/for%}@finally {
-{%for 1 to depth %}    {%/for%}    [self popFollow:{{tokenKind.name}}];
-{%for 1 to depth %}    {%/for%}}
+{%for 1 to depth %}    {%/for%}[self tryWithResync:{{tokenKind.name}} block:^{
+{{childString}}{%for 1 to depth %}    {%/for%}} completion:^{
+{%for 1 to depth %}    {%/for%}{{terminalCallString}}{%for 1 to depth %}    {%/for%}}];

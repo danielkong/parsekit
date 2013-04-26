@@ -16,6 +16,7 @@
 typedef id   (^PKSActionBlock)   (void);
 typedef void (^PKSSpeculateBlock)(void);
 typedef BOOL (^PKSPredicateBlock)(void);
+typedef void (^PKSResyncBlock)(void);
 
 enum {
     TOKEN_KIND_BUILTIN_EOF = -1,
@@ -92,6 +93,7 @@ enum {
 - (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
 
 // error recovery
+- (void)tryWithResync:(NSInteger)tokenKind block:(PKSResyncBlock)block completion:(PKSResyncBlock)completion;
 - (void)pushFollow:(NSInteger)tokenKind;
 - (void)popFollow:(NSInteger)tokenKind;
 - (BOOL)resync;

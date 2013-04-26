@@ -755,8 +755,7 @@
 
 - (void)_start {
     
-    [self pushFollow:TOKEN_KIND_BUILTIN_EOF];
-    @try {
+    [self tryWithResync:TOKEN_KIND_BUILTIN_EOF block:^{
     [self execute:(id)^{
         
 	
@@ -801,17 +800,9 @@
     }];
     [self program]; 
     [self matchEOF:YES]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
-            [self matchEOF:YES];
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:TOKEN_KIND_BUILTIN_EOF];
-    }
+    } completion:^{
+        [self matchEOF:YES];
+    }];
 
 }
 
@@ -1754,37 +1745,19 @@
 
 - (void)__func {
     
-    [self pushFollow:TOKEN_KIND_BUILTIN_WORD];
-    @try {
+    [self tryWithResync:TOKEN_KIND_BUILTIN_WORD block:^{
     [self function]; 
     [self identifier]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self identifier]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:TOKEN_KIND_BUILTIN_WORD];
-    }
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    @try {
+    }];
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
     [self openParen]; 
     [self paramListOpt]; 
     [self closeParen]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self closeParen]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    }
+    }];
     [self compoundStmt]; 
 
 }
@@ -1824,21 +1797,12 @@
 
 - (void)__commaIdentifier {
     
-    [self pushFollow:TOKEN_KIND_BUILTIN_WORD];
-    @try {
+    [self tryWithResync:TOKEN_KIND_BUILTIN_WORD block:^{
     [self comma]; 
     [self identifier]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self identifier]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:TOKEN_KIND_BUILTIN_WORD];
-    }
+    }];
 
 }
 
@@ -1848,22 +1812,13 @@
 
 - (void)__compoundStmt {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSECURLY];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSECURLY block:^{
     [self openCurly]; 
     [self stmts]; 
     [self closeCurly]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self closeCurly]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSECURLY];
-    }
+    }];
 
 }
 
@@ -1939,23 +1894,14 @@
 
 - (void)__ifElseStmt {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_ELSE];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_ELSE block:^{
     [self if]; 
     [self condition]; 
     [self stmt]; 
     [self else]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self else]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_ELSE];
-    }
+    }];
     [self stmt]; 
 
 }
@@ -1978,51 +1924,24 @@
 
 - (void)__forParenStmt {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
     [self forParen]; 
     [self semi]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self semi]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    }
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    @try {
+    }];
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
     [self exprOpt]; 
     [self semi]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self semi]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    }
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    @try {
+    }];
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
     [self exprOpt]; 
     [self closeParen]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self closeParen]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    }
+    }];
     [self stmt]; 
 
 }
@@ -2033,51 +1952,24 @@
 
 - (void)__forBeginStmt {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
     [self forBegin]; 
     [self semi]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self semi]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    }
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    @try {
+    }];
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
     [self exprOpt]; 
     [self semi]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self semi]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    }
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    @try {
+    }];
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
     [self exprOpt]; 
     [self closeParen]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self closeParen]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    }
+    }];
     [self stmt]; 
 
 }
@@ -2088,36 +1980,18 @@
 
 - (void)__forInStmt {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_IN];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_IN block:^{
     [self forBegin]; 
     [self in]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self in]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_IN];
-    }
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    @try {
+    }];
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
     [self expr]; 
     [self closeParen]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self closeParen]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    }
+    }];
     [self stmt]; 
 
 }
@@ -2128,21 +2002,12 @@
 
 - (void)__breakStmt {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
     [self break]; 
     [self semi]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self semi]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    }
+    }];
 
 }
 
@@ -2152,21 +2017,12 @@
 
 - (void)__continueStmt {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
     [self continue]; 
     [self semi]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self semi]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    }
+    }];
 
 }
 
@@ -2176,36 +2032,18 @@
 
 - (void)__withStmt {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_OPENPAREN];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{
     [self with]; 
     [self openParen]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self openParen]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_OPENPAREN];
-    }
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    @try {
+    }];
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
     [self expr]; 
     [self closeParen]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self closeParen]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    }
+    }];
     [self stmt]; 
 
 }
@@ -2216,22 +2054,13 @@
 
 - (void)__returnStmt {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
     [self return]; 
     [self exprOpt]; 
     [self semi]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self semi]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    }
+    }];
 
 }
 
@@ -2241,21 +2070,12 @@
 
 - (void)__variablesOrExprStmt {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
     [self variablesOrExpr]; 
     [self semi]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self semi]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_SEMI];
-    }
+    }];
 
 }
 
@@ -2265,22 +2085,13 @@
 
 - (void)__condition {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
     [self openParen]; 
     [self expr]; 
     [self closeParen]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self closeParen]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    }
+    }];
 
 }
 
@@ -2290,21 +2101,12 @@
 
 - (void)__forParen {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_OPENPAREN];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{
     [self for]; 
     [self openParen]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self openParen]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_OPENPAREN];
-    }
+    }];
 
 }
 
@@ -2477,22 +2279,13 @@
 
 - (void)__ternaryExpr {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_COLON];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_COLON block:^{
     [self question]; 
     [self assignmentExpr]; 
     [self colon]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self colon]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_COLON];
-    }
+    }];
     [self assignmentExpr]; 
 
 }
@@ -2848,22 +2641,13 @@
 
 - (void)__constructor {
     
-    if ([self speculate:^{ [self pushFollow:JAVASCRIPT_TOKEN_KIND_DOT];@try {[self this]; [self dot]; }@catch (PKSRecognitionException *ex) {if ([self resync]) {[self dot]; } else {@throw ex;}}@finally {[self popFollow:JAVASCRIPT_TOKEN_KIND_DOT];}}]) {
-        [self pushFollow:JAVASCRIPT_TOKEN_KIND_DOT];
-        @try {
+    if ([self speculate:^{ [self tryWithResync:JAVASCRIPT_TOKEN_KIND_DOT block:^{[self this]; [self dot]; } completion:^{[self dot]; }];}]) {
+        [self tryWithResync:JAVASCRIPT_TOKEN_KIND_DOT block:^{
         [self this]; 
         [self dot]; 
-        }
-        @catch (PKSRecognitionException *ex) {
-            if ([self resync]) {
+        } completion:^{
                 [self dot]; 
-            } else {
-                @throw ex;
-            }
-        }
-        @finally {
-            [self popFollow:JAVASCRIPT_TOKEN_KIND_DOT];
-        }
+        }];
     }
     [self constructorCall]; 
 
@@ -2895,22 +2679,13 @@
 
 - (void)__parenArgListParen {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
     [self openParen]; 
     [self argListOpt]; 
     [self closeParen]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self closeParen]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    }
+    }];
 
 }
 
@@ -2962,22 +2737,13 @@
 
 - (void)__bracketMemberExpr {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET block:^{
     [self openBracket]; 
     [self expr]; 
     [self closeBracket]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self closeBracket]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET];
-    }
+    }];
 
 }
 
@@ -2987,22 +2753,13 @@
 
 - (void)__parenMemberExpr {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
     [self openParen]; 
     [self argListOpt]; 
     [self closeParen]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self closeParen]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    }
+    }];
 
 }
 
@@ -3084,22 +2841,13 @@
 
 - (void)__parenExprParen {
     
-    [self pushFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    @try {
+    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
     [self openParen]; 
     [self expr]; 
     [self closeParen]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self closeParen]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
-    }
+    }];
 
 }
 
