@@ -10,11 +10,8 @@
 
 @class PKToken;
 
-@interface OKMiniCSSAssembler : NSObject {
-    NSMutableDictionary *attributes;
-    PKToken *paren;
-    PKToken *curly;
-}
+@interface OKMiniCSSAssembler : NSObject
+
 @property (nonatomic, retain) NSMutableDictionary *attributes;
 @property (nonatomic, retain) PKToken *paren;
 @property (nonatomic, retain) PKToken *curly;
