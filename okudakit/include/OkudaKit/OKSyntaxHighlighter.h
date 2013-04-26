@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class PKParser;
+@class PKSParser;
 @class PKTokenizer;
 @class PKParserFactory;
 @class OKMiniCSSAssembler;
@@ -16,7 +16,7 @@
 
 @interface OKSyntaxHighlighter : NSObject {
     PKParserFactory *parserFactory;
-    PKParser *miniCSSParser;
+    PKSParser *miniCSSParser;
     OKMiniCSSAssembler *miniCSSAssembler;
     OKGenericAssembler *genericAssembler;
     BOOL cacheParsers;
@@ -24,6 +24,7 @@
     NSMutableDictionary *tokenizerCache;
     NSDictionary *parserClassTab;
 }
+
 + (id)syntaxHighlighter;
 
 - (NSAttributedString *)highlightedStringForString:(NSString *)s ofGrammar:(NSString *)grammarName;
