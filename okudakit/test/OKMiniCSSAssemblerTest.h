@@ -7,15 +7,16 @@
 //
 
 #import "OKTestScaffold.h"
+#import <ParseKit/ParseKit.h>
+#import "OKMiniCSSParser.h"
 #import "OKMiniCSSAssembler.h"
 
 @interface OKMiniCSSAssemblerTest : SenTestCase {
     NSString *path;
     NSString *grammarString;
     NSString *s;
-    OKMiniCSSAssembler *ass;
-    PKParserFactory *factory;
-    PKParser *lp;
+    OKMiniCSSAssembler *cssAssembler;
+    PKSParser *cssParser;
     PKAssembly *a;
 }
 

@@ -11,15 +11,13 @@
 @implementation OKGenericAssemblerTest
 
 - (void)setUp {
-    path = [[NSBundle bundleForClass:[OKSyntaxHighlighter class]] pathForResource:@"OKMini_css" ofType:@"grammar"];
-    grammarString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    cssParser = [[OKMiniCSSParser alloc] init];
     cssAssember = [[OKMiniCSSAssembler alloc] init];
-    factory = [PKParserFactory factory];
-    cssParser = [factory parserFromGrammar:grammarString assembler:cssAssember error:nil];
 }
 
 
 - (void)tearDown {
+    [cssParser release];
     [cssAssember release];
 }
 
@@ -29,8 +27,8 @@
     
     path = [[NSBundle bundleForClass:[OKSyntaxHighlighter class]] pathForResource:@"json" ofType:@"css"];
     s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    a = [PKTokenAssembly assemblyWithString:s];
-    a = [cssParser bestMatchFor:a];
+
+    [cssParser parseString:s assembler:cssAssember error:nil];
     
     TDNotNil(cssAssember.attributes);
     id props = [cssAssember.attributes objectForKey:@"openCurly"];

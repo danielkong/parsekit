@@ -9,6 +9,7 @@
 #import "OKTestScaffold.h"
 #import "OKMiniCSSAssembler.h"
 #import "OKGenericAssembler.h"
+#import "OKMiniCSSParser.h"
 
 @interface OKGenericAssemblerTest : SenTestCase {
     NSString *path;
@@ -16,7 +17,7 @@
     NSString *s;
     OKMiniCSSAssembler *cssAssember;
     PKParserFactory *factory;
-    PKParser *cssParser;
+    PKSParser *cssParser;
     PKAssembly *a;
     OKGenericAssembler *genericAssember;
 }
