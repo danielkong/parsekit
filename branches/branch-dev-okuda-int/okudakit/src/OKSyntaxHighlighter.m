@@ -117,14 +117,13 @@
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:grammarName ofType:@"css"];
     NSString *s = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 
-//    PKAssembly *a = [PKTokenAssembly assemblyWithString:s];
-//    [self.miniCSSParser bestMatchFor:a]; // produce dict of attributes from the CSS
-    
     NSError *err = nil;
     id result = [self.miniCSSParser parseString:s assembler:self.miniCSSAssembler error:&err];
-    if (err) NSLog(@"%@", err);
+    if (!result) {
+        if (err) NSLog(@"%@", err);
+    }
     
-    NSLog(@"%@", result);
+    //NSLog(@"%@", result);
 
     NSMutableDictionary *attrs = self.miniCSSAssembler.attributes;
     return attrs;
