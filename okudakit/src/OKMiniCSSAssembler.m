@@ -65,42 +65,42 @@
 //    italic = 'italic';
 
 - (void)parser:(PKSParser *)p didMatchProperty:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     PKToken *tok = [a pop];
     [a push:tok.stringValue];
 }
 
 
 - (void)parser:(PKSParser *)p didMatchString:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     PKToken *tok = [a pop];
     [a push:[tok.stringValue stringByTrimmingQuotes]];
 }
 
 
 - (void)parser:(PKSParser *)p didMatchConstant:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     PKToken *tok = [a pop];
     [a push:tok.stringValue];
 }
 
 
 - (void)parser:(PKSParser *)p didMatchNum:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     PKToken *tok = [a pop];
     [a push:[NSNumber numberWithFloat:tok.floatValue]];
 }
 
 
-- (void)parser:(PKSParser *)p didMatchPixelValue:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
-    PKToken *tok = [a pop];
-    [a push:[NSNumber numberWithFloat:tok.floatValue]];
-}
+//- (void)parser:(PKSParser *)p didMatchPixelValue:(PKAssembly *)a {
+//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+//    PKToken *tok = [a pop];
+//    [a push:[NSNumber numberWithFloat:tok.floatValue]];
+//}
 
 
 - (void)parser:(PKSParser *)p didMatchRgbValue:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     NSArray *objs = [a objectsAbove:paren];
     [a pop]; // discard '('
     CGFloat blue  = [(PKToken *)[objs objectAtIndex:0] floatValue]/255.0;
@@ -111,7 +111,7 @@
 
 
 - (void)parser:(PKSParser *)p didMatchActualDecls:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     id d = [NSMutableDictionary dictionary];
     NSArray *objs = [a objectsAbove:curly];
     [a pop]; // discard curly
@@ -129,7 +129,7 @@
 
 
 - (void)parser:(PKSParser *)p didMatchRuleset:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     id props = [a pop];
     [self gatherPropertiesIn:props];
 
