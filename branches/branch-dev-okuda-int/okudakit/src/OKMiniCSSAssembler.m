@@ -149,7 +149,7 @@
     [props removeObjectForKey:@"background-color"];
     
     NSString *fontFamily = [props objectForKey:@"font-family"];
-    if (!fontFamily.length) {
+    if (![fontFamily length]) {
         fontFamily = @"Monaco";
     }
     
