@@ -562,15 +562,18 @@
     
     // recurse
     for (PKBaseNode *child in node.children) {
-        
+        PKBaseNode *concreteNode = [self concreteNodeForNode:child];
+        BOOL tryWithResync = (_enableAutomaticErrorRecovery && concreteNode.isTerminal && partialCount > 0);
+
+//        if (tryWithResync) self.depth++;
         [child visit:self];
+//        if (tryWithResync) self.depth--;
         
         // pop
         NSString *terminalCallStr = [self pop];
         [partialChildStr appendString:terminalCallStr];
         
-        PKBaseNode *concreteNode = [self concreteNodeForNode:child];
-        if (_enableAutomaticErrorRecovery && concreteNode.isTerminal && partialCount > 0) {
+        if (tryWithResync) {
             
             PKSTokenKindDescriptor *desc = [(PKConstantNode *)concreteNode tokenKind];
             id resyncVars = @{TOKEN_KIND: desc, DEPTH: @(_depth), CHILD_STRING: partialChildStr, TERMINAL_CALL_STRING: terminalCallStr};

@@ -65,60 +65,33 @@
 
 - (void)_start {
     
-    [self pushFollow:TOKEN_KIND_BUILTIN_EOF];
-    @try {
+    [self tryWithResync:TOKEN_KIND_BUILTIN_EOF block:^{
     do {
         [self stat]; 
     } while ([self speculate:^{ [self stat]; }]);
     [self matchEOF:YES]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
-            [self matchEOF:YES];
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:TOKEN_KIND_BUILTIN_EOF];
-    }
+    } completion:^{
+        [self matchEOF:YES];
+    }];
 
 }
 
 - (void)stat {
     
-    if ([self speculate:^{ [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];@try {[self assign]; [self dot]; }@catch (PKSRecognitionException *ex) {if ([self resync]) {[self dot]; } else {@throw ex;}}@finally {[self popFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];}}]) {
-        [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];
-        @try {
+    if ([self speculate:^{ [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{[self assign]; [self dot]; } completion:^{[self dot]; }];}]) {
+        [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{
         [self assign]; 
         [self dot]; 
-        }
-        @catch (PKSRecognitionException *ex) {
-            if ([self resync]) {
+        } completion:^{
                 [self dot]; 
-            } else {
-                @throw ex;
-            }
-        }
-        @finally {
-            [self popFollow:ELEMENTASSIGN_TOKEN_KIND_DOT];
-        }
-    } else if ([self speculate:^{ [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];@try {[self list]; [self semi]; }@catch (PKSRecognitionException *ex) {if ([self resync]) {[self semi]; } else {@throw ex;}}@finally {[self popFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];}}]) {
-        [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];
-        @try {
+        }];
+    } else if ([self speculate:^{ [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{[self list]; [self semi]; } completion:^{[self semi]; }];}]) {
+        [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{
         [self list]; 
         [self semi]; 
-        }
-        @catch (PKSRecognitionException *ex) {
-            if ([self resync]) {
+        } completion:^{
                 [self semi]; 
-            } else {
-                @throw ex;
-            }
-        }
-        @finally {
-            [self popFollow:ELEMENTASSIGN_TOKEN_KIND_SEMI];
-        }
+        }];
     } else {
         [self raise:@"no viable alternative found in stat"];
     }
@@ -128,21 +101,12 @@
 
 - (void)assign {
     
-    [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_EQ];
-    @try {
+    [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_EQ block:^{
     [self list]; 
     [self eq]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self eq]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:ELEMENTASSIGN_TOKEN_KIND_EQ];
-    }
+    }];
     [self list]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAssign:)];
@@ -150,22 +114,13 @@
 
 - (void)list {
     
-    [self pushFollow:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
-    @try {
+    [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_RBRACKET block:^{
     [self lbracket]; 
     [self elements]; 
     [self rbracket]; 
-    }
-    @catch (PKSRecognitionException *ex) {
-        if ([self resync]) {
+    } completion:^{
         [self rbracket]; 
-        } else {
-            @throw ex;
-        }
-    }
-    @finally {
-        [self popFollow:ELEMENTASSIGN_TOKEN_KIND_RBRACKET];
-    }
+    }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
