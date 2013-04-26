@@ -94,7 +94,7 @@
 
 - (void)parser:(PKSParser *)p didMatchRgbValue:(PKAssembly *)a {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
-    NSArray *objs = [a objectsAbove:paren];
+    NSArray *objs = [a objectsAbove:_paren];
     [a pop]; // discard '('
     CGFloat blue  = [(PKToken *)[objs objectAtIndex:0] floatValue]/255.0;
     CGFloat green = [(PKToken *)[objs objectAtIndex:1] floatValue]/255.0;
@@ -106,12 +106,12 @@
 - (void)parser:(PKSParser *)p didMatchActualDecls:(PKAssembly *)a {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     id d = [NSMutableDictionary dictionary];
-    NSArray *objs = [a objectsAbove:curly];
+    NSArray *objs = [a objectsAbove:_curly];
     [a pop]; // discard curly
 
-    NSInteger i = 0;
-    NSInteger count = objs.count;
-    for ( ; i < count - 1; i++) {
+    
+    NSInteger last = [objs count] - 1;
+    for (NSInteger i = 0; i < last; i++) {
         id propVal = [objs objectAtIndex:i];
         id propName = [objs objectAtIndex:++i];
         [d setObject:propVal forKey:propName];
@@ -128,7 +128,7 @@
 
     for (PKToken *selectorTok in [a objectsAbove:nil]) {
         NSString *selector = selectorTok.stringValue;
-        [attributes setObject:props forKey:selector];
+        [_attributes setObject:props forKey:selector];
     }
 }
 
@@ -164,7 +164,4 @@
     [props removeObjectForKey:@"font-size"];
 }
 
-@synthesize attributes;
-@synthesize paren;
-@synthesize curly;
 @end
