@@ -92,13 +92,6 @@
 }
 
 
-//- (void)parser:(PKSParser *)p didMatchPixelValue:(PKAssembly *)a {
-//    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
-//    PKToken *tok = [a pop];
-//    [a push:[NSNumber numberWithFloat:tok.floatValue]];
-//}
-
-
 - (void)parser:(PKSParser *)p didMatchRgbValue:(PKAssembly *)a {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     NSArray *objs = [a objectsAbove:paren];
