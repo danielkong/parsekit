@@ -60,20 +60,23 @@
 #pragma mark NSTextDelegate
 
 - (void)textDidChange:(NSNotification *)n {
-//    NSAssert([n object] == _textView, @"");
-//    NSLog(@"%s", __PRETTY_FUNCTION__);
-//
-//    NSString *s = [_textView string];
-//    if ([s length]) {
-////        NSRange selRange = [_textView selectedRange];
-////        
-////        if (selRange.location != NSNotFound) {
-//            id res = [_highlighter highlightedStringForString:s ofGrammar:@"javascript"];
-//        NSLog(@"%@", res);
-//            self.sourceString = res;
-//            //        [_textView setSelectedRange:selRange];
-////        }
-//    }
+    NSAssert([n object] == _textView, @"");
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
+
+    NSLog(@"---------");
+    NSString *s = [_textView string];
+    NSLog(@"%@", s);
+    NSLog(@"---------");
+    if ([s length]) {
+//        NSRange selRange = [_textView selectedRange];
+//        
+//        if (selRange.location != NSNotFound) {
+        NSAttributedString *res = [_highlighter highlightedStringForString:s ofGrammar:@"javascript"];
+        NSLog(@"%@", [res string]);
+        self.sourceString = res;
+            //        [_textView setSelectedRange:selRange];
+//        }
+    }
 }
 
 @end

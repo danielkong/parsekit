@@ -49,11 +49,13 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self.enableAutomaticErrorRecovery = YES;
+
         self._tokenKindTab[@"|"] = @(OKJAVASCRIPT_TOKEN_KIND_PIPE);
         self._tokenKindTab[@"!="] = @(OKJAVASCRIPT_TOKEN_KIND_NE);
         self._tokenKindTab[@"("] = @(OKJAVASCRIPT_TOKEN_KIND_OPENPAREN);
         self._tokenKindTab[@"}"] = @(OKJAVASCRIPT_TOKEN_KIND_CLOSECURLY);
-        self._tokenKindTab[@"return"] = @(OKJAVASCRIPT_TOKEN_KIND_RETURN);
+        self._tokenKindTab[@"return"] = @(OKJAVASCRIPT_TOKEN_KIND_RETURNSYM);
         self._tokenKindTab[@"~"] = @(OKJAVASCRIPT_TOKEN_KIND_TILDE);
         self._tokenKindTab[@")"] = @(OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN);
         self._tokenKindTab[@"*"] = @(OKJAVASCRIPT_TOKEN_KIND_TIMES);
@@ -64,7 +66,7 @@
         self._tokenKindTab[@"instanceof"] = @(OKJAVASCRIPT_TOKEN_KIND_INSTANCEOF);
         self._tokenKindTab[@","] = @(OKJAVASCRIPT_TOKEN_KIND_COMMA);
         self._tokenKindTab[@"<<="] = @(OKJAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ);
-        self._tokenKindTab[@"if"] = @(OKJAVASCRIPT_TOKEN_KIND_IF);
+        self._tokenKindTab[@"if"] = @(OKJAVASCRIPT_TOKEN_KIND_IFSYM);
         self._tokenKindTab[@"-"] = @(OKJAVASCRIPT_TOKEN_KIND_MINUS);
         self._tokenKindTab[@"null"] = @(OKJAVASCRIPT_TOKEN_KIND_NULL);
         self._tokenKindTab[@"false"] = @(OKJAVASCRIPT_TOKEN_KIND_FALSELITERAL);
@@ -82,14 +84,14 @@
         self._tokenKindTab[@"]"] = @(OKJAVASCRIPT_TOKEN_KIND_CLOSEBRACKET);
         self._tokenKindTab[@"^"] = @(OKJAVASCRIPT_TOKEN_KIND_CARET);
         self._tokenKindTab[@"=="] = @(OKJAVASCRIPT_TOKEN_KIND_EQ);
-        self._tokenKindTab[@"continue"] = @(OKJAVASCRIPT_TOKEN_KIND_CONTINUE);
+        self._tokenKindTab[@"continue"] = @(OKJAVASCRIPT_TOKEN_KIND_CONTINUESYM);
         self._tokenKindTab[@"break"] = @(OKJAVASCRIPT_TOKEN_KIND_BREAKSYM);
         self._tokenKindTab[@"-="] = @(OKJAVASCRIPT_TOKEN_KIND_MINUSEQ);
         self._tokenKindTab[@">="] = @(OKJAVASCRIPT_TOKEN_KIND_GE);
         self._tokenKindTab[@":"] = @(OKJAVASCRIPT_TOKEN_KIND_COLON);
         self._tokenKindTab[@"in"] = @(OKJAVASCRIPT_TOKEN_KIND_INSYM);
         self._tokenKindTab[@";"] = @(OKJAVASCRIPT_TOKEN_KIND_SEMI);
-        self._tokenKindTab[@"for"] = @(OKJAVASCRIPT_TOKEN_KIND_FOR);
+        self._tokenKindTab[@"for"] = @(OKJAVASCRIPT_TOKEN_KIND_FORSYM);
         self._tokenKindTab[@"++"] = @(OKJAVASCRIPT_TOKEN_KIND_PLUSPLUS);
         self._tokenKindTab[@"<"] = @(OKJAVASCRIPT_TOKEN_KIND_LT);
         self._tokenKindTab[@"%="] = @(OKJAVASCRIPT_TOKEN_KIND_MODEQ);
@@ -98,10 +100,10 @@
         self._tokenKindTab[@">"] = @(OKJAVASCRIPT_TOKEN_KIND_GT);
         self._tokenKindTab[@"void"] = @(OKJAVASCRIPT_TOKEN_KIND_VOID);
         self._tokenKindTab[@"?"] = @(OKJAVASCRIPT_TOKEN_KIND_QUESTION);
-        self._tokenKindTab[@"while"] = @(OKJAVASCRIPT_TOKEN_KIND_WHILE);
+        self._tokenKindTab[@"while"] = @(OKJAVASCRIPT_TOKEN_KIND_WHILESYM);
         self._tokenKindTab[@"&="] = @(OKJAVASCRIPT_TOKEN_KIND_ANDEQ);
         self._tokenKindTab[@">>>="] = @(OKJAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ);
-        self._tokenKindTab[@"else"] = @(OKJAVASCRIPT_TOKEN_KIND_ELSE);
+        self._tokenKindTab[@"else"] = @(OKJAVASCRIPT_TOKEN_KIND_ELSESYM);
         self._tokenKindTab[@"/="] = @(OKJAVASCRIPT_TOKEN_KIND_DIVEQ);
         self._tokenKindTab[@"&&"] = @(OKJAVASCRIPT_TOKEN_KIND_AND);
         self._tokenKindTab[@"var"] = @(OKJAVASCRIPT_TOKEN_KIND_VAR);
@@ -126,6 +128,8 @@
 
 - (void)_start {
     
+    [self pushFollow:TOKEN_KIND_BUILTIN_EOF];
+    @try {
     [self execute:(id)^{
         
 	
@@ -170,35 +174,46 @@
     }];
     [self program]; 
     [self matchEOF:YES]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+            [self matchEOF:YES];
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:TOKEN_KIND_BUILTIN_EOF];
+    }
 
 }
 
-- (void)if {
+- (void)ifSym {
     
-    [self match:OKJAVASCRIPT_TOKEN_KIND_IF discard:NO];
+    [self match:OKJAVASCRIPT_TOKEN_KIND_IFSYM discard:NO];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchIf:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchIfSym:)];
 }
 
-- (void)else {
+- (void)elseSym {
     
-    [self match:OKJAVASCRIPT_TOKEN_KIND_ELSE discard:NO];
+    [self match:OKJAVASCRIPT_TOKEN_KIND_ELSESYM discard:NO];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchElse:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchElseSym:)];
 }
 
-- (void)while {
+- (void)whileSym {
     
-    [self match:OKJAVASCRIPT_TOKEN_KIND_WHILE discard:NO];
+    [self match:OKJAVASCRIPT_TOKEN_KIND_WHILESYM discard:NO];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchWhile:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchWhileSym:)];
 }
 
-- (void)for {
+- (void)forSym {
     
-    [self match:OKJAVASCRIPT_TOKEN_KIND_FOR discard:NO];
+    [self match:OKJAVASCRIPT_TOKEN_KIND_FORSYM discard:NO];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchFor:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchForSym:)];
 }
 
 - (void)inSym {
@@ -215,11 +230,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchBreakSym:)];
 }
 
-- (void)continue {
+- (void)continueSym {
     
-    [self match:OKJAVASCRIPT_TOKEN_KIND_CONTINUE discard:NO];
+    [self match:OKJAVASCRIPT_TOKEN_KIND_CONTINUESYM discard:NO];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchContinue:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchContinueSym:)];
 }
 
 - (void)with {
@@ -229,11 +244,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchWith:)];
 }
 
-- (void)return {
+- (void)returnSym {
     
-    [self match:OKJAVASCRIPT_TOKEN_KIND_RETURN discard:NO];
+    [self match:OKJAVASCRIPT_TOKEN_KIND_RETURNSYM discard:NO];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchReturn:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchReturnSym:)];
 }
 
 - (void)var {
@@ -800,11 +815,37 @@
 
 - (void)func {
     
+    [self pushFollow:TOKEN_KIND_BUILTIN_WORD];
+    @try {
     [self function]; 
     [self identifier]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self identifier]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:TOKEN_KIND_BUILTIN_WORD];
+    }
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self openParen]; 
     [self paramListOpt]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
     [self compoundStmt]; 
 
 }
@@ -832,22 +873,48 @@
 
 - (void)commaIdentifier {
     
+    [self pushFollow:TOKEN_KIND_BUILTIN_WORD];
+    @try {
     [self comma]; 
     [self identifier]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self identifier]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:TOKEN_KIND_BUILTIN_WORD];
+    }
 
 }
 
 - (void)compoundStmt {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSECURLY];
+    @try {
     [self openCurly]; 
     [self stmts]; 
     [self closeCurly]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeCurly]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSECURLY];
+    }
 
 }
 
 - (void)stmts {
     
-    while ([self predicts:OKJAVASCRIPT_TOKEN_KIND_BREAKSYM, OKJAVASCRIPT_TOKEN_KIND_CONTINUE, OKJAVASCRIPT_TOKEN_KIND_DELETE, OKJAVASCRIPT_TOKEN_KIND_FALSELITERAL, OKJAVASCRIPT_TOKEN_KIND_FOR, OKJAVASCRIPT_TOKEN_KIND_IF, OKJAVASCRIPT_TOKEN_KIND_KEYWORDNEW, OKJAVASCRIPT_TOKEN_KIND_MINUS, OKJAVASCRIPT_TOKEN_KIND_MINUSMINUS, OKJAVASCRIPT_TOKEN_KIND_NULL, OKJAVASCRIPT_TOKEN_KIND_OPENCURLY, OKJAVASCRIPT_TOKEN_KIND_OPENPAREN, OKJAVASCRIPT_TOKEN_KIND_PLUSPLUS, OKJAVASCRIPT_TOKEN_KIND_RETURN, OKJAVASCRIPT_TOKEN_KIND_SEMI, OKJAVASCRIPT_TOKEN_KIND_THIS, OKJAVASCRIPT_TOKEN_KIND_TILDE, OKJAVASCRIPT_TOKEN_KIND_TRUELITERAL, OKJAVASCRIPT_TOKEN_KIND_TYPEOF, OKJAVASCRIPT_TOKEN_KIND_UNDEFINED, OKJAVASCRIPT_TOKEN_KIND_VAR, OKJAVASCRIPT_TOKEN_KIND_VOID, OKJAVASCRIPT_TOKEN_KIND_WHILE, OKJAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
+    while ([self predicts:OKJAVASCRIPT_TOKEN_KIND_BREAKSYM, OKJAVASCRIPT_TOKEN_KIND_CONTINUESYM, OKJAVASCRIPT_TOKEN_KIND_DELETE, OKJAVASCRIPT_TOKEN_KIND_FALSELITERAL, OKJAVASCRIPT_TOKEN_KIND_FORSYM, OKJAVASCRIPT_TOKEN_KIND_IFSYM, OKJAVASCRIPT_TOKEN_KIND_KEYWORDNEW, OKJAVASCRIPT_TOKEN_KIND_MINUS, OKJAVASCRIPT_TOKEN_KIND_MINUSMINUS, OKJAVASCRIPT_TOKEN_KIND_NULL, OKJAVASCRIPT_TOKEN_KIND_OPENCURLY, OKJAVASCRIPT_TOKEN_KIND_OPENPAREN, OKJAVASCRIPT_TOKEN_KIND_PLUSPLUS, OKJAVASCRIPT_TOKEN_KIND_RETURNSYM, OKJAVASCRIPT_TOKEN_KIND_SEMI, OKJAVASCRIPT_TOKEN_KIND_THIS, OKJAVASCRIPT_TOKEN_KIND_TILDE, OKJAVASCRIPT_TOKEN_KIND_TRUELITERAL, OKJAVASCRIPT_TOKEN_KIND_TYPEOF, OKJAVASCRIPT_TOKEN_KIND_UNDEFINED, OKJAVASCRIPT_TOKEN_KIND_VAR, OKJAVASCRIPT_TOKEN_KIND_VOID, OKJAVASCRIPT_TOKEN_KIND_WHILESYM, OKJAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         if ([self speculate:^{ [self stmt]; }]) {
             [self stmt]; 
         } else {
@@ -893,7 +960,7 @@
 
 - (void)ifStmt {
     
-    [self if]; 
+    [self ifSym]; 
     [self condition]; 
     [self stmt]; 
 
@@ -901,17 +968,30 @@
 
 - (void)ifElseStmt {
     
-    [self if]; 
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_ELSESYM];
+    @try {
+    [self ifSym]; 
     [self condition]; 
     [self stmt]; 
-    [self else]; 
+    [self elseSym]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self elseSym]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_ELSESYM];
+    }
     [self stmt]; 
 
 }
 
 - (void)whileStmt {
     
-    [self while]; 
+    [self whileSym]; 
     [self condition]; 
     [self stmt]; 
 
@@ -919,89 +999,297 @@
 
 - (void)forParenStmt {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self forParen]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    }
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self exprOpt]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    }
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self exprOpt]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
     [self stmt]; 
 
 }
 
 - (void)forBeginStmt {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self forBegin]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    }
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self exprOpt]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    }
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self exprOpt]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
     [self stmt]; 
 
 }
 
 - (void)forInStmt {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_INSYM];
+    @try {
     [self forBegin]; 
     [self inSym]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self inSym]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_INSYM];
+    }
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self expr]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
     [self stmt]; 
 
 }
 
 - (void)breakStmt {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self breakSym]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    }
 
 }
 
 - (void)continueStmt {
     
-    [self continue]; 
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
+    [self continueSym]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    }
 
 }
 
 - (void)withStmt {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_OPENPAREN];
+    @try {
     [self with]; 
     [self openParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self openParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_OPENPAREN];
+    }
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self expr]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
     [self stmt]; 
 
 }
 
 - (void)returnStmt {
     
-    [self return]; 
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
+    [self returnSym]; 
     [self exprOpt]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    }
 
 }
 
 - (void)variablesOrExprStmt {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    @try {
     [self variablesOrExpr]; 
     [self semi]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self semi]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_SEMI];
+    }
 
 }
 
 - (void)condition {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self openParen]; 
     [self expr]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
 
 }
 
 - (void)forParen {
     
-    [self for]; 
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_OPENPAREN];
+    @try {
+    [self forSym]; 
     [self openParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self openParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_OPENPAREN];
+    }
 
 }
 
@@ -1118,9 +1406,22 @@
 
 - (void)ternaryExpr {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_COLON];
+    @try {
     [self question]; 
     [self assignmentExpr]; 
     [self colon]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self colon]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_COLON];
+    }
     [self assignmentExpr]; 
 
 }
@@ -1364,9 +1665,22 @@
 
 - (void)constructor {
     
-    if ([self speculate:^{ [self this]; [self dot]; }]) {
+    if ([self speculate:^{ [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_DOT];@try {[self this]; [self dot]; }@catch (PKSRecognitionException *ex) {if ([self resync]) {[self dot]; } else {@throw ex;}}@finally {[self popFollow:OKJAVASCRIPT_TOKEN_KIND_DOT];}}]) {
+        [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_DOT];
+        @try {
         [self this]; 
         [self dot]; 
+        }
+        @catch (PKSRecognitionException *ex) {
+            if ([self resync]) {
+                [self dot]; 
+            } else {
+                @throw ex;
+            }
+        }
+        @finally {
+            [self popFollow:OKJAVASCRIPT_TOKEN_KIND_DOT];
+        }
     }
     [self constructorCall]; 
 
@@ -1390,9 +1704,22 @@
 
 - (void)parenArgListParen {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self openParen]; 
     [self argListOpt]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
 
 }
 
@@ -1428,17 +1755,43 @@
 
 - (void)bracketMemberExpr {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEBRACKET];
+    @try {
     [self openBracket]; 
     [self expr]; 
     [self closeBracket]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeBracket]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEBRACKET];
+    }
 
 }
 
 - (void)parenMemberExpr {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self openParen]; 
     [self argListOpt]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
 
 }
 
@@ -1500,9 +1853,22 @@
 
 - (void)parenExprParen {
     
+    [self pushFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    @try {
     [self openParen]; 
     [self expr]; 
     [self closeParen]; 
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+        [self closeParen]; 
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:OKJAVASCRIPT_TOKEN_KIND_CLOSEPAREN];
+    }
 
 }
 
