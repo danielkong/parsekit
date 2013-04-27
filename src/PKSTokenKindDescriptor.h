@@ -12,6 +12,7 @@
 
 + (PKSTokenKindDescriptor *)descriptorWithStringValue:(NSString *)s name:(NSString *)name;
 + (PKSTokenKindDescriptor *)anyDescriptor;
++ (PKSTokenKindDescriptor *)eofDescriptor;
 
 + (void)clearCache;
 
