@@ -18,27 +18,6 @@
 
 @implementation PGDocument
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.factory = [PKParserFactory factory];
-        _factory.collectTokenKinds = YES;
-        
-        self.enableHybridDFA = YES;
-        
-        self.destinationPath = [@"~/Desktop" stringByExpandingTildeInPath];
-        self.parserName = @"ExpressionParser";
-
-        self.preassemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorNone;
-        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
-        
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"expression" ofType:@"grammar"];
-        self.grammar = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    }
-    return self;
-}
-
-
 - (void)dealloc {
     self.destinationPath = nil;
     self.parserName = nil;
@@ -50,6 +29,25 @@
     self.root = nil;
     self.visitor = nil;
     [super dealloc];
+}
+
+
+- (void)awakeFromNib {
+    self.factory = [PKParserFactory factory];
+    _factory.collectTokenKinds = YES;
+    
+    self.enableHybridDFA = YES;
+    self.enableMemoization = YES;
+    self.enableAutomaticErrorRecovery = NO;
+    
+    self.destinationPath = [@"~/Desktop" stringByExpandingTildeInPath];
+    self.parserName = @"ExpressionParser";
+    
+    self.preassemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorNone;
+    self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"expression" ofType:@"grammar"];
+    self.grammar = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
 
@@ -187,7 +185,7 @@
     _root.grammarName = self.parserName;
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
-    _visitor.enableHybridDFA = YES; // :)
+    _visitor.enableHybridDFA = _enableHybridDFA; NSAssert(_enableHybridDFA, @"");
     _visitor.enableMemoization = _enableMemoization;
     _visitor.enableAutomaticErrorRecovery = _enableAutomaticErrorRecovery;
     _visitor.preassemblerSettingBehavior = _preassemblerSettingBehavior;
