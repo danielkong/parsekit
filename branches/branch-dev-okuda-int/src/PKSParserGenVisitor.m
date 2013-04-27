@@ -323,12 +323,14 @@
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
     
+    if (isStartMethod && _enableAutomaticErrorRecovery) self.depth++;
+
     if (node.before) {
         [childStr appendString:[self actionStringFrom:node.before]];
     }
 
     [childStr appendString:[self actionStringFrom:node.actionNode]];
-
+    
     // recurse
     for (PKBaseNode *child in node.children) {
         [child visit:self];
@@ -336,6 +338,8 @@
         // pop
         [childStr appendString:[self pop]];
     }
+    
+    if (isStartMethod && _enableAutomaticErrorRecovery) self.depth--;
     
     if (isStartMethod) {
         id eofVars = @{DEPTH: @(_depth)};
