@@ -182,7 +182,13 @@
 - (void)generateWithDestinationPath:(NSString *)destPath parserName:(NSString *)parserName grammar:(NSString *)grammar {
     NSError *err = nil;
     self.root = (id)[_factory ASTFromGrammar:_grammar error:&err];
-    _root.grammarName = self.parserName;
+    
+    NSString *className = self.parserName;
+    if (![className hasSuffix:@"Parser"]) {
+        className = [NSString stringWithFormat:@"%@Parser", className];
+    }
+    
+    _root.grammarName = className;
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     _visitor.enableHybridDFA = _enableHybridDFA; NSAssert(_enableHybridDFA, @"");
@@ -193,13 +199,13 @@
     
     [_root visit:_visitor];
     
-    NSString *path = [[NSString stringWithFormat:@"%@/%@Parser.h", destPath, _parserName] stringByExpandingTildeInPath];
+    NSString *path = [[NSString stringWithFormat:@"%@/%@.h", destPath, className] stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
     }
     
-    path = [[NSString stringWithFormat:@"%@/%@Parser.m", destPath, _parserName] stringByExpandingTildeInPath];
+    path = [[NSString stringWithFormat:@"%@/%@Parser.m", destPath, className] stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
