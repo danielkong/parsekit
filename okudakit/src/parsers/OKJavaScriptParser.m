@@ -665,29 +665,29 @@
 
 - (void)assignmentOperator {
     
-    if ([self speculate:^{ [self equals]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_EQUALS, 0]) {
         [self equals]; 
-    } else if ([self speculate:^{ [self plusEq]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_PLUSEQ, 0]) {
         [self plusEq]; 
-    } else if ([self speculate:^{ [self minusEq]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_MINUSEQ, 0]) {
         [self minusEq]; 
-    } else if ([self speculate:^{ [self timesEq]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_TIMESEQ, 0]) {
         [self timesEq]; 
-    } else if ([self speculate:^{ [self divEq]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_DIVEQ, 0]) {
         [self divEq]; 
-    } else if ([self speculate:^{ [self modEq]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_MODEQ, 0]) {
         [self modEq]; 
-    } else if ([self speculate:^{ [self shiftLeftEq]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ, 0]) {
         [self shiftLeftEq]; 
-    } else if ([self speculate:^{ [self shiftRightEq]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ, 0]) {
         [self shiftRightEq]; 
-    } else if ([self speculate:^{ [self shiftRightExtEq]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ, 0]) {
         [self shiftRightExtEq]; 
-    } else if ([self speculate:^{ [self andEq]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_ANDEQ, 0]) {
         [self andEq]; 
-    } else if ([self speculate:^{ [self xorEq]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_XOREQ, 0]) {
         [self xorEq]; 
-    } else if ([self speculate:^{ [self orEq]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_OREQ, 0]) {
         [self orEq]; 
     } else {
         [self raise:@"no viable alternative found in assignmentOperator"];
@@ -697,15 +697,15 @@
 
 - (void)relationalOperator {
     
-    if ([self speculate:^{ [self lt]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_LT, 0]) {
         [self lt]; 
-    } else if ([self speculate:^{ [self gt]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_GT, 0]) {
         [self gt]; 
-    } else if ([self speculate:^{ [self ge]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_GE, 0]) {
         [self ge]; 
-    } else if ([self speculate:^{ [self le]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_LE, 0]) {
         [self le]; 
-    } else if ([self speculate:^{ [self instanceof]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_INSTANCEOF, 0]) {
         [self instanceof]; 
     } else {
         [self raise:@"no viable alternative found in relationalOperator"];
@@ -715,13 +715,13 @@
 
 - (void)equalityOperator {
     
-    if ([self speculate:^{ [self eq]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_EQ, 0]) {
         [self eq]; 
-    } else if ([self speculate:^{ [self ne]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_NE, 0]) {
         [self ne]; 
-    } else if ([self speculate:^{ [self is]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_IS, 0]) {
         [self is]; 
-    } else if ([self speculate:^{ [self isnot]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_ISNOT, 0]) {
         [self isnot]; 
     } else {
         [self raise:@"no viable alternative found in equalityOperator"];
@@ -731,11 +731,11 @@
 
 - (void)shiftOperator {
     
-    if ([self speculate:^{ [self shiftLeft]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_SHIFTLEFT, 0]) {
         [self shiftLeft]; 
-    } else if ([self speculate:^{ [self shiftRight]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_SHIFTRIGHT, 0]) {
         [self shiftRight]; 
-    } else if ([self speculate:^{ [self shiftRightExt]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT, 0]) {
         [self shiftRightExt]; 
     } else {
         [self raise:@"no viable alternative found in shiftOperator"];
@@ -745,9 +745,9 @@
 
 - (void)incrementOperator {
     
-    if ([self speculate:^{ [self plusPlus]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_PLUSPLUS, 0]) {
         [self plusPlus]; 
-    } else if ([self speculate:^{ [self minusMinus]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_MINUSMINUS, 0]) {
         [self minusMinus]; 
     } else {
         [self raise:@"no viable alternative found in incrementOperator"];
@@ -757,13 +757,13 @@
 
 - (void)unaryOperator {
     
-    if ([self speculate:^{ [self tilde]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_TILDE, 0]) {
         [self tilde]; 
-    } else if ([self speculate:^{ [self delete]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_DELETE, 0]) {
         [self delete]; 
-    } else if ([self speculate:^{ [self typeof]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_TYPEOF, 0]) {
         [self typeof]; 
-    } else if ([self speculate:^{ [self void]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_VOID, 0]) {
         [self void]; 
     } else {
         [self raise:@"no viable alternative found in unaryOperator"];
@@ -773,11 +773,11 @@
 
 - (void)multiplicativeOperator {
     
-    if ([self speculate:^{ [self times]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_TIMES, 0]) {
         [self times]; 
-    } else if ([self speculate:^{ [self div]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_DIV, 0]) {
         [self div]; 
-    } else if ([self speculate:^{ [self mod]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_MOD, 0]) {
         [self mod]; 
     } else {
         [self raise:@"no viable alternative found in multiplicativeOperator"];
@@ -795,9 +795,9 @@
 
 - (void)element {
     
-    if ([self speculate:^{ [self func]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_FUNCTION, 0]) {
         [self func]; 
-    } else if ([self speculate:^{ [self stmt]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_BREAKSYM, OKJAVASCRIPT_TOKEN_KIND_CONTINUESYM, OKJAVASCRIPT_TOKEN_KIND_DELETE, OKJAVASCRIPT_TOKEN_KIND_FALSELITERAL, OKJAVASCRIPT_TOKEN_KIND_FORSYM, OKJAVASCRIPT_TOKEN_KIND_IFSYM, OKJAVASCRIPT_TOKEN_KIND_KEYWORDNEW, OKJAVASCRIPT_TOKEN_KIND_MINUS, OKJAVASCRIPT_TOKEN_KIND_MINUSMINUS, OKJAVASCRIPT_TOKEN_KIND_NULL, OKJAVASCRIPT_TOKEN_KIND_OPENCURLY, OKJAVASCRIPT_TOKEN_KIND_OPENPAREN, OKJAVASCRIPT_TOKEN_KIND_PLUSPLUS, OKJAVASCRIPT_TOKEN_KIND_RETURNSYM, OKJAVASCRIPT_TOKEN_KIND_SEMI, OKJAVASCRIPT_TOKEN_KIND_THIS, OKJAVASCRIPT_TOKEN_KIND_TILDE, OKJAVASCRIPT_TOKEN_KIND_TRUELITERAL, OKJAVASCRIPT_TOKEN_KIND_TYPEOF, OKJAVASCRIPT_TOKEN_KIND_UNDEFINED, OKJAVASCRIPT_TOKEN_KIND_VAR, OKJAVASCRIPT_TOKEN_KIND_VOID, OKJAVASCRIPT_TOKEN_KIND_WHILESYM, OKJAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self stmt]; 
     } else {
         [self raise:@"no viable alternative found in element"];
@@ -828,7 +828,7 @@
 
 - (void)paramListOpt {
     
-    if ([self speculate:^{ [self paramList]; }]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self paramList]; 
     }
 
@@ -1126,9 +1126,9 @@
 
 - (void)variablesOrExpr {
     
-    if ([self speculate:^{ [self varVariables]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_VAR, 0]) {
         [self varVariables]; 
-    } else if ([self speculate:^{ [self expr]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_DELETE, OKJAVASCRIPT_TOKEN_KIND_FALSELITERAL, OKJAVASCRIPT_TOKEN_KIND_KEYWORDNEW, OKJAVASCRIPT_TOKEN_KIND_MINUS, OKJAVASCRIPT_TOKEN_KIND_MINUSMINUS, OKJAVASCRIPT_TOKEN_KIND_NULL, OKJAVASCRIPT_TOKEN_KIND_OPENPAREN, OKJAVASCRIPT_TOKEN_KIND_PLUSPLUS, OKJAVASCRIPT_TOKEN_KIND_THIS, OKJAVASCRIPT_TOKEN_KIND_TILDE, OKJAVASCRIPT_TOKEN_KIND_TRUELITERAL, OKJAVASCRIPT_TOKEN_KIND_TYPEOF, OKJAVASCRIPT_TOKEN_KIND_UNDEFINED, OKJAVASCRIPT_TOKEN_KIND_VOID, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self expr]; 
     } else {
         [self raise:@"no viable alternative found in variablesOrExpr"];
@@ -1181,7 +1181,7 @@
 
 - (void)exprOpt {
     
-    if ([self speculate:^{ [self expr]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_DELETE, OKJAVASCRIPT_TOKEN_KIND_FALSELITERAL, OKJAVASCRIPT_TOKEN_KIND_KEYWORDNEW, OKJAVASCRIPT_TOKEN_KIND_MINUS, OKJAVASCRIPT_TOKEN_KIND_MINUSMINUS, OKJAVASCRIPT_TOKEN_KIND_NULL, OKJAVASCRIPT_TOKEN_KIND_OPENPAREN, OKJAVASCRIPT_TOKEN_KIND_PLUSPLUS, OKJAVASCRIPT_TOKEN_KIND_THIS, OKJAVASCRIPT_TOKEN_KIND_TILDE, OKJAVASCRIPT_TOKEN_KIND_TRUELITERAL, OKJAVASCRIPT_TOKEN_KIND_TYPEOF, OKJAVASCRIPT_TOKEN_KIND_UNDEFINED, OKJAVASCRIPT_TOKEN_KIND_VOID, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self expr]; 
     }
 
@@ -1383,9 +1383,9 @@
 
 - (void)plusOrMinusExpr {
     
-    if ([self speculate:^{ [self plusExpr]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_PLUS, 0]) {
         [self plusExpr]; 
-    } else if ([self speculate:^{ [self minusExpr]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_MINUS, 0]) {
         [self minusExpr]; 
     } else {
         [self raise:@"no viable alternative found in plusOrMinusExpr"];
@@ -1497,10 +1497,10 @@
 - (void)constructorCall {
     
         [self identifier]; 
-        if ([self speculate:^{ if ([self speculate:^{ [self parenArgListParen]; }]) {[self parenArgListParen]; } else if ([self speculate:^{ [self dot]; [self constructorCall]; }]) {[self dot]; [self constructorCall]; } else {[self raise:@"no viable alternative found in constructorCall"];}}]) {
-            if ([self speculate:^{ [self parenArgListParen]; }]) {
+        if ([self speculate:^{ if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"no viable alternative found in constructorCall"];}}]) {
+            if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
                 [self parenArgListParen]; 
-            } else if ([self speculate:^{ [self dot]; [self constructorCall]; }]) {
+            } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_DOT, 0]) {
                     [self dot]; 
                     [self constructorCall]; 
             } else {
@@ -1534,11 +1534,11 @@
 
 - (void)dotBracketOrParenExpr {
     
-    if ([self speculate:^{ [self dotMemberExpr]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_DOT, 0]) {
         [self dotMemberExpr]; 
-    } else if ([self speculate:^{ [self bracketMemberExpr]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_OPENBRACKET, 0]) {
         [self bracketMemberExpr]; 
-    } else if ([self speculate:^{ [self parenMemberExpr]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
         [self parenMemberExpr]; 
     } else {
         [self raise:@"no viable alternative found in dotBracketOrParenExpr"];
@@ -1609,25 +1609,25 @@
 
 - (void)primaryExpr {
     
-    if ([self speculate:^{ [self callNewExpr]; }]) {
+    if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_KEYWORDNEW, 0]) {
         [self callNewExpr]; 
-    } else if ([self speculate:^{ [self parenExprParen]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
         [self parenExprParen]; 
-    } else if ([self speculate:^{ [self identifier]; }]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self identifier]; 
-    } else if ([self speculate:^{ [self numLiteral]; }]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self numLiteral]; 
-    } else if ([self speculate:^{ [self stringLiteral]; }]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self stringLiteral]; 
-    } else if ([self speculate:^{ [self falseLiteral]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_FALSELITERAL, 0]) {
         [self falseLiteral]; 
-    } else if ([self speculate:^{ [self trueLiteral]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_TRUELITERAL, 0]) {
         [self trueLiteral]; 
-    } else if ([self speculate:^{ [self null]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_NULL, 0]) {
         [self null]; 
-    } else if ([self speculate:^{ [self undefined]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_UNDEFINED, 0]) {
         [self undefined]; 
-    } else if ([self speculate:^{ [self this]; }]) {
+    } else if ([self predicts:OKJAVASCRIPT_TOKEN_KIND_THIS, 0]) {
         [self this]; 
     } else {
         [self raise:@"no viable alternative found in primaryExpr"];

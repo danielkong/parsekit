@@ -42,161 +42,6 @@
 @end
 
 @interface JavaScriptParser ()
-@property (nonatomic, retain) NSMutableDictionary *ifSym_memo;
-@property (nonatomic, retain) NSMutableDictionary *elseSym_memo;
-@property (nonatomic, retain) NSMutableDictionary *whileSym_memo;
-@property (nonatomic, retain) NSMutableDictionary *forSym_memo;
-@property (nonatomic, retain) NSMutableDictionary *inSym_memo;
-@property (nonatomic, retain) NSMutableDictionary *breakSym_memo;
-@property (nonatomic, retain) NSMutableDictionary *continueSym_memo;
-@property (nonatomic, retain) NSMutableDictionary *with_memo;
-@property (nonatomic, retain) NSMutableDictionary *returnSym_memo;
-@property (nonatomic, retain) NSMutableDictionary *var_memo;
-@property (nonatomic, retain) NSMutableDictionary *delete_memo;
-@property (nonatomic, retain) NSMutableDictionary *keywordNew_memo;
-@property (nonatomic, retain) NSMutableDictionary *this_memo;
-@property (nonatomic, retain) NSMutableDictionary *falseLiteral_memo;
-@property (nonatomic, retain) NSMutableDictionary *trueLiteral_memo;
-@property (nonatomic, retain) NSMutableDictionary *null_memo;
-@property (nonatomic, retain) NSMutableDictionary *undefined_memo;
-@property (nonatomic, retain) NSMutableDictionary *void_memo;
-@property (nonatomic, retain) NSMutableDictionary *typeof_memo;
-@property (nonatomic, retain) NSMutableDictionary *instanceof_memo;
-@property (nonatomic, retain) NSMutableDictionary *function_memo;
-@property (nonatomic, retain) NSMutableDictionary *openCurly_memo;
-@property (nonatomic, retain) NSMutableDictionary *closeCurly_memo;
-@property (nonatomic, retain) NSMutableDictionary *openParen_memo;
-@property (nonatomic, retain) NSMutableDictionary *closeParen_memo;
-@property (nonatomic, retain) NSMutableDictionary *openBracket_memo;
-@property (nonatomic, retain) NSMutableDictionary *closeBracket_memo;
-@property (nonatomic, retain) NSMutableDictionary *comma_memo;
-@property (nonatomic, retain) NSMutableDictionary *dot_memo;
-@property (nonatomic, retain) NSMutableDictionary *semi_memo;
-@property (nonatomic, retain) NSMutableDictionary *colon_memo;
-@property (nonatomic, retain) NSMutableDictionary *equals_memo;
-@property (nonatomic, retain) NSMutableDictionary *not_memo;
-@property (nonatomic, retain) NSMutableDictionary *lt_memo;
-@property (nonatomic, retain) NSMutableDictionary *gt_memo;
-@property (nonatomic, retain) NSMutableDictionary *amp_memo;
-@property (nonatomic, retain) NSMutableDictionary *pipe_memo;
-@property (nonatomic, retain) NSMutableDictionary *caret_memo;
-@property (nonatomic, retain) NSMutableDictionary *tilde_memo;
-@property (nonatomic, retain) NSMutableDictionary *question_memo;
-@property (nonatomic, retain) NSMutableDictionary *plus_memo;
-@property (nonatomic, retain) NSMutableDictionary *minus_memo;
-@property (nonatomic, retain) NSMutableDictionary *times_memo;
-@property (nonatomic, retain) NSMutableDictionary *div_memo;
-@property (nonatomic, retain) NSMutableDictionary *mod_memo;
-@property (nonatomic, retain) NSMutableDictionary *or_memo;
-@property (nonatomic, retain) NSMutableDictionary *and_memo;
-@property (nonatomic, retain) NSMutableDictionary *ne_memo;
-@property (nonatomic, retain) NSMutableDictionary *isnot_memo;
-@property (nonatomic, retain) NSMutableDictionary *eq_memo;
-@property (nonatomic, retain) NSMutableDictionary *is_memo;
-@property (nonatomic, retain) NSMutableDictionary *le_memo;
-@property (nonatomic, retain) NSMutableDictionary *ge_memo;
-@property (nonatomic, retain) NSMutableDictionary *plusPlus_memo;
-@property (nonatomic, retain) NSMutableDictionary *minusMinus_memo;
-@property (nonatomic, retain) NSMutableDictionary *plusEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *minusEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *timesEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *divEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *modEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *shiftLeft_memo;
-@property (nonatomic, retain) NSMutableDictionary *shiftRight_memo;
-@property (nonatomic, retain) NSMutableDictionary *shiftRightExt_memo;
-@property (nonatomic, retain) NSMutableDictionary *shiftLeftEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *shiftRightEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *shiftRightExtEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *andEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *xorEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *orEq_memo;
-@property (nonatomic, retain) NSMutableDictionary *assignmentOperator_memo;
-@property (nonatomic, retain) NSMutableDictionary *relationalOperator_memo;
-@property (nonatomic, retain) NSMutableDictionary *equalityOperator_memo;
-@property (nonatomic, retain) NSMutableDictionary *shiftOperator_memo;
-@property (nonatomic, retain) NSMutableDictionary *incrementOperator_memo;
-@property (nonatomic, retain) NSMutableDictionary *unaryOperator_memo;
-@property (nonatomic, retain) NSMutableDictionary *multiplicativeOperator_memo;
-@property (nonatomic, retain) NSMutableDictionary *program_memo;
-@property (nonatomic, retain) NSMutableDictionary *element_memo;
-@property (nonatomic, retain) NSMutableDictionary *func_memo;
-@property (nonatomic, retain) NSMutableDictionary *paramListOpt_memo;
-@property (nonatomic, retain) NSMutableDictionary *paramList_memo;
-@property (nonatomic, retain) NSMutableDictionary *commaIdentifier_memo;
-@property (nonatomic, retain) NSMutableDictionary *compoundStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *stmts_memo;
-@property (nonatomic, retain) NSMutableDictionary *stmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *ifStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *ifElseStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *whileStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *forParenStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *forBeginStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *forInStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *breakStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *continueStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *withStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *returnStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *variablesOrExprStmt_memo;
-@property (nonatomic, retain) NSMutableDictionary *condition_memo;
-@property (nonatomic, retain) NSMutableDictionary *forParen_memo;
-@property (nonatomic, retain) NSMutableDictionary *forBegin_memo;
-@property (nonatomic, retain) NSMutableDictionary *variablesOrExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *varVariables_memo;
-@property (nonatomic, retain) NSMutableDictionary *variables_memo;
-@property (nonatomic, retain) NSMutableDictionary *commaVariable_memo;
-@property (nonatomic, retain) NSMutableDictionary *variable_memo;
-@property (nonatomic, retain) NSMutableDictionary *assignment_memo;
-@property (nonatomic, retain) NSMutableDictionary *exprOpt_memo;
-@property (nonatomic, retain) NSMutableDictionary *expr_memo;
-@property (nonatomic, retain) NSMutableDictionary *commaExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *assignmentExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *extraAssignment_memo;
-@property (nonatomic, retain) NSMutableDictionary *conditionalExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *ternaryExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *orAndExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *andExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *andAndExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *bitwiseOrExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *pipeBitwiseOrExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *bitwiseXorExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *caretBitwiseXorExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *bitwiseAndExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *ampBitwiseAndExpression_memo;
-@property (nonatomic, retain) NSMutableDictionary *equalityExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *equalityOpEqualityExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *relationalExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *shiftExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *shiftOpShiftExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *additiveExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *plusOrMinusExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *plusExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *minusExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *multiplicativeExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *unaryExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *unaryExpr1_memo;
-@property (nonatomic, retain) NSMutableDictionary *unaryExpr2_memo;
-@property (nonatomic, retain) NSMutableDictionary *unaryExpr3_memo;
-@property (nonatomic, retain) NSMutableDictionary *unaryExpr4_memo;
-@property (nonatomic, retain) NSMutableDictionary *callNewExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *unaryExpr6_memo;
-@property (nonatomic, retain) NSMutableDictionary *constructor_memo;
-@property (nonatomic, retain) NSMutableDictionary *constructorCall_memo;
-@property (nonatomic, retain) NSMutableDictionary *parenArgListParen_memo;
-@property (nonatomic, retain) NSMutableDictionary *memberExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *dotBracketOrParenExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *dotMemberExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *bracketMemberExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *parenMemberExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *argListOpt_memo;
-@property (nonatomic, retain) NSMutableDictionary *argList_memo;
-@property (nonatomic, retain) NSMutableDictionary *commaAssignmentExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *primaryExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *parenExprParen_memo;
-@property (nonatomic, retain) NSMutableDictionary *identifier_memo;
-@property (nonatomic, retain) NSMutableDictionary *numLiteral_memo;
-@property (nonatomic, retain) NSMutableDictionary *stringLiteral_memo;
 @end
 
 @implementation JavaScriptParser
@@ -276,482 +121,10 @@
         self._tokenKindTab[@"&"] = @(JAVASCRIPT_TOKEN_KIND_AMP);
         self._tokenKindTab[@"{"] = @(JAVASCRIPT_TOKEN_KIND_OPENCURLY);
 
-        self.ifSym_memo = [NSMutableDictionary dictionary];
-        self.elseSym_memo = [NSMutableDictionary dictionary];
-        self.whileSym_memo = [NSMutableDictionary dictionary];
-        self.forSym_memo = [NSMutableDictionary dictionary];
-        self.inSym_memo = [NSMutableDictionary dictionary];
-        self.breakSym_memo = [NSMutableDictionary dictionary];
-        self.continueSym_memo = [NSMutableDictionary dictionary];
-        self.with_memo = [NSMutableDictionary dictionary];
-        self.returnSym_memo = [NSMutableDictionary dictionary];
-        self.var_memo = [NSMutableDictionary dictionary];
-        self.delete_memo = [NSMutableDictionary dictionary];
-        self.keywordNew_memo = [NSMutableDictionary dictionary];
-        self.this_memo = [NSMutableDictionary dictionary];
-        self.falseLiteral_memo = [NSMutableDictionary dictionary];
-        self.trueLiteral_memo = [NSMutableDictionary dictionary];
-        self.null_memo = [NSMutableDictionary dictionary];
-        self.undefined_memo = [NSMutableDictionary dictionary];
-        self.void_memo = [NSMutableDictionary dictionary];
-        self.typeof_memo = [NSMutableDictionary dictionary];
-        self.instanceof_memo = [NSMutableDictionary dictionary];
-        self.function_memo = [NSMutableDictionary dictionary];
-        self.openCurly_memo = [NSMutableDictionary dictionary];
-        self.closeCurly_memo = [NSMutableDictionary dictionary];
-        self.openParen_memo = [NSMutableDictionary dictionary];
-        self.closeParen_memo = [NSMutableDictionary dictionary];
-        self.openBracket_memo = [NSMutableDictionary dictionary];
-        self.closeBracket_memo = [NSMutableDictionary dictionary];
-        self.comma_memo = [NSMutableDictionary dictionary];
-        self.dot_memo = [NSMutableDictionary dictionary];
-        self.semi_memo = [NSMutableDictionary dictionary];
-        self.colon_memo = [NSMutableDictionary dictionary];
-        self.equals_memo = [NSMutableDictionary dictionary];
-        self.not_memo = [NSMutableDictionary dictionary];
-        self.lt_memo = [NSMutableDictionary dictionary];
-        self.gt_memo = [NSMutableDictionary dictionary];
-        self.amp_memo = [NSMutableDictionary dictionary];
-        self.pipe_memo = [NSMutableDictionary dictionary];
-        self.caret_memo = [NSMutableDictionary dictionary];
-        self.tilde_memo = [NSMutableDictionary dictionary];
-        self.question_memo = [NSMutableDictionary dictionary];
-        self.plus_memo = [NSMutableDictionary dictionary];
-        self.minus_memo = [NSMutableDictionary dictionary];
-        self.times_memo = [NSMutableDictionary dictionary];
-        self.div_memo = [NSMutableDictionary dictionary];
-        self.mod_memo = [NSMutableDictionary dictionary];
-        self.or_memo = [NSMutableDictionary dictionary];
-        self.and_memo = [NSMutableDictionary dictionary];
-        self.ne_memo = [NSMutableDictionary dictionary];
-        self.isnot_memo = [NSMutableDictionary dictionary];
-        self.eq_memo = [NSMutableDictionary dictionary];
-        self.is_memo = [NSMutableDictionary dictionary];
-        self.le_memo = [NSMutableDictionary dictionary];
-        self.ge_memo = [NSMutableDictionary dictionary];
-        self.plusPlus_memo = [NSMutableDictionary dictionary];
-        self.minusMinus_memo = [NSMutableDictionary dictionary];
-        self.plusEq_memo = [NSMutableDictionary dictionary];
-        self.minusEq_memo = [NSMutableDictionary dictionary];
-        self.timesEq_memo = [NSMutableDictionary dictionary];
-        self.divEq_memo = [NSMutableDictionary dictionary];
-        self.modEq_memo = [NSMutableDictionary dictionary];
-        self.shiftLeft_memo = [NSMutableDictionary dictionary];
-        self.shiftRight_memo = [NSMutableDictionary dictionary];
-        self.shiftRightExt_memo = [NSMutableDictionary dictionary];
-        self.shiftLeftEq_memo = [NSMutableDictionary dictionary];
-        self.shiftRightEq_memo = [NSMutableDictionary dictionary];
-        self.shiftRightExtEq_memo = [NSMutableDictionary dictionary];
-        self.andEq_memo = [NSMutableDictionary dictionary];
-        self.xorEq_memo = [NSMutableDictionary dictionary];
-        self.orEq_memo = [NSMutableDictionary dictionary];
-        self.assignmentOperator_memo = [NSMutableDictionary dictionary];
-        self.relationalOperator_memo = [NSMutableDictionary dictionary];
-        self.equalityOperator_memo = [NSMutableDictionary dictionary];
-        self.shiftOperator_memo = [NSMutableDictionary dictionary];
-        self.incrementOperator_memo = [NSMutableDictionary dictionary];
-        self.unaryOperator_memo = [NSMutableDictionary dictionary];
-        self.multiplicativeOperator_memo = [NSMutableDictionary dictionary];
-        self.program_memo = [NSMutableDictionary dictionary];
-        self.element_memo = [NSMutableDictionary dictionary];
-        self.func_memo = [NSMutableDictionary dictionary];
-        self.paramListOpt_memo = [NSMutableDictionary dictionary];
-        self.paramList_memo = [NSMutableDictionary dictionary];
-        self.commaIdentifier_memo = [NSMutableDictionary dictionary];
-        self.compoundStmt_memo = [NSMutableDictionary dictionary];
-        self.stmts_memo = [NSMutableDictionary dictionary];
-        self.stmt_memo = [NSMutableDictionary dictionary];
-        self.ifStmt_memo = [NSMutableDictionary dictionary];
-        self.ifElseStmt_memo = [NSMutableDictionary dictionary];
-        self.whileStmt_memo = [NSMutableDictionary dictionary];
-        self.forParenStmt_memo = [NSMutableDictionary dictionary];
-        self.forBeginStmt_memo = [NSMutableDictionary dictionary];
-        self.forInStmt_memo = [NSMutableDictionary dictionary];
-        self.breakStmt_memo = [NSMutableDictionary dictionary];
-        self.continueStmt_memo = [NSMutableDictionary dictionary];
-        self.withStmt_memo = [NSMutableDictionary dictionary];
-        self.returnStmt_memo = [NSMutableDictionary dictionary];
-        self.variablesOrExprStmt_memo = [NSMutableDictionary dictionary];
-        self.condition_memo = [NSMutableDictionary dictionary];
-        self.forParen_memo = [NSMutableDictionary dictionary];
-        self.forBegin_memo = [NSMutableDictionary dictionary];
-        self.variablesOrExpr_memo = [NSMutableDictionary dictionary];
-        self.varVariables_memo = [NSMutableDictionary dictionary];
-        self.variables_memo = [NSMutableDictionary dictionary];
-        self.commaVariable_memo = [NSMutableDictionary dictionary];
-        self.variable_memo = [NSMutableDictionary dictionary];
-        self.assignment_memo = [NSMutableDictionary dictionary];
-        self.exprOpt_memo = [NSMutableDictionary dictionary];
-        self.expr_memo = [NSMutableDictionary dictionary];
-        self.commaExpr_memo = [NSMutableDictionary dictionary];
-        self.assignmentExpr_memo = [NSMutableDictionary dictionary];
-        self.extraAssignment_memo = [NSMutableDictionary dictionary];
-        self.conditionalExpr_memo = [NSMutableDictionary dictionary];
-        self.ternaryExpr_memo = [NSMutableDictionary dictionary];
-        self.orExpr_memo = [NSMutableDictionary dictionary];
-        self.orAndExpr_memo = [NSMutableDictionary dictionary];
-        self.andExpr_memo = [NSMutableDictionary dictionary];
-        self.andAndExpr_memo = [NSMutableDictionary dictionary];
-        self.bitwiseOrExpr_memo = [NSMutableDictionary dictionary];
-        self.pipeBitwiseOrExpr_memo = [NSMutableDictionary dictionary];
-        self.bitwiseXorExpr_memo = [NSMutableDictionary dictionary];
-        self.caretBitwiseXorExpr_memo = [NSMutableDictionary dictionary];
-        self.bitwiseAndExpr_memo = [NSMutableDictionary dictionary];
-        self.ampBitwiseAndExpression_memo = [NSMutableDictionary dictionary];
-        self.equalityExpr_memo = [NSMutableDictionary dictionary];
-        self.equalityOpEqualityExpr_memo = [NSMutableDictionary dictionary];
-        self.relationalExpr_memo = [NSMutableDictionary dictionary];
-        self.shiftExpr_memo = [NSMutableDictionary dictionary];
-        self.shiftOpShiftExpr_memo = [NSMutableDictionary dictionary];
-        self.additiveExpr_memo = [NSMutableDictionary dictionary];
-        self.plusOrMinusExpr_memo = [NSMutableDictionary dictionary];
-        self.plusExpr_memo = [NSMutableDictionary dictionary];
-        self.minusExpr_memo = [NSMutableDictionary dictionary];
-        self.multiplicativeExpr_memo = [NSMutableDictionary dictionary];
-        self.unaryExpr_memo = [NSMutableDictionary dictionary];
-        self.unaryExpr1_memo = [NSMutableDictionary dictionary];
-        self.unaryExpr2_memo = [NSMutableDictionary dictionary];
-        self.unaryExpr3_memo = [NSMutableDictionary dictionary];
-        self.unaryExpr4_memo = [NSMutableDictionary dictionary];
-        self.callNewExpr_memo = [NSMutableDictionary dictionary];
-        self.unaryExpr6_memo = [NSMutableDictionary dictionary];
-        self.constructor_memo = [NSMutableDictionary dictionary];
-        self.constructorCall_memo = [NSMutableDictionary dictionary];
-        self.parenArgListParen_memo = [NSMutableDictionary dictionary];
-        self.memberExpr_memo = [NSMutableDictionary dictionary];
-        self.dotBracketOrParenExpr_memo = [NSMutableDictionary dictionary];
-        self.dotMemberExpr_memo = [NSMutableDictionary dictionary];
-        self.bracketMemberExpr_memo = [NSMutableDictionary dictionary];
-        self.parenMemberExpr_memo = [NSMutableDictionary dictionary];
-        self.argListOpt_memo = [NSMutableDictionary dictionary];
-        self.argList_memo = [NSMutableDictionary dictionary];
-        self.commaAssignmentExpr_memo = [NSMutableDictionary dictionary];
-        self.primaryExpr_memo = [NSMutableDictionary dictionary];
-        self.parenExprParen_memo = [NSMutableDictionary dictionary];
-        self.identifier_memo = [NSMutableDictionary dictionary];
-        self.numLiteral_memo = [NSMutableDictionary dictionary];
-        self.stringLiteral_memo = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
-- (void)dealloc {
-    self.ifSym_memo = nil;
-    self.elseSym_memo = nil;
-    self.whileSym_memo = nil;
-    self.forSym_memo = nil;
-    self.inSym_memo = nil;
-    self.breakSym_memo = nil;
-    self.continueSym_memo = nil;
-    self.with_memo = nil;
-    self.returnSym_memo = nil;
-    self.var_memo = nil;
-    self.delete_memo = nil;
-    self.keywordNew_memo = nil;
-    self.this_memo = nil;
-    self.falseLiteral_memo = nil;
-    self.trueLiteral_memo = nil;
-    self.null_memo = nil;
-    self.undefined_memo = nil;
-    self.void_memo = nil;
-    self.typeof_memo = nil;
-    self.instanceof_memo = nil;
-    self.function_memo = nil;
-    self.openCurly_memo = nil;
-    self.closeCurly_memo = nil;
-    self.openParen_memo = nil;
-    self.closeParen_memo = nil;
-    self.openBracket_memo = nil;
-    self.closeBracket_memo = nil;
-    self.comma_memo = nil;
-    self.dot_memo = nil;
-    self.semi_memo = nil;
-    self.colon_memo = nil;
-    self.equals_memo = nil;
-    self.not_memo = nil;
-    self.lt_memo = nil;
-    self.gt_memo = nil;
-    self.amp_memo = nil;
-    self.pipe_memo = nil;
-    self.caret_memo = nil;
-    self.tilde_memo = nil;
-    self.question_memo = nil;
-    self.plus_memo = nil;
-    self.minus_memo = nil;
-    self.times_memo = nil;
-    self.div_memo = nil;
-    self.mod_memo = nil;
-    self.or_memo = nil;
-    self.and_memo = nil;
-    self.ne_memo = nil;
-    self.isnot_memo = nil;
-    self.eq_memo = nil;
-    self.is_memo = nil;
-    self.le_memo = nil;
-    self.ge_memo = nil;
-    self.plusPlus_memo = nil;
-    self.minusMinus_memo = nil;
-    self.plusEq_memo = nil;
-    self.minusEq_memo = nil;
-    self.timesEq_memo = nil;
-    self.divEq_memo = nil;
-    self.modEq_memo = nil;
-    self.shiftLeft_memo = nil;
-    self.shiftRight_memo = nil;
-    self.shiftRightExt_memo = nil;
-    self.shiftLeftEq_memo = nil;
-    self.shiftRightEq_memo = nil;
-    self.shiftRightExtEq_memo = nil;
-    self.andEq_memo = nil;
-    self.xorEq_memo = nil;
-    self.orEq_memo = nil;
-    self.assignmentOperator_memo = nil;
-    self.relationalOperator_memo = nil;
-    self.equalityOperator_memo = nil;
-    self.shiftOperator_memo = nil;
-    self.incrementOperator_memo = nil;
-    self.unaryOperator_memo = nil;
-    self.multiplicativeOperator_memo = nil;
-    self.program_memo = nil;
-    self.element_memo = nil;
-    self.func_memo = nil;
-    self.paramListOpt_memo = nil;
-    self.paramList_memo = nil;
-    self.commaIdentifier_memo = nil;
-    self.compoundStmt_memo = nil;
-    self.stmts_memo = nil;
-    self.stmt_memo = nil;
-    self.ifStmt_memo = nil;
-    self.ifElseStmt_memo = nil;
-    self.whileStmt_memo = nil;
-    self.forParenStmt_memo = nil;
-    self.forBeginStmt_memo = nil;
-    self.forInStmt_memo = nil;
-    self.breakStmt_memo = nil;
-    self.continueStmt_memo = nil;
-    self.withStmt_memo = nil;
-    self.returnStmt_memo = nil;
-    self.variablesOrExprStmt_memo = nil;
-    self.condition_memo = nil;
-    self.forParen_memo = nil;
-    self.forBegin_memo = nil;
-    self.variablesOrExpr_memo = nil;
-    self.varVariables_memo = nil;
-    self.variables_memo = nil;
-    self.commaVariable_memo = nil;
-    self.variable_memo = nil;
-    self.assignment_memo = nil;
-    self.exprOpt_memo = nil;
-    self.expr_memo = nil;
-    self.commaExpr_memo = nil;
-    self.assignmentExpr_memo = nil;
-    self.extraAssignment_memo = nil;
-    self.conditionalExpr_memo = nil;
-    self.ternaryExpr_memo = nil;
-    self.orExpr_memo = nil;
-    self.orAndExpr_memo = nil;
-    self.andExpr_memo = nil;
-    self.andAndExpr_memo = nil;
-    self.bitwiseOrExpr_memo = nil;
-    self.pipeBitwiseOrExpr_memo = nil;
-    self.bitwiseXorExpr_memo = nil;
-    self.caretBitwiseXorExpr_memo = nil;
-    self.bitwiseAndExpr_memo = nil;
-    self.ampBitwiseAndExpression_memo = nil;
-    self.equalityExpr_memo = nil;
-    self.equalityOpEqualityExpr_memo = nil;
-    self.relationalExpr_memo = nil;
-    self.shiftExpr_memo = nil;
-    self.shiftOpShiftExpr_memo = nil;
-    self.additiveExpr_memo = nil;
-    self.plusOrMinusExpr_memo = nil;
-    self.plusExpr_memo = nil;
-    self.minusExpr_memo = nil;
-    self.multiplicativeExpr_memo = nil;
-    self.unaryExpr_memo = nil;
-    self.unaryExpr1_memo = nil;
-    self.unaryExpr2_memo = nil;
-    self.unaryExpr3_memo = nil;
-    self.unaryExpr4_memo = nil;
-    self.callNewExpr_memo = nil;
-    self.unaryExpr6_memo = nil;
-    self.constructor_memo = nil;
-    self.constructorCall_memo = nil;
-    self.parenArgListParen_memo = nil;
-    self.memberExpr_memo = nil;
-    self.dotBracketOrParenExpr_memo = nil;
-    self.dotMemberExpr_memo = nil;
-    self.bracketMemberExpr_memo = nil;
-    self.parenMemberExpr_memo = nil;
-    self.argListOpt_memo = nil;
-    self.argList_memo = nil;
-    self.commaAssignmentExpr_memo = nil;
-    self.primaryExpr_memo = nil;
-    self.parenExprParen_memo = nil;
-    self.identifier_memo = nil;
-    self.numLiteral_memo = nil;
-    self.stringLiteral_memo = nil;
-
-    [super dealloc];
-}
-
-- (void)_clearMemo {
-    [_ifSym_memo removeAllObjects];
-    [_elseSym_memo removeAllObjects];
-    [_whileSym_memo removeAllObjects];
-    [_forSym_memo removeAllObjects];
-    [_inSym_memo removeAllObjects];
-    [_breakSym_memo removeAllObjects];
-    [_continueSym_memo removeAllObjects];
-    [_with_memo removeAllObjects];
-    [_returnSym_memo removeAllObjects];
-    [_var_memo removeAllObjects];
-    [_delete_memo removeAllObjects];
-    [_keywordNew_memo removeAllObjects];
-    [_this_memo removeAllObjects];
-    [_falseLiteral_memo removeAllObjects];
-    [_trueLiteral_memo removeAllObjects];
-    [_null_memo removeAllObjects];
-    [_undefined_memo removeAllObjects];
-    [_void_memo removeAllObjects];
-    [_typeof_memo removeAllObjects];
-    [_instanceof_memo removeAllObjects];
-    [_function_memo removeAllObjects];
-    [_openCurly_memo removeAllObjects];
-    [_closeCurly_memo removeAllObjects];
-    [_openParen_memo removeAllObjects];
-    [_closeParen_memo removeAllObjects];
-    [_openBracket_memo removeAllObjects];
-    [_closeBracket_memo removeAllObjects];
-    [_comma_memo removeAllObjects];
-    [_dot_memo removeAllObjects];
-    [_semi_memo removeAllObjects];
-    [_colon_memo removeAllObjects];
-    [_equals_memo removeAllObjects];
-    [_not_memo removeAllObjects];
-    [_lt_memo removeAllObjects];
-    [_gt_memo removeAllObjects];
-    [_amp_memo removeAllObjects];
-    [_pipe_memo removeAllObjects];
-    [_caret_memo removeAllObjects];
-    [_tilde_memo removeAllObjects];
-    [_question_memo removeAllObjects];
-    [_plus_memo removeAllObjects];
-    [_minus_memo removeAllObjects];
-    [_times_memo removeAllObjects];
-    [_div_memo removeAllObjects];
-    [_mod_memo removeAllObjects];
-    [_or_memo removeAllObjects];
-    [_and_memo removeAllObjects];
-    [_ne_memo removeAllObjects];
-    [_isnot_memo removeAllObjects];
-    [_eq_memo removeAllObjects];
-    [_is_memo removeAllObjects];
-    [_le_memo removeAllObjects];
-    [_ge_memo removeAllObjects];
-    [_plusPlus_memo removeAllObjects];
-    [_minusMinus_memo removeAllObjects];
-    [_plusEq_memo removeAllObjects];
-    [_minusEq_memo removeAllObjects];
-    [_timesEq_memo removeAllObjects];
-    [_divEq_memo removeAllObjects];
-    [_modEq_memo removeAllObjects];
-    [_shiftLeft_memo removeAllObjects];
-    [_shiftRight_memo removeAllObjects];
-    [_shiftRightExt_memo removeAllObjects];
-    [_shiftLeftEq_memo removeAllObjects];
-    [_shiftRightEq_memo removeAllObjects];
-    [_shiftRightExtEq_memo removeAllObjects];
-    [_andEq_memo removeAllObjects];
-    [_xorEq_memo removeAllObjects];
-    [_orEq_memo removeAllObjects];
-    [_assignmentOperator_memo removeAllObjects];
-    [_relationalOperator_memo removeAllObjects];
-    [_equalityOperator_memo removeAllObjects];
-    [_shiftOperator_memo removeAllObjects];
-    [_incrementOperator_memo removeAllObjects];
-    [_unaryOperator_memo removeAllObjects];
-    [_multiplicativeOperator_memo removeAllObjects];
-    [_program_memo removeAllObjects];
-    [_element_memo removeAllObjects];
-    [_func_memo removeAllObjects];
-    [_paramListOpt_memo removeAllObjects];
-    [_paramList_memo removeAllObjects];
-    [_commaIdentifier_memo removeAllObjects];
-    [_compoundStmt_memo removeAllObjects];
-    [_stmts_memo removeAllObjects];
-    [_stmt_memo removeAllObjects];
-    [_ifStmt_memo removeAllObjects];
-    [_ifElseStmt_memo removeAllObjects];
-    [_whileStmt_memo removeAllObjects];
-    [_forParenStmt_memo removeAllObjects];
-    [_forBeginStmt_memo removeAllObjects];
-    [_forInStmt_memo removeAllObjects];
-    [_breakStmt_memo removeAllObjects];
-    [_continueStmt_memo removeAllObjects];
-    [_withStmt_memo removeAllObjects];
-    [_returnStmt_memo removeAllObjects];
-    [_variablesOrExprStmt_memo removeAllObjects];
-    [_condition_memo removeAllObjects];
-    [_forParen_memo removeAllObjects];
-    [_forBegin_memo removeAllObjects];
-    [_variablesOrExpr_memo removeAllObjects];
-    [_varVariables_memo removeAllObjects];
-    [_variables_memo removeAllObjects];
-    [_commaVariable_memo removeAllObjects];
-    [_variable_memo removeAllObjects];
-    [_assignment_memo removeAllObjects];
-    [_exprOpt_memo removeAllObjects];
-    [_expr_memo removeAllObjects];
-    [_commaExpr_memo removeAllObjects];
-    [_assignmentExpr_memo removeAllObjects];
-    [_extraAssignment_memo removeAllObjects];
-    [_conditionalExpr_memo removeAllObjects];
-    [_ternaryExpr_memo removeAllObjects];
-    [_orExpr_memo removeAllObjects];
-    [_orAndExpr_memo removeAllObjects];
-    [_andExpr_memo removeAllObjects];
-    [_andAndExpr_memo removeAllObjects];
-    [_bitwiseOrExpr_memo removeAllObjects];
-    [_pipeBitwiseOrExpr_memo removeAllObjects];
-    [_bitwiseXorExpr_memo removeAllObjects];
-    [_caretBitwiseXorExpr_memo removeAllObjects];
-    [_bitwiseAndExpr_memo removeAllObjects];
-    [_ampBitwiseAndExpression_memo removeAllObjects];
-    [_equalityExpr_memo removeAllObjects];
-    [_equalityOpEqualityExpr_memo removeAllObjects];
-    [_relationalExpr_memo removeAllObjects];
-    [_shiftExpr_memo removeAllObjects];
-    [_shiftOpShiftExpr_memo removeAllObjects];
-    [_additiveExpr_memo removeAllObjects];
-    [_plusOrMinusExpr_memo removeAllObjects];
-    [_plusExpr_memo removeAllObjects];
-    [_minusExpr_memo removeAllObjects];
-    [_multiplicativeExpr_memo removeAllObjects];
-    [_unaryExpr_memo removeAllObjects];
-    [_unaryExpr1_memo removeAllObjects];
-    [_unaryExpr2_memo removeAllObjects];
-    [_unaryExpr3_memo removeAllObjects];
-    [_unaryExpr4_memo removeAllObjects];
-    [_callNewExpr_memo removeAllObjects];
-    [_unaryExpr6_memo removeAllObjects];
-    [_constructor_memo removeAllObjects];
-    [_constructorCall_memo removeAllObjects];
-    [_parenArgListParen_memo removeAllObjects];
-    [_memberExpr_memo removeAllObjects];
-    [_dotBracketOrParenExpr_memo removeAllObjects];
-    [_dotMemberExpr_memo removeAllObjects];
-    [_bracketMemberExpr_memo removeAllObjects];
-    [_parenMemberExpr_memo removeAllObjects];
-    [_argListOpt_memo removeAllObjects];
-    [_argList_memo removeAllObjects];
-    [_commaAssignmentExpr_memo removeAllObjects];
-    [_primaryExpr_memo removeAllObjects];
-    [_parenExprParen_memo removeAllObjects];
-    [_identifier_memo removeAllObjects];
-    [_numLiteral_memo removeAllObjects];
-    [_stringLiteral_memo removeAllObjects];
-}
 
 - (void)_start {
     
@@ -807,766 +180,490 @@
 
 }
 
-- (void)__ifSym {
+- (void)ifSym {
     
     [self match:JAVASCRIPT_TOKEN_KIND_IFSYM discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchIfSym:)];
 }
 
-- (void)ifSym {
-    [self parseRule:@selector(__ifSym) withMemo:_ifSym_memo];
-}
-
-- (void)__elseSym {
+- (void)elseSym {
     
     [self match:JAVASCRIPT_TOKEN_KIND_ELSESYM discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchElseSym:)];
 }
 
-- (void)elseSym {
-    [self parseRule:@selector(__elseSym) withMemo:_elseSym_memo];
-}
-
-- (void)__whileSym {
+- (void)whileSym {
     
     [self match:JAVASCRIPT_TOKEN_KIND_WHILESYM discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchWhileSym:)];
 }
 
-- (void)whileSym {
-    [self parseRule:@selector(__whileSym) withMemo:_whileSym_memo];
-}
-
-- (void)__forSym {
+- (void)forSym {
     
     [self match:JAVASCRIPT_TOKEN_KIND_FORSYM discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchForSym:)];
 }
 
-- (void)forSym {
-    [self parseRule:@selector(__forSym) withMemo:_forSym_memo];
-}
-
-- (void)__inSym {
+- (void)inSym {
     
     [self match:JAVASCRIPT_TOKEN_KIND_INSYM discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchInSym:)];
 }
 
-- (void)inSym {
-    [self parseRule:@selector(__inSym) withMemo:_inSym_memo];
-}
-
-- (void)__breakSym {
+- (void)breakSym {
     
     [self match:JAVASCRIPT_TOKEN_KIND_BREAKSYM discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchBreakSym:)];
 }
 
-- (void)breakSym {
-    [self parseRule:@selector(__breakSym) withMemo:_breakSym_memo];
-}
-
-- (void)__continueSym {
+- (void)continueSym {
     
     [self match:JAVASCRIPT_TOKEN_KIND_CONTINUESYM discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchContinueSym:)];
 }
 
-- (void)continueSym {
-    [self parseRule:@selector(__continueSym) withMemo:_continueSym_memo];
-}
-
-- (void)__with {
+- (void)with {
     
     [self match:JAVASCRIPT_TOKEN_KIND_WITH discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchWith:)];
 }
 
-- (void)with {
-    [self parseRule:@selector(__with) withMemo:_with_memo];
-}
-
-- (void)__returnSym {
+- (void)returnSym {
     
     [self match:JAVASCRIPT_TOKEN_KIND_RETURNSYM discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchReturnSym:)];
 }
 
-- (void)returnSym {
-    [self parseRule:@selector(__returnSym) withMemo:_returnSym_memo];
-}
-
-- (void)__var {
+- (void)var {
     
     [self match:JAVASCRIPT_TOKEN_KIND_VAR discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchVar:)];
 }
 
-- (void)var {
-    [self parseRule:@selector(__var) withMemo:_var_memo];
-}
-
-- (void)__delete {
+- (void)delete {
     
     [self match:JAVASCRIPT_TOKEN_KIND_DELETE discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDelete:)];
 }
 
-- (void)delete {
-    [self parseRule:@selector(__delete) withMemo:_delete_memo];
-}
-
-- (void)__keywordNew {
+- (void)keywordNew {
     
     [self match:JAVASCRIPT_TOKEN_KIND_KEYWORDNEW discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchKeywordNew:)];
 }
 
-- (void)keywordNew {
-    [self parseRule:@selector(__keywordNew) withMemo:_keywordNew_memo];
-}
-
-- (void)__this {
+- (void)this {
     
     [self match:JAVASCRIPT_TOKEN_KIND_THIS discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchThis:)];
 }
 
-- (void)this {
-    [self parseRule:@selector(__this) withMemo:_this_memo];
-}
-
-- (void)__falseLiteral {
+- (void)falseLiteral {
     
     [self match:JAVASCRIPT_TOKEN_KIND_FALSELITERAL discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
 }
 
-- (void)falseLiteral {
-    [self parseRule:@selector(__falseLiteral) withMemo:_falseLiteral_memo];
-}
-
-- (void)__trueLiteral {
+- (void)trueLiteral {
     
     [self match:JAVASCRIPT_TOKEN_KIND_TRUELITERAL discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
 }
 
-- (void)trueLiteral {
-    [self parseRule:@selector(__trueLiteral) withMemo:_trueLiteral_memo];
-}
-
-- (void)__null {
+- (void)null {
     
     [self match:JAVASCRIPT_TOKEN_KIND_NULL discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchNull:)];
 }
 
-- (void)null {
-    [self parseRule:@selector(__null) withMemo:_null_memo];
-}
-
-- (void)__undefined {
+- (void)undefined {
     
     [self match:JAVASCRIPT_TOKEN_KIND_UNDEFINED discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchUndefined:)];
 }
 
-- (void)undefined {
-    [self parseRule:@selector(__undefined) withMemo:_undefined_memo];
-}
-
-- (void)__void {
+- (void)void {
     
     [self match:JAVASCRIPT_TOKEN_KIND_VOID discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchVoid:)];
 }
 
-- (void)void {
-    [self parseRule:@selector(__void) withMemo:_void_memo];
-}
-
-- (void)__typeof {
+- (void)typeof {
     
     [self match:JAVASCRIPT_TOKEN_KIND_TYPEOF discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTypeof:)];
 }
 
-- (void)typeof {
-    [self parseRule:@selector(__typeof) withMemo:_typeof_memo];
-}
-
-- (void)__instanceof {
+- (void)instanceof {
     
     [self match:JAVASCRIPT_TOKEN_KIND_INSTANCEOF discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchInstanceof:)];
 }
 
-- (void)instanceof {
-    [self parseRule:@selector(__instanceof) withMemo:_instanceof_memo];
-}
-
-- (void)__function {
+- (void)function {
     
     [self match:JAVASCRIPT_TOKEN_KIND_FUNCTION discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFunction:)];
 }
 
-- (void)function {
-    [self parseRule:@selector(__function) withMemo:_function_memo];
-}
-
-- (void)__openCurly {
+- (void)openCurly {
     
     [self match:JAVASCRIPT_TOKEN_KIND_OPENCURLY discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
 }
 
-- (void)openCurly {
-    [self parseRule:@selector(__openCurly) withMemo:_openCurly_memo];
-}
-
-- (void)__closeCurly {
+- (void)closeCurly {
     
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSECURLY discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
 }
 
-- (void)closeCurly {
-    [self parseRule:@selector(__closeCurly) withMemo:_closeCurly_memo];
-}
-
-- (void)__openParen {
+- (void)openParen {
     
     [self match:JAVASCRIPT_TOKEN_KIND_OPENPAREN discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
 }
 
-- (void)openParen {
-    [self parseRule:@selector(__openParen) withMemo:_openParen_memo];
-}
-
-- (void)__closeParen {
+- (void)closeParen {
     
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
 }
 
-- (void)closeParen {
-    [self parseRule:@selector(__closeParen) withMemo:_closeParen_memo];
-}
-
-- (void)__openBracket {
+- (void)openBracket {
     
     [self match:JAVASCRIPT_TOKEN_KIND_OPENBRACKET discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
 }
 
-- (void)openBracket {
-    [self parseRule:@selector(__openBracket) withMemo:_openBracket_memo];
-}
-
-- (void)__closeBracket {
+- (void)closeBracket {
     
     [self match:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
 }
 
-- (void)closeBracket {
-    [self parseRule:@selector(__closeBracket) withMemo:_closeBracket_memo];
-}
-
-- (void)__comma {
+- (void)comma {
     
     [self match:JAVASCRIPT_TOKEN_KIND_COMMA discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
-- (void)comma {
-    [self parseRule:@selector(__comma) withMemo:_comma_memo];
-}
-
-- (void)__dot {
+- (void)dot {
     
     [self match:JAVASCRIPT_TOKEN_KIND_DOT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
 }
 
-- (void)dot {
-    [self parseRule:@selector(__dot) withMemo:_dot_memo];
-}
-
-- (void)__semi {
+- (void)semi {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SEMI discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
 }
 
-- (void)semi {
-    [self parseRule:@selector(__semi) withMemo:_semi_memo];
-}
-
-- (void)__colon {
+- (void)colon {
     
     [self match:JAVASCRIPT_TOKEN_KIND_COLON discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
 }
 
-- (void)colon {
-    [self parseRule:@selector(__colon) withMemo:_colon_memo];
-}
-
-- (void)__equals {
+- (void)equals {
     
     [self match:JAVASCRIPT_TOKEN_KIND_EQUALS discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchEquals:)];
 }
 
-- (void)equals {
-    [self parseRule:@selector(__equals) withMemo:_equals_memo];
-}
-
-- (void)__not {
+- (void)not {
     
     [self match:JAVASCRIPT_TOKEN_KIND_NOT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchNot:)];
 }
 
-- (void)not {
-    [self parseRule:@selector(__not) withMemo:_not_memo];
-}
-
-- (void)__lt {
+- (void)lt {
     
     [self match:JAVASCRIPT_TOKEN_KIND_LT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
 
-- (void)lt {
-    [self parseRule:@selector(__lt) withMemo:_lt_memo];
-}
-
-- (void)__gt {
+- (void)gt {
     
     [self match:JAVASCRIPT_TOKEN_KIND_GT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
 
-- (void)gt {
-    [self parseRule:@selector(__gt) withMemo:_gt_memo];
-}
-
-- (void)__amp {
+- (void)amp {
     
     [self match:JAVASCRIPT_TOKEN_KIND_AMP discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchAmp:)];
 }
 
-- (void)amp {
-    [self parseRule:@selector(__amp) withMemo:_amp_memo];
-}
-
-- (void)__pipe {
+- (void)pipe {
     
     [self match:JAVASCRIPT_TOKEN_KIND_PIPE discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPipe:)];
 }
 
-- (void)pipe {
-    [self parseRule:@selector(__pipe) withMemo:_pipe_memo];
-}
-
-- (void)__caret {
+- (void)caret {
     
     [self match:JAVASCRIPT_TOKEN_KIND_CARET discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCaret:)];
 }
 
-- (void)caret {
-    [self parseRule:@selector(__caret) withMemo:_caret_memo];
-}
-
-- (void)__tilde {
+- (void)tilde {
     
     [self match:JAVASCRIPT_TOKEN_KIND_TILDE discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTilde:)];
 }
 
-- (void)tilde {
-    [self parseRule:@selector(__tilde) withMemo:_tilde_memo];
-}
-
-- (void)__question {
+- (void)question {
     
     [self match:JAVASCRIPT_TOKEN_KIND_QUESTION discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchQuestion:)];
 }
 
-- (void)question {
-    [self parseRule:@selector(__question) withMemo:_question_memo];
-}
-
-- (void)__plus {
+- (void)plus {
     
     [self match:JAVASCRIPT_TOKEN_KIND_PLUS discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlus:)];
 }
 
-- (void)plus {
-    [self parseRule:@selector(__plus) withMemo:_plus_memo];
-}
-
-- (void)__minus {
+- (void)minus {
     
     [self match:JAVASCRIPT_TOKEN_KIND_MINUS discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinus:)];
 }
 
-- (void)minus {
-    [self parseRule:@selector(__minus) withMemo:_minus_memo];
-}
-
-- (void)__times {
+- (void)times {
     
     [self match:JAVASCRIPT_TOKEN_KIND_TIMES discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTimes:)];
 }
 
-- (void)times {
-    [self parseRule:@selector(__times) withMemo:_times_memo];
-}
-
-- (void)__div {
+- (void)div {
     
     [self match:JAVASCRIPT_TOKEN_KIND_DIV discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDiv:)];
 }
 
-- (void)div {
-    [self parseRule:@selector(__div) withMemo:_div_memo];
-}
-
-- (void)__mod {
+- (void)mod {
     
     [self match:JAVASCRIPT_TOKEN_KIND_MOD discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchMod:)];
 }
 
-- (void)mod {
-    [self parseRule:@selector(__mod) withMemo:_mod_memo];
-}
-
-- (void)__or {
+- (void)or {
     
     [self match:JAVASCRIPT_TOKEN_KIND_OR discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
 }
 
-- (void)or {
-    [self parseRule:@selector(__or) withMemo:_or_memo];
-}
-
-- (void)__and {
+- (void)and {
     
     [self match:JAVASCRIPT_TOKEN_KIND_AND discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];
 }
 
-- (void)and {
-    [self parseRule:@selector(__and) withMemo:_and_memo];
-}
-
-- (void)__ne {
+- (void)ne {
     
     [self match:JAVASCRIPT_TOKEN_KIND_NE discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchNe:)];
 }
 
-- (void)ne {
-    [self parseRule:@selector(__ne) withMemo:_ne_memo];
-}
-
-- (void)__isnot {
+- (void)isnot {
     
     [self match:JAVASCRIPT_TOKEN_KIND_ISNOT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchIsnot:)];
 }
 
-- (void)isnot {
-    [self parseRule:@selector(__isnot) withMemo:_isnot_memo];
-}
-
-- (void)__eq {
+- (void)eq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_EQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
 
-- (void)eq {
-    [self parseRule:@selector(__eq) withMemo:_eq_memo];
-}
-
-- (void)__is {
+- (void)is {
     
     [self match:JAVASCRIPT_TOKEN_KIND_IS discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchIs:)];
 }
 
-- (void)is {
-    [self parseRule:@selector(__is) withMemo:_is_memo];
-}
-
-- (void)__le {
+- (void)le {
     
     [self match:JAVASCRIPT_TOKEN_KIND_LE discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchLe:)];
 }
 
-- (void)le {
-    [self parseRule:@selector(__le) withMemo:_le_memo];
-}
-
-- (void)__ge {
+- (void)ge {
     
     [self match:JAVASCRIPT_TOKEN_KIND_GE discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchGe:)];
 }
 
-- (void)ge {
-    [self parseRule:@selector(__ge) withMemo:_ge_memo];
-}
-
-- (void)__plusPlus {
+- (void)plusPlus {
     
     [self match:JAVASCRIPT_TOKEN_KIND_PLUSPLUS discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlusPlus:)];
 }
 
-- (void)plusPlus {
-    [self parseRule:@selector(__plusPlus) withMemo:_plusPlus_memo];
-}
-
-- (void)__minusMinus {
+- (void)minusMinus {
     
     [self match:JAVASCRIPT_TOKEN_KIND_MINUSMINUS discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinusMinus:)];
 }
 
-- (void)minusMinus {
-    [self parseRule:@selector(__minusMinus) withMemo:_minusMinus_memo];
-}
-
-- (void)__plusEq {
+- (void)plusEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_PLUSEQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlusEq:)];
 }
 
-- (void)plusEq {
-    [self parseRule:@selector(__plusEq) withMemo:_plusEq_memo];
-}
-
-- (void)__minusEq {
+- (void)minusEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_MINUSEQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchMinusEq:)];
 }
 
-- (void)minusEq {
-    [self parseRule:@selector(__minusEq) withMemo:_minusEq_memo];
-}
-
-- (void)__timesEq {
+- (void)timesEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_TIMESEQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchTimesEq:)];
 }
 
-- (void)timesEq {
-    [self parseRule:@selector(__timesEq) withMemo:_timesEq_memo];
-}
-
-- (void)__divEq {
+- (void)divEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_DIVEQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDivEq:)];
 }
 
-- (void)divEq {
-    [self parseRule:@selector(__divEq) withMemo:_divEq_memo];
-}
-
-- (void)__modEq {
+- (void)modEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_MODEQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchModEq:)];
 }
 
-- (void)modEq {
-    [self parseRule:@selector(__modEq) withMemo:_modEq_memo];
-}
-
-- (void)__shiftLeft {
+- (void)shiftLeft {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftLeft:)];
 }
 
-- (void)shiftLeft {
-    [self parseRule:@selector(__shiftLeft) withMemo:_shiftLeft_memo];
-}
-
-- (void)__shiftRight {
+- (void)shiftRight {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRight:)];
 }
 
-- (void)shiftRight {
-    [self parseRule:@selector(__shiftRight) withMemo:_shiftRight_memo];
-}
-
-- (void)__shiftRightExt {
+- (void)shiftRightExt {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExt:)];
 }
 
-- (void)shiftRightExt {
-    [self parseRule:@selector(__shiftRightExt) withMemo:_shiftRightExt_memo];
-}
-
-- (void)__shiftLeftEq {
+- (void)shiftLeftEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftLeftEq:)];
 }
 
-- (void)shiftLeftEq {
-    [self parseRule:@selector(__shiftLeftEq) withMemo:_shiftLeftEq_memo];
-}
-
-- (void)__shiftRightEq {
+- (void)shiftRightEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightEq:)];
 }
 
-- (void)shiftRightEq {
-    [self parseRule:@selector(__shiftRightEq) withMemo:_shiftRightEq_memo];
-}
-
-- (void)__shiftRightExtEq {
+- (void)shiftRightExtEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExtEq:)];
 }
 
-- (void)shiftRightExtEq {
-    [self parseRule:@selector(__shiftRightExtEq) withMemo:_shiftRightExtEq_memo];
-}
-
-- (void)__andEq {
+- (void)andEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_ANDEQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndEq:)];
 }
 
-- (void)andEq {
-    [self parseRule:@selector(__andEq) withMemo:_andEq_memo];
-}
-
-- (void)__xorEq {
+- (void)xorEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_XOREQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchXorEq:)];
 }
 
-- (void)xorEq {
-    [self parseRule:@selector(__xorEq) withMemo:_xorEq_memo];
-}
-
-- (void)__orEq {
+- (void)orEq {
     
     [self match:JAVASCRIPT_TOKEN_KIND_OREQ discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrEq:)];
 }
 
-- (void)orEq {
-    [self parseRule:@selector(__orEq) withMemo:_orEq_memo];
-}
-
-- (void)__assignmentOperator {
+- (void)assignmentOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_EQUALS, 0]) {
         [self equals]; 
@@ -1598,11 +695,7 @@
 
 }
 
-- (void)assignmentOperator {
-    [self parseRule:@selector(__assignmentOperator) withMemo:_assignmentOperator_memo];
-}
-
-- (void)__relationalOperator {
+- (void)relationalOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_LT, 0]) {
         [self lt]; 
@@ -1620,11 +713,7 @@
 
 }
 
-- (void)relationalOperator {
-    [self parseRule:@selector(__relationalOperator) withMemo:_relationalOperator_memo];
-}
-
-- (void)__equalityOperator {
+- (void)equalityOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_EQ, 0]) {
         [self eq]; 
@@ -1640,11 +729,7 @@
 
 }
 
-- (void)equalityOperator {
-    [self parseRule:@selector(__equalityOperator) withMemo:_equalityOperator_memo];
-}
-
-- (void)__shiftOperator {
+- (void)shiftOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTLEFT, 0]) {
         [self shiftLeft]; 
@@ -1658,11 +743,7 @@
 
 }
 
-- (void)shiftOperator {
-    [self parseRule:@selector(__shiftOperator) withMemo:_shiftOperator_memo];
-}
-
-- (void)__incrementOperator {
+- (void)incrementOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_PLUSPLUS, 0]) {
         [self plusPlus]; 
@@ -1674,11 +755,7 @@
 
 }
 
-- (void)incrementOperator {
-    [self parseRule:@selector(__incrementOperator) withMemo:_incrementOperator_memo];
-}
-
-- (void)__unaryOperator {
+- (void)unaryOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_TILDE, 0]) {
         [self tilde]; 
@@ -1694,11 +771,7 @@
 
 }
 
-- (void)unaryOperator {
-    [self parseRule:@selector(__unaryOperator) withMemo:_unaryOperator_memo];
-}
-
-- (void)__multiplicativeOperator {
+- (void)multiplicativeOperator {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_TIMES, 0]) {
         [self times]; 
@@ -1712,11 +785,7 @@
 
 }
 
-- (void)multiplicativeOperator {
-    [self parseRule:@selector(__multiplicativeOperator) withMemo:_multiplicativeOperator_memo];
-}
-
-- (void)__program {
+- (void)program {
     
     do {
         [self element]; 
@@ -1724,11 +793,7 @@
 
 }
 
-- (void)program {
-    [self parseRule:@selector(__program) withMemo:_program_memo];
-}
-
-- (void)__element {
+- (void)element {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_FUNCTION, 0]) {
         [self func]; 
@@ -1740,11 +805,7 @@
 
 }
 
-- (void)element {
-    [self parseRule:@selector(__element) withMemo:_element_memo];
-}
-
-- (void)__func {
+- (void)func {
     
     [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{
         [self function]; 
@@ -1765,11 +826,7 @@
 
 }
 
-- (void)func {
-    [self parseRule:@selector(__func) withMemo:_func_memo];
-}
-
-- (void)__paramListOpt {
+- (void)paramListOpt {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self paramList]; 
@@ -1777,11 +834,7 @@
 
 }
 
-- (void)paramListOpt {
-    [self parseRule:@selector(__paramListOpt) withMemo:_paramListOpt_memo];
-}
-
-- (void)__paramList {
+- (void)paramList {
     
         [self identifier]; 
         while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
@@ -1794,11 +847,7 @@
 
 }
 
-- (void)paramList {
-    [self parseRule:@selector(__paramList) withMemo:_paramList_memo];
-}
-
-- (void)__commaIdentifier {
+- (void)commaIdentifier {
     
     [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{
         [self comma]; 
@@ -1810,11 +859,7 @@
 
 }
 
-- (void)commaIdentifier {
-    [self parseRule:@selector(__commaIdentifier) withMemo:_commaIdentifier_memo];
-}
-
-- (void)__compoundStmt {
+- (void)compoundStmt {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSECURLY block:^{
         [self openCurly]; 
@@ -1827,11 +872,7 @@
 
 }
 
-- (void)compoundStmt {
-    [self parseRule:@selector(__compoundStmt) withMemo:_compoundStmt_memo];
-}
-
-- (void)__stmts {
+- (void)stmts {
     
     while ([self predicts:JAVASCRIPT_TOKEN_KIND_BREAKSYM, JAVASCRIPT_TOKEN_KIND_CONTINUESYM, JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_FORSYM, JAVASCRIPT_TOKEN_KIND_IFSYM, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENCURLY, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_RETURNSYM, JAVASCRIPT_TOKEN_KIND_SEMI, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VAR, JAVASCRIPT_TOKEN_KIND_VOID, JAVASCRIPT_TOKEN_KIND_WHILESYM, JAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         if ([self speculate:^{ [self stmt]; }]) {
@@ -1843,11 +884,7 @@
 
 }
 
-- (void)stmts {
-    [self parseRule:@selector(__stmts) withMemo:_stmts_memo];
-}
-
-- (void)__stmt {
+- (void)stmt {
     
     if ([self speculate:^{ [self semi]; }]) {
         [self semi]; 
@@ -1881,11 +918,7 @@
 
 }
 
-- (void)stmt {
-    [self parseRule:@selector(__stmt) withMemo:_stmt_memo];
-}
-
-- (void)__ifStmt {
+- (void)ifStmt {
     
         [self ifSym]; 
         [self condition]; 
@@ -1893,11 +926,7 @@
 
 }
 
-- (void)ifStmt {
-    [self parseRule:@selector(__ifStmt) withMemo:_ifStmt_memo];
-}
-
-- (void)__ifElseStmt {
+- (void)ifElseStmt {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_ELSESYM block:^{
         [self ifSym]; 
@@ -1912,11 +941,7 @@
 
 }
 
-- (void)ifElseStmt {
-    [self parseRule:@selector(__ifElseStmt) withMemo:_ifElseStmt_memo];
-}
-
-- (void)__whileStmt {
+- (void)whileStmt {
     
         [self whileSym]; 
         [self condition]; 
@@ -1924,45 +949,10 @@
 
 }
 
-- (void)whileStmt {
-    [self parseRule:@selector(__whileStmt) withMemo:_whileStmt_memo];
-}
-
-- (void)__forParenStmt {
+- (void)forParenStmt {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self forParen]; 
-        [self semi]; 
-    } completion:^{
-        [self semi]; 
-    }];
-
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
-        [self exprOpt]; 
-        [self semi]; 
-    } completion:^{
-        [self semi]; 
-    }];
-
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
-        [self exprOpt]; 
-        [self closeParen]; 
-    } completion:^{
-        [self closeParen]; 
-    }];
-
-        [self stmt]; 
-
-}
-
-- (void)forParenStmt {
-    [self parseRule:@selector(__forParenStmt) withMemo:_forParenStmt_memo];
-}
-
-- (void)__forBeginStmt {
-    
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
-        [self forBegin]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
@@ -1987,10 +977,33 @@
 }
 
 - (void)forBeginStmt {
-    [self parseRule:@selector(__forBeginStmt) withMemo:_forBeginStmt_memo];
+    
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
+        [self forBegin]; 
+        [self semi]; 
+    } completion:^{
+        [self semi]; 
+    }];
+
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
+        [self exprOpt]; 
+        [self semi]; 
+    } completion:^{
+        [self semi]; 
+    }];
+
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
+        [self exprOpt]; 
+        [self closeParen]; 
+    } completion:^{
+        [self closeParen]; 
+    }];
+
+        [self stmt]; 
+
 }
 
-- (void)__forInStmt {
+- (void)forInStmt {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_INSYM block:^{
         [self forBegin]; 
@@ -2010,11 +1023,7 @@
 
 }
 
-- (void)forInStmt {
-    [self parseRule:@selector(__forInStmt) withMemo:_forInStmt_memo];
-}
-
-- (void)__breakStmt {
+- (void)breakStmt {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self breakSym]; 
@@ -2026,11 +1035,7 @@
 
 }
 
-- (void)breakStmt {
-    [self parseRule:@selector(__breakStmt) withMemo:_breakStmt_memo];
-}
-
-- (void)__continueStmt {
+- (void)continueStmt {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self continueSym]; 
@@ -2042,11 +1047,7 @@
 
 }
 
-- (void)continueStmt {
-    [self parseRule:@selector(__continueStmt) withMemo:_continueStmt_memo];
-}
-
-- (void)__withStmt {
+- (void)withStmt {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{
         [self with]; 
@@ -2066,11 +1067,7 @@
 
 }
 
-- (void)withStmt {
-    [self parseRule:@selector(__withStmt) withMemo:_withStmt_memo];
-}
-
-- (void)__returnStmt {
+- (void)returnStmt {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self returnSym]; 
@@ -2083,11 +1080,7 @@
 
 }
 
-- (void)returnStmt {
-    [self parseRule:@selector(__returnStmt) withMemo:_returnStmt_memo];
-}
-
-- (void)__variablesOrExprStmt {
+- (void)variablesOrExprStmt {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self variablesOrExpr]; 
@@ -2099,11 +1092,7 @@
 
 }
 
-- (void)variablesOrExprStmt {
-    [self parseRule:@selector(__variablesOrExprStmt) withMemo:_variablesOrExprStmt_memo];
-}
-
-- (void)__condition {
+- (void)condition {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self openParen]; 
@@ -2116,11 +1105,7 @@
 
 }
 
-- (void)condition {
-    [self parseRule:@selector(__condition) withMemo:_condition_memo];
-}
-
-- (void)__forParen {
+- (void)forParen {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{
         [self forSym]; 
@@ -2132,22 +1117,14 @@
 
 }
 
-- (void)forParen {
-    [self parseRule:@selector(__forParen) withMemo:_forParen_memo];
-}
-
-- (void)__forBegin {
+- (void)forBegin {
     
         [self forParen]; 
         [self variablesOrExpr]; 
 
 }
 
-- (void)forBegin {
-    [self parseRule:@selector(__forBegin) withMemo:_forBegin_memo];
-}
-
-- (void)__variablesOrExpr {
+- (void)variablesOrExpr {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_VAR, 0]) {
         [self varVariables]; 
@@ -2159,22 +1136,14 @@
 
 }
 
-- (void)variablesOrExpr {
-    [self parseRule:@selector(__variablesOrExpr) withMemo:_variablesOrExpr_memo];
-}
-
-- (void)__varVariables {
+- (void)varVariables {
     
         [self var]; 
         [self variables]; 
 
 }
 
-- (void)varVariables {
-    [self parseRule:@selector(__varVariables) withMemo:_varVariables_memo];
-}
-
-- (void)__variables {
+- (void)variables {
     
         [self variable]; 
         while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
@@ -2187,22 +1156,14 @@
 
 }
 
-- (void)variables {
-    [self parseRule:@selector(__variables) withMemo:_variables_memo];
-}
-
-- (void)__commaVariable {
+- (void)commaVariable {
     
         [self comma]; 
         [self variable]; 
 
 }
 
-- (void)commaVariable {
-    [self parseRule:@selector(__commaVariable) withMemo:_commaVariable_memo];
-}
-
-- (void)__variable {
+- (void)variable {
     
         [self identifier]; 
         if ([self speculate:^{ [self assignment]; }]) {
@@ -2211,22 +1172,14 @@
 
 }
 
-- (void)variable {
-    [self parseRule:@selector(__variable) withMemo:_variable_memo];
-}
-
-- (void)__assignment {
+- (void)assignment {
     
         [self equals]; 
         [self assignmentExpr]; 
 
 }
 
-- (void)assignment {
-    [self parseRule:@selector(__assignment) withMemo:_assignment_memo];
-}
-
-- (void)__exprOpt {
+- (void)exprOpt {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VOID, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self expr]; 
@@ -2234,11 +1187,7 @@
 
 }
 
-- (void)exprOpt {
-    [self parseRule:@selector(__exprOpt) withMemo:_exprOpt_memo];
-}
-
-- (void)__expr {
+- (void)expr {
     
         [self assignmentExpr]; 
         if ([self speculate:^{ [self commaExpr]; }]) {
@@ -2247,22 +1196,14 @@
 
 }
 
-- (void)expr {
-    [self parseRule:@selector(__expr) withMemo:_expr_memo];
-}
-
-- (void)__commaExpr {
+- (void)commaExpr {
     
         [self comma]; 
         [self expr]; 
 
 }
 
-- (void)commaExpr {
-    [self parseRule:@selector(__commaExpr) withMemo:_commaExpr_memo];
-}
-
-- (void)__assignmentExpr {
+- (void)assignmentExpr {
     
         [self conditionalExpr]; 
         if ([self speculate:^{ [self extraAssignment]; }]) {
@@ -2271,22 +1212,14 @@
 
 }
 
-- (void)assignmentExpr {
-    [self parseRule:@selector(__assignmentExpr) withMemo:_assignmentExpr_memo];
-}
-
-- (void)__extraAssignment {
+- (void)extraAssignment {
     
         [self assignmentOperator]; 
         [self assignmentExpr]; 
 
 }
 
-- (void)extraAssignment {
-    [self parseRule:@selector(__extraAssignment) withMemo:_extraAssignment_memo];
-}
-
-- (void)__conditionalExpr {
+- (void)conditionalExpr {
     
         [self orExpr]; 
         if ([self speculate:^{ [self ternaryExpr]; }]) {
@@ -2295,11 +1228,7 @@
 
 }
 
-- (void)conditionalExpr {
-    [self parseRule:@selector(__conditionalExpr) withMemo:_conditionalExpr_memo];
-}
-
-- (void)__ternaryExpr {
+- (void)ternaryExpr {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_COLON block:^{
         [self question]; 
@@ -2313,11 +1242,7 @@
 
 }
 
-- (void)ternaryExpr {
-    [self parseRule:@selector(__ternaryExpr) withMemo:_ternaryExpr_memo];
-}
-
-- (void)__orExpr {
+- (void)orExpr {
     
         [self andExpr]; 
         while ([self predicts:JAVASCRIPT_TOKEN_KIND_OR, 0]) {
@@ -2330,22 +1255,14 @@
 
 }
 
-- (void)orExpr {
-    [self parseRule:@selector(__orExpr) withMemo:_orExpr_memo];
-}
-
-- (void)__orAndExpr {
+- (void)orAndExpr {
     
         [self or]; 
         [self andExpr]; 
 
 }
 
-- (void)orAndExpr {
-    [self parseRule:@selector(__orAndExpr) withMemo:_orAndExpr_memo];
-}
-
-- (void)__andExpr {
+- (void)andExpr {
     
         [self bitwiseOrExpr]; 
         if ([self speculate:^{ [self andAndExpr]; }]) {
@@ -2354,22 +1271,14 @@
 
 }
 
-- (void)andExpr {
-    [self parseRule:@selector(__andExpr) withMemo:_andExpr_memo];
-}
-
-- (void)__andAndExpr {
+- (void)andAndExpr {
     
         [self and]; 
         [self andExpr]; 
 
 }
 
-- (void)andAndExpr {
-    [self parseRule:@selector(__andAndExpr) withMemo:_andAndExpr_memo];
-}
-
-- (void)__bitwiseOrExpr {
+- (void)bitwiseOrExpr {
     
         [self bitwiseXorExpr]; 
         if ([self speculate:^{ [self pipeBitwiseOrExpr]; }]) {
@@ -2378,22 +1287,14 @@
 
 }
 
-- (void)bitwiseOrExpr {
-    [self parseRule:@selector(__bitwiseOrExpr) withMemo:_bitwiseOrExpr_memo];
-}
-
-- (void)__pipeBitwiseOrExpr {
+- (void)pipeBitwiseOrExpr {
     
         [self pipe]; 
         [self bitwiseOrExpr]; 
 
 }
 
-- (void)pipeBitwiseOrExpr {
-    [self parseRule:@selector(__pipeBitwiseOrExpr) withMemo:_pipeBitwiseOrExpr_memo];
-}
-
-- (void)__bitwiseXorExpr {
+- (void)bitwiseXorExpr {
     
         [self bitwiseAndExpr]; 
         if ([self speculate:^{ [self caretBitwiseXorExpr]; }]) {
@@ -2402,22 +1303,14 @@
 
 }
 
-- (void)bitwiseXorExpr {
-    [self parseRule:@selector(__bitwiseXorExpr) withMemo:_bitwiseXorExpr_memo];
-}
-
-- (void)__caretBitwiseXorExpr {
+- (void)caretBitwiseXorExpr {
     
         [self caret]; 
         [self bitwiseXorExpr]; 
 
 }
 
-- (void)caretBitwiseXorExpr {
-    [self parseRule:@selector(__caretBitwiseXorExpr) withMemo:_caretBitwiseXorExpr_memo];
-}
-
-- (void)__bitwiseAndExpr {
+- (void)bitwiseAndExpr {
     
         [self equalityExpr]; 
         if ([self speculate:^{ [self ampBitwiseAndExpression]; }]) {
@@ -2426,22 +1319,14 @@
 
 }
 
-- (void)bitwiseAndExpr {
-    [self parseRule:@selector(__bitwiseAndExpr) withMemo:_bitwiseAndExpr_memo];
-}
-
-- (void)__ampBitwiseAndExpression {
+- (void)ampBitwiseAndExpression {
     
         [self amp]; 
         [self bitwiseAndExpr]; 
 
 }
 
-- (void)ampBitwiseAndExpression {
-    [self parseRule:@selector(__ampBitwiseAndExpression) withMemo:_ampBitwiseAndExpression_memo];
-}
-
-- (void)__equalityExpr {
+- (void)equalityExpr {
     
         [self relationalExpr]; 
         if ([self speculate:^{ [self equalityOpEqualityExpr]; }]) {
@@ -2450,22 +1335,14 @@
 
 }
 
-- (void)equalityExpr {
-    [self parseRule:@selector(__equalityExpr) withMemo:_equalityExpr_memo];
-}
-
-- (void)__equalityOpEqualityExpr {
+- (void)equalityOpEqualityExpr {
     
         [self equalityOperator]; 
         [self equalityExpr]; 
 
 }
 
-- (void)equalityOpEqualityExpr {
-    [self parseRule:@selector(__equalityOpEqualityExpr) withMemo:_equalityOpEqualityExpr_memo];
-}
-
-- (void)__relationalExpr {
+- (void)relationalExpr {
     
         [self shiftExpr]; 
         while ([self predicts:JAVASCRIPT_TOKEN_KIND_GE, JAVASCRIPT_TOKEN_KIND_GT, JAVASCRIPT_TOKEN_KIND_INSTANCEOF, JAVASCRIPT_TOKEN_KIND_LE, JAVASCRIPT_TOKEN_KIND_LT, 0]) {
@@ -2479,11 +1356,7 @@
 
 }
 
-- (void)relationalExpr {
-    [self parseRule:@selector(__relationalExpr) withMemo:_relationalExpr_memo];
-}
-
-- (void)__shiftExpr {
+- (void)shiftExpr {
     
         [self additiveExpr]; 
         if ([self speculate:^{ [self shiftOpShiftExpr]; }]) {
@@ -2492,22 +1365,14 @@
 
 }
 
-- (void)shiftExpr {
-    [self parseRule:@selector(__shiftExpr) withMemo:_shiftExpr_memo];
-}
-
-- (void)__shiftOpShiftExpr {
+- (void)shiftOpShiftExpr {
     
         [self shiftOperator]; 
         [self shiftExpr]; 
 
 }
 
-- (void)shiftOpShiftExpr {
-    [self parseRule:@selector(__shiftOpShiftExpr) withMemo:_shiftOpShiftExpr_memo];
-}
-
-- (void)__additiveExpr {
+- (void)additiveExpr {
     
         [self multiplicativeExpr]; 
         if ([self speculate:^{ [self plusOrMinusExpr]; }]) {
@@ -2516,11 +1381,7 @@
 
 }
 
-- (void)additiveExpr {
-    [self parseRule:@selector(__additiveExpr) withMemo:_additiveExpr_memo];
-}
-
-- (void)__plusOrMinusExpr {
+- (void)plusOrMinusExpr {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_PLUS, 0]) {
         [self plusExpr]; 
@@ -2532,33 +1393,21 @@
 
 }
 
-- (void)plusOrMinusExpr {
-    [self parseRule:@selector(__plusOrMinusExpr) withMemo:_plusOrMinusExpr_memo];
-}
-
-- (void)__plusExpr {
+- (void)plusExpr {
     
         [self plus]; 
         [self additiveExpr]; 
 
 }
 
-- (void)plusExpr {
-    [self parseRule:@selector(__plusExpr) withMemo:_plusExpr_memo];
-}
-
-- (void)__minusExpr {
+- (void)minusExpr {
     
         [self minus]; 
         [self additiveExpr]; 
 
 }
 
-- (void)minusExpr {
-    [self parseRule:@selector(__minusExpr) withMemo:_minusExpr_memo];
-}
-
-- (void)__multiplicativeExpr {
+- (void)multiplicativeExpr {
     
         [self unaryExpr]; 
         if ([self speculate:^{ [self multiplicativeOperator]; [self multiplicativeExpr]; }]) {
@@ -2568,11 +1417,7 @@
 
 }
 
-- (void)multiplicativeExpr {
-    [self parseRule:@selector(__multiplicativeExpr) withMemo:_multiplicativeExpr_memo];
-}
-
-- (void)__unaryExpr {
+- (void)unaryExpr {
     
     if ([self speculate:^{ [self memberExpr]; }]) {
         [self memberExpr]; 
@@ -2592,77 +1437,49 @@
 
 }
 
-- (void)unaryExpr {
-    [self parseRule:@selector(__unaryExpr) withMemo:_unaryExpr_memo];
-}
-
-- (void)__unaryExpr1 {
+- (void)unaryExpr1 {
     
         [self unaryOperator]; 
         [self unaryExpr]; 
 
 }
 
-- (void)unaryExpr1 {
-    [self parseRule:@selector(__unaryExpr1) withMemo:_unaryExpr1_memo];
-}
-
-- (void)__unaryExpr2 {
+- (void)unaryExpr2 {
     
         [self minus]; 
         [self unaryExpr]; 
 
 }
 
-- (void)unaryExpr2 {
-    [self parseRule:@selector(__unaryExpr2) withMemo:_unaryExpr2_memo];
-}
-
-- (void)__unaryExpr3 {
-    
-        [self incrementOperator]; 
-        [self memberExpr]; 
-
-}
-
 - (void)unaryExpr3 {
-    [self parseRule:@selector(__unaryExpr3) withMemo:_unaryExpr3_memo];
-}
-
-- (void)__unaryExpr4 {
     
-        [self memberExpr]; 
         [self incrementOperator]; 
+        [self memberExpr]; 
 
 }
 
 - (void)unaryExpr4 {
-    [self parseRule:@selector(__unaryExpr4) withMemo:_unaryExpr4_memo];
+    
+        [self memberExpr]; 
+        [self incrementOperator]; 
+
 }
 
-- (void)__callNewExpr {
+- (void)callNewExpr {
     
         [self keywordNew]; 
         [self constructor]; 
 
 }
 
-- (void)callNewExpr {
-    [self parseRule:@selector(__callNewExpr) withMemo:_callNewExpr_memo];
-}
-
-- (void)__unaryExpr6 {
+- (void)unaryExpr6 {
     
         [self delete]; 
         [self memberExpr]; 
 
 }
 
-- (void)unaryExpr6 {
-    [self parseRule:@selector(__unaryExpr6) withMemo:_unaryExpr6_memo];
-}
-
-- (void)__constructor {
+- (void)constructor {
     
         if ([self speculate:^{ [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_DOT block:^{[self this]; [self dot]; } completion:^{[self dot]; }];}]) {
             [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_DOT block:^{
@@ -2677,11 +1494,7 @@
 
 }
 
-- (void)constructor {
-    [self parseRule:@selector(__constructor) withMemo:_constructor_memo];
-}
-
-- (void)__constructorCall {
+- (void)constructorCall {
     
         [self identifier]; 
         if ([self speculate:^{ if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"no viable alternative found in constructorCall"];}}]) {
@@ -2697,11 +1510,7 @@
 
 }
 
-- (void)constructorCall {
-    [self parseRule:@selector(__constructorCall) withMemo:_constructorCall_memo];
-}
-
-- (void)__parenArgListParen {
+- (void)parenArgListParen {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self openParen]; 
@@ -2714,11 +1523,7 @@
 
 }
 
-- (void)parenArgListParen {
-    [self parseRule:@selector(__parenArgListParen) withMemo:_parenArgListParen_memo];
-}
-
-- (void)__memberExpr {
+- (void)memberExpr {
     
         [self primaryExpr]; 
         if ([self speculate:^{ [self dotBracketOrParenExpr]; }]) {
@@ -2727,11 +1532,7 @@
 
 }
 
-- (void)memberExpr {
-    [self parseRule:@selector(__memberExpr) withMemo:_memberExpr_memo];
-}
-
-- (void)__dotBracketOrParenExpr {
+- (void)dotBracketOrParenExpr {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {
         [self dotMemberExpr]; 
@@ -2745,22 +1546,14 @@
 
 }
 
-- (void)dotBracketOrParenExpr {
-    [self parseRule:@selector(__dotBracketOrParenExpr) withMemo:_dotBracketOrParenExpr_memo];
-}
-
-- (void)__dotMemberExpr {
+- (void)dotMemberExpr {
     
         [self dot]; 
         [self memberExpr]; 
 
 }
 
-- (void)dotMemberExpr {
-    [self parseRule:@selector(__dotMemberExpr) withMemo:_dotMemberExpr_memo];
-}
-
-- (void)__bracketMemberExpr {
+- (void)bracketMemberExpr {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET block:^{
         [self openBracket]; 
@@ -2773,11 +1566,7 @@
 
 }
 
-- (void)bracketMemberExpr {
-    [self parseRule:@selector(__bracketMemberExpr) withMemo:_bracketMemberExpr_memo];
-}
-
-- (void)__parenMemberExpr {
+- (void)parenMemberExpr {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self openParen]; 
@@ -2790,11 +1579,7 @@
 
 }
 
-- (void)parenMemberExpr {
-    [self parseRule:@selector(__parenMemberExpr) withMemo:_parenMemberExpr_memo];
-}
-
-- (void)__argListOpt {
+- (void)argListOpt {
     
     if ([self speculate:^{ [self argList]; }]) {
         [self argList]; 
@@ -2802,11 +1587,7 @@
 
 }
 
-- (void)argListOpt {
-    [self parseRule:@selector(__argListOpt) withMemo:_argListOpt_memo];
-}
-
-- (void)__argList {
+- (void)argList {
     
         [self assignmentExpr]; 
         while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
@@ -2819,22 +1600,14 @@
 
 }
 
-- (void)argList {
-    [self parseRule:@selector(__argList) withMemo:_argList_memo];
-}
-
-- (void)__commaAssignmentExpr {
+- (void)commaAssignmentExpr {
     
         [self comma]; 
         [self assignmentExpr]; 
 
 }
 
-- (void)commaAssignmentExpr {
-    [self parseRule:@selector(__commaAssignmentExpr) withMemo:_commaAssignmentExpr_memo];
-}
-
-- (void)__primaryExpr {
+- (void)primaryExpr {
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, 0]) {
         [self callNewExpr]; 
@@ -2862,11 +1635,7 @@
 
 }
 
-- (void)primaryExpr {
-    [self parseRule:@selector(__primaryExpr) withMemo:_primaryExpr_memo];
-}
-
-- (void)__parenExprParen {
+- (void)parenExprParen {
     
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self openParen]; 
@@ -2879,41 +1648,25 @@
 
 }
 
-- (void)parenExprParen {
-    [self parseRule:@selector(__parenExprParen) withMemo:_parenExprParen_memo];
-}
-
-- (void)__identifier {
+- (void)identifier {
     
     [self matchWord:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchIdentifier:)];
 }
 
-- (void)identifier {
-    [self parseRule:@selector(__identifier) withMemo:_identifier_memo];
-}
-
-- (void)__numLiteral {
+- (void)numLiteral {
     
     [self matchNumber:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchNumLiteral:)];
 }
 
-- (void)numLiteral {
-    [self parseRule:@selector(__numLiteral) withMemo:_numLiteral_memo];
-}
-
-- (void)__stringLiteral {
+- (void)stringLiteral {
     
     [self matchQuotedString:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchStringLiteral:)];
-}
-
-- (void)stringLiteral {
-    [self parseRule:@selector(__stringLiteral) withMemo:_stringLiteral_memo];
 }
 
 @end
