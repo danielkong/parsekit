@@ -323,14 +323,10 @@
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
     
-    if (isStartMethod && _enableAutomaticErrorRecovery) self.depth++;
-
-    if (node.before) {
-        [childStr appendString:[self actionStringFrom:node.before]];
-    }
-
     [childStr appendString:[self actionStringFrom:node.actionNode]];
     
+    if (isStartMethod && _enableAutomaticErrorRecovery) self.depth++;
+
     // recurse
     for (PKBaseNode *child in node.children) {
         [child visit:self];
@@ -353,6 +349,10 @@
         }
     }
 
+    if (node.before) {
+        [childStr insertString:[self actionStringFrom:node.before] atIndex:0];
+    }
+    
     if (node.after) {
         [childStr appendString:[self actionStringFrom:node.after]];
     }
