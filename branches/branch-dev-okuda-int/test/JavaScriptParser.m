@@ -171,11 +171,10 @@
     }];
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
         [self program]; 
-    [self matchEOF:YES]; 
+        [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
     }];
-
 
 }
 
@@ -821,7 +820,6 @@
     } completion:^{ 
         [self identifier]; 
     }];
-
     [self openParen]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
         [self paramListOpt]; 
@@ -829,7 +827,6 @@
     } completion:^{ 
         [self closeParen]; 
     }];
-
     [self compoundStmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFunc:)];
@@ -867,7 +864,6 @@
         [self identifier]; 
     }];
 
-
     [self fireAssemblerSelector:@selector(parser:didMatchCommaIdentifier:)];
 }
 
@@ -880,7 +876,6 @@
     } completion:^{ 
         [self closeCurly]; 
     }];
-
 
     [self fireAssemblerSelector:@selector(parser:didMatchCompoundStmt:)];
 }
@@ -952,7 +947,6 @@
     } completion:^{ 
         [self elseSym]; 
     }];
-
     [self stmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIfElseStmt:)];
@@ -975,21 +969,18 @@
     } completion:^{ 
         [self semi]; 
     }];
-
     [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
         [self semi]; 
     } completion:^{ 
         [self semi]; 
     }];
-
     [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
         [self closeParen]; 
     } completion:^{ 
         [self closeParen]; 
     }];
-
     [self stmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchForParenStmt:)];
@@ -1003,21 +994,18 @@
     } completion:^{ 
         [self semi]; 
     }];
-
     [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
         [self semi]; 
     } completion:^{ 
         [self semi]; 
     }];
-
     [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
         [self closeParen]; 
     } completion:^{ 
         [self closeParen]; 
     }];
-
     [self stmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchForBeginStmt:)];
@@ -1031,14 +1019,12 @@
     } completion:^{ 
         [self inSym]; 
     }];
-
     [self expr]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
         [self closeParen]; 
     } completion:^{ 
         [self closeParen]; 
     }];
-
     [self stmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchForInStmt:)];
@@ -1053,7 +1039,6 @@
         [self semi]; 
     }];
 
-
     [self fireAssemblerSelector:@selector(parser:didMatchBreakStmt:)];
 }
 
@@ -1066,7 +1051,6 @@
         [self semi]; 
     }];
 
-
     [self fireAssemblerSelector:@selector(parser:didMatchContinueStmt:)];
 }
 
@@ -1078,14 +1062,12 @@
     } completion:^{ 
         [self openParen]; 
     }];
-
     [self expr]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
         [self closeParen]; 
     } completion:^{ 
         [self closeParen]; 
     }];
-
     [self stmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchWithStmt:)];
@@ -1101,7 +1083,6 @@
         [self semi]; 
     }];
 
-
     [self fireAssemblerSelector:@selector(parser:didMatchReturnStmt:)];
 }
 
@@ -1113,7 +1094,6 @@
     } completion:^{ 
         [self semi]; 
     }];
-
 
     [self fireAssemblerSelector:@selector(parser:didMatchVariablesOrExprStmt:)];
 }
@@ -1128,7 +1108,6 @@
         [self closeParen]; 
     }];
 
-
     [self fireAssemblerSelector:@selector(parser:didMatchCondition:)];
 }
 
@@ -1140,7 +1119,6 @@
     } completion:^{ 
         [self openParen]; 
     }];
-
 
     [self fireAssemblerSelector:@selector(parser:didMatchForParen:)];
 }
@@ -1278,7 +1256,6 @@
     } completion:^{ 
         [self colon]; 
     }];
-
     [self assignmentExpr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTernaryExpr:)];
@@ -1557,7 +1534,6 @@
         } completion:^{ 
             [self dot]; 
         }];
-
     }
     [self constructorCall]; 
 
@@ -1590,7 +1566,6 @@
     } completion:^{ 
         [self closeParen]; 
     }];
-
 
     [self fireAssemblerSelector:@selector(parser:didMatchParenArgListParen:)];
 }
@@ -1638,7 +1613,6 @@
         [self closeBracket]; 
     }];
 
-
     [self fireAssemblerSelector:@selector(parser:didMatchBracketMemberExpr:)];
 }
 
@@ -1651,7 +1625,6 @@
     } completion:^{ 
         [self closeParen]; 
     }];
-
 
     [self fireAssemblerSelector:@selector(parser:didMatchParenMemberExpr:)];
 }
@@ -1725,7 +1698,6 @@
     } completion:^{ 
         [self closeParen]; 
     }];
-
 
     [self fireAssemblerSelector:@selector(parser:didMatchParenExprParen:)];
 }

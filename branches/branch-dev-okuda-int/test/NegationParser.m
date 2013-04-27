@@ -74,7 +74,7 @@
 - (void)_start {
     
     [self s]; 
-    [self matchEOF:YES]; 
+        [self matchEOF:YES]; 
 
 }
 
