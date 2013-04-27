@@ -564,13 +564,22 @@
     NSMutableString *partialChildStr = [NSMutableString string];
     NSUInteger partialCount = 0;
 
-    BOOL depthIncreased = NO;
-
-    // recurse
+    BOOL hasTerminal = NO;
+    
+    NSMutableArray *concreteChildren = [NSMutableArray arrayWithCapacity:[node.children count]];
     for (PKBaseNode *child in node.children) {
         PKBaseNode *concreteNode = [self concreteNodeForNode:child];
+        if (concreteNode.isTerminal && [concreteChildren count]) hasTerminal = YES;
+        [concreteChildren addObject:concreteNode];
+    }
+
+    // recurse
+    BOOL depthIncreased = NO;
+    NSUInteger i = 0;
+    for (PKBaseNode *child in node.children) {
+        PKBaseNode *concreteNode = concreteChildren[i++];
         
-        if (_enableAutomaticErrorRecovery && partialCount == 1) {
+        if (_enableAutomaticErrorRecovery && hasTerminal && partialCount == 1) {
             [childStr appendString:partialChildStr];
             [partialChildStr setString:@""];
             depthIncreased = YES;
