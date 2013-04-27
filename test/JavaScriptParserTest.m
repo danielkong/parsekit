@@ -37,7 +37,7 @@
     _root.grammarName = @"JavaScript";
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
-    _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorTerminals;
+    _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
     _visitor.enableAutomaticErrorRecovery = YES;
     _visitor.enableMemoization = NO;
     
@@ -65,7 +65,7 @@
 }
 
 
-- (void)parser:(PKSParser *)p didMatchVar:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchVarVariables:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     flag = YES;
 }
