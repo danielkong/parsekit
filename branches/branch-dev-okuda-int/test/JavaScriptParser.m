@@ -807,22 +807,22 @@
 
 - (void)func {
     
+    [self function]; 
     [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{
-        [self function]; 
         [self identifier]; 
     } completion:^{
         [self identifier]; 
     }];
 
+    [self openParen]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
-        [self openParen]; 
         [self paramListOpt]; 
         [self closeParen]; 
     } completion:^{
         [self closeParen]; 
     }];
 
-        [self compoundStmt]; 
+    [self compoundStmt]; 
 
 }
 
@@ -836,7 +836,7 @@
 
 - (void)paramList {
     
-        [self identifier]; 
+    [self identifier]; 
         while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
             if ([self speculate:^{ [self commaIdentifier]; }]) {
                 [self commaIdentifier]; 
@@ -849,8 +849,8 @@
 
 - (void)commaIdentifier {
     
+    [self comma]; 
     [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{
-        [self comma]; 
         [self identifier]; 
     } completion:^{
         [self identifier]; 
@@ -861,8 +861,8 @@
 
 - (void)compoundStmt {
     
+    [self openCurly]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSECURLY block:^{
-        [self openCurly]; 
         [self stmts]; 
         [self closeCurly]; 
     } completion:^{
@@ -920,7 +920,7 @@
 
 - (void)ifStmt {
     
-        [self ifSym]; 
+    [self ifSym]; 
         [self condition]; 
         [self stmt]; 
 
@@ -928,8 +928,8 @@
 
 - (void)ifElseStmt {
     
+    [self ifSym]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_ELSESYM block:^{
-        [self ifSym]; 
         [self condition]; 
         [self stmt]; 
         [self elseSym]; 
@@ -937,13 +937,13 @@
         [self elseSym]; 
     }];
 
-        [self stmt]; 
+    [self stmt]; 
 
 }
 
 - (void)whileStmt {
     
-        [self whileSym]; 
+    [self whileSym]; 
         [self condition]; 
         [self stmt]; 
 
@@ -951,82 +951,82 @@
 
 - (void)forParenStmt {
     
+    [self forParen]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
-        [self forParen]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
     }];
 
+    [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
-        [self exprOpt]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
     }];
 
+    [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
-        [self exprOpt]; 
         [self closeParen]; 
     } completion:^{
         [self closeParen]; 
     }];
 
-        [self stmt]; 
+    [self stmt]; 
 
 }
 
 - (void)forBeginStmt {
     
+    [self forBegin]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
-        [self forBegin]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
     }];
 
+    [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
-        [self exprOpt]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
     }];
 
+    [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
-        [self exprOpt]; 
         [self closeParen]; 
     } completion:^{
         [self closeParen]; 
     }];
 
-        [self stmt]; 
+    [self stmt]; 
 
 }
 
 - (void)forInStmt {
     
+    [self forBegin]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_INSYM block:^{
-        [self forBegin]; 
         [self inSym]; 
     } completion:^{
         [self inSym]; 
     }];
 
+    [self expr]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
-        [self expr]; 
         [self closeParen]; 
     } completion:^{
         [self closeParen]; 
     }];
 
-        [self stmt]; 
+    [self stmt]; 
 
 }
 
 - (void)breakStmt {
     
+    [self breakSym]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
-        [self breakSym]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
@@ -1037,8 +1037,8 @@
 
 - (void)continueStmt {
     
+    [self continueSym]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
-        [self continueSym]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
@@ -1049,28 +1049,28 @@
 
 - (void)withStmt {
     
+    [self with]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{
-        [self with]; 
         [self openParen]; 
     } completion:^{
         [self openParen]; 
     }];
 
+    [self expr]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
-        [self expr]; 
         [self closeParen]; 
     } completion:^{
         [self closeParen]; 
     }];
 
-        [self stmt]; 
+    [self stmt]; 
 
 }
 
 - (void)returnStmt {
     
+    [self returnSym]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
-        [self returnSym]; 
         [self exprOpt]; 
         [self semi]; 
     } completion:^{
@@ -1082,8 +1082,8 @@
 
 - (void)variablesOrExprStmt {
     
+    [self variablesOrExpr]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
-        [self variablesOrExpr]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
@@ -1094,8 +1094,8 @@
 
 - (void)condition {
     
+    [self openParen]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
-        [self openParen]; 
         [self expr]; 
         [self closeParen]; 
     } completion:^{
@@ -1107,8 +1107,8 @@
 
 - (void)forParen {
     
+    [self forSym]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{
-        [self forSym]; 
         [self openParen]; 
     } completion:^{
         [self openParen]; 
@@ -1119,7 +1119,7 @@
 
 - (void)forBegin {
     
-        [self forParen]; 
+    [self forParen]; 
         [self variablesOrExpr]; 
 
 }
@@ -1138,14 +1138,14 @@
 
 - (void)varVariables {
     
-        [self var]; 
+    [self var]; 
         [self variables]; 
 
 }
 
 - (void)variables {
     
-        [self variable]; 
+    [self variable]; 
         while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
             if ([self speculate:^{ [self commaVariable]; }]) {
                 [self commaVariable]; 
@@ -1158,14 +1158,14 @@
 
 - (void)commaVariable {
     
-        [self comma]; 
+    [self comma]; 
         [self variable]; 
 
 }
 
 - (void)variable {
     
-        [self identifier]; 
+    [self identifier]; 
         if ([self speculate:^{ [self assignment]; }]) {
             [self assignment]; 
         }
@@ -1174,7 +1174,7 @@
 
 - (void)assignment {
     
-        [self equals]; 
+    [self equals]; 
         [self assignmentExpr]; 
 
 }
@@ -1189,7 +1189,7 @@
 
 - (void)expr {
     
-        [self assignmentExpr]; 
+    [self assignmentExpr]; 
         if ([self speculate:^{ [self commaExpr]; }]) {
             [self commaExpr]; 
         }
@@ -1198,14 +1198,14 @@
 
 - (void)commaExpr {
     
-        [self comma]; 
+    [self comma]; 
         [self expr]; 
 
 }
 
 - (void)assignmentExpr {
     
-        [self conditionalExpr]; 
+    [self conditionalExpr]; 
         if ([self speculate:^{ [self extraAssignment]; }]) {
             [self extraAssignment]; 
         }
@@ -1214,14 +1214,14 @@
 
 - (void)extraAssignment {
     
-        [self assignmentOperator]; 
+    [self assignmentOperator]; 
         [self assignmentExpr]; 
 
 }
 
 - (void)conditionalExpr {
     
-        [self orExpr]; 
+    [self orExpr]; 
         if ([self speculate:^{ [self ternaryExpr]; }]) {
             [self ternaryExpr]; 
         }
@@ -1230,21 +1230,21 @@
 
 - (void)ternaryExpr {
     
+    [self question]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_COLON block:^{
-        [self question]; 
         [self assignmentExpr]; 
         [self colon]; 
     } completion:^{
         [self colon]; 
     }];
 
-        [self assignmentExpr]; 
+    [self assignmentExpr]; 
 
 }
 
 - (void)orExpr {
     
-        [self andExpr]; 
+    [self andExpr]; 
         while ([self predicts:JAVASCRIPT_TOKEN_KIND_OR, 0]) {
             if ([self speculate:^{ [self orAndExpr]; }]) {
                 [self orAndExpr]; 
@@ -1257,14 +1257,14 @@
 
 - (void)orAndExpr {
     
-        [self or]; 
+    [self or]; 
         [self andExpr]; 
 
 }
 
 - (void)andExpr {
     
-        [self bitwiseOrExpr]; 
+    [self bitwiseOrExpr]; 
         if ([self speculate:^{ [self andAndExpr]; }]) {
             [self andAndExpr]; 
         }
@@ -1273,14 +1273,14 @@
 
 - (void)andAndExpr {
     
-        [self and]; 
+    [self and]; 
         [self andExpr]; 
 
 }
 
 - (void)bitwiseOrExpr {
     
-        [self bitwiseXorExpr]; 
+    [self bitwiseXorExpr]; 
         if ([self speculate:^{ [self pipeBitwiseOrExpr]; }]) {
             [self pipeBitwiseOrExpr]; 
         }
@@ -1289,14 +1289,14 @@
 
 - (void)pipeBitwiseOrExpr {
     
-        [self pipe]; 
+    [self pipe]; 
         [self bitwiseOrExpr]; 
 
 }
 
 - (void)bitwiseXorExpr {
     
-        [self bitwiseAndExpr]; 
+    [self bitwiseAndExpr]; 
         if ([self speculate:^{ [self caretBitwiseXorExpr]; }]) {
             [self caretBitwiseXorExpr]; 
         }
@@ -1305,14 +1305,14 @@
 
 - (void)caretBitwiseXorExpr {
     
-        [self caret]; 
+    [self caret]; 
         [self bitwiseXorExpr]; 
 
 }
 
 - (void)bitwiseAndExpr {
     
-        [self equalityExpr]; 
+    [self equalityExpr]; 
         if ([self speculate:^{ [self ampBitwiseAndExpression]; }]) {
             [self ampBitwiseAndExpression]; 
         }
@@ -1321,14 +1321,14 @@
 
 - (void)ampBitwiseAndExpression {
     
-        [self amp]; 
+    [self amp]; 
         [self bitwiseAndExpr]; 
 
 }
 
 - (void)equalityExpr {
     
-        [self relationalExpr]; 
+    [self relationalExpr]; 
         if ([self speculate:^{ [self equalityOpEqualityExpr]; }]) {
             [self equalityOpEqualityExpr]; 
         }
@@ -1337,17 +1337,17 @@
 
 - (void)equalityOpEqualityExpr {
     
-        [self equalityOperator]; 
+    [self equalityOperator]; 
         [self equalityExpr]; 
 
 }
 
 - (void)relationalExpr {
     
-        [self shiftExpr]; 
+    [self shiftExpr]; 
         while ([self predicts:JAVASCRIPT_TOKEN_KIND_GE, JAVASCRIPT_TOKEN_KIND_GT, JAVASCRIPT_TOKEN_KIND_INSTANCEOF, JAVASCRIPT_TOKEN_KIND_LE, JAVASCRIPT_TOKEN_KIND_LT, 0]) {
             if ([self speculate:^{ [self relationalOperator]; [self shiftExpr]; }]) {
-                    [self relationalOperator]; 
+                [self relationalOperator]; 
                     [self shiftExpr]; 
             } else {
                 break;
@@ -1358,7 +1358,7 @@
 
 - (void)shiftExpr {
     
-        [self additiveExpr]; 
+    [self additiveExpr]; 
         if ([self speculate:^{ [self shiftOpShiftExpr]; }]) {
             [self shiftOpShiftExpr]; 
         }
@@ -1367,14 +1367,14 @@
 
 - (void)shiftOpShiftExpr {
     
-        [self shiftOperator]; 
+    [self shiftOperator]; 
         [self shiftExpr]; 
 
 }
 
 - (void)additiveExpr {
     
-        [self multiplicativeExpr]; 
+    [self multiplicativeExpr]; 
         if ([self speculate:^{ [self plusOrMinusExpr]; }]) {
             [self plusOrMinusExpr]; 
         }
@@ -1395,25 +1395,25 @@
 
 - (void)plusExpr {
     
-        [self plus]; 
+    [self plus]; 
         [self additiveExpr]; 
 
 }
 
 - (void)minusExpr {
     
-        [self minus]; 
+    [self minus]; 
         [self additiveExpr]; 
 
 }
 
 - (void)multiplicativeExpr {
     
-        [self unaryExpr]; 
-        if ([self speculate:^{ [self multiplicativeOperator]; [self multiplicativeExpr]; }]) {
-                [self multiplicativeOperator]; 
+    [self unaryExpr]; 
+            if ([self speculate:^{ [self multiplicativeOperator]; [self multiplicativeExpr]; }]) {
+            [self multiplicativeOperator]; 
                 [self multiplicativeExpr]; 
-        }
+            }
 
 }
 
@@ -1439,81 +1439,81 @@
 
 - (void)unaryExpr1 {
     
-        [self unaryOperator]; 
+    [self unaryOperator]; 
         [self unaryExpr]; 
 
 }
 
 - (void)unaryExpr2 {
     
-        [self minus]; 
+    [self minus]; 
         [self unaryExpr]; 
 
 }
 
 - (void)unaryExpr3 {
     
-        [self incrementOperator]; 
+    [self incrementOperator]; 
         [self memberExpr]; 
 
 }
 
 - (void)unaryExpr4 {
     
-        [self memberExpr]; 
+    [self memberExpr]; 
         [self incrementOperator]; 
 
 }
 
 - (void)callNewExpr {
     
-        [self keywordNew]; 
+    [self keywordNew]; 
         [self constructor]; 
 
 }
 
 - (void)unaryExpr6 {
     
-        [self delete]; 
+    [self delete]; 
         [self memberExpr]; 
 
 }
 
 - (void)constructor {
     
-        if ([self speculate:^{ [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_DOT block:^{[self this]; [self dot]; } completion:^{[self dot]; }];}]) {
-            [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_DOT block:^{
-                [self this]; 
-                [self dot]; 
-            } completion:^{
-                [self dot]; 
-            }];
+    if ([self speculate:^{ [self this]; [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_DOT block:^{[self dot]; } completion:^{[self dot]; }];}]) {
+        [self this]; 
+        [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_DOT block:^{
+            [self dot]; 
+        } completion:^{
+            [self dot]; 
+        }];
 
-        }
+    }
         [self constructorCall]; 
 
 }
 
 - (void)constructorCall {
     
-        [self identifier]; 
-        if ([self speculate:^{ if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"no viable alternative found in constructorCall"];}}]) {
+    [self identifier]; 
+            if ([self speculate:^{ if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"no viable alternative found in constructorCall"];}}]) {
             if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
                 [self parenArgListParen]; 
             } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {
-                    [self dot]; 
+                [self dot]; 
                     [self constructorCall]; 
-            } else {
-                [self raise:@"no viable alternative found in constructorCall"];
+                } else {
+                    [self raise:@"no viable alternative found in constructorCall"];
+                }
             }
-        }
 
 }
 
 - (void)parenArgListParen {
     
+    [self openParen]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
-        [self openParen]; 
         [self argListOpt]; 
         [self closeParen]; 
     } completion:^{
@@ -1525,7 +1525,7 @@
 
 - (void)memberExpr {
     
-        [self primaryExpr]; 
+    [self primaryExpr]; 
         if ([self speculate:^{ [self dotBracketOrParenExpr]; }]) {
             [self dotBracketOrParenExpr]; 
         }
@@ -1548,15 +1548,15 @@
 
 - (void)dotMemberExpr {
     
-        [self dot]; 
+    [self dot]; 
         [self memberExpr]; 
 
 }
 
 - (void)bracketMemberExpr {
     
+    [self openBracket]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET block:^{
-        [self openBracket]; 
         [self expr]; 
         [self closeBracket]; 
     } completion:^{
@@ -1568,8 +1568,8 @@
 
 - (void)parenMemberExpr {
     
+    [self openParen]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
-        [self openParen]; 
         [self argListOpt]; 
         [self closeParen]; 
     } completion:^{
@@ -1589,7 +1589,7 @@
 
 - (void)argList {
     
-        [self assignmentExpr]; 
+    [self assignmentExpr]; 
         while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
             if ([self speculate:^{ [self commaAssignmentExpr]; }]) {
                 [self commaAssignmentExpr]; 
@@ -1602,7 +1602,7 @@
 
 - (void)commaAssignmentExpr {
     
-        [self comma]; 
+    [self comma]; 
         [self assignmentExpr]; 
 
 }
@@ -1637,8 +1637,8 @@
 
 - (void)parenExprParen {
     
+    [self openParen]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
-        [self openParen]; 
         [self expr]; 
         [self closeParen]; 
     } completion:^{
