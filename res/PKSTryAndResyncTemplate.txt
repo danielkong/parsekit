@@ -1,3 +1,4 @@
 {%for 1 to depth %}    {%/for%}[self tryWithResync:{{tokenKind.name}} block:^{
 {{childString}}{%for 1 to depth %}    {%/for%}} completion:^{
-{%for 1 to depth %}    {%/for%}{{terminalCallString}}{%for 1 to depth %}    {%/for%}}];
+{{terminalCallString}}{%for 1 to depth %}    {%/for%}}];
+
