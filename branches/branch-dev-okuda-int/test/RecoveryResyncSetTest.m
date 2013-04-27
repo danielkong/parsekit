@@ -61,7 +61,7 @@
     
     input = @"[=[2].";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, =, [, 2, .][/=/[/2/]/.^", [res description]);
+    TDEqualObjects(@"[[, =, [, 2, ], .][/=/[/2/]/.^", [res description]);
 }
 
 - (void)testMissingLbracketInAssign {
@@ -73,7 +73,7 @@
     
     input = @"1]=[2].";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[1, =, [, 2, .]1/]/=/[/2/]/.^", [res description]);
+    TDEqualObjects(@"[1, ], =, [, 2, ], .]1/]/=/[/2/]/.^", [res description]);
 }
 
 - (void)testJunkBeforeSemi {
