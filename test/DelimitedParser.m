@@ -69,13 +69,11 @@
 
 - (void)_start {
     
-    [self execute:(id)^{
-        
+    [self execute:(id)^{ 
     PKTokenizer *t = self.tokenizer;
 
     [t.delimitState addStartMarker:@"<" endMarker:@">" allowedCharacterSet:nil];
     [t setTokenizerState:t.delimitState from:'<' to:'<'];
-
     }];
     [self s]; 
         [self matchEOF:YES]; 
