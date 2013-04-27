@@ -232,8 +232,7 @@
 
 - (void)_start {
     
-    [self execute:(id)^{
-        
+    [self execute:(id)^{ 
     PKTokenizer *t = self.tokenizer;
 
     // whitespace
@@ -274,7 +273,6 @@
     [t setTokenizerState:t.delimitState from:'U' to:'U'];
 	[t.delimitState addStartMarker:@"url(" endMarker:@")" allowedCharacterSet:nil];
 	[t.delimitState addStartMarker:@"URL(" endMarker:@")" allowedCharacterSet:nil];
-
     }];
     while ([self predicts:CSS_TOKEN_KIND_CLOSEBRACKET, CSS_TOKEN_KIND_COLON, CSS_TOKEN_KIND_DOT, CSS_TOKEN_KIND_EQ, CSS_TOKEN_KIND_GT, CSS_TOKEN_KIND_HASHSYM, CSS_TOKEN_KIND_OPENBRACKET, CSS_TOKEN_KIND_PIPE, CSS_TOKEN_KIND_TILDE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         if ([self speculate:^{ [self ruleset]; }]) {

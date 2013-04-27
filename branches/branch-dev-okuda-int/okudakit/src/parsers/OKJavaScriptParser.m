@@ -128,56 +128,55 @@
 
 - (void)_start {
     
-    [self execute:(id)^{
-        
+    [self execute:(id)^{ 
+		PKTokenizer *t = self.tokenizer;
 	
-	PKTokenizer *t = self.tokenizer;
+	    // whitespace
+	    self.silentlyConsumesWhitespace = YES;
+	    t.whitespaceState.reportsWhitespaceTokens = YES;
+	    self.assembly.preservesWhitespaceTokens = YES;
+
+		[t.symbolState add:@"||"];
+		[t.symbolState add:@"&&"];
+		[t.symbolState add:@"!="];
+		[t.symbolState add:@"!=="];
+		[t.symbolState add:@"=="];
+		[t.symbolState add:@"==="];
+		[t.symbolState add:@"<="];
+		[t.symbolState add:@">="];
+		[t.symbolState add:@"++"];
+		[t.symbolState add:@"--"];
+		[t.symbolState add:@"+="];
+		[t.symbolState add:@"-="];
+		[t.symbolState add:@"*="];
+		[t.symbolState add:@"/="];
+		[t.symbolState add:@"%="];
+		[t.symbolState add:@"<<"];
+		[t.symbolState add:@">>"];
+		[t.symbolState add:@">>>"];
+		[t.symbolState add:@"<<="];
+		[t.symbolState add:@">>="];
+		[t.symbolState add:@">>>="];
+		[t.symbolState add:@"&="];
+		[t.symbolState add:@"^="];
+		[t.symbolState add:@"|="];
+
+		t.commentState.reportsCommentTokens = YES;
 	
-    // whitespace
-    self.silentlyConsumesWhitespace = YES;
-    t.whitespaceState.reportsWhitespaceTokens = YES;
-    self.assembly.preservesWhitespaceTokens = YES;
-
-	[t.symbolState add:@"||"];
-	[t.symbolState add:@"&&"];
-	[t.symbolState add:@"!="];
-	[t.symbolState add:@"!=="];
-	[t.symbolState add:@"=="];
-	[t.symbolState add:@"==="];
-	[t.symbolState add:@"<="];
-	[t.symbolState add:@">="];
-	[t.symbolState add:@"++"];
-	[t.symbolState add:@"--"];
-	[t.symbolState add:@"+="];
-	[t.symbolState add:@"-="];
-	[t.symbolState add:@"*="];
-	[t.symbolState add:@"/="];
-	[t.symbolState add:@"%="];
-	[t.symbolState add:@"<<"];
-	[t.symbolState add:@">>"];
-	[t.symbolState add:@">>>"];
-	[t.symbolState add:@"<<="];
-	[t.symbolState add:@">>="];
-	[t.symbolState add:@">>>="];
-	[t.symbolState add:@"&="];
-	[t.symbolState add:@"^="];
-	[t.symbolState add:@"|="];
-
-	t.commentState.reportsCommentTokens = YES;
-	
-	[t setTokenizerState:t.commentState from:'/' to:'/'];
-	[t.commentState addSingleLineStartMarker:@"//"];
-	[t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
-
+		[t setTokenizerState:t.commentState from:'/' to:'/'];
+		[t.commentState addSingleLineStartMarker:@"//"];
+		[t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
     }];
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
         [self program]; 
-    [self matchEOF:YES]; 
+        [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
     }];
+    [self execute:(id)^{ 
+        [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
+    }];
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)ifSym {

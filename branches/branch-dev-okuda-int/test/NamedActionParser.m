@@ -82,13 +82,9 @@
 
 - (void)__a {
     
-    [self execute:(id)^{
-        PUSH(@"foo");
-    }];
+    [self execute:(id)^{ PUSH(@"foo");    }];
     [self match:NAMEDACTION_TOKEN_KIND_A discard:NO];
-    [self execute:(id)^{
-        PUSH(@"bar");
-    }];
+    [self execute:(id)^{ PUSH(@"bar");    }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }

@@ -128,8 +128,7 @@
 
 - (void)_start {
     
-    [self execute:(id)^{
-        
+    [self execute:(id)^{ 
         PKTokenizer *t = self.tokenizer;
         
         // whitespace
@@ -167,7 +166,6 @@
         [t setTokenizerState:t.commentState from:'/' to:'/'];
         [t.commentState addSingleLineStartMarker:@"//"];
         [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
-
     }];
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
         [self program]; 

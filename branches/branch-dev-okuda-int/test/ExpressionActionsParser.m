@@ -186,12 +186,10 @@
     
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_OR discard:YES];
     [self andExpr]; 
-    [self execute:(id)^{
-        
+    [self execute:(id)^{ 
 	BOOL rhs = POP_BOOL();
 	BOOL lhs = POP_BOOL();
 	PUSH_BOOL(lhs || rhs);
-
     }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
@@ -223,12 +221,10 @@
     
     [self match:EXPRESSIONACTIONS_TOKEN_KIND_AND discard:YES];
     [self relExpr]; 
-    [self execute:(id)^{
-        
+    [self execute:(id)^{ 
 	BOOL rhs = POP_BOOL();
 	BOOL lhs = POP_BOOL();
 	PUSH_BOOL(lhs && rhs);
-
     }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndTerm:)];
@@ -285,8 +281,7 @@
     
     [self relOp]; 
     [self callExpr]; 
-    [self execute:(id)^{
-        
+    [self execute:(id)^{ 
 	NSInteger rhs = POP_INT();
 	NSString  *op = POP_STR();
 	NSInteger lhs = POP_INT();
@@ -297,7 +292,6 @@
 	else if (EQ(op, @"!=")) PUSH_BOOL(lhs != rhs);
 	else if (EQ(op, @"<=")) PUSH_BOOL(lhs <= rhs);
 	else if (EQ(op, @">=")) PUSH_BOOL(lhs >= rhs);
-
     }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelOpTerm:)];
@@ -426,19 +420,13 @@
     if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NO, EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER, EXPRESSIONACTIONS_TOKEN_KIND_YES, EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER, 0]) {
         [self testAndThrow:(id)^{ return LA(1) != EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER; }]; 
         [self bool]; 
-        [self execute:(id)^{
-             PUSH_BOOL(EQ_IGNORE_CASE(POP_STR(), @"yes")); 
-        }];
+        [self execute:(id)^{  PUSH_BOOL(EQ_IGNORE_CASE(POP_STR(), @"yes"));         }];
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self matchNumber:NO];
-        [self execute:(id)^{
-             PUSH_FLOAT(POP_FLOAT()); 
-        }];
+        [self execute:(id)^{  PUSH_FLOAT(POP_FLOAT());         }];
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self matchQuotedString:NO];
-        [self execute:(id)^{
-             PUSH(POP_STR()); 
-        }];
+        [self execute:(id)^{  PUSH(POP_STR());         }];
     } else {
         [self raise:@"no viable alternative found in literal"];
     }

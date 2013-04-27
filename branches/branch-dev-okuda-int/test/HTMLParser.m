@@ -180,8 +180,7 @@
 
 - (void)_start {
     
-    [self execute:(id)^{
-        
+    [self execute:(id)^{ 
     PKTokenizer *t = self.tokenizer;
 
     // whitespace
@@ -208,7 +207,6 @@
 	[t.delimitState addStartMarker:@"<!DOCTYPE" endMarker:@">" allowedCharacterSet:nil];
 	
     [t.delimitState setFallbackState:t.symbolState from:'<' to:'<'];
-
     }];
     while ([self predicts:HTML_TOKEN_KIND_DOCTYPE, HTML_TOKEN_KIND_LT, HTML_TOKEN_KIND_PROCINSTR, TOKEN_KIND_BUILTIN_ANY, TOKEN_KIND_BUILTIN_COMMENT, 0]) {
         if ([self speculate:^{ [self anything]; }]) {

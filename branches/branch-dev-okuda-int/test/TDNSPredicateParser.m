@@ -336,8 +336,7 @@
 
 - (void)_start {
     
-    [self execute:(id)^{
-        
+    [self execute:(id)^{ 
 	PKTokenizer *t = self.tokenizer;
 	[t setTokenizerState:t.wordState from:'#' to:'#'];
 	[t.wordState setWordChars:YES from:'.' to:'.'];
@@ -353,8 +352,7 @@
 	[t.symbolState add:@"<>"];
 	[t.symbolState add:@"&&"];
 	[t.symbolState add:@"||"];
- 
-    }];
+     }];
     [self expr]; 
         [self matchEOF:YES]; 
 
