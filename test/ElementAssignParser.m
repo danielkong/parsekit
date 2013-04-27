@@ -65,7 +65,7 @@
 
 - (void)_start {
     
-    [self tryWithResync:TOKEN_KIND_BUILTIN_EOF block:^{
+    [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
     do {
         [self stat]; 
     } while ([self speculate:^{ [self stat]; }]);
@@ -79,16 +79,16 @@
 
 - (void)stat {
     
-    if ([self speculate:^{ [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{[self assign]; [self dot]; } completion:^{[self dot]; }];}]) {
-        [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{
+    if ([self speculate:^{ [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{[self assign]; [self dot]; } completion:^{[self dot]; }];}]) {
+        [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{
             [self assign]; 
             [self dot]; 
         } completion:^{
             [self dot]; 
         }];
 
-    } else if ([self speculate:^{ [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{[self list]; [self semi]; } completion:^{[self semi]; }];}]) {
-        [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{
+    } else if ([self speculate:^{ [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{[self list]; [self semi]; } completion:^{[self semi]; }];}]) {
+        [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{
             [self list]; 
             [self semi]; 
         } completion:^{
@@ -104,7 +104,7 @@
 
 - (void)assign {
     
-    [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_EQ block:^{
+    [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_EQ block:^{
         [self list]; 
         [self eq]; 
     } completion:^{
@@ -118,7 +118,7 @@
 
 - (void)list {
     
-    [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_RBRACKET block:^{
+    [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_RBRACKET block:^{
         [self lbracket]; 
         [self elements]; 
         [self rbracket]; 

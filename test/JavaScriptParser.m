@@ -755,7 +755,7 @@
 
 - (void)_start {
     
-    [self tryWithResync:TOKEN_KIND_BUILTIN_EOF block:^{
+    [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
     [self execute:(id)^{
         
 	
@@ -1746,14 +1746,14 @@
 
 - (void)__func {
     
-    [self tryWithResync:TOKEN_KIND_BUILTIN_WORD block:^{
+    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{
         [self function]; 
         [self identifier]; 
     } completion:^{
         [self identifier]; 
     }];
 
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self openParen]; 
         [self paramListOpt]; 
         [self closeParen]; 
@@ -1800,7 +1800,7 @@
 
 - (void)__commaIdentifier {
     
-    [self tryWithResync:TOKEN_KIND_BUILTIN_WORD block:^{
+    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{
         [self comma]; 
         [self identifier]; 
     } completion:^{
@@ -1816,7 +1816,7 @@
 
 - (void)__compoundStmt {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSECURLY block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSECURLY block:^{
         [self openCurly]; 
         [self stmts]; 
         [self closeCurly]; 
@@ -1899,7 +1899,7 @@
 
 - (void)__ifElseStmt {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_ELSE block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_ELSE block:^{
         [self if]; 
         [self condition]; 
         [self stmt]; 
@@ -1930,21 +1930,21 @@
 
 - (void)__forParenStmt {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self forParen]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
     }];
 
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self exprOpt]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
     }];
 
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self exprOpt]; 
         [self closeParen]; 
     } completion:^{
@@ -1961,21 +1961,21 @@
 
 - (void)__forBeginStmt {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self forBegin]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
     }];
 
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self exprOpt]; 
         [self semi]; 
     } completion:^{
         [self semi]; 
     }];
 
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self exprOpt]; 
         [self closeParen]; 
     } completion:^{
@@ -1992,14 +1992,14 @@
 
 - (void)__forInStmt {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_IN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_IN block:^{
         [self forBegin]; 
         [self in]; 
     } completion:^{
         [self in]; 
     }];
 
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self expr]; 
         [self closeParen]; 
     } completion:^{
@@ -2016,7 +2016,7 @@
 
 - (void)__breakStmt {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self break]; 
         [self semi]; 
     } completion:^{
@@ -2032,7 +2032,7 @@
 
 - (void)__continueStmt {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self continue]; 
         [self semi]; 
     } completion:^{
@@ -2048,14 +2048,14 @@
 
 - (void)__withStmt {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{
         [self with]; 
         [self openParen]; 
     } completion:^{
         [self openParen]; 
     }];
 
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self expr]; 
         [self closeParen]; 
     } completion:^{
@@ -2072,7 +2072,7 @@
 
 - (void)__returnStmt {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self return]; 
         [self exprOpt]; 
         [self semi]; 
@@ -2089,7 +2089,7 @@
 
 - (void)__variablesOrExprStmt {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{
         [self variablesOrExpr]; 
         [self semi]; 
     } completion:^{
@@ -2105,7 +2105,7 @@
 
 - (void)__condition {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self openParen]; 
         [self expr]; 
         [self closeParen]; 
@@ -2122,7 +2122,7 @@
 
 - (void)__forParen {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{
         [self for]; 
         [self openParen]; 
     } completion:^{
@@ -2301,7 +2301,7 @@
 
 - (void)__ternaryExpr {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_COLON block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_COLON block:^{
         [self question]; 
         [self assignmentExpr]; 
         [self colon]; 
@@ -2664,8 +2664,8 @@
 
 - (void)__constructor {
     
-        if ([self speculate:^{ [self tryWithResync:JAVASCRIPT_TOKEN_KIND_DOT block:^{[self this]; [self dot]; } completion:^{[self dot]; }];}]) {
-            [self tryWithResync:JAVASCRIPT_TOKEN_KIND_DOT block:^{
+        if ([self speculate:^{ [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_DOT block:^{[self this]; [self dot]; } completion:^{[self dot]; }];}]) {
+            [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_DOT block:^{
                 [self this]; 
                 [self dot]; 
             } completion:^{
@@ -2703,7 +2703,7 @@
 
 - (void)__parenArgListParen {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self openParen]; 
         [self argListOpt]; 
         [self closeParen]; 
@@ -2762,7 +2762,7 @@
 
 - (void)__bracketMemberExpr {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET block:^{
         [self openBracket]; 
         [self expr]; 
         [self closeBracket]; 
@@ -2779,7 +2779,7 @@
 
 - (void)__parenMemberExpr {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self openParen]; 
         [self argListOpt]; 
         [self closeParen]; 
@@ -2868,7 +2868,7 @@
 
 - (void)__parenExprParen {
     
-    [self tryWithResync:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{
         [self openParen]; 
         [self expr]; 
         [self closeParen]; 

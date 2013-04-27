@@ -93,6 +93,6 @@ enum {
 - (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
 
 // error recovery
-- (void)tryWithResync:(NSInteger)tokenKind block:(PKSResyncBlock)block completion:(PKSResyncBlock)completion;
+- (void)tryAndRecover:(NSInteger)tokenKind block:(PKSResyncBlock)block completion:(PKSResyncBlock)completion;
 
 @end
