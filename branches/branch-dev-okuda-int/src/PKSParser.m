@@ -419,6 +419,8 @@
 
 - (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind {
     NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
+    
+    if (TOKEN_KIND_BUILTIN_EOF == tokenKind) return; // don't insert or delete EOF
 
     if (_enableAutomaticErrorRecovery && LA(1) != tokenKind) {
         if (LA(2) == tokenKind) {
