@@ -40,6 +40,11 @@ static NSMutableDictionary *sCache = nil;
 }
 
 
++ (PKSTokenKindDescriptor *)eofDescriptor {
+    return [PKSTokenKindDescriptor descriptorWithStringValue:@"TOKEN_KIND_BUILTIN_EOR" name:@"TOKEN_KIND_BUILTIN_EOF"];
+}
+
+
 + (void)clearCache {
     [sCache removeAllObjects];
 }
