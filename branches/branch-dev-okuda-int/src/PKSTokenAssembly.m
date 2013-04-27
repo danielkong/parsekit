@@ -162,9 +162,11 @@
 
     for (NSInteger i = start; i < end; i++) {
         PKToken *tok = [tokens objectAtIndex:i];
-        [s appendString:tok.stringValue];
-        if (end - 1 != i) {
-            [s appendString:delimiter];
+        if (PKTokenTypeEOF != tok.tokenType) {
+            [s appendString:tok.stringValue];
+            if (end - 1 != i) {
+                [s appendString:delimiter];
+            }
         }
     }
     

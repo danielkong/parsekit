@@ -76,7 +76,7 @@
 
 
 - (void)didMatchTerminalNamed:(NSString *)name withAssembly:(PKAssembly *)a {
-    NSLog(@"%@ : %@", name, a);
+    //NSLog(@"%@ : %@", name, a);
     self.currentAssembly = a;
     NSMutableArray *whitespaceToks = [self popWhitespaceTokensFrom:a];
 
@@ -115,10 +115,11 @@
         _currentAssembly.target = displayString;
     }
 
-    
-    NSAttributedString *as = [[NSAttributedString alloc] initWithString:[obj stringValue] attributes:attrs];
-    [displayString appendAttributedString:as];
-    [as release];
+    NSString *str = [obj stringValue];
+    if (str) {
+        NSAttributedString *as = [[[NSAttributedString alloc] initWithString:str attributes:attrs] autorelease];
+        [displayString appendAttributedString:as];
+    }
 }
 
 
