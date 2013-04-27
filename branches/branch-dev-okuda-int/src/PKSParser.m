@@ -541,7 +541,7 @@
 }
 
 
-- (void)tryWithResync:(NSInteger)tokenKind block:(PKSResyncBlock)block completion:(PKSResyncBlock)completion {
+- (void)tryAndRecover:(NSInteger)tokenKind block:(PKSResyncBlock)block completion:(PKSResyncBlock)completion {
     NSParameterAssert(block);
     NSParameterAssert(completion);
     

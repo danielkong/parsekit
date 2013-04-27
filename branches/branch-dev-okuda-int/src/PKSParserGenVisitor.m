@@ -344,7 +344,7 @@
         
         if (_enableAutomaticErrorRecovery) {
             id resyncVars = @{DEPTH: @(_depth), CHILD_STRING: childStr};
-            NSString *newChildStr = [_engine processTemplate:[self templateStringNamed:@"PKSTryAndResyncEOFTemplate"] withVariables:resyncVars];
+            NSString *newChildStr = [_engine processTemplate:[self templateStringNamed:@"PKSTryAndRecoverEOFTemplate"] withVariables:resyncVars];
             [childStr setString:newChildStr];
         }
     }
@@ -565,7 +565,7 @@
     // recurse
     for (PKBaseNode *child in node.children) {
         PKBaseNode *concreteNode = [self concreteNodeForNode:child];
-        BOOL tryWithResync = (_enableAutomaticErrorRecovery && concreteNode.isTerminal && partialCount > 0);
+        BOOL tryAndRecover = (_enableAutomaticErrorRecovery && concreteNode.isTerminal && partialCount > 0);
 
         [child visit:self];
         
@@ -573,11 +573,11 @@
         NSString *terminalCallStr = [self pop];
         [partialChildStr appendString:terminalCallStr];
         
-        if (tryWithResync) {
+        if (tryAndRecover) {
             
             PKSTokenKindDescriptor *desc = [(PKConstantNode *)concreteNode tokenKind];
             id resyncVars = @{TOKEN_KIND: desc, DEPTH: @(_depth - 1), CHILD_STRING: partialChildStr, TERMINAL_CALL_STRING: terminalCallStr};
-            NSString *tryAndResyncStr = [_engine processTemplate:[self templateStringNamed:@"PKSTryAndResyncTemplate"] withVariables:resyncVars];
+            NSString *tryAndResyncStr = [_engine processTemplate:[self templateStringNamed:@"PKSTryAndRecoverTemplate"] withVariables:resyncVars];
             
             [childStr appendString:tryAndResyncStr];
             
