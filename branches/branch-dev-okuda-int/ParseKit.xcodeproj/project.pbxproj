@@ -2118,7 +2118,7 @@
 		D3F741BD0EF9F28D00559B9F /* css2_1.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = css2_1.grammar; path = res/css2_1.grammar; sourceTree = "<group>"; };
 		D3F8121F161AB38100DEA1CB /* regex.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = regex.grammar; path = res/regex.grammar; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
 		D3FD791F0F4CC86800BAD816 /* rubyhash.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rubyhash.grammar; path = res/rubyhash.grammar; sourceTree = "<group>"; };
-		D3FDC5830FFC4BFC00F1F797 /* libparsekit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libparsekit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3FDC5830FFC4BFC00F1F797 /* libParseKitMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libParseKitMobile.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3FDC8DB0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseKitMobile_Prefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2258,7 +2258,7 @@
 				D33494100E2963FD00406085 /* DemoApp.app */,
 				D34185040E520D3F0081B0DC /* DebugApp.app */,
 				D389F2030F196A7500558235 /* JSDemoApp.app */,
-				D3FDC5830FFC4BFC00F1F797 /* libparsekit.a */,
+				D3FDC5830FFC4BFC00F1F797 /* libParseKitMobile.a */,
 				D37D8DC61571A4F700CDB822 /* Tests.octest */,
 				D3D9753216E7F36700D55EAB /* libParseKit.a */,
 				D338302F171C923700CCE513 /* ParserGenApp.app */,
@@ -4536,7 +4536,7 @@
 			);
 			name = ParseKitMobile;
 			productName = ParseKitMobile;
-			productReference = D3FDC5830FFC4BFC00F1F797 /* libparsekit.a */;
+			productReference = D3FDC5830FFC4BFC00F1F797 /* libParseKitMobile.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -6337,7 +6337,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ParseKitMobile_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
-				PRODUCT_NAME = parsekit;
+				PRODUCT_NAME = ParseKitMobile;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -6353,7 +6353,7 @@
 				GCC_PREFIX_HEADER = ParseKitMobile_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = parsekit;
+				PRODUCT_NAME = ParseKitMobile;
 				SDKROOT = iphoneos;
 				ZERO_LINK = NO;
 			};
