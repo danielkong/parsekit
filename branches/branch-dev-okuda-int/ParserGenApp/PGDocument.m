@@ -187,7 +187,7 @@
     _root.grammarName = self.parserName;
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
-    _visitor.enableHybridDFA = _enableHybridDFA;
+    _visitor.enableHybridDFA = YES; // :)
     _visitor.enableMemoization = _enableMemoization;
     _visitor.enableAutomaticErrorRecovery = _enableAutomaticErrorRecovery;
     _visitor.preassemblerSettingBehavior = _preassemblerSettingBehavior;

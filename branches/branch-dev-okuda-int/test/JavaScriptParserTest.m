@@ -37,7 +37,7 @@
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorTerminals;
     _visitor.enableAutomaticErrorRecovery = YES;
-    _visitor.enableMemoization = YES;
+    _visitor.enableMemoization = NO;
     
     [_root visit:_visitor];
     
@@ -63,6 +63,8 @@
 }
 
 - (void)testVarFooEqBar {
+    _parser.enableAutomaticErrorRecovery = YES;
+    
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"var foo = 'bar';" assembler:nil error:&err];
     TDEqualObjects(@"[var, foo, =, 'bar', ;]var/foo/=/'bar'/;^", [res description]);
