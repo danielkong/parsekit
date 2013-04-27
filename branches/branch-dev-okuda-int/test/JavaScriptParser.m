@@ -692,6 +692,7 @@
         [self raise:@"no viable alternative found in assignmentOperator"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchAssignmentOperator:)];
 }
 
 - (void)relationalOperator {
@@ -710,6 +711,7 @@
         [self raise:@"no viable alternative found in relationalOperator"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchRelationalOperator:)];
 }
 
 - (void)equalityOperator {
@@ -726,6 +728,7 @@
         [self raise:@"no viable alternative found in equalityOperator"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchEqualityOperator:)];
 }
 
 - (void)shiftOperator {
@@ -740,6 +743,7 @@
         [self raise:@"no viable alternative found in shiftOperator"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchShiftOperator:)];
 }
 
 - (void)incrementOperator {
@@ -752,6 +756,7 @@
         [self raise:@"no viable alternative found in incrementOperator"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchIncrementOperator:)];
 }
 
 - (void)unaryOperator {
@@ -768,6 +773,7 @@
         [self raise:@"no viable alternative found in unaryOperator"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchUnaryOperator:)];
 }
 
 - (void)multiplicativeOperator {
@@ -782,6 +788,7 @@
         [self raise:@"no viable alternative found in multiplicativeOperator"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchMultiplicativeOperator:)];
 }
 
 - (void)program {
@@ -790,6 +797,7 @@
         [self element]; 
     } while ([self speculate:^{ [self element]; }]);
 
+    [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }
 
 - (void)element {
@@ -802,6 +810,7 @@
         [self raise:@"no viable alternative found in element"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
 }
 
 - (void)func {
@@ -823,6 +832,7 @@
 
     [self compoundStmt]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchFunc:)];
 }
 
 - (void)paramListOpt {
@@ -831,6 +841,7 @@
         [self paramList]; 
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchParamListOpt:)];
 }
 
 - (void)paramList {
@@ -844,6 +855,7 @@
             }
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchParamList:)];
 }
 
 - (void)commaIdentifier {
@@ -856,6 +868,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchCommaIdentifier:)];
 }
 
 - (void)compoundStmt {
@@ -869,6 +882,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchCompoundStmt:)];
 }
 
 - (void)stmts {
@@ -881,6 +895,7 @@
         }
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchStmts:)];
 }
 
 - (void)stmt {
@@ -915,6 +930,7 @@
         [self raise:@"no viable alternative found in stmt"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchStmt:)];
 }
 
 - (void)ifStmt {
@@ -923,6 +939,7 @@
         [self condition]; 
         [self stmt]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchIfStmt:)];
 }
 
 - (void)ifElseStmt {
@@ -938,6 +955,7 @@
 
     [self stmt]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchIfElseStmt:)];
 }
 
 - (void)whileStmt {
@@ -946,6 +964,7 @@
         [self condition]; 
         [self stmt]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchWhileStmt:)];
 }
 
 - (void)forParenStmt {
@@ -973,6 +992,7 @@
 
     [self stmt]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchForParenStmt:)];
 }
 
 - (void)forBeginStmt {
@@ -1000,6 +1020,7 @@
 
     [self stmt]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchForBeginStmt:)];
 }
 
 - (void)forInStmt {
@@ -1020,6 +1041,7 @@
 
     [self stmt]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchForInStmt:)];
 }
 
 - (void)breakStmt {
@@ -1032,6 +1054,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchBreakStmt:)];
 }
 
 - (void)continueStmt {
@@ -1044,6 +1067,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchContinueStmt:)];
 }
 
 - (void)withStmt {
@@ -1064,6 +1088,7 @@
 
     [self stmt]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchWithStmt:)];
 }
 
 - (void)returnStmt {
@@ -1077,6 +1102,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchReturnStmt:)];
 }
 
 - (void)variablesOrExprStmt {
@@ -1089,6 +1115,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchVariablesOrExprStmt:)];
 }
 
 - (void)condition {
@@ -1102,6 +1129,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchCondition:)];
 }
 
 - (void)forParen {
@@ -1114,6 +1142,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchForParen:)];
 }
 
 - (void)forBegin {
@@ -1121,6 +1150,7 @@
     [self forParen]; 
         [self variablesOrExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchForBegin:)];
 }
 
 - (void)variablesOrExpr {
@@ -1133,6 +1163,7 @@
         [self raise:@"no viable alternative found in variablesOrExpr"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchVariablesOrExpr:)];
 }
 
 - (void)varVariables {
@@ -1140,6 +1171,7 @@
     [self var]; 
         [self variables]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchVarVariables:)];
 }
 
 - (void)variables {
@@ -1153,6 +1185,7 @@
             }
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchVariables:)];
 }
 
 - (void)commaVariable {
@@ -1160,6 +1193,7 @@
     [self comma]; 
         [self variable]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchCommaVariable:)];
 }
 
 - (void)variable {
@@ -1169,6 +1203,7 @@
             [self assignment]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchVariable:)];
 }
 
 - (void)assignment {
@@ -1176,6 +1211,7 @@
     [self equals]; 
         [self assignmentExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchAssignment:)];
 }
 
 - (void)exprOpt {
@@ -1184,6 +1220,7 @@
         [self expr]; 
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchExprOpt:)];
 }
 
 - (void)expr {
@@ -1193,6 +1230,7 @@
             [self commaExpr]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)commaExpr {
@@ -1200,6 +1238,7 @@
     [self comma]; 
         [self expr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchCommaExpr:)];
 }
 
 - (void)assignmentExpr {
@@ -1209,6 +1248,7 @@
             [self extraAssignment]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchAssignmentExpr:)];
 }
 
 - (void)extraAssignment {
@@ -1216,6 +1256,7 @@
     [self assignmentOperator]; 
         [self assignmentExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchExtraAssignment:)];
 }
 
 - (void)conditionalExpr {
@@ -1225,6 +1266,7 @@
             [self ternaryExpr]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchConditionalExpr:)];
 }
 
 - (void)ternaryExpr {
@@ -1239,6 +1281,7 @@
 
     [self assignmentExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchTernaryExpr:)];
 }
 
 - (void)orExpr {
@@ -1252,6 +1295,7 @@
             }
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
 }
 
 - (void)orAndExpr {
@@ -1259,6 +1303,7 @@
     [self or]; 
         [self andExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchOrAndExpr:)];
 }
 
 - (void)andExpr {
@@ -1268,6 +1313,7 @@
             [self andAndExpr]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchAndExpr:)];
 }
 
 - (void)andAndExpr {
@@ -1275,6 +1321,7 @@
     [self and]; 
         [self andExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchAndAndExpr:)];
 }
 
 - (void)bitwiseOrExpr {
@@ -1284,6 +1331,7 @@
             [self pipeBitwiseOrExpr]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchBitwiseOrExpr:)];
 }
 
 - (void)pipeBitwiseOrExpr {
@@ -1291,6 +1339,7 @@
     [self pipe]; 
         [self bitwiseOrExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchPipeBitwiseOrExpr:)];
 }
 
 - (void)bitwiseXorExpr {
@@ -1300,6 +1349,7 @@
             [self caretBitwiseXorExpr]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchBitwiseXorExpr:)];
 }
 
 - (void)caretBitwiseXorExpr {
@@ -1307,6 +1357,7 @@
     [self caret]; 
         [self bitwiseXorExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchCaretBitwiseXorExpr:)];
 }
 
 - (void)bitwiseAndExpr {
@@ -1316,6 +1367,7 @@
             [self ampBitwiseAndExpression]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchBitwiseAndExpr:)];
 }
 
 - (void)ampBitwiseAndExpression {
@@ -1323,6 +1375,7 @@
     [self amp]; 
         [self bitwiseAndExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchAmpBitwiseAndExpression:)];
 }
 
 - (void)equalityExpr {
@@ -1332,6 +1385,7 @@
             [self equalityOpEqualityExpr]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchEqualityExpr:)];
 }
 
 - (void)equalityOpEqualityExpr {
@@ -1339,6 +1393,7 @@
     [self equalityOperator]; 
         [self equalityExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchEqualityOpEqualityExpr:)];
 }
 
 - (void)relationalExpr {
@@ -1353,6 +1408,7 @@
             }
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchRelationalExpr:)];
 }
 
 - (void)shiftExpr {
@@ -1362,6 +1418,7 @@
             [self shiftOpShiftExpr]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchShiftExpr:)];
 }
 
 - (void)shiftOpShiftExpr {
@@ -1369,6 +1426,7 @@
     [self shiftOperator]; 
         [self shiftExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchShiftOpShiftExpr:)];
 }
 
 - (void)additiveExpr {
@@ -1378,6 +1436,7 @@
             [self plusOrMinusExpr]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchAdditiveExpr:)];
 }
 
 - (void)plusOrMinusExpr {
@@ -1390,6 +1449,7 @@
         [self raise:@"no viable alternative found in plusOrMinusExpr"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchPlusOrMinusExpr:)];
 }
 
 - (void)plusExpr {
@@ -1397,6 +1457,7 @@
     [self plus]; 
         [self additiveExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchPlusExpr:)];
 }
 
 - (void)minusExpr {
@@ -1404,6 +1465,7 @@
     [self minus]; 
         [self additiveExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchMinusExpr:)];
 }
 
 - (void)multiplicativeExpr {
@@ -1414,6 +1476,7 @@
                 [self multiplicativeExpr]; 
             }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchMultiplicativeExpr:)];
 }
 
 - (void)unaryExpr {
@@ -1434,6 +1497,7 @@
         [self raise:@"no viable alternative found in unaryExpr"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr:)];
 }
 
 - (void)unaryExpr1 {
@@ -1441,6 +1505,7 @@
     [self unaryOperator]; 
         [self unaryExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr1:)];
 }
 
 - (void)unaryExpr2 {
@@ -1448,6 +1513,7 @@
     [self minus]; 
         [self unaryExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr2:)];
 }
 
 - (void)unaryExpr3 {
@@ -1455,6 +1521,7 @@
     [self incrementOperator]; 
         [self memberExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr3:)];
 }
 
 - (void)unaryExpr4 {
@@ -1462,6 +1529,7 @@
     [self memberExpr]; 
         [self incrementOperator]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr4:)];
 }
 
 - (void)callNewExpr {
@@ -1469,6 +1537,7 @@
     [self keywordNew]; 
         [self constructor]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchCallNewExpr:)];
 }
 
 - (void)unaryExpr6 {
@@ -1476,6 +1545,7 @@
     [self delete]; 
         [self memberExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr6:)];
 }
 
 - (void)constructor {
@@ -1491,6 +1561,7 @@
     }
         [self constructorCall]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchConstructor:)];
 }
 
 - (void)constructorCall {
@@ -1507,6 +1578,7 @@
                 }
             }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchConstructorCall:)];
 }
 
 - (void)parenArgListParen {
@@ -1520,6 +1592,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchParenArgListParen:)];
 }
 
 - (void)memberExpr {
@@ -1529,6 +1602,7 @@
             [self dotBracketOrParenExpr]; 
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchMemberExpr:)];
 }
 
 - (void)dotBracketOrParenExpr {
@@ -1543,6 +1617,7 @@
         [self raise:@"no viable alternative found in dotBracketOrParenExpr"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchDotBracketOrParenExpr:)];
 }
 
 - (void)dotMemberExpr {
@@ -1550,6 +1625,7 @@
     [self dot]; 
         [self memberExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchDotMemberExpr:)];
 }
 
 - (void)bracketMemberExpr {
@@ -1563,6 +1639,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchBracketMemberExpr:)];
 }
 
 - (void)parenMemberExpr {
@@ -1576,6 +1653,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchParenMemberExpr:)];
 }
 
 - (void)argListOpt {
@@ -1584,6 +1662,7 @@
         [self argList]; 
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchArgListOpt:)];
 }
 
 - (void)argList {
@@ -1597,6 +1676,7 @@
             }
         }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchArgList:)];
 }
 
 - (void)commaAssignmentExpr {
@@ -1604,6 +1684,7 @@
     [self comma]; 
         [self assignmentExpr]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchCommaAssignmentExpr:)];
 }
 
 - (void)primaryExpr {
@@ -1632,6 +1713,7 @@
         [self raise:@"no viable alternative found in primaryExpr"];
     }
 
+    [self fireAssemblerSelector:@selector(parser:didMatchPrimaryExpr:)];
 }
 
 - (void)parenExprParen {
@@ -1645,6 +1727,7 @@
     }];
 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchParenExprParen:)];
 }
 
 - (void)identifier {
