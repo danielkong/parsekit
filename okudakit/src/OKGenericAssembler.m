@@ -57,26 +57,38 @@
 
 
 - (id)performSelector:(SEL)sel withObject:(id)obj1 withObject:(id)obj2 {
-    NSString *selName = NSStringFromSelector(sel);
-    
-    NSString *productionName = [_productionNames objectForKey:selName];
-    
-    if (!productionName) {
-        NSUInteger prefixLen = [_prefix length];
-        unichar c = tolower([selName characterAtIndex:prefixLen]);
-        NSRange r = NSMakeRange(prefixLen + 1, selName.length - (prefixLen + _suffix.length + 1 /*:*/));
-        productionName = [NSString stringWithFormat:@"%C%@", c, [selName substringWithRange:r]];
-        [_productionNames setObject:productionName forKey:selName];
+    if (@selector(parser:didMatch_start:) == sel) {
+        return [super performSelector:sel withObject:obj1 withObject:obj2];
+    } else {
+        NSString *selName = NSStringFromSelector(sel);
+        
+        NSString *productionName = [_productionNames objectForKey:selName];
+        
+        if (!productionName) {
+            NSUInteger prefixLen = [_prefix length];
+            unichar c = tolower([selName characterAtIndex:prefixLen]);
+            NSRange r = NSMakeRange(prefixLen + 1, selName.length - (prefixLen + _suffix.length + 1 /*:*/));
+            productionName = [NSString stringWithFormat:@"%C%@", c, [selName substringWithRange:r]];
+            [_productionNames setObject:productionName forKey:selName];
+        }
+        
+        [self didMatchTerminalNamed:productionName withAssembly:obj2];
+        
+        return nil;
     }
+}
+
+
+- (void)parser:(PKSParser *)p didMatch_start:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     
-    [self didMatchTerminalNamed:productionName withAssembly:obj2];
-    
-    return nil;
+    NSArray *toks = [[a objectsAbove:nil] reversedArray];
+    [self appendAttributedStringForObjects:toks withAttrs:_defaultProperties];
 }
 
 
 - (void)didMatchTerminalNamed:(NSString *)name withAssembly:(PKAssembly *)a {
-    //NSLog(@"%@ : %@", name, a);
+    NSLog(@"%@ : %@", name, a);
     self.currentAssembly = a;
     NSMutableArray *whitespaceToks = [self popWhitespaceTokensFrom:a];
 
