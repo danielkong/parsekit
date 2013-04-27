@@ -129,8 +129,8 @@
 - (void)_start {
     
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
-    [self execute:(id)^{
-        
+        [self execute:(id)^{
+            
 	
 	PKTokenizer *t = self.tokenizer;
 	
@@ -170,9 +170,9 @@
 	[t.commentState addSingleLineStartMarker:@"//"];
 	[t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 
-    }];
-    [self program]; 
-    [self matchEOF:YES]; 
+        }];
+        [self program]; 
+        [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
     }];
