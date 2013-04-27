@@ -169,10 +169,9 @@
         [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 
     }];
-
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
         [self program]; 
-        [self matchEOF:YES]; 
+    [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
     }];

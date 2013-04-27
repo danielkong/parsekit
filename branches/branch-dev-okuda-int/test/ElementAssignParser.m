@@ -66,9 +66,9 @@
 - (void)_start {
     
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
-    do {
-        [self stat]; 
-    } while ([self speculate:^{ [self stat]; }]);
+        do {
+            [self stat]; 
+        } while ([self speculate:^{ [self stat]; }]);
     [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
@@ -79,17 +79,17 @@
 
 - (void)stat {
     
-    if ([self speculate:^{ [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{[self assign]; [self dot]; } completion:^{[self dot]; }];}]) {
+    if ([self speculate:^{ [self assign]; [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{[self dot]; } completion:^{[self dot]; }];}]) {
+        [self assign]; 
         [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{
-            [self assign]; 
             [self dot]; 
         } completion:^{
             [self dot]; 
         }];
 
-    } else if ([self speculate:^{ [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{[self list]; [self semi]; } completion:^{[self semi]; }];}]) {
+    } else if ([self speculate:^{ [self list]; [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{[self semi]; } completion:^{[self semi]; }];}]) {
+        [self list]; 
         [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{
-            [self list]; 
             [self semi]; 
         } completion:^{
             [self semi]; 
@@ -104,22 +104,22 @@
 
 - (void)assign {
     
+    [self list]; 
     [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_EQ block:^{
-        [self list]; 
         [self eq]; 
     } completion:^{
         [self eq]; 
     }];
 
-        [self list]; 
+    [self list]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAssign:)];
 }
 
 - (void)list {
     
+    [self lbracket]; 
     [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_RBRACKET block:^{
-        [self lbracket]; 
         [self elements]; 
         [self rbracket]; 
     } completion:^{
@@ -132,10 +132,10 @@
 
 - (void)elements {
     
-        [self element]; 
+    [self element]; 
         while ([self predicts:ELEMENTASSIGN_TOKEN_KIND_COMMA, 0]) {
             if ([self speculate:^{ [self comma]; [self element]; }]) {
-                    [self comma]; 
+                [self comma]; 
                     [self element]; 
             } else {
                 break;
