@@ -175,6 +175,7 @@
     }
 }
 
+
 #pragma mark -
 #pragma mark Private
 
@@ -205,7 +206,7 @@
         NSLog(@"%@", err);
     }
     
-    path = [[NSString stringWithFormat:@"%@/%@Parser.m", destPath, className] stringByExpandingTildeInPath];
+    path = [[NSString stringWithFormat:@"%@/%@.m", destPath, className] stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
