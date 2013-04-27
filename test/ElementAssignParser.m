@@ -69,11 +69,10 @@
         do {
             [self stat]; 
         } while ([self speculate:^{ [self stat]; }]);
-    [self matchEOF:YES]; 
+        [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
     }];
-
 
 }
 
@@ -86,7 +85,6 @@
         } completion:^{ 
             [self dot]; 
         }];
-
     } else if ([self speculate:^{ [self list]; [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{ [self semi]; } completion:^{ [self semi]; }];}]) {
         [self list]; 
         [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{ 
@@ -94,7 +92,6 @@
         } completion:^{ 
             [self semi]; 
         }];
-
     } else {
         [self raise:@"no viable alternative found in stat"];
     }
@@ -110,7 +107,6 @@
     } completion:^{ 
         [self eq]; 
     }];
-
     [self list]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAssign:)];
@@ -125,7 +121,6 @@
     } completion:^{ 
         [self rbracket]; 
     }];
-
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }

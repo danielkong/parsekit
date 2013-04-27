@@ -261,7 +261,7 @@
     do {
         [self statement]; 
     } while ([self speculate:^{ [self statement]; }]);
-    [self matchEOF:YES]; 
+        [self matchEOF:YES]; 
 
 }
 

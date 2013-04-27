@@ -338,7 +338,7 @@
     if (isStartMethod && _enableAutomaticErrorRecovery) self.depth--;
     
     if (isStartMethod) {
-        id eofVars = @{DEPTH: @(_depth)};
+        id eofVars = @{DEPTH: @(_depth + 1)};
         NSString *eofCallStr = [_engine processTemplate:[self templateStringNamed:@"PKSEOFCallTemplate"] withVariables:eofVars];
         [childStr appendString:eofCallStr];
         

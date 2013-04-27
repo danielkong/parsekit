@@ -71,7 +71,7 @@
     do {
         [self nonReserved]; 
     } while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]);
-    [self matchEOF:YES]; 
+        [self matchEOF:YES]; 
 
 }
 
