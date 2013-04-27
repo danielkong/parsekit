@@ -180,7 +180,8 @@
 
 - (void)_start {
     
-    [self execute:(id)^{ 
+    [self execute:(id)^{
+    
     PKTokenizer *t = self.tokenizer;
 
     // whitespace
@@ -207,6 +208,7 @@
 	[t.delimitState addStartMarker:@"<!DOCTYPE" endMarker:@">" allowedCharacterSet:nil];
 	
     [t.delimitState setFallbackState:t.symbolState from:'<' to:'<'];
+
     }];
     while ([self predicts:HTML_TOKEN_KIND_DOCTYPE, HTML_TOKEN_KIND_LT, HTML_TOKEN_KIND_PROCINSTR, TOKEN_KIND_BUILTIN_ANY, TOKEN_KIND_BUILTIN_COMMENT, 0]) {
         if ([self speculate:^{ [self anything]; }]) {
@@ -291,7 +293,7 @@
 
 - (void)__scriptTagName {
     
-    [self match:HTML_TOKEN_KIND_SCRIPTTAGNAME discard:NO];
+    [self match:HTML_TOKEN_KIND_SCRIPTTAGNAME discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchScriptTagName:)];
 }
@@ -360,7 +362,7 @@
 
 - (void)__styleTagName {
     
-    [self match:HTML_TOKEN_KIND_STYLETAGNAME discard:NO];
+    [self match:HTML_TOKEN_KIND_STYLETAGNAME discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStyleTagName:)];
 }
@@ -385,7 +387,7 @@
 
 - (void)__procInstr {
     
-    [self match:HTML_TOKEN_KIND_PROCINSTR discard:NO];
+    [self match:HTML_TOKEN_KIND_PROCINSTR discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchProcInstr:)];
 }
@@ -396,7 +398,7 @@
 
 - (void)__doctype {
     
-    [self match:HTML_TOKEN_KIND_DOCTYPE discard:NO];
+    [self match:HTML_TOKEN_KIND_DOCTYPE discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDoctype:)];
 }
@@ -542,7 +544,7 @@
 
 - (void)__eq {
     
-    [self match:HTML_TOKEN_KIND_EQ discard:NO];
+    [self match:HTML_TOKEN_KIND_EQ discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
@@ -553,7 +555,7 @@
 
 - (void)__lt {
     
-    [self match:HTML_TOKEN_KIND_LT discard:NO];
+    [self match:HTML_TOKEN_KIND_LT discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
@@ -564,7 +566,7 @@
 
 - (void)__gt {
     
-    [self match:HTML_TOKEN_KIND_GT discard:NO];
+    [self match:HTML_TOKEN_KIND_GT discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
@@ -575,7 +577,7 @@
 
 - (void)__fwdSlash {
     
-    [self match:HTML_TOKEN_KIND_FWDSLASH discard:NO];
+    [self match:HTML_TOKEN_KIND_FWDSLASH discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];
 }

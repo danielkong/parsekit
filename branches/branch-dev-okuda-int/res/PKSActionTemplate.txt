@@ -1,1 +1,3 @@
-{%for 1 to depth %}    {%/for%}[self execute:(id)^{ {{actionBody}}{%for 1 to depth %}    {%/for%}}];
+{%for 1 to depth %}    {%/for%}[self execute:(id)^{
+{%for 1 to depth %}    {%/for%}{{actionBody}}
+{%for 1 to depth %}    {%/for%}}];
