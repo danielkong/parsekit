@@ -69,11 +69,13 @@
 
 - (void)_start {
     
-    [self execute:(id)^{ 
+    [self execute:(id)^{
+    
     PKTokenizer *t = self.tokenizer;
 
     [t.delimitState addStartMarker:@"<" endMarker:@">" allowedCharacterSet:nil];
     [t setTokenizerState:t.delimitState from:'<' to:'<'];
+
     }];
     [self s]; 
         [self matchEOF:YES]; 
@@ -82,7 +84,7 @@
 
 - (void)__s {
     
-    [self match:DELIMITED_TOKEN_KIND_S discard:NO];
+    [self match:DELIMITED_TOKEN_KIND_S discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }

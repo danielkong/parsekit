@@ -18,6 +18,28 @@
 
 @implementation PGDocument
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.factory = [PKParserFactory factory];
+        _factory.collectTokenKinds = YES;
+        
+        self.enableHybridDFA = YES;
+        self.enableMemoization = YES;
+        self.enableAutomaticErrorRecovery = NO;
+        
+        self.destinationPath = [@"~/Desktop" stringByExpandingTildeInPath];
+        self.parserName = @"ExpressionParser";
+        
+        self.preassemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorNone;
+        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
+        
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"expression" ofType:@"grammar"];
+        self.grammar = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    }
+    return self;
+}
+
 - (void)dealloc {
     self.destinationPath = nil;
     self.parserName = nil;
@@ -33,21 +55,6 @@
 
 
 - (void)awakeFromNib {
-    self.factory = [PKParserFactory factory];
-    _factory.collectTokenKinds = YES;
-    
-    self.enableHybridDFA = YES;
-    self.enableMemoization = YES;
-    self.enableAutomaticErrorRecovery = NO;
-    
-    self.destinationPath = [@"~/Desktop" stringByExpandingTildeInPath];
-    self.parserName = @"ExpressionParser";
-    
-    self.preassemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorNone;
-    self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"expression" ofType:@"grammar"];
-    self.grammar = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
 
@@ -72,8 +79,9 @@
 
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
+    NSAssert([[NSThread currentThread] isMainThread], @"");
     NSMutableDictionary *tab = [NSMutableDictionary dictionaryWithCapacity:8];
-
+    
     if (_destinationPath) tab[@"destinationPath"] = _destinationPath;
     if (_grammar) tab[@"grammar"] = _grammar;
     if (_parserName) tab[@"parserName"] = _parserName;
@@ -83,13 +91,18 @@
     tab[@"preassemblerSettingBehavior"] = @(_preassemblerSettingBehavior);
     tab[@"assemblerSettingBehavior"] = @(_assemblerSettingBehavior);
     
+    //NSLog(@"%@", tab);
+    
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tab];
     return data;
 }
 
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
+    NSAssert([[NSThread currentThread] isMainThread], @"");
     NSDictionary *tab = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    //NSLog(@"%@", tab);
     
     self.destinationPath = tab[@"destinationPath"];
     self.grammar = tab[@"grammar"];
@@ -99,7 +112,7 @@
     self.enableAutomaticErrorRecovery = [tab[@"enableAutomaticErrorRecovery"] boolValue];
     self.preassemblerSettingBehavior = [tab[@"preassemblerSettingBehavior"] integerValue];
     self.assemblerSettingBehavior = [tab[@"assemblerSettingBehavior"] integerValue];
-
+    
     return YES;
 }
 
@@ -118,7 +131,7 @@
     }
     
     self.busy = YES;
-
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self generateWithDestinationPath:destPath parserName:parserName grammar:grammar];
     });
@@ -144,7 +157,7 @@
         NSURL *pathURL = [NSURL fileURLWithPath:path];
         [panel setDirectoryURL:pathURL];
     }
-
+    
     [panel setAllowsMultipleSelection:NO];
     [panel setCanChooseDirectories:YES];
     [panel setCanCreateDirectories:YES];
