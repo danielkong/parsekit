@@ -214,10 +214,14 @@
 
     // setup vars
     id vars = [NSMutableDictionary dictionary];
-    vars[CLASS_NAME] = [NSString stringWithFormat:@"%@Parser", node.grammarName];
     vars[TOKEN_KINDS_START_INDEX] = @(TOKEN_KIND_BUILTIN_ANY + 1);
     vars[TOKEN_KINDS] = node.tokenKinds;
-    
+    NSString *className = node.grammarName;
+    if (![className hasSuffix:@"Parser"]) {
+        className = [NSString stringWithFormat:@"%@Parser", className];
+    }
+    vars[CLASS_NAME] = className;
+
     // do interface (header)
     NSString *intTemplate = [self templateStringNamed:@"PKSClassInterfaceTemplate"];
     self.interfaceOutputString = [_engine processTemplate:intTemplate withVariables:vars];
