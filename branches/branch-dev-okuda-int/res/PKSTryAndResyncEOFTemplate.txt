@@ -2,3 +2,4 @@
 {{childString}}{%for 1 to depth %}    {%/for%}} completion:^{
 {%for 1 to depth %}    {%/for%}    [self matchEOF:YES];
 {%for 1 to depth %}    {%/for%}}];
+

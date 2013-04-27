@@ -74,24 +74,27 @@
         [self matchEOF:YES];
     }];
 
+
 }
 
 - (void)stat {
     
     if ([self speculate:^{ [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{[self assign]; [self dot]; } completion:^{[self dot]; }];}]) {
         [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{
-        [self assign]; 
-        [self dot]; 
+            [self assign]; 
+            [self dot]; 
         } completion:^{
-                [self dot]; 
+            [self dot]; 
         }];
+
     } else if ([self speculate:^{ [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{[self list]; [self semi]; } completion:^{[self semi]; }];}]) {
         [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{
-        [self list]; 
-        [self semi]; 
+            [self list]; 
+            [self semi]; 
         } completion:^{
-                [self semi]; 
+            [self semi]; 
         }];
+
     } else {
         [self raise:@"no viable alternative found in stat"];
     }
@@ -102,12 +105,13 @@
 - (void)assign {
     
     [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_EQ block:^{
-    [self list]; 
-    [self eq]; 
+        [self list]; 
+        [self eq]; 
     } completion:^{
         [self eq]; 
     }];
-    [self list]; 
+
+        [self list]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAssign:)];
 }
@@ -115,27 +119,28 @@
 - (void)list {
     
     [self tryWithResync:ELEMENTASSIGN_TOKEN_KIND_RBRACKET block:^{
-    [self lbracket]; 
-    [self elements]; 
-    [self rbracket]; 
+        [self lbracket]; 
+        [self elements]; 
+        [self rbracket]; 
     } completion:^{
         [self rbracket]; 
     }];
+
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 
 - (void)elements {
     
-    [self element]; 
-    while ([self predicts:ELEMENTASSIGN_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self comma]; [self element]; }]) {
-            [self comma]; 
-            [self element]; 
-        } else {
-            break;
+        [self element]; 
+        while ([self predicts:ELEMENTASSIGN_TOKEN_KIND_COMMA, 0]) {
+            if ([self speculate:^{ [self comma]; [self element]; }]) {
+                    [self comma]; 
+                    [self element]; 
+            } else {
+                break;
+            }
         }
-    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElements:)];
 }
