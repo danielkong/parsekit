@@ -35,7 +35,7 @@
     _root.grammarName = @"JSON";
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
-    _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnTerminals;
+    _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorTerminals;
     _visitor.enableMemoization = NO;
     [_root visit:_visitor];
 #if TD_EMIT

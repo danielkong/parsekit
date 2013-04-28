@@ -35,7 +35,7 @@
     _root.grammarName = @"HTML";
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
-    _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnTerminals;
+    _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorTerminals;
     [_root visit:_visitor];
     
     self.parser = [[[HTMLParser alloc] init] autorelease];

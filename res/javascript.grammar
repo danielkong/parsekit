@@ -7,58 +7,57 @@
 
 @start              
 @before {
-	
-	PKTokenizer *t = self.tokenizer;
-	
-    // whitespace
-//    self.silentlyConsumesWhitespace = YES;
-//    t.whitespaceState.reportsWhitespaceTokens = YES;
-//    self.assembly.preservesWhitespaceTokens = YES;
+        PKTokenizer *t = self.tokenizer;
+        
+        // whitespace
+    //    self.silentlyConsumesWhitespace = YES;
+    //    t.whitespaceState.reportsWhitespaceTokens = YES;
+    //    self.assembly.preservesWhitespaceTokens = YES;
 
-	[t.symbolState add:@"||"];
-	[t.symbolState add:@"&&"];
-	[t.symbolState add:@"!="];
-	[t.symbolState add:@"!=="];
-	[t.symbolState add:@"=="];
-	[t.symbolState add:@"==="];
-	[t.symbolState add:@"<="];
-	[t.symbolState add:@">="];
-	[t.symbolState add:@"++"];
-	[t.symbolState add:@"--"];
-	[t.symbolState add:@"+="];
-	[t.symbolState add:@"-="];
-	[t.symbolState add:@"*="];
-	[t.symbolState add:@"/="];
-	[t.symbolState add:@"%="];
-	[t.symbolState add:@"<<"];
-	[t.symbolState add:@">>"];
-	[t.symbolState add:@">>>"];
-	[t.symbolState add:@"<<="];
-	[t.symbolState add:@">>="];
-	[t.symbolState add:@">>>="];
-	[t.symbolState add:@"&="];
-	[t.symbolState add:@"^="];
-	[t.symbolState add:@"|="];
+        [t.symbolState add:@"||"];
+        [t.symbolState add:@"&&"];
+        [t.symbolState add:@"!="];
+        [t.symbolState add:@"!=="];
+        [t.symbolState add:@"=="];
+        [t.symbolState add:@"==="];
+        [t.symbolState add:@"<="];
+        [t.symbolState add:@">="];
+        [t.symbolState add:@"++"];
+        [t.symbolState add:@"--"];
+        [t.symbolState add:@"+="];
+        [t.symbolState add:@"-="];
+        [t.symbolState add:@"*="];
+        [t.symbolState add:@"/="];
+        [t.symbolState add:@"%="];
+        [t.symbolState add:@"<<"];
+        [t.symbolState add:@">>"];
+        [t.symbolState add:@">>>"];
+        [t.symbolState add:@"<<="];
+        [t.symbolState add:@">>="];
+        [t.symbolState add:@">>>="];
+        [t.symbolState add:@"&="];
+        [t.symbolState add:@"^="];
+        [t.symbolState add:@"|="];
 
-	t.commentState.reportsCommentTokens = YES;
-	
-	[t setTokenizerState:t.commentState from:'/' to:'/'];
-	[t.commentState addSingleLineStartMarker:@"//"];
-	[t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
+        t.commentState.reportsCommentTokens = YES;
+        
+        [t setTokenizerState:t.commentState from:'/' to:'/'];
+        [t.commentState addSingleLineStartMarker:@"//"];
+        [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 }
 
 
 					= program;
 
-if                  = 'if';
-else                = 'else';
-while               = 'while';
-for                 = 'for';
-in                  = 'in';
-break               = 'break';
-continue            = 'continue';
+ifSym                  = 'if';
+elseSym                = 'else';
+whileSym               = 'while';
+forSym                 = 'for';
+inSym               = 'in';
+breakSym            = 'break';
+continueSym            = 'continue';
 with                = 'with';
-return              = 'return';
+returnSym              = 'return';
 var                 = 'var';
 delete              = 'delete';
 keywordNew          = 'new';
@@ -200,16 +199,16 @@ stmts               = stmt*;
 //           VariablesOrExpression ;
 
 stmt                = semi | ifStmt | ifElseStmt | whileStmt | forParenStmt | forBeginStmt | forInStmt | breakStmt | continueStmt | withStmt | returnStmt | compoundStmt | variablesOrExprStmt;
-ifStmt              = if condition stmt;
-ifElseStmt          = if condition stmt else stmt;
-whileStmt           = while condition stmt;
+ifStmt              = ifSym condition stmt;
+ifElseStmt          = ifSym condition stmt elseSym stmt;
+whileStmt           = whileSym condition stmt;
 forParenStmt        = forParen semi exprOpt semi exprOpt closeParen stmt;
 forBeginStmt        = forBegin semi exprOpt semi exprOpt closeParen stmt;
-forInStmt           = forBegin in expr closeParen stmt;
-breakStmt           = break semi;
-continueStmt        = continue semi;
+forInStmt           = forBegin inSym expr closeParen stmt;
+breakStmt           = breakSym semi;
+continueStmt        = continueSym semi;
 withStmt            = with openParen expr closeParen stmt;
-returnStmt          = return exprOpt semi;
+returnStmt          = returnSym exprOpt semi;
 variablesOrExprStmt = variablesOrExpr semi;
 
 
@@ -224,7 +223,7 @@ condition           = openParen expr closeParen;
 //  ForParen:
 //           for (
 
-forParen            = for openParen;
+forParen            = forSym openParen;
 
 
 

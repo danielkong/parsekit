@@ -20,8 +20,10 @@
 @property (nonatomic, assign) BOOL needsBacktracking;
 @property (nonatomic, assign) BOOL isSpeculating;
 
+@property (nonatomic, assign) BOOL enableARC;
 @property (nonatomic, assign) BOOL enableHybridDFA;
 @property (nonatomic, assign) BOOL enableMemoization;
 @property (nonatomic, assign) BOOL enableAutomaticErrorRecovery;
+@property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior preassemblerSettingBehavior;
 @property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
 @end

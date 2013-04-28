@@ -211,7 +211,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.delimToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"%{" floatValue:0.0];
         self.predicateToken = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"}?" floatValue:0.0];
         
-        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
+        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
     }
     return self;
 }

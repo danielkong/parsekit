@@ -53,8 +53,8 @@
 @implementation AltParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"foo"] = @(ALT_TOKEN_KIND_FOO);
         self._tokenKindTab[@"bar"] = @(ALT_TOKEN_KIND_BAR);
         self._tokenKindTab[@"baz"] = @(ALT_TOKEN_KIND_BAZ);
@@ -66,7 +66,7 @@
         self.bar_memo = [NSMutableDictionary dictionary];
         self.baz_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {
@@ -94,7 +94,6 @@
     [self s]; 
     [self matchEOF:YES]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__s {
@@ -146,7 +145,7 @@
 
 - (void)__foo {
     
-    [self match:ALT_TOKEN_KIND_FOO discard:NO];
+    [self match:ALT_TOKEN_KIND_FOO discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
@@ -157,7 +156,7 @@
 
 - (void)__bar {
     
-    [self match:ALT_TOKEN_KIND_BAR discard:NO];
+    [self match:ALT_TOKEN_KIND_BAR discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
 }
@@ -168,7 +167,7 @@
 
 - (void)__baz {
     
-    [self match:ALT_TOKEN_KIND_BAZ discard:NO];
+    [self match:ALT_TOKEN_KIND_BAZ discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBaz:)];
 }
