@@ -4522,7 +4522,6 @@
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -4534,15 +4533,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = src/ParseKit_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GENERATE_PROFILING_CODE = YES;
 				INFOPLIST_FILE = "res/ParseKit-Info.plist";
-				INSTALL_PATH = "$(TARGET_BUILD_DIR)";
 				LLVM_LTO = NO;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
 				PRODUCT_NAME = ParseKit;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
@@ -4553,7 +4545,6 @@
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "$(TDPARSEKIT_FRAMEWORK_TARGET_PATH)";
@@ -4562,15 +4553,13 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = src/ParseKit_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NS_BLOCK_ASSERTIONS,
+					NDEBUG,
+				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "res/ParseKit-Info.plist";
-				INSTALL_PATH = "$(TARGET_BUILD_DIR)";
 				LLVM_LTO = NO;
-				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
 				PRODUCT_NAME = ParseKit;
 				SKIP_INSTALL = YES;
 				TDPARSEKIT_FRAMEWORK_TARGET_PATH = "@executable_path/../Frameworks";
