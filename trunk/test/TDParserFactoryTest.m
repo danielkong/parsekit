@@ -345,10 +345,10 @@
 }
 
 
-- (void)testAssemblerSettingBehaviorOnAll {
+- (void)testAssemblerSettingBehaviorAll {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
     s = @"@start = foo|baz; foo = 'bar'; baz = 'bat';";
-    factory.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
+    factory.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
     TDTrue([lp isKindOfClass:[PKParser class]]);
@@ -366,10 +366,10 @@
 }
 
 
-- (void)testAssemblerSettingBehaviorOnTerminals {
+- (void)testAssemblerSettingBehaviorTerminals {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
     s = @"@start = foo|baz; foo = 'bar'; baz = 'bat';";
-    factory.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnTerminals;
+    factory.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorTerminals;
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
     TDTrue([lp isKindOfClass:[PKParser class]]);
@@ -386,10 +386,10 @@
 }
 
 
-- (void)testAssemblerSettingBehaviorOnExplicitNone {
+- (void)testAssemblerSettingBehaviorExplicitNone {
     id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
     s = @"@start = foo|baz; foo = 'bar'; baz = 'bat';";
-    factory.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnExplicit;
+    factory.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorExplicit;
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
     TDTrue([lp isKindOfClass:[PKParser class]]);
@@ -405,10 +405,10 @@
 }
 
 
-//- (void)testAssemblerSettingBehaviorOnExplicitOrTerminal {
+//- (void)testAssemblerSettingBehaviorExplicitOrTerminal {
 //    id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
 //    s = @"@start = (foo|baz)+; foo = 'bar'; baz = 'bat';";
-//    factory.assemblerSettingBehavior = (PKParserFactoryAssemblerSettingBehaviorOnExplicit | PKParserFactoryAssemblerSettingBehaviorOnTerminals);
+//    factory.assemblerSettingBehavior = (PKParserFactoryAssemblerSettingBehaviorExplicit | PKParserFactoryAssemblerSettingBehaviorTerminals);
 //    lp = [factory parserFromGrammar:s assembler:mock error:nil];
 //    TDNotNil(lp);
 //    TDTrue([lp isKindOfClass:[PKParser class]]);

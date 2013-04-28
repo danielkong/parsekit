@@ -23,7 +23,6 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) PKSRecognitionException *_exception;
-@property (nonatomic, assign) id _assembler; // weak ref
 @property (nonatomic, retain) NSMutableArray *_lookahead;
 @property (nonatomic, retain) NSMutableArray *_markers;
 @property (nonatomic, assign) NSInteger _p;
@@ -34,9 +33,15 @@
 
 - (NSInteger)tokenKindForString:(NSString *)s;
 - (BOOL)lookahead:(NSInteger)x predicts:(NSInteger)tokenKind;
+- (void)fireSyntaxSelector:(SEL)sel withRuleName:(NSString *)ruleName;
 
 - (void)_discard;
+
+// error recovery
 - (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind;
+- (void)pushFollow:(NSInteger)tokenKind;
+- (void)popFollow:(NSInteger)tokenKind;
+- (BOOL)resync;
 
 // conenience
 - (BOOL)_popBool;
@@ -80,8 +85,8 @@
 - (void)dealloc {
     self.tokenizer = nil;
     self.assembly = nil;
+    self.assembler = nil;
     self._exception = nil;
-    self._assembler = nil;
     self._lookahead = nil;
     self._markers = nil;
     self._tokenKindTab = nil;
@@ -142,7 +147,7 @@
     id result = nil;
     
     // setup
-    self._assembler = a;
+    self.assembler = a;
     self.tokenizer = t;
     self.assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
     
@@ -202,7 +207,7 @@
     @finally {
         self.tokenizer.delegate = nil;
         self.tokenizer = nil;
-        self._assembler = nil;
+        self.assembler = nil;
         self.assembly = nil;
         self._lookahead = nil;
         self._markers = nil;
@@ -279,6 +284,15 @@
     
     if (_assembler && [_assembler respondsToSelector:sel]) {
         [_assembler performSelector:sel withObject:self withObject:_assembly];
+    }
+}
+
+
+- (void)fireSyntaxSelector:(SEL)sel withRuleName:(NSString *)ruleName {
+    if (self._isSpeculating) return;
+    
+    if (_assembler && [_assembler respondsToSelector:sel]) {
+        [_assembler performSelector:sel withObject:self withObject:ruleName];
     }
 }
 
@@ -405,6 +419,8 @@
 
 - (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind {
     NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
+    
+    if (TOKEN_KIND_BUILTIN_EOF == tokenKind) return; // don't insert or delete EOF
 
     if (_enableAutomaticErrorRecovery && LA(1) != tokenKind) {
         if (LA(2) == tokenKind) {
@@ -524,6 +540,27 @@
     id result = nil;
     if (block) result = block();
     return result;
+}
+
+
+- (void)tryAndRecover:(NSInteger)tokenKind block:(PKSResyncBlock)block completion:(PKSResyncBlock)completion {
+    NSParameterAssert(block);
+    NSParameterAssert(completion);
+    
+    [self pushFollow:tokenKind];
+    @try {
+        block();
+    }
+    @catch (PKSRecognitionException *ex) {
+        if ([self resync]) {
+            completion();
+        } else {
+            @throw ex;
+        }
+    }
+    @finally {
+        [self popFollow:tokenKind];
+    }
 }
 
 
@@ -698,7 +735,6 @@
 }
 
 @synthesize _exception = _exception;
-@synthesize _assembler = _assembler;
 @synthesize _lookahead = _lookahead;
 @synthesize _markers = _markers;
 @synthesize _p = _p;

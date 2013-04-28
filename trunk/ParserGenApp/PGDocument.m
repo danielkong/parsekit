@@ -24,17 +24,22 @@
         self.factory = [PKParserFactory factory];
         _factory.collectTokenKinds = YES;
         
+        self.enableARC = YES;
         self.enableHybridDFA = YES;
+        self.enableMemoization = YES;
+        self.enableAutomaticErrorRecovery = NO;
         
         self.destinationPath = [@"~/Desktop" stringByExpandingTildeInPath];
         self.parserName = @"ExpressionParser";
+        
+        self.preassemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorNone;
+        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
         
         NSString *path = [[NSBundle mainBundle] pathForResource:@"expression" ofType:@"grammar"];
         self.grammar = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     }
     return self;
 }
-
 
 - (void)dealloc {
     self.destinationPath = nil;
@@ -47,6 +52,10 @@
     self.root = nil;
     self.visitor = nil;
     [super dealloc];
+}
+
+
+- (void)awakeFromNib {
 }
 
 
@@ -71,15 +80,20 @@
 
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    NSMutableDictionary *tab = [NSMutableDictionary dictionaryWithCapacity:7];
-
+    NSAssert([[NSThread currentThread] isMainThread], @"");
+    NSMutableDictionary *tab = [NSMutableDictionary dictionaryWithCapacity:9];
+    
     if (_destinationPath) tab[@"destinationPath"] = _destinationPath;
     if (_grammar) tab[@"grammar"] = _grammar;
     if (_parserName) tab[@"parserName"] = _parserName;
+    tab[@"enableARC"] = @(_enableARC);
     tab[@"enableHybridDFA"] = @(_enableHybridDFA);
     tab[@"enableMemoization"] = @(_enableMemoization);
     tab[@"enableAutomaticErrorRecovery"] = @(_enableAutomaticErrorRecovery);
+    tab[@"preassemblerSettingBehavior"] = @(_preassemblerSettingBehavior);
     tab[@"assemblerSettingBehavior"] = @(_assemblerSettingBehavior);
+    
+    //NSLog(@"%@", tab);
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tab];
     return data;
@@ -87,16 +101,21 @@
 
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
+    NSAssert([[NSThread currentThread] isMainThread], @"");
     NSDictionary *tab = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    //NSLog(@"%@", tab);
     
     self.destinationPath = tab[@"destinationPath"];
     self.grammar = tab[@"grammar"];
     self.parserName = tab[@"parserName"];
+    self.enableARC = [tab[@"enableARC"] boolValue];
     self.enableHybridDFA = [tab[@"enableHybridDFA"] boolValue];
     self.enableMemoization = [tab[@"enableMemoization"] boolValue];
     self.enableAutomaticErrorRecovery = [tab[@"enableAutomaticErrorRecovery"] boolValue];
+    self.preassemblerSettingBehavior = [tab[@"preassemblerSettingBehavior"] integerValue];
     self.assemblerSettingBehavior = [tab[@"assemblerSettingBehavior"] integerValue];
-
+    
     return YES;
 }
 
@@ -115,7 +134,7 @@
     }
     
     self.busy = YES;
-
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self generateWithDestinationPath:destPath parserName:parserName grammar:grammar];
     });
@@ -141,7 +160,7 @@
         NSURL *pathURL = [NSURL fileURLWithPath:path];
         [panel setDirectoryURL:pathURL];
     }
-
+    
     [panel setAllowsMultipleSelection:NO];
     [panel setCanChooseDirectories:YES];
     [panel setCanCreateDirectories:YES];
@@ -167,10 +186,18 @@
         path = [path stringByDeletingLastPathComponent];
     }
     
+    NSString *filename = self.parserName;
+    if (![filename hasSuffix:@"Parser"]) {
+        filename = [NSString stringWithFormat:@"%@Parser.m", filename];
+    }
+
+    path = [path stringByAppendingPathComponent:filename];
+    
     if ([path length]) {
         [[NSWorkspace sharedWorkspace] selectFile:path inFileViewerRootedAtPath:nil];
     }
 }
+
 
 #pragma mark -
 #pragma mark Private
@@ -179,23 +206,31 @@
 - (void)generateWithDestinationPath:(NSString *)destPath parserName:(NSString *)parserName grammar:(NSString *)grammar {
     NSError *err = nil;
     self.root = (id)[_factory ASTFromGrammar:_grammar error:&err];
-    _root.grammarName = self.parserName;
+    
+    NSString *className = self.parserName;
+    if (![className hasSuffix:@"Parser"]) {
+        className = [NSString stringWithFormat:@"%@Parser", className];
+    }
+    
+    _root.grammarName = className;
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
-    _visitor.enableHybridDFA = _enableHybridDFA;
+    _visitor.enableARC = _enableARC;
+    _visitor.enableHybridDFA = _enableHybridDFA; NSAssert(_enableHybridDFA, @"");
     _visitor.enableMemoization = _enableMemoization;
     _visitor.enableAutomaticErrorRecovery = _enableAutomaticErrorRecovery;
+    _visitor.preassemblerSettingBehavior = _preassemblerSettingBehavior;
     _visitor.assemblerSettingBehavior = _assemblerSettingBehavior;
     
     [_root visit:_visitor];
     
-    NSString *path = [[NSString stringWithFormat:@"%@/%@Parser.h", destPath, _parserName] stringByExpandingTildeInPath];
+    NSString *path = [[NSString stringWithFormat:@"%@/%@.h", destPath, className] stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
     }
     
-    path = [[NSString stringWithFormat:@"%@/%@Parser.m", destPath, _parserName] stringByExpandingTildeInPath];
+    path = [[NSString stringWithFormat:@"%@/%@.m", destPath, className] stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);

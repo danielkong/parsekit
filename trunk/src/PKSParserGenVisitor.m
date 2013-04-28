@@ -17,14 +17,18 @@
 #import "ICUTemplateMatcher.h"
 
 #define CLASS_NAME @"className"
+#define MANUAL_MEMORY @"manualMemory"
 #define TOKEN_KINDS_START_INDEX @"startIndex"
 #define TOKEN_KINDS @"tokenKinds"
 #define RULE_METHOD_NAMES @"ruleMethodNames"
 #define ENABLE_MEMOIZATION @"enableMemoization"
+#define ENABLE_ERROR_RECOVERY @"enableAutomaticErrorRecovery"
+#define PARSE_TREE @"parseTree"
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
 #define METHOD_BODY @"methodBody"
-#define FIRE_CALLBACK @"fireCallback"
+#define PRE_CALLBACK @"preCallback"
+#define POST_CALLBACK @"postCallback"
 #define TOKEN_KIND @"tokenKind"
 #define CHILD_NAME @"childName"
 #define DEPTH @"depth"
@@ -61,7 +65,8 @@
     if (self) {
         self.enableHybridDFA = YES;
         self.enableMemoization = YES;
-        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnAll;
+        self.preassemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorNone;
+        self.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
         
         [self setUpTemplateEngine];
     }
@@ -207,13 +212,18 @@
         NSString *newName = [NSString stringWithFormat:@"%@_%@", [node.grammarName uppercaseString], desc.name];
         desc.name = newName;
     }
-
+    
     // setup vars
     id vars = [NSMutableDictionary dictionary];
-    vars[CLASS_NAME] = [NSString stringWithFormat:@"%@Parser", node.grammarName];
+    vars[MANUAL_MEMORY] = @(!_enableARC);
     vars[TOKEN_KINDS_START_INDEX] = @(TOKEN_KIND_BUILTIN_ANY + 1);
     vars[TOKEN_KINDS] = node.tokenKinds;
-    
+    NSString *className = node.grammarName;
+    if (![className hasSuffix:@"Parser"]) {
+        className = [NSString stringWithFormat:@"%@Parser", className];
+    }
+    vars[CLASS_NAME] = className;
+
     // do interface (header)
     NSString *intTemplate = [self templateStringNamed:@"PKSClassInterfaceTemplate"];
     self.interfaceOutputString = [_engine processTemplate:intTemplate withVariables:vars];
@@ -234,6 +244,9 @@
     vars[METHODS] = childStr;
     vars[RULE_METHOD_NAMES] = self.ruleMethodNames;
     vars[ENABLE_MEMOIZATION] = @(self.enableMemoization);
+    vars[ENABLE_ERROR_RECOVERY] = @(self.enableAutomaticErrorRecovery);
+    vars[PARSE_TREE] = @((_preassemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorSyntax || _assemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorSyntax));
+    
     
     NSString *implTemplate = [self templateStringNamed:@"PKSClassImplementationTemplate"];
     self.implementationOutputString = [_engine processTemplate:implTemplate withVariables:vars];
@@ -248,6 +261,48 @@
     
     id vars = @{ACTION_BODY: actNode.source, DEPTH: @(_depth)};
     NSString *result = [_engine processTemplate:[self templateStringNamed:@"PKSActionTemplate"] withVariables:vars];
+
+    return result;
+}
+
+
+- (NSString *)callbackStringForNode:(PKBaseNode *)node methodName:(NSString *)methodName isPre:(BOOL)isPre {
+    // determine if we should include an assembler callback call
+    BOOL fireCallback = NO;
+    BOOL isTerminal = 1 == [node.children count] && [[self concreteNodeForNode:node.children[0]] isTerminal];
+    NSString *templateName = isPre ? @"PKSPreCallbackTemplate" : @"PKSPostCallbackTemplate";
+    
+    BOOL flag = isPre ? _preassemblerSettingBehavior : _assemblerSettingBehavior;
+
+    switch (flag) {
+        case PKParserFactoryAssemblerSettingBehaviorNone:
+            fireCallback = NO;
+            break;
+        case PKParserFactoryAssemblerSettingBehaviorAll:
+            fireCallback = YES;
+            break;
+        case PKParserFactoryAssemblerSettingBehaviorTerminals: {
+            fireCallback = isTerminal;
+        } break;
+        case PKParserFactoryAssemblerSettingBehaviorSyntax: {
+            fireCallback = YES;
+            if (isTerminal) {
+                templateName = isPre ? @"PKSPreCallbackSyntaxLeafTemplate" : @"PKSPostCallbackSyntaxLeafTemplate";
+            } else {
+                templateName = isPre ? @"PKSPreCallbackSyntaxInteriorTemplate" : @"PKSPostCallbackSyntaxInteriorTemplate";
+            }
+        } break;
+        default:
+            NSAssert1(0, @"unsupported assembler callback setting behavior %d", _preassemblerSettingBehavior);
+            break;
+    }
+    
+    NSString *result = @"";
+    
+    if (fireCallback) {
+        id vars = @{METHOD_NAME: methodName};
+        result = [_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars];
+    }
 
     return result;
 }
@@ -274,11 +329,9 @@
     // setup child str buffer
     NSMutableString *childStr = [NSMutableString string];
     
-    if (node.before) {
-        [childStr appendString:[self actionStringFrom:node.before]];
-    }
-
     [childStr appendString:[self actionStringFrom:node.actionNode]];
+    
+    if (isStartMethod && _enableAutomaticErrorRecovery) self.depth++;
 
     // recurse
     for (PKBaseNode *child in node.children) {
@@ -288,18 +341,25 @@
         [childStr appendString:[self pop]];
     }
     
+    if (isStartMethod && _enableAutomaticErrorRecovery) self.depth--;
+    
     if (isStartMethod) {
-        id eofVars = @{DEPTH: @(_depth)};
+        NSInteger depth = _depth + (_enableAutomaticErrorRecovery ? 1 : 0);
+        id eofVars = @{DEPTH: @(depth)};
         NSString *eofCallStr = [_engine processTemplate:[self templateStringNamed:@"PKSEOFCallTemplate"] withVariables:eofVars];
         [childStr appendString:eofCallStr];
         
         if (_enableAutomaticErrorRecovery) {
             id resyncVars = @{DEPTH: @(_depth), CHILD_STRING: childStr};
-            NSString *newChildStr = [_engine processTemplate:[self templateStringNamed:@"PKSTryAndResyncEOFTemplate"] withVariables:resyncVars];
+            NSString *newChildStr = [_engine processTemplate:[self templateStringNamed:@"PKSTryAndRecoverEOFTemplate"] withVariables:resyncVars];
             [childStr setString:newChildStr];
         }
     }
 
+    if (node.before) {
+        [childStr insertString:[self actionStringFrom:node.before] atIndex:0];
+    }
+    
     if (node.after) {
         [childStr appendString:[self actionStringFrom:node.after]];
     }
@@ -307,24 +367,16 @@
     // merge
     vars[METHOD_BODY] = childStr;
     
-    // determine if we should include an assembler callback call
-    BOOL fireCallback = YES;
-    switch (_assemblerSettingBehavior) {
-        case PKParserFactoryAssemblerSettingBehaviorOnNone:
-            fireCallback = NO;
-            break;
-        case PKParserFactoryAssemblerSettingBehaviorOnAll:
-            fireCallback = YES;
-            break;
-        case PKParserFactoryAssemblerSettingBehaviorOnTerminals: {
-            BOOL isTerminal = 1 == [node.children count] && [[self concreteNodeForNode:node.children[0]] isTerminal];
-            fireCallback = isTerminal;
-        } break;
-        default:
-            NSAssert1(0, @"unsupported assembler callback setting behavior %d", _assemblerSettingBehavior);
-            break;
+    NSString *preCallbackStr = @"";
+    NSString *postCallbackStr = @"";
+
+    if (!isStartMethod) {
+        preCallbackStr = [self callbackStringForNode:node methodName:methodName isPre:YES];
+        postCallbackStr = [self callbackStringForNode:node methodName:methodName isPre:NO];
     }
-    vars[FIRE_CALLBACK] = @(fireCallback);
+
+    vars[PRE_CALLBACK] = preCallbackStr;
+    vars[POST_CALLBACK] = postCallbackStr;
 
     NSString *templateName = nil;
     if (!isStartMethod && self.enableMemoization) {
@@ -518,34 +570,58 @@
 
     NSMutableString *partialChildStr = [NSMutableString string];
     NSUInteger partialCount = 0;
+
+    BOOL hasTerminal = NO;
     
-    // recurse
+    NSMutableArray *concreteChildren = [NSMutableArray arrayWithCapacity:[node.children count]];
     for (PKBaseNode *child in node.children) {
+        PKBaseNode *concreteNode = [self concreteNodeForNode:child];
+        if (concreteNode.isTerminal && [concreteChildren count]) hasTerminal = YES;
+        [concreteChildren addObject:concreteNode];
+    }
+
+    // recurse
+    BOOL depthIncreased = NO;
+    NSUInteger i = 0;
+    for (PKBaseNode *child in node.children) {
+        PKBaseNode *concreteNode = concreteChildren[i++];
         
+        if (_enableAutomaticErrorRecovery && hasTerminal && partialCount == 1) {
+            [childStr appendString:partialChildStr];
+            [partialChildStr setString:@""];
+            depthIncreased = YES;
+            self.depth++;
+        }
+
         [child visit:self];
         
         // pop
         NSString *terminalCallStr = [self pop];
         [partialChildStr appendString:terminalCallStr];
         
-        PKBaseNode *concreteNode = [self concreteNodeForNode:child];
         if (_enableAutomaticErrorRecovery && concreteNode.isTerminal && partialCount > 0) {
             
             PKSTokenKindDescriptor *desc = [(PKConstantNode *)concreteNode tokenKind];
-            id resyncVars = @{TOKEN_KIND: desc, DEPTH: @(_depth), CHILD_STRING: partialChildStr, TERMINAL_CALL_STRING: terminalCallStr};
-            NSString *tryAndResyncStr = [_engine processTemplate:[self templateStringNamed:@"PKSTryAndResyncTemplate"] withVariables:resyncVars];
+            id resyncVars = @{TOKEN_KIND: desc, DEPTH: @(_depth - 1), CHILD_STRING: partialChildStr, TERMINAL_CALL_STRING: terminalCallStr};
+            NSString *tryAndResyncStr = [_engine processTemplate:[self templateStringNamed:@"PKSTryAndRecoverTemplate"] withVariables:resyncVars];
             
             [childStr appendString:tryAndResyncStr];
             
             // reset
             partialCount = 0;
             [partialChildStr setString:@""];
+            if (depthIncreased) {
+                self.depth--;
+                depthIncreased = NO;
+            }
         } else {
             NSAssert([partialChildStr length], @"");
             ++partialCount;
         }
     }
-    
+
+    //if (_enableAutomaticErrorRecovery && [node.children count] > 1) self.depth--;
+
     [childStr appendString:partialChildStr];
 
     [childStr appendString:[self actionStringFrom:node.actionNode]];

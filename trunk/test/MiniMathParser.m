@@ -51,8 +51,8 @@
 @implementation MiniMathParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"+"] = @(MINIMATH_TOKEN_KIND_PLUS);
         self._tokenKindTab[@"*"] = @(MINIMATH_TOKEN_KIND_STAR);
         self._tokenKindTab[@"^"] = @(MINIMATH_TOKEN_KIND_CARET);
@@ -62,7 +62,7 @@
         self.pow_memo = [NSMutableDictionary dictionary];
         self.atom_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {
@@ -86,18 +86,17 @@
     [self expr]; 
     [self matchEOF:YES]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__expr {
     
     [self mult]; 
     while ([self predicts:MINIMATH_TOKEN_KIND_PLUS, 0]) {
-        if ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_PLUS discard:YES];[self mult]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); }];}]) {
-            [self match:MINIMATH_TOKEN_KIND_PLUS discard:YES];
+        if ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_PLUS discard:YES]; [self mult]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); }];}]) {
+            [self match:MINIMATH_TOKEN_KIND_PLUS discard:YES]; 
             [self mult]; 
             [self execute:(id)^{
-                 PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); 
+             PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); 
             }];
         } else {
             break;
@@ -115,11 +114,11 @@
     
     [self pow]; 
     while ([self predicts:MINIMATH_TOKEN_KIND_STAR, 0]) {
-        if ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_STAR discard:YES];[self pow]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); }];}]) {
-            [self match:MINIMATH_TOKEN_KIND_STAR discard:YES];
+        if ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_STAR discard:YES]; [self pow]; [self execute:(id)^{ PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); }];}]) {
+            [self match:MINIMATH_TOKEN_KIND_STAR discard:YES]; 
             [self pow]; 
             [self execute:(id)^{
-                 PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); 
+             PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); 
             }];
         } else {
             break;
@@ -136,11 +135,11 @@
 - (void)__pow {
     
     [self atom]; 
-    if ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_CARET discard:YES];[self pow]; [self execute:(id)^{ 		double exp = POP_FLOAT();		double base = POP_FLOAT();		double result = base;	for (NSUInteger i = 1; i < exp; i++) 			result *= base;		PUSH_FLOAT(result); 	}];}]) {
-        [self match:MINIMATH_TOKEN_KIND_CARET discard:YES];
+    if ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_CARET discard:YES]; [self pow]; [self execute:(id)^{ 		double exp = POP_FLOAT();		double base = POP_FLOAT();		double result = base;	for (NSUInteger i = 1; i < exp; i++) 			result *= base;		PUSH_FLOAT(result); 	}];}]) {
+        [self match:MINIMATH_TOKEN_KIND_CARET discard:YES]; 
         [self pow]; 
         [self execute:(id)^{
-             
+         
 		double exp = POP_FLOAT();
 		double base = POP_FLOAT();
 		double result = base;
@@ -162,7 +161,7 @@
     
     [self matchNumber:NO];
     [self execute:(id)^{
-        PUSH_FLOAT(POP_FLOAT());
+    PUSH_FLOAT(POP_FLOAT());
     }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];

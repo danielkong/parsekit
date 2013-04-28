@@ -49,15 +49,15 @@
 @implementation UnfinishedSeqParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"a"] = @(UNFINISHEDSEQ_TOKEN_KIND_A);
         self._tokenKindTab[@"b"] = @(UNFINISHEDSEQ_TOKEN_KIND_B);
 
         self.a_memo = [NSMutableDictionary dictionary];
         self.b_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {
@@ -79,12 +79,11 @@
     [self a]; 
     [self matchEOF:YES]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__a {
     
-    [self match:UNFINISHEDSEQ_TOKEN_KIND_A discard:NO];
+    [self match:UNFINISHEDSEQ_TOKEN_KIND_A discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
@@ -95,7 +94,7 @@
 
 - (void)__b {
     
-    [self match:UNFINISHEDSEQ_TOKEN_KIND_B discard:NO];
+    [self match:UNFINISHEDSEQ_TOKEN_KIND_B discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }

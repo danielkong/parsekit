@@ -377,19 +377,19 @@
     NSString *parserName = p.name;
     NSString *selName = callbackName;
     
-    BOOL setOnAll = (_assemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorOnAll);
+    BOOL setOnAll = (_assemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorAll);
     
     if (setOnAll) {
         // continue
     } else {
-        BOOL setOnExplicit = (_assemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorOnExplicit);
+        BOOL setOnExplicit = (_assemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorExplicit);
         if (setOnExplicit && selName) {
             // continue
         } else {
             BOOL isTerminal = [p isKindOfClass:[PKTerminal class]];
             if (!isTerminal && !setOnExplicit) return;
             
-            BOOL setOnTerminals = (_assemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorOnTerminals);
+            BOOL setOnTerminals = (_assemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorTerminals);
             if (setOnTerminals && isTerminal) {
                 // continue
             } else {

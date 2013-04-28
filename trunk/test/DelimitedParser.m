@@ -48,13 +48,13 @@
 @implementation DelimitedParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"<,>"] = @(DELIMITED_TOKEN_KIND_S);
 
         self.s_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {
@@ -70,7 +70,7 @@
 - (void)_start {
     
     [self execute:(id)^{
-        
+    
     PKTokenizer *t = self.tokenizer;
 
     [t.delimitState addStartMarker:@"<" endMarker:@">" allowedCharacterSet:nil];
@@ -80,12 +80,11 @@
     [self s]; 
     [self matchEOF:YES]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__s {
     
-    [self match:DELIMITED_TOKEN_KIND_S discard:NO];
+    [self match:DELIMITED_TOKEN_KIND_S discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }

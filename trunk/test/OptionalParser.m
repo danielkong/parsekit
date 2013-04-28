@@ -51,8 +51,8 @@
 @implementation OptionalParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"foo"] = @(OPTIONAL_TOKEN_KIND_FOO);
         self._tokenKindTab[@"bar"] = @(OPTIONAL_TOKEN_KIND_BAR);
 
@@ -61,7 +61,7 @@
         self.foo_memo = [NSMutableDictionary dictionary];
         self.bar_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {
@@ -85,7 +85,6 @@
     [self s]; 
     [self matchEOF:YES]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__s {
@@ -118,7 +117,7 @@
 
 - (void)__foo {
     
-    [self match:OPTIONAL_TOKEN_KIND_FOO discard:NO];
+    [self match:OPTIONAL_TOKEN_KIND_FOO discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }
@@ -129,7 +128,7 @@
 
 - (void)__bar {
     
-    [self match:OPTIONAL_TOKEN_KIND_BAR discard:NO];
+    [self match:OPTIONAL_TOKEN_KIND_BAR discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
 }

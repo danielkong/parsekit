@@ -74,8 +74,8 @@
 @implementation HTMLParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"script"] = @(HTML_TOKEN_KIND_SCRIPTTAGNAME);
         self._tokenKindTab[@"style"] = @(HTML_TOKEN_KIND_STYLETAGNAME);
         self._tokenKindTab[@"<!DOCTYPE,>"] = @(HTML_TOKEN_KIND_DOCTYPE);
@@ -113,7 +113,7 @@
         self.fwdSlash_memo = [NSMutableDictionary dictionary];
         self.comment_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {
@@ -181,7 +181,7 @@
 - (void)_start {
     
     [self execute:(id)^{
-        
+    
     PKTokenizer *t = self.tokenizer;
 
     // whitespace
@@ -293,7 +293,7 @@
 
 - (void)__scriptTagName {
     
-    [self match:HTML_TOKEN_KIND_SCRIPTTAGNAME discard:NO];
+    [self match:HTML_TOKEN_KIND_SCRIPTTAGNAME discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchScriptTagName:)];
 }
@@ -362,7 +362,7 @@
 
 - (void)__styleTagName {
     
-    [self match:HTML_TOKEN_KIND_STYLETAGNAME discard:NO];
+    [self match:HTML_TOKEN_KIND_STYLETAGNAME discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStyleTagName:)];
 }
@@ -387,7 +387,7 @@
 
 - (void)__procInstr {
     
-    [self match:HTML_TOKEN_KIND_PROCINSTR discard:NO];
+    [self match:HTML_TOKEN_KIND_PROCINSTR discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchProcInstr:)];
 }
@@ -398,7 +398,7 @@
 
 - (void)__doctype {
     
-    [self match:HTML_TOKEN_KIND_DOCTYPE discard:NO];
+    [self match:HTML_TOKEN_KIND_DOCTYPE discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDoctype:)];
 }
@@ -544,7 +544,7 @@
 
 - (void)__eq {
     
-    [self match:HTML_TOKEN_KIND_EQ discard:NO];
+    [self match:HTML_TOKEN_KIND_EQ discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
@@ -555,7 +555,7 @@
 
 - (void)__lt {
     
-    [self match:HTML_TOKEN_KIND_LT discard:NO];
+    [self match:HTML_TOKEN_KIND_LT discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
@@ -566,7 +566,7 @@
 
 - (void)__gt {
     
-    [self match:HTML_TOKEN_KIND_GT discard:NO];
+    [self match:HTML_TOKEN_KIND_GT discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
@@ -577,7 +577,7 @@
 
 - (void)__fwdSlash {
     
-    [self match:HTML_TOKEN_KIND_FWDSLASH discard:NO];
+    [self match:HTML_TOKEN_KIND_FWDSLASH discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];
 }

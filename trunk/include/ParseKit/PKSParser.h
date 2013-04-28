@@ -16,6 +16,7 @@
 typedef id   (^PKSActionBlock)   (void);
 typedef void (^PKSSpeculateBlock)(void);
 typedef BOOL (^PKSPredicateBlock)(void);
+typedef void (^PKSResyncBlock)(void);
 
 enum {
     TOKEN_KIND_BUILTIN_EOF = -1,
@@ -48,6 +49,7 @@ enum {
 
 @property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, retain) PKSTokenAssembly *assembly;
+@property (nonatomic, assign) id assembler; // weak ref
 @end
 
 @interface PKSParser (Subclass)
@@ -91,8 +93,6 @@ enum {
 - (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
 
 // error recovery
-- (void)pushFollow:(NSInteger)tokenKind;
-- (void)popFollow:(NSInteger)tokenKind;
-- (BOOL)resync;
+- (void)tryAndRecover:(NSInteger)tokenKind block:(PKSResyncBlock)block completion:(PKSResyncBlock)completion;
 
 @end

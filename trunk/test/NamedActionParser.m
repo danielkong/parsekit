@@ -49,15 +49,15 @@
 @implementation NamedActionParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"a"] = @(NAMEDACTION_TOKEN_KIND_A);
         self._tokenKindTab[@"b"] = @(NAMEDACTION_TOKEN_KIND_B);
 
         self.a_memo = [NSMutableDictionary dictionary];
         self.b_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {
@@ -78,17 +78,16 @@
     [self b]; 
     [self matchEOF:YES]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__a {
     
     [self execute:(id)^{
-        PUSH(@"foo");
+    PUSH(@"foo");
     }];
-    [self match:NAMEDACTION_TOKEN_KIND_A discard:NO];
+    [self match:NAMEDACTION_TOKEN_KIND_A discard:NO]; 
     [self execute:(id)^{
-        PUSH(@"bar");
+    PUSH(@"bar");
     }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
@@ -100,7 +99,7 @@
 
 - (void)__b {
     
-    [self match:NAMEDACTION_TOKEN_KIND_B discard:NO];
+    [self match:NAMEDACTION_TOKEN_KIND_B discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
