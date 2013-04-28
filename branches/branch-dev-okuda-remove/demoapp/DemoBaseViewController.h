@@ -14,7 +14,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class OKSourceCodeTextView;
+@class TDSourceCodeTextView;
 
 @interface DemoBaseViewController : NSViewController
 
@@ -23,8 +23,8 @@
 - (void)done;
 - (void)renderGutters;
 
-@property (retain) IBOutlet OKSourceCodeTextView *grammarTextView;
-@property (retain) IBOutlet OKSourceCodeTextView *inputTextView;
+@property (retain) IBOutlet TDSourceCodeTextView *grammarTextView;
+@property (retain) IBOutlet TDSourceCodeTextView *inputTextView;
 
 @property (retain) NSString *grammarString;
 @property (retain) NSString *inputString;
