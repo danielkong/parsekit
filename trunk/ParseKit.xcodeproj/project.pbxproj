@@ -44,15 +44,12 @@
 		D30DA19C17274BF400A1A3EC /* PKSTryAndRecoverEOFTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D30DA19A17274BF100A1A3EC /* PKSTryAndRecoverEOFTemplate.txt */; };
 		D30DA19F17284EC100A1A3EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA19E17284EC100A1A3EC /* Foundation.framework */; };
 		D30DA1A117284EFF00A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
-		D30DA1A317284F5100A1A3EC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A217284F5100A1A3EC /* CoreData.framework */; };
 		D30DA1A417284F9900A1A3EC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
 		D30DA1A517284FD800A1A3EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA19E17284EC100A1A3EC /* Foundation.framework */; };
-		D30DA1A617284FF100A1A3EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA19E17284EC100A1A3EC /* Foundation.framework */; };
 		D30DA1A8172850A400A1A3EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A7172850A400A1A3EC /* Foundation.framework */; };
 		D30DA1AA172850BB00A1A3EC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A9172850BB00A1A3EC /* libicucore.dylib */; };
 		D30DA1AB172850EC00A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
 		D30DA1AC172850F500A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
-		D30DA1AD172850FA00A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
 		D30DA1AE1728510100A1A3EC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA1A017284EFF00A1A3EC /* Cocoa.framework */; };
 		D30DA1AF1728515E00A1A3EC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
 		D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
@@ -355,81 +352,6 @@
 		D34BAFDA0FF9E95500D7773A /* NSArray+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD40FF9E95500D7773A /* NSArray+ParseKitAdditions.m */; };
 		D34BAFDC0FF9E95500D7773A /* NSString+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD60FF9E95500D7773A /* NSString+ParseKitAdditions.m */; };
 		D34BAFDE0FF9E95500D7773A /* PKParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD80FF9E95500D7773A /* PKParserFactory.m */; };
-		D34BB0680FF9EDDF00D7773A /* JSParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0660FF9EDDF00D7773A /* JSParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0690FF9EDDF00D7773A /* JSParseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0670FF9EDDF00D7773A /* JSParseKit.m */; };
-		D34BB0710FF9EE4000D7773A /* PKJSAssembly.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB06A0FF9EE4000D7773A /* PKJSAssembly.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0720FF9EE4000D7773A /* PKJSAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB06B0FF9EE4000D7773A /* PKJSAssembly.m */; };
-		D34BB0730FF9EE4000D7773A /* PKJSUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB06C0FF9EE4000D7773A /* PKJSUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0740FF9EE4000D7773A /* PKJSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB06D0FF9EE4000D7773A /* PKJSUtils.m */; };
-		D34BB0750FF9EE4000D7773A /* PKJSUtils_macros.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB06E0FF9EE4000D7773A /* PKJSUtils_macros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0760FF9EE4000D7773A /* PKJSValueHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB06F0FF9EE4000D7773A /* PKJSValueHolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0770FF9EE4000D7773A /* PKJSValueHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0700FF9EE4000D7773A /* PKJSValueHolder.m */; };
-		D34BB08F0FF9EF9D00D7773A /* PKJSCharacterAssembly.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB08D0FF9EF9D00D7773A /* PKJSCharacterAssembly.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0900FF9EF9D00D7773A /* PKJSCharacterAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB08E0FF9EF9D00D7773A /* PKJSCharacterAssembly.m */; };
-		D34BB0A90FF9F14B00D7773A /* PKJSCommentState.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0930FF9F14B00D7773A /* PKJSCommentState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0AA0FF9F14B00D7773A /* PKJSCommentState.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0940FF9F14B00D7773A /* PKJSCommentState.m */; };
-		D34BB0AB0FF9F14B00D7773A /* PKJSDelimitState.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0950FF9F14B00D7773A /* PKJSDelimitState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0AC0FF9F14B00D7773A /* PKJSDelimitState.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0960FF9F14B00D7773A /* PKJSDelimitState.m */; };
-		D34BB0AD0FF9F14B00D7773A /* PKJSNumberState.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0970FF9F14B00D7773A /* PKJSNumberState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0AE0FF9F14B00D7773A /* PKJSNumberState.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0980FF9F14B00D7773A /* PKJSNumberState.m */; };
-		D34BB0AF0FF9F14B00D7773A /* PKJSQuoteState.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0990FF9F14B00D7773A /* PKJSQuoteState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0B00FF9F14B00D7773A /* PKJSQuoteState.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB09A0FF9F14B00D7773A /* PKJSQuoteState.m */; };
-		D34BB0B10FF9F14B00D7773A /* PKJSSymbolState.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB09B0FF9F14B00D7773A /* PKJSSymbolState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0B20FF9F14B00D7773A /* PKJSSymbolState.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB09C0FF9F14B00D7773A /* PKJSSymbolState.m */; };
-		D34BB0B30FF9F14B00D7773A /* PKJSToken.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB09D0FF9F14B00D7773A /* PKJSToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0B40FF9F14B00D7773A /* PKJSToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB09E0FF9F14B00D7773A /* PKJSToken.m */; };
-		D34BB0B50FF9F14B00D7773A /* PKJSTokenAssembly.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB09F0FF9F14B00D7773A /* PKJSTokenAssembly.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0B60FF9F14B00D7773A /* PKJSTokenAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0A00FF9F14B00D7773A /* PKJSTokenAssembly.m */; };
-		D34BB0B70FF9F14B00D7773A /* PKJSTokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0A10FF9F14B00D7773A /* PKJSTokenizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0B80FF9F14B00D7773A /* PKJSTokenizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0A20FF9F14B00D7773A /* PKJSTokenizer.m */; };
-		D34BB0B90FF9F14B00D7773A /* PKJSTokenizerState.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0A30FF9F14B00D7773A /* PKJSTokenizerState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0BA0FF9F14B00D7773A /* PKJSTokenizerState.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0A40FF9F14B00D7773A /* PKJSTokenizerState.m */; };
-		D34BB0BB0FF9F14B00D7773A /* PKJSWhitespaceState.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0A50FF9F14B00D7773A /* PKJSWhitespaceState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0BC0FF9F14B00D7773A /* PKJSWhitespaceState.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0A60FF9F14B00D7773A /* PKJSWhitespaceState.m */; };
-		D34BB0BD0FF9F14B00D7773A /* PKJSWordState.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0A70FF9F14B00D7773A /* PKJSWordState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0BE0FF9F14B00D7773A /* PKJSWordState.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0A80FF9F14B00D7773A /* PKJSWordState.m */; };
-		D34BB0E60FF9F28000D7773A /* PKJSAlternation.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0D20FF9F28000D7773A /* PKJSAlternation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0E70FF9F28000D7773A /* PKJSAlternation.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0D30FF9F28000D7773A /* PKJSAlternation.m */; };
-		D34BB0E80FF9F28000D7773A /* PKJSAny.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0D40FF9F28000D7773A /* PKJSAny.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0E90FF9F28000D7773A /* PKJSAny.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0D50FF9F28000D7773A /* PKJSAny.m */; };
-		D34BB0EA0FF9F28000D7773A /* PKJSAssemblerAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0D60FF9F28000D7773A /* PKJSAssemblerAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0EB0FF9F28000D7773A /* PKJSAssemblerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0D70FF9F28000D7773A /* PKJSAssemblerAdapter.m */; };
-		D34BB0EC0FF9F28000D7773A /* PKJSCollectionParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0D80FF9F28000D7773A /* PKJSCollectionParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0ED0FF9F28000D7773A /* PKJSCollectionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0D90FF9F28000D7773A /* PKJSCollectionParser.m */; };
-		D34BB0EE0FF9F28000D7773A /* PKJSEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0DA0FF9F28000D7773A /* PKJSEmpty.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0EF0FF9F28000D7773A /* PKJSEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0DB0FF9F28000D7773A /* PKJSEmpty.m */; };
-		D34BB0F00FF9F28000D7773A /* PKJSParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0DC0FF9F28000D7773A /* PKJSParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0F10FF9F28000D7773A /* PKJSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0DD0FF9F28000D7773A /* PKJSParser.m */; };
-		D34BB0F20FF9F28000D7773A /* PKJSRepetition.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0DE0FF9F28000D7773A /* PKJSRepetition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0F30FF9F28000D7773A /* PKJSRepetition.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0DF0FF9F28000D7773A /* PKJSRepetition.m */; };
-		D34BB0F40FF9F28000D7773A /* PKJSSequence.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0E00FF9F28000D7773A /* PKJSSequence.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0F50FF9F28000D7773A /* PKJSSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0E10FF9F28000D7773A /* PKJSSequence.m */; };
-		D34BB0F60FF9F28000D7773A /* PKJSTerminal.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0E20FF9F28000D7773A /* PKJSTerminal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0F70FF9F28000D7773A /* PKJSTerminal.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0E30FF9F28000D7773A /* PKJSTerminal.m */; };
-		D34BB0F80FF9F28000D7773A /* PKJSTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0E40FF9F28000D7773A /* PKJSTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB0F90FF9F28000D7773A /* PKJSTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0E50FF9F28000D7773A /* PKJSTrack.m */; };
-		D34BB1140FF9F36200D7773A /* PKJSCaseInsensitiveLiteral.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB0FE0FF9F36200D7773A /* PKJSCaseInsensitiveLiteral.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB1150FF9F36200D7773A /* PKJSCaseInsensitiveLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB0FF0FF9F36200D7773A /* PKJSCaseInsensitiveLiteral.m */; };
-		D34BB1160FF9F36200D7773A /* PKJSComment.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB1000FF9F36200D7773A /* PKJSComment.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB1170FF9F36200D7773A /* PKJSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB1010FF9F36200D7773A /* PKJSComment.m */; };
-		D34BB1180FF9F36200D7773A /* PKJSDelimitedString.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB1020FF9F36200D7773A /* PKJSDelimitedString.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB1190FF9F36200D7773A /* PKJSDelimitedString.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB1030FF9F36200D7773A /* PKJSDelimitedString.m */; };
-		D34BB11A0FF9F36200D7773A /* PKJSLiteral.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB1040FF9F36200D7773A /* PKJSLiteral.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB11B0FF9F36200D7773A /* PKJSLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB1050FF9F36200D7773A /* PKJSLiteral.m */; };
-		D34BB11C0FF9F36200D7773A /* PKJSLowercaseWord.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB1060FF9F36200D7773A /* PKJSLowercaseWord.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB11D0FF9F36200D7773A /* PKJSLowercaseWord.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB1070FF9F36200D7773A /* PKJSLowercaseWord.m */; };
-		D34BB11E0FF9F36200D7773A /* PKJSNum.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB1080FF9F36200D7773A /* PKJSNum.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB11F0FF9F36200D7773A /* PKJSNum.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB1090FF9F36200D7773A /* PKJSNum.m */; };
-		D34BB1200FF9F36200D7773A /* PKJSPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB10A0FF9F36200D7773A /* PKJSPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB1210FF9F36200D7773A /* PKJSPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB10B0FF9F36200D7773A /* PKJSPattern.m */; };
-		D34BB1220FF9F36200D7773A /* PKJSQuotedString.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB10C0FF9F36200D7773A /* PKJSQuotedString.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB1230FF9F36200D7773A /* PKJSQuotedString.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB10D0FF9F36200D7773A /* PKJSQuotedString.m */; };
-		D34BB1240FF9F36200D7773A /* PKJSSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB10E0FF9F36200D7773A /* PKJSSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB1250FF9F36200D7773A /* PKJSSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB10F0FF9F36200D7773A /* PKJSSymbol.m */; };
-		D34BB1260FF9F36200D7773A /* PKJSUppercaseWord.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB1100FF9F36200D7773A /* PKJSUppercaseWord.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB1270FF9F36200D7773A /* PKJSUppercaseWord.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB1110FF9F36200D7773A /* PKJSUppercaseWord.m */; };
-		D34BB1280FF9F36200D7773A /* PKJSWord.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BB1120FF9F36200D7773A /* PKJSWord.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D34BB1290FF9F36200D7773A /* PKJSWord.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BB1130FF9F36200D7773A /* PKJSWord.m */; };
 		D355C62E0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D355C62C0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m */; };
 		D355C6A70FE9F704006A91A4 /* nspredicate.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D35384EC0FE9691100926552 /* nspredicate.grammar */; };
 		D35F4A8711643630003811F3 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4A8511643630003811F3 /* PKEmailState.m */; };
@@ -600,7 +522,6 @@
 		D380B5390F0D7DE30009EC13 /* css.css in Resources */ = {isa = PBXBuildFile; fileRef = D380B5370F0D7DDE0009EC13 /* css.css */; };
 		D380B5950F0D82F90009EC13 /* example.css in Resources */ = {isa = PBXBuildFile; fileRef = D380B5930F0D82F60009EC13 /* example.css */; };
 		D380B9800F0EF3860009EC13 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3DCB35C0EF5E52500DE5110 /* OCMock.framework */; };
-		D380BAA30F0F1D980009EC13 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D380BAA20F0F1D980009EC13 /* JavaScriptCore.framework */; };
 		D381AADC15D5953A004F690C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36E9F860E5A795400496BD3 /* libxml2.dylib */; };
 		D383498C0F0C0CF30055E4E0 /* json_with_comments.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */; };
 		D38349BD0F0C0D910055E4E0 /* json_with_comments.css in Resources */ = {isa = PBXBuildFile; fileRef = D38349BB0F0C0D910055E4E0 /* json_with_comments.css */; };
@@ -609,19 +530,7 @@
 		D385FA260F04993500DB2946 /* json.css in Resources */ = {isa = PBXBuildFile; fileRef = D385FA240F04993500DB2946 /* json.css */; };
 		D385FD440F05A88C00DB2946 /* TDMiniCSSAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D385FD410F05A88C00DB2946 /* TDMiniCSSAssembler.m */; };
 		D385FD6C0F05A99900DB2946 /* mini_css.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D385FD6B0F05A99900DB2946 /* mini_css.grammar */; };
-		D389F1D50F19666500558235 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
-		D389F20B0F196A9200558235 /* JSParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D389F1CE0F1965E600558235 /* JSParseKit.framework */; };
-		D389F20C0F196A9200558235 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
-		D389F20E0F196A9200558235 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D389F20D0F196A9200558235 /* WebKit.framework */; };
-		D389F2E40F196CAE00558235 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D389F2E30F196CAE00558235 /* main.m */; };
-		D389F3430F197DDC00558235 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D380BAA20F0F1D980009EC13 /* JavaScriptCore.framework */; };
-		D389F34E0F197DF500558235 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D380BAA20F0F1D980009EC13 /* JavaScriptCore.framework */; };
-		D389F37A0F197E8000558235 /* JSDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D389F2E90F196F5B00558235 /* JSDemoAppDelegate.m */; };
-		D389F38F0F19800400558235 /* DefaultValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = D389F38E0F19800400558235 /* DefaultValues.plist */; };
-		D389F4620F198A8800558235 /* Test.html in Resources */ = {isa = PBXBuildFile; fileRef = D389F4610F198A8800558235 /* Test.html */; };
-		D389F5590F19B7BC00558235 /* JSDemoAppMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D389F5580F19B7BC00558235 /* JSDemoAppMainMenu.xib */; };
 		D389F5B80F19C76A00558235 /* TDJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D389F5B30F19C76A00558235 /* TDJsonParser.m */; };
-		D389FBCD0F1B25E200558235 /* ParserTest.html in Resources */ = {isa = PBXBuildFile; fileRef = D389FBCC0F1B25E200558235 /* ParserTest.html */; };
 		D38BC893171494CE00BF530D /* GreedParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC892171494CE00BF530D /* GreedParserTest.m */; };
 		D38BC895171494E900BF530D /* greed.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D38BC894171494E800BF530D /* greed.grammar */; };
 		D38BC898171494FE00BF530D /* GreedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BC897171494FE00BF530D /* GreedParser.m */; };
@@ -700,7 +609,6 @@
 		D3B986AE1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986AF1700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3B986B01700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
-		D3B986B11700D3A9000CBCAE /* expression.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B986AD1700D3A9000CBCAE /* expression.grammar */; };
 		D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBBC9C0FEC9756007DF30D /* TDXMLParser.m */; };
 		D3BBBCC10FECD477007DF30D /* xml.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8800FEB36A1006A91A4 /* xml.grammar */; };
 		D3BD395F1729D01F00FC6549 /* PKSPreCallbackTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BD395E1729D01F00FC6549 /* PKSPreCallbackTemplate.txt */; };
@@ -1073,20 +981,6 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = TODParseKit;
 		};
-		D389F1D30F19665C00558235 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = TDParseKit;
-		};
-		D389F2090F196A8000558235 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D389F1CD0F1965E600558235;
-			remoteInfo = TDJSParseKit;
-		};
 		D3D975D616E8067900D55EAB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1195,7 +1089,6 @@
 		D30DA19A17274BF100A1A3EC /* PKSTryAndRecoverEOFTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSTryAndRecoverEOFTemplate.txt; path = res/PKSTryAndRecoverEOFTemplate.txt; sourceTree = "<group>"; };
 		D30DA19E17284EC100A1A3EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D30DA1A017284EFF00A1A3EC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		D30DA1A217284F5100A1A3EC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D30DA1A7172850A400A1A3EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D30DA1A9172850BB00A1A3EC /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib/libicucore.dylib; sourceTree = DEVELOPER_DIR; };
 		D3126D040FFD9BA700CBF4C4 /* PKNegation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKNegation.m; path = src/PKNegation.m; sourceTree = "<group>"; };
@@ -1458,82 +1351,6 @@
 		D34BAFD50FF9E95500D7773A /* NSString+ParseKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+ParseKitAdditions.h"; path = "src/NSString+ParseKitAdditions.h"; sourceTree = "<group>"; };
 		D34BAFD60FF9E95500D7773A /* NSString+ParseKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+ParseKitAdditions.m"; path = "src/NSString+ParseKitAdditions.m"; sourceTree = "<group>"; };
 		D34BAFD80FF9E95500D7773A /* PKParserFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKParserFactory.m; path = src/PKParserFactory.m; sourceTree = "<group>"; };
-		D34BB04E0FF9EC4E00D7773A /* JSParseKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "JSParseKit-Info.plist"; sourceTree = "<group>"; };
-		D34BB0660FF9EDDF00D7773A /* JSParseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSParseKit.h; path = jssrc/JSParseKit.h; sourceTree = "<group>"; };
-		D34BB0670FF9EDDF00D7773A /* JSParseKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSParseKit.m; path = jssrc/JSParseKit.m; sourceTree = "<group>"; };
-		D34BB06A0FF9EE4000D7773A /* PKJSAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSAssembly.h; path = jssrc/PKJSAssembly.h; sourceTree = "<group>"; };
-		D34BB06B0FF9EE4000D7773A /* PKJSAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSAssembly.m; path = jssrc/PKJSAssembly.m; sourceTree = "<group>"; };
-		D34BB06C0FF9EE4000D7773A /* PKJSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSUtils.h; path = jssrc/PKJSUtils.h; sourceTree = "<group>"; };
-		D34BB06D0FF9EE4000D7773A /* PKJSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSUtils.m; path = jssrc/PKJSUtils.m; sourceTree = "<group>"; };
-		D34BB06E0FF9EE4000D7773A /* PKJSUtils_macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSUtils_macros.h; path = jssrc/PKJSUtils_macros.h; sourceTree = "<group>"; };
-		D34BB06F0FF9EE4000D7773A /* PKJSValueHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSValueHolder.h; path = jssrc/PKJSValueHolder.h; sourceTree = "<group>"; };
-		D34BB0700FF9EE4000D7773A /* PKJSValueHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSValueHolder.m; path = jssrc/PKJSValueHolder.m; sourceTree = "<group>"; };
-		D34BB08D0FF9EF9D00D7773A /* PKJSCharacterAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSCharacterAssembly.h; path = jssrc/PKJSCharacterAssembly.h; sourceTree = "<group>"; };
-		D34BB08E0FF9EF9D00D7773A /* PKJSCharacterAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSCharacterAssembly.m; path = jssrc/PKJSCharacterAssembly.m; sourceTree = "<group>"; };
-		D34BB0930FF9F14B00D7773A /* PKJSCommentState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSCommentState.h; path = jssrc/PKJSCommentState.h; sourceTree = "<group>"; };
-		D34BB0940FF9F14B00D7773A /* PKJSCommentState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSCommentState.m; path = jssrc/PKJSCommentState.m; sourceTree = "<group>"; };
-		D34BB0950FF9F14B00D7773A /* PKJSDelimitState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSDelimitState.h; path = jssrc/PKJSDelimitState.h; sourceTree = "<group>"; };
-		D34BB0960FF9F14B00D7773A /* PKJSDelimitState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSDelimitState.m; path = jssrc/PKJSDelimitState.m; sourceTree = "<group>"; };
-		D34BB0970FF9F14B00D7773A /* PKJSNumberState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSNumberState.h; path = jssrc/PKJSNumberState.h; sourceTree = "<group>"; };
-		D34BB0980FF9F14B00D7773A /* PKJSNumberState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSNumberState.m; path = jssrc/PKJSNumberState.m; sourceTree = "<group>"; };
-		D34BB0990FF9F14B00D7773A /* PKJSQuoteState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSQuoteState.h; path = jssrc/PKJSQuoteState.h; sourceTree = "<group>"; };
-		D34BB09A0FF9F14B00D7773A /* PKJSQuoteState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSQuoteState.m; path = jssrc/PKJSQuoteState.m; sourceTree = "<group>"; };
-		D34BB09B0FF9F14B00D7773A /* PKJSSymbolState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSSymbolState.h; path = jssrc/PKJSSymbolState.h; sourceTree = "<group>"; };
-		D34BB09C0FF9F14B00D7773A /* PKJSSymbolState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSSymbolState.m; path = jssrc/PKJSSymbolState.m; sourceTree = "<group>"; };
-		D34BB09D0FF9F14B00D7773A /* PKJSToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSToken.h; path = jssrc/PKJSToken.h; sourceTree = "<group>"; };
-		D34BB09E0FF9F14B00D7773A /* PKJSToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSToken.m; path = jssrc/PKJSToken.m; sourceTree = "<group>"; };
-		D34BB09F0FF9F14B00D7773A /* PKJSTokenAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSTokenAssembly.h; path = jssrc/PKJSTokenAssembly.h; sourceTree = "<group>"; };
-		D34BB0A00FF9F14B00D7773A /* PKJSTokenAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSTokenAssembly.m; path = jssrc/PKJSTokenAssembly.m; sourceTree = "<group>"; };
-		D34BB0A10FF9F14B00D7773A /* PKJSTokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSTokenizer.h; path = jssrc/PKJSTokenizer.h; sourceTree = "<group>"; };
-		D34BB0A20FF9F14B00D7773A /* PKJSTokenizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSTokenizer.m; path = jssrc/PKJSTokenizer.m; sourceTree = "<group>"; };
-		D34BB0A30FF9F14B00D7773A /* PKJSTokenizerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSTokenizerState.h; path = jssrc/PKJSTokenizerState.h; sourceTree = "<group>"; };
-		D34BB0A40FF9F14B00D7773A /* PKJSTokenizerState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSTokenizerState.m; path = jssrc/PKJSTokenizerState.m; sourceTree = "<group>"; };
-		D34BB0A50FF9F14B00D7773A /* PKJSWhitespaceState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSWhitespaceState.h; path = jssrc/PKJSWhitespaceState.h; sourceTree = "<group>"; };
-		D34BB0A60FF9F14B00D7773A /* PKJSWhitespaceState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSWhitespaceState.m; path = jssrc/PKJSWhitespaceState.m; sourceTree = "<group>"; };
-		D34BB0A70FF9F14B00D7773A /* PKJSWordState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSWordState.h; path = jssrc/PKJSWordState.h; sourceTree = "<group>"; };
-		D34BB0A80FF9F14B00D7773A /* PKJSWordState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSWordState.m; path = jssrc/PKJSWordState.m; sourceTree = "<group>"; };
-		D34BB0D20FF9F28000D7773A /* PKJSAlternation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSAlternation.h; path = jssrc/PKJSAlternation.h; sourceTree = "<group>"; };
-		D34BB0D30FF9F28000D7773A /* PKJSAlternation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSAlternation.m; path = jssrc/PKJSAlternation.m; sourceTree = "<group>"; };
-		D34BB0D40FF9F28000D7773A /* PKJSAny.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSAny.h; path = jssrc/PKJSAny.h; sourceTree = "<group>"; };
-		D34BB0D50FF9F28000D7773A /* PKJSAny.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSAny.m; path = jssrc/PKJSAny.m; sourceTree = "<group>"; };
-		D34BB0D60FF9F28000D7773A /* PKJSAssemblerAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSAssemblerAdapter.h; path = jssrc/PKJSAssemblerAdapter.h; sourceTree = "<group>"; };
-		D34BB0D70FF9F28000D7773A /* PKJSAssemblerAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSAssemblerAdapter.m; path = jssrc/PKJSAssemblerAdapter.m; sourceTree = "<group>"; };
-		D34BB0D80FF9F28000D7773A /* PKJSCollectionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSCollectionParser.h; path = jssrc/PKJSCollectionParser.h; sourceTree = "<group>"; };
-		D34BB0D90FF9F28000D7773A /* PKJSCollectionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSCollectionParser.m; path = jssrc/PKJSCollectionParser.m; sourceTree = "<group>"; };
-		D34BB0DA0FF9F28000D7773A /* PKJSEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSEmpty.h; path = jssrc/PKJSEmpty.h; sourceTree = "<group>"; };
-		D34BB0DB0FF9F28000D7773A /* PKJSEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSEmpty.m; path = jssrc/PKJSEmpty.m; sourceTree = "<group>"; };
-		D34BB0DC0FF9F28000D7773A /* PKJSParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSParser.h; path = jssrc/PKJSParser.h; sourceTree = "<group>"; };
-		D34BB0DD0FF9F28000D7773A /* PKJSParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSParser.m; path = jssrc/PKJSParser.m; sourceTree = "<group>"; };
-		D34BB0DE0FF9F28000D7773A /* PKJSRepetition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSRepetition.h; path = jssrc/PKJSRepetition.h; sourceTree = "<group>"; };
-		D34BB0DF0FF9F28000D7773A /* PKJSRepetition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSRepetition.m; path = jssrc/PKJSRepetition.m; sourceTree = "<group>"; };
-		D34BB0E00FF9F28000D7773A /* PKJSSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSSequence.h; path = jssrc/PKJSSequence.h; sourceTree = "<group>"; };
-		D34BB0E10FF9F28000D7773A /* PKJSSequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSSequence.m; path = jssrc/PKJSSequence.m; sourceTree = "<group>"; };
-		D34BB0E20FF9F28000D7773A /* PKJSTerminal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSTerminal.h; path = jssrc/PKJSTerminal.h; sourceTree = "<group>"; };
-		D34BB0E30FF9F28000D7773A /* PKJSTerminal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSTerminal.m; path = jssrc/PKJSTerminal.m; sourceTree = "<group>"; };
-		D34BB0E40FF9F28000D7773A /* PKJSTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSTrack.h; path = jssrc/PKJSTrack.h; sourceTree = "<group>"; };
-		D34BB0E50FF9F28000D7773A /* PKJSTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSTrack.m; path = jssrc/PKJSTrack.m; sourceTree = "<group>"; };
-		D34BB0FE0FF9F36200D7773A /* PKJSCaseInsensitiveLiteral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSCaseInsensitiveLiteral.h; path = jssrc/PKJSCaseInsensitiveLiteral.h; sourceTree = "<group>"; };
-		D34BB0FF0FF9F36200D7773A /* PKJSCaseInsensitiveLiteral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSCaseInsensitiveLiteral.m; path = jssrc/PKJSCaseInsensitiveLiteral.m; sourceTree = "<group>"; };
-		D34BB1000FF9F36200D7773A /* PKJSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSComment.h; path = jssrc/PKJSComment.h; sourceTree = "<group>"; };
-		D34BB1010FF9F36200D7773A /* PKJSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSComment.m; path = jssrc/PKJSComment.m; sourceTree = "<group>"; };
-		D34BB1020FF9F36200D7773A /* PKJSDelimitedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSDelimitedString.h; path = jssrc/PKJSDelimitedString.h; sourceTree = "<group>"; };
-		D34BB1030FF9F36200D7773A /* PKJSDelimitedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSDelimitedString.m; path = jssrc/PKJSDelimitedString.m; sourceTree = "<group>"; };
-		D34BB1040FF9F36200D7773A /* PKJSLiteral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSLiteral.h; path = jssrc/PKJSLiteral.h; sourceTree = "<group>"; };
-		D34BB1050FF9F36200D7773A /* PKJSLiteral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSLiteral.m; path = jssrc/PKJSLiteral.m; sourceTree = "<group>"; };
-		D34BB1060FF9F36200D7773A /* PKJSLowercaseWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSLowercaseWord.h; path = jssrc/PKJSLowercaseWord.h; sourceTree = "<group>"; };
-		D34BB1070FF9F36200D7773A /* PKJSLowercaseWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSLowercaseWord.m; path = jssrc/PKJSLowercaseWord.m; sourceTree = "<group>"; };
-		D34BB1080FF9F36200D7773A /* PKJSNum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSNum.h; path = jssrc/PKJSNum.h; sourceTree = "<group>"; };
-		D34BB1090FF9F36200D7773A /* PKJSNum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSNum.m; path = jssrc/PKJSNum.m; sourceTree = "<group>"; };
-		D34BB10A0FF9F36200D7773A /* PKJSPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSPattern.h; path = jssrc/PKJSPattern.h; sourceTree = "<group>"; };
-		D34BB10B0FF9F36200D7773A /* PKJSPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSPattern.m; path = jssrc/PKJSPattern.m; sourceTree = "<group>"; };
-		D34BB10C0FF9F36200D7773A /* PKJSQuotedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSQuotedString.h; path = jssrc/PKJSQuotedString.h; sourceTree = "<group>"; };
-		D34BB10D0FF9F36200D7773A /* PKJSQuotedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSQuotedString.m; path = jssrc/PKJSQuotedString.m; sourceTree = "<group>"; };
-		D34BB10E0FF9F36200D7773A /* PKJSSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSSymbol.h; path = jssrc/PKJSSymbol.h; sourceTree = "<group>"; };
-		D34BB10F0FF9F36200D7773A /* PKJSSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSSymbol.m; path = jssrc/PKJSSymbol.m; sourceTree = "<group>"; };
-		D34BB1100FF9F36200D7773A /* PKJSUppercaseWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSUppercaseWord.h; path = jssrc/PKJSUppercaseWord.h; sourceTree = "<group>"; };
-		D34BB1110FF9F36200D7773A /* PKJSUppercaseWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSUppercaseWord.m; path = jssrc/PKJSUppercaseWord.m; sourceTree = "<group>"; };
-		D34BB1120FF9F36200D7773A /* PKJSWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSWord.h; path = jssrc/PKJSWord.h; sourceTree = "<group>"; };
-		D34BB1130FF9F36200D7773A /* PKJSWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSWord.m; path = jssrc/PKJSWord.m; sourceTree = "<group>"; };
 		D3521F520E5FA1B0009681F9 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLReader.h; path = test/XMLReader.h; sourceTree = "<group>"; };
 		D3521F530E5FA1B0009681F9 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLReader.m; path = test/XMLReader.m; sourceTree = "<group>"; };
 		D3521F540E5FA1B0009681F9 /* XMLReaderTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLReaderTest.h; path = test/XMLReaderTest.h; sourceTree = "<group>"; };
@@ -1626,7 +1443,6 @@
 		D380B5930F0D82F60009EC13 /* example.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = example.css; path = res/example.css; sourceTree = "<group>"; };
 		D380BA5F0F0F06CD0009EC13 /* TDParserFactoryTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryTest.h; path = test/TDParserFactoryTest.h; sourceTree = "<group>"; };
 		D380BA600F0F06CD0009EC13 /* TDParserFactoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryTest.m; path = test/TDParserFactoryTest.m; sourceTree = "<group>"; };
-		D380BAA20F0F1D980009EC13 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = /System/Library/Frameworks/JavaScriptCore.framework; sourceTree = "<absolute>"; };
 		D38205BC0EEE48EE004340DD /* TDTokenTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTokenTest.h; path = test/TDTokenTest.h; sourceTree = "<group>"; };
 		D38205BD0EEE48EE004340DD /* TDTokenTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTokenTest.m; path = test/TDTokenTest.m; sourceTree = "<group>"; };
 		D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = json_with_comments.grammar; path = res/json_with_comments.grammar; sourceTree = "<group>"; };
@@ -1644,20 +1460,10 @@
 		D385FD6B0F05A99900DB2946 /* mini_css.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mini_css.grammar; path = res/mini_css.grammar; sourceTree = "<group>"; };
 		D389A0B00F1FCC99003B43BD /* RelaxParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RelaxParser.h; path = test/RelaxParser.h; sourceTree = "<group>"; };
 		D389A0B10F1FCC99003B43BD /* RelaxParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RelaxParser.m; path = test/RelaxParser.m; sourceTree = "<group>"; };
-		D389F1CE0F1965E600558235 /* JSParseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSParseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D389F2030F196A7500558235 /* JSDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D389F20D0F196A9200558235 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		D389F2E30F196CAE00558235 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = jsdemoapp/main.m; sourceTree = "<group>"; };
-		D389F2E80F196F5B00558235 /* JSDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDemoAppDelegate.h; path = jsdemoapp/JSDemoAppDelegate.h; sourceTree = "<group>"; };
-		D389F2E90F196F5B00558235 /* JSDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDemoAppDelegate.m; path = jsdemoapp/JSDemoAppDelegate.m; sourceTree = "<group>"; };
-		D389F38E0F19800400558235 /* DefaultValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = DefaultValues.plist; path = jsdemoapp/DefaultValues.plist; sourceTree = "<group>"; };
-		D389F4610F198A8800558235 /* Test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = Test.html; path = jsdemoapp/Test.html; sourceTree = "<group>"; };
-		D389F5580F19B7BC00558235 /* JSDemoAppMainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = JSDemoAppMainMenu.xib; path = jsdemoapp/JSDemoAppMainMenu.xib; sourceTree = "<group>"; };
 		D389F5B20F19C76A00558235 /* TDJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDJsonParser.h; path = test/TDJsonParser.h; sourceTree = "<group>"; };
 		D389F5B30F19C76A00558235 /* TDJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDJsonParser.m; path = test/TDJsonParser.m; sourceTree = "<group>"; };
 		D389F5B40F19C76A00558235 /* TDJsonParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDJsonParserTest.h; path = test/TDJsonParserTest.h; sourceTree = "<group>"; };
 		D389F5B50F19C76A00558235 /* TDJsonParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDJsonParserTest.m; path = test/TDJsonParserTest.m; sourceTree = "<group>"; };
-		D389FBCC0F1B25E200558235 /* ParserTest.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = ParserTest.html; path = jsdemoapp/ParserTest.html; sourceTree = "<group>"; };
 		D38BC88E1710AF6D00BF530D /* PKSMethodMemoizationTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSMethodMemoizationTemplate.txt; path = res/PKSMethodMemoizationTemplate.txt; sourceTree = "<group>"; };
 		D38BC891171494CD00BF530D /* GreedParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreedParserTest.h; path = test/GreedParserTest.h; sourceTree = "<group>"; };
 		D38BC892171494CE00BF530D /* GreedParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GreedParserTest.m; path = test/GreedParserTest.m; sourceTree = "<group>"; };
@@ -1955,7 +1761,6 @@
 		D3F0E2470FFE8EB900C9DF74 /* PKQuoteState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKQuoteState.h; path = include/ParseKit/PKQuoteState.h; sourceTree = "<group>"; };
 		D3F0E3290FFEA1E200C9DF74 /* DebugApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DebugApp-Info.plist"; sourceTree = "<group>"; };
 		D3F0E3600FFEA2B500C9DF74 /* DemoApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "DemoApp-Info.plist"; path = "demoapp/DemoApp-Info.plist"; sourceTree = "<group>"; };
-		D3F0E37A0FFEA39000C9DF74 /* JSDemoApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "JSDemoApp-Info.plist"; path = "jsdemoapp/JSDemoApp-Info.plist"; sourceTree = "<group>"; };
 		D3F55F5F1025737D00DD6DB1 /* TDParseTreeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParseTreeTest.h; path = test/TDParseTreeTest.h; sourceTree = "<group>"; };
 		D3F55F601025737D00DD6DB1 /* TDParseTreeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParseTreeTest.m; path = test/TDParseTreeTest.m; sourceTree = "<group>"; };
 		D3F5629810266CFC00DD6DB1 /* PKParseTreeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKParseTreeView.h; path = demoapp/PKParseTreeView.h; sourceTree = "<group>"; };
@@ -2013,7 +1818,6 @@
 				D30DA1AC172850F500A1A3EC /* Cocoa.framework in Frameworks */,
 				D341850C0E520D640081B0DC /* ParseKit.framework in Frameworks */,
 				D380B9800F0EF3860009EC13 /* OCMock.framework in Frameworks */,
-				D380BAA30F0F1D980009EC13 /* JavaScriptCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2024,32 +1828,9 @@
 				D381AADC15D5953A004F690C /* libxml2.dylib in Frameworks */,
 				D30DA1A417284F9900A1A3EC /* libicucore.dylib in Frameworks */,
 				D30DA1A117284EFF00A1A3EC /* Cocoa.framework in Frameworks */,
-				D30DA1A317284F5100A1A3EC /* CoreData.framework in Frameworks */,
-				D3D975D516E8067300D55EAB /* ParseKit.framework in Frameworks */,
 				D37D8DC91571A4F700CDB822 /* SenTestingKit.framework in Frameworks */,
 				D37D8E5A1571A5BA00CDB822 /* OCMock.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D389F1CC0F1965E600558235 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D30DA1A617284FF100A1A3EC /* Foundation.framework in Frameworks */,
-				D389F34E0F197DF500558235 /* JavaScriptCore.framework in Frameworks */,
-				D389F1D50F19666500558235 /* ParseKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D389F2010F196A7500558235 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D30DA1AD172850FA00A1A3EC /* Cocoa.framework in Frameworks */,
-				D389F3430F197DDC00558235 /* JavaScriptCore.framework in Frameworks */,
-				D389F20E0F196A9200558235 /* WebKit.framework in Frameworks */,
-				D389F20C0F196A9200558235 /* ParseKit.framework in Frameworks */,
-				D389F20B0F196A9200558235 /* JSParseKit.framework in Frameworks */,
+				D3D975D516E8067300D55EAB /* ParseKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2078,10 +1859,8 @@
 			isa = PBXGroup;
 			children = (
 				8DC2EF5B0486A6940098B216 /* ParseKit.framework */,
-				D389F1CE0F1965E600558235 /* JSParseKit.framework */,
 				D33494100E2963FD00406085 /* DemoApp.app */,
 				D34185040E520D3F0081B0DC /* DebugApp.app */,
-				D389F2030F196A7500558235 /* JSDemoApp.app */,
 				D3FDC5830FFC4BFC00F1F797 /* libParseKitMobile.a */,
 				D37D8DC61571A4F700CDB822 /* Tests.octest */,
 				D3D9753216E7F36700D55EAB /* libParseKit.a */,
@@ -2094,7 +1873,6 @@
 			isa = PBXGroup;
 			children = (
 				D30DA22F1728AA3100A1A3EC /* ParseKit */,
-				D30DA2311728AA6000A1A3EC /* JSParseKit */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -2146,9 +1924,6 @@
 				D36C560B0FD363D500141CB7 /* libicucore.dylib */,
 				D30DA1A017284EFF00A1A3EC /* Cocoa.framework */,
 				D30DA19E17284EC100A1A3EC /* Foundation.framework */,
-				D30DA1A217284F5100A1A3EC /* CoreData.framework */,
-				D389F20D0F196A9200558235 /* WebKit.framework */,
-				D380BAA20F0F1D980009EC13 /* JavaScriptCore.framework */,
 				D37D8DC81571A4F700CDB822 /* SenTestingKit.framework */,
 				D3DCB35C0EF5E52500DE5110 /* OCMock.framework */,
 			);
@@ -2249,15 +2024,6 @@
 				089C1665FE841158C02AAC07 /* Resources */,
 			);
 			name = ParseKit;
-			sourceTree = "<group>";
-		};
-		D30DA2311728AA6000A1A3EC /* JSParseKit */ = {
-			isa = PBXGroup;
-			children = (
-				D380BA950F0F1C450009EC13 /* JSParseKit Framework */,
-				D389F2CA0F196ACF00558235 /* JSDemoApp */,
-			);
-			name = JSParseKit;
 			sourceTree = "<group>";
 		};
 		D318EAE30E2FD5B6009F47DF /* json */ = {
@@ -2747,26 +2513,6 @@
 			path = NewTests;
 			sourceTree = "<group>";
 		};
-		D380BA950F0F1C450009EC13 /* JSParseKit Framework */ = {
-			isa = PBXGroup;
-			children = (
-				D34BB04E0FF9EC4E00D7773A /* JSParseKit-Info.plist */,
-				D34BB0660FF9EDDF00D7773A /* JSParseKit.h */,
-				D34BB0670FF9EDDF00D7773A /* JSParseKit.m */,
-				D34BB06C0FF9EE4000D7773A /* PKJSUtils.h */,
-				D34BB06D0FF9EE4000D7773A /* PKJSUtils.m */,
-				D34BB06E0FF9EE4000D7773A /* PKJSUtils_macros.h */,
-				D34BB06F0FF9EE4000D7773A /* PKJSValueHolder.h */,
-				D34BB0700FF9EE4000D7773A /* PKJSValueHolder.m */,
-				D34BB06A0FF9EE4000D7773A /* PKJSAssembly.h */,
-				D34BB06B0FF9EE4000D7773A /* PKJSAssembly.m */,
-				D389F8C40F1AC89A00558235 /* Chars */,
-				D389F59A0F19BBAE00558235 /* Tokens */,
-				D389F59B0F19BBD300558235 /* Parse */,
-			);
-			name = "JSParseKit Framework";
-			sourceTree = "<group>";
-		};
 		D389A0AE0F1FCC7A003B43BD /* relaxng */ = {
 			isa = PBXGroup;
 			children = (
@@ -2774,124 +2520,6 @@
 				D389A0B10F1FCC99003B43BD /* RelaxParser.m */,
 			);
 			name = relaxng;
-			sourceTree = "<group>";
-		};
-		D389F2CA0F196ACF00558235 /* JSDemoApp */ = {
-			isa = PBXGroup;
-			children = (
-				D3F0E37A0FFEA39000C9DF74 /* JSDemoApp-Info.plist */,
-				D389F2E30F196CAE00558235 /* main.m */,
-				D389F2E80F196F5B00558235 /* JSDemoAppDelegate.h */,
-				D389F2E90F196F5B00558235 /* JSDemoAppDelegate.m */,
-				D389F38E0F19800400558235 /* DefaultValues.plist */,
-				D389F4610F198A8800558235 /* Test.html */,
-				D389FBCC0F1B25E200558235 /* ParserTest.html */,
-				D389F5580F19B7BC00558235 /* JSDemoAppMainMenu.xib */,
-			);
-			name = JSDemoApp;
-			sourceTree = "<group>";
-		};
-		D389F59A0F19BBAE00558235 /* Tokens */ = {
-			isa = PBXGroup;
-			children = (
-				D34BB0930FF9F14B00D7773A /* PKJSCommentState.h */,
-				D34BB0940FF9F14B00D7773A /* PKJSCommentState.m */,
-				D34BB0950FF9F14B00D7773A /* PKJSDelimitState.h */,
-				D34BB0960FF9F14B00D7773A /* PKJSDelimitState.m */,
-				D34BB0970FF9F14B00D7773A /* PKJSNumberState.h */,
-				D34BB0980FF9F14B00D7773A /* PKJSNumberState.m */,
-				D34BB0990FF9F14B00D7773A /* PKJSQuoteState.h */,
-				D34BB09A0FF9F14B00D7773A /* PKJSQuoteState.m */,
-				D34BB09B0FF9F14B00D7773A /* PKJSSymbolState.h */,
-				D34BB09C0FF9F14B00D7773A /* PKJSSymbolState.m */,
-				D34BB09D0FF9F14B00D7773A /* PKJSToken.h */,
-				D34BB09E0FF9F14B00D7773A /* PKJSToken.m */,
-				D34BB09F0FF9F14B00D7773A /* PKJSTokenAssembly.h */,
-				D34BB0A00FF9F14B00D7773A /* PKJSTokenAssembly.m */,
-				D34BB0A10FF9F14B00D7773A /* PKJSTokenizer.h */,
-				D34BB0A20FF9F14B00D7773A /* PKJSTokenizer.m */,
-				D34BB0A30FF9F14B00D7773A /* PKJSTokenizerState.h */,
-				D34BB0A40FF9F14B00D7773A /* PKJSTokenizerState.m */,
-				D34BB0A50FF9F14B00D7773A /* PKJSWhitespaceState.h */,
-				D34BB0A60FF9F14B00D7773A /* PKJSWhitespaceState.m */,
-				D34BB0A70FF9F14B00D7773A /* PKJSWordState.h */,
-				D34BB0A80FF9F14B00D7773A /* PKJSWordState.m */,
-			);
-			name = Tokens;
-			sourceTree = "<group>";
-		};
-		D389F59B0F19BBD300558235 /* Parse */ = {
-			isa = PBXGroup;
-			children = (
-				D34BB0D20FF9F28000D7773A /* PKJSAlternation.h */,
-				D34BB0D30FF9F28000D7773A /* PKJSAlternation.m */,
-				D34BB0D40FF9F28000D7773A /* PKJSAny.h */,
-				D34BB0D50FF9F28000D7773A /* PKJSAny.m */,
-				D34BB0D60FF9F28000D7773A /* PKJSAssemblerAdapter.h */,
-				D34BB0D70FF9F28000D7773A /* PKJSAssemblerAdapter.m */,
-				D34BB0D80FF9F28000D7773A /* PKJSCollectionParser.h */,
-				D34BB0D90FF9F28000D7773A /* PKJSCollectionParser.m */,
-				D34BB0DA0FF9F28000D7773A /* PKJSEmpty.h */,
-				D34BB0DB0FF9F28000D7773A /* PKJSEmpty.m */,
-				D34BB0DC0FF9F28000D7773A /* PKJSParser.h */,
-				D34BB0DD0FF9F28000D7773A /* PKJSParser.m */,
-				D34BB0DE0FF9F28000D7773A /* PKJSRepetition.h */,
-				D34BB0DF0FF9F28000D7773A /* PKJSRepetition.m */,
-				D34BB0E00FF9F28000D7773A /* PKJSSequence.h */,
-				D34BB0E10FF9F28000D7773A /* PKJSSequence.m */,
-				D34BB0E20FF9F28000D7773A /* PKJSTerminal.h */,
-				D34BB0E30FF9F28000D7773A /* PKJSTerminal.m */,
-				D34BB0E40FF9F28000D7773A /* PKJSTrack.h */,
-				D34BB0E50FF9F28000D7773A /* PKJSTrack.m */,
-				D389FAE30F1B1B8F00558235 /* Char Terminals */,
-				D389FAE20F1B1B7200558235 /* Token Terminals */,
-			);
-			name = Parse;
-			sourceTree = "<group>";
-		};
-		D389F8C40F1AC89A00558235 /* Chars */ = {
-			isa = PBXGroup;
-			children = (
-				D34BB08D0FF9EF9D00D7773A /* PKJSCharacterAssembly.h */,
-				D34BB08E0FF9EF9D00D7773A /* PKJSCharacterAssembly.m */,
-			);
-			name = Chars;
-			sourceTree = "<group>";
-		};
-		D389FAE20F1B1B7200558235 /* Token Terminals */ = {
-			isa = PBXGroup;
-			children = (
-				D34BB0FE0FF9F36200D7773A /* PKJSCaseInsensitiveLiteral.h */,
-				D34BB0FF0FF9F36200D7773A /* PKJSCaseInsensitiveLiteral.m */,
-				D34BB1000FF9F36200D7773A /* PKJSComment.h */,
-				D34BB1010FF9F36200D7773A /* PKJSComment.m */,
-				D34BB1020FF9F36200D7773A /* PKJSDelimitedString.h */,
-				D34BB1030FF9F36200D7773A /* PKJSDelimitedString.m */,
-				D34BB1040FF9F36200D7773A /* PKJSLiteral.h */,
-				D34BB1050FF9F36200D7773A /* PKJSLiteral.m */,
-				D34BB1060FF9F36200D7773A /* PKJSLowercaseWord.h */,
-				D34BB1070FF9F36200D7773A /* PKJSLowercaseWord.m */,
-				D34BB1080FF9F36200D7773A /* PKJSNum.h */,
-				D34BB1090FF9F36200D7773A /* PKJSNum.m */,
-				D34BB10A0FF9F36200D7773A /* PKJSPattern.h */,
-				D34BB10B0FF9F36200D7773A /* PKJSPattern.m */,
-				D34BB10C0FF9F36200D7773A /* PKJSQuotedString.h */,
-				D34BB10D0FF9F36200D7773A /* PKJSQuotedString.m */,
-				D34BB10E0FF9F36200D7773A /* PKJSSymbol.h */,
-				D34BB10F0FF9F36200D7773A /* PKJSSymbol.m */,
-				D34BB1100FF9F36200D7773A /* PKJSUppercaseWord.h */,
-				D34BB1110FF9F36200D7773A /* PKJSUppercaseWord.m */,
-				D34BB1120FF9F36200D7773A /* PKJSWord.h */,
-				D34BB1130FF9F36200D7773A /* PKJSWord.m */,
-			);
-			name = "Token Terminals";
-			sourceTree = "<group>";
-		};
-		D389FAE30F1B1B8F00558235 /* Char Terminals */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Char Terminals";
 			sourceTree = "<group>";
 		};
 		D3A1492A16F8C79600770DEE /* visitor */ = {
@@ -3720,51 +3348,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D389F1C90F1965E600558235 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D34BB0680FF9EDDF00D7773A /* JSParseKit.h in Headers */,
-				D34BB0710FF9EE4000D7773A /* PKJSAssembly.h in Headers */,
-				D34BB0730FF9EE4000D7773A /* PKJSUtils.h in Headers */,
-				D34BB0750FF9EE4000D7773A /* PKJSUtils_macros.h in Headers */,
-				D34BB0760FF9EE4000D7773A /* PKJSValueHolder.h in Headers */,
-				D34BB08F0FF9EF9D00D7773A /* PKJSCharacterAssembly.h in Headers */,
-				D34BB0A90FF9F14B00D7773A /* PKJSCommentState.h in Headers */,
-				D34BB0AB0FF9F14B00D7773A /* PKJSDelimitState.h in Headers */,
-				D34BB0AD0FF9F14B00D7773A /* PKJSNumberState.h in Headers */,
-				D34BB0AF0FF9F14B00D7773A /* PKJSQuoteState.h in Headers */,
-				D34BB0B10FF9F14B00D7773A /* PKJSSymbolState.h in Headers */,
-				D34BB0B30FF9F14B00D7773A /* PKJSToken.h in Headers */,
-				D34BB0B50FF9F14B00D7773A /* PKJSTokenAssembly.h in Headers */,
-				D34BB0B70FF9F14B00D7773A /* PKJSTokenizer.h in Headers */,
-				D34BB0B90FF9F14B00D7773A /* PKJSTokenizerState.h in Headers */,
-				D34BB0BB0FF9F14B00D7773A /* PKJSWhitespaceState.h in Headers */,
-				D34BB0BD0FF9F14B00D7773A /* PKJSWordState.h in Headers */,
-				D34BB0E60FF9F28000D7773A /* PKJSAlternation.h in Headers */,
-				D34BB0E80FF9F28000D7773A /* PKJSAny.h in Headers */,
-				D34BB0EA0FF9F28000D7773A /* PKJSAssemblerAdapter.h in Headers */,
-				D34BB0EC0FF9F28000D7773A /* PKJSCollectionParser.h in Headers */,
-				D34BB0EE0FF9F28000D7773A /* PKJSEmpty.h in Headers */,
-				D34BB0F00FF9F28000D7773A /* PKJSParser.h in Headers */,
-				D34BB0F20FF9F28000D7773A /* PKJSRepetition.h in Headers */,
-				D34BB0F40FF9F28000D7773A /* PKJSSequence.h in Headers */,
-				D34BB0F60FF9F28000D7773A /* PKJSTerminal.h in Headers */,
-				D34BB0F80FF9F28000D7773A /* PKJSTrack.h in Headers */,
-				D34BB1140FF9F36200D7773A /* PKJSCaseInsensitiveLiteral.h in Headers */,
-				D34BB1160FF9F36200D7773A /* PKJSComment.h in Headers */,
-				D34BB1180FF9F36200D7773A /* PKJSDelimitedString.h in Headers */,
-				D34BB11A0FF9F36200D7773A /* PKJSLiteral.h in Headers */,
-				D34BB11C0FF9F36200D7773A /* PKJSLowercaseWord.h in Headers */,
-				D34BB11E0FF9F36200D7773A /* PKJSNum.h in Headers */,
-				D34BB1200FF9F36200D7773A /* PKJSPattern.h in Headers */,
-				D34BB1220FF9F36200D7773A /* PKJSQuotedString.h in Headers */,
-				D34BB1240FF9F36200D7773A /* PKJSSymbol.h in Headers */,
-				D34BB1260FF9F36200D7773A /* PKJSUppercaseWord.h in Headers */,
-				D34BB1280FF9F36200D7773A /* PKJSWord.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D3D9753016E7F36700D55EAB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -4045,43 +3628,6 @@
 			productReference = D37D8DC61571A4F700CDB822 /* Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D389F1CD0F1965E600558235 /* JSParseKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D389F1D20F1965E800558235 /* Build configuration list for PBXNativeTarget "JSParseKit" */;
-			buildPhases = (
-				D389F1C90F1965E600558235 /* Headers */,
-				D389F1CB0F1965E600558235 /* Sources */,
-				D389F1CA0F1965E600558235 /* Resources */,
-				D389F1CC0F1965E600558235 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D389F1D40F19665C00558235 /* PBXTargetDependency */,
-			);
-			name = JSParseKit;
-			productName = TDJSParseKit;
-			productReference = D389F1CE0F1965E600558235 /* JSParseKit.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		D389F2020F196A7500558235 /* JSDemoApp */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D389F2080F196A7600558235 /* Build configuration list for PBXNativeTarget "JSDemoApp" */;
-			buildPhases = (
-				D389F2000F196A7500558235 /* Sources */,
-				D389F1FF0F196A7500558235 /* Resources */,
-				D389F2010F196A7500558235 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D389F20A0F196A8000558235 /* PBXTargetDependency */,
-			);
-			name = JSDemoApp;
-			productName = JSDemoApp;
-			productReference = D389F2030F196A7500558235 /* JSDemoApp.app */;
-			productType = "com.apple.product-type.application";
-		};
 		D3D9753116E7F36700D55EAB /* libParseKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3D9754216E7F36700D55EAB /* Build configuration list for PBXNativeTarget "libParseKit" */;
@@ -4141,13 +3687,11 @@
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* ParseKit */,
-				D389F1CD0F1965E600558235 /* JSParseKit */,
 				D3D9753116E7F36700D55EAB /* libParseKit */,
 				D3FDC5820FFC4BFC00F1F797 /* ParseKitMobile */,
 				D37D8DC51571A4F700CDB822 /* ParseKitTests */,
 				D334940F0E2963FD00406085 /* DemoApp */,
 				D34185030E520D3F0081B0DC /* DebugApp */,
-				D389F2020F196A7500558235 /* JSDemoApp */,
 				D338302E171C923700CCE513 /* ParserGenApp */,
 			);
 		};
@@ -4369,25 +3913,6 @@
 				D3BD39681729D37600FC6549 /* PKSPreCallbackSyntaxInteriorTemplate.txt in Resources */,
 				D3BD39771729F1DE00FC6549 /* PKSPostCallbackSyntaxLeafTemplate.txt in Resources */,
 				D3BD39791729F1DE00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D389F1CA0F1965E600558235 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D389F1FF0F196A7500558235 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D389F38F0F19800400558235 /* DefaultValues.plist in Resources */,
-				D389F4620F198A8800558235 /* Test.html in Resources */,
-				D389F5590F19B7BC00558235 /* JSDemoAppMainMenu.xib in Resources */,
-				D389FBCD0F1B25E200558235 /* ParserTest.html in Resources */,
-				D3B986B11700D3A9000CBCAE /* expression.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4785,59 +4310,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D389F1CB0F1965E600558235 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D34BB0690FF9EDDF00D7773A /* JSParseKit.m in Sources */,
-				D34BB0720FF9EE4000D7773A /* PKJSAssembly.m in Sources */,
-				D34BB0740FF9EE4000D7773A /* PKJSUtils.m in Sources */,
-				D34BB0770FF9EE4000D7773A /* PKJSValueHolder.m in Sources */,
-				D34BB0900FF9EF9D00D7773A /* PKJSCharacterAssembly.m in Sources */,
-				D34BB0AA0FF9F14B00D7773A /* PKJSCommentState.m in Sources */,
-				D34BB0AC0FF9F14B00D7773A /* PKJSDelimitState.m in Sources */,
-				D34BB0AE0FF9F14B00D7773A /* PKJSNumberState.m in Sources */,
-				D34BB0B00FF9F14B00D7773A /* PKJSQuoteState.m in Sources */,
-				D34BB0B20FF9F14B00D7773A /* PKJSSymbolState.m in Sources */,
-				D34BB0B40FF9F14B00D7773A /* PKJSToken.m in Sources */,
-				D34BB0B60FF9F14B00D7773A /* PKJSTokenAssembly.m in Sources */,
-				D34BB0B80FF9F14B00D7773A /* PKJSTokenizer.m in Sources */,
-				D34BB0BA0FF9F14B00D7773A /* PKJSTokenizerState.m in Sources */,
-				D34BB0BC0FF9F14B00D7773A /* PKJSWhitespaceState.m in Sources */,
-				D34BB0BE0FF9F14B00D7773A /* PKJSWordState.m in Sources */,
-				D34BB0E70FF9F28000D7773A /* PKJSAlternation.m in Sources */,
-				D34BB0E90FF9F28000D7773A /* PKJSAny.m in Sources */,
-				D34BB0EB0FF9F28000D7773A /* PKJSAssemblerAdapter.m in Sources */,
-				D34BB0ED0FF9F28000D7773A /* PKJSCollectionParser.m in Sources */,
-				D34BB0EF0FF9F28000D7773A /* PKJSEmpty.m in Sources */,
-				D34BB0F10FF9F28000D7773A /* PKJSParser.m in Sources */,
-				D34BB0F30FF9F28000D7773A /* PKJSRepetition.m in Sources */,
-				D34BB0F50FF9F28000D7773A /* PKJSSequence.m in Sources */,
-				D34BB0F70FF9F28000D7773A /* PKJSTerminal.m in Sources */,
-				D34BB0F90FF9F28000D7773A /* PKJSTrack.m in Sources */,
-				D34BB1150FF9F36200D7773A /* PKJSCaseInsensitiveLiteral.m in Sources */,
-				D34BB1170FF9F36200D7773A /* PKJSComment.m in Sources */,
-				D34BB1190FF9F36200D7773A /* PKJSDelimitedString.m in Sources */,
-				D34BB11B0FF9F36200D7773A /* PKJSLiteral.m in Sources */,
-				D34BB11D0FF9F36200D7773A /* PKJSLowercaseWord.m in Sources */,
-				D34BB11F0FF9F36200D7773A /* PKJSNum.m in Sources */,
-				D34BB1210FF9F36200D7773A /* PKJSPattern.m in Sources */,
-				D34BB1230FF9F36200D7773A /* PKJSQuotedString.m in Sources */,
-				D34BB1250FF9F36200D7773A /* PKJSSymbol.m in Sources */,
-				D34BB1270FF9F36200D7773A /* PKJSUppercaseWord.m in Sources */,
-				D34BB1290FF9F36200D7773A /* PKJSWord.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D389F2000F196A7500558235 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D389F2E40F196CAE00558235 /* main.m in Sources */,
-				D389F37A0F197E8000558235 /* JSDemoAppDelegate.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D3D9752E16E7F36700D55EAB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5031,16 +4503,6 @@
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;
 			targetProxy = D341850F0E520D6F0081B0DC /* PBXContainerItemProxy */;
-		};
-		D389F1D40F19665C00558235 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8DC2EF4F0486A6940098B216 /* ParseKit */;
-			targetProxy = D389F1D30F19665C00558235 /* PBXContainerItemProxy */;
-		};
-		D389F20A0F196A8000558235 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D389F1CD0F1965E600558235 /* JSParseKit */;
-			targetProxy = D389F2090F196A8000558235 /* PBXContainerItemProxy */;
 		};
 		D3D975D716E8067900D55EAB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5425,102 +4887,6 @@
 			};
 			name = Release;
 		};
-		D389F1D00F1965E800558235 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ParseKit_Prefix.pch;
-				INFOPLIST_FILE = "JSParseKit-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PRODUCT_NAME = JSParseKit;
-			};
-			name = Debug;
-		};
-		D389F1D10F1965E800558235 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ParseKit_Prefix.pch;
-				INFOPLIST_FILE = "JSParseKit-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PRODUCT_NAME = JSParseKit;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
-		D389F2060F196A7600558235 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "jsdemoapp/JSDemoApp-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PRODUCT_NAME = JSDemoApp;
-			};
-			name = Debug;
-		};
-		D389F2070F196A7600558235 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "jsdemoapp/JSDemoApp-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PRODUCT_NAME = JSDemoApp;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		D3D9754016E7F36700D55EAB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5654,24 +5020,6 @@
 			buildConfigurations = (
 				D37D8DDA1571A4F700CDB822 /* Debug */,
 				D37D8DDB1571A4F700CDB822 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		D389F1D20F1965E800558235 /* Build configuration list for PBXNativeTarget "JSParseKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D389F1D00F1965E800558235 /* Debug */,
-				D389F1D10F1965E800558235 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		D389F2080F196A7600558235 /* Build configuration list for PBXNativeTarget "JSDemoApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D389F2060F196A7600558235 /* Debug */,
-				D389F2070F196A7600558235 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
