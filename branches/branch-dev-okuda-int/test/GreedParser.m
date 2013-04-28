@@ -89,7 +89,7 @@
     } else {
         [self raise:@"no viable alternative found in _start"];
     }
-        [self matchEOF:YES]; 
+    [self matchEOF:YES]; 
 
 }
 

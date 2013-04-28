@@ -76,7 +76,7 @@
     
     [self a]; 
     [self b]; 
-        [self matchEOF:YES]; 
+    [self matchEOF:YES]; 
 
 }
 

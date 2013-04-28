@@ -91,7 +91,7 @@
     do {
         [self method]; 
     } while ([self speculate:^{ [self method]; }]);
-        [self matchEOF:YES]; 
+    [self matchEOF:YES]; 
 
 }
 
