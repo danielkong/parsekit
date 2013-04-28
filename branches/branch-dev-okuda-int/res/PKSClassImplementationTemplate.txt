@@ -60,13 +60,13 @@
 {%/for%}{%/if%}    }
     return self;
 }
-{%if enableMemoization %}
+{%if manualMemory && enableMemoization %}
 - (void)dealloc {
 {%for methodName in ruleMethodNames %}    self.{{methodName}}_memo = nil;
 {%/for%}
     [super dealloc];
 }
-
+{%/if%}{%if enableMemoization %}
 - (void)_clearMemo {
 {%for methodName in ruleMethodNames %}    [_{{methodName}}_memo removeAllObjects];
 {%/for%}}{%/if%}
