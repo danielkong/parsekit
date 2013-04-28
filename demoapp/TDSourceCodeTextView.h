@@ -8,14 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class OKGutterView;
+@class TDGutterView;
 
 @interface TDSourceCodeTextView : NSTextView {
-    IBOutlet OKGutterView *gutterView;
+    IBOutlet TDGutterView *gutterView;
     IBOutlet NSScrollView *scrollView;
     CGFloat sourceTextViewOffset;
 }
 - (void)renderGutter;
 
-@property (assign) OKGutterView *gutterView;
+@property (assign) TDGutterView *gutterView;
 @end

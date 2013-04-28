@@ -14,14 +14,14 @@
 
 #import "DemoTreesViewController.h"
 #import "PKParseTreeView.h"
-#import "OKSourceCodeTextView.h"
+#import "TDSourceCodeTextView.h"
 #import "PKParseTree.h"
 #import "PKRuleNode.h"
 #import "PKTokenNode.h"
 #import "PKParseTreeAssembler.h"
 #import <ParseKit/ParseKit.h>
 
-#import "OKJavaScriptParser.h"
+#import "JavaScriptSyntaxParser.h"
 #import "ExpressionSyntaxParser.h"
 #import "PKSParseTreeAssembler.h"
 
@@ -65,7 +65,7 @@
 //    self.inString = @"4.0*.4 + 2e-12/-47 +3";
 //    self.inString = @"[1,2]";
 //    self.inString = @"foo";
-    self.inputString = @"foo or bar.baz('hello', yes, 10.1)";
+    self.inputString = @"bar('foo');";
 //    self.inputString = @"foo or bar";
 }
 
@@ -79,7 +79,7 @@
 
 
 //    PKSParser *p = [[[ExpressionSyntaxParser alloc] init] autorelease];
-    PKSParser *p = [[[OKJavaScriptParser alloc] init] autorelease];
+    PKSParser *p = [[[JavaScriptSyntaxParser alloc] init] autorelease];
     PKSParseTreeAssembler *ass = [[[PKSParseTreeAssembler alloc] init] autorelease];
     
     [p parseString:self.inputString assembler:ass error:nil];
