@@ -302,7 +302,6 @@
 		D3407DD517010AC30047F5FC /* DemoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3407DD417010AC30047F5FC /* DemoBaseViewController.m */; };
 		D341850C0E520D640081B0DC /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D34BAC9A0FF8A9AD00D7773A /* xpath1_0.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3F741430EF8E96A00559B9F /* xpath1_0.grammar */; };
-		D34BAD640FF9C6AE00D7773A /* ParseKit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D34BAD630FF9C6AE00D7773A /* ParseKit_Prefix.pch */; };
 		D34BAD9D0FF9C95800D7773A /* PKReader.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAD9B0FF9C95800D7773A /* PKReader.m */; };
 		D34BADA20FF9C9B000D7773A /* PKAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADA00FF9C9B000D7773A /* PKAssembly.m */; };
 		D34BADD80FF9CBFB00D7773A /* PKParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADD60FF9CBFB00D7773A /* PKParser.m */; };
@@ -812,7 +811,6 @@
 		D3D9757916E7F4E000D55EAB /* PKParserFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C222290FFE8DAC004514FE /* PKParserFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3D9757A16E7F4EF00D55EAB /* PKSymbolNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221EA0FFE8C69004514FE /* PKSymbolNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3D9757B16E7F4EF00D55EAB /* PKSymbolRootNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221ED0FFE8C6F004514FE /* PKSymbolRootNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3D9757C16E7F51300D55EAB /* ParseKit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D34BAD630FF9C6AE00D7773A /* ParseKit_Prefix.pch */; };
 		D3D9757D16E7F51300D55EAB /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = D36C55FC0FD3617B00141CB7 /* RegexKitLite.h */; };
 		D3D9757E16E7F51300D55EAB /* PKGrammarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3376D5710093A1600E4602E /* PKGrammarParser.h */; };
 		D3D9757F16E7F51300D55EAB /* NSArray+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD30FF9E95500D7773A /* NSArray+ParseKitAdditions.h */; };
@@ -953,7 +951,6 @@
 		D3FDC71F0FFC4C9E00F1F797 /* PKParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD80FF9E95500D7773A /* PKParserFactory.m */; };
 		D3FDC7200FFC4C9E00F1F797 /* NSArray+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD40FF9E95500D7773A /* NSArray+ParseKitAdditions.m */; };
 		D3FDC7210FFC4C9E00F1F797 /* NSString+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD60FF9E95500D7773A /* NSString+ParseKitAdditions.m */; };
-		D3FDC8DC0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D3FDC8DB0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1293,7 +1290,6 @@
 		D34BAC4A0FF892C200D7773A /* XPathParserGrammarTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPathParserGrammarTest.m; path = test/XPathParserGrammarTest.m; sourceTree = "<group>"; };
 		D34BAD16100A9B7900996341 /* TDTokenizerStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTokenizerStateTest.h; path = test/TDTokenizerStateTest.h; sourceTree = "<group>"; };
 		D34BAD17100A9B7900996341 /* TDTokenizerStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTokenizerStateTest.m; path = test/TDTokenizerStateTest.m; sourceTree = "<group>"; };
-		D34BAD630FF9C6AE00D7773A /* ParseKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseKit_Prefix.pch; sourceTree = "<group>"; };
 		D34BAD9B0FF9C95800D7773A /* PKReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKReader.m; path = src/PKReader.m; sourceTree = "<group>"; };
 		D34BADA00FF9C9B000D7773A /* PKAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKAssembly.m; path = src/PKAssembly.m; sourceTree = "<group>"; };
 		D34BADD60FF9CBFB00D7773A /* PKParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKParser.m; path = src/PKParser.m; sourceTree = "<group>"; };
@@ -1521,14 +1517,6 @@
 		D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryASTTest.m; path = test/TDParserFactoryASTTest.m; sourceTree = "<group>"; };
 		D3AF49760FDB122E0032F4DC /* TDParserFactoryPatternTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryPatternTest.h; path = test/TDParserFactoryPatternTest.h; sourceTree = "<group>"; };
 		D3AF49770FDB122E0032F4DC /* TDParserFactoryPatternTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryPatternTest.m; path = test/TDParserFactoryPatternTest.m; sourceTree = "<group>"; };
-		D3AF4BE80FDC3DD50032F4DC /* TDBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBlob.h; path = test/TDBlob.h; sourceTree = "<group>"; };
-		D3AF4BE90FDC3DD50032F4DC /* TDBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBlob.m; path = test/TDBlob.m; sourceTree = "<group>"; };
-		D3AF4BF50FDC40050032F4DC /* TDToken+Blob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TDToken+Blob.h"; path = "test/TDToken+Blob.h"; sourceTree = "<group>"; };
-		D3AF4BF60FDC40050032F4DC /* TDToken+Blob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TDToken+Blob.m"; path = "test/TDToken+Blob.m"; sourceTree = "<group>"; };
-		D3AF4BFB0FDC41190032F4DC /* TDTokenizer+BlobState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TDTokenizer+BlobState.h"; path = "test/TDTokenizer+BlobState.h"; sourceTree = "<group>"; };
-		D3AF4BFC0FDC41190032F4DC /* TDTokenizer+BlobState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TDTokenizer+BlobState.m"; path = "test/TDTokenizer+BlobState.m"; sourceTree = "<group>"; };
-		D3AF4C190FDC568F0032F4DC /* TDBlobState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBlobState.h; path = test/TDBlobState.h; sourceTree = "<group>"; };
-		D3AF4C1A0FDC568F0032F4DC /* TDBlobState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBlobState.m; path = test/TDBlobState.m; sourceTree = "<group>"; };
 		D3AF4CBF0FDC740A0032F4DC /* TDNonReservedWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNonReservedWord.h; path = test/TDNonReservedWord.h; sourceTree = "<group>"; };
 		D3AF4CC00FDC740A0032F4DC /* TDNonReservedWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNonReservedWord.m; path = test/TDNonReservedWord.m; sourceTree = "<group>"; };
 		D3AF4CC10FDC740A0032F4DC /* TDReservedWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDReservedWord.h; path = test/TDReservedWord.h; sourceTree = "<group>"; };
@@ -1642,6 +1630,8 @@
 		D3BD3A6B172DAA2500FC6549 /* JavaScriptSyntaxParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JavaScriptSyntaxParser.h; path = demoapp/JavaScriptSyntaxParser.h; sourceTree = "<group>"; };
 		D3BD3A6C172DAA2500FC6549 /* JavaScriptSyntaxParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JavaScriptSyntaxParser.m; path = demoapp/JavaScriptSyntaxParser.m; sourceTree = "<group>"; };
 		D3BD3A6E172DC43300FC6549 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = lib/OCMock.framework; sourceTree = "<group>"; };
+		D3BD3A70172DC58400FC6549 /* ParseKit_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParseKit_Prefix.pch; path = src/ParseKit_Prefix.pch; sourceTree = "<group>"; };
+		D3BD3A71172DC58400FC6549 /* ParseKitMobile_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParseKitMobile_Prefix.pch; path = src/ParseKitMobile_Prefix.pch; sourceTree = "<group>"; };
 		D3C031EB0EF38D2D00C5ABEB /* TDLowercaseWordTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLowercaseWordTest.h; path = test/TDLowercaseWordTest.h; sourceTree = "<group>"; };
 		D3C031EC0EF38D2D00C5ABEB /* TDLowercaseWordTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLowercaseWordTest.m; path = test/TDLowercaseWordTest.m; sourceTree = "<group>"; };
 		D3C07E6216F53D8A000FB894 /* PKBaseSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseSymbol.h; path = src/PKBaseSymbol.h; sourceTree = "<group>"; };
@@ -1773,7 +1763,6 @@
 		D3F8121F161AB38100DEA1CB /* regex.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = regex.grammar; path = res/regex.grammar; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
 		D3FD791F0F4CC86800BAD816 /* rubyhash.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rubyhash.grammar; path = res/rubyhash.grammar; sourceTree = "<group>"; };
 		D3FDC5830FFC4BFC00F1F797 /* libParseKitMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libParseKitMobile.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3FDC8DB0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseKitMobile_Prefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1866,7 +1855,11 @@
 		0867D691FE84028FC02AAC07 /* TODParseKit */ = {
 			isa = PBXGroup;
 			children = (
-				D30DA22F1728AA3100A1A3EC /* ParseKit */,
+				08FB77AEFE84172EC02AAC07 /* ParseKit */,
+				D3C7D8220A411F31005DD154 /* ParseKit Tests */,
+				D36E98CB0E58C08F00496BD3 /* DebugApp */,
+				D334941B0E29641300406085 /* DemoApp */,
+				D3383037171C923700CCE513 /* ParserGenApp */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -1891,11 +1884,11 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		08FB77AEFE84172EC02AAC07 /* ParseKit Framework */ = {
+		08FB77AEFE84172EC02AAC07 /* ParseKit */ = {
 			isa = PBXGroup;
 			children = (
-				D34BAD630FF9C6AE00D7773A /* ParseKit_Prefix.pch */,
-				D3FDC8DB0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch */,
+				D3BD3A70172DC58400FC6549 /* ParseKit_Prefix.pch */,
+				D3BD3A71172DC58400FC6549 /* ParseKitMobile_Prefix.pch */,
 				D3C221900FFE8B8C004514FE /* ParseKit.h */,
 				D3C221910FFE8B8C004514FE /* PKTypes.h */,
 				D3C221990FFE8B9D004514FE /* PKAssembly.h */,
@@ -1906,9 +1899,10 @@
 				D324B77D16F8C892005FE823 /* ast */,
 				D34BAC0F0FF87ED200D7773A /* grammar */,
 				D3A1492B16F8C7D600770DEE /* Foundation categories */,
+				089C1665FE841158C02AAC07 /* Resources */,
 				32C88DFF0371C24200C91783 /* Other Sources (not used) */,
 			);
-			name = "ParseKit Framework";
+			name = ParseKit;
 			sourceTree = "<group>";
 		};
 		1058C7B0FEA5585E11CA2CBB /* Desktop */ = {
@@ -1932,7 +1926,6 @@
 				D3AF4CCB0FDC74540032F4DC /* Whitespace */,
 				D3AF4CCA0FDC74490032F4DC /* Slash */,
 				D3AF4CC90FDC743C0032F4DC /* ReservedWord */,
-				D3AF4CC80FDC74320032F4DC /* Blob */,
 			);
 			name = "Other Sources (not used)";
 			sourceTree = "<group>";
@@ -2005,19 +1998,6 @@
 				D3B22A581703D07000446945 /* Language Parsers */,
 			);
 			name = ParserGen;
-			sourceTree = "<group>";
-		};
-		D30DA22F1728AA3100A1A3EC /* ParseKit */ = {
-			isa = PBXGroup;
-			children = (
-				08FB77AEFE84172EC02AAC07 /* ParseKit Framework */,
-				D3C7D8220A411F31005DD154 /* ParseKit Tests */,
-				D36E98CB0E58C08F00496BD3 /* DebugApp */,
-				D334941B0E29641300406085 /* DemoApp */,
-				D3383037171C923700CCE513 /* ParserGenApp */,
-				089C1665FE841158C02AAC07 /* Resources */,
-			);
-			name = ParseKit;
 			sourceTree = "<group>";
 		};
 		D318EAE30E2FD5B6009F47DF /* json */ = {
@@ -2555,21 +2535,6 @@
 				D325FFF7161F681E00D4EBCC /* TDParserFactoryParserTest.m */,
 			);
 			name = NewFactory;
-			sourceTree = "<group>";
-		};
-		D3AF4CC80FDC74320032F4DC /* Blob */ = {
-			isa = PBXGroup;
-			children = (
-				D3AF4BF50FDC40050032F4DC /* TDToken+Blob.h */,
-				D3AF4BF60FDC40050032F4DC /* TDToken+Blob.m */,
-				D3AF4BFB0FDC41190032F4DC /* TDTokenizer+BlobState.h */,
-				D3AF4BFC0FDC41190032F4DC /* TDTokenizer+BlobState.m */,
-				D3AF4C190FDC568F0032F4DC /* TDBlobState.h */,
-				D3AF4C1A0FDC568F0032F4DC /* TDBlobState.m */,
-				D3AF4BE80FDC3DD50032F4DC /* TDBlob.h */,
-				D3AF4BE90FDC3DD50032F4DC /* TDBlob.m */,
-			);
-			name = Blob;
 			sourceTree = "<group>";
 		};
 		D3AF4CC90FDC743C0032F4DC /* ReservedWord */ = {
@@ -3252,7 +3217,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D34BAD640FF9C6AE00D7773A /* ParseKit_Prefix.pch in Headers */,
 				D3FDC4A50FFB3B2A00F1F797 /* RegexKitLite.h in Headers */,
 				D3C221920FFE8B8C004514FE /* ParseKit.h in Headers */,
 				D3C221930FFE8B8C004514FE /* PKTypes.h in Headers */,
@@ -3401,7 +3365,6 @@
 				D3D9757716E7F4E000D55EAB /* PKLetter.h in Headers */,
 				D3D9757816E7F4E000D55EAB /* PKSpecificChar.h in Headers */,
 				D3D9757916E7F4E000D55EAB /* PKParserFactory.h in Headers */,
-				D3D9757C16E7F51300D55EAB /* ParseKit_Prefix.pch in Headers */,
 				D3D9757D16E7F51300D55EAB /* RegexKitLite.h in Headers */,
 				D3D9757E16E7F51300D55EAB /* PKGrammarParser.h in Headers */,
 				D3D9757F16E7F51300D55EAB /* NSArray+ParseKitAdditions.h in Headers */,
@@ -3438,7 +3401,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3FDC6DA0FFC4C8C00F1F797 /* RegexKitLite.h in Headers */,
-				D3FDC8DC0FFC51F200F1F797 /* ParseKitMobile_Prefix.pch in Headers */,
 				D3C221940FFE8B8C004514FE /* ParseKit.h in Headers */,
 				D3C221950FFE8B8C004514FE /* PKTypes.h in Headers */,
 				D3C221980FFE8B95004514FE /* PKReader.h in Headers */,
@@ -3639,9 +3601,9 @@
 			productReference = D3D9753216E7F36700D55EAB /* libParseKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		D3FDC5820FFC4BFC00F1F797 /* ParseKitMobile */ = {
+		D3FDC5820FFC4BFC00F1F797 /* libParseKitMobile */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D3FDC62F0FFC4C2000F1F797 /* Build configuration list for PBXNativeTarget "ParseKitMobile" */;
+			buildConfigurationList = D3FDC62F0FFC4C2000F1F797 /* Build configuration list for PBXNativeTarget "libParseKitMobile" */;
 			buildPhases = (
 				D3FDC57F0FFC4BFC00F1F797 /* Headers */,
 				D3FDC5800FFC4BFC00F1F797 /* Sources */,
@@ -3651,7 +3613,7 @@
 			);
 			dependencies = (
 			);
-			name = ParseKitMobile;
+			name = libParseKitMobile;
 			productName = ParseKitMobile;
 			productReference = D3FDC5830FFC4BFC00F1F797 /* libParseKitMobile.a */;
 			productType = "com.apple.product-type.library.static";
@@ -3682,7 +3644,7 @@
 			targets = (
 				8DC2EF4F0486A6940098B216 /* ParseKit */,
 				D3D9753116E7F36700D55EAB /* libParseKit */,
-				D3FDC5820FFC4BFC00F1F797 /* ParseKitMobile */,
+				D3FDC5820FFC4BFC00F1F797 /* libParseKitMobile */,
 				D37D8DC51571A4F700CDB822 /* ParseKitTests */,
 				D334940F0E2963FD00406085 /* DemoApp */,
 				D34185030E520D3F0081B0DC /* DebugApp */,
@@ -4570,7 +4532,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ParseKit_Prefix.pch;
+				GCC_PREFIX_HEADER = src/ParseKit_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GENERATE_PROFILING_CODE = YES;
 				INFOPLIST_FILE = Info.plist;
@@ -4599,7 +4561,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ParseKit_Prefix.pch;
+				GCC_PREFIX_HEADER = src/ParseKit_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(TARGET_BUILD_DIR)";
@@ -4898,7 +4860,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ParseKit_Prefix.pch;
+				GCC_PREFIX_HEADER = src/ParseKit_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -4923,7 +4885,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ParseKit_Prefix.pch;
+				GCC_PREFIX_HEADER = src/ParseKit_Prefix.pch;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				PRODUCT_NAME = ParseKit;
@@ -4939,7 +4901,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ParseKitMobile_Prefix.pch;
+				GCC_PREFIX_HEADER = src/ParseKitMobile_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				PRODUCT_NAME = ParseKitMobile;
 				SDKROOT = iphoneos;
@@ -4954,7 +4916,7 @@
 				COPY_PHASE_STRIP = YES;
 				EXECUTABLE_PREFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ParseKitMobile_Prefix.pch;
+				GCC_PREFIX_HEADER = src/ParseKitMobile_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = ParseKitMobile;
@@ -5029,7 +4991,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		D3FDC62F0FFC4C2000F1F797 /* Build configuration list for PBXNativeTarget "ParseKitMobile" */ = {
+		D3FDC62F0FFC4C2000F1F797 /* Build configuration list for PBXNativeTarget "libParseKitMobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3FDC5840FFC4BFC00F1F797 /* Debug */,
