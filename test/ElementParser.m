@@ -92,7 +92,7 @@
 - (void)_start {
     
     [self list]; 
-        [self matchEOF:YES]; 
+    [self matchEOF:YES]; 
 
 }
 

@@ -74,7 +74,7 @@
         [self matchAny:NO];
     }
     [self a]; 
-        [self matchEOF:YES]; 
+    [self matchEOF:YES]; 
 
 }
 

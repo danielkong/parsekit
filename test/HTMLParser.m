@@ -217,7 +217,7 @@
             break;
         }
     }
-        [self matchEOF:YES]; 
+    [self matchEOF:YES]; 
 
 }
 
