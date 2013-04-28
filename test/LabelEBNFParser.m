@@ -50,8 +50,8 @@
 @implementation LabelEBNFParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"="] = @(LABELEBNF_TOKEN_KIND_EQUALS);
         self._tokenKindTab[@"return"] = @(LABELEBNF_TOKEN_KIND_RETURN);
         self._tokenKindTab[@":"] = @(LABELEBNF_TOKEN_KIND_COLON);
@@ -60,7 +60,7 @@
         self.label_memo = [NSMutableDictionary dictionary];
         self.expr_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {
@@ -82,19 +82,18 @@
     [self s]; 
     [self matchEOF:YES]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__s {
     
-    if ([self speculate:^{ [self label]; [self matchWord:NO];[self match:LABELEBNF_TOKEN_KIND_EQUALS discard:NO];[self expr]; }]) {
+    if ([self speculate:^{ [self label]; [self matchWord:NO];[self match:LABELEBNF_TOKEN_KIND_EQUALS discard:NO]; [self expr]; }]) {
         [self label]; 
         [self matchWord:NO];
-        [self match:LABELEBNF_TOKEN_KIND_EQUALS discard:NO];
+        [self match:LABELEBNF_TOKEN_KIND_EQUALS discard:NO]; 
         [self expr]; 
-    } else if ([self speculate:^{ [self label]; [self match:LABELEBNF_TOKEN_KIND_RETURN discard:NO];[self expr]; }]) {
+    } else if ([self speculate:^{ [self label]; [self match:LABELEBNF_TOKEN_KIND_RETURN discard:NO]; [self expr]; }]) {
         [self label]; 
-        [self match:LABELEBNF_TOKEN_KIND_RETURN discard:NO];
+        [self match:LABELEBNF_TOKEN_KIND_RETURN discard:NO]; 
         [self expr]; 
     } else {
         [self raise:@"no viable alternative found in s"];
@@ -110,9 +109,9 @@
 - (void)__label {
     
     while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self matchWord:NO];[self match:LABELEBNF_TOKEN_KIND_COLON discard:NO];}]) {
+        if ([self speculate:^{ [self matchWord:NO];[self match:LABELEBNF_TOKEN_KIND_COLON discard:NO]; }]) {
             [self matchWord:NO];
-            [self match:LABELEBNF_TOKEN_KIND_COLON discard:NO];
+            [self match:LABELEBNF_TOKEN_KIND_COLON discard:NO]; 
         } else {
             break;
         }

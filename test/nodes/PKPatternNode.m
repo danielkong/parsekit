@@ -72,4 +72,9 @@
     return [PKPattern class];
 }
 
+
+- (BOOL)isTerminal {
+    return YES;
+}
+
 @end

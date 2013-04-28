@@ -20,7 +20,9 @@
 @property (nonatomic, retain) JavaScriptParser *parser;
 @end
 
-@implementation JavaScriptParserTest
+@implementation JavaScriptParserTest {
+    BOOL flag;
+}
 
 - (void)setUp {
     self.factory = [PKParserFactory factory];
@@ -35,9 +37,9 @@
     _root.grammarName = @"JavaScript";
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
-    _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorOnTerminals;
+    _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
     _visitor.enableAutomaticErrorRecovery = YES;
-    _visitor.enableMemoization = YES;
+    _visitor.enableMemoization = NO;
     
     [_root visit:_visitor];
     
@@ -62,10 +64,19 @@
     self.factory = nil;
 }
 
+
+- (void)parser:(PKSParser *)p didMatchVarVariables:(PKAssembly *)a {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    flag = YES;
+}
 - (void)testVarFooEqBar {
+    _parser.enableAutomaticErrorRecovery = YES;
+    
     NSError *err = nil;
-    PKAssembly *res = [_parser parseString:@"var foo = 'bar';" assembler:nil error:&err];
+    flag = NO;
+    PKAssembly *res = [_parser parseString:@"var foo = 'bar';" assembler:self error:&err];
     TDEqualObjects(@"[var, foo, =, 'bar', ;]var/foo/=/'bar'/;^", [res description]);
+    TDEquals(YES, flag);
 }
 
 - (void)testDocWriteNewDate {
@@ -91,7 +102,5 @@
     PKAssembly *res = [_parser parseString:@"window.fluid.dockBadge = ''; setTimeout(updateDockBadge, 1000); setTimeout(updateDockBadge, 3000); setInterval(updateDockBadge, 5000);" assembler:nil error:&err];
     TDEqualObjects(@"[window, ., fluid, ., dockBadge, =, '', ;, setTimeout, (, updateDockBadge, ,, 1000, ), ;, setTimeout, (, updateDockBadge, ,, 3000, ), ;, setInterval, (, updateDockBadge, ,, 5000, ), ;]window/./fluid/./dockBadge/=/''/;/setTimeout/(/updateDockBadge/,/1000/)/;/setTimeout/(/updateDockBadge/,/3000/)/;/setInterval/(/updateDockBadge/,/5000/)/;^", [res description]);
 }
-
-
 
 @end

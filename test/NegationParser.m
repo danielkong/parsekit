@@ -49,14 +49,14 @@
 @implementation NegationParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@"foo"] = @(NEGATION_TOKEN_KIND_FOO);
 
         self.s_memo = [NSMutableDictionary dictionary];
         self.foo_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {
@@ -76,7 +76,6 @@
     [self s]; 
     [self matchEOF:YES]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__s {
@@ -96,7 +95,7 @@
 
 - (void)__foo {
     
-    [self match:NEGATION_TOKEN_KIND_FOO discard:NO];
+    [self match:NEGATION_TOKEN_KIND_FOO discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
 }

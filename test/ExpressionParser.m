@@ -77,8 +77,8 @@
 @implementation ExpressionParser
 
 - (id)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         self._tokenKindTab[@">="] = @(EXPRESSION_TOKEN_KIND_GE);
         self._tokenKindTab[@","] = @(EXPRESSION_TOKEN_KIND_COMMA);
         self._tokenKindTab[@"or"] = @(EXPRESSION_TOKEN_KIND_OR);
@@ -125,7 +125,7 @@
         self.or_memo = [NSMutableDictionary dictionary];
         self.and_memo = [NSMutableDictionary dictionary];
     }
-	return self;
+    return self;
 }
 
 - (void)dealloc {
@@ -201,7 +201,6 @@
     [self expr]; 
     [self matchEOF:YES]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatch_start:)];
 }
 
 - (void)__expr {
@@ -471,7 +470,7 @@
 
 - (void)__lt {
     
-    [self match:EXPRESSION_TOKEN_KIND_LT discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_LT discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
@@ -482,7 +481,7 @@
 
 - (void)__gt {
     
-    [self match:EXPRESSION_TOKEN_KIND_GT discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_GT discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
@@ -493,7 +492,7 @@
 
 - (void)__eq {
     
-    [self match:EXPRESSION_TOKEN_KIND_EQ discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_EQ discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
@@ -504,7 +503,7 @@
 
 - (void)__ne {
     
-    [self match:EXPRESSION_TOKEN_KIND_NE discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_NE discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNe:)];
 }
@@ -515,7 +514,7 @@
 
 - (void)__le {
     
-    [self match:EXPRESSION_TOKEN_KIND_LE discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_LE discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLe:)];
 }
@@ -526,7 +525,7 @@
 
 - (void)__ge {
     
-    [self match:EXPRESSION_TOKEN_KIND_GE discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_GE discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGe:)];
 }
@@ -537,7 +536,7 @@
 
 - (void)__openParen {
     
-    [self match:EXPRESSION_TOKEN_KIND_OPENPAREN discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_OPENPAREN discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
 }
@@ -548,7 +547,7 @@
 
 - (void)__closeParen {
     
-    [self match:EXPRESSION_TOKEN_KIND_CLOSEPAREN discard:YES];
+    [self match:EXPRESSION_TOKEN_KIND_CLOSEPAREN discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
 }
@@ -559,7 +558,7 @@
 
 - (void)__yes {
     
-    [self match:EXPRESSION_TOKEN_KIND_YES discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_YES discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchYes:)];
 }
@@ -570,7 +569,7 @@
 
 - (void)__no {
     
-    [self match:EXPRESSION_TOKEN_KIND_NO discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_NO discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNo:)];
 }
@@ -581,7 +580,7 @@
 
 - (void)__dot {
     
-    [self match:EXPRESSION_TOKEN_KIND_DOT discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_DOT discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
 }
@@ -592,7 +591,7 @@
 
 - (void)__comma {
     
-    [self match:EXPRESSION_TOKEN_KIND_COMMA discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_COMMA discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
@@ -603,7 +602,7 @@
 
 - (void)__or {
     
-    [self match:EXPRESSION_TOKEN_KIND_OR discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_OR discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
 }
@@ -614,7 +613,7 @@
 
 - (void)__and {
     
-    [self match:EXPRESSION_TOKEN_KIND_AND discard:NO];
+    [self match:EXPRESSION_TOKEN_KIND_AND discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];
 }

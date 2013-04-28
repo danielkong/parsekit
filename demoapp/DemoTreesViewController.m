@@ -14,12 +14,16 @@
 
 #import "DemoTreesViewController.h"
 #import "PKParseTreeView.h"
-#import "TDSourceCodeTextView.h"
+#import "OKSourceCodeTextView.h"
 #import "PKParseTree.h"
 #import "PKRuleNode.h"
 #import "PKTokenNode.h"
 #import "PKParseTreeAssembler.h"
 #import <ParseKit/ParseKit.h>
+
+#import "OKJavaScriptParser.h"
+#import "ExpressionSyntaxParser.h"
+#import "PKSParseTreeAssembler.h"
 
 #define PKAssertMainThread() NSAssert1([NSThread isMainThread], @"%s should be called on the main thread only.", __PRETTY_FUNCTION__);
 #define PKAssertNotMainThread() NSAssert1(![NSThread isMainThread], @"%s should be called on the main thread only.", __PRETTY_FUNCTION__);
@@ -69,15 +73,25 @@
 - (void)doParse {
     PKAssertNotMainThread();
 
-    PKParseTreeAssembler *as = [[[PKParseTreeAssembler alloc] init] autorelease];
-    PKParser *p = [[PKParserFactory factory] parserFromGrammar:self.grammarString assembler:as preassembler:as error:nil];
-    PKParseTree *tr = [p parse:self.inputString error:nil];
+//    PKParseTreeAssembler *as = [[[PKParseTreeAssembler alloc] init] autorelease];
+//    PKParser *p = [[PKParserFactory factory] parserFromGrammar:self.grammarString assembler:as preassembler:as error:nil];
+//    PKParseTree *tr = [p parse:self.inputString error:nil];
+
+
+//    PKSParser *p = [[[ExpressionSyntaxParser alloc] init] autorelease];
+    PKSParser *p = [[[OKJavaScriptParser alloc] init] autorelease];
+    PKSParseTreeAssembler *ass = [[[PKSParseTreeAssembler alloc] init] autorelease];
+    
+    [p parseString:self.inputString assembler:ass error:nil];
+    
+    PKParseTree *tr = ass.root;
+    
     if ([tr isKindOfClass:[PKParseTree class]]) {
         [_parseTreeView drawParseTree:tr];
     }
     
-    // release
-    PKReleaseSubparserTree(p);
+//    // release
+//    PKReleaseSubparserTree(p);
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self done];
