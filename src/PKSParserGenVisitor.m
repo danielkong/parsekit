@@ -17,6 +17,7 @@
 #import "ICUTemplateMatcher.h"
 
 #define CLASS_NAME @"className"
+#define MANUAL_MEMORY @"manualMemory"
 #define TOKEN_KINDS_START_INDEX @"startIndex"
 #define TOKEN_KINDS @"tokenKinds"
 #define RULE_METHOD_NAMES @"ruleMethodNames"
@@ -211,9 +212,10 @@
         NSString *newName = [NSString stringWithFormat:@"%@_%@", [node.grammarName uppercaseString], desc.name];
         desc.name = newName;
     }
-
+    
     // setup vars
     id vars = [NSMutableDictionary dictionary];
+    vars[MANUAL_MEMORY] = @(!_enableARC);
     vars[TOKEN_KINDS_START_INDEX] = @(TOKEN_KIND_BUILTIN_ANY + 1);
     vars[TOKEN_KINDS] = node.tokenKinds;
     NSString *className = node.grammarName;

@@ -24,6 +24,7 @@
         self.factory = [PKParserFactory factory];
         _factory.collectTokenKinds = YES;
         
+        self.enableARC = YES;
         self.enableHybridDFA = YES;
         self.enableMemoization = YES;
         self.enableAutomaticErrorRecovery = NO;
@@ -80,11 +81,12 @@
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
     NSAssert([[NSThread currentThread] isMainThread], @"");
-    NSMutableDictionary *tab = [NSMutableDictionary dictionaryWithCapacity:8];
+    NSMutableDictionary *tab = [NSMutableDictionary dictionaryWithCapacity:9];
     
     if (_destinationPath) tab[@"destinationPath"] = _destinationPath;
     if (_grammar) tab[@"grammar"] = _grammar;
     if (_parserName) tab[@"parserName"] = _parserName;
+    tab[@"enableARC"] = @(_enableARC);
     tab[@"enableHybridDFA"] = @(_enableHybridDFA);
     tab[@"enableMemoization"] = @(_enableMemoization);
     tab[@"enableAutomaticErrorRecovery"] = @(_enableAutomaticErrorRecovery);
@@ -107,6 +109,7 @@
     self.destinationPath = tab[@"destinationPath"];
     self.grammar = tab[@"grammar"];
     self.parserName = tab[@"parserName"];
+    self.enableARC = [tab[@"enableARC"] boolValue];
     self.enableHybridDFA = [tab[@"enableHybridDFA"] boolValue];
     self.enableMemoization = [tab[@"enableMemoization"] boolValue];
     self.enableAutomaticErrorRecovery = [tab[@"enableAutomaticErrorRecovery"] boolValue];
@@ -183,6 +186,13 @@
         path = [path stringByDeletingLastPathComponent];
     }
     
+    NSString *filename = self.parserName;
+    if (![filename hasSuffix:@"Parser"]) {
+        filename = [NSString stringWithFormat:@"%@Parser.m", filename];
+    }
+
+    path = [path stringByAppendingPathComponent:filename];
+    
     if ([path length]) {
         [[NSWorkspace sharedWorkspace] selectFile:path inFileViewerRootedAtPath:nil];
     }
@@ -205,6 +215,7 @@
     _root.grammarName = className;
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
+    _visitor.enableARC = _enableARC;
     _visitor.enableHybridDFA = _enableHybridDFA; NSAssert(_enableHybridDFA, @"");
     _visitor.enableMemoization = _enableMemoization;
     _visitor.enableAutomaticErrorRecovery = _enableAutomaticErrorRecovery;

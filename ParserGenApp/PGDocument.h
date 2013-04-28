@@ -19,6 +19,7 @@
 @property (nonatomic, copy) NSString *grammar;
 @property (nonatomic, assign) BOOL busy;
 
+@property (nonatomic, assign) BOOL enableARC;
 @property (nonatomic, assign) BOOL enableHybridDFA;
 @property (nonatomic, assign) BOOL enableMemoization;
 @property (nonatomic, assign) BOOL enableAutomaticErrorRecovery;
