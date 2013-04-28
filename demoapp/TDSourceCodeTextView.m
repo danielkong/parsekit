@@ -7,7 +7,7 @@
 //
 
 #import "TDSourceCodeTextView.h"
-#import "OKGutterView.h"
+#import "TDGutterView.h"
 
 @interface TDSourceCodeTextView ()
 - (void)registerForNotifications;
