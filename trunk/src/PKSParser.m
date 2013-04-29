@@ -240,8 +240,7 @@
         BOOL matches = lt.tokenKind == tokenKind || TOKEN_KIND_BUILTIN_ANY == tokenKind;
 
         if (matches) {
-            if (TOKEN_KIND_BUILTIN_EOF != tokenKind) { // TODO remove this guard.
-                //NSLog(@"matched %@", lt);
+            if (TOKEN_KIND_BUILTIN_EOF != tokenKind) {
                 [self consume:lt];
                 if (discard) [self _discard];
             }
