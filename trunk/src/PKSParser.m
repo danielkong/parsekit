@@ -13,12 +13,15 @@
 #import <ParseKit/PKSRecognitionException.h>
 
 #define FAILED -1
+#define NUM_DISPLAY_OBJS 6
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
 
 @interface PKSTokenAssembly ()
 - (void)consume:(PKToken *)tok;
+//- (id)peek;
+- (NSString *)lastConsumedObjects:(NSUInteger)len joinedByString:(NSString *)delimiter;
 @end
 
 @interface PKSParser ()
@@ -30,6 +33,7 @@
 @property (nonatomic, assign) NSInteger _skip;
 @property (nonatomic, assign, readonly) BOOL _isSpeculating;
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 @property (nonatomic, retain) NSCountedSet *_resyncSet;
 
 - (NSInteger)tokenKindForString:(NSString *)s;
@@ -91,6 +95,7 @@
     self._lookahead = nil;
     self._markers = nil;
     self._tokenKindTab = nil;
+    self._tokenKindNameTab = nil;
     self._resyncSet = nil;
     [super dealloc];
 }
@@ -245,9 +250,53 @@
                 if (discard) [self _discard];
             }
         } else {
-            [self raise:@"expecting %ld; found %@", tokenKind, lt];
+            [self raiseMismatchedToken:lt expecting:tokenKind];
         }
     }
+}
+
+
+- (void)raiseMismatchedToken:(PKToken *)lt expecting:(NSInteger)tokenKind {
+    
+    if (self._isSpeculating) {
+        NSString *fmt = nil;
+        
+#if defined(__LP64__)
+        fmt = @"Expected : %lu\nFound : %@";
+#else
+        fmt = @"Expected : %u\nFound : %@";
+#endif
+        [self raise:fmt, tokenKind, lt];
+
+    } else {
+        NSMutableString *reason = [NSMutableString stringWithString:@"\n\n"];
+
+        NSUInteger lineNum = lt.lineNumber;
+        NSAssert(NSNotFound != lineNum, @"");
+        
+        if (NSNotFound != lineNum) {
+            NSString *fmt = nil;
+#if defined(__LP64__)
+            fmt = @"Line : %lu\n";
+#else
+            fmt = @"Line : %u\n";
+#endif
+            [reason appendFormat:fmt, lineNum];
+        }
+        
+        NSString *after = [self.assembly lastConsumedObjects:NUM_DISPLAY_OBJS joinedByString:@" "];
+        if (![after length]) {
+            after = @"-nothing-";
+        }
+        
+        NSString *expected = [NSString stringWithFormat:@"%lu", tokenKind]; //self._tokenKindNameTab[tokenKind];
+        NSString *found = lt ? lt.stringValue : @"-nothing-";
+        
+        [reason appendFormat:@"After : %@\nExpected : %@\nFound : %@\n\n", after, expected, found];
+
+        [self raise:reason];
+    }
+    
 }
 
 
