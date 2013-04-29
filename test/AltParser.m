@@ -29,6 +29,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
@@ -58,6 +59,10 @@
         self._tokenKindTab[@"foo"] = @(ALT_TOKEN_KIND_FOO);
         self._tokenKindTab[@"bar"] = @(ALT_TOKEN_KIND_BAR);
         self._tokenKindTab[@"baz"] = @(ALT_TOKEN_KIND_BAZ);
+
+        self._tokenKindNameTab[ALT_TOKEN_KIND_FOO] = @"foo";
+        self._tokenKindNameTab[ALT_TOKEN_KIND_BAR] = @"bar";
+        self._tokenKindNameTab[ALT_TOKEN_KIND_BAZ] = @"baz";
 
         self.s_memo = [NSMutableDictionary dictionary];
         self.a_memo = [NSMutableDictionary dictionary];

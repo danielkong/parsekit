@@ -82,6 +82,24 @@
         self._exception = [[[PKSRecognitionException alloc] initWithName:NSStringFromClass([PKSRecognitionException class]) reason:nil userInfo:nil] autorelease];
         
         self._tokenKindTab = [NSMutableDictionary dictionary];
+
+        self._tokenKindNameTab = [NSMutableArray array];
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_INVALID] = @"";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_NUMBER] = @"Number";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_QUOTEDSTRING] = @"Quoted String";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_SYMBOL] = @"Symbol";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_WORD] = @"Word";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_LOWERCASEWORD] = @"Lowercase Word";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_UPPERCASEWORD] = @"Uppercase Word";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_WHITESPACE] = @"Whitespace";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_COMMENT] = @"Comment";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_DELIMITEDSTRING] = @"Delimited String";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_URL] = @"URL";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_EMAIL] = @"Email";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_TWITTER] = @"Twitter";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_HASHTAG] = @"Hashtag";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_EMPTY] = @"Empty";
+        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_ANY] = @"Any";
     }
     return self;
 }
@@ -438,11 +456,14 @@
     
     NSUInteger lineNum = lt.lineNumber;
     NSAssert(NSNotFound != lineNum, @"");
-    
-    NSString *after = [_assembly.stack componentsJoinedByString:@" "];
-    
-    if (![after length]) {
-        after = @"-nothing-";
+
+    NSString *after = @"";
+    if (![_assembly isStackEmpty]) {
+        after = [_assembly.stack componentsJoinedByString:@" "];
+        
+        if (![after length]) {
+            after = @"-nothing-";
+        }
     }
     
     NSString *found = lt ? lt.stringValue : @"-nothing-";
