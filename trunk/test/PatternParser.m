@@ -29,6 +29,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
@@ -50,6 +51,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+
 
         self.s_memo = [NSMutableDictionary dictionary];
     }
@@ -78,7 +80,7 @@
     static NSRegularExpression *regex = nil;
     if (!regex) {
         NSError *err = nil;
-        regex = [[NSRegularExpression regularExpressionWithPattern:@"\\w+" options:NSRegularExpressionCaseInsensitive error:&err] retain];
+        regex = [[NSRegularExpression regularExpressionWithPattern:@"\\w\+" options:NSRegularExpressionCaseInsensitive error:&err] retain];
         if (!regex) {
             if (err) NSLog(@"%@", err);
         }
@@ -87,7 +89,7 @@
     NSString *str = LS(1);
     
     if ([regex numberOfMatchesInString:str options:0 range:NSMakeRange(0, [str length])]) {
-        [self match:TOKEN_KIND_BUILTIN_ANY discard:NO];
+        [self match:TOKEN_KIND_BUILTIN_ANY expecting:@"s" discard:NO];
     } else {
         [self raise:@"pattern test failed in s"];
     }

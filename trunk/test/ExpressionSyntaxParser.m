@@ -29,6 +29,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
@@ -51,20 +52,35 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self._tokenKindTab[@">="] = @(EXPRESSIONSYNTAX_TOKEN_KIND_GE);
-        self._tokenKindTab[@","] = @(EXPRESSIONSYNTAX_TOKEN_KIND_COMMA);
-        self._tokenKindTab[@"or"] = @(EXPRESSIONSYNTAX_TOKEN_KIND_OR);
-        self._tokenKindTab[@"<"] = @(EXPRESSIONSYNTAX_TOKEN_KIND_LT);
-        self._tokenKindTab[@"<="] = @(EXPRESSIONSYNTAX_TOKEN_KIND_LE);
-        self._tokenKindTab[@"="] = @(EXPRESSIONSYNTAX_TOKEN_KIND_EQ);
-        self._tokenKindTab[@"."] = @(EXPRESSIONSYNTAX_TOKEN_KIND_DOT);
-        self._tokenKindTab[@">"] = @(EXPRESSIONSYNTAX_TOKEN_KIND_GT);
-        self._tokenKindTab[@"("] = @(EXPRESSIONSYNTAX_TOKEN_KIND_OPENPAREN);
-        self._tokenKindTab[@"yes"] = @(EXPRESSIONSYNTAX_TOKEN_KIND_YES);
-        self._tokenKindTab[@"no"] = @(EXPRESSIONSYNTAX_TOKEN_KIND_NO);
-        self._tokenKindTab[@")"] = @(EXPRESSIONSYNTAX_TOKEN_KIND_CLOSEPAREN);
-        self._tokenKindTab[@"!="] = @(EXPRESSIONSYNTAX_TOKEN_KIND_NE);
-        self._tokenKindTab[@"and"] = @(EXPRESSIONSYNTAX_TOKEN_KIND_AND);
+        self._tokenKindTab[@">="] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_GE);
+        self._tokenKindTab[@","] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"or"] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_OR);
+        self._tokenKindTab[@"<"] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_LT);
+        self._tokenKindTab[@"<="] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_LE);
+        self._tokenKindTab[@"="] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_EQ);
+        self._tokenKindTab[@"."] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_DOT);
+        self._tokenKindTab[@">"] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_GT);
+        self._tokenKindTab[@"("] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_OPENPAREN);
+        self._tokenKindTab[@"yes"] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_YES);
+        self._tokenKindTab[@"no"] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NO);
+        self._tokenKindTab[@")"] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_CLOSEPAREN);
+        self._tokenKindTab[@"!="] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NE);
+        self._tokenKindTab[@"and"] = @(EXPRESSIONSYNTAXPARSER_TOKEN_KIND_AND);
+
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_GE] = @">=";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_COMMA] = @",";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_OR] = @"or";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_LT] = @"<";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_LE] = @"<=";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_EQ] = @"=";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_DOT] = @".";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_GT] = @">";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_OPENPAREN] = @"(";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_YES] = @"yes";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NO] = @"no";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_CLOSEPAREN] = @")";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NE] = @"!=";
+        self._tokenKindNameTab[EXPRESSIONSYNTAXPARSER_TOKEN_KIND_AND] = @"and";
 
     }
     return self;
@@ -92,7 +108,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"orExpr"];
 
     [self andExpr]; 
-    while ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_OR, 0]) {
+    while ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_OR, 0]) {
         if ([self speculate:^{ [self orTerm]; }]) {
             [self orTerm]; 
         } else {
@@ -118,7 +134,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"andExpr"];
 
     [self relExpr]; 
-    while ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_AND, 0]) {
+    while ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_AND, 0]) {
         if ([self speculate:^{ [self andTerm]; }]) {
             [self andTerm]; 
         } else {
@@ -144,7 +160,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"relExpr"];
 
     [self callExpr]; 
-    while ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_EQ, EXPRESSIONSYNTAX_TOKEN_KIND_GE, EXPRESSIONSYNTAX_TOKEN_KIND_GT, EXPRESSIONSYNTAX_TOKEN_KIND_LE, EXPRESSIONSYNTAX_TOKEN_KIND_LT, EXPRESSIONSYNTAX_TOKEN_KIND_NE, 0]) {
+    while ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_EQ, EXPRESSIONSYNTAXPARSER_TOKEN_KIND_GE, EXPRESSIONSYNTAXPARSER_TOKEN_KIND_GT, EXPRESSIONSYNTAXPARSER_TOKEN_KIND_LE, EXPRESSIONSYNTAXPARSER_TOKEN_KIND_LT, EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NE, 0]) {
         if ([self speculate:^{ [self relOp]; [self callExpr]; }]) {
             [self relOp]; 
             [self callExpr]; 
@@ -160,17 +176,17 @@
     
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"relOp"];
 
-    if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_LT, 0]) {
+    if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_LT, 0]) {
         [self lt]; 
-    } else if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_GT, 0]) {
+    } else if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_GT, 0]) {
         [self gt]; 
-    } else if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_EQ, 0]) {
+    } else if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_EQ, 0]) {
         [self eq]; 
-    } else if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_NE, 0]) {
+    } else if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NE, 0]) {
         [self ne]; 
-    } else if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_LE, 0]) {
+    } else if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_LE, 0]) {
         [self le]; 
-    } else if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_GE, 0]) {
+    } else if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_GE, 0]) {
         [self ge]; 
     } else {
         [self raise:@"no viable alternative found in relOp"];
@@ -200,7 +216,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"argList"];
 
     [self atom]; 
-    while ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_COMMA, 0]) {
+    while ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self comma]; [self atom]; }]) {
             [self comma]; 
             [self atom]; 
@@ -216,9 +232,9 @@
     
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"primary"];
 
-    if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_NO, EXPRESSIONSYNTAX_TOKEN_KIND_YES, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
+    if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NO, EXPRESSIONSYNTAXPARSER_TOKEN_KIND_YES, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self atom]; 
-    } else if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_OPENPAREN, 0]) {
+    } else if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_OPENPAREN, 0]) {
         [self openParen]; 
         [self expr]; 
         [self closeParen]; 
@@ -235,7 +251,7 @@
 
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self obj]; 
-    } else if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_NO, EXPRESSIONSYNTAX_TOKEN_KIND_YES, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+    } else if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NO, EXPRESSIONSYNTAXPARSER_TOKEN_KIND_YES, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self literal]; 
     } else {
         [self raise:@"no viable alternative found in atom"];
@@ -249,7 +265,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"obj"];
 
     [self id]; 
-    while ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_DOT, 0]) {
+    while ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_DOT, 0]) {
         if ([self speculate:^{ [self member]; }]) {
             [self member]; 
         } else {
@@ -286,10 +302,10 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"literal"];
 
     if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self string]; 
+        [self matchQuotedString:NO];
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-        [self num]; 
-    } else if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_NO, EXPRESSIONSYNTAX_TOKEN_KIND_YES, 0]) {
+        [self matchNumber:NO];
+    } else if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NO, EXPRESSIONSYNTAXPARSER_TOKEN_KIND_YES, 0]) {
         [self bool]; 
     } else {
         [self raise:@"no viable alternative found in literal"];
@@ -298,35 +314,13 @@
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"literal"];
 }
 
-- (void)string {
-    
-    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"string"];
-    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"string"];
-
-    [self matchQuotedString:NO];
-
-    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"string"];
-    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"string"];
-}
-
-- (void)num {
-    
-    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"num"];
-    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"num"];
-
-    [self matchNumber:NO];
-
-    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"num"];
-    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"num"];
-}
-
 - (void)bool {
     
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"bool"];
 
-    if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_YES, 0]) {
+    if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_YES, 0]) {
         [self yes]; 
-    } else if ([self predicts:EXPRESSIONSYNTAX_TOKEN_KIND_NO, 0]) {
+    } else if ([self predicts:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NO, 0]) {
         [self no]; 
     } else {
         [self raise:@"no viable alternative found in bool"];
@@ -340,7 +334,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"lt"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"lt"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_LT discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_LT expecting:@"'<'" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"lt"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"lt"];
@@ -351,7 +345,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"gt"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"gt"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_GT discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_GT expecting:@"'>'" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"gt"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"gt"];
@@ -362,7 +356,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"eq"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"eq"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_EQ discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_EQ expecting:@"'='" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"eq"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"eq"];
@@ -373,7 +367,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"ne"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"ne"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_NE discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NE expecting:@"'!='" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"ne"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"ne"];
@@ -384,7 +378,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"le"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"le"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_LE discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_LE expecting:@"'<='" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"le"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"le"];
@@ -395,7 +389,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"ge"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"ge"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_GE discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_GE expecting:@"'>='" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"ge"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"ge"];
@@ -406,7 +400,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"openParen"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"openParen"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_OPENPAREN discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_OPENPAREN expecting:@"'('" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"openParen"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"openParen"];
@@ -417,7 +411,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"closeParen"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"closeParen"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_CLOSEPAREN discard:YES];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_CLOSEPAREN expecting:@"')'" discard:YES]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"closeParen"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"closeParen"];
@@ -428,7 +422,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"yes"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"yes"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_YES discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_YES expecting:@"'yes'" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"yes"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"yes"];
@@ -439,7 +433,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"no"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"no"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_NO discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_NO expecting:@"'no'" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"no"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"no"];
@@ -450,7 +444,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"dot"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"dot"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_DOT discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_DOT expecting:@"'.'" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"dot"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"dot"];
@@ -461,7 +455,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"comma"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"comma"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_COMMA discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_COMMA expecting:@"','" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"comma"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"comma"];
@@ -472,7 +466,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"or"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"or"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_OR discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_OR expecting:@"'or'" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"or"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"or"];
@@ -483,7 +477,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"and"];
     [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"and"];
 
-    [self match:EXPRESSIONSYNTAX_TOKEN_KIND_AND discard:NO];
+    [self match:EXPRESSIONSYNTAXPARSER_TOKEN_KIND_AND expecting:@"'and'" discard:NO]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"and"];
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"and"];
