@@ -119,7 +119,7 @@
 
 - (void)__a {
     
-    [self match:MULTIPLE_TOKEN_KIND_A discard:NO]; 
+    [self match:MULTIPLE_TOKEN_KIND_A expecting:@"'a'" discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
@@ -130,7 +130,7 @@
 
 - (void)__b {
     
-    [self match:MULTIPLE_TOKEN_KIND_B discard:NO]; 
+    [self match:MULTIPLE_TOKEN_KIND_B expecting:@"'b'" discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }

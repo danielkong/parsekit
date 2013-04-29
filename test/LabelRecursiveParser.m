@@ -91,14 +91,14 @@
 
 - (void)__s {
     
-    if ([self speculate:^{ [self label]; [self matchWord:NO];[self match:LABELRECURSIVE_TOKEN_KIND_EQUALS discard:NO]; [self expr]; }]) {
+    if ([self speculate:^{ [self label]; [self matchWord:NO];[self match:LABELRECURSIVE_TOKEN_KIND_EQUALS expecting:@"'='" discard:NO]; [self expr]; }]) {
         [self label]; 
         [self matchWord:NO];
-        [self match:LABELRECURSIVE_TOKEN_KIND_EQUALS discard:NO]; 
+        [self match:LABELRECURSIVE_TOKEN_KIND_EQUALS expecting:@"'='" discard:NO]; 
         [self expr]; 
-    } else if ([self speculate:^{ [self label]; [self match:LABELRECURSIVE_TOKEN_KIND_RETURN discard:NO]; [self expr]; }]) {
+    } else if ([self speculate:^{ [self label]; [self match:LABELRECURSIVE_TOKEN_KIND_RETURN expecting:@"'return'" discard:NO]; [self expr]; }]) {
         [self label]; 
-        [self match:LABELRECURSIVE_TOKEN_KIND_RETURN discard:NO]; 
+        [self match:LABELRECURSIVE_TOKEN_KIND_RETURN expecting:@"'return'" discard:NO]; 
         [self expr]; 
     } else {
         [self raise:@"no viable alternative found in s"];
@@ -115,7 +115,7 @@
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self matchWord:NO];
-        [self match:LABELRECURSIVE_TOKEN_KIND_COLON discard:NO]; 
+        [self match:LABELRECURSIVE_TOKEN_KIND_COLON expecting:@"':'" discard:NO]; 
         [self label]; 
     }
 

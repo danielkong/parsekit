@@ -152,7 +152,7 @@
 
 - (void)__lbracket {
     
-    [self match:ELEMENT_TOKEN_KIND_LBRACKET discard:NO]; 
+    [self match:ELEMENT_TOKEN_KIND_LBRACKET expecting:@"'['" discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
@@ -163,7 +163,7 @@
 
 - (void)__rbracket {
     
-    [self match:ELEMENT_TOKEN_KIND_RBRACKET discard:YES]; 
+    [self match:ELEMENT_TOKEN_KIND_RBRACKET expecting:@"']'" discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
@@ -174,7 +174,7 @@
 
 - (void)__comma {
     
-    [self match:ELEMENT_TOKEN_KIND_COMMA discard:YES]; 
+    [self match:ELEMENT_TOKEN_KIND_COMMA expecting:@"','" discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }

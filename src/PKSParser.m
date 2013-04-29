@@ -241,7 +241,7 @@
 }
 
 
-- (void)match:(NSInteger)tokenKind discard:(BOOL)discard {
+- (void)match:(NSInteger)tokenKind expecting:(NSString *)ruleName discard:(BOOL)discard {
     NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
@@ -268,7 +268,7 @@
                 if (discard) [self _discard];
             }
         } else {
-            NSString *expected = [NSString stringWithFormat:@"Expected : %lu", tokenKind]; //self._tokenKindNameTab[tokenKind];
+            NSString *expected = [NSString stringWithFormat:@"Expected : %@", ruleName];
             [self raise:expected];
         }
     }
@@ -740,12 +740,12 @@
 
 
 - (void)matchEOF:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_EOF discard:discard];
+    [self match:TOKEN_KIND_BUILTIN_EOF expecting:@"XXX" discard:discard];
 }
 
 
 - (void)matchAny:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_ANY discard:discard];
+    [self match:TOKEN_KIND_BUILTIN_ANY expecting:@"Any" discard:discard];
 }
 
 
@@ -755,37 +755,37 @@
 
 
 - (void)matchWord:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_WORD discard:discard];
+    [self match:TOKEN_KIND_BUILTIN_WORD expecting:@"Word" discard:discard];
 }
 
 
 - (void)matchNumber:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_NUMBER discard:discard];
+    [self match:TOKEN_KIND_BUILTIN_NUMBER expecting:@"Number" discard:discard];
 }
 
 
 - (void)matchSymbol:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_SYMBOL discard:discard];
+    [self match:TOKEN_KIND_BUILTIN_SYMBOL expecting:@"Symbol" discard:discard];
 }
 
 
 - (void)matchComment:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_COMMENT discard:discard];
+    [self match:TOKEN_KIND_BUILTIN_COMMENT expecting:@"Comment" discard:discard];
 }
 
 
 - (void)matchWhitespace:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_WHITESPACE discard:discard];
+    [self match:TOKEN_KIND_BUILTIN_WHITESPACE expecting:@"Whitespace" discard:discard];
 }
 
 
 - (void)matchQuotedString:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_QUOTEDSTRING discard:discard];
+    [self match:TOKEN_KIND_BUILTIN_QUOTEDSTRING expecting:@"QuotedString" discard:discard];
 }
 
 
 - (void)matchDelimitedString:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING discard:discard];
+    [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING expecting:@"DelimitedString" discard:discard];
 }
 
 @synthesize _exception = _exception;
