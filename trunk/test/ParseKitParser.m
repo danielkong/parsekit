@@ -29,6 +29,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
@@ -126,6 +127,45 @@
         self._tokenKindTab[@"Char"] = @(PARSEKIT_TOKEN_KIND_CHAR_TITLE);
         self._tokenKindTab[@"Digit"] = @(PARSEKIT_TOKEN_KIND_DIGIT_TITLE);
         self._tokenKindTab[@"%{"] = @(PARSEKIT_TOKEN_KIND_DELIMOPEN);
+
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_SYMBOL_TITLE] = @"Symbol";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_SEMANTICPREDICATE] = @"{,}?";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_PIPE] = @"|";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_AFTERKEY] = @"after";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_CLOSE_CURLY] = @"}";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_TILDE] = @"~";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_START] = @"start";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_COMMENT_TITLE] = @"Comment";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_DISCARD] = @"!";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_NUMBER_TITLE] = @"Number";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_ANY_TITLE] = @"Any";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_SEMI_COLON] = @";";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_S_TITLE] = @"S";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_ACTION] = @"{,}";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_EQUALS] = @"=";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_AMPERSAND] = @"&";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_PATTERNNOOPTS] = @"/,/";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_PHRASEQUESTION] = @"?";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE] = @"QuotedString";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_OPEN_PAREN] = @"(";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_AT] = @"@";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_PATTERNIGNORECASE] = @"/,/i";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_BEFOREKEY] = @"before";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_EOF_TITLE] = @"EOF";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_CLOSE_PAREN] = @")";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_PHRASESTAR] = @"*";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_LETTER_TITLE] = @"Letter";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_EMPTY_TITLE] = @"Empty";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_PHRASEPLUS] = @"+";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_OPEN_BRACKET] = @"[";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_COMMA] = @",";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE] = @"SpecificChar";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_MINUS] = @"-";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_WORD_TITLE] = @"Word";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_CLOSE_BRACKET] = @"]";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_CHAR_TITLE] = @"Char";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_DIGIT_TITLE] = @"Digit";
+        self._tokenKindNameTab[PARSEKIT_TOKEN_KIND_DELIMOPEN] = @"%{";
 
         self.statement_memo = [NSMutableDictionary dictionary];
         self.tokenizerDirective_memo = [NSMutableDictionary dictionary];
