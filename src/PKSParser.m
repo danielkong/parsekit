@@ -427,9 +427,9 @@
     NSString *fmt = nil;
     
 #if defined(__LP64__)
-    fmt = @"\n\nLine : %lu\nAfter : %@\nFound : %@\n%@\n\n";
+    fmt = @"\n\n%@\nLine : %lu\nNear : %@\nFound : %@\n\n";
 #else
-    fmt = @"\n\nLine : %u\nAfter : %@\nFound : %@\n%@\n\n";
+    fmt = @"\n\n%@\nLine : %u\nNear : %@\nFound : %@\n\n";
 #endif
     
     PKToken *lt = LT(1);
@@ -437,13 +437,20 @@
     NSUInteger lineNum = lt.lineNumber;
     NSAssert(NSNotFound != lineNum, @"");
 
-    NSString *after = @"";
-    if (![_assembly isStackEmpty]) {
-        after = [_assembly.stack componentsJoinedByString:@" "];
+    NSMutableString *after = [NSMutableString string];
+    NSString *delim = _silentlyConsumesWhitespace ? @"" : @" ";
+    
+    if ([_lookahead count]) {
+        for (PKToken *tok in [_lookahead reverseObjectEnumerator]) {
+            if (NSNotFound == tok.lineNumber || tok.lineNumber < lineNum - 1) break;
+            if (tok.lineNumber == lineNum) {
+                [after insertString:[NSString stringWithFormat:@"%@%@", tok.stringValue, delim] atIndex:0];
+            }
+        }
     }
     
     NSString *found = lt ? lt.stringValue : @"-nothing-";
-    [self _raise:fmt, lineNum, after, found, msg];
+    [self _raise:fmt, msg, lineNum, after, found];
 }
 
 

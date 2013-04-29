@@ -272,7 +272,7 @@
     } else if ([self speculate:^{ [self tokenizerDirective]; }]) {
         [self tokenizerDirective]; 
     } else {
-        [self raise:@"no viable alternative found in statement"];
+        [self raise:@"No viable alternative found in rule 'statement'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchStatement:)];
@@ -293,7 +293,7 @@
         } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
             [self matchQuotedString:NO];
         } else {
-            [self raise:@"no viable alternative found in tokenizerDirective"];
+            [self raise:@"No viable alternative found in rule 'tokenizerDirective'."];
         }
     } while ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]);
     [self match:PARSEKIT_TOKEN_KIND_SEMI_COLON expecting:@"';'" discard:YES]; 
@@ -336,7 +336,7 @@
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self varProduction]; 
     } else {
-        [self raise:@"no viable alternative found in production"];
+        [self raise:@"No viable alternative found in rule 'production'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchProduction:)];
@@ -366,7 +366,7 @@
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_AFTERKEY, 0]) {
         [self afterKey]; 
     } else {
-        [self raise:@"no viable alternative found in namedAction"];
+        [self raise:@"No viable alternative found in rule 'namedAction'."];
     }
     [self action]; 
 
@@ -472,7 +472,7 @@
         } else if ([self predicts:PARSEKIT_TOKEN_KIND_PHRASEQUESTION, 0]) {
             [self phraseQuestion]; 
         } else {
-            [self raise:@"no viable alternative found in factor"];
+            [self raise:@"No viable alternative found in rule 'factor'."];
         }
     }
     if ([self predicts:PARSEKIT_TOKEN_KIND_ACTION, 0]) {
@@ -577,7 +577,7 @@
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_MINUS, 0]) {
         [self difference]; 
     } else {
-        [self raise:@"no viable alternative found in predicate"];
+        [self raise:@"No viable alternative found in rule 'predicate'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPredicate:)];
@@ -618,7 +618,7 @@
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, PARSEKIT_TOKEN_KIND_CHAR_TITLE, PARSEKIT_TOKEN_KIND_COMMENT_TITLE, PARSEKIT_TOKEN_KIND_DELIMOPEN, PARSEKIT_TOKEN_KIND_DIGIT_TITLE, PARSEKIT_TOKEN_KIND_EMPTY_TITLE, PARSEKIT_TOKEN_KIND_EOF_TITLE, PARSEKIT_TOKEN_KIND_LETTER_TITLE, PARSEKIT_TOKEN_KIND_NUMBER_TITLE, PARSEKIT_TOKEN_KIND_OPEN_BRACKET, PARSEKIT_TOKEN_KIND_OPEN_PAREN, PARSEKIT_TOKEN_KIND_PATTERNIGNORECASE, PARSEKIT_TOKEN_KIND_PATTERNNOOPTS, PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, PARSEKIT_TOKEN_KIND_S_TITLE, PARSEKIT_TOKEN_KIND_WORD_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self barePrimaryExpr]; 
     } else {
-        [self raise:@"no viable alternative found in primaryExpr"];
+        [self raise:@"No viable alternative found in rule 'primaryExpr'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPrimaryExpr:)];
@@ -649,7 +649,7 @@
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_OPEN_BRACKET, 0]) {
         [self subTrackExpr]; 
     } else {
-        [self raise:@"no viable alternative found in barePrimaryExpr"];
+        [self raise:@"No viable alternative found in rule 'barePrimaryExpr'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchBarePrimaryExpr:)];
@@ -712,7 +712,7 @@
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, PARSEKIT_TOKEN_KIND_CHAR_TITLE, PARSEKIT_TOKEN_KIND_COMMENT_TITLE, PARSEKIT_TOKEN_KIND_DIGIT_TITLE, PARSEKIT_TOKEN_KIND_EMPTY_TITLE, PARSEKIT_TOKEN_KIND_EOF_TITLE, PARSEKIT_TOKEN_KIND_LETTER_TITLE, PARSEKIT_TOKEN_KIND_NUMBER_TITLE, PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, PARSEKIT_TOKEN_KIND_S_TITLE, PARSEKIT_TOKEN_KIND_WORD_TITLE, 0]) {
         [self constant]; 
     } else {
-        [self raise:@"no viable alternative found in parser"];
+        [self raise:@"No viable alternative found in rule 'parser'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchParser:)];
@@ -740,7 +740,7 @@
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_PATTERNIGNORECASE, 0]) {
         [self patternIgnoreCase]; 
     } else {
-        [self raise:@"no viable alternative found in pattern"];
+        [self raise:@"No viable alternative found in rule 'pattern'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPattern:)];
@@ -829,7 +829,7 @@
     } else if ([self predicts:PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, 0]) {
         [self match:PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE expecting:@"'SpecificChar'" discard:NO]; 
     } else {
-        [self raise:@"no viable alternative found in constant"];
+        [self raise:@"No viable alternative found in rule 'constant'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchConstant:)];

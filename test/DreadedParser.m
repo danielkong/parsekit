@@ -91,7 +91,7 @@
         [self a]; 
         [self b]; 
     } else {
-        [self raise:@"no viable alternative found in s"];
+        [self raise:@"No viable alternative found in rule 's'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];

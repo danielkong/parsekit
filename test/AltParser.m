@@ -103,7 +103,7 @@
     } else if ([self speculate:^{ [self b]; }]) {
         [self b]; 
     } else {
-        [self raise:@"no viable alternative found in s"];
+        [self raise:@"No viable alternative found in rule 's'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
@@ -133,7 +133,7 @@
         [self foo]; 
         [self bar]; 
     } else {
-        [self raise:@"no viable alternative found in b"];
+        [self raise:@"No viable alternative found in rule 'b'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];

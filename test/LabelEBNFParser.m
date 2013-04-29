@@ -96,7 +96,7 @@
         [self match:LABELEBNF_TOKEN_KIND_RETURN expecting:@"'return'" discard:NO]; 
         [self expr]; 
     } else {
-        [self raise:@"no viable alternative found in s"];
+        [self raise:@"No viable alternative found in rule 's'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];

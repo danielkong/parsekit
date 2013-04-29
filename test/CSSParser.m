@@ -343,7 +343,7 @@
         } else if ([self predicts:CSS_TOKEN_KIND_PIPE, 0]) {
             [self pipe]; 
         } else {
-            [self raise:@"no viable alternative found in selector"];
+            [self raise:@"No viable alternative found in rule 'selector'."];
         }
     } while ([self predicts:CSS_TOKEN_KIND_CLOSEBRACKET, CSS_TOKEN_KIND_COLON, CSS_TOKEN_KIND_DOT, CSS_TOKEN_KIND_EQ, CSS_TOKEN_KIND_GT, CSS_TOKEN_KIND_HASHSYM, CSS_TOKEN_KIND_OPENBRACKET, CSS_TOKEN_KIND_PIPE, CSS_TOKEN_KIND_TILDE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]);
 
@@ -462,7 +462,7 @@
         } else if ([self predicts:CSS_TOKEN_KIND_FWDSLASH, TOKEN_KIND_BUILTIN_SYMBOL, 0]) {
             [self nonTerminatingSymbol]; 
         } else {
-            [self raise:@"no viable alternative found in expr"];
+            [self raise:@"No viable alternative found in rule 'expr'."];
         }
     } while ([self predicts:CSS_TOKEN_KIND_CLOSEPAREN, CSS_TOKEN_KIND_COMMA, CSS_TOKEN_KIND_FWDSLASH, CSS_TOKEN_KIND_OPENPAREN, CSS_TOKEN_KIND_URLLOWER, CSS_TOKEN_KIND_URLUPPER, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_SYMBOL, TOKEN_KIND_BUILTIN_WORD, 0]);
 
@@ -479,7 +479,7 @@
     } else if ([self predicts:CSS_TOKEN_KIND_URLUPPER, 0]) {
         [self urlUpper]; 
     } else {
-        [self raise:@"no viable alternative found in url"];
+        [self raise:@"No viable alternative found in rule 'url'."];
     }
 
 }
@@ -518,7 +518,7 @@
     } else if ([self predicts:TOKEN_KIND_BUILTIN_SYMBOL, 0]) {
         [self matchSymbol:NO];
     } else {
-        [self raise:@"no viable alternative found in nonTerminatingSymbol"];
+        [self raise:@"No viable alternative found in rule 'nonTerminatingSymbol'."];
     }
 
 }

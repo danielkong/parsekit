@@ -688,7 +688,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OREQ, 0]) {
         [self orEq]; 
     } else {
-        [self raise:@"no viable alternative found in assignmentOperator"];
+        [self raise:@"No viable alternative found in rule 'assignmentOperator'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAssignmentOperator:)];
@@ -707,7 +707,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_INSTANCEOF, 0]) {
         [self instanceof]; 
     } else {
-        [self raise:@"no viable alternative found in relationalOperator"];
+        [self raise:@"No viable alternative found in rule 'relationalOperator'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelationalOperator:)];
@@ -724,7 +724,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_ISNOT, 0]) {
         [self isnot]; 
     } else {
-        [self raise:@"no viable alternative found in equalityOperator"];
+        [self raise:@"No viable alternative found in rule 'equalityOperator'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchEqualityOperator:)];
@@ -739,7 +739,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT, 0]) {
         [self shiftRightExt]; 
     } else {
-        [self raise:@"no viable alternative found in shiftOperator"];
+        [self raise:@"No viable alternative found in rule 'shiftOperator'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchShiftOperator:)];
@@ -752,7 +752,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MINUSMINUS, 0]) {
         [self minusMinus]; 
     } else {
-        [self raise:@"no viable alternative found in incrementOperator"];
+        [self raise:@"No viable alternative found in rule 'incrementOperator'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchIncrementOperator:)];
@@ -769,7 +769,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_VOID, 0]) {
         [self void]; 
     } else {
-        [self raise:@"no viable alternative found in unaryOperator"];
+        [self raise:@"No viable alternative found in rule 'unaryOperator'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchUnaryOperator:)];
@@ -784,7 +784,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MOD, 0]) {
         [self mod]; 
     } else {
-        [self raise:@"no viable alternative found in multiplicativeOperator"];
+        [self raise:@"No viable alternative found in rule 'multiplicativeOperator'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchMultiplicativeOperator:)];
@@ -806,7 +806,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_BREAKSYM, JAVASCRIPT_TOKEN_KIND_CONTINUESYM, JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_FORSYM, JAVASCRIPT_TOKEN_KIND_IFSYM, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENCURLY, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_RETURNSYM, JAVASCRIPT_TOKEN_KIND_SEMI, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VAR, JAVASCRIPT_TOKEN_KIND_VOID, JAVASCRIPT_TOKEN_KIND_WHILESYM, JAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self stmt]; 
     } else {
-        [self raise:@"no viable alternative found in element"];
+        [self raise:@"No viable alternative found in rule 'element'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
@@ -922,7 +922,7 @@
     } else if ([self speculate:^{ [self variablesOrExprStmt]; }]) {
         [self variablesOrExprStmt]; 
     } else {
-        [self raise:@"no viable alternative found in stmt"];
+        [self raise:@"No viable alternative found in rule 'stmt'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchStmt:)];
@@ -1138,7 +1138,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VOID, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self expr]; 
     } else {
-        [self raise:@"no viable alternative found in variablesOrExpr"];
+        [self raise:@"No viable alternative found in rule 'variablesOrExpr'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchVariablesOrExpr:)];
@@ -1423,7 +1423,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MINUS, 0]) {
         [self minusExpr]; 
     } else {
-        [self raise:@"no viable alternative found in plusOrMinusExpr"];
+        [self raise:@"No viable alternative found in rule 'plusOrMinusExpr'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPlusOrMinusExpr:)];
@@ -1471,7 +1471,7 @@
     } else if ([self speculate:^{ [self unaryExpr6]; }]) {
         [self unaryExpr6]; 
     } else {
-        [self raise:@"no viable alternative found in unaryExpr"];
+        [self raise:@"No viable alternative found in rule 'unaryExpr'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr:)];
@@ -1543,14 +1543,14 @@
 - (void)constructorCall {
     
     [self identifier]; 
-    if ([self speculate:^{ if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"no viable alternative found in constructorCall"];}}]) {
+    if ([self speculate:^{ if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"No viable alternative found in rule 'constructorCall'."];}}]) {
         if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
             [self parenArgListParen]; 
         } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {
             [self dot]; 
             [self constructorCall]; 
         } else {
-            [self raise:@"no viable alternative found in constructorCall"];
+            [self raise:@"No viable alternative found in rule 'constructorCall'."];
         }
     }
 
@@ -1589,7 +1589,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
         [self parenMemberExpr]; 
     } else {
-        [self raise:@"no viable alternative found in dotBracketOrParenExpr"];
+        [self raise:@"No viable alternative found in rule 'dotBracketOrParenExpr'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchDotBracketOrParenExpr:)];
@@ -1683,7 +1683,7 @@
     } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_THIS, 0]) {
         [self this]; 
     } else {
-        [self raise:@"no viable alternative found in primaryExpr"];
+        [self raise:@"No viable alternative found in rule 'primaryExpr'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPrimaryExpr:)];

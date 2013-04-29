@@ -34,8 +34,8 @@ static PKTokenEOF *EOFToken = nil;
 }
 
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<PKTokenEOF %p>", self];
+- (NSString *)stringValue {
+    return @"«EOF»";
 }
 
 

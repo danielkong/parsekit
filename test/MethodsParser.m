@@ -115,7 +115,7 @@
         [self match:METHODS_TOKEN_KIND_OPEN_CURLY expecting:@"'{'" discard:NO]; 
         [self match:METHODS_TOKEN_KIND_CLOSE_CURLY expecting:@"'}'" discard:NO]; 
     } else {
-        [self raise:@"no viable alternative found in method"];
+        [self raise:@"No viable alternative found in rule 'method'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchMethod:)];
@@ -132,7 +132,7 @@
     } else if ([self predicts:METHODS_TOKEN_KIND_INT, 0]) {
         [self match:METHODS_TOKEN_KIND_INT expecting:@"'int'" discard:NO]; 
     } else {
-        [self raise:@"no viable alternative found in type"];
+        [self raise:@"No viable alternative found in rule 'type'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchType:)];

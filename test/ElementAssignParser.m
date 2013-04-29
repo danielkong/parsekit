@@ -93,7 +93,7 @@
             [self semi]; 
         }];
     } else {
-        [self raise:@"no viable alternative found in stat"];
+        [self raise:@"No viable alternative found in rule 'stat'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchStat:)];
@@ -147,7 +147,7 @@
     } else if ([self predicts:ELEMENTASSIGN_TOKEN_KIND_LBRACKET, 0]) {
         [self list]; 
     } else {
-        [self raise:@"no viable alternative found in element"];
+        [self raise:@"No viable alternative found in rule 'element'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
