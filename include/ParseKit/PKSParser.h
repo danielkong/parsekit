@@ -49,7 +49,6 @@ enum {
 
 @property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, retain) PKSTokenAssembly *assembly;
-@property (nonatomic, assign) id assembler; // weak ref
 @end
 
 @interface PKSParser (Subclass)

@@ -22,6 +22,7 @@
 @end
 
 @interface PKSParser ()
+@property (nonatomic, assign) id assembler; // weak ref
 @property (nonatomic, retain) PKSRecognitionException *_exception;
 @property (nonatomic, retain) NSMutableArray *_lookahead;
 @property (nonatomic, retain) NSMutableArray *_markers;
