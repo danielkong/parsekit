@@ -29,7 +29,6 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
@@ -94,21 +93,6 @@
         self._tokenKindTab[@")"] = @(EXPRESSION_TOKEN_KIND_CLOSEPAREN);
         self._tokenKindTab[@"!="] = @(EXPRESSION_TOKEN_KIND_NE);
         self._tokenKindTab[@"and"] = @(EXPRESSION_TOKEN_KIND_AND);
-
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_GE] = @">=";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_COMMA] = @",";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_OR] = @"or";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_LT] = @"<";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_LE] = @"<=";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_EQ] = @"=";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_DOT] = @".";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_GT] = @">";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_OPENPAREN] = @"(";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_YES] = @"yes";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_NO] = @"no";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_CLOSEPAREN] = @")";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_NE] = @"!=";
-        self._tokenKindNameTab[EXPRESSION_TOKEN_KIND_AND] = @"and";
 
         self.expr_memo = [NSMutableDictionary dictionary];
         self.orExpr_memo = [NSMutableDictionary dictionary];

@@ -29,7 +29,6 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
@@ -107,27 +106,6 @@
         self._tokenKindTab[@"|"] = @(CSS_TOKEN_KIND_PIPE);
         self._tokenKindTab[@")"] = @(CSS_TOKEN_KIND_CLOSEPAREN);
         self._tokenKindTab[@"}"] = @(CSS_TOKEN_KIND_CLOSECURLY);
-
-        self._tokenKindNameTab[CSS_TOKEN_KIND_COMMA] = @",";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_COLON] = @":";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_TILDE] = @"~";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_SEMI] = @";";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_DOT] = @".";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_BANG] = @"!";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_FWDSLASH] = @"/";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_EQ] = @"=";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_GT] = @">";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_HASHSYM] = @"#";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_OPENBRACKET] = @"[";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_AT] = @"@";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_CLOSEBRACKET] = @"]";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_OPENPAREN] = @"(";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_OPENCURLY] = @"{";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_URLUPPER] = @"URL(,)";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_URLLOWER] = @"url(,)";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_PIPE] = @"|";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_CLOSEPAREN] = @")";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_CLOSECURLY] = @"}";
 
         self.ruleset_memo = [NSMutableDictionary dictionary];
         self.selectors_memo = [NSMutableDictionary dictionary];
