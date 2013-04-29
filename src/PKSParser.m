@@ -11,6 +11,7 @@
 #import <ParseKit/PKTokenizer.h>
 #import <ParseKit/PKSTokenAssembly.h>
 #import <ParseKit/PKSRecognitionException.h>
+#import "NSArray+ParseKitAdditions.h"
 
 #define FAILED -1
 #define NUM_DISPLAY_OBJS 6
@@ -20,8 +21,7 @@
 
 @interface PKSTokenAssembly ()
 - (void)consume:(PKToken *)tok;
-//- (id)peek;
-- (NSString *)lastConsumedObjects:(NSUInteger)len joinedByString:(NSString *)delimiter;
+@property (nonatomic, readwrite, retain) NSMutableArray *stack;
 @end
 
 @interface PKSParser ()
@@ -250,53 +250,10 @@
                 if (discard) [self _discard];
             }
         } else {
-            [self raiseMismatchedToken:lt expecting:tokenKind];
+            NSString *expected = [NSString stringWithFormat:@"Expected : %lu", tokenKind]; //self._tokenKindNameTab[tokenKind];
+            [self raise:expected];
         }
     }
-}
-
-
-- (void)raiseMismatchedToken:(PKToken *)lt expecting:(NSInteger)tokenKind {
-    
-    if (self._isSpeculating) {
-        NSString *fmt = nil;
-        
-#if defined(__LP64__)
-        fmt = @"Expected : %lu\nFound : %@";
-#else
-        fmt = @"Expected : %u\nFound : %@";
-#endif
-        [self raise:fmt, tokenKind, lt];
-
-    } else {
-        NSMutableString *reason = [NSMutableString stringWithString:@"\n\n"];
-
-        NSUInteger lineNum = lt.lineNumber;
-        NSAssert(NSNotFound != lineNum, @"");
-        
-        if (NSNotFound != lineNum) {
-            NSString *fmt = nil;
-#if defined(__LP64__)
-            fmt = @"Line : %lu\n";
-#else
-            fmt = @"Line : %u\n";
-#endif
-            [reason appendFormat:fmt, lineNum];
-        }
-        
-        NSString *after = [self.assembly lastConsumedObjects:NUM_DISPLAY_OBJS joinedByString:@" "];
-        if (![after length]) {
-            after = @"-nothing-";
-        }
-        
-        NSString *expected = [NSString stringWithFormat:@"%lu", tokenKind]; //self._tokenKindNameTab[tokenKind];
-        NSString *found = lt ? lt.stringValue : @"-nothing-";
-        
-        [reason appendFormat:@"After : %@\nExpected : %@\nFound : %@\n\n", after, expected, found];
-
-        [self raise:reason];
-    }
-    
 }
 
 
@@ -452,17 +409,44 @@
 }
 
 
-- (void)raise:(NSString *)fmt, ... {
+- (void)_raise:(NSString *)fmt, ... {
     va_list vargs;
     va_start(vargs, fmt);
     
     NSString *str = [[[NSString alloc] initWithFormat:fmt arguments:vargs] autorelease];
     _exception.currentReason = str;
+    
+    //NSLog(@"%@", str);
 
     // reuse
     @throw _exception;
     
     va_end(vargs);
+}
+
+
+- (void)raise:(NSString *)msg {
+    NSString *fmt = nil;
+    
+#if defined(__LP64__)
+    fmt = @"\n\nLine : %lu\nAfter : %@\nFound : %@\n%@\n\n";
+#else
+    fmt = @"\n\nLine : %u\nAfter : %@\nFound : %@\n%@\n\n";
+#endif
+    
+    PKToken *lt = LT(1);
+    
+    NSUInteger lineNum = lt.lineNumber;
+    NSAssert(NSNotFound != lineNum, @"");
+    
+    NSString *after = [_assembly.stack componentsJoinedByString:@" "];
+    
+    if (![after length]) {
+        after = @"-nothing-";
+    }
+    
+    NSString *found = lt ? lt.stringValue : @"-nothing-";
+    [self _raise:fmt, lineNum, after, found, msg];
 }
 
 
@@ -652,7 +636,7 @@
     
     NSInteger memo = [memoObj integerValue];
     if (FAILED == memo) {
-        [self raise:@"already failed prior attempt at start token index %@", idxKey];
+        [self _raise:@"already failed prior attempt at start token index %@", idxKey];
     }
     
     [self _seek:memo];
