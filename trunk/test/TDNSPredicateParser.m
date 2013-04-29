@@ -427,7 +427,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_OPEN_PAREN, 0]) {
         [self compoundExpr]; 
     } else {
-        [self raise:@"no viable alternative found in andTerm"];
+        [self raise:@"No viable alternative found in rule 'andTerm'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndTerm:)];
@@ -457,7 +457,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_BANG, TDNSPREDICATE_TOKEN_KIND_NOT_UPPER, 0]) {
         [self negatedPredicate]; 
     } else {
-        [self raise:@"no viable alternative found in primaryExpr"];
+        [self raise:@"No viable alternative found in rule 'primaryExpr'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPrimaryExpr:)];
@@ -490,7 +490,7 @@
     } else if ([self speculate:^{ [self stringTestPredicate]; }]) {
         [self stringTestPredicate]; 
     } else {
-        [self raise:@"no viable alternative found in predicate"];
+        [self raise:@"No viable alternative found in rule 'predicate'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPredicate:)];
@@ -513,7 +513,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY, 0]) {
         [self array]; 
     } else {
-        [self raise:@"no viable alternative found in value"];
+        [self raise:@"No viable alternative found in rule 'value'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchValue:)];
@@ -552,7 +552,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_FALSELITERAL, 0]) {
         [self falseLiteral]; 
     } else {
-        [self raise:@"no viable alternative found in bool"];
+        [self raise:@"No viable alternative found in rule 'bool'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchBool:)];
@@ -658,7 +658,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_ALL, TDNSPREDICATE_TOKEN_KIND_ANY, TDNSPREDICATE_TOKEN_KIND_NONE, TDNSPREDICATE_TOKEN_KIND_SOME, 0]) {
         [self collectionComparisonPredicate]; 
     } else {
-        [self raise:@"no viable alternative found in comparisonPredicate"];
+        [self raise:@"No viable alternative found in rule 'comparisonPredicate'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchComparisonPredicate:)];
@@ -688,7 +688,7 @@
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self num]; 
     } else {
-        [self raise:@"no viable alternative found in numComparisonValue"];
+        [self raise:@"No viable alternative found in rule 'numComparisonValue'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchNumComparisonValue:)];
@@ -715,7 +715,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_BETWEEN, 0]) {
         [self between]; 
     } else {
-        [self raise:@"no viable alternative found in comparisonOp"];
+        [self raise:@"No viable alternative found in rule 'comparisonOp'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchComparisonOp:)];
@@ -732,7 +732,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_DOUBLE_EQUALS, 0]) {
         [self match:TDNSPREDICATE_TOKEN_KIND_DOUBLE_EQUALS expecting:@"'=='" discard:NO]; 
     } else {
-        [self raise:@"no viable alternative found in eq"];
+        [self raise:@"No viable alternative found in rule 'eq'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
@@ -771,7 +771,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_HASH_ROCKET, 0]) {
         [self match:TDNSPREDICATE_TOKEN_KIND_HASH_ROCKET expecting:@"'=>'" discard:NO]; 
     } else {
-        [self raise:@"no viable alternative found in gtEq"];
+        [self raise:@"No viable alternative found in rule 'gtEq'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchGtEq:)];
@@ -788,7 +788,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_EL, 0]) {
         [self match:TDNSPREDICATE_TOKEN_KIND_EL expecting:@"'=<'" discard:NO]; 
     } else {
-        [self raise:@"no viable alternative found in ltEq"];
+        [self raise:@"No viable alternative found in rule 'ltEq'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchLtEq:)];
@@ -805,7 +805,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_NOT_EQUAL, 0]) {
         [self match:TDNSPREDICATE_TOKEN_KIND_NOT_EQUAL expecting:@"'<>'" discard:NO]; 
     } else {
-        [self raise:@"no viable alternative found in notEq"];
+        [self raise:@"No viable alternative found in rule 'notEq'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchNotEq:)];
@@ -841,7 +841,7 @@
     } else if ([self speculate:^{ [self collectionNotEqPredicate]; }]) {
         [self collectionNotEqPredicate]; 
     } else {
-        [self raise:@"no viable alternative found in collectionComparisonPredicate"];
+        [self raise:@"No viable alternative found in rule 'collectionComparisonPredicate'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchCollectionComparisonPredicate:)];
@@ -942,7 +942,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE, 0]) {
         [self falsePredicate]; 
     } else {
-        [self raise:@"no viable alternative found in boolPredicate"];
+        [self raise:@"No viable alternative found in rule 'boolPredicate'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchBoolPredicate:)];
@@ -981,7 +981,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_DOUBLE_AMPERSAND, 0]) {
         [self match:TDNSPREDICATE_TOKEN_KIND_DOUBLE_AMPERSAND expecting:@"'&&'" discard:YES]; 
     } else {
-        [self raise:@"no viable alternative found in andKeyword"];
+        [self raise:@"No viable alternative found in rule 'andKeyword'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndKeyword:)];
@@ -998,7 +998,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_DOUBLE_PIPE, 0]) {
         [self match:TDNSPREDICATE_TOKEN_KIND_DOUBLE_PIPE expecting:@"'||'" discard:YES]; 
     } else {
-        [self raise:@"no viable alternative found in orKeyword"];
+        [self raise:@"No viable alternative found in rule 'orKeyword'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrKeyword:)];
@@ -1015,7 +1015,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_BANG, 0]) {
         [self match:TDNSPREDICATE_TOKEN_KIND_BANG expecting:@"'!'" discard:YES]; 
     } else {
-        [self raise:@"no viable alternative found in notKeyword"];
+        [self raise:@"No viable alternative found in rule 'notKeyword'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchNotKeyword:)];
@@ -1051,7 +1051,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_MATCHES, 0]) {
         [self matches]; 
     } else {
-        [self raise:@"no viable alternative found in stringTestOp"];
+        [self raise:@"No viable alternative found in rule 'stringTestOp'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchStringTestOp:)];
@@ -1136,7 +1136,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY, 0]) {
         [self array]; 
     } else {
-        [self raise:@"no viable alternative found in collection"];
+        [self raise:@"No viable alternative found in rule 'collection'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchCollection:)];
@@ -1168,7 +1168,7 @@
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_NONE, 0]) {
         [self none]; 
     } else {
-        [self raise:@"no viable alternative found in aggregateOp"];
+        [self raise:@"No viable alternative found in rule 'aggregateOp'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAggregateOp:)];

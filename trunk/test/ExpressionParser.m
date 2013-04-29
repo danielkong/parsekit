@@ -308,7 +308,7 @@
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_GE, 0]) {
         [self ge]; 
     } else {
-        [self raise:@"no viable alternative found in relOp"];
+        [self raise:@"No viable alternative found in rule 'relOp'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelOp:)];
@@ -364,7 +364,7 @@
         [self expr]; 
         [self closeParen]; 
     } else {
-        [self raise:@"no viable alternative found in primary"];
+        [self raise:@"No viable alternative found in rule 'primary'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPrimary:)];
@@ -381,7 +381,7 @@
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_NO, EXPRESSION_TOKEN_KIND_YES, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self literal]; 
     } else {
-        [self raise:@"no viable alternative found in atom"];
+        [self raise:@"No viable alternative found in rule 'atom'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
@@ -441,7 +441,7 @@
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_NO, EXPRESSION_TOKEN_KIND_YES, 0]) {
         [self bool]; 
     } else {
-        [self raise:@"no viable alternative found in literal"];
+        [self raise:@"No viable alternative found in rule 'literal'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchLiteral:)];
@@ -458,7 +458,7 @@
     } else if ([self predicts:EXPRESSION_TOKEN_KIND_NO, 0]) {
         [self no]; 
     } else {
-        [self raise:@"no viable alternative found in bool"];
+        [self raise:@"No viable alternative found in rule 'bool'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchBool:)];

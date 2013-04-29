@@ -213,7 +213,7 @@
     } else if ([self predicts:JSON_TOKEN_KIND_OPENCURLY, 0]) {
         [self object]; 
     } else {
-        [self raise:@"no viable alternative found in value"];
+        [self raise:@"No viable alternative found in rule 'value'."];
     }
     if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
         [self comment]; 

@@ -238,7 +238,7 @@
     } else if ([self speculate:^{ [self text]; }]) {
         [self text]; 
     } else {
-        [self raise:@"no viable alternative found in anything"];
+        [self raise:@"No viable alternative found in rule 'anything'."];
     }
 
 }
@@ -427,7 +427,7 @@
     } else if ([self speculate:^{ [self endTag]; }]) {
         [self endTag]; 
     } else {
-        [self raise:@"no viable alternative found in tag"];
+        [self raise:@"No viable alternative found in rule 'tag'."];
     }
 
 }
@@ -533,7 +533,7 @@
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self matchQuotedString:NO];
     } else {
-        [self raise:@"no viable alternative found in attrValue"];
+        [self raise:@"No viable alternative found in rule 'attrValue'."];
     }
 
 }

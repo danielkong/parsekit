@@ -87,7 +87,7 @@
         } while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]);
         [self b]; 
     } else {
-        [self raise:@"no viable alternative found in _start"];
+        [self raise:@"No viable alternative found in rule '_start'."];
     }
     [self matchEOF:YES]; 
 

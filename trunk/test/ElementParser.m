@@ -135,7 +135,7 @@
     } else if ([self predicts:ELEMENT_TOKEN_KIND_LBRACKET, 0]) {
         [self list]; 
     } else {
-        [self raise:@"no viable alternative found in element"];
+        [self raise:@"No viable alternative found in rule 'element'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElement:)];

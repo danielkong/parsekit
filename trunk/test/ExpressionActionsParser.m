@@ -271,7 +271,7 @@
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_GE, 0]) {
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_GE expecting:@"'>='" discard:NO]; 
     } else {
-        [self raise:@"no viable alternative found in relOp"];
+        [self raise:@"No viable alternative found in rule 'relOp'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelOp:)];
@@ -353,7 +353,7 @@
         [self expr]; 
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_CLOSE_PAREN expecting:@"')'" discard:NO]; 
     } else {
-        [self raise:@"no viable alternative found in primary"];
+        [self raise:@"No viable alternative found in rule 'primary'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchPrimary:)];
@@ -370,7 +370,7 @@
     } else if ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_NO, EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER, EXPRESSIONACTIONS_TOKEN_KIND_YES, EXPRESSIONACTIONS_TOKEN_KIND_YES_UPPER, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self literal]; 
     } else {
-        [self raise:@"no viable alternative found in atom"];
+        [self raise:@"No viable alternative found in rule 'atom'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAtom:)];
@@ -440,7 +440,7 @@
          PUSH(POP_STR()); 
         }];
     } else {
-        [self raise:@"no viable alternative found in literal"];
+        [self raise:@"No viable alternative found in rule 'literal'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchLiteral:)];
@@ -462,7 +462,7 @@
         [self testAndThrow:(id)^{ return NE(LS(1), @"NO"); }]; 
         [self match:EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER expecting:@"'NO'" discard:NO]; 
     } else {
-        [self raise:@"no viable alternative found in bool"];
+        [self raise:@"No viable alternative found in rule 'bool'."];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchBool:)];
