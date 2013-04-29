@@ -241,7 +241,7 @@
 }
 
 
-- (void)match:(NSInteger)tokenKind expecting:(NSString *)ruleName discard:(BOOL)discard {
+- (void)match:(NSInteger)tokenKind expecting:(NSString *)expecting discard:(BOOL)discard {
     NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
@@ -268,8 +268,8 @@
                 if (discard) [self _discard];
             }
         } else {
-            NSString *expected = [NSString stringWithFormat:@"Expected : %@", ruleName];
-            [self raise:expected];
+            NSString *msg = [NSString stringWithFormat:@"Expected : %@", expecting];
+            [self raise:msg];
         }
     }
 }
