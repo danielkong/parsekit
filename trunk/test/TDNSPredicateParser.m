@@ -29,7 +29,6 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
@@ -145,43 +144,6 @@
         self._tokenKindTab[@"<>"] = @(TDNSPREDICATE_TOKEN_KIND_NOT_EQUAL);
         self._tokenKindTab[@"NONE"] = @(TDNSPREDICATE_TOKEN_KIND_NONE);
         self._tokenKindTab[@"=="] = @(TDNSPREDICATE_TOKEN_KIND_DOUBLE_EQUALS);
-
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_ALL] = @"ALL";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE] = @"FALSEPREDICATE";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_NOT_UPPER] = @"NOT";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY] = @"{";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_HASH_ROCKET] = @"=>";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_GE] = @">=";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_DOUBLE_AMPERSAND] = @"&&";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE] = @"TRUEPREDICATE";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_AND_UPPER] = @"AND";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_CLOSE_CURLY] = @"}";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_TRUELITERAL] = @"true";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_NE] = @"!=";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_OR_UPPER] = @"OR";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_BANG] = @"!";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_SOME] = @"SOME";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_INKEYWORD] = @"IN";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_BEGINSWITH] = @"BEGINSWITH";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_LT] = @"<";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_EQUALS] = @"=";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_CONTAINS] = @"CONTAINS";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_GT] = @">";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_OPEN_PAREN] = @"(";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_CLOSE_PAREN] = @")";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_DOUBLE_PIPE] = @"||";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_MATCHES] = @"MATCHES";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_COMMA] = @",";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_LIKE] = @"LIKE";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_ANY] = @"ANY";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_ENDSWITH] = @"ENDSWITH";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_FALSELITERAL] = @"false";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_LE] = @"<=";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_BETWEEN] = @"BETWEEN";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_EL] = @"=<";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_NOT_EQUAL] = @"<>";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_NONE] = @"NONE";
-        self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_DOUBLE_EQUALS] = @"==";
 
         self.expr_memo = [NSMutableDictionary dictionary];
         self.orOrTerm_memo = [NSMutableDictionary dictionary];
