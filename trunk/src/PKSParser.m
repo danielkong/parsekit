@@ -440,10 +440,6 @@
     NSString *after = @"";
     if (![_assembly isStackEmpty]) {
         after = [_assembly.stack componentsJoinedByString:@" "];
-        
-        if (![after length]) {
-            after = @"-nothing-";
-        }
     }
     
     NSString *found = lt ? lt.stringValue : @"-nothing-";
