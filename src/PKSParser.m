@@ -474,12 +474,11 @@
     NSMutableString *after = [NSMutableString string];
     NSString *delim = _silentlyConsumesWhitespace ? @"" : @" ";
     
-    if ([_lookahead count]) {
-        for (PKToken *tok in [_lookahead reverseObjectEnumerator]) {
-            if (NSNotFound == tok.lineNumber || tok.lineNumber < lineNum - 1) break;
-            if (tok.lineNumber == lineNum) {
-                [after insertString:[NSString stringWithFormat:@"%@%@", tok.stringValue, delim] atIndex:0];
-            }
+    for (PKToken *tok in [_lookahead reverseObjectEnumerator]) {
+        NSAssert(NSNotFound != tok.lineNumber, @"");
+        if (tok.lineNumber < lineNum - 1) break;
+        if (tok.lineNumber == lineNum) {
+            [after insertString:[NSString stringWithFormat:@"%@%@", tok.stringValue, delim] atIndex:0];
         }
     }
     
