@@ -2,9 +2,17 @@ Hey there, it looks like you're trying to parse text input in Objective-C. You'v
 
 ParseKit is a parser generator implemented in Objective-C, which converts grammars into parsers intended for use in Cocoa applications running on iOS or Mac OS X.
 
-With ParseKit, you can define your language with a high-level, easy-to-use, BNF-style grammar, and ParseKit will generate source code for a parser for your language.
+With ParseKit, you can define your language with a high-level, easy-to-use, BNF-style grammar, and ParseKit will generate Objective-C source code for a parser for your language.
 
-Specifically, parsers produced by ParseKit are **recursive descent**, **deterministic**, **packrat**, **LL(k)** (this is, *infinite-lookahead*) parsers written in Objective-C. That's a mouthful, but what it means in practice is that ParseKit offers you a great deal of flexibility and expressive power when designing your grammars, but also produces parsers which exhibit good (linear) performance characteristics at runtime. Also, the Objective-C code produced by ParseKit is clean, readable, and easy to debug or tweak by hand.
+Specifically, parsers produced by ParseKit are:
+
+* **Recursive descent**
+* **Deterministic**
+* **[Packrat](http://bford.info/packrat/ "Packrat Parsing and
+	Parsing Expression Grammars")** (or *memoizing*), 
+* **Infinite-lookahead** 
+
+That's a mouthful, but what it means in practice is that ParseKit offers you a great deal of flexibility and expressive power when designing your grammars, but also produces parsers which exhibit good (linear) performance characteristics at runtime. Also, the Objective-C code produced by ParseKit is clean, readable, and easy to debug or tweak by hand.
 
 
 The design of ParseKit has been heavily influenced by [ANTLR](http://antlr.org) and a [book by Stephen J Metsker](http://www.amazon.com/Building-Parsers-Java-Steven-Metsker/dp/0201719622).
@@ -188,6 +196,6 @@ Here's the impelementation of the `calc:` Action attached to the **calc** button
 	}
 
 
-And here's the app after computing a result:
+Run the app (make sure you have selected the **iPhone Simulator** as your run destination), and you'll see the app after computing a result:
 
 ![MiniMathApp](http://parsekit.com/github/app.png)
