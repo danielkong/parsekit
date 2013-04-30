@@ -28,6 +28,7 @@ First, let's design a ParseKit grammar for our *"MiniMath"* language. *MiniMath*
     2 + 2 + 42   // addition (including repetition)
     2 * (2 + 4)  // multiplication and sub-expressions
 	(2+2)*3      // should be tolerant of whitespace presence or absence
+	3.14 *5      // support for optional floating point numbers
 
 OK, now that we know what the expected *MiniMath* input looks like, let's build the grammar. Every ParseKit grammar has to start with a rule called `@start`. Since *MiniMath* is an expression language, let's define our `@start` rule as an expression.
 
@@ -112,14 +113,15 @@ Actions are executed immediately after their preceeding rule matches. So tokens 
 
 In this case, we are popping a number token off the stack, converting it to a float value, and pushing an `NSNumber` back onto the stack for later use.
 
-ParseKit includes some handy macros that can make this code more concise. Here's the `atom` rule and action rewritten using those macros:
+But our action code is a bit verbose, and is making our grammar harder to read and understand. However, ParseKit includes some handy macros that can make this code more concise. Here's the `atom` rule and action rewritten using those macros:
 
     atom = Number { 
         // pop a token off the stack and push it back as a float value 
         PUSH_FLOAT(POP_FLOAT()); 
     };
 
-This shortened action is exactly equivalent to the more verbose version above.
+This shortened action is exactly equivalent to the more verbose version above. The action still pops a number token off the stack, converts it to a float value, and pushes an `NSNumber` back onto the stack
+
     
 Now let's add an action to perform multiplication in the `multExpr` rule:
 
@@ -152,7 +154,6 @@ Finally, we'll need a similar action for our addition expression rule. Here's th
     atom = Number { 
         PUSH_FLOAT(POP_FLOAT()); 
     };
-    
 
 ### Interlude: Checkout the Example Project (with ParseKit Dependency)
 
