@@ -171,13 +171,13 @@ Paste the *MiniMath* grammar into the large text area at the bottom of the Parse
 
 ![ParserGenApp](http://parsekit.com/github/parsergen.png)
 
-Click the **Generate** button and notice that a [MiniMathParser.h](https://github.com/itod/ParseKitMiniMathExample/blob/master/MiniMath/MiniMathParser.h) [MiniMathParser.m](https://github.com/itod/ParseKitMiniMathExample/blob/master/MiniMath/MiniMathParser.m) file have been created, and appear on your Desktop. You'll need to drag this source code into your app's Xcode project.
+Click the **Generate** button and notice that a [MiniMathParser.h](https://github.com/itod/ParseKitMiniMathExample/blob/master/MiniMath/MiniMathParser.h) [MiniMathParser.m](https://github.com/itod/ParseKitMiniMathExample/blob/master/MiniMath/MiniMathParser.m) file have been created, and appear on your Desktop. Normally, you'd need to drag these source code files into your app's Xcode project, but in the case of *MiniMath*, I've included the files already (cooking show style!).
 
 ![Produced Files](http://parsekit.com/github/files.png)
 
 ### Run the MiniMath Example iOS App
 
-Now switch to the **MiniMath** target. This target is an example iOS app with an **input** textfield, **calc** button and a **result** textfield:
+Back in Xcode, switch to the **MiniMath** target. This target is an example iOS app with an **input** textfield, **Calc** button and a **result** textfield:
 
 ![MiniMathApp](http://parsekit.com/github/app_empty.png)
 
@@ -200,8 +200,7 @@ Here's the impelementation of the `calc:` Action attached to the **calc** button
 	    [_outputField setText:[result description]];
 	}
 
-
-Run the app (make sure you have selected the **iPhone Simulator** as your run destination), and you'll see the app after computing a result:
+Run the app (make sure you have selected the **iPhone Simulator** as your run destination), and you'll see the input field is pre-populated with and example expression. Click the **Calc** button to compute the result:
 
 ![MiniMathApp](http://parsekit.com/github/app.png)
 
@@ -209,17 +208,17 @@ The displayed result deserves a bit of explanation.
 
 The result of the `-[MiniMathParser parseString:assembler:error:]` method is an object of type `PKAssembly` described earlier. Again, an **assembly** is intended to be a convenient place to examine recently-matched tokens as well as store temporary work as the parse executes.
 
-A `PKAssembly` object combines a **stack** (which we've used earlier in this tutorial) and a record of the tokens matched in the input string so far. The `-[PKAssembly description]` returns a string with the following format:
+A `PKAssembly` object combines a **stack** (which we've used earlier in this tutorial) and a record of the tokens matched in the input string so far. Printing an assembly via the `-[PKAssembly description]` method returns a string with the following format:
 
   **[** `stack`, `contents`, `here` **]** `matched` **/** `tokens` **/** `here` **^**
   
-The contents of the assembly's stack are on the left between the `[` `]` square brackets. And the entire tokenized input is displayed on the right between `/` slash chars. Each slash separates individual tokens. The `^` caret represents the parser's current cursor position in the parse.
+The contents of the assembly's stack are on the left between the `[` `]` square brackets separated by commas. And the entire tokenized input is displayed on the right between `/` slash chars. Each slash separates individual tokens. The `^` caret represents the parser's current cursor position in the parse.
 
 So for our result:
 
     [12](/2/+/2/)/*/3^
-	
-`12` is on the stack. And tokens `(`, `2`, `+`, `2`, `)`, `*`, and `3` have been matched. The cursor (`^`) is positioned at the end of the input string.
+
+`12` is on the stack. And tokens `(`, `2`, `+`, `2`, `)`, `*`, and `3` have been matched. The cursor (`^`) is positioned at the end of the input string (our parse successfully matched the entire string).
 
 This assembly display can often be useful when debugging parsers. But for now, all we want is the numerical result of parsing our *MiniMath* expression. As you can see, the result (`12`), is on the top of the stack. So we can just pop the numerical result off the stack and use it:
 
@@ -229,8 +228,8 @@ This assembly display can often be useful when debugging parsers. But for now, a
 
 For our given input of `(2+2)*3`:
 
-	The numerical result is: 12
-	
+	The numerical result is: 12	
+
 ### Conclusion
 
 I hope this simple tutorial has sparked some ideas in your mind for how to use ParseKit for parsing more interesting langauges than *MiniMath* in your Mac and iOS applications.
