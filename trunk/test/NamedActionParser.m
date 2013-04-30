@@ -85,7 +85,7 @@
     [self execute:(id)^{
     PUSH(@"foo");
     }];
-    [self match:NAMEDACTION_TOKEN_KIND_A expecting:@"'a'" discard:NO]; 
+    [self match:NAMEDACTION_TOKEN_KIND_A discard:NO]; 
     [self execute:(id)^{
     PUSH(@"bar");
     }];
@@ -99,7 +99,7 @@
 
 - (void)__b {
     
-    [self match:NAMEDACTION_TOKEN_KIND_B expecting:@"'b'" discard:NO]; 
+    [self match:NAMEDACTION_TOKEN_KIND_B discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
