@@ -29,6 +29,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
@@ -58,6 +59,16 @@
         self._tokenKindTab[@"]"] = @(JSON_TOKEN_KIND_CLOSEBRACKET);
         self._tokenKindTab[@"{"] = @(JSON_TOKEN_KIND_OPENCURLY);
         self._tokenKindTab[@":"] = @(JSON_TOKEN_KIND_COLON);
+
+        self._tokenKindNameTab[JSON_TOKEN_KIND_FALSELITERAL] = @"false";
+        self._tokenKindNameTab[JSON_TOKEN_KIND_CLOSECURLY] = @"}";
+        self._tokenKindNameTab[JSON_TOKEN_KIND_OPENBRACKET] = @"[";
+        self._tokenKindNameTab[JSON_TOKEN_KIND_NULLLITERAL] = @"null";
+        self._tokenKindNameTab[JSON_TOKEN_KIND_COMMA] = @",";
+        self._tokenKindNameTab[JSON_TOKEN_KIND_TRUELITERAL] = @"true";
+        self._tokenKindNameTab[JSON_TOKEN_KIND_CLOSEBRACKET] = @"]";
+        self._tokenKindNameTab[JSON_TOKEN_KIND_OPENCURLY] = @"{";
+        self._tokenKindNameTab[JSON_TOKEN_KIND_COLON] = @":";
 
     }
     return self;

@@ -29,6 +29,7 @@
 
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
@@ -84,6 +85,15 @@
         self._tokenKindTab[@"="] = @(HTML_TOKEN_KIND_EQ);
         self._tokenKindTab[@"/"] = @(HTML_TOKEN_KIND_FWDSLASH);
         self._tokenKindTab[@">"] = @(HTML_TOKEN_KIND_GT);
+
+        self._tokenKindNameTab[HTML_TOKEN_KIND_SCRIPTTAGNAME] = @"script";
+        self._tokenKindNameTab[HTML_TOKEN_KIND_STYLETAGNAME] = @"style";
+        self._tokenKindNameTab[HTML_TOKEN_KIND_DOCTYPE] = @"<!DOCTYPE,>";
+        self._tokenKindNameTab[HTML_TOKEN_KIND_LT] = @"<";
+        self._tokenKindNameTab[HTML_TOKEN_KIND_PROCINSTR] = @"<?,?>";
+        self._tokenKindNameTab[HTML_TOKEN_KIND_EQ] = @"=";
+        self._tokenKindNameTab[HTML_TOKEN_KIND_FWDSLASH] = @"/";
+        self._tokenKindNameTab[HTML_TOKEN_KIND_GT] = @">";
 
         self.anything_memo = [NSMutableDictionary dictionary];
         self.scriptElement_memo = [NSMutableDictionary dictionary];
