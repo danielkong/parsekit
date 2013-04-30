@@ -15,14 +15,13 @@ Specifically, parsers produced by ParseKit are:
 
 That's a mouthful, but what it means in practice is that ParseKit offers you a great deal of flexibility and expressive power when designing your grammars, but also produces parsers which exhibit good (linear) performance characteristics at runtime. Also, the Objective-C code produced by ParseKit is clean, readable, and easy to debug or tweak by hand.
 
-
 The design of ParseKit has been heavily influenced by [ANTLR](http://antlr.org) and a [book by Stephen J Metsker](http://www.amazon.com/Building-Parsers-Java-Steven-Metsker/dp/0201719622).
 
 In this tutorial, I'll demonstrate how to use ParseKit to implement a small *"MiniMath"* expression language in an iOS application. When we're done, we'll be able to parse *MiniMath* expressions and compute and display the results.
 
-### Desginging the Grammar
+### Designing the Grammar
 
-First, let's design a ParseKit grammar for our *"MiniMath"* language. *MiniMath* should allow expressions like:
+First, let's define for our *"MiniMath"* language. *MiniMath* should allow expressions like:
 
     1            // bare numbers
     2 + 2 + 42   // addition (including repetition)
@@ -30,7 +29,7 @@ First, let's design a ParseKit grammar for our *"MiniMath"* language. *MiniMath*
 	(2+2)*3      // should be tolerant of whitespace presence or absence
 	3.14 *5      // support for optional floating point numbers
 
-OK, now that we know what the expected *MiniMath* input looks like, let's build the grammar. Every ParseKit grammar has to start with a rule called `@start`. Since *MiniMath* is an expression language, let's define our `@start` rule as an expression.
+OK, now that we know what the expected *MiniMath* input looks like, let's design a ParseKit grammar to match it. Every ParseKit grammar has to start with a rule called `@start`. Since *MiniMath* is an expression language, let's define our `@start` rule as an expression.
 
     @start = expr;
 
@@ -77,7 +76,7 @@ Now we can define our `expr` rule as an addition expression:
     @start = expr;
     expr = addExpr;
 
-Finally, let's change our grammar to discard unnecessary tokens. The post-fix `!` operator can be used to discard a token which is not needed to compute a result. In the case of *MiniMath*, we'll want to discard any token that is not a number (all of the literal strings in our grammar).
+Finally, let's update our grammar to discard unnecessary tokens. The post-fix `!` operator can be used to discard a token which is not needed to compute a result. In the case of *MiniMath*, we'll want to discard any token that is not a number (all of the literal strings in our grammar).
 
 Here's the complete grammar:
 
@@ -111,9 +110,9 @@ In any action, there is an `self.assembly` object (of type `PKAssembly`) availab
 
 Actions are executed immediately after their preceeding rule matches. So tokens which have recently been matched are available at the top of the assembly's stack.
 
-In this case, we are popping a number token off the stack, converting it to a float value, and pushing an `NSNumber` back onto the stack for later use.
+In this case, we are popping a just-matched number token off the stack, converting it to a float value, and pushing an `NSNumber` back onto the stack for later use.
 
-But our action code is a bit verbose, and is making our grammar harder to read and understand. However, ParseKit includes some handy macros that can make this code more concise. Here's the `atom` rule and action rewritten using those macros:
+But our action code is a bit verbose, and is making our grammar harder to read and understand. No problem: ParseKit includes some handy macros that can make this code more concise. Here's the `atom` rule and action rewritten using those macros:
 
     atom = Number { 
         // pop a token off the stack and push it back as a float value 
@@ -122,7 +121,6 @@ But our action code is a bit verbose, and is making our grammar harder to read a
 
 This shortened action is exactly equivalent to the more verbose version above. The action still pops a number token off the stack, converts it to a float value, and pushes an `NSNumber` back onto the stack
 
-    
 Now let's add an action to perform multiplication in the `multExpr` rule:
 
     multExpr = primary ('*'! primary { 
@@ -177,11 +175,11 @@ Click the **Generate** button and notice that a [MiniMathParser.h](https://githu
 
 ### Run the MiniMath Example iOS App
 
-Back in Xcode, switch to the **MiniMath** target. This target is an example iOS app with an **input** textfield, **Calc** button and a **result** textfield:
+Back in Xcode, switch to the **MiniMath** target. This target is an example iOS app with an **Input** textfield, **Calc** button and a **Result** textfield:
 
 ![MiniMathApp](http://parsekit.com/github/app_empty.png)
 
-Here's the impelementation of the `calc:` Action attached to the **calc** button:
+Here's the implementation of the `calc:` Action attached to the **Calc** button, showing how to use the `MiniMathParser` we just created:
 
 	- (IBAction)calc:(id)sender {
 	    NSString *input = [_inputField text];
@@ -189,7 +187,9 @@ Here's the impelementation of the `calc:` Action attached to the **calc** button
 	    MiniMathParser *parser = [[MiniMathParser alloc] init];
     
 	    NSError *err = nil;
-	    PKAssembly *result = [parser parseString:input assembler:nil error:&err];
+	    PKAssembly *result = [parser parseString:input 
+		 							   assembler:nil 
+									       error:&err];
 
 	    if (!result) {
 	        if (err) NSLog(@"%@", err);
@@ -200,19 +200,19 @@ Here's the impelementation of the `calc:` Action attached to the **calc** button
 	    [_outputField setText:[result description]];
 	}
 
-Run the app (make sure you have selected the **iPhone Simulator** as your run destination), and you'll see the input field is pre-populated with and example expression. Click the **Calc** button to compute the result:
+Run the app (make sure you've selected the **iPhone Simulator** as your run destination), and you'll see the input field is pre-populated with an example expression. Click the **Calc** button to compute and display the result:
 
 ![MiniMathApp](http://parsekit.com/github/app.png)
 
-The displayed result deserves a bit of explanation. 
+This displayed result deserves a bit of explanation. 
 
-The result of the `-[MiniMathParser parseString:assembler:error:]` method is an object of type `PKAssembly` described earlier. Again, an **assembly** is intended to be a convenient place to examine recently-matched tokens as well as store temporary work as the parse executes.
+The result of the `-[MiniMathParser parseString:assembler:error:]` method is an assembly object of type `PKAssembly` described earlier. Again, an **assembly** is intended to be a convenient place to examine recently-matched tokens as well as store temporary work as the parse executes.
 
-A `PKAssembly` object combines a **stack** (which we've used earlier in this tutorial) and a record of the tokens matched in the input string so far. Printing an assembly via the `-[PKAssembly description]` method returns a string with the following format:
+A `PKAssembly` object combines a **stack** (which we've used earlier in this tutorial) and a buffer of the tokens matched in the input string so far. Printing an assembly via the `-[PKAssembly description]` method returns a string with the following format:
 
   **[** `stack`, `contents`, `here` **]** `matched` **/** `tokens` **/** `here` **^**
   
-The contents of the assembly's stack are on the left between the `[` `]` square brackets separated by commas. And the entire tokenized input is displayed on the right between `/` slash chars. Each slash separates individual tokens. The `^` caret represents the parser's current cursor position in the parse.
+The contents of the assembly's stack are on the left between the `[` `]` square brackets. And the buffered tokenized input is displayed on the right between `/` slash chars. Each slash separates individual tokens. The `^` caret represents the parser's current cursor position in the input token stream.
 
 So for our result:
 
@@ -234,4 +234,4 @@ For our given input of `(2+2)*3`:
 
 I hope this simple tutorial has sparked some ideas in your mind for how to use ParseKit for parsing more interesting langauges than *MiniMath* in your Mac and iOS applications.
 
-The [main ParseKit repository is here](http://github.com/itod/parsekit/). I'm [@iTod](https://twitter.com/iTod "Todd Ditchendorf (iTod) on Twitter") on Twitter, and if you find some use for ParseKit, consider checking out [some of my other software](http://celestialteapot.com).
+The [main ParseKit repository is here](http://github.com/itod/parsekit/). I'm [@iTod](https://twitter.com/iTod "Todd Ditchendorf (iTod) on Twitter") on Twitter, and if you find some use for ParseKit, consider checking out [some of my other software](http://celestialteapot.com). Cheers!
