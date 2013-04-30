@@ -448,7 +448,7 @@
     NSString *str = [[[NSString alloc] initWithFormat:fmt arguments:vargs] autorelease];
     _exception.currentReason = str;
     
-    NSLog(@"%@", str);
+    //NSLog(@"%@", str);
 
     // reuse
     @throw _exception;
