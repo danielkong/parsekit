@@ -293,7 +293,7 @@
 
 - (void)__scriptTagName {
     
-    [self match:HTML_TOKEN_KIND_SCRIPTTAGNAME expecting:@"'script'" discard:NO]; 
+    [self match:HTML_TOKEN_KIND_SCRIPTTAGNAME discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchScriptTagName:)];
 }
@@ -305,7 +305,7 @@
 - (void)__scriptElementContent {
     
     if (![self speculate:^{ [self scriptEndTag]; }]) {
-        [self match:TOKEN_KIND_BUILTIN_ANY expecting:@"scriptElementContent" discard:NO];
+        [self match:TOKEN_KIND_BUILTIN_ANY discard:NO];
     } else {
         [self raise:@"negation test failed in scriptElementContent"];
     }
@@ -362,7 +362,7 @@
 
 - (void)__styleTagName {
     
-    [self match:HTML_TOKEN_KIND_STYLETAGNAME expecting:@"'style'" discard:NO]; 
+    [self match:HTML_TOKEN_KIND_STYLETAGNAME discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStyleTagName:)];
 }
@@ -374,7 +374,7 @@
 - (void)__styleElementContent {
     
     if (![self speculate:^{ [self styleEndTag]; }]) {
-        [self match:TOKEN_KIND_BUILTIN_ANY expecting:@"styleElementContent" discard:NO];
+        [self match:TOKEN_KIND_BUILTIN_ANY discard:NO];
     } else {
         [self raise:@"negation test failed in styleElementContent"];
     }
@@ -387,7 +387,7 @@
 
 - (void)__procInstr {
     
-    [self match:HTML_TOKEN_KIND_PROCINSTR expecting:@"procInstr" discard:NO]; 
+    [self match:HTML_TOKEN_KIND_PROCINSTR discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchProcInstr:)];
 }
@@ -398,7 +398,7 @@
 
 - (void)__doctype {
     
-    [self match:HTML_TOKEN_KIND_DOCTYPE expecting:@"doctype" discard:NO]; 
+    [self match:HTML_TOKEN_KIND_DOCTYPE discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDoctype:)];
 }
@@ -544,7 +544,7 @@
 
 - (void)__eq {
     
-    [self match:HTML_TOKEN_KIND_EQ expecting:@"'='" discard:NO]; 
+    [self match:HTML_TOKEN_KIND_EQ discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
@@ -555,7 +555,7 @@
 
 - (void)__lt {
     
-    [self match:HTML_TOKEN_KIND_LT expecting:@"'<'" discard:NO]; 
+    [self match:HTML_TOKEN_KIND_LT discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
 }
@@ -566,7 +566,7 @@
 
 - (void)__gt {
     
-    [self match:HTML_TOKEN_KIND_GT expecting:@"'>'" discard:NO]; 
+    [self match:HTML_TOKEN_KIND_GT discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
@@ -577,7 +577,7 @@
 
 - (void)__fwdSlash {
     
-    [self match:HTML_TOKEN_KIND_FWDSLASH expecting:@"'/'" discard:NO]; 
+    [self match:HTML_TOKEN_KIND_FWDSLASH discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];
 }
