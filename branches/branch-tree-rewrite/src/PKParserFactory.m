@@ -1166,7 +1166,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchConstantNode:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKConstantNode *constNode = [a pop];
     NSAssert([constNode isKindOfClass:[PKConstantNode class]], @"");
@@ -1180,10 +1180,23 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchVarNode:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKToken *tok = [a pop];
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isWord, @"");
+    
+    PKTreeNode *trNode = [PKTreeNode nodeWithToken:tok];
+    [a push:trNode];
+}
+
+
+- (void)parser:(PKParser *)p didMatchStringNode:(PKAssembly *)a {
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    PKToken *tok = [a pop];
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isQuotedString, @"");
     
     PKTreeNode *trNode = [PKTreeNode nodeWithToken:tok];
     [a push:trNode];
@@ -1191,7 +1204,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchTreeRewrite:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     PKTreeNode *trNode = [a pop];
     NSAssert([trNode isKindOfClass:[PKTreeNode class]], @"");

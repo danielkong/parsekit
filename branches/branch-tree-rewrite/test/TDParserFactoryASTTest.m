@@ -30,7 +30,7 @@
 }
 
 
-- (void)testDefRewriteRuleWordTree {
+- (void)testDefRewriteRuleConstantTree {
     NSString *g = @"@start=foo;foo=Number -> Number;";
     //NSLog(@"%@", g);
     
@@ -38,6 +38,28 @@
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
     TDEqualObjects(@"(ROOT (@start #foo) ($foo Number)->Number)", [rootNode treeDescription]);
+}
+
+
+- (void)testDefRewriteRuleStringTree {
+    NSString *g = @"@start=foo;foo='foo' -> 'foo';";
+    //NSLog(@"%@", g);
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo 'foo')->'foo')", [rootNode treeDescription]);
+}
+
+
+- (void)testDefRewriteRuleVarTree {
+    NSString *g = @"@start=bar;foo=Number;bar=foo->foo;";
+    //NSLog(@"%@", g);
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #bar) ($foo Number) ($bar #foo)->foo)", [rootNode treeDescription]);
 }
 
 
