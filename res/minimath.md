@@ -108,13 +108,13 @@ We'll start by adding an Action to the `atom` rule:
     
 As you can see, actions are blocks of Objective-C code enclosed in curly braces and placed after any rule reference. 
 
-In any action, there is an `self.assembly` object available (of type `PKAssembly`) which serves as a **stack** (via the `-push:` and `-pop` instance methods). The assembly's stack contains the most recently parsed tokens (instances of `PKToken`), and also serves as a place to store your work as you compute the result.
+In any action, there is a `self.assembly` object available (of type `PKAssembly`) which serves as a **stack** (via the `-push:` and `-pop` instance methods). The assembly's stack contains the most recently parsed tokens (instances of `PKToken`), and also serves as a place to store your work as you compute the result.
 
 Actions are executed immediately after their preceeding rule matches. So tokens which have recently been matched are available at the top of the assembly's stack.
 
 In this case, we are popping a just-matched number token off the stack, converting it to a float value, and pushing an `NSNumber` back onto the stack for later use.
 
-But our action code is a bit verbose, and is making our grammar harder to read and understand. No problem: ParseKit includes some handy macros that can make this code more concise. Here's the `atom` rule and action rewritten using those macros:
+But our action code is a bit verbose, and it's making our grammar harder to read and understand. No problem: ParseKit includes some handy macros that can make this code more concise. Here's the `atom` rule and action rewritten using those macros:
 
     atom = Number { 
         // pop a token off the stack and push it back as a float value 
@@ -173,20 +173,20 @@ Paste the *MiniMath* grammar into the large text area at the bottom of the Parse
 
 ![ParserGenApp](http://parsekit.com/github/parsergen.png)
 
-Click the **Generate** button and notice that a [MiniMathParser.h](https://github.com/itod/ParseKitMiniMathExample/blob/master/MiniMath/MiniMathParser.h) [MiniMathParser.m](https://github.com/itod/ParseKitMiniMathExample/blob/master/MiniMath/MiniMathParser.m) file have been created, and appear on your Desktop. Normally, you'd need to drag these source code files into your app's Xcode project, but in the case of *MiniMath*, I've included the files already (cooking show style!).
+Click the **Generate** button and notice that [MiniMathParser.h](https://github.com/itod/ParseKitMiniMathExample/blob/master/MiniMath/MiniMathParser.h) and [MiniMathParser.m](https://github.com/itod/ParseKitMiniMathExample/blob/master/MiniMath/MiniMathParser.m) files have been created, and appear on your Desktop. Normally, you'd need to drag these source code files into your app's Xcode project, but in the case of *MiniMath*, I've included the files already (cooking show style!).
 
 ![Produced Files](http://parsekit.com/github/files.png)
 
 ### Run the MiniMath Example iOS App
 
-Back in Xcode, switch to the **MiniMath** target. This target is an example iOS app with an **Input** textfield, **Calc** button and a **Result** textfield:
+Back in Xcode, switch to the **MiniMath** target. This target is an example iOS app with an **Input** textfield, **Calc** button, and a **Result** textfield:
 
 ![MiniMathApp](http://parsekit.com/github/app_empty.png)
 
 Here's the implementation of the `calc:` Action attached to the **Calc** button, showing how to use the `MiniMathParser` we just created:
 
 	- (IBAction)calc:(id)sender {
-	    NSString *input = [_inputField text];
+	    NSString *input = _inputField.text;
     
 	    MiniMathParser *parser = [[MiniMathParser alloc] init];
     
@@ -201,7 +201,7 @@ Here's the implementation of the `calc:` Action attached to the **Calc** button,
 	    }
     
 	    // print the entire assembly in the result output field
-	    [_outputField setText:[result description]];
+	    _outputField.text = [result description];
 	}
 
 Run the app (make sure you've selected the **iPhone Simulator** as your run destination), and you'll see the input field is pre-populated with an example expression. Click the **Calc** button to compute and display the result:
@@ -236,7 +236,7 @@ For our given input of `(2+2)*3`:
 
 ### Conclusion
 
-I hope this simple tutorial has sparked some ideas in your mind for how to use ParseKit for parsing more interesting langauges than *MiniMath* in your Mac and iOS applications.
+I hope this simple tutorial will inspire you use ParseKit to parse more interesting langauges than *MiniMath* in your Mac and iOS applications.
 
 To learn more about ParseKit grammar syntax, checkout some of the [many](https://github.com/itod/parsekit/blob/master/res/expression.grammar) [example](https://github.com/itod/parsekit/blob/master/res/expressionActions.grammar) [grammars](https://github.com/itod/parsekit/blob/master/res/nspredicate2.grammar) in the ParseKit project.
 
