@@ -35,6 +35,7 @@
     _root.grammarName = @"ParseKit";
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
+    _visitor.enableMemoization = NO; // TODO remove
     [_root visit:_visitor];
     
     self.parser = [[[ParseKitParser alloc] init] autorelease];

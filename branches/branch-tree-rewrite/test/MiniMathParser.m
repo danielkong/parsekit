@@ -164,7 +164,7 @@
 
 - (void)__atom {
     
-    [self matchNumber:NO];
+    [self matchNumber:NO]; 
     [self execute:(id)^{
     PUSH_FLOAT(POP_FLOAT());
     }];

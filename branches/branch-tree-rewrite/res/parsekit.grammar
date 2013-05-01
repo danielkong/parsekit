@@ -1,8 +1,14 @@
-@start               = statement+;
+@start
+@before {
+    PKTokenizer *t = self.tokenizer;
+    [t.symbolState add:@"->"];
+    [t.symbolState add:@"^("];
+}
+                     = statement+;
 statement            = decl | tokenizerDirective;
 tokenizerDirective   = '@'! Word '=' (Word | QuotedString)+ ';'!;
 decl                 = production namedAction* '=' action? expr ';'!;
-production           = startProduction | varProduction;
+production           = startProduction | varProduction rewriteRule?;
 startProduction      = '@'! 'start'!;
 namedAction		     = '@'! (beforeKey | afterKey) action;
 beforeKey    		 = 'before';
@@ -43,3 +49,18 @@ literal              = QuotedString;
 constant             = 'EOF' | 'Word' | 'Number' | 'QuotedString' | 'Symbol' | 'Comment' | 'Empty' | 'Any' | 'S' | 'Digit' | 'Letter' | 'Char' | 'SpecificChar';
 variable             = Word;
 delimOpen		     = '%{';
+
+
+rewriteRule = arrow (tree | node)+;
+tree = multiTree | singleTree;
+multiTree = singleTree '+';
+singleTree = treeOpen node+ treeClose;
+node = multiNode | singleNode;
+multiNode = singleNode '+';
+singleNode = wordNode | stringNode;
+wordNode = Word;
+stringNode = QuotedString;
+
+treeOpen = '^(';
+treeClose = ')';
+arrow = '->';
