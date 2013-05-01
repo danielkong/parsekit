@@ -1,6 +1,6 @@
 Hey there, it looks like you're trying to parse text input in Objective-C. You've come to the right place.
 
-**ParseKit is a parser generator implemented in Objective-C**. ParseKit converts grammars into parsers intended for use in Cocoa applications running on iOS or Mac OS X.
+**ParseKit is a parser generator implemented in Objective-C**. ParseKit converts language grammars into parsers intended for use in Cocoa applications running on iOS or Mac OS X.
 
 With ParseKit, you can define your language with a **high-level**, **easy-to-use**, **BNF-style grammar**, 
 and then **generate Objective-C source code** which implements a parser for your language.
@@ -53,7 +53,7 @@ Now that we have defined an `atom` rule, let's define a primary expression.
 
     primary = atom | '(' expr ')';
 
-A `primary` expression is either an atom or a parenthesized sub expression. The parentheses here can be used to alter operator precedence.
+A `primary` expression is either an atom or a parenthesized sub expression. The parentheses will be used to alter operator precedence in our *MiniMath* language.
 
 Note that we can recursively call our own `expr` rule (although in ParseKit grammars, you must always avoid [left recursion](http://en.wikipedia.org/wiki/Left_recursion)). 
 
@@ -108,7 +108,7 @@ We'll start by adding an Action to the `atom` rule:
     
 As you can see, actions are blocks of Objective-C code enclosed in curly braces and placed after any rule reference. 
 
-In any action, there is an `self.assembly` object (of type `PKAssembly`) available which serves as a **stack** (via the `-push:` and `-pop` instance methods). The `self.assembly`'s stack contains the most recently parsed tokens (instances of `PKToken`), and also serves as a place to store your work as you compute the result.
+In any action, there is an `self.assembly` object available (of type `PKAssembly`) which serves as a **stack** (via the `-push:` and `-pop` instance methods). The assembly's stack contains the most recently parsed tokens (instances of `PKToken`), and also serves as a place to store your work as you compute the result.
 
 Actions are executed immediately after their preceeding rule matches. So tokens which have recently been matched are available at the top of the assembly's stack.
 
