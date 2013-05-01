@@ -70,7 +70,7 @@
     @param      fence object that indicates the limit of elements returned from this assembly's stack
     @result     Array of the elements above the specified fence
 */
-- (NSArray *)objectsAbove:(id)fence;
+- (NSMutableArray *)objectsAbove:(id)fence;
 
 /*!
     @property   stack

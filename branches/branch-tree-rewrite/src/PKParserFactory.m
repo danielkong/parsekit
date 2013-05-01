@@ -153,10 +153,11 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKRootNode *rootNode;
 @property (nonatomic, assign) BOOL wantsCharacters;
 @property (nonatomic, retain) PKToken *equals;
-@property (nonatomic, retain) PKToken *arrow;
 @property (nonatomic, retain) PKToken *curly;
 @property (nonatomic, retain) PKToken *paren;
 @property (nonatomic, retain) PKToken *square;
+@property (nonatomic, retain) PKToken *arrow;
+@property (nonatomic, retain) PKToken *tree;
 
 @property (nonatomic, retain) PKToken *rootToken;
 @property (nonatomic, retain) PKToken *startToken;
@@ -195,6 +196,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.paren      = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
         self.square     = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"[" floatValue:0.0];
         self.arrow      = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"->" floatValue:0.0];
+        self.tree       = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"^(" floatValue:0.0];
 
         self.startToken = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"@start" floatValue:0.0];
         self.rootToken  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"ROOT" floatValue:0.0];
@@ -232,6 +234,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.paren = nil;
     self.square = nil;
     self.arrow = nil;
+    self.tree = nil;
     self.rootToken = nil;
     self.startToken = nil;
     self.defToken = nil;
@@ -1206,36 +1209,49 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
+- (void)parser:(PKParser *)p didMatchSingleTree:(PKAssembly *)a {
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    NSMutableArray *trNodes = [a objectsAbove:tree];
+    NSAssert([trNodes count], @"");
+    
+    [a pop]; // discard '^('
+    
+    PKTreeNode *parent = [[[trNodes lastObject] retain] autorelease];
+    [trNodes removeLastObject];
+    
+    for (PKTreeNode *child in [trNodes reverseObjectEnumerator]) {
+        NSAssert([child isKindOfClass:[PKTreeNode class]], @"");
+        [parent addChild:child];
+    }
+    
+    [a push:parent];
+}
+
+
 - (void)parser:(PKParser *)p didMatchTreeRewrite:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     NSArray *trNodes = [a objectsAbove:arrow];
     NSAssert([trNodes count], @"");
-
+    
     [a pop]; // discard '->'
     
-    PKTreeNode *parent = nil;
+    PKTreeNode *parent = [PKTreeNode nodeWithToken:arrow];
     
-    if (1 == [trNodes count]) {
-        parent = trNodes[0];
-    } else {
-        
-        parent = [PKTreeNode nodeWithToken:arrow];
-        
-        for (PKTreeNode *child in trNodes) {
-            NSAssert([child isKindOfClass:[PKTreeNode class]], @"");
-            [parent addChild:child];
-        }
+    for (PKTreeNode *child in [trNodes reverseObjectEnumerator]) {
+        NSAssert([child isKindOfClass:[PKTreeNode class]], @"");
+        [parent addChild:child];
     }
     
     NSArray *objs = [a objectsAbove:equals];
     [a pop]; // pop `=`
-
+    
     PKDefinitionNode *defNode = [a pop];
     NSAssert([defNode isKindOfClass:[PKDefinitionNode class]], @"");
     
     defNode.rewriteNode = parent;
-
+    
     [a push:defNode];
     [a push:equals];
     
@@ -1256,6 +1272,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize paren;
 @synthesize square;
 @synthesize arrow;
+@synthesize tree;
 
 @synthesize rootToken;
 @synthesize startToken;

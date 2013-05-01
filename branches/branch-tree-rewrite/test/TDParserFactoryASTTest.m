@@ -37,7 +37,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo Number)->Number)", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo Number)^(-> Number))", [rootNode treeDescription]);
 }
 
 
@@ -48,7 +48,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo 'foo')->'foo')", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo 'foo')^(-> 'foo'))", [rootNode treeDescription]);
 }
 
 
@@ -59,7 +59,29 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #bar) ($foo Number) ($bar #foo)->foo)", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #bar) ($foo Number) ($bar #foo)^(-> foo))", [rootNode treeDescription]);
+}
+
+
+- (void)testDefRewriteRule2ChildrenTree {
+    NSString *g = @"@start=foo;foo='bar' Number -> 'bar' Number;";
+    //NSLog(@"%@", g);
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. 'bar' Number))^(-> 'bar' Number))", [rootNode treeDescription]);
+}
+
+
+- (void)testDefRewriteRuleSubTree {
+    NSString *g = @"@start=foo;foo='bar' Number -> ^('bar' Number);";
+    //NSLog(@"%@", g);
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. 'bar' Number))^(-> ^('bar' Number)))", [rootNode treeDescription]);
 }
 
 

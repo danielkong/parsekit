@@ -219,7 +219,7 @@ static NSString * const PKAssemblyDefaultCursor = @"^";
 }
 
 
-- (NSArray *)objectsAbove:(id)fence {
+- (NSMutableArray *)objectsAbove:(id)fence {
     NSMutableArray *result = [NSMutableArray array];
     
     while (![self isStackEmpty]) {        
