@@ -11,6 +11,12 @@
 
 @implementation PKAlternationNode
 
+- (void)dealloc {
+    self.rewriteNodes = nil;
+    [super dealloc];
+}
+
+
 - (NSUInteger)type {
     return PKNodeTypeAlternation;
 }

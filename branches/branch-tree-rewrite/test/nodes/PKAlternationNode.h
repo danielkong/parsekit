@@ -11,4 +11,5 @@
 @interface PKAlternationNode : PKCollectionNode
 
 @property (nonatomic, assign) BOOL hasEmptyAlternative;
+@property (nonatomic, retain) NSMutableArray *rewriteNodes;
 @end
