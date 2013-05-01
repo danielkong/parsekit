@@ -200,6 +200,9 @@
         [self action]; 
     }
     [self expr]; 
+    if ([self speculate:^{ [self treeRewrite]; }]) {
+        [self treeRewrite]; 
+    }
     [self match:PARSEKIT_TOKEN_KIND_SEMI_COLON discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDecl:)];
@@ -211,9 +214,6 @@
         [self startProduction]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self varProduction]; 
-        if ([self speculate:^{ [self rewriteRule]; }]) {
-            [self rewriteRule]; 
-        }
     } else {
         [self raise:@"No viable alternative found in rule 'production'."];
     }
@@ -596,20 +596,20 @@
     [self fireAssemblerSelector:@selector(parser:didMatchDelimOpen:)];
 }
 
-- (void)rewriteRule {
+- (void)treeRewrite {
     
     [self arrow]; 
     do {
         if ([self predicts:PARSEKIT_TOKEN_KIND_TREEOPEN, 0]) {
             [self tree]; 
-        } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
+        } else if ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, PARSEKIT_TOKEN_KIND_CHAR_TITLE, PARSEKIT_TOKEN_KIND_COMMENT_TITLE, PARSEKIT_TOKEN_KIND_DIGIT_TITLE, PARSEKIT_TOKEN_KIND_EMPTY_TITLE, PARSEKIT_TOKEN_KIND_EOF_TITLE, PARSEKIT_TOKEN_KIND_LETTER_TITLE, PARSEKIT_TOKEN_KIND_NUMBER_TITLE, PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, PARSEKIT_TOKEN_KIND_S_TITLE, PARSEKIT_TOKEN_KIND_WORD_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
             [self node]; 
         } else {
-            [self raise:@"No viable alternative found in rule 'rewriteRule'."];
+            [self raise:@"No viable alternative found in rule 'treeRewrite'."];
         }
-    } while ([self speculate:^{ if ([self predicts:PARSEKIT_TOKEN_KIND_TREEOPEN, 0]) {[self tree]; } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {[self node]; } else {[self raise:@"No viable alternative found in rule 'rewriteRule'."];}}]);
+    } while ([self speculate:^{ if ([self predicts:PARSEKIT_TOKEN_KIND_TREEOPEN, 0]) {[self tree]; } else if ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, PARSEKIT_TOKEN_KIND_CHAR_TITLE, PARSEKIT_TOKEN_KIND_COMMENT_TITLE, PARSEKIT_TOKEN_KIND_DIGIT_TITLE, PARSEKIT_TOKEN_KIND_EMPTY_TITLE, PARSEKIT_TOKEN_KIND_EOF_TITLE, PARSEKIT_TOKEN_KIND_LETTER_TITLE, PARSEKIT_TOKEN_KIND_NUMBER_TITLE, PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, PARSEKIT_TOKEN_KIND_S_TITLE, PARSEKIT_TOKEN_KIND_WORD_TITLE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {[self node]; } else {[self raise:@"No viable alternative found in rule 'treeRewrite'."];}}]);
 
-    [self fireAssemblerSelector:@selector(parser:didMatchRewriteRule:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchTreeRewrite:)];
 }
 
 - (void)tree {
@@ -628,7 +628,7 @@
 - (void)multiTree {
     
     [self singleTree]; 
-    [self match:PARSEKIT_TOKEN_KIND_PHRASEPLUS discard:NO]; 
+    [self match:PARSEKIT_TOKEN_KIND_PHRASEPLUS discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMultiTree:)];
 }
@@ -660,7 +660,7 @@
 - (void)multiNode {
     
     [self singleNode]; 
-    [self match:PARSEKIT_TOKEN_KIND_PHRASEPLUS discard:NO]; 
+    [self match:PARSEKIT_TOKEN_KIND_PHRASEPLUS discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchMultiNode:)];
 }
@@ -668,7 +668,9 @@
 - (void)singleNode {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self wordNode]; 
+        [self varNode]; 
+    } else if ([self predicts:PARSEKIT_TOKEN_KIND_ANY_TITLE, PARSEKIT_TOKEN_KIND_CHAR_TITLE, PARSEKIT_TOKEN_KIND_COMMENT_TITLE, PARSEKIT_TOKEN_KIND_DIGIT_TITLE, PARSEKIT_TOKEN_KIND_EMPTY_TITLE, PARSEKIT_TOKEN_KIND_EOF_TITLE, PARSEKIT_TOKEN_KIND_LETTER_TITLE, PARSEKIT_TOKEN_KIND_NUMBER_TITLE, PARSEKIT_TOKEN_KIND_QUOTEDSTRING_TITLE, PARSEKIT_TOKEN_KIND_SPECIFICCHAR_TITLE, PARSEKIT_TOKEN_KIND_SYMBOL_TITLE, PARSEKIT_TOKEN_KIND_S_TITLE, PARSEKIT_TOKEN_KIND_WORD_TITLE, 0]) {
+        [self constantNode]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self stringNode]; 
     } else {
@@ -678,11 +680,18 @@
     [self fireAssemblerSelector:@selector(parser:didMatchSingleNode:)];
 }
 
-- (void)wordNode {
+- (void)varNode {
     
     [self matchWord:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchWordNode:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchVarNode:)];
+}
+
+- (void)constantNode {
+    
+    [self constant]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchConstantNode:)];
 }
 
 - (void)stringNode {
@@ -694,21 +703,21 @@
 
 - (void)treeOpen {
     
-    [self match:PARSEKIT_TOKEN_KIND_TREEOPEN discard:NO]; 
+    [self match:PARSEKIT_TOKEN_KIND_TREEOPEN discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTreeOpen:)];
 }
 
 - (void)treeClose {
     
-    [self match:PARSEKIT_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    [self match:PARSEKIT_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTreeClose:)];
 }
 
 - (void)arrow {
     
-    [self match:PARSEKIT_TOKEN_KIND_ARROW discard:NO]; 
+    [self match:PARSEKIT_TOKEN_KIND_ARROW discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchArrow:)];
 }

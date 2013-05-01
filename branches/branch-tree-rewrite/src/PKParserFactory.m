@@ -27,6 +27,7 @@
 #import "PKOptionalNode.h"
 #import "PKMultipleNode.h"
 #import "PKActionNode.h"
+#import "PKTreeNode.h"
 
 #import "PKDefinitionPhaseVisitor.h"
 #import "PKResolutionPhaseVisitor.h"
@@ -1161,6 +1162,57 @@ void PKReleaseSubparserTree(PKParser *p) {
     [orNode addChild:right];
 
     [a push:orNode];
+}
+
+
+- (void)parser:(PKParser *)p didMatchConstantNode:(PKAssembly *)a {
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    PKConstantNode *constNode = [a pop];
+    NSAssert([constNode isKindOfClass:[PKConstantNode class]], @"");
+
+    PKToken *tok = constNode.token;
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    
+    PKTreeNode *trNode = [PKTreeNode nodeWithToken:tok];
+    [a push:trNode];
+    NSLog(@"%@", trNode);
+}
+
+
+- (void)parser:(PKParser *)p didMatchVarNode:(PKAssembly *)a {
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    PKToken *tok = [a pop];
+    NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    
+    PKTreeNode *trNode = [PKTreeNode nodeWithToken:tok];
+    [a push:trNode];
+    NSLog(@"%@", trNode);
+}
+
+
+- (void)parser:(PKParser *)p didMatchTreeRewrite:(PKAssembly *)a {
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    PKTreeNode *trNode = [a pop];
+    NSAssert([trNode isKindOfClass:[PKTreeNode class]], @"");
+    
+    NSArray *objs = [a objectsAbove:equals];
+    [a pop]; // pop `=`
+
+    PKDefinitionNode *defNode = [a pop];
+    NSAssert([defNode isKindOfClass:[PKDefinitionNode class]], @"");
+    
+    NSLog(@"%@", defNode);
+    defNode.rewriteNode = trNode;
+
+    [a push:defNode];
+    [a push:equals];
+    
+    for (id obj in [objs reverseObjectEnumerator]) {
+        [a push:obj];
+    }
 }
 
 @synthesize grammarParser;
