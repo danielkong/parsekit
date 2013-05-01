@@ -46,21 +46,28 @@ patternNoOpts		 = %{'/', '/'};
 patternIgnoreCase    = %{'/', '/i'};
 delimitedString      = delimOpen QuotedString (','! QuotedString)? '}'!;
 literal              = QuotedString;
-constant             = 'EOF' | 'Word' | 'Number' | 'QuotedString' | 'Symbol' | 'Comment' | 'Empty' | 'Any' | 'S' | 'Digit' | 'Letter' | 'Char' | 'SpecificChar';
+constant             = title;
 variable             = Word;
 delimOpen		     = '%{';
 
+title = 'EOF' | 'Word' | 'Number' | 'QuotedString' | 'Symbol' | 'Comment' | 'Empty' | 'Any' | 'S' | 'Digit' | 'Letter' | 'Char' | 'SpecificChar';
 
 treeRewrite = arrow (tree | node)+;
-tree = multiTree | singleTree;
-multiTree = singleTree '+'!;
-singleTree = treeOpen node+ treeClose;
-node = multiNode | singleNode;
+
+node = multiNode | repNode | optNode | singleNode;
 multiNode = singleNode '+'!;
+repNode = singleNode '*'!;
+optNode = singleNode '?'!;
 singleNode = varNode | constantNode | stringNode;
 
+tree = multiTree | repTree | optTree | singleTree;
+multiTree = singleTree '+'!;
+repTree = singleTree '*'!;
+optTree = singleTree '?'!;
+singleTree = treeOpen node+ treeClose;
+
 varNode = Word;
-constantNode = constant;
+constantNode = title;
 stringNode = QuotedString;
 
 treeOpen = '^(';

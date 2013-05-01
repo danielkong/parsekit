@@ -1171,14 +1171,51 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
+- (void)parser:(PKParser *)p didMatchMultiNode:(PKAssembly *)a {
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    PKTreeNode *trNode = [a pop];
+    NSAssert([trNode isKindOfClass:[PKTreeNode class]], @"");
+    
+    PKMultipleNode *multiNode = [PKMultipleNode nodeWithToken:multiToken];
+    [multiNode addChild:trNode];
+    
+    [a push:multiNode];
+}
+
+
+- (void)parser:(PKParser *)p didMatchRepNode:(PKAssembly *)a {
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    PKTreeNode *trNode = [a pop];
+    NSAssert([trNode isKindOfClass:[PKTreeNode class]], @"");
+    
+    PKCompositeNode *repNode = [PKCompositeNode nodeWithToken:repToken];
+    [repNode addChild:trNode];
+    
+    [a push:repNode];
+}
+
+
+- (void)parser:(PKParser *)p didMatchOptNode:(PKAssembly *)a {
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    
+    PKTreeNode *trNode = [a pop];
+    NSAssert([trNode isKindOfClass:[PKTreeNode class]], @"");
+    
+    PKOptionalNode *optNode = [PKOptionalNode nodeWithToken:optToken];
+    [optNode addChild:trNode];
+    
+    [a push:optNode];
+}
+
+
 - (void)parser:(PKParser *)p didMatchConstantNode:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
-    PKConstantNode *constNode = [a pop];
-    NSAssert([constNode isKindOfClass:[PKConstantNode class]], @"");
-
-    PKToken *tok = constNode.token;
+    PKToken *tok = [a pop];
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
+    NSAssert(tok.isWord, @"");
     
     PKTreeNode *trNode = [PKTreeNode nodeWithToken:tok];
     [a push:trNode];
@@ -1239,8 +1276,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKTreeNode *parent = [PKTreeNode nodeWithToken:arrow];
     
-    for (PKTreeNode *child in [trNodes reverseObjectEnumerator]) {
-        NSAssert([child isKindOfClass:[PKTreeNode class]], @"");
+    for (PKBaseNode *child in [trNodes reverseObjectEnumerator]) {
+        NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
         [parent addChild:child];
     }
     
