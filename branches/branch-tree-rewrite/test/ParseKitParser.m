@@ -703,7 +703,7 @@
 
 - (void)treeOpen {
     
-    [self match:PARSEKIT_TOKEN_KIND_TREEOPEN discard:YES]; 
+    [self match:PARSEKIT_TOKEN_KIND_TREEOPEN discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTreeOpen:)];
 }
@@ -717,7 +717,7 @@
 
 - (void)arrow {
     
-    [self match:PARSEKIT_TOKEN_KIND_ARROW discard:YES]; 
+    [self match:PARSEKIT_TOKEN_KIND_ARROW discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchArrow:)];
 }
