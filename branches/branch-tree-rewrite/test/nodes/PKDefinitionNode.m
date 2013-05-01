@@ -45,6 +45,17 @@
 }
 
 
+- (NSString *)treeDescription {
+    NSString *res = [super treeDescription];
+    
+    if (_rewriteNode) {
+        res = [NSString stringWithFormat:@"%@->%@", res, [_rewriteNode treeDescription]];
+    }
+    
+    return res;
+}
+
+
 - (NSUInteger)type {
     return PKNodeTypeDefinition;
 }

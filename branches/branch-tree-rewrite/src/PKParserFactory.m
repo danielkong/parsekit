@@ -1176,7 +1176,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKTreeNode *trNode = [PKTreeNode nodeWithToken:tok];
     [a push:trNode];
-    NSLog(@"%@", trNode);
 }
 
 
@@ -1188,7 +1187,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     PKTreeNode *trNode = [PKTreeNode nodeWithToken:tok];
     [a push:trNode];
-    NSLog(@"%@", trNode);
 }
 
 
@@ -1204,7 +1202,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKDefinitionNode *defNode = [a pop];
     NSAssert([defNode isKindOfClass:[PKDefinitionNode class]], @"");
     
-    NSLog(@"%@", defNode);
     defNode.rewriteNode = trNode;
 
     [a push:defNode];

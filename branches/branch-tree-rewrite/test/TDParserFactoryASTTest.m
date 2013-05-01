@@ -37,7 +37,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo Number))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo Number)->Number)", [rootNode treeDescription]);
 }
 
 
