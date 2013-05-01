@@ -74,6 +74,39 @@
 }
 
 
+- (void)testDefRewriteRuleMultiSubTree {
+    NSString *g = @"@start=foo;foo='int' Number+ -> ^('int' Number+);";
+    //NSLog(@"%@", g);
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. 'int' (+ Number)))^(-> ('int' (+ Number))))", [rootNode treeDescription]);
+}
+
+
+- (void)testDefRewriteRuleRepSubTree {
+    NSString *g = @"@start=foo;foo=Word* -> ^(MODIFIERS Word*);";
+    //NSLog(@"%@", g);
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (* Word))^(-> (MODIFIERS (* Word))))", [rootNode treeDescription]);
+}
+
+
+- (void)testDefRewriteRuleOptSubTree {
+    NSString *g = @"@start=foo;foo='volatile'? Word -> ^(Word 'volatile'?);";
+    //NSLog(@"%@", g);
+    
+    NSError *err = nil;
+    PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
+    TDNotNil(rootNode);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. (? 'volatile') Word))^(-> (Word (? 'volatile'))))", [rootNode treeDescription]);
+}
+
+
 - (void)testDefRewriteRuleStringTree {
     NSString *g = @"@start=foo;foo='foo' -> 'foo';";
     //NSLog(@"%@", g);

@@ -1257,8 +1257,8 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKTreeNode *parent = [[[trNodes lastObject] retain] autorelease];
     [trNodes removeLastObject];
     
-    for (PKTreeNode *child in [trNodes reverseObjectEnumerator]) {
-        NSAssert([child isKindOfClass:[PKTreeNode class]], @"");
+    for (PKBaseNode *child in [trNodes reverseObjectEnumerator]) {
+        NSAssert([child isKindOfClass:[PKBaseNode class]], @"");
         [parent addChild:child];
     }
     
