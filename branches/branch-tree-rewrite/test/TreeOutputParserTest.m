@@ -64,9 +64,9 @@
     PKAssembly *res = nil;
     NSString *input = nil;
 
-    input = @"{'foo':'bar'}";
+    input = @"hello";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[{, 'foo', :, 'bar', }]{/'foo'/:/'bar'/}^", [res description]);
+    TDEqualObjects(@"[hello]hello^", [res description]);
 }
 
 @end
