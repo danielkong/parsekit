@@ -7,6 +7,7 @@
 //
 
 #import "PKBaseNode.h"
+#import <ParseKit/PKToken.h>
 
 @implementation PKBaseNode
 
@@ -22,6 +23,7 @@
     self.defName = nil;
     self.before = nil;
     self.after = nil;
+    self.rewriteNode = nil;
     [super dealloc];
 }
 
@@ -35,6 +37,7 @@
     that->_defName = [_defName retain];
     that->_before = [_before retain];
     that->_after = [_after retain];
+    that->_rewriteNode = [_rewriteNode copyWithZone:zone];
     return that;
 }
 
@@ -66,7 +69,22 @@
         return NO;
     }
     
+    if (![_rewriteNode isEqual:that->_rewriteNode]) {
+        return NO;
+    }
+    
     return YES;
+}
+
+
+- (NSString *)treeDescription {
+    NSString *res = [super treeDescription];
+    
+    if (_rewriteNode) {
+        res = [NSString stringWithFormat:@"%@ %@", res, [_rewriteNode treeDescription]];
+    }
+    
+    return res;
 }
 
 

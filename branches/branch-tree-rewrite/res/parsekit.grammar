@@ -7,7 +7,7 @@
                      = statement+;
 statement            = decl | tokenizerDirective;
 tokenizerDirective   = '@'! Word '=' (Word | QuotedString)+ ';'!;
-decl                 = production namedAction* '=' action? expr treeRewrite? ';'!;
+decl                 = production namedAction* '=' action? expr ';'!;
 production           = startProduction | varProduction;
 startProduction      = '@'! 'start'!;
 namedAction		     = '@'! (beforeKey | afterKey) action;
@@ -17,7 +17,7 @@ varProduction        = Word;
 expr                 = term orTerm*;
 term                 = semanticPredicate? factor nextFactor*;
 orTerm               = '|' term;
-factor               = phrase (phraseStar | phrasePlus | phraseQuestion)? action?;
+factor               = phrase (phraseStar | phrasePlus | phraseQuestion)? action? treeRewrite?;
 
 nextFactor           = factor;
 phrase               = primaryExpr predicate*;

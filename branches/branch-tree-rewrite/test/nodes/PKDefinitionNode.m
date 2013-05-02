@@ -13,7 +13,6 @@
 
 - (void)dealloc {
     self.callbackName = nil;
-    self.rewriteNode = nil;
     [super dealloc];
 }
 
@@ -21,7 +20,6 @@
 - (id)copyWithZone:(NSZone *)zone {
     PKDefinitionNode *that = (PKDefinitionNode *)[super copyWithZone:zone];
     that->_callbackName = [_callbackName copyWithZone:zone];
-    that->_rewriteNode = [_rewriteNode copyWithZone:zone];
     return that;
 }
 
@@ -37,22 +35,7 @@
         return NO;
     }
     
-    if (![_rewriteNode isEqual:that->_rewriteNode]) {
-        return NO;
-    }
-    
     return YES;
-}
-
-
-- (NSString *)treeDescription {
-    NSString *res = [super treeDescription];
-    
-    if (_rewriteNode) {
-        res = [NSString stringWithFormat:@"%@ %@", res, [_rewriteNode treeDescription]];
-    }
-    
-    return res;
 }
 
 

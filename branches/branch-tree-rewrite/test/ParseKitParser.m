@@ -200,9 +200,6 @@
         [self action]; 
     }
     [self expr]; 
-    if ([self speculate:^{ [self treeRewrite]; }]) {
-        [self treeRewrite]; 
-    }
     [self match:PARSEKIT_TOKEN_KIND_SEMI_COLON discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchDecl:)];
@@ -320,6 +317,9 @@
     }
     if ([self predicts:PARSEKIT_TOKEN_KIND_ACTION, 0]) {
         [self action]; 
+    }
+    if ([self speculate:^{ [self treeRewrite]; }]) {
+        [self treeRewrite]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchFactor:)];

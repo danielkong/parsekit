@@ -27,6 +27,7 @@ typedef enum NSUInteger {
 } PKNodeType;
 
 @class PKParser;
+@class PKTreeNode;
 
 @interface PKBaseNode : PKAST
 + (id)nodeWithToken:(PKToken *)tok;
@@ -46,5 +47,6 @@ typedef enum NSUInteger {
 @property (nonatomic, retain) PKActionNode *semanticPredicateNode;
 @property (nonatomic, retain) PKActionNode *before;
 @property (nonatomic, retain) PKActionNode *after;
+@property (nonatomic, retain) PKTreeNode *rewriteNode;
 @property (nonatomic, retain) NSString *defName;
 @end
