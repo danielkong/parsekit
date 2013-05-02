@@ -693,7 +693,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     NSArray *nodes = [a objectsAbove:equals];
     NSAssert([nodes count], @"");
 
@@ -1280,20 +1280,26 @@ void PKReleaseSubparserTree(PKParser *p) {
         [parent addChild:child];
     }
     
-    NSArray *objs = [a objectsAbove:equals];
-    [a pop]; // pop `=`
+    PKBaseNode *owner = [a pop];
+    NSAssert([owner isKindOfClass:[PKBaseNode class]], @"");
     
-    PKDefinitionNode *defNode = [a pop];
-    NSAssert([defNode isKindOfClass:[PKDefinitionNode class]], @"");
+    owner.rewriteNode = parent;
+    [a push:owner];
     
-    defNode.rewriteNode = parent;
-    
-    [a push:defNode];
-    [a push:equals];
-    
-    for (id obj in [objs reverseObjectEnumerator]) {
-        [a push:obj];
-    }
+//    NSArray *objs = [a objectsAbove:equals];
+//    [a pop]; // pop `=`
+//    
+//    PKDefinitionNode *defNode = [a pop];
+//    NSAssert([defNode isKindOfClass:[PKDefinitionNode class]], @"");
+//    
+//    defNode.rewriteNode = parent;
+//    
+//    [a push:defNode];
+//    [a push:equals];
+//    
+//    for (id obj in [objs reverseObjectEnumerator]) {
+//        [a push:obj];
+//    }
 }
 
 @synthesize grammarParser;

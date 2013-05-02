@@ -37,7 +37,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo Number) ->)", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo Number ->))", [rootNode treeDescription]);
 }
 
 
@@ -48,7 +48,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo Number) -> Number)", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo Number -> Number))", [rootNode treeDescription]);
 }
 
 
@@ -59,7 +59,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (+ Number)) -> (+ Number))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (+ Number) -> (+ Number)))", [rootNode treeDescription]);
 }
 
 
@@ -70,7 +70,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (* Number)) -> (* Number))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (* Number) -> (* Number)))", [rootNode treeDescription]);
 }
 
 
@@ -81,7 +81,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (? Word)) -> (? Word))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (? Word) -> (? Word)))", [rootNode treeDescription]);
 }
 
 
@@ -92,7 +92,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. 'int' (+ Number))) -> ^('int' (+ Number)))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. 'int' (+ Number) -> ^('int' (+ Number)))))", [rootNode treeDescription]);
 }
 
 
@@ -103,7 +103,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (* Word)) -> ^(MODIFIERS (* Word)))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (* Word) -> ^(MODIFIERS (* Word))))", [rootNode treeDescription]);
 }
 
 
@@ -114,7 +114,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. (? 'volatile') Word)) -> ^(Word (? 'volatile')))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. (? 'volatile') Word -> ^(Word (? 'volatile')))))", [rootNode treeDescription]);
 }
 
 
@@ -125,7 +125,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. 'int' (+ Number))) -> (+ ^('int' Number)))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. 'int' (+ Number) -> (+ ^('int' Number)))))", [rootNode treeDescription]);
 }
 
 
@@ -136,7 +136,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (* Word)) -> (* ^(MODIFIERS Word)))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (* Word) -> (* ^(MODIFIERS Word))))", [rootNode treeDescription]);
 }
 
 
@@ -147,7 +147,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. (? 'volatile') Word)) -> (? ^(Word 'volatile')))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. (? 'volatile') Word -> (? ^(Word 'volatile')))))", [rootNode treeDescription]);
 }
 
 
@@ -158,7 +158,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo 'foo') -> 'foo')", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo 'foo' -> 'foo'))", [rootNode treeDescription]);
 }
 
 
@@ -169,7 +169,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #bar) ($foo Number) ($bar #foo) -> foo)", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #bar) ($foo Number) ($bar #foo -> foo))", [rootNode treeDescription]);
 }
 
 
@@ -180,7 +180,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. 'bar' Number)) -> 'bar' Number)", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. 'bar' Number -> 'bar' Number)))", [rootNode treeDescription]);
 }
 
 
@@ -191,7 +191,7 @@
     NSError *err = nil;
     PKAST *rootNode = [_factory ASTFromGrammar:g error:&err];
     TDNotNil(rootNode);
-    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. 'bar' Number)) -> ^('bar' Number))", [rootNode treeDescription]);
+    TDEqualObjects(@"(ROOT (@start #foo) ($foo (. 'bar' Number -> ^('bar' Number))))", [rootNode treeDescription]);
 }
 
 
