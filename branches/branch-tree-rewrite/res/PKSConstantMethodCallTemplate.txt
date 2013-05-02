@@ -1,1 +1,2 @@
-{%for 1 to depth %}    {%/for%}[self match{{methodName}}:{%if discard %}YES{%else%}NO{%/if%}]; 
+{%for 1 to depth %}    {%/for%}{%if returnTree %}PKAST *{{methodName}}Tree = {%/if%}[self match{{methodName}}:{%if discard %}YES{%else%}NO{%/if%}]; {%if returnTree %}
+{%for 1 to depth %}    {%/for%}[ruleScope addAST:{{methodName}}Tree forKey:@"{{methodName}}"];{%/if%}

@@ -942,13 +942,13 @@
     vars[METHOD_NAME] = methodName;
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
-    
+    vars[RETURN_TREE] = @(_outputType == PKSParserGenOutputTypeAST);
+
     // merge
     NSMutableString *output = [NSMutableString string];
     [output appendString:[self semanticPredicateForNode:node throws:YES]];
     
-    NSString *templateName = _outputType == PKSParserGenOutputTypeAST ? @"PKSConstantMethodCallTreeTemplate" : @"PKSConstantMethodCallTemplate";
-    NSString *template = [self templateStringNamed:templateName];
+    NSString *template = [self templateStringNamed:@"PKSConstantMethodCallTemplate"];
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node.actionNode]];
