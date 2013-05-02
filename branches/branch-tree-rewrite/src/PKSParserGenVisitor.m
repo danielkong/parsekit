@@ -414,6 +414,8 @@
     vars[METHOD_NAME] = methodName;
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
+    vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
+    vars[TREE_VAR_NAME] = [self nextTreeVarName:methodName];
 
     // merge
     NSMutableString *output = [NSMutableString string];

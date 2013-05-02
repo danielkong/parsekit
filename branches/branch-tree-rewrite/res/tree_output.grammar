@@ -1,2 +1,2 @@
-@start = foo;
-foo = Word;
+@start = foo -> foo;
+foo = Word -> Word;

@@ -63,7 +63,8 @@
     
     PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
 
-    [self foo]; 
+    PKAST *foo_0 = [self foo]; 
+    [ruleScope addAST:foo_0 forKey:@"foo"];
     [self matchEOF:YES]; 
 
     return ruleScope.tree;
@@ -74,8 +75,8 @@
     
     PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
 
-    PKAST *Word_0 = [self matchWord:NO]; 
-    [ruleScope addAST:Word_0 forKey:@"Word"];
+    PKAST *Word_1 = [self matchWord:NO]; 
+    [ruleScope addAST:Word_1 forKey:@"Word"];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
     return ruleScope.tree;
