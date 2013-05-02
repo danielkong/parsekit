@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class PKAST;
+@class PKToken;
 
 @interface PKSTreeAdaptor : NSObject
 
@@ -17,5 +18,5 @@
 
 - (id)initWithTreeClass:(Class)cls;
 
-- (PKAST *)newTree; // returns +1
+- (PKAST *)newTreeWithToken:(PKToken *)tok; // returns +1
 @end

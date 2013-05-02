@@ -25,4 +25,5 @@
 - (PKAST *)ASTForKey:(NSString *)key;
 
 @property (nonatomic, retain) PKAST *tree;
+@property (nonatomic, retain) PKSTreeAdaptor *adaptor;
 @end

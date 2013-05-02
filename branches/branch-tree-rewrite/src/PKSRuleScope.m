@@ -27,7 +27,6 @@
     self = [super init];
     if (self) {
         self.tab = [NSMutableDictionary dictionary];
-        self.tree = [[ator newTree] autorelease];
     }
     return self;
 }
@@ -35,6 +34,7 @@
 
 - (void)dealloc {
     self.tree = nil;
+    self.adaptor = nil;
     self.tab = nil;
     [super dealloc];
 }
@@ -78,6 +78,14 @@
     
     PKAST *tree = all[0];
     return tree;
+}
+
+
+- (PKAST *)tree {
+    if (!_tree) {
+        self.tree = [[self.adaptor newTreeWithToken:nil] autorelease];
+    }
+    return _tree;
 }
 
 @end

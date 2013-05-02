@@ -39,19 +39,19 @@
     _visitor.enableMemoization = NO;
     _visitor.outputType = PKSParserGenOutputTypeAST;
     [_root visit:_visitor];
-#if TD_EMIT
-    path = [@"~/work/parsekit/trunk/test/TreeOutputParser.h" stringByExpandingTildeInPath];
-    err = nil;
-    if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
-        NSLog(@"%@", err);
-    }
-
-    path = [@"~/work/parsekit/trunk/test/TreeOutputParser.m" stringByExpandingTildeInPath];
-    err = nil;
-    if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
-        NSLog(@"%@", err);
-    }
-#endif
+//#if TD_EMIT
+//    path = [@"~/work/parsekit/trunk/test/TreeOutputParser.h" stringByExpandingTildeInPath];
+//    err = nil;
+//    if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
+//        NSLog(@"%@", err);
+//    }
+//
+//    path = [@"~/work/parsekit/trunk/test/TreeOutputParser.m" stringByExpandingTildeInPath];
+//    err = nil;
+//    if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
+//        NSLog(@"%@", err);
+//    }
+//#endif
 
     self.parser = [[[TreeOutputParser alloc] init] autorelease];
 }

@@ -67,6 +67,8 @@
     [ruleScope addAST:foo_0 forKey:@"foo"];
     [self matchEOF:YES]; 
 
+	ruleScope.tree = [ruleScope ASTForKey:@"foo"];
+
     return ruleScope.tree;
 
 }
@@ -79,6 +81,9 @@
     [ruleScope addAST:Word_1 forKey:@"Word"];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
+
+    ruleScope.tree = [ruleScope ASTForKey:@"Word"];
+
     return ruleScope.tree;
 
 }

@@ -41,8 +41,8 @@
 }
 
 
-- (PKAST *)newTree {
-    return [[_treeClass alloc] init];
+- (PKAST *)newTreeWithToken:(id)tok {
+    return [[_treeClass alloc] initWithToken:tok];
 }
 
 @end

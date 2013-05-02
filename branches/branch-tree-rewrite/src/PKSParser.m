@@ -775,7 +775,7 @@
     
     PKAST *tree = nil;
     if (_enableASTOutput) {
-        tree = [PKAST ASTWithToken:[_assembly pop]];
+        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
     }
     return tree;
 }
@@ -786,7 +786,7 @@
 
     PKAST *tree = nil;
     if (_enableASTOutput) {
-        tree = [PKAST ASTWithToken:[_assembly pop]];
+        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
     }
     return tree;
 }
@@ -797,7 +797,7 @@
 
     PKAST *tree = nil;
     if (_enableASTOutput) {
-        tree = [PKAST ASTWithToken:[_assembly pop]];
+        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
     }
     return tree;
 }
@@ -808,7 +808,7 @@
 
     PKAST *tree = nil;
     if (_enableASTOutput) {
-        tree = [PKAST ASTWithToken:[_assembly pop]];
+        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
     }
     return tree;
 }
@@ -819,7 +819,7 @@
 
     PKAST *tree = nil;
     if (_enableASTOutput) {
-        tree = [PKAST ASTWithToken:[_assembly pop]];
+        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
     }
     return tree;
 }
@@ -830,7 +830,7 @@
 
     PKAST *tree = nil;
     if (_enableASTOutput) {
-        tree = [PKAST ASTWithToken:[_assembly pop]];
+        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
     }
     return tree;
 }
@@ -841,7 +841,7 @@
 
     PKAST *tree = nil;
     if (_enableASTOutput) {
-        tree = [PKAST ASTWithToken:[_assembly pop]];
+        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
     }
     return tree;
 }
@@ -852,7 +852,7 @@
 
     PKAST *tree = nil;
     if (_enableASTOutput) {
-        tree = [PKAST ASTWithToken:[_assembly pop]];
+        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
     }
     return tree;
 }
@@ -863,7 +863,7 @@
 
     PKAST *tree = nil;
     if (_enableASTOutput) {
-        tree = [PKAST ASTWithToken:[_assembly pop]];
+        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
     }
     return tree;
 }
@@ -874,7 +874,7 @@
 
     PKAST *tree = nil;
     if (_enableASTOutput) {
-        tree = [PKAST ASTWithToken:[_assembly pop]];
+        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
     }
     return tree;
 }
