@@ -62,6 +62,7 @@
 - (PKAST *)_start {
     
     PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
+
     [self foo]; 
     [self matchEOF:YES]; 
 
@@ -72,6 +73,7 @@
 - (PKAST *)foo {
     
     PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
+
     PKAST *Word_0 = [self matchWord:NO]; 
     [ruleScope addAST:Word_0 forKey:@"Word"];
 

@@ -62,12 +62,13 @@
 
 - (void)testDict {
     NSError *err = nil;
-    PKAssembly *res = nil;
+    PKAST *res = nil;
     NSString *input = nil;
 
     input = @"hello";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[hello]hello^", [res description]);
+    TDEqualObjects(@"hello", [res description]);
+    TDTrue([res isKindOfClass:[PKAST class]]);
 }
 
 @end

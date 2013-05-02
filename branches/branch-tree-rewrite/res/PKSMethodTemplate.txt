@@ -2,6 +2,7 @@
 - ({%if enableASTOutput %}PKAST *{%else%}void{%/if%}){{methodName}} {
     
 {%if enableASTOutput %}    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
+
 {%/if%}{{preCallback}}{{methodBody}}{{postCallback}}{%if enableASTOutput %}
     return ruleScope.tree;
 {%/if%}
