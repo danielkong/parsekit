@@ -67,8 +67,9 @@
 
     input = @"hello";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"hello", [res description]);
+    TDNotNil(res);
     TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"hello", [res treeDescription]);
 }
 
 @end

@@ -213,15 +213,20 @@
 
         @autoreleasepool {
             // parse
-            [self _start];
+            PKAST *tree = [self _start];
             
+            //NSLog(@"%@", tree);
             //NSLog(@"%@", _assembly);
             
-            // get result
-            if (_assembly.target) {
-                result = _assembly.target;
+            if (_enableASTOutput) {
+                result = tree;
             } else {
-                result = _assembly;
+                // get result
+                if (_assembly.target) {
+                    result = _assembly.target;
+                } else {
+                    result = _assembly;
+                }
             }
 
             [result retain]; // +1
@@ -759,8 +764,9 @@
 }
 
 
-- (void)_start {
+- (PKAST *)_start {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
 }
 
 
