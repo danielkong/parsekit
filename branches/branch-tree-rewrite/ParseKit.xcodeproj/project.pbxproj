@@ -559,6 +559,10 @@
 		D3A203E4161CADD200207F4D /* TDParserFactoryASTTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */; };
 		D3ACAD021731A6F60020B5CE /* PKTreeNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3ACAD001731A6F60020B5CE /* PKTreeNode.h */; };
 		D3ACAD031731A6F60020B5CE /* PKTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ACAD011731A6F60020B5CE /* PKTreeNode.m */; };
+		D3ACAD061731F54D0020B5CE /* PKSRuleScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D3ACAD041731F54C0020B5CE /* PKSRuleScope.h */; };
+		D3ACAD071731F54D0020B5CE /* PKSRuleScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ACAD051731F54C0020B5CE /* PKSRuleScope.m */; };
+		D3ACAD0A1731FABA0020B5CE /* PKSTreeAdaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3ACAD081731FABA0020B5CE /* PKSTreeAdaptor.h */; };
+		D3ACAD0B1731FABA0020B5CE /* PKSTreeAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ACAD091731FABA0020B5CE /* PKSTreeAdaptor.m */; };
 		D3B22A3A17025EA300446945 /* elements.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3917025EA300446945 /* elements.grammar */; };
 		D3B22A521702B04300446945 /* ElementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A4F1702AFB500446945 /* ElementParser.m */; };
 		D3B22A561703D03900446945 /* ExpressionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A551703D03800446945 /* ExpressionParser.m */; };
@@ -1517,6 +1521,10 @@
 		D3A203E3161CADD200207F4D /* TDParserFactoryASTTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryASTTest.m; path = test/TDParserFactoryASTTest.m; sourceTree = "<group>"; };
 		D3ACAD001731A6F60020B5CE /* PKTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKTreeNode.h; path = src/PKTreeNode.h; sourceTree = "<group>"; };
 		D3ACAD011731A6F60020B5CE /* PKTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKTreeNode.m; path = src/PKTreeNode.m; sourceTree = "<group>"; };
+		D3ACAD041731F54C0020B5CE /* PKSRuleScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSRuleScope.h; path = src/PKSRuleScope.h; sourceTree = "<group>"; };
+		D3ACAD051731F54C0020B5CE /* PKSRuleScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSRuleScope.m; path = src/PKSRuleScope.m; sourceTree = "<group>"; };
+		D3ACAD081731FABA0020B5CE /* PKSTreeAdaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSTreeAdaptor.h; path = src/PKSTreeAdaptor.h; sourceTree = "<group>"; };
+		D3ACAD091731FABA0020B5CE /* PKSTreeAdaptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSTreeAdaptor.m; path = src/PKSTreeAdaptor.m; sourceTree = "<group>"; };
 		D3AF49760FDB122E0032F4DC /* TDParserFactoryPatternTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryPatternTest.h; path = test/TDParserFactoryPatternTest.h; sourceTree = "<group>"; };
 		D3AF49770FDB122E0032F4DC /* TDParserFactoryPatternTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryPatternTest.m; path = test/TDParserFactoryPatternTest.m; sourceTree = "<group>"; };
 		D3AF4CBF0FDC740A0032F4DC /* TDNonReservedWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNonReservedWord.h; path = test/TDNonReservedWord.h; sourceTree = "<group>"; };
@@ -2192,6 +2200,10 @@
 				D3382FA1171C811B00CCE513 /* PKSTokenKindDescriptor.m */,
 				D3382FD9171C8CB200CCE513 /* PKSRecognitionException.h */,
 				D3382FD6171C8C9100CCE513 /* PKSRecognitionException.m */,
+				D3ACAD041731F54C0020B5CE /* PKSRuleScope.h */,
+				D3ACAD051731F54C0020B5CE /* PKSRuleScope.m */,
+				D3ACAD081731FABA0020B5CE /* PKSTreeAdaptor.h */,
+				D3ACAD091731FABA0020B5CE /* PKSTreeAdaptor.m */,
 			);
 			name = static;
 			sourceTree = "<group>";
@@ -3310,6 +3322,8 @@
 				D3382FA2171C811B00CCE513 /* PKSTokenKindDescriptor.h in Headers */,
 				D3382FDA171C8CB200CCE513 /* PKSRecognitionException.h in Headers */,
 				D3ACAD021731A6F60020B5CE /* PKTreeNode.h in Headers */,
+				D3ACAD061731F54D0020B5CE /* PKSRuleScope.h in Headers */,
+				D3ACAD0A1731FABA0020B5CE /* PKSTreeAdaptor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3999,6 +4013,8 @@
 				D3382FA3171C811B00CCE513 /* PKSTokenKindDescriptor.m in Sources */,
 				D3382FD7171C8C9200CCE513 /* PKSRecognitionException.m in Sources */,
 				D3ACAD031731A6F60020B5CE /* PKTreeNode.m in Sources */,
+				D3ACAD071731F54D0020B5CE /* PKSRuleScope.m in Sources */,
+				D3ACAD0B1731FABA0020B5CE /* PKSTreeAdaptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
