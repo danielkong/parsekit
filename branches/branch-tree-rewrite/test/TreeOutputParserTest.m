@@ -27,7 +27,7 @@
     _factory.collectTokenKinds = YES;
 
     NSError *err = nil;
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"json_with_comments" ofType:@"grammar"];
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"tree_output" ofType:@"grammar"];
     NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
     
     err = nil;

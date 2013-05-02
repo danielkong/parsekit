@@ -50,25 +50,25 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self._tokenKindTab[@"false"] = @(JSON_TOKEN_KIND_FALSELITERAL);
-        self._tokenKindTab[@"}"] = @(JSON_TOKEN_KIND_CLOSECURLY);
-        self._tokenKindTab[@"["] = @(JSON_TOKEN_KIND_OPENBRACKET);
-        self._tokenKindTab[@"null"] = @(JSON_TOKEN_KIND_NULLLITERAL);
-        self._tokenKindTab[@","] = @(JSON_TOKEN_KIND_COMMA);
-        self._tokenKindTab[@"true"] = @(JSON_TOKEN_KIND_TRUELITERAL);
-        self._tokenKindTab[@"]"] = @(JSON_TOKEN_KIND_CLOSEBRACKET);
-        self._tokenKindTab[@"{"] = @(JSON_TOKEN_KIND_OPENCURLY);
-        self._tokenKindTab[@":"] = @(JSON_TOKEN_KIND_COLON);
+        self._tokenKindTab[@"false"] = @(TREEOUTPUT_TOKEN_KIND_FALSELITERAL);
+        self._tokenKindTab[@"}"] = @(TREEOUTPUT_TOKEN_KIND_CLOSECURLY);
+        self._tokenKindTab[@"["] = @(TREEOUTPUT_TOKEN_KIND_OPENBRACKET);
+        self._tokenKindTab[@"null"] = @(TREEOUTPUT_TOKEN_KIND_NULLLITERAL);
+        self._tokenKindTab[@","] = @(TREEOUTPUT_TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"true"] = @(TREEOUTPUT_TOKEN_KIND_TRUELITERAL);
+        self._tokenKindTab[@"]"] = @(TREEOUTPUT_TOKEN_KIND_CLOSEBRACKET);
+        self._tokenKindTab[@"{"] = @(TREEOUTPUT_TOKEN_KIND_OPENCURLY);
+        self._tokenKindTab[@":"] = @(TREEOUTPUT_TOKEN_KIND_COLON);
 
-        self._tokenKindNameTab[JSON_TOKEN_KIND_FALSELITERAL] = @"false";
-        self._tokenKindNameTab[JSON_TOKEN_KIND_CLOSECURLY] = @"}";
-        self._tokenKindNameTab[JSON_TOKEN_KIND_OPENBRACKET] = @"[";
-        self._tokenKindNameTab[JSON_TOKEN_KIND_NULLLITERAL] = @"null";
-        self._tokenKindNameTab[JSON_TOKEN_KIND_COMMA] = @",";
-        self._tokenKindNameTab[JSON_TOKEN_KIND_TRUELITERAL] = @"true";
-        self._tokenKindNameTab[JSON_TOKEN_KIND_CLOSEBRACKET] = @"]";
-        self._tokenKindNameTab[JSON_TOKEN_KIND_OPENCURLY] = @"{";
-        self._tokenKindNameTab[JSON_TOKEN_KIND_COLON] = @":";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_FALSELITERAL] = @"false";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_CLOSECURLY] = @"}";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_OPENBRACKET] = @"[";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_NULLLITERAL] = @"null";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_COMMA] = @",";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_TRUELITERAL] = @"true";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_CLOSEBRACKET] = @"]";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_OPENCURLY] = @"{";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_COLON] = @":";
 
     }
     return self;
@@ -93,9 +93,9 @@
 	[t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 
     }];
-    if ([self predicts:JSON_TOKEN_KIND_OPENBRACKET, 0]) {
+    if ([self predicts:TREEOUTPUT_TOKEN_KIND_OPENBRACKET, 0]) {
         [self array]; 
-    } else if ([self predicts:JSON_TOKEN_KIND_OPENCURLY, 0]) {
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_OPENCURLY, 0]) {
         [self object]; 
     }
     if ([self predicts:TOKEN_KIND_BUILTIN_COMMENT, 0]) {
@@ -127,7 +127,7 @@
 - (void)actualObject {
     
     [self property]; 
-    while ([self predicts:JSON_TOKEN_KIND_COMMA, 0]) {
+    while ([self predicts:TREEOUTPUT_TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self commaProperty]; }]) {
             [self commaProperty]; 
         } else {
@@ -178,7 +178,7 @@
 
 - (void)arrayContent {
     
-    if ([self predicts:JSON_TOKEN_KIND_FALSELITERAL, JSON_TOKEN_KIND_NULLLITERAL, JSON_TOKEN_KIND_OPENBRACKET, JSON_TOKEN_KIND_OPENCURLY, JSON_TOKEN_KIND_TRUELITERAL, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TREEOUTPUT_TOKEN_KIND_FALSELITERAL, TREEOUTPUT_TOKEN_KIND_NULLLITERAL, TREEOUTPUT_TOKEN_KIND_OPENBRACKET, TREEOUTPUT_TOKEN_KIND_OPENCURLY, TREEOUTPUT_TOKEN_KIND_TRUELITERAL, 0]) {
         [self actualArray]; 
     }
 
@@ -187,7 +187,7 @@
 - (void)actualArray {
     
     [self value]; 
-    while ([self predicts:JSON_TOKEN_KIND_COMMA, 0]) {
+    while ([self predicts:TREEOUTPUT_TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self commaValue]; }]) {
             [self commaValue]; 
         } else {
@@ -209,19 +209,19 @@
 
 - (void)value {
     
-    if ([self predicts:JSON_TOKEN_KIND_NULLLITERAL, 0]) {
+    if ([self predicts:TREEOUTPUT_TOKEN_KIND_NULLLITERAL, 0]) {
         [self nullLiteral]; 
-    } else if ([self predicts:JSON_TOKEN_KIND_TRUELITERAL, 0]) {
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_TRUELITERAL, 0]) {
         [self trueLiteral]; 
-    } else if ([self predicts:JSON_TOKEN_KIND_FALSELITERAL, 0]) {
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_FALSELITERAL, 0]) {
         [self falseLiteral]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self number]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self string]; 
-    } else if ([self predicts:JSON_TOKEN_KIND_OPENBRACKET, 0]) {
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_OPENBRACKET, 0]) {
         [self array]; 
-    } else if ([self predicts:JSON_TOKEN_KIND_OPENCURLY, 0]) {
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_OPENCURLY, 0]) {
         [self object]; 
     } else {
         [self raise:@"No viable alternative found in rule 'value'."];
@@ -255,63 +255,63 @@
 
 - (void)nullLiteral {
     
-    [self match:JSON_TOKEN_KIND_NULLLITERAL discard:NO]; 
+    [self match:TREEOUTPUT_TOKEN_KIND_NULLLITERAL discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNullLiteral:)];
 }
 
 - (void)trueLiteral {
     
-    [self match:JSON_TOKEN_KIND_TRUELITERAL discard:NO]; 
+    [self match:TREEOUTPUT_TOKEN_KIND_TRUELITERAL discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
 }
 
 - (void)falseLiteral {
     
-    [self match:JSON_TOKEN_KIND_FALSELITERAL discard:NO]; 
+    [self match:TREEOUTPUT_TOKEN_KIND_FALSELITERAL discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
 }
 
 - (void)openCurly {
     
-    [self match:JSON_TOKEN_KIND_OPENCURLY discard:NO]; 
+    [self match:TREEOUTPUT_TOKEN_KIND_OPENCURLY discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
 }
 
 - (void)closeCurly {
     
-    [self match:JSON_TOKEN_KIND_CLOSECURLY discard:NO]; 
+    [self match:TREEOUTPUT_TOKEN_KIND_CLOSECURLY discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
 }
 
 - (void)openBracket {
     
-    [self match:JSON_TOKEN_KIND_OPENBRACKET discard:NO]; 
+    [self match:TREEOUTPUT_TOKEN_KIND_OPENBRACKET discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
 }
 
 - (void)closeBracket {
     
-    [self match:JSON_TOKEN_KIND_CLOSEBRACKET discard:NO]; 
+    [self match:TREEOUTPUT_TOKEN_KIND_CLOSEBRACKET discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
 }
 
 - (void)comma {
     
-    [self match:JSON_TOKEN_KIND_COMMA discard:NO]; 
+    [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
 - (void)colon {
     
-    [self match:JSON_TOKEN_KIND_COLON discard:NO]; 
+    [self match:TREEOUTPUT_TOKEN_KIND_COLON discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
 }
