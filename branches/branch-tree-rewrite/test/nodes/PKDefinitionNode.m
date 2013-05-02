@@ -49,7 +49,7 @@
     NSString *res = [super treeDescription];
     
     if (_rewriteNode) {
-        res = [NSString stringWithFormat:@"%@^%@", res, [_rewriteNode treeDescription]];
+        res = [NSString stringWithFormat:@"%@ %@", res, [_rewriteNode treeDescription]];
     }
     
     return res;

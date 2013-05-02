@@ -15,6 +15,8 @@
 #import "PKAST.h"
 
 @interface PKAST ()
+- (NSString *)childrenStartDelimiter;
+- (NSString *)childrenEndDelimiter;
 @end
 
 @implementation PKAST
@@ -76,6 +78,10 @@
 }
 
 
+- (NSString *)childrenStartDelimiter { return @"("; }
+- (NSString *)childrenEndDelimiter { return @")"; }
+
+
 - (NSString *)treeDescription {
     if (![_children count]) {
         return self.name;
@@ -84,7 +90,7 @@
     NSMutableString *ms = [NSMutableString string];
     
     if (![self isNil]) {
-        [ms appendFormat:@"(%@ ", self.name];
+        [ms appendFormat:@"%@%@ ", [self childrenStartDelimiter], self.name];
     }
 
     NSInteger i = 0;
@@ -94,7 +100,7 @@
     }
     
     if (![self isNil]) {
-        [ms appendString:@")"];
+        [ms appendString:[self childrenEndDelimiter]];
     }
     
     return [[ms copy] autorelease];
