@@ -651,16 +651,20 @@
 }
 
 
-- (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization {
+- (id)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization {
+    id result = nil;
+    if (self._isSpeculating && [self alreadyParsedRule:memoization]) return result;
+    
     BOOL failed = NO;
     NSInteger startTokenIndex = self._p;
-    if (self._isSpeculating && [self alreadyParsedRule:memoization]) return;
-                                
-    @try { [self performSelector:ruleSelector]; }
+    
+    @try { result = [self performSelector:ruleSelector]; }
     @catch (PKSRecognitionException *ex) { failed = YES; @throw ex; }
     @finally {
         if (self._isSpeculating) [self memoize:memoization atIndex:startTokenIndex failed:failed];
     }
+    
+    return result;
 }
 
 

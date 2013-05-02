@@ -91,7 +91,7 @@ enum {
 - (void)fireAssemblerSelector:(SEL)sel;
 
 // memoization
-- (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
+- (id)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization;
 
 // error recovery
 - (void)tryAndRecover:(NSInteger)tokenKind block:(PKSResyncBlock)block completion:(PKSResyncBlock)completion;

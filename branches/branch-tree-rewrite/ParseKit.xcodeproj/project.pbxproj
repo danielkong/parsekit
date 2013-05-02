@@ -563,6 +563,8 @@
 		D3ACAD071731F54D0020B5CE /* PKSRuleScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ACAD051731F54C0020B5CE /* PKSRuleScope.m */; };
 		D3ACAD0A1731FABA0020B5CE /* PKSTreeAdaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3ACAD081731FABA0020B5CE /* PKSTreeAdaptor.h */; };
 		D3ACAD0B1731FABA0020B5CE /* PKSTreeAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ACAD091731FABA0020B5CE /* PKSTreeAdaptor.m */; };
+		D3ACAD0D1731FE200020B5CE /* PKSConstantMethodCallTreeTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3ACAD0C1731FE200020B5CE /* PKSConstantMethodCallTreeTemplate.txt */; };
+		D3ACAD0E1731FE200020B5CE /* PKSConstantMethodCallTreeTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3ACAD0C1731FE200020B5CE /* PKSConstantMethodCallTreeTemplate.txt */; };
 		D3B22A3A17025EA300446945 /* elements.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B22A3917025EA300446945 /* elements.grammar */; };
 		D3B22A521702B04300446945 /* ElementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A4F1702AFB500446945 /* ElementParser.m */; };
 		D3B22A561703D03900446945 /* ExpressionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A551703D03800446945 /* ExpressionParser.m */; };
@@ -1525,6 +1527,7 @@
 		D3ACAD051731F54C0020B5CE /* PKSRuleScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSRuleScope.m; path = src/PKSRuleScope.m; sourceTree = "<group>"; };
 		D3ACAD081731FABA0020B5CE /* PKSTreeAdaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSTreeAdaptor.h; path = src/PKSTreeAdaptor.h; sourceTree = "<group>"; };
 		D3ACAD091731FABA0020B5CE /* PKSTreeAdaptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSTreeAdaptor.m; path = src/PKSTreeAdaptor.m; sourceTree = "<group>"; };
+		D3ACAD0C1731FE200020B5CE /* PKSConstantMethodCallTreeTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSConstantMethodCallTreeTemplate.txt; path = res/PKSConstantMethodCallTreeTemplate.txt; sourceTree = "<group>"; };
 		D3AF49760FDB122E0032F4DC /* TDParserFactoryPatternTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryPatternTest.h; path = test/TDParserFactoryPatternTest.h; sourceTree = "<group>"; };
 		D3AF49770FDB122E0032F4DC /* TDParserFactoryPatternTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryPatternTest.m; path = test/TDParserFactoryPatternTest.m; sourceTree = "<group>"; };
 		D3AF4CBF0FDC740A0032F4DC /* TDNonReservedWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNonReservedWord.h; path = test/TDNonReservedWord.h; sourceTree = "<group>"; };
@@ -2613,6 +2616,7 @@
 				D3B22A37170241F500446945 /* PKSMethodCallTemplate.txt */,
 				D30DA1941727059C00A1A3EC /* PKSEOFCallTemplate.txt */,
 				D30DA18E1725CBE000A1A3EC /* PKSConstantMethodCallTemplate.txt */,
+				D3ACAD0C1731FE200020B5CE /* PKSConstantMethodCallTreeTemplate.txt */,
 				D3083ABD1705F73500DA6F95 /* PKSMethodSpeculateTemplate.txt */,
 				D3B22A3B170264FD00446945 /* PKSMatchCallTemplate.txt */,
 				D30B8F5F170D011E001796F4 /* PKSMatchDelimitedStringTemplate.txt */,
@@ -3746,6 +3750,7 @@
 				D3BD39691729D37600FC6549 /* PKSPreCallbackSyntaxInteriorTemplate.txt in Resources */,
 				D3BD397B1729F2ED00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt in Resources */,
 				D3BD397C1729F2F100FC6549 /* PKSPostCallbackSyntaxLeafTemplate.txt in Resources */,
+				D3ACAD0E1731FE200020B5CE /* PKSConstantMethodCallTreeTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3890,6 +3895,7 @@
 				D3BD39681729D37600FC6549 /* PKSPreCallbackSyntaxInteriorTemplate.txt in Resources */,
 				D3BD39771729F1DE00FC6549 /* PKSPostCallbackSyntaxLeafTemplate.txt in Resources */,
 				D3BD39791729F1DE00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt in Resources */,
+				D3ACAD0D1731FE200020B5CE /* PKSConstantMethodCallTreeTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

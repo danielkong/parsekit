@@ -1,9 +1,12 @@
 
-- (void)__{{methodName}} {
+- ({%if returnTree %}PKAST *{%else%}void{%/if%})__{{methodName}} {
     
-{{preCallback}}{{methodBody}}{{postCallback}}
+{%if returnTree %}    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:_adaptor];
+{%/if%}{{preCallback}}{{methodBody}}{{postCallback}}
 }
 
-- (void){{methodName}} {
-    [self parseRule:@selector(__{{methodName}}) withMemo:_{{methodName}}_memo];
+- ({%if returnTree %}PKAST *{%else%}void{%/if%}){{methodName}} {
+    {%if returnTree %}PKAST *tree = {%/if%}[self parseRule:@selector(__{{methodName}}) withMemo:_{{methodName}}_memo];{%if returnTree %}
+    return tree;
+{%/if%}
 }

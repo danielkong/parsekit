@@ -10,6 +10,11 @@
 #import "PKParserFactory.h"
 #import "MGTemplateEngine.h"
 
+typedef enum {
+    PKSParserGenOutputTypeAssembly = 0,
+    PKSParserGenOutputTypeAST = 1,
+} PKSParserGenOutputType;
+
 @interface PKSParserGenVisitor : PKBaseVisitor <MGTemplateEngineDelegate>
 
 @property (nonatomic, retain) MGTemplateEngine *engine;
@@ -26,4 +31,6 @@
 @property (nonatomic, assign) BOOL enableAutomaticErrorRecovery;
 @property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior preassemblerSettingBehavior;
 @property (nonatomic, assign) PKParserFactoryAssemblerSettingBehavior assemblerSettingBehavior;
+
+@property (nonatomic, assign) PKSParserGenOutputType outputType;
 @end

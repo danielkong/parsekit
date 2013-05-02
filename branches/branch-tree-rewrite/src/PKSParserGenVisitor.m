@@ -26,6 +26,7 @@
 #define PARSE_TREE @"parseTree"
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
+#define RETURN_TREE @"returnTree"
 #define METHOD_BODY @"methodBody"
 #define PRE_CALLBACK @"preCallback"
 #define POST_CALLBACK @"postCallback"
@@ -377,6 +378,7 @@
 
     vars[PRE_CALLBACK] = preCallbackStr;
     vars[POST_CALLBACK] = postCallbackStr;
+    vars[RETURN_TREE] = @(_outputType == PKSParserGenOutputTypeAST);
 
     NSString *templateName = nil;
     if (!isStartMethod && self.enableMemoization) {
@@ -945,7 +947,8 @@
     NSMutableString *output = [NSMutableString string];
     [output appendString:[self semanticPredicateForNode:node throws:YES]];
     
-    NSString *template = [self templateStringNamed:@"PKSConstantMethodCallTemplate"];
+    NSString *templateName = _outputType == PKSParserGenOutputTypeAST ? @"PKSConstantMethodCallTreeTemplate" : @"PKSConstantMethodCallTemplate";
+    NSString *template = [self templateStringNamed:templateName];
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node.actionNode]];

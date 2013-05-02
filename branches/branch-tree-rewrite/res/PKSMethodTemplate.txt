@@ -1,5 +1,8 @@
 
-- (void){{methodName}} {
+- ({%if returnTree %}PKAST *{%else%}void{%/if%}){{methodName}} {
     
-{{preCallback}}{{methodBody}}{{postCallback}}
+{%if returnTree %}PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:_adaptor];
+{%/if%}{{preCallback}}{{methodBody}}{{postCallback}}{%if returnTree %}
+    return ruleScope.tree;
+{%/if%}
 }
