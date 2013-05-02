@@ -299,7 +299,7 @@
     }
     
     PKAST *tree = nil;
-    if (_enableASTOutput) {
+    if (_enableASTOutput && TOKEN_KIND_BUILTIN_EOF != tokenKind) {
         tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
     }
     return tree;
