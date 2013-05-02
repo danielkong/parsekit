@@ -65,7 +65,7 @@ enum {
 - (void)consume:(PKToken *)tok;
 - (BOOL)predicts:(NSInteger)tokenKind, ...;
 - (BOOL)speculate:(PKSSpeculateBlock)block;
-- (void)match:(NSInteger)tokenKind discard:(BOOL)discard;
+- (PKAST *)match:(NSInteger)tokenKind discard:(BOOL)discard;
 
 // error reporting
 - (void)raise:(NSString *)msg;

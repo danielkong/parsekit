@@ -266,12 +266,12 @@
 }
 
 
-- (void)match:(NSInteger)tokenKind discard:(BOOL)discard {
+- (PKAST *)match:(NSInteger)tokenKind discard:(BOOL)discard {
     NSParameterAssert(tokenKind != TOKEN_KIND_BUILTIN_INVALID);
     NSAssert(_lookahead, @"");
     
     // always match empty without consuming
-    if (TOKEN_KIND_BUILTIN_EMPTY == tokenKind) return;
+    if (TOKEN_KIND_BUILTIN_EMPTY == tokenKind) return nil;
 
     if (_skip > 0) {
         self._skip--;
@@ -297,6 +297,12 @@
             [self raise:msg];
         }
     }
+    
+    PKAST *tree = nil;
+    if (_enableASTOutput) {
+        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
+    }
+    return tree;
 }
 
 
@@ -771,23 +777,13 @@
 
 
 - (PKAST *)matchEOF:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_EOF discard:discard];
-    
-    PKAST *tree = nil;
-    if (_enableASTOutput) {
-        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
-    }
+    PKAST *tree = [self match:TOKEN_KIND_BUILTIN_EOF discard:discard];
     return tree;
 }
 
 
 - (PKAST *)matchAny:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_ANY discard:discard];
-
-    PKAST *tree = nil;
-    if (_enableASTOutput) {
-        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
-    }
+    PKAST *tree = [self match:TOKEN_KIND_BUILTIN_ANY discard:discard];
     return tree;
 }
 
@@ -796,86 +792,48 @@
     NSParameterAssert(!discard);
 
     PKAST *tree = nil;
-    if (_enableASTOutput) {
-        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
-    }
     return tree;
 }
 
 
 - (PKAST *)matchWord:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_WORD discard:discard];
-
-    PKAST *tree = nil;
-    if (_enableASTOutput) {
-        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
-    }
+    PKAST *tree = [self match:TOKEN_KIND_BUILTIN_WORD discard:discard];
     return tree;
 }
 
 
 - (PKAST *)matchNumber:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_NUMBER discard:discard];
-
-    PKAST *tree = nil;
-    if (_enableASTOutput) {
-        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
-    }
+    PKAST *tree = [self match:TOKEN_KIND_BUILTIN_NUMBER discard:discard];
     return tree;
 }
 
 
 - (PKAST *)matchSymbol:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_SYMBOL discard:discard];
-
-    PKAST *tree = nil;
-    if (_enableASTOutput) {
-        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
-    }
+    PKAST *tree = [self match:TOKEN_KIND_BUILTIN_SYMBOL discard:discard];
     return tree;
 }
 
 
 - (PKAST *)matchComment:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_COMMENT discard:discard];
-
-    PKAST *tree = nil;
-    if (_enableASTOutput) {
-        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
-    }
+    PKAST *tree = [self match:TOKEN_KIND_BUILTIN_COMMENT discard:discard];
     return tree;
 }
 
 
 - (PKAST *)matchWhitespace:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_WHITESPACE discard:discard];
-
-    PKAST *tree = nil;
-    if (_enableASTOutput) {
-        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
-    }
+    PKAST *tree = [self match:TOKEN_KIND_BUILTIN_WHITESPACE discard:discard];
     return tree;
 }
 
 
 - (PKAST *)matchQuotedString:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_QUOTEDSTRING discard:discard];
-
-    PKAST *tree = nil;
-    if (_enableASTOutput) {
-        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
-    }
+    PKAST *tree = [self match:TOKEN_KIND_BUILTIN_QUOTEDSTRING discard:discard];
     return tree;
 }
 
 
 - (PKAST *)matchDelimitedString:(BOOL)discard {
-    [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING discard:discard];
-
-    PKAST *tree = nil;
-    if (_enableASTOutput) {
-        tree = [[_adaptor newTreeWithToken:[_assembly pop]] autorelease];
-    }
+    PKAST *tree = [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING discard:discard];
     return tree;
 }
 
