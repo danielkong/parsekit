@@ -65,6 +65,7 @@
 
     PKAST *foo_0 = [self foo]; 
     [ruleScope addAST:foo_0 forKey:@"foo"];
+    ruleScope.tree = [ruleScope ASTForKey:@"foo"];
     [self matchEOF:YES]; 
 
     return ruleScope.tree;

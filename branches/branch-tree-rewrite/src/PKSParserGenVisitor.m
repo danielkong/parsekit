@@ -383,7 +383,7 @@
         [childStr insertString:[self actionStringFrom:node.before] atIndex:0];
     }
     
-    [childStr appendString:[self rewriteStringFrom:node.rewriteNode]];
+    //[childStr appendString:[self rewriteStringFrom:node.rewriteNode]];
     
     if (node.after) {
         [childStr appendString:[self actionStringFrom:node.after]];
@@ -439,6 +439,8 @@
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node.actionNode]];
+
+    [output appendString:[self rewriteStringFrom:node.rewriteNode]];
 
     // push
     [self push:output];
