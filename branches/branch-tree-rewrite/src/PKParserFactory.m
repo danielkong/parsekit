@@ -1246,25 +1246,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 }
 
 
-- (void)parser:(PKParser *)p didMatchMultiTree:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    [self parser:p didMatchMultiNode:a];
-}
-
-
-- (void)parser:(PKParser *)p didMatchRepTree:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    [self parser:p didMatchRepNode:a];
-}
-
-
-- (void)parser:(PKParser *)p didMatchOptTree:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    [self parser:p didMatchOptNode:a];
-}
-
-
-- (void)parser:(PKParser *)p didMatchSingleTree:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchTreeNode:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     NSMutableArray *trNodes = [a objectsAbove:tree];

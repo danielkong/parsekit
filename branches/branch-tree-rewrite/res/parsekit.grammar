@@ -52,19 +52,15 @@ delimOpen		     = '%{';
 
 title = 'EOF' | 'Word' | 'Number' | 'QuotedString' | 'Symbol' | 'Comment' | 'Empty' | 'Any' | 'S' | 'Digit' | 'Letter' | 'Char' | 'SpecificChar';
 
-treeRewrite = arrow (tree | node)+;
+treeRewrite = arrow nodeExpr+;
 
-node = multiNode | repNode | optNode | singleNode;
-multiNode = singleNode '+'!;
-repNode = singleNode '*'!;
-optNode = singleNode '?'!;
-singleNode = varNode | constantNode | stringNode;
+nodeExpr = multiNode | repNode | optNode | nodePrimary;
+multiNode = nodePrimary '+'!;
+repNode = nodePrimary '*'!;
+optNode = nodePrimary '?'!;
 
-tree = multiTree | repTree | optTree | singleTree;
-multiTree = singleTree '+'!;
-repTree = singleTree '*'!;
-optTree = singleTree '?'!;
-singleTree = treeOpen node+ treeClose;
+nodePrimary = varNode | constantNode | stringNode | treeNode;
+treeNode = treeOpen nodeExpr+ treeClose;
 
 varNode = Word;
 constantNode = title;
