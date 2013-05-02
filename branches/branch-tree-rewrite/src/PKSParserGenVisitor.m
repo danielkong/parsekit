@@ -26,7 +26,7 @@
 #define PARSE_TREE @"parseTree"
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
-#define RETURN_TREE @"returnTree"
+#define AST_OUTPUT @"enableASTOutput"
 #define TREE_VAR_NAME @"treeVarName"
 #define METHOD_BODY @"methodBody"
 #define PRE_CALLBACK @"preCallback"
@@ -257,7 +257,7 @@
     vars[ENABLE_MEMOIZATION] = @(self.enableMemoization);
     vars[ENABLE_ERROR_RECOVERY] = @(self.enableAutomaticErrorRecovery);
     vars[PARSE_TREE] = @((_preassemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorSyntax || _assemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorSyntax));
-    
+    vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
     
     NSString *implTemplate = [self templateStringNamed:@"PKSClassImplementationTemplate"];
     self.implementationOutputString = [_engine processTemplate:implTemplate withVariables:vars];
@@ -388,7 +388,7 @@
 
     vars[PRE_CALLBACK] = preCallbackStr;
     vars[POST_CALLBACK] = postCallbackStr;
-    vars[RETURN_TREE] = @(_outputType == PKSParserGenOutputTypeAST);
+    vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
 
     NSString *templateName = nil;
     if (!isStartMethod && self.enableMemoization) {
@@ -952,7 +952,7 @@
     vars[METHOD_NAME] = methodName;
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
-    vars[RETURN_TREE] = @(_outputType == PKSParserGenOutputTypeAST);
+    vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
     vars[TREE_VAR_NAME] = [self nextTreeVarName:methodName];
 
     // merge

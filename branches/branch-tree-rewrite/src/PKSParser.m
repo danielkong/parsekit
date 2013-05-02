@@ -7,6 +7,7 @@
 //
 
 #import <ParseKit/PKSParser.h>
+#import <ParseKit/PKAST.h>
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
 #import <ParseKit/PKSTokenAssembly.h>
@@ -109,6 +110,7 @@
 - (void)dealloc {
     self.tokenizer = nil;
     self.assembly = nil;
+    self.adaptor = nil;
     self.assembler = nil;
     self._exception = nil;
     self._lookahead = nil;
@@ -199,6 +201,10 @@
     if (_enableAutomaticErrorRecovery) {
         self._skip = 0;
         self._resyncSet = [NSCountedSet set];
+    }
+    
+    if (_enableASTOutput) {
+        self.adaptor = [PKSTreeAdaptor treeAdaptorWithTreeClass:[PKAST class]];
     }
 
     [self _clearMemo];
@@ -758,53 +764,113 @@
 }
 
 
-- (void)matchEOF:(BOOL)discard {
+- (PKAST *)matchEOF:(BOOL)discard {
     [self match:TOKEN_KIND_BUILTIN_EOF discard:discard];
+    
+    PKAST *tree = nil;
+    if (_enableASTOutput) {
+        tree = [PKAST ASTWithToken:[_assembly pop]];
+    }
+    return tree;
 }
 
 
-- (void)matchAny:(BOOL)discard {
+- (PKAST *)matchAny:(BOOL)discard {
     [self match:TOKEN_KIND_BUILTIN_ANY discard:discard];
+
+    PKAST *tree = nil;
+    if (_enableASTOutput) {
+        tree = [PKAST ASTWithToken:[_assembly pop]];
+    }
+    return tree;
 }
 
 
-- (void)matchEmpty:(BOOL)discard {
+- (PKAST *)matchEmpty:(BOOL)discard {
     NSParameterAssert(!discard);
+
+    PKAST *tree = nil;
+    if (_enableASTOutput) {
+        tree = [PKAST ASTWithToken:[_assembly pop]];
+    }
+    return tree;
 }
 
 
-- (void)matchWord:(BOOL)discard {
+- (PKAST *)matchWord:(BOOL)discard {
     [self match:TOKEN_KIND_BUILTIN_WORD discard:discard];
+
+    PKAST *tree = nil;
+    if (_enableASTOutput) {
+        tree = [PKAST ASTWithToken:[_assembly pop]];
+    }
+    return tree;
 }
 
 
-- (void)matchNumber:(BOOL)discard {
+- (PKAST *)matchNumber:(BOOL)discard {
     [self match:TOKEN_KIND_BUILTIN_NUMBER discard:discard];
+
+    PKAST *tree = nil;
+    if (_enableASTOutput) {
+        tree = [PKAST ASTWithToken:[_assembly pop]];
+    }
+    return tree;
 }
 
 
-- (void)matchSymbol:(BOOL)discard {
+- (PKAST *)matchSymbol:(BOOL)discard {
     [self match:TOKEN_KIND_BUILTIN_SYMBOL discard:discard];
+
+    PKAST *tree = nil;
+    if (_enableASTOutput) {
+        tree = [PKAST ASTWithToken:[_assembly pop]];
+    }
+    return tree;
 }
 
 
-- (void)matchComment:(BOOL)discard {
+- (PKAST *)matchComment:(BOOL)discard {
     [self match:TOKEN_KIND_BUILTIN_COMMENT discard:discard];
+
+    PKAST *tree = nil;
+    if (_enableASTOutput) {
+        tree = [PKAST ASTWithToken:[_assembly pop]];
+    }
+    return tree;
 }
 
 
-- (void)matchWhitespace:(BOOL)discard {
+- (PKAST *)matchWhitespace:(BOOL)discard {
     [self match:TOKEN_KIND_BUILTIN_WHITESPACE discard:discard];
+
+    PKAST *tree = nil;
+    if (_enableASTOutput) {
+        tree = [PKAST ASTWithToken:[_assembly pop]];
+    }
+    return tree;
 }
 
 
-- (void)matchQuotedString:(BOOL)discard {
+- (PKAST *)matchQuotedString:(BOOL)discard {
     [self match:TOKEN_KIND_BUILTIN_QUOTEDSTRING discard:discard];
+
+    PKAST *tree = nil;
+    if (_enableASTOutput) {
+        tree = [PKAST ASTWithToken:[_assembly pop]];
+    }
+    return tree;
 }
 
 
-- (void)matchDelimitedString:(BOOL)discard {
+- (PKAST *)matchDelimitedString:(BOOL)discard {
     [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING discard:discard];
+
+    PKAST *tree = nil;
+    if (_enableASTOutput) {
+        tree = [PKAST ASTWithToken:[_assembly pop]];
+    }
+    return tree;
 }
 
 @synthesize _exception = _exception;

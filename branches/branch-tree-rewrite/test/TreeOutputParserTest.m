@@ -37,6 +37,7 @@
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorTerminals;
     _visitor.enableMemoization = NO;
+    _visitor.outputType = PKSParserGenOutputTypeAST;
     [_root visit:_visitor];
 #if TD_EMIT
     path = [@"~/work/parsekit/trunk/test/TreeOutputParser.h" stringByExpandingTildeInPath];

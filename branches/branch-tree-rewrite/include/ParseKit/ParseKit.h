@@ -98,4 +98,6 @@
 #import <ParseKit/PKSParser.h>
 #import <ParseKit/PKSTokenAssembly.h>
 #import <ParseKit/PKSRecognitionException.h>
+#import <ParseKit/PKSTreeAdaptor.h>
+#import <ParseKit/PKSRuleScope.h>
 

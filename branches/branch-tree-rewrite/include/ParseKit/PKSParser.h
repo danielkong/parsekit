@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <ParseKit/PKTokenizer.h>
-#import <ParseKit/PKTokenizer.h>
+#import <ParseKit/PKSTreeAdaptor.h>
 
 @class PKToken;
 @class PKSTokenAssembly;
@@ -46,9 +46,11 @@ enum {
 @property (nonatomic, assign) BOOL silentlyConsumesWhitespace;
 @property (nonatomic, assign) BOOL enableActions; // default YES
 @property (nonatomic, assign) BOOL enableAutomaticErrorRecovery; // default NO
+@property (nonatomic, assign) BOOL enableASTOutput; // default NO
 
 @property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, retain) PKSTokenAssembly *assembly;
+@property (nonatomic, retain) PKSTreeAdaptor *adaptor;
 @end
 
 @interface PKSParser (Subclass)
@@ -69,16 +71,16 @@ enum {
 - (void)raise:(NSString *)msg;
 
 // builtin token types
-- (void)matchEOF:(BOOL)discard;
-- (void)matchAny:(BOOL)discard;
-- (void)matchEmpty:(BOOL)discard;
-- (void)matchWord:(BOOL)discard;
-- (void)matchNumber:(BOOL)discard;
-- (void)matchSymbol:(BOOL)discard;
-- (void)matchComment:(BOOL)discard;
-- (void)matchWhitespace:(BOOL)discard;
-- (void)matchQuotedString:(BOOL)discard;
-- (void)matchDelimitedString:(BOOL)discard;
+- (PKAST *)matchEOF:(BOOL)discard;
+- (PKAST *)matchAny:(BOOL)discard;
+- (PKAST *)matchEmpty:(BOOL)discard;
+- (PKAST *)matchWord:(BOOL)discard;
+- (PKAST *)matchNumber:(BOOL)discard;
+- (PKAST *)matchSymbol:(BOOL)discard;
+- (PKAST *)matchComment:(BOOL)discard;
+- (PKAST *)matchWhitespace:(BOOL)discard;
+- (PKAST *)matchQuotedString:(BOOL)discard;
+- (PKAST *)matchDelimitedString:(BOOL)discard;
 
 // semantic predicates
 - (BOOL)test:(PKSPredicateBlock)block;

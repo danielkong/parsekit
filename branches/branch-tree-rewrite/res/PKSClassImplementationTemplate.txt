@@ -54,6 +54,7 @@
     self = [super init];
     if (self) {
 {%if enableAutomaticErrorRecovery %}        self.enableAutomaticErrorRecovery = YES;
+{%/if%}{%if enableASTOutput %}        self.enableASTOutput = YES;
 
 {%/if%}{%for kind in tokenKinds %}        self._tokenKindTab[@"{{kind.stringValue}}"] = @({{kind.name}});
 {%/for%}

@@ -1,8 +1,8 @@
 
-- ({%if returnTree %}PKAST *{%else%}void{%/if%}){{methodName}} {
+- ({%if enableASTOutput %}PKAST *{%else%}void{%/if%}){{methodName}} {
     
-{%if returnTree %}PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:_adaptor];
-{%/if%}{{preCallback}}{{methodBody}}{{postCallback}}{%if returnTree %}
+{%if enableASTOutput %}    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
+{%/if%}{{preCallback}}{{methodBody}}{{postCallback}}{%if enableASTOutput %}
     return ruleScope.tree;
 {%/if%}
 }

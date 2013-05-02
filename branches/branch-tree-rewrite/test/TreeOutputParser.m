@@ -50,6 +50,8 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self.enableASTOutput = YES;
+
 
 
     }
@@ -57,18 +59,25 @@
 }
 
 
-- (void)_start {
+- (PKAST *)_start {
     
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
     [self foo]; 
     [self matchEOF:YES]; 
 
+    return ruleScope.tree;
+
 }
 
-- (void)foo {
+- (PKAST *)foo {
     
-    [self matchWord:NO]; 
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
+    PKAST *Word_0 = [self matchWord:NO]; 
+    [ruleScope addAST:Word_0 forKey:@"Word"];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
+    return ruleScope.tree;
+
 }
 
 @end
