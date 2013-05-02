@@ -65,6 +65,7 @@
 
     PKAST *foo_0 = [self foo]; 
     [ruleScope addAST:foo_0 forKey:@"foo"];
+
     ruleScope.tree = [ruleScope ASTForKey:@"foo"];
     [self matchEOF:YES]; 
 
@@ -78,6 +79,7 @@
 
     PKAST *Word_0 = [self matchWord:NO]; 
     [ruleScope addAST:Word_0 forKey:@"Word"];
+
     ruleScope.tree = [ruleScope ASTForKey:@"Word"];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
