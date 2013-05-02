@@ -27,6 +27,7 @@
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
 #define RETURN_TREE @"returnTree"
+#define TREE_VAR_NAME @"treeVarName"
 #define METHOD_BODY @"methodBody"
 #define PRE_CALLBACK @"preCallback"
 #define POST_CALLBACK @"postCallback"
@@ -57,6 +58,7 @@
 
 @property (nonatomic, retain) NSMutableArray *outputStringStack;
 @property (nonatomic, retain) NSString *currentDefName;
+@property (nonatomic, assign) NSUInteger treeVarCounter;
 @end
 
 @implementation PKSParserGenVisitor
@@ -95,6 +97,12 @@
         if (err) NSLog(@"%@", err);
     }
     return template;
+}
+
+
+- (NSString *)nextTreeVarName:(NSString *)methodName {
+    NSString *str = [NSString stringWithFormat:@"%@_%lu", methodName, _treeVarCounter++];
+    return str;
 }
 
 
@@ -207,6 +215,8 @@
     self.outputStringStack = [NSMutableArray array];
     
     self.ruleMethodNames = [NSMutableArray array];
+    
+    self.treeVarCounter = 0;
     
     // add namespace to token kinds
     for (PKSTokenKindDescriptor *desc in node.tokenKinds) {
@@ -943,6 +953,7 @@
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
     vars[RETURN_TREE] = @(_outputType == PKSParserGenOutputTypeAST);
+    vars[TREE_VAR_NAME] = [self nextTreeVarName:methodName];
 
     // merge
     NSMutableString *output = [NSMutableString string];
