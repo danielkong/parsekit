@@ -52,7 +52,7 @@ delimOpen		     = '%{';
 
 title = 'EOF' | 'Word' | 'Number' | 'QuotedString' | 'Symbol' | 'Comment' | 'Empty' | 'Any' | 'S' | 'Digit' | 'Letter' | 'Char' | 'SpecificChar';
 
-treeRewrite = arrow nodeExpr+;
+treeRewrite = arrow nodeExpr*;
 
 nodeExpr = multiNode | repNode | optNode | nodePrimary;
 multiNode = nodePrimary '+'!;

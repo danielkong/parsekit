@@ -1270,7 +1270,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     
     NSArray *trNodes = [a objectsAbove:arrow];
-    NSAssert([trNodes count], @"");
     
     [a pop]; // discard '->'
     
