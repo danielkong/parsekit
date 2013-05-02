@@ -217,8 +217,6 @@
     
     self.ruleMethodNames = [NSMutableArray array];
     
-    self.treeVarCounter = 0;
-    
     // add namespace to token kinds
     for (PKSTokenKindDescriptor *desc in node.tokenKinds) {
         NSString *newName = [NSString stringWithFormat:@"%@_%@", [node.grammarName uppercaseString], desc.name];
@@ -335,7 +333,8 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     self.depth = 1; // 1 for the try/catch wrapper
-
+    self.treeVarCounter = 0;
+    
     // setup vars
     id vars = [NSMutableDictionary dictionary];
     NSString *methodName = node.token.stringValue;
