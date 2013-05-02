@@ -28,6 +28,7 @@
 #define METHOD_NAME @"methodName"
 #define AST_OUTPUT @"enableASTOutput"
 #define TREE_VAR_NAME @"treeVarName"
+#define TREE_KEY @"treeKey"
 #define METHOD_BODY @"methodBody"
 #define PRE_CALLBACK @"preCallback"
 #define POST_CALLBACK @"postCallback"
@@ -272,7 +273,18 @@
     
     id vars = @{ACTION_BODY: actNode.source, DEPTH: @(_depth)};
     NSString *result = [_engine processTemplate:[self templateStringNamed:@"PKSActionTemplate"] withVariables:vars];
+    
+    return result;
+}
 
+
+- (NSString *)rewriteStringFrom:(PKTreeNode *)trNode {
+    if (!trNode || self.isSpeculating) return @"";
+    
+    trNode = trNode.children[0]; // TODO
+    id vars = @{DEPTH: @(_depth), TREE_KEY: trNode.token.stringValue};
+    NSString *result = [_engine processTemplate:[self templateStringNamed:@"PKSRewriteConstantTemplate"] withVariables:vars];
+    
     return result;
 }
 
@@ -370,6 +382,8 @@
     if (node.before) {
         [childStr insertString:[self actionStringFrom:node.before] atIndex:0];
     }
+    
+    [childStr appendString:[self rewriteStringFrom:node.rewriteNode]];
     
     if (node.after) {
         [childStr appendString:[self actionStringFrom:node.after]];
@@ -965,6 +979,8 @@
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node.actionNode]];
+
+    [output appendString:[self rewriteStringFrom:node.rewriteNode]];
 
     // push
     [self push:output];

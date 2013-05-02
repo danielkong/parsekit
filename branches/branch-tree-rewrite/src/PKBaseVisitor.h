@@ -23,6 +23,7 @@
 #import "PKOptionalNode.h"
 #import "PKMultipleNode.h"
 #import "PKActionNode.h"
+#import "PKTreeNode.h"
 
 @interface PKBaseVisitor : NSObject <PKNodeVisitor>
 
