@@ -693,7 +693,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (void)parser:(PKParser *)p didMatchDecl:(PKAssembly *)a {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
+    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
     NSArray *nodes = [a objectsAbove:equals];
     NSAssert([nodes count], @"");
 
