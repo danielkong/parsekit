@@ -302,7 +302,23 @@
     id vars = @{DEPTH: @(_depth), TREE_KEY: trNode.token.stringValue};
     NSMutableString *output = [NSMutableString string];
 
-    NSString *templateName = [trNode.children count] ? @"PKSRewriteParentSingleNodeTemplate" : @"PKSRewriteLeafNodeTemplate";
+    NSString *templateName = nil;
+    
+    BOOL isParent = [trNode.children count];
+    if (isParent) {
+        NSString *tokStr = trNode.token.stringValue;
+        if ([tokStr isEqualToString:@"+"]) {
+            templateName = @"PKSRewriteParentMultiNodeTemplate";
+        } else if ([tokStr isEqualToString:@"*"]) {
+            templateName = @"PKSRewriteParentRepNodeTemplate";
+        } else if ([tokStr isEqualToString:@"?"]) {
+            templateName = @"PKSRewriteParentOptNodeTemplate";
+        } else {
+            templateName = @"PKSRewriteParentSingleNodeTemplate";
+        }
+    } else {
+        templateName = @"PKSRewriteLeafNodeTemplate";
+    }
     
     [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
 

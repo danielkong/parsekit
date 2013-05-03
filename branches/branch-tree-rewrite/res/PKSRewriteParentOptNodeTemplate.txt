@@ -1,0 +1,4 @@
+{%for 1 to depth %}    {%/for%}if ([ruleScope cardinalityForKey:@"{{treeKey}}"] > 0) {
+{%for 1 to depth %}    {%/for%}    [_parent addChild:[ruleScope ASTForKey:@"{{treeKey}}"]];
+{%for 1 to depth %}    {%/for%}    _parent = [ruleScope ASTForKey:@"{{treeKey}}"];
+{%for 1 to depth %}    {%/for%}}
