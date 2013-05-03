@@ -52,20 +52,18 @@
     if (self) {
         self.enableASTOutput = YES;
 
-        self._tokenKindTab[@"int"] = @(TREEOUTPUT_TOKEN_KIND_INT);
-        self._tokenKindTab[@"."] = @(TREEOUTPUT_TOKEN_KIND_DOT);
-        self._tokenKindTab[@"["] = @(TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET);
-        self._tokenKindTab[@"baz"] = @(TREEOUTPUT_TOKEN_KIND_BAR);
-        self._tokenKindTab[@"array"] = @(TREEOUTPUT_TOKEN_KIND_ARRAY);
         self._tokenKindTab[@"]"] = @(TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET);
+        self._tokenKindTab[@"["] = @(TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET);
+        self._tokenKindTab[@"array"] = @(TREEOUTPUT_TOKEN_KIND_ARRAY);
+        self._tokenKindTab[@"int"] = @(TREEOUTPUT_TOKEN_KIND_INT);
+        self._tokenKindTab[@"baz"] = @(TREEOUTPUT_TOKEN_KIND_BAR);
         self._tokenKindTab[@";"] = @(TREEOUTPUT_TOKEN_KIND_SEMI_COLON);
 
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_INT] = @"int";
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_DOT] = @".";
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET] = @"[";
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_BAR] = @"baz";
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_ARRAY] = @"array";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET] = @"]";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET] = @"[";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_ARRAY] = @"array";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_INT] = @"int";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_BAR] = @"baz";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_SEMI_COLON] = @";";
 
     }
@@ -153,7 +151,9 @@
 
     PKAST *_parent = [ruleScope ASTForKey:@"'int'"];
     ruleScope.tree = _parent;
-    [_parent addChild:[ruleScope ASTForKey:@"Word"]];
+    for (PKAST *tr in [ruleScope allForKey:@"Word"]) {
+        [_parent addChild:tr];
+    }
 
     return ruleScope.tree;
 
@@ -169,22 +169,19 @@
     [ruleScope addAST:lit_open_bracket_1 forKey:@"'['"];
     PKAST *Number_2 = [self matchNumber:NO]; 
     [ruleScope addAST:Number_2 forKey:@"Number"];
-    PKAST *lit_dot_3 = [self match:TREEOUTPUT_TOKEN_KIND_DOT discard:NO]; 
-    [ruleScope addAST:lit_dot_3 forKey:@"'.'"];
-    PKAST *lit_dot_4 = [self match:TREEOUTPUT_TOKEN_KIND_DOT discard:NO]; 
-    [ruleScope addAST:lit_dot_4 forKey:@"'.'"];
-    PKAST *Number_5 = [self matchNumber:NO]; 
-    [ruleScope addAST:Number_5 forKey:@"Number"];
-    PKAST *lit_close_bracket_6 = [self match:TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
-    [ruleScope addAST:lit_close_bracket_6 forKey:@"']'"];
-    PKAST *lit_semi_colon_7 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
-    [ruleScope addAST:lit_semi_colon_7 forKey:@"';'"];
+    PKAST *lit_close_bracket_3 = [self match:TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
+    [ruleScope addAST:lit_close_bracket_3 forKey:@"']'"];
+    PKAST *lit_semi_colon_4 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    [ruleScope addAST:lit_semi_colon_4 forKey:@"';'"];
 
     PKAST *_parent = [ruleScope ASTForKey:@"array"];
     ruleScope.tree = _parent;
-    [_parent addChild:[ruleScope ASTForKey:@"Number"]];
-    [_parent addChild:[ruleScope ASTForKey:@"Number"]];
-    [_parent addChild:[ruleScope ASTForKey:@"'['"]];
+    for (PKAST *tr in [ruleScope allForKey:@"Number"]) {
+        [_parent addChild:tr];
+    }
+    for (PKAST *tr in [ruleScope allForKey:@"'['"]) {
+        [_parent addChild:tr];
+    }
 
     return ruleScope.tree;
 

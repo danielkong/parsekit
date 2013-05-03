@@ -103,13 +103,13 @@
     PKAST *res = nil;
     NSString *input = nil;
     
-    input = @"array [1 .. 2];";
+    input = @"array [1];";
     res = [_parser parseString:input assembler:nil error:&err];
     //TDEqualObjects(@"[]int/x/;^", [_parser.assembly description]);
     
     TDNotNil(res);
     TDTrue([res isKindOfClass:[PKAST class]]);
-    TDEqualObjects(@"(array ([ 1 2))", [res treeDescription]);
+    TDEqualObjects(@"(array ([ 1))", [res treeDescription]);
 }
 
 @end

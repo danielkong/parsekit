@@ -3,5 +3,5 @@ foo = Word -> Word;
 bar = 'baz' -> 'baz';
 baz = 'int' Word ';' -> ^('int' Word);
 
-bat = array '[' Number '.' '.' Number ']' ';' -> ^(array ^('[' Number Number));
+bat = array '[' Number ']' ';' -> ^(array ^('[' Number));
 array = 'array' -> 'array';
