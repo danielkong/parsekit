@@ -3,6 +3,7 @@
 	| bar -> bar 
 	| baz -> baz 
 	| bat -> bat
+	| multi -> multi
 	;
 	
 foo 
@@ -23,4 +24,11 @@ bat
 
 array 
 	= 'array' -> 'array'
+	;
+	
+multi
+	= var Word (',' Word)* -> ^(var Word+)
+	;
+	
+var = 'var' -> 'var'
 	;

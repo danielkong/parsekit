@@ -52,18 +52,22 @@
     if (self) {
         self.enableASTOutput = YES;
 
-        self._tokenKindTab[@"]"] = @(TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET);
-        self._tokenKindTab[@"["] = @(TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET);
-        self._tokenKindTab[@"array"] = @(TREEOUTPUT_TOKEN_KIND_ARRAY);
         self._tokenKindTab[@"int"] = @(TREEOUTPUT_TOKEN_KIND_INT);
+        self._tokenKindTab[@"["] = @(TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET);
+        self._tokenKindTab[@","] = @(TREEOUTPUT_TOKEN_KIND_COMMA);
         self._tokenKindTab[@"baz"] = @(TREEOUTPUT_TOKEN_KIND_BAR);
+        self._tokenKindTab[@"var"] = @(TREEOUTPUT_TOKEN_KIND_VAR);
+        self._tokenKindTab[@"array"] = @(TREEOUTPUT_TOKEN_KIND_ARRAY);
+        self._tokenKindTab[@"]"] = @(TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET);
         self._tokenKindTab[@";"] = @(TREEOUTPUT_TOKEN_KIND_SEMI_COLON);
 
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET] = @"]";
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET] = @"[";
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_ARRAY] = @"array";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_INT] = @"int";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET] = @"[";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_COMMA] = @",";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_BAR] = @"baz";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_VAR] = @"var";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_ARRAY] = @"array";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET] = @"]";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_SEMI_COLON] = @";";
 
     }
@@ -98,6 +102,12 @@
         [ruleScope addAST:bat_3 forKey:@"bat"];
 
         PKAST *_parent = [ruleScope ASTForKey:@"bat"];
+        ruleScope.tree = _parent;
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_VAR, 0]) {
+        PKAST *multi_4 = [self multi]; 
+        [ruleScope addAST:multi_4 forKey:@"multi"];
+
+        PKAST *_parent = [ruleScope ASTForKey:@"multi"];
         ruleScope.tree = _parent;
     } else {
         [self raise:@"No viable alternative found in rule '_start'."];
@@ -193,6 +203,44 @@
     ruleScope.tree = _parent;
 
     [self fireAssemblerSelector:@selector(parser:didMatchArray:)];
+    return ruleScope.tree;
+
+}
+
+- (PKAST *)multi {
+    
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"multi"];
+
+    PKAST *var_0 = [self var]; 
+    [ruleScope addAST:var_0 forKey:@"var"];
+    PKAST *Word_1 = [self matchWord:NO]; 
+    [ruleScope addAST:Word_1 forKey:@"Word"];
+    while ([self predicts:TREEOUTPUT_TOKEN_KIND_COMMA, 0]) {
+        if ([self speculate:^{ PKAST *lit_comma_2 = [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; [ruleScope addAST:lit_comma_2 forKey:@"','"];PKAST *Word_3 = [self matchWord:NO]; [ruleScope addAST:Word_3 forKey:@"Word"];}]) {
+            PKAST *lit_comma_2 = [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; 
+            [ruleScope addAST:lit_comma_2 forKey:@"','"];
+            PKAST *Word_3 = [self matchWord:NO]; 
+            [ruleScope addAST:Word_3 forKey:@"Word"];
+        } else {
+            break;
+        }
+    }
+
+    return ruleScope.tree;
+
+}
+
+- (PKAST *)var {
+    
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"var"];
+
+    PKAST *lit_var_0 = [self match:TREEOUTPUT_TOKEN_KIND_VAR discard:NO]; 
+    [ruleScope addAST:lit_var_0 forKey:@"'var'"];
+
+    PKAST *_parent = [ruleScope ASTForKey:@"'var'"];
+    ruleScope.tree = _parent;
+
+    [self fireAssemblerSelector:@selector(parser:didMatchVar:)];
     return ruleScope.tree;
 
 }
