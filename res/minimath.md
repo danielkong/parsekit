@@ -1,6 +1,6 @@
 Hey there, it looks like you're trying to parse text input in Objective-C. You've come to the right place.
 
-**ParseKit is a parser generator implemented in Objective-C**. ParseKit converts language grammars into parsers intended for use in Cocoa applications running on iOS or Mac OS X.
+**ParseKit is a parser generator implemented in Objective-C**. ParseKit converts [language grammars](http://en.wikipedia.org/wiki/Parsing_expression_grammar) into parsers intended for use in Cocoa applications running on iOS or Mac OS X.
 
 With ParseKit, you can define your language with a **high-level**, **easy-to-use**, **BNF-style grammar**, 
 and then **generate Objective-C source code** which implements a parser for your language.
@@ -11,11 +11,11 @@ Specifically, parsers produced by ParseKit are:
 * **Deterministic**
 * **[Packrat](http://bford.info/packrat/ "Packrat Parsing and
 	Parsing Expression Grammars")** (or *memoizing*), 
-* **Infinite-lookahead** 
+* **Backtracking** (Infinite-lookahead)
 * **[Predicated](http://www.antlr.org/wiki/display/ANTLR4/Semantic+Predicates "Semantic Predicates - ANTLR 4 - ANTLR Project")**
 * Written in **modern Objective-C** (using blocks, ARC, properties)
 
-That's a mouthful, but what it means in practice is that ParseKit offers you a great deal of flexibility and expressive power when designing your grammars, but also produces parsers which exhibit good (linear) performance characteristics at runtime. Also, the Objective-C code produced by ParseKit is clean and readable, and also easy to step through, debug, or tweak by hand.
+That's a mouthful, but what it means in practice is that ParseKit offers you a great deal of flexibility and expressive power when designing your grammars, but also produces parsers which exhibit good (linear) performance characteristics at runtime. Also, the Objective-C code produced by ParseKit is clean and readable, and easy to debug or tweak by hand.
 
 The design of ParseKit has been heavily influenced by [ANTLR](http://antlr.org) by Terence Parr and a [book by Stephen J Metsker](http://www.amazon.com/Building-Parsers-Java-Steven-Metsker/dp/0201719622). Also, ParseKit depends on [MGTemplateEngine](http://mattgemmell.com/2008/05/20/mgtemplateengine-templates-with-cocoa "MGTemplateEngine - Templates with Cocoa - Matt Gemmell") by Matt Gemmell for its templating features.
 
@@ -157,9 +157,7 @@ Finally, we'll need a similar action for our addition expression rule. Here's th
 
 ### Interlude: Checkout the Example Project (with ParseKit Dependency)
 
-OK, time to [checkout the ParseKit MiniMath Example](https://github.com/itod/ParseKitMiniMathExample/zipball/master) project. This project includes [ParseKit](https://github.com/itod/parsekit) as an external dependency.
-
-This project includes and iOS app target which embeds and links to ParseKit. If you are creating your own app which uses ParseKit, follow these [instructions for embedding ParseKit in your app target](http://stackoverflow.com/questions/9649537/how-to-embed-parsekit-as-a-private-framework-in-a-mac-app-bundle "objective c - How to embed ParseKit as a private framework in a Mac App bundle - Stack Overflow").
+OK, time to [checkout the ParseKit MiniMath Example](https://github.com/itod/ParseKitMiniMathExample/zipball/master) project. This project includes [ParseKit](https://github.com/itod/parsekit) as submodule, and an iOS app target which embeds and links to ParseKit. If you are creating your own app which uses ParseKit, follow these [instructions for embedding ParseKit in your app target](http://stackoverflow.com/questions/9649537/how-to-embed-parsekit-as-a-private-framework-in-a-mac-app-bundle "objective c - How to embed ParseKit as a private framework in a Mac App bundle - Stack Overflow").
 
 ### Generating Parser Source Code
 
@@ -183,7 +181,7 @@ Back in Xcode, switch to the **MiniMath** target. This target is an example iOS 
 
 ![MiniMathApp](http://parsekit.com/github/app_empty.png)
 
-Here's the implementation of the `calc:` Action attached to the **Calc** button, showing how to use the `MiniMathParser` we just created:
+Here's the implementation of the `-calc:` Action attached to the **Calc** button, showing how to use the `MiniMathParser` we just created:
 
 	- (IBAction)calc:(id)sender {
 	    NSString *input = _inputField.text;
