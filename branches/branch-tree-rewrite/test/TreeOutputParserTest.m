@@ -84,7 +84,7 @@
     TDEqualObjects(@"baz", [res treeDescription]);
 }
 
-- (void)testSubTree {
+- (void)testTree {
     NSError *err = nil;
     PKAST *res = nil;
     NSString *input = nil;
@@ -96,6 +96,20 @@
     TDNotNil(res);
     TDTrue([res isKindOfClass:[PKAST class]]);
     TDEqualObjects(@"(int x)", [res treeDescription]);
+}
+
+- (void)testSubTree {
+    NSError *err = nil;
+    PKAST *res = nil;
+    NSString *input = nil;
+    
+    input = @"array [1..2];";
+    res = [_parser parseString:input assembler:nil error:&err];
+    //TDEqualObjects(@"[]int/x/;^", [_parser.assembly description]);
+    
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"(array ([ 1 2))", [res treeDescription]);
 }
 
 @end
