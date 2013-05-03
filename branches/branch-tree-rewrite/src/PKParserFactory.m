@@ -1177,7 +1177,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKTreeNode *trNode = [a pop];
     NSAssert([trNode isKindOfClass:[PKTreeNode class]], @"");
     
-    PKMultipleNode *multiNode = [PKMultipleNode nodeWithToken:multiToken];
+    PKTreeNode *multiNode = [PKTreeNode nodeWithToken:multiToken];
     [multiNode addChild:trNode];
     
     [a push:multiNode];
@@ -1190,7 +1190,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKTreeNode *trNode = [a pop];
     NSAssert([trNode isKindOfClass:[PKTreeNode class]], @"");
     
-    PKCompositeNode *repNode = [PKCompositeNode nodeWithToken:repToken];
+    PKTreeNode *repNode = [PKTreeNode nodeWithToken:repToken];
     [repNode addChild:trNode];
     
     [a push:repNode];
@@ -1203,7 +1203,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     PKTreeNode *trNode = [a pop];
     NSAssert([trNode isKindOfClass:[PKTreeNode class]], @"");
     
-    PKOptionalNode *optNode = [PKOptionalNode nodeWithToken:optToken];
+    PKTreeNode *optNode = [PKTreeNode nodeWithToken:optToken];
     [optNode addChild:trNode];
     
     [a push:optNode];
