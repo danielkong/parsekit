@@ -1285,21 +1285,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     
     owner.rewriteNode = parent;
     [a push:owner];
-    
-//    NSArray *objs = [a objectsAbove:equals];
-//    [a pop]; // pop `=`
-//    
-//    PKDefinitionNode *defNode = [a pop];
-//    NSAssert([defNode isKindOfClass:[PKDefinitionNode class]], @"");
-//    
-//    defNode.rewriteNode = parent;
-//    
-//    [a push:defNode];
-//    [a push:equals];
-//    
-//    for (id obj in [objs reverseObjectEnumerator]) {
-//        [a push:obj];
-//    }
 }
 
 @synthesize grammarParser;
