@@ -1,7 +1,26 @@
-@start = foo -> foo | bar -> bar | baz -> baz | bat -> bat;
-foo = Word -> Word;
-bar = 'baz' -> 'baz';
-baz = 'int' Word ';' -> ^('int' Word);
+@start 
+	= foo -> foo 
+	| bar -> bar 
+	| baz -> baz 
+	| bat -> bat
+	;
+	
+foo 
+	= Word -> Word
+	;
 
-bat = array '[' Number ']' ';' -> ^(array ^('[' Number));
-array = 'array' -> 'array';
+bar 
+	= 'baz' -> 'baz'
+	;
+
+baz 
+	= 'int' Word ';' -> ^('int' Word)
+	;
+
+bat 
+	= array '[' Number ']' ';' -> ^(array ^('[' Number))
+	;
+
+array 
+	= 'array' -> 'array'
+	;
