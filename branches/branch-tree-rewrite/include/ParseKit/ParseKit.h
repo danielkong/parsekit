@@ -93,6 +93,7 @@
 
 // grammar
 #import <ParseKit/PKParserFactory.h>
+#import <ParseKit/PKAST.h>
 
 // static
 #import <ParseKit/PKSParser.h>
