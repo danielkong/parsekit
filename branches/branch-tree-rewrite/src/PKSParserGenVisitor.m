@@ -276,6 +276,17 @@
 }
 
 
+- (NSString *)rewriteStringFrom:(PKTreeNode *)trNode {
+    if (!trNode || self.isSpeculating) return @"";
+    
+    trNode = trNode.children[0]; // TODO
+    id vars = @{DEPTH: @(_depth), TREE_KEY: trNode.token.stringValue};
+    NSString *result = [_engine processTemplate:[self templateStringNamed:@"PKSRewriteConstantTemplate"] withVariables:vars];
+    
+    return result;
+}
+
+
 - (NSString *)callbackStringForNode:(PKBaseNode *)node methodName:(NSString *)methodName isPre:(BOOL)isPre {
     // determine if we should include an assembler callback call
     BOOL fireCallback = NO;
@@ -371,6 +382,8 @@
         [childStr insertString:[self actionStringFrom:node.before] atIndex:0];
     }
     
+    //[childStr appendString:[self rewriteStringFrom:node.rewriteNode]];
+    
     if (node.after) {
         [childStr appendString:[self actionStringFrom:node.after]];
     }
@@ -425,6 +438,8 @@
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node.actionNode]];
+
+    [output appendString:[self rewriteStringFrom:node.rewriteNode]];
 
     // push
     [self push:output];
@@ -966,6 +981,8 @@
     
     [output appendString:[self actionStringFrom:node.actionNode]];
 
+    [output appendString:[self rewriteStringFrom:node.rewriteNode]];
+
     // push
     [self push:output];
 }
@@ -1050,34 +1067,6 @@
     
     NSAssert2(0, @"%s must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
-
-
-- (void)visitTree:(PKTreeNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-
-    if (self.isSpeculating) return; // ??
-    
-    node = node.children[0]; // TODO fIX THIS
-    
-    // stup vars
-    id vars = [NSMutableDictionary dictionary];
-    //vars[TOKEN_KIND] = node.tokenKind;
-    vars[DEPTH] = @(_depth);
-    vars[TREE_KEY] = node.token.stringValue;
-    
-    // merge
-    NSMutableString *output = [NSMutableString string];
-    
-    NSString *template = [self templateStringNamed:@"PKSRewriteConstantTemplate"];
-    [output appendString:[_engine processTemplate:template withVariables:vars]];
-    
-    // push
-    [self push:output];
-
-}
-
-
-
 
 
 #pragma mark -

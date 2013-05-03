@@ -259,10 +259,4 @@
     
 }
 
-
-- (void)visitTree:(PKTreeNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-    
-}
-
 @end

@@ -24,7 +24,6 @@ typedef enum NSUInteger {
     PKNodeTypeOptional,
     PKNodeTypeMultiple,
     PKNodeTypeAction,
-    PKNodeTypeRewrite,
 } PKNodeType;
 
 @class PKParser;
@@ -48,5 +47,6 @@ typedef enum NSUInteger {
 @property (nonatomic, retain) PKActionNode *semanticPredicateNode;
 @property (nonatomic, retain) PKActionNode *before;
 @property (nonatomic, retain) PKActionNode *after;
+@property (nonatomic, retain) PKTreeNode *rewriteNode;
 @property (nonatomic, retain) NSString *defName;
 @end

@@ -11,21 +11,6 @@
 
 @implementation PKTreeNode
 
-- (NSUInteger)type {
-    return PKNodeTypeAction;
-}
-
-
-- (void)visit:(id <PKNodeVisitor>)v; {
-    [v visitTree:self];
-}
-
-
-- (BOOL)isTerminal {
-    return NO;
-}
-
-
 - (NSString *)childrenStartDelimiter {
     if ([self.token.stringValue isEqualToString:@"->"]) {
         return @"";

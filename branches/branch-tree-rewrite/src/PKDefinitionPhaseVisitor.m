@@ -370,12 +370,6 @@
 }
 
 
-- (void)visitTree:(PKTreeNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
-    
-}
-
-
 #pragma mark -
 #pragma mark Assemblers
 
