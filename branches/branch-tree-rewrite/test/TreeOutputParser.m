@@ -52,7 +52,9 @@
     if (self) {
         self.enableASTOutput = YES;
 
+        self._tokenKindTab[@"baz"] = @(TREEOUTPUT_TOKEN_KIND_BAR);
 
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_BAR] = @"baz";
 
     }
     return self;
@@ -63,10 +65,19 @@
     
     PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
 
-    PKAST *foo_0 = [self foo]; 
-    [ruleScope addAST:foo_0 forKey:@"foo"];
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+        PKAST *foo_0 = [self foo]; 
+        [ruleScope addAST:foo_0 forKey:@"foo"];
 
-    ruleScope.tree = [ruleScope ASTForKey:@"foo"];
+        ruleScope.tree = [ruleScope ASTForKey:@"foo"];
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_BAR, 0]) {
+        PKAST *bar_1 = [self bar]; 
+        [ruleScope addAST:bar_1 forKey:@"bar"];
+
+        ruleScope.tree = [ruleScope ASTForKey:@"bar"];
+    } else {
+        [self raise:@"No viable alternative found in rule '_start'."];
+    }
     [self matchEOF:YES]; 
 
     return ruleScope.tree;
@@ -83,6 +94,20 @@
     ruleScope.tree = [ruleScope ASTForKey:@"Word"];
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
+    return ruleScope.tree;
+
+}
+
+- (PKAST *)bar {
+    
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
+
+    PKAST *lit_baz_0 = [self match:TREEOUTPUT_TOKEN_KIND_BAR discard:NO]; 
+    [ruleScope addAST:lit_baz_0 forKey:@"'baz'"];
+
+    ruleScope.tree = [ruleScope ASTForKey:@"'baz'"];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
     return ruleScope.tree;
 
 }

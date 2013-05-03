@@ -60,16 +60,28 @@
     self.factory = nil;
 }
 
-- (void)testDict {
+- (void)testWord {
     NSError *err = nil;
     PKAST *res = nil;
     NSString *input = nil;
-
+    
     input = @"hello";
     res = [_parser parseString:input assembler:nil error:&err];
     TDNotNil(res);
     TDTrue([res isKindOfClass:[PKAST class]]);
     TDEqualObjects(@"hello", [res treeDescription]);
+}
+
+- (void)testLiteral {
+    NSError *err = nil;
+    PKAST *res = nil;
+    NSString *input = nil;
+    
+    input = @"baz";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"baz", [res treeDescription]);
 }
 
 @end

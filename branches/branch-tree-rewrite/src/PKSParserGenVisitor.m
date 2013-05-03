@@ -971,6 +971,7 @@
     vars[DISCARD] = @(node.discard);
     vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
     vars[TREE_VAR_NAME] = [self nextTreeVarName:methodName];
+    vars[TREE_KEY] = methodName;
 
     // merge
     NSMutableString *output = [NSMutableString string];
@@ -989,13 +990,16 @@
 
 
 - (void)visitLiteral:(PKLiteralNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // stup vars
     id vars = [NSMutableDictionary dictionary];
     vars[TOKEN_KIND] = node.tokenKind;
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
+    vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
+    vars[TREE_VAR_NAME] = [self nextTreeVarName:[NSString stringWithFormat:@"lit_%@", [node.token.stringValue stringByTrimmingQuotes]]];
+    vars[TREE_KEY] = node.token.stringValue;
 
     // merge
     NSMutableString *output = [NSMutableString string];
@@ -1005,6 +1009,8 @@
     [output appendString:[_engine processTemplate:template withVariables:vars]];
     
     [output appendString:[self actionStringFrom:node.actionNode]];
+
+    [output appendString:[self rewriteStringFrom:node.rewriteNode]];
 
     // push
     [self push:output];
