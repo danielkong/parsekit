@@ -998,7 +998,11 @@
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
     vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
-    vars[TREE_VAR_NAME] = [self nextTreeVarName:[NSString stringWithFormat:@"lit_%@", [node.token.stringValue stringByTrimmingQuotes]]];
+    
+    NSString *litName = node.tokenKind.name;
+    NSRange r = [litName rangeOfString:@"_TOKEN_KIND_"];
+    litName = [[litName substringFromIndex:r.location + r.length] lowercaseString];
+    vars[TREE_VAR_NAME] = [self nextTreeVarName:[NSString stringWithFormat:@"lit_%@", litName]];
     vars[TREE_KEY] = node.token.stringValue;
 
     // merge

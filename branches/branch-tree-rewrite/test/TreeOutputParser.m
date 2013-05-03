@@ -53,8 +53,12 @@
         self.enableASTOutput = YES;
 
         self._tokenKindTab[@"baz"] = @(TREEOUTPUT_TOKEN_KIND_BAR);
+        self._tokenKindTab[@"int"] = @(TREEOUTPUT_TOKEN_KIND_INT);
+        self._tokenKindTab[@";"] = @(TREEOUTPUT_TOKEN_KIND_SEMI_COLON);
 
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_BAR] = @"baz";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_INT] = @"int";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_SEMI_COLON] = @";";
 
     }
     return self;
@@ -75,6 +79,11 @@
         [ruleScope addAST:bar_1 forKey:@"bar"];
 
         ruleScope.tree = [ruleScope ASTForKey:@"bar"];
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_INT, 0]) {
+        PKAST *baz_2 = [self baz]; 
+        [ruleScope addAST:baz_2 forKey:@"baz"];
+
+        ruleScope.tree = [ruleScope ASTForKey:@"baz"];
     } else {
         [self raise:@"No viable alternative found in rule '_start'."];
     }
@@ -102,12 +111,29 @@
     
     PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"bar"];
 
-    PKAST *lit_baz_0 = [self match:TREEOUTPUT_TOKEN_KIND_BAR discard:NO]; 
-    [ruleScope addAST:lit_baz_0 forKey:@"'baz'"];
+    PKAST *lit_bar_0 = [self match:TREEOUTPUT_TOKEN_KIND_BAR discard:NO]; 
+    [ruleScope addAST:lit_bar_0 forKey:@"'baz'"];
 
     ruleScope.tree = [ruleScope ASTForKey:@"'baz'"];
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
+    return ruleScope.tree;
+
+}
+
+- (PKAST *)baz {
+    
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"baz"];
+
+    PKAST *lit_int_0 = [self match:TREEOUTPUT_TOKEN_KIND_INT discard:NO]; 
+    [ruleScope addAST:lit_int_0 forKey:@"'int'"];
+    PKAST *Word_1 = [self matchWord:NO]; 
+    [ruleScope addAST:Word_1 forKey:@"Word"];
+    PKAST *lit_semi_colon_2 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    [ruleScope addAST:lit_semi_colon_2 forKey:@"';'"];
+
+    ruleScope.tree = [ruleScope ASTForKey:@"'int'"];
+
     return ruleScope.tree;
 
 }

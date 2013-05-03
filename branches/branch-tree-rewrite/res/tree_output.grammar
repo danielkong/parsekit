@@ -1,3 +1,4 @@
-@start = foo -> foo | bar -> bar;
+@start = foo -> foo | bar -> bar | baz -> baz;
 foo = Word -> Word;
 bar = 'baz' -> 'baz';
+baz = 'int' Word ';' -> ^('int' Word);
