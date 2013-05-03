@@ -176,10 +176,11 @@
 
     PKAST *_parent = [ruleScope ASTForKey:@"array"];
     ruleScope.tree = _parent;
-    for (PKAST *tr in [ruleScope allForKey:@"Number"]) {
+    for (PKAST *tr in [ruleScope allForKey:@"'['"]) {
         [_parent addChild:tr];
     }
-    for (PKAST *tr in [ruleScope allForKey:@"'['"]) {
+    _parent = [ruleScope ASTForKey:@"'['"];
+    for (PKAST *tr in [ruleScope allForKey:@"Number"]) {
         [_parent addChild:tr];
     }
 

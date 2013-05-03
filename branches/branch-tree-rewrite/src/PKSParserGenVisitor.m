@@ -302,13 +302,15 @@
     id vars = @{DEPTH: @(_depth), TREE_KEY: trNode.token.stringValue};
     NSMutableString *output = [NSMutableString string];
 
+    NSString *templateName = [trNode.children count] ? @"PKSRewriteParentNodeTemplate" : @"PKSRewriteLeafNodeTemplate";
+    
+    [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];
+
     for (PKTreeNode *child in trNode.children) {
         [self visitTreeNode:child];
         
         [output appendString:[self pop]];
     }
-    
-    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRewriteTreeNodeTemplate"] withVariables:vars]];
     
     [self push:output];
 }

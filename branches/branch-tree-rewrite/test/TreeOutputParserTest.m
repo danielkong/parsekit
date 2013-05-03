@@ -60,43 +60,43 @@
     self.factory = nil;
 }
 
-//- (void)testWord {
-//    NSError *err = nil;
-//    PKAST *res = nil;
-//    NSString *input = nil;
-//    
-//    input = @"hello";
-//    res = [_parser parseString:input assembler:nil error:&err];
-//    TDNotNil(res);
-//    TDTrue([res isKindOfClass:[PKAST class]]);
-//    TDEqualObjects(@"hello", [res treeDescription]);
-//}
-//
-//- (void)testLiteral {
-//    NSError *err = nil;
-//    PKAST *res = nil;
-//    NSString *input = nil;
-//    
-//    input = @"baz";
-//    res = [_parser parseString:input assembler:nil error:&err];
-//    TDNotNil(res);
-//    TDTrue([res isKindOfClass:[PKAST class]]);
-//    TDEqualObjects(@"baz", [res treeDescription]);
-//}
-//
-//- (void)testTree {
-//    NSError *err = nil;
-//    PKAST *res = nil;
-//    NSString *input = nil;
-//    
-//    input = @"int x;";
-//    res = [_parser parseString:input assembler:nil error:&err];
-//    //TDEqualObjects(@"[]int/x/;^", [_parser.assembly description]);
-//    
-//    TDNotNil(res);
-//    TDTrue([res isKindOfClass:[PKAST class]]);
-//    TDEqualObjects(@"(int x)", [res treeDescription]);
-//}
+- (void)testWord {
+    NSError *err = nil;
+    PKAST *res = nil;
+    NSString *input = nil;
+    
+    input = @"hello";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"hello", [res treeDescription]);
+}
+
+- (void)testLiteral {
+    NSError *err = nil;
+    PKAST *res = nil;
+    NSString *input = nil;
+    
+    input = @"baz";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"baz", [res treeDescription]);
+}
+
+- (void)testTree {
+    NSError *err = nil;
+    PKAST *res = nil;
+    NSString *input = nil;
+    
+    input = @"int x;";
+    res = [_parser parseString:input assembler:nil error:&err];
+    //TDEqualObjects(@"[]int/x/;^", [_parser.assembly description]);
+    
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"(int x)", [res treeDescription]);
+}
 
 - (void)testSubTree {
     NSError *err = nil;

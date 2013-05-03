@@ -893,8 +893,10 @@
 		D3ECF3C81732FC06002C9FD8 /* PKSTreeAdaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3ECF3C61732FC06002C9FD8 /* PKSTreeAdaptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3ECF3CA17331D23002C9FD8 /* PKSRewriteRootNodeTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3ECF3C917331D23002C9FD8 /* PKSRewriteRootNodeTemplate.txt */; };
 		D3ECF3CB17331D23002C9FD8 /* PKSRewriteRootNodeTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3ECF3C917331D23002C9FD8 /* PKSRewriteRootNodeTemplate.txt */; };
-		D3ECF3CD17345756002C9FD8 /* PKSRewriteTreeNodeTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3ECF3CC17345756002C9FD8 /* PKSRewriteTreeNodeTemplate.txt */; };
-		D3ECF3CE17345756002C9FD8 /* PKSRewriteTreeNodeTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3ECF3CC17345756002C9FD8 /* PKSRewriteTreeNodeTemplate.txt */; };
+		D3ECF3CD17345756002C9FD8 /* PKSRewriteLeafNodeTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3ECF3CC17345756002C9FD8 /* PKSRewriteLeafNodeTemplate.txt */; };
+		D3ECF3CE17345756002C9FD8 /* PKSRewriteLeafNodeTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3ECF3CC17345756002C9FD8 /* PKSRewriteLeafNodeTemplate.txt */; };
+		D3ECF3D017345E70002C9FD8 /* PKSRewriteParentNodeTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3ECF3CF17345E6F002C9FD8 /* PKSRewriteParentNodeTemplate.txt */; };
+		D3ECF3D117345E70002C9FD8 /* PKSRewriteParentNodeTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3ECF3CF17345E6F002C9FD8 /* PKSRewriteParentNodeTemplate.txt */; };
 		D3F0E2480FFE8EB900C9DF74 /* PKQuoteState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0E2470FFE8EB900C9DF74 /* PKQuoteState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F0E2490FFE8EB900C9DF74 /* PKQuoteState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0E2470FFE8EB900C9DF74 /* PKQuoteState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F0E3CB0FFEB70100C9DF74 /* PKNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221F60FFE8C8E004514FE /* PKNumber.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1765,7 +1767,8 @@
 		D3ECF3C51732FC06002C9FD8 /* PKSRuleScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSRuleScope.h; path = include/ParseKit/PKSRuleScope.h; sourceTree = "<group>"; };
 		D3ECF3C61732FC06002C9FD8 /* PKSTreeAdaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSTreeAdaptor.h; path = include/ParseKit/PKSTreeAdaptor.h; sourceTree = "<group>"; };
 		D3ECF3C917331D23002C9FD8 /* PKSRewriteRootNodeTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSRewriteRootNodeTemplate.txt; path = res/PKSRewriteRootNodeTemplate.txt; sourceTree = "<group>"; };
-		D3ECF3CC17345756002C9FD8 /* PKSRewriteTreeNodeTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSRewriteTreeNodeTemplate.txt; path = res/PKSRewriteTreeNodeTemplate.txt; sourceTree = "<group>"; };
+		D3ECF3CC17345756002C9FD8 /* PKSRewriteLeafNodeTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSRewriteLeafNodeTemplate.txt; path = res/PKSRewriteLeafNodeTemplate.txt; sourceTree = "<group>"; };
+		D3ECF3CF17345E6F002C9FD8 /* PKSRewriteParentNodeTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSRewriteParentNodeTemplate.txt; path = res/PKSRewriteParentNodeTemplate.txt; sourceTree = "<group>"; };
 		D3F0E2470FFE8EB900C9DF74 /* PKQuoteState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKQuoteState.h; path = include/ParseKit/PKQuoteState.h; sourceTree = "<group>"; };
 		D3F0E3290FFEA1E200C9DF74 /* DebugApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DebugApp-Info.plist"; sourceTree = "<group>"; };
 		D3F0E3600FFEA2B500C9DF74 /* DemoApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "DemoApp-Info.plist"; path = "demoapp/DemoApp-Info.plist"; sourceTree = "<group>"; };
@@ -2612,7 +2615,8 @@
 				D302272A17020F9400594F16 /* PKSClassImplementationTemplate.txt */,
 				D3B63A3017075C3000BA9DBF /* PKSActionTemplate.txt */,
 				D3ECF3C917331D23002C9FD8 /* PKSRewriteRootNodeTemplate.txt */,
-				D3ECF3CC17345756002C9FD8 /* PKSRewriteTreeNodeTemplate.txt */,
+				D3ECF3CF17345E6F002C9FD8 /* PKSRewriteParentNodeTemplate.txt */,
+				D3ECF3CC17345756002C9FD8 /* PKSRewriteLeafNodeTemplate.txt */,
 				D3B22A3517023F1200446945 /* PKSMethodTemplate.txt */,
 				D38BC88E1710AF6D00BF530D /* PKSMethodMemoizationTemplate.txt */,
 				D3BD395E1729D01F00FC6549 /* PKSPreCallbackTemplate.txt */,
@@ -3763,7 +3767,8 @@
 				D3BD397B1729F2ED00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt in Resources */,
 				D3BD397C1729F2F100FC6549 /* PKSPostCallbackSyntaxLeafTemplate.txt in Resources */,
 				D3ECF3CB17331D23002C9FD8 /* PKSRewriteRootNodeTemplate.txt in Resources */,
-				D3ECF3CE17345756002C9FD8 /* PKSRewriteTreeNodeTemplate.txt in Resources */,
+				D3ECF3CE17345756002C9FD8 /* PKSRewriteLeafNodeTemplate.txt in Resources */,
+				D3ECF3D117345E70002C9FD8 /* PKSRewriteParentNodeTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3909,7 +3914,8 @@
 				D3BD39791729F1DE00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt in Resources */,
 				D3ACAD161732F9750020B5CE /* tree_output.grammar in Resources */,
 				D3ECF3CA17331D23002C9FD8 /* PKSRewriteRootNodeTemplate.txt in Resources */,
-				D3ECF3CD17345756002C9FD8 /* PKSRewriteTreeNodeTemplate.txt in Resources */,
+				D3ECF3CD17345756002C9FD8 /* PKSRewriteLeafNodeTemplate.txt in Resources */,
+				D3ECF3D017345E70002C9FD8 /* PKSRewriteParentNodeTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
