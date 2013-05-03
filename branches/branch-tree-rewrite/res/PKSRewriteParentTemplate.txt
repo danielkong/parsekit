@@ -1,2 +1,0 @@
-
-{%for 1 to depth %}    {%/for%}ruleScope.tree = [ruleScope ASTForKey:@"{{treeKey}}"];

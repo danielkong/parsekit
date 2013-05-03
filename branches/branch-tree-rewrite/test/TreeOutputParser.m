@@ -73,17 +73,20 @@
         PKAST *foo_0 = [self foo]; 
         [ruleScope addAST:foo_0 forKey:@"foo"];
 
-        ruleScope.tree = [ruleScope ASTForKey:@"foo"];
+        PKAST *_parent = [ruleScope ASTForKey:@"foo"];
+        ruleScope.tree = _parent;
     } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_BAR, 0]) {
         PKAST *bar_1 = [self bar]; 
         [ruleScope addAST:bar_1 forKey:@"bar"];
 
-        ruleScope.tree = [ruleScope ASTForKey:@"bar"];
+        PKAST *_parent = [ruleScope ASTForKey:@"bar"];
+        ruleScope.tree = _parent;
     } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_INT, 0]) {
         PKAST *baz_2 = [self baz]; 
         [ruleScope addAST:baz_2 forKey:@"baz"];
 
-        ruleScope.tree = [ruleScope ASTForKey:@"baz"];
+        PKAST *_parent = [ruleScope ASTForKey:@"baz"];
+        ruleScope.tree = _parent;
     } else {
         [self raise:@"No viable alternative found in rule '_start'."];
     }
@@ -100,7 +103,8 @@
     PKAST *Word_0 = [self matchWord:NO]; 
     [ruleScope addAST:Word_0 forKey:@"Word"];
 
-    ruleScope.tree = [ruleScope ASTForKey:@"Word"];
+    PKAST *_parent = [ruleScope ASTForKey:@"Word"];
+    ruleScope.tree = _parent;
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
     return ruleScope.tree;
@@ -114,7 +118,8 @@
     PKAST *lit_bar_0 = [self match:TREEOUTPUT_TOKEN_KIND_BAR discard:NO]; 
     [ruleScope addAST:lit_bar_0 forKey:@"'baz'"];
 
-    ruleScope.tree = [ruleScope ASTForKey:@"'baz'"];
+    PKAST *_parent = [ruleScope ASTForKey:@"'baz'"];
+    ruleScope.tree = _parent;
 
     [self fireAssemblerSelector:@selector(parser:didMatchBar:)];
     return ruleScope.tree;
@@ -132,8 +137,9 @@
     PKAST *lit_semi_colon_2 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
     [ruleScope addAST:lit_semi_colon_2 forKey:@"';'"];
 
-    ruleScope.tree = [ruleScope ASTForKey:@"'int'"];
-    [ruleScope.tree addChild:[ruleScope ASTForKey:@"Word"]];
+    PKAST *_parent = [ruleScope ASTForKey:@"'int'"];
+    ruleScope.tree = _parent;
+    [_parent addChild:[ruleScope ASTForKey:@"Word"]];
 
     return ruleScope.tree;
 
