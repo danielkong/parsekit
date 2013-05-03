@@ -151,9 +151,7 @@
 
     PKAST *_parent = [ruleScope ASTForKey:@"'int'"];
     ruleScope.tree = _parent;
-    for (PKAST *tr in [ruleScope allForKey:@"Word"]) {
-        [_parent addChild:tr];
-    }
+    [_parent addChild:[ruleScope ASTForKey:@"Word"]];
 
     return ruleScope.tree;
 
@@ -176,13 +174,9 @@
 
     PKAST *_parent = [ruleScope ASTForKey:@"array"];
     ruleScope.tree = _parent;
-    for (PKAST *tr in [ruleScope allForKey:@"'['"]) {
-        [_parent addChild:tr];
-    }
+    [_parent addChild:[ruleScope ASTForKey:@"'['"]];
     _parent = [ruleScope ASTForKey:@"'['"];
-    for (PKAST *tr in [ruleScope allForKey:@"Number"]) {
-        [_parent addChild:tr];
-    }
+    [_parent addChild:[ruleScope ASTForKey:@"Number"]];
 
     return ruleScope.tree;
 
