@@ -82,7 +82,6 @@
 
     ruleScope.tree = [ruleScope ASTForKey:@"Word"];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
     return ruleScope.tree;
 
 }

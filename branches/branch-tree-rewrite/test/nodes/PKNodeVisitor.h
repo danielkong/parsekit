@@ -22,6 +22,7 @@
 @class PKOptionalNode;
 @class PKMultipleNode;
 @class PKActionNode;
+@class PKTreeNode;
 
 @protocol PKNodeVisitor <NSObject>
 - (void)visitRoot:(PKRootNode *)node;
@@ -37,6 +38,7 @@
 - (void)visitOptional:(PKOptionalNode *)node;
 - (void)visitMultiple:(PKMultipleNode *)node;
 - (void)visitAction:(PKActionNode *)node;
+- (void)visitTree:(PKTreeNode *)node;
 
 @property (nonatomic, retain) PKBaseNode *rootNode;
 @end

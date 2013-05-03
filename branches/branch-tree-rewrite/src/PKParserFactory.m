@@ -1280,26 +1280,11 @@ void PKReleaseSubparserTree(PKParser *p) {
         [parent addChild:child];
     }
     
-    PKBaseNode *owner = [a pop];
-    NSAssert([owner isKindOfClass:[PKBaseNode class]], @"");
-    
-    owner.rewriteNode = parent;
-    [a push:owner];
-    
-//    NSArray *objs = [a objectsAbove:equals];
-//    [a pop]; // pop `=`
+//    PKBaseNode *owner = [a pop];
+//    NSAssert([owner isKindOfClass:[PKBaseNode class]], @"");
 //    
-//    PKDefinitionNode *defNode = [a pop];
-//    NSAssert([defNode isKindOfClass:[PKDefinitionNode class]], @"");
-//    
-//    defNode.rewriteNode = parent;
-//    
-//    [a push:defNode];
-//    [a push:equals];
-//    
-//    for (id obj in [objs reverseObjectEnumerator]) {
-//        [a push:obj];
-//    }
+//    owner.rewriteNode = parent;
+    [a push:parent];
 }
 
 @synthesize grammarParser;
