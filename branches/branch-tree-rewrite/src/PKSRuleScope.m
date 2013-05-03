@@ -16,16 +16,17 @@
 
 @implementation PKSRuleScope
 
-+ (PKSRuleScope *)ruleScopeWithTreeAdaptor:(PKSTreeAdaptor *)ator {
-    return [[[self alloc] initWithTreeAdaptor:ator] autorelease];
++ (PKSRuleScope *)ruleScopeWithName:(NSString *)name {
+    return [[[self alloc] initWithName:name] autorelease];
 }
 
 
-- (id)initWithTreeAdaptor:(PKSTreeAdaptor *)ator {
-    NSParameterAssert(ator);
+- (id)initWithName:(NSString *)name {
+    NSParameterAssert([name length]);
     
     self = [super init];
     if (self) {
+        self.name = name;
         self.tab = [NSMutableDictionary dictionary];
     }
     return self;
@@ -33,8 +34,8 @@
 
 
 - (void)dealloc {
+    self.name = nil;
     self.tree = nil;
-    self.adaptor = nil;
     self.tab = nil;
     [super dealloc];
 }
@@ -81,11 +82,15 @@
 }
 
 
-- (PKAST *)tree {
-    if (!_tree) {
-        self.tree = [[self.adaptor newTreeWithToken:nil] autorelease];
+- (void)setTree:(PKAST *)tree {
+    if (tree != _tree) {
+        [_tree autorelease];
+        _tree = [tree retain];
+        
+        if (_tree) {
+            [self addAST:_tree forKey:_name];
+        }
     }
-    return _tree;
 }
 
 @end

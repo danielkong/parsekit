@@ -9,13 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @class PKAST;
-@class PKSTreeAdaptor;
 
 @interface PKSRuleScope : NSObject
 
-+ (PKSRuleScope *)ruleScopeWithTreeAdaptor:(PKSTreeAdaptor *)ator;
++ (PKSRuleScope *)ruleScopeWithName:(NSString *)name;
 
-- (id)initWithTreeAdaptor:(PKSTreeAdaptor *)ator;
+- (id)initWithName:(NSString *)name;
 
 - (void)addAST:(PKAST *)tree forKey:(NSString *)key;
 - (NSArray *)allForKey:(NSString *)key;
@@ -24,6 +23,6 @@
 // convenience
 - (PKAST *)ASTForKey:(NSString *)key;
 
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic, retain) PKAST *tree;
-@property (nonatomic, retain) PKSTreeAdaptor *adaptor;
 @end

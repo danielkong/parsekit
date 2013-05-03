@@ -63,7 +63,7 @@
 
 - (PKAST *)_start {
     
-    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"_start"];
 
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         PKAST *foo_0 = [self foo]; 
@@ -86,7 +86,7 @@
 
 - (PKAST *)foo {
     
-    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"foo"];
 
     PKAST *Word_0 = [self matchWord:NO]; 
     [ruleScope addAST:Word_0 forKey:@"Word"];
@@ -100,7 +100,7 @@
 
 - (PKAST *)bar {
     
-    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithTreeAdaptor:self.adaptor];
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"bar"];
 
     PKAST *lit_baz_0 = [self match:TREEOUTPUT_TOKEN_KIND_BAR discard:NO]; 
     [ruleScope addAST:lit_baz_0 forKey:@"'baz'"];
