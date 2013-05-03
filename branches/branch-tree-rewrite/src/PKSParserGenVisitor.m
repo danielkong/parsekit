@@ -280,10 +280,38 @@
     if (!trNode || self.isSpeculating) return @"";
     
     trNode = trNode.children[0]; // TODO
+
     id vars = @{DEPTH: @(_depth), TREE_KEY: trNode.token.stringValue};
-    NSString *result = [_engine processTemplate:[self templateStringNamed:@"PKSRewriteConstantTemplate"] withVariables:vars];
+    NSMutableString *output = [NSMutableString string];
     
-    return result;
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRewriteParentTemplate"] withVariables:vars]];
+
+    for (PKTreeNode *child in trNode.children) {
+        [self visitTreeNode:child];
+        
+        [output appendString:[self pop]];
+    }
+
+
+    return output;
+}
+
+
+- (void)visitTreeNode:(PKTreeNode *)trNode {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, trNode);
+    
+    id vars = @{DEPTH: @(_depth), TREE_KEY: trNode.token.stringValue};
+    NSMutableString *output = [NSMutableString string];
+
+    for (PKTreeNode *child in trNode.children) {
+        [self visitTreeNode:child];
+        
+        [output appendString:[self pop]];
+    }
+    
+    [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRewriteChildTemplate"] withVariables:vars]];
+    
+    [self push:output];
 }
 
 

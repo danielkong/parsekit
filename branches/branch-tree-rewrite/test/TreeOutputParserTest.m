@@ -39,19 +39,19 @@
     _visitor.enableMemoization = NO;
     _visitor.outputType = PKSParserGenOutputTypeAST;
     [_root visit:_visitor];
-//#if TD_EMIT
-//    path = [@"~/work/parsekit/trunk/test/TreeOutputParser.h" stringByExpandingTildeInPath];
-//    err = nil;
-//    if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
-//        NSLog(@"%@", err);
-//    }
-//
-//    path = [@"~/work/parsekit/trunk/test/TreeOutputParser.m" stringByExpandingTildeInPath];
-//    err = nil;
-//    if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
-//        NSLog(@"%@", err);
-//    }
-//#endif
+#if TD_EMIT
+    path = [@"~/work/parsekit/trunk/test/TreeOutputParser.h" stringByExpandingTildeInPath];
+    err = nil;
+    if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
+        NSLog(@"%@", err);
+    }
+
+    path = [@"~/work/parsekit/trunk/test/TreeOutputParser.m" stringByExpandingTildeInPath];
+    err = nil;
+    if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
+        NSLog(@"%@", err);
+    }
+#endif
 
     self.parser = [[[TreeOutputParser alloc] init] autorelease];
 }
@@ -60,29 +60,29 @@
     self.factory = nil;
 }
 
-//- (void)testWord {
-//    NSError *err = nil;
-//    PKAST *res = nil;
-//    NSString *input = nil;
-//    
-//    input = @"hello";
-//    res = [_parser parseString:input assembler:nil error:&err];
-//    TDNotNil(res);
-//    TDTrue([res isKindOfClass:[PKAST class]]);
-//    TDEqualObjects(@"hello", [res treeDescription]);
-//}
-//
-//- (void)testLiteral {
-//    NSError *err = nil;
-//    PKAST *res = nil;
-//    NSString *input = nil;
-//    
-//    input = @"baz";
-//    res = [_parser parseString:input assembler:nil error:&err];
-//    TDNotNil(res);
-//    TDTrue([res isKindOfClass:[PKAST class]]);
-//    TDEqualObjects(@"baz", [res treeDescription]);
-//}
+- (void)testWord {
+    NSError *err = nil;
+    PKAST *res = nil;
+    NSString *input = nil;
+    
+    input = @"hello";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"hello", [res treeDescription]);
+}
+
+- (void)testLiteral {
+    NSError *err = nil;
+    PKAST *res = nil;
+    NSString *input = nil;
+    
+    input = @"baz";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"baz", [res treeDescription]);
+}
 
 - (void)testSubTree {
     NSError *err = nil;

@@ -131,10 +131,9 @@
     [ruleScope addAST:Word_1 forKey:@"Word"];
     PKAST *lit_semi_colon_2 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
     [ruleScope addAST:lit_semi_colon_2 forKey:@"';'"];
-    
-    [lit_int_0 addChild:Word_1];
 
     ruleScope.tree = [ruleScope ASTForKey:@"'int'"];
+    [ruleScope.tree addChild:[ruleScope ASTForKey:@"Word"]];
 
     return ruleScope.tree;
 
