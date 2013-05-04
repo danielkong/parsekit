@@ -1,6 +1,6 @@
 {%for 1 to depth %}    {%/for%}for (PKAST *tr in [ruleScope allForKey:@"{{treeKey}}"]) {
 {%for 1 to depth %}    {%/for%}    [_parent addChild:tr];
 {%for 1 to depth %}    {%/for%}}
-{%for 1 to depth %}    {%/for%}if ([ruleScope cardinalityForKey:@"{{treeKey}}"] > 0) {
-{%for 1 to depth %}    {%/for%}    _parent = [ruleScope ASTForKey:@"{{treeKey}}"];
-{%for 1 to depth %}    {%/for%}}
+//{%for 1 to depth %}    {%/for%}if ([ruleScope cardinalityForKey:@"{{treeKey}}"] > 0) {
+//{%for 1 to depth %}    {%/for%}    _parent = [ruleScope ASTForKey:@"{{treeKey}}"];
+//{%for 1 to depth %}    {%/for%}}

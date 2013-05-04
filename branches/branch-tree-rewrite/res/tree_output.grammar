@@ -27,7 +27,7 @@ array
 	;
 	
 multi
-	= var Word (',' Word)* -> ^(var Word+)
+	= var Word (',' Word)* ';' -> ^(var Word+)
 	;
 	
 var = 'var' -> 'var'

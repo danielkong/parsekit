@@ -225,6 +225,18 @@
             break;
         }
     }
+    PKAST *lit_semi_colon_4 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    [ruleScope addAST:lit_semi_colon_4 forKey:@"';'"];
+
+    PKAST *_parent = [ruleScope ASTForKey:@"var"];
+    ruleScope.tree = _parent;
+    if ([ruleScope cardinalityForKey:@"Word"] < 1) {
+        [self raise:@"Must have matched at least one Word token to build output tree"];
+    }
+    for (PKAST *tr in [ruleScope allForKey:@"Word"]) {
+        [_parent addChild:tr];
+    }
+//    _parent = [ruleScope ASTForKey:@"Word"];
 
     return ruleScope.tree;
 

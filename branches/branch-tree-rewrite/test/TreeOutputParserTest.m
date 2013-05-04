@@ -112,4 +112,18 @@
     TDEqualObjects(@"(array ([ 1))", [res treeDescription]);
 }
 
+- (void)testMultiConst {
+    NSError *err = nil;
+    PKAST *res = nil;
+    NSString *input = nil;
+    
+    input = @"var x, y;";
+    res = [_parser parseString:input assembler:nil error:&err];
+    //TDEqualObjects(@"[]int/x/;^", [_parser.assembly description]);
+    
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"(var x y)", [res treeDescription]);
+}
+
 @end
