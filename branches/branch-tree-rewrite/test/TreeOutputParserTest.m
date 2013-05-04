@@ -138,6 +138,22 @@
     TDNotNil(res);
     TDTrue([res isKindOfClass:[PKAST class]]);
     TDEqualObjects(@"(float x y)", [res treeDescription]);
+
+    input = @"float x;";
+    res = [_parser parseString:input assembler:nil error:&err];
+    //TDEqualObjects(@"[]int/x/;^", [_parser.assembly description]);
+    
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"(float x)", [res treeDescription]);
+
+    input = @"float;";
+    res = [_parser parseString:input assembler:nil error:&err];
+    //TDEqualObjects(@"[]int/x/;^", [_parser.assembly description]);
+    
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"float", [res treeDescription]);
 }
 
 - (void)testOptConst {
@@ -152,7 +168,14 @@
     TDNotNil(res);
     TDTrue([res isKindOfClass:[PKAST class]]);
     TDEqualObjects(@"(double x)", [res treeDescription]);
-}
 
+    input = @"double;";
+    res = [_parser parseString:input assembler:nil error:&err];
+    //TDEqualObjects(@"[]int/x/;^", [_parser.assembly description]);
+    
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"double", [res treeDescription]);
+}
 
 @end

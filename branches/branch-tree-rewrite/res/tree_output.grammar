@@ -33,7 +33,7 @@ multi
 	;
 	
 rep
-	= 'float' Word (',' Word)* ';' -> ^('float' Word*)
+	= 'float' Word? (',' Word)* ';' -> ^('float' Word*)
 	;
 
 opt

@@ -61,7 +61,6 @@
     NSAssert(_tab, @"");
     
     NSArray *all = _tab[key];
-    NSAssert(all, @"");
     
     return all;
 }
