@@ -137,6 +137,7 @@
             @"super": @"SUPER",
             @"this": @"THIS",
             @"void": @"VOID",
+            @"char": @"CHAR",
             @"int": @"INT",
             @"unsigned": @"UNSIGNED",
             @"long": @"LONG",

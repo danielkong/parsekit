@@ -54,6 +54,7 @@
 
         self._tokenKindTab[@"int"] = @(TREEOUTPUT_TOKEN_KIND_INT);
         self._tokenKindTab[@"double"] = @(TREEOUTPUT_TOKEN_KIND_DOUBLE);
+        self._tokenKindTab[@"char"] = @(TREEOUTPUT_TOKEN_KIND_CHAR);
         self._tokenKindTab[@"["] = @(TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET);
         self._tokenKindTab[@","] = @(TREEOUTPUT_TOKEN_KIND_COMMA);
         self._tokenKindTab[@"baz"] = @(TREEOUTPUT_TOKEN_KIND_BAR);
@@ -65,6 +66,7 @@
 
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_INT] = @"int";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_DOUBLE] = @"double";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_CHAR] = @"char";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET] = @"[";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_COMMA] = @",";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_BAR] = @"baz";
@@ -124,6 +126,12 @@
         [ruleScope addAST:opt_6 forKey:@"opt"];
 
         PKAST *_parent = [ruleScope ASTForKey:@"opt"];
+        ruleScope.tree = _parent;
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_CHAR, 0]) {
+        PKAST *multi2_7 = [self multi2]; 
+        [ruleScope addAST:multi2_7 forKey:@"multi2"];
+
+        PKAST *_parent = [ruleScope ASTForKey:@"multi2"];
         ruleScope.tree = _parent;
     } else {
         [self raise:@"No viable alternative found in rule '_start'."];
@@ -314,6 +322,33 @@
 
 }
 
+- (PKAST *)multi2 {
+    
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"multi2"];
+
+    PKAST *char_0 = [self char]; 
+    [ruleScope addAST:char_0 forKey:@"char"];
+    PKAST *Word_1 = [self matchWord:NO]; 
+    [ruleScope addAST:Word_1 forKey:@"Word"];
+    do {
+        PKAST *lit_comma_4 = [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; 
+        [ruleScope addAST:lit_comma_4 forKey:@"','"];
+        PKAST *Word_5 = [self matchWord:NO]; 
+        [ruleScope addAST:Word_5 forKey:@"Word"];
+    } while ([self speculate:^{ [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; [self matchWord:NO]; }]);
+    PKAST *lit_semi_colon_6 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    [ruleScope addAST:lit_semi_colon_6 forKey:@"';'"];
+
+    PKAST *_parent = [ruleScope ASTForKey:@"+"];
+    ruleScope.tree = _parent;
+    [_parent addChild:[ruleScope ASTForKey:@"char"]];
+    _parent = [ruleScope ASTForKey:@"char"];
+    [_parent addChild:[ruleScope ASTForKey:@"Word"]];
+
+    return ruleScope.tree;
+
+}
+
 - (PKAST *)var {
     
     PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"var"];
@@ -325,6 +360,21 @@
     ruleScope.tree = _parent;
 
     [self fireAssemblerSelector:@selector(parser:didMatchVar:)];
+    return ruleScope.tree;
+
+}
+
+- (PKAST *)char {
+    
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"char"];
+
+    PKAST *lit_char_0 = [self match:TREEOUTPUT_TOKEN_KIND_CHAR discard:NO]; 
+    [ruleScope addAST:lit_char_0 forKey:@"'char'"];
+
+    PKAST *_parent = [ruleScope ASTForKey:@"'char'"];
+    ruleScope.tree = _parent;
+
+    [self fireAssemblerSelector:@selector(parser:didMatchChar:)];
     return ruleScope.tree;
 
 }

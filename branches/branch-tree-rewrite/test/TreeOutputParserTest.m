@@ -178,4 +178,22 @@
     TDEqualObjects(@"double", [res treeDescription]);
 }
 
+- (void)testMulti2Const {
+    NSError *err = nil;
+    PKAST *res = nil;
+    NSString *input = nil;
+    
+    input = @"char x, y;";
+    res = [_parser parseString:input assembler:nil error:&err];
+    //TDEqualObjects(@"[]int/x/;^", [_parser.assembly description]);
+    
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"(char x) (char y)", [res treeDescription]);
+    
+    PKAST *charNode1 = nil;
+    PKAST *charNode2 = nil;
+    TDTrue(charNode1 != charNode2);
+}
+
 @end

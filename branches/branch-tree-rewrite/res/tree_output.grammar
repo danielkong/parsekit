@@ -6,6 +6,7 @@
 	| multi -> multi
 	| rep -> rep
 	| opt -> opt
+	| multi2 -> multi2
 	;
 	
 foo 
@@ -40,5 +41,15 @@ opt
 	= 'double' Word? ';' -> ^('double' Word?)
 	;
 
-var = 'var' -> 'var'
+multi2
+	= char Word (',' Word)+ ';' -> ^(char Word)+
+	;
+
+
+var 
+	= 'var' -> 'var'
+	;
+	
+char
+	= 'char' -> 'char'
 	;
