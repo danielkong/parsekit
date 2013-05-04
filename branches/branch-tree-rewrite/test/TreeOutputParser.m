@@ -216,17 +216,17 @@
     PKAST *Word_1 = [self matchWord:NO]; 
     [ruleScope addAST:Word_1 forKey:@"Word"];
     while ([self predicts:TREEOUTPUT_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ PKAST *lit_comma_2 = [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; [ruleScope addAST:lit_comma_2 forKey:@"','"];PKAST *Word_3 = [self matchWord:NO]; [ruleScope addAST:Word_3 forKey:@"Word"];}]) {
-            PKAST *lit_comma_2 = [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; 
-            [ruleScope addAST:lit_comma_2 forKey:@"','"];
-            PKAST *Word_3 = [self matchWord:NO]; 
-            [ruleScope addAST:Word_3 forKey:@"Word"];
+        if ([self speculate:^{ [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; [self matchWord:NO]; }]) {
+            PKAST *lit_comma_4 = [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; 
+            [ruleScope addAST:lit_comma_4 forKey:@"','"];
+            PKAST *Word_5 = [self matchWord:NO]; 
+            [ruleScope addAST:Word_5 forKey:@"Word"];
         } else {
             break;
         }
     }
-    PKAST *lit_semi_colon_4 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
-    [ruleScope addAST:lit_semi_colon_4 forKey:@"';'"];
+    PKAST *lit_semi_colon_6 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    [ruleScope addAST:lit_semi_colon_6 forKey:@"';'"];
 
     PKAST *_parent = [ruleScope ASTForKey:@"var"];
     ruleScope.tree = _parent;

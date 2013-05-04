@@ -259,7 +259,7 @@
     vars[ENABLE_MEMOIZATION] = @(self.enableMemoization);
     vars[ENABLE_ERROR_RECOVERY] = @(self.enableAutomaticErrorRecovery);
     vars[PARSE_TREE] = @((_preassemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorSyntax || _assemblerSettingBehavior == PKParserFactoryAssemblerSettingBehaviorSyntax));
-    vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
+    vars[AST_OUTPUT] = (!self.isSpeculating && _outputType == PKSParserGenOutputTypeAST) ? (id)kCFBooleanTrue : (id)kCFBooleanFalse;
     
     NSString *implTemplate = [self templateStringNamed:@"PKSClassImplementationTemplate"];
     self.implementationOutputString = [_engine processTemplate:implTemplate withVariables:vars];
@@ -452,7 +452,7 @@
 
     vars[PRE_CALLBACK] = preCallbackStr;
     vars[POST_CALLBACK] = postCallbackStr;
-    vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
+    vars[AST_OUTPUT] = (!self.isSpeculating && _outputType == PKSParserGenOutputTypeAST) ? (id)kCFBooleanTrue : (id)kCFBooleanFalse;
 
     NSString *templateName = nil;
     if (!isStartMethod && self.enableMemoization) {
@@ -478,7 +478,7 @@
     vars[METHOD_NAME] = methodName;
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
-    vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
+    vars[AST_OUTPUT] = (!self.isSpeculating && _outputType == PKSParserGenOutputTypeAST) ? (id)kCFBooleanTrue : (id)kCFBooleanFalse;
     vars[TREE_VAR_NAME] = [self nextTreeVarName:methodName];
 
     // merge
@@ -589,9 +589,18 @@
     // rep body is always wrapped in an while AND an IF. so increase depth twice
     NSInteger depth = isLL1 ? 1 : 2;
 
-    // recurse
+    // recurse first and get entire child str
     self.depth += depth;
+    
+    // visit for speculative if test
+    self.isSpeculating = YES;
     [child visit:self];
+    self.isSpeculating = NO;
+    NSString *ifTest = [self removeTabsAndNewLines:[self pop]];
+    
+    // visit for child body
+    [child visit:self];
+
     self.depth -= depth;
     
     // pop
@@ -602,7 +611,7 @@
     if (isLL1) { // ????
         templateName = @"PKSRepetitionPredictTemplate";
     } else {
-        vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
+        vars[IF_TEST] = ifTest;
         templateName = @"PKSRepetitionSpeculateTemplate";
     }
     
@@ -894,11 +903,21 @@
     PKBaseNode *child = node.children[0];
     
     NSArray *set = [self sortedLookaheadSetForNode:child];
+    
+    BOOL isLL1 = _enableHybridDFA && [self isLL1:child];
 
+    // recurse for speculation
     self.depth++;
+    self.isSpeculating = YES;
+    [child visit:self];
+    self.isSpeculating = NO;
+    
+    NSMutableString *ifTest = [self removeTabsAndNewLines:[self pop]];
+
+    // recurse for realz
     [child visit:self];
     self.depth--;
-    
+
     // pop
     NSMutableString *childStr = [self pop];
 
@@ -907,14 +926,14 @@
     vars[DEPTH] = @(_depth);
     vars[LOOKAHEAD_SET] = set;
     vars[LAST] = @([set count] - 1);
-    vars[CHILD_STRING] = [[childStr mutableCopy] autorelease];
-    vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
+    vars[CHILD_STRING] = childStr;
+    vars[IF_TEST] = ifTest;
     
     NSMutableString *output = [NSMutableString string];
     [output appendString:[self semanticPredicateForNode:node throws:YES]];
 
     NSString *templateName = nil;
-    if (_enableHybridDFA && [self isLL1:child]) { // ????
+    if (isLL1) { // ????
         templateName = @"PKSOptionalPredictTemplate";
     } else {
         templateName = @"PKSOptionalSpeculateTemplate";
@@ -976,7 +995,17 @@
     
     NSArray *set = [self sortedLookaheadSetForNode:child];
     
+    BOOL isLL1 = _enableHybridDFA && [self isLL1:child];
+    
+    // recurse for speculation
     self.depth++;
+    self.isSpeculating = YES;
+    [child visit:self];
+    self.isSpeculating = NO;
+    
+    NSMutableString *ifTest = [self removeTabsAndNewLines:[self pop]];
+    
+    // recurse for realz
     [child visit:self];
     self.depth--;
     
@@ -988,14 +1017,14 @@
     vars[DEPTH] = @(_depth);
     vars[LOOKAHEAD_SET] = set;
     vars[LAST] = @([set count] - 1);
-    vars[CHILD_STRING] = [[childStr mutableCopy] autorelease];
-    vars[IF_TEST] = [self removeTabsAndNewLines:childStr];
+    vars[CHILD_STRING] = childStr;
+    vars[IF_TEST] = ifTest;
     
     NSMutableString *output = [NSMutableString string];
     [output appendString:[self semanticPredicateForNode:node throws:YES]];
 
     NSString *templateName = nil;
-    if (_enableHybridDFA && [self isLL1:child]) { // ????
+    if (isLL1) { // ????
         templateName = @"PKSMultiplePredictTemplate";
     } else {
         templateName = @"PKSMultipleSpeculateTemplate";
@@ -1020,7 +1049,7 @@
     vars[METHOD_NAME] = methodName;
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
-    vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
+    vars[AST_OUTPUT] = (!self.isSpeculating && _outputType == PKSParserGenOutputTypeAST) ? (id)kCFBooleanTrue : (id)kCFBooleanFalse;
     vars[TREE_VAR_NAME] = [self nextTreeVarName:methodName];
     vars[TREE_KEY] = methodName;
 
@@ -1041,14 +1070,14 @@
 
 
 - (void)visitLiteral:(PKLiteralNode *)node {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     // stup vars
     id vars = [NSMutableDictionary dictionary];
     vars[TOKEN_KIND] = node.tokenKind;
     vars[DEPTH] = @(_depth);
     vars[DISCARD] = @(node.discard);
-    vars[AST_OUTPUT] = @(_outputType == PKSParserGenOutputTypeAST);
+    vars[AST_OUTPUT] = (!self.isSpeculating && _outputType == PKSParserGenOutputTypeAST) ? (id)kCFBooleanTrue : (id)kCFBooleanFalse;
     
     NSString *litName = node.tokenKind.name;
     NSRange r = [litName rangeOfString:@"_TOKEN_KIND_"];
