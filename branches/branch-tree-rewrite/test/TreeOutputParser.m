@@ -53,21 +53,25 @@
         self.enableASTOutput = YES;
 
         self._tokenKindTab[@"int"] = @(TREEOUTPUT_TOKEN_KIND_INT);
+        self._tokenKindTab[@"double"] = @(TREEOUTPUT_TOKEN_KIND_DOUBLE);
         self._tokenKindTab[@"["] = @(TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET);
         self._tokenKindTab[@","] = @(TREEOUTPUT_TOKEN_KIND_COMMA);
         self._tokenKindTab[@"baz"] = @(TREEOUTPUT_TOKEN_KIND_BAR);
         self._tokenKindTab[@"var"] = @(TREEOUTPUT_TOKEN_KIND_VAR);
         self._tokenKindTab[@"array"] = @(TREEOUTPUT_TOKEN_KIND_ARRAY);
         self._tokenKindTab[@"]"] = @(TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET);
+        self._tokenKindTab[@"float"] = @(TREEOUTPUT_TOKEN_KIND_FLOAT);
         self._tokenKindTab[@";"] = @(TREEOUTPUT_TOKEN_KIND_SEMI_COLON);
 
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_INT] = @"int";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_DOUBLE] = @"double";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET] = @"[";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_COMMA] = @",";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_BAR] = @"baz";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_VAR] = @"var";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_ARRAY] = @"array";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET] = @"]";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_FLOAT] = @"float";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_SEMI_COLON] = @";";
 
     }
@@ -108,6 +112,18 @@
         [ruleScope addAST:multi_4 forKey:@"multi"];
 
         PKAST *_parent = [ruleScope ASTForKey:@"multi"];
+        ruleScope.tree = _parent;
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_FLOAT, 0]) {
+        PKAST *rep_5 = [self rep]; 
+        [ruleScope addAST:rep_5 forKey:@"rep"];
+
+        PKAST *_parent = [ruleScope ASTForKey:@"rep"];
+        ruleScope.tree = _parent;
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_DOUBLE, 0]) {
+        PKAST *opt_6 = [self opt]; 
+        [ruleScope addAST:opt_6 forKey:@"opt"];
+
+        PKAST *_parent = [ruleScope ASTForKey:@"opt"];
         ruleScope.tree = _parent;
     } else {
         [self raise:@"No viable alternative found in rule '_start'."];
@@ -215,6 +231,37 @@
     [ruleScope addAST:var_0 forKey:@"var"];
     PKAST *Word_1 = [self matchWord:NO]; 
     [ruleScope addAST:Word_1 forKey:@"Word"];
+    do {
+        PKAST *lit_comma_4 = [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; 
+        [ruleScope addAST:lit_comma_4 forKey:@"','"];
+        PKAST *Word_5 = [self matchWord:NO]; 
+        [ruleScope addAST:Word_5 forKey:@"Word"];
+    } while ([self speculate:^{ [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; [self matchWord:NO]; }]);
+    PKAST *lit_semi_colon_6 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    [ruleScope addAST:lit_semi_colon_6 forKey:@"';'"];
+
+    PKAST *_parent = [ruleScope ASTForKey:@"var"];
+    ruleScope.tree = _parent;
+    if ([ruleScope cardinalityForKey:@"Word"] < 1) {
+        [self raise:@"Must have at least 1 Word token in rule `multi` to build output tree"];
+    }
+    for (PKAST *tr in [ruleScope allForKey:@"Word"]) {
+        [_parent addChild:tr];
+    }
+//    _parent = [ruleScope ASTForKey:@"Word"];
+
+    return ruleScope.tree;
+
+}
+
+- (PKAST *)rep {
+    
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"rep"];
+
+    PKAST *lit_float_0 = [self match:TREEOUTPUT_TOKEN_KIND_FLOAT discard:NO]; 
+    [ruleScope addAST:lit_float_0 forKey:@"'float'"];
+    PKAST *Word_1 = [self matchWord:NO]; 
+    [ruleScope addAST:Word_1 forKey:@"Word"];
     while ([self predicts:TREEOUTPUT_TOKEN_KIND_COMMA, 0]) {
         if ([self speculate:^{ [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; [self matchWord:NO]; }]) {
             PKAST *lit_comma_4 = [self match:TREEOUTPUT_TOKEN_KIND_COMMA discard:NO]; 
@@ -228,15 +275,38 @@
     PKAST *lit_semi_colon_6 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
     [ruleScope addAST:lit_semi_colon_6 forKey:@"';'"];
 
-    PKAST *_parent = [ruleScope ASTForKey:@"var"];
+    PKAST *_parent = [ruleScope ASTForKey:@"'float'"];
     ruleScope.tree = _parent;
-    if ([ruleScope cardinalityForKey:@"Word"] < 1) {
-        [self raise:@"Must have matched at least one Word token in rule `multi` to build output tree"];
-    }
     for (PKAST *tr in [ruleScope allForKey:@"Word"]) {
         [_parent addChild:tr];
     }
-//    _parent = [ruleScope ASTForKey:@"Word"];
+//    if ([ruleScope cardinalityForKey:@"Word"] > 0) {
+//        _parent = [ruleScope ASTForKey:@"Word"];
+//    }
+
+    return ruleScope.tree;
+
+}
+
+- (PKAST *)opt {
+    
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"opt"];
+
+    PKAST *lit_double_0 = [self match:TREEOUTPUT_TOKEN_KIND_DOUBLE discard:NO]; 
+    [ruleScope addAST:lit_double_0 forKey:@"'double'"];
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+        PKAST *Word_2 = [self matchWord:NO]; 
+        [ruleScope addAST:Word_2 forKey:@"Word"];
+    }
+    PKAST *lit_semi_colon_3 = [self match:TREEOUTPUT_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    [ruleScope addAST:lit_semi_colon_3 forKey:@"';'"];
+
+    PKAST *_parent = [ruleScope ASTForKey:@"'double'"];
+    ruleScope.tree = _parent;
+    if ([ruleScope cardinalityForKey:@"Word"] > 0) {
+        [_parent addChild:[ruleScope ASTForKey:@"Word"]];
+        _parent = [ruleScope ASTForKey:@"Word"];
+    }
 
     return ruleScope.tree;
 

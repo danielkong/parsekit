@@ -4,6 +4,8 @@
 	| baz -> baz 
 	| bat -> bat
 	| multi -> multi
+	| rep -> rep
+	| opt -> opt
 	;
 	
 foo 
@@ -27,8 +29,16 @@ array
 	;
 	
 multi
-	= var Word (',' Word)* ';' -> ^(var Word+)
+	= var Word (',' Word)+ ';' -> ^(var Word+)
 	;
 	
+rep
+	= 'float' Word (',' Word)* ';' -> ^('float' Word*)
+	;
+
+opt
+	= 'double' Word? ';' -> ^('double' Word?)
+	;
+
 var = 'var' -> 'var'
 	;
