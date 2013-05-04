@@ -284,7 +284,7 @@
     
     trNode = trNode.children[0]; // TODO
 
-    id vars = @{DEPTH: @(_depth), TREE_KEY: trNode.token.stringValue};
+    id vars = @{DEPTH: @(_depth), TREE_KEY: trNode.token.stringValue, METHOD_NAME: _currentDefName};
     NSMutableString *output = [NSMutableString string];
     
     [output appendString:[_engine processTemplate:[self templateStringNamed:@"PKSRewriteRootNodeTemplate"] withVariables:vars]];
@@ -323,7 +323,7 @@
         templateName = @"PKSRewriteLeafNodeTemplate";
     }
     
-    id vars = @{DEPTH: @(_depth), TREE_KEY: trNode.token.stringValue};
+    id vars = @{DEPTH: @(_depth), TREE_KEY: trNode.token.stringValue, METHOD_NAME: _currentDefName};
     NSMutableString *output = [NSMutableString string];
 
     [output appendString:[_engine processTemplate:[self templateStringNamed:templateName] withVariables:vars]];

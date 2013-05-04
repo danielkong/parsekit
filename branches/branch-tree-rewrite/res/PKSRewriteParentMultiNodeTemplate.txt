@@ -1,5 +1,5 @@
 {%for 1 to depth %}    {%/for%}if ([ruleScope cardinalityForKey:@"{{treeKey}}"] < 1) {
-{%for 1 to depth %}    {%/for%}    [self raise:@"Must have matched at least one {{treeKey}} token to build output tree"];
+{%for 1 to depth %}    {%/for%}    [self raise:@"Must have at least 1 {{treeKey}} token in rule `{{methodName}}` to build output tree"];
 {%for 1 to depth %}    {%/for%}}
 {%for 1 to depth %}    {%/for%}for (PKAST *tr in [ruleScope allForKey:@"{{treeKey}}"]) {
 {%for 1 to depth %}    {%/for%}    [_parent addChild:tr];

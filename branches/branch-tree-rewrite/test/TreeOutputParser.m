@@ -231,7 +231,7 @@
     PKAST *_parent = [ruleScope ASTForKey:@"var"];
     ruleScope.tree = _parent;
     if ([ruleScope cardinalityForKey:@"Word"] < 1) {
-        [self raise:@"Must have matched at least one Word token to build output tree"];
+        [self raise:@"Must have matched at least one Word token in rule `multi` to build output tree"];
     }
     for (PKAST *tr in [ruleScope allForKey:@"Word"]) {
         [_parent addChild:tr];
