@@ -1,5 +1,7 @@
 @start 
 	= foo -> foo 
+	| dup1 -> dup1
+	| dup2 -> dup2
 	| bar -> bar 
 	| baz -> baz 
 	| bat -> bat
@@ -13,6 +15,14 @@ foo
 	= Word -> Word
 	;
 
+dup1
+	= QuotedString -> ^(QuotedString QuotedString)
+	;
+	
+dup2
+	= 'dup' -> ^('dup' 'dup')
+	;
+	
 bar 
 	= 'baz' -> 'baz'
 	;
@@ -44,7 +54,6 @@ opt
 multi2
 	= char Word (',' Word)+ ';' -> ^(char Word)+
 	;
-
 
 var 
 	= 'var' -> 'var'

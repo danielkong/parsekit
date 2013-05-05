@@ -23,6 +23,8 @@
 // convenience
 - (PKAST *)ASTForKey:(NSString *)key;
 
+- (void)addChild:(PKAST *)child toParent:(PKAST *)parent;
+
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, retain) PKAST *tree;
 @end

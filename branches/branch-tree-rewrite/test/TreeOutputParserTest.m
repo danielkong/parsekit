@@ -60,6 +60,42 @@
     self.factory = nil;
 }
 
+- (void)testDup1 {
+    NSError *err = nil;
+    PKAST *res = nil;
+    NSString *input = nil;
+    
+    input = @"'dude'";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"('dude' 'dude')", [res treeDescription]);
+
+    PKAST *node1 = res;
+    PKAST *node2 = res.children[0];
+    TDTrue(node1 != node2);
+    TDEqualObjects(node1.token.stringValue, @"'dude'");
+    TDEqualObjects(node2.token.stringValue, @"'dude'");
+}
+
+- (void)testDup2 {
+    NSError *err = nil;
+    PKAST *res = nil;
+    NSString *input = nil;
+    
+    input = @"dup";
+    res = [_parser parseString:input assembler:nil error:&err];
+    TDNotNil(res);
+    TDTrue([res isKindOfClass:[PKAST class]]);
+    TDEqualObjects(@"(dup dup)", [res treeDescription]);
+    
+    PKAST *node1 = res;
+    PKAST *node2 = res.children[0];
+    TDTrue(node1 != node2);
+    TDEqualObjects(node1.token.stringValue, @"dup");
+    TDEqualObjects(node2.token.stringValue, @"dup");
+}
+
 - (void)testWord {
     NSError *err = nil;
     PKAST *res = nil;
@@ -178,22 +214,22 @@
     TDEqualObjects(@"double", [res treeDescription]);
 }
 
-- (void)testMulti2Const {
-    NSError *err = nil;
-    PKAST *res = nil;
-    NSString *input = nil;
-    
-    input = @"char x, y;";
-    res = [_parser parseString:input assembler:nil error:&err];
-    //TDEqualObjects(@"[]int/x/;^", [_parser.assembly description]);
-    
-    TDNotNil(res);
-    TDTrue([res isKindOfClass:[PKAST class]]);
-    TDEqualObjects(@"(char x) (char y)", [res treeDescription]);
-    
-    PKAST *charNode1 = nil;
-    PKAST *charNode2 = nil;
-    TDTrue(charNode1 != charNode2);
-}
+//- (void)testMulti2Const {
+//    NSError *err = nil;
+//    PKAST *res = nil;
+//    NSString *input = nil;
+//    
+//    input = @"char x, y;";
+//    res = [_parser parseString:input assembler:nil error:&err];
+//    //TDEqualObjects(@"[]int/x/;^", [_parser.assembly description]);
+//    
+//    TDNotNil(res);
+//    TDTrue([res isKindOfClass:[PKAST class]]);
+//    TDEqualObjects(@"(nil (char x) (char y))", [res treeDescription]);
+//    
+//    PKAST *charNode1 = nil;
+//    PKAST *charNode2 = nil;
+//    TDTrue(charNode1 != charNode2);
+//}
 
 @end

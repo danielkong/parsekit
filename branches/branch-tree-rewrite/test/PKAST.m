@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "PKAST.h"
+#import "DeepMutableCopy.h"
 
 @interface PKAST ()
 - (NSString *)childrenStartDelimiter;
@@ -49,7 +50,7 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     PKAST *that = [[[self class] alloc] initWithToken:_token];
-    that->_children = [_children mutableCopyWithZone:zone];
+    that->_children = [_children deepMutableCopy];
     return that;
 }
 

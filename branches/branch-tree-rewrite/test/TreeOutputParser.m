@@ -52,29 +52,31 @@
     if (self) {
         self.enableASTOutput = YES;
 
-        self._tokenKindTab[@"int"] = @(TREEOUTPUT_TOKEN_KIND_INT);
         self._tokenKindTab[@"double"] = @(TREEOUTPUT_TOKEN_KIND_DOUBLE);
-        self._tokenKindTab[@"char"] = @(TREEOUTPUT_TOKEN_KIND_CHAR);
-        self._tokenKindTab[@"["] = @(TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET);
+        self._tokenKindTab[@"int"] = @(TREEOUTPUT_TOKEN_KIND_INT);
+        self._tokenKindTab[@"dup"] = @(TREEOUTPUT_TOKEN_KIND_DUP2);
+        self._tokenKindTab[@";"] = @(TREEOUTPUT_TOKEN_KIND_SEMI_COLON);
         self._tokenKindTab[@","] = @(TREEOUTPUT_TOKEN_KIND_COMMA);
         self._tokenKindTab[@"baz"] = @(TREEOUTPUT_TOKEN_KIND_BAR);
         self._tokenKindTab[@"var"] = @(TREEOUTPUT_TOKEN_KIND_VAR);
-        self._tokenKindTab[@"array"] = @(TREEOUTPUT_TOKEN_KIND_ARRAY);
-        self._tokenKindTab[@"]"] = @(TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET);
+        self._tokenKindTab[@"["] = @(TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET);
         self._tokenKindTab[@"float"] = @(TREEOUTPUT_TOKEN_KIND_FLOAT);
-        self._tokenKindTab[@";"] = @(TREEOUTPUT_TOKEN_KIND_SEMI_COLON);
+        self._tokenKindTab[@"char"] = @(TREEOUTPUT_TOKEN_KIND_CHAR);
+        self._tokenKindTab[@"]"] = @(TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET);
+        self._tokenKindTab[@"array"] = @(TREEOUTPUT_TOKEN_KIND_ARRAY);
 
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_INT] = @"int";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_DOUBLE] = @"double";
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_CHAR] = @"char";
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET] = @"[";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_INT] = @"int";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_DUP2] = @"dup";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_SEMI_COLON] = @";";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_COMMA] = @",";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_BAR] = @"baz";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_VAR] = @"var";
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_ARRAY] = @"array";
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET] = @"]";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_OPEN_BRACKET] = @"[";
         self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_FLOAT] = @"float";
-        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_SEMI_COLON] = @";";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_CHAR] = @"char";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_CLOSE_BRACKET] = @"]";
+        self._tokenKindNameTab[TREEOUTPUT_TOKEN_KIND_ARRAY] = @"array";
 
     }
     return self;
@@ -91,45 +93,57 @@
 
         PKAST *_parent = [ruleScope ASTForKey:@"foo"];
         ruleScope.tree = _parent;
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+        PKAST *dup1_1 = [self dup1]; 
+        [ruleScope addAST:dup1_1 forKey:@"dup1"];
+
+        PKAST *_parent = [ruleScope ASTForKey:@"dup1"];
+        ruleScope.tree = _parent;
+    } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_DUP2, 0]) {
+        PKAST *dup2_2 = [self dup2]; 
+        [ruleScope addAST:dup2_2 forKey:@"dup2"];
+
+        PKAST *_parent = [ruleScope ASTForKey:@"dup2"];
+        ruleScope.tree = _parent;
     } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_BAR, 0]) {
-        PKAST *bar_1 = [self bar]; 
-        [ruleScope addAST:bar_1 forKey:@"bar"];
+        PKAST *bar_3 = [self bar]; 
+        [ruleScope addAST:bar_3 forKey:@"bar"];
 
         PKAST *_parent = [ruleScope ASTForKey:@"bar"];
         ruleScope.tree = _parent;
     } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_INT, 0]) {
-        PKAST *baz_2 = [self baz]; 
-        [ruleScope addAST:baz_2 forKey:@"baz"];
+        PKAST *baz_4 = [self baz]; 
+        [ruleScope addAST:baz_4 forKey:@"baz"];
 
         PKAST *_parent = [ruleScope ASTForKey:@"baz"];
         ruleScope.tree = _parent;
     } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_ARRAY, 0]) {
-        PKAST *bat_3 = [self bat]; 
-        [ruleScope addAST:bat_3 forKey:@"bat"];
+        PKAST *bat_5 = [self bat]; 
+        [ruleScope addAST:bat_5 forKey:@"bat"];
 
         PKAST *_parent = [ruleScope ASTForKey:@"bat"];
         ruleScope.tree = _parent;
     } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_VAR, 0]) {
-        PKAST *multi_4 = [self multi]; 
-        [ruleScope addAST:multi_4 forKey:@"multi"];
+        PKAST *multi_6 = [self multi]; 
+        [ruleScope addAST:multi_6 forKey:@"multi"];
 
         PKAST *_parent = [ruleScope ASTForKey:@"multi"];
         ruleScope.tree = _parent;
     } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_FLOAT, 0]) {
-        PKAST *rep_5 = [self rep]; 
-        [ruleScope addAST:rep_5 forKey:@"rep"];
+        PKAST *rep_7 = [self rep]; 
+        [ruleScope addAST:rep_7 forKey:@"rep"];
 
         PKAST *_parent = [ruleScope ASTForKey:@"rep"];
         ruleScope.tree = _parent;
     } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_DOUBLE, 0]) {
-        PKAST *opt_6 = [self opt]; 
-        [ruleScope addAST:opt_6 forKey:@"opt"];
+        PKAST *opt_8 = [self opt]; 
+        [ruleScope addAST:opt_8 forKey:@"opt"];
 
         PKAST *_parent = [ruleScope ASTForKey:@"opt"];
         ruleScope.tree = _parent;
     } else if ([self predicts:TREEOUTPUT_TOKEN_KIND_CHAR, 0]) {
-        PKAST *multi2_7 = [self multi2]; 
-        [ruleScope addAST:multi2_7 forKey:@"multi2"];
+        PKAST *multi2_9 = [self multi2]; 
+        [ruleScope addAST:multi2_9 forKey:@"multi2"];
 
         PKAST *_parent = [ruleScope ASTForKey:@"multi2"];
         ruleScope.tree = _parent;
@@ -153,6 +167,38 @@
     ruleScope.tree = _parent;
 
     [self fireAssemblerSelector:@selector(parser:didMatchFoo:)];
+    return ruleScope.tree;
+
+}
+
+- (PKAST *)dup1 {
+    
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"dup1"];
+
+    PKAST *QuotedString_0 = [self matchQuotedString:NO]; 
+    [ruleScope addAST:QuotedString_0 forKey:@"QuotedString"];
+
+    PKAST *_parent = [ruleScope ASTForKey:@"QuotedString"];
+    ruleScope.tree = _parent;
+    [ruleScope addChild:[ruleScope ASTForKey:@"QuotedString"] toParent:_parent];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchDup1:)];
+    return ruleScope.tree;
+
+}
+
+- (PKAST *)dup2 {
+    
+    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"dup2"];
+
+    PKAST *lit_dup2_0 = [self match:TREEOUTPUT_TOKEN_KIND_DUP2 discard:NO]; 
+    [ruleScope addAST:lit_dup2_0 forKey:@"'dup'"];
+
+    PKAST *_parent = [ruleScope ASTForKey:@"'dup'"];
+    ruleScope.tree = _parent;
+    [ruleScope addChild:[ruleScope ASTForKey:@"'dup'"] toParent:_parent];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchDup2:)];
     return ruleScope.tree;
 
 }
@@ -185,7 +231,7 @@
 
     PKAST *_parent = [ruleScope ASTForKey:@"'int'"];
     ruleScope.tree = _parent;
-    [_parent addChild:[ruleScope ASTForKey:@"Word"]];
+    [ruleScope addChild:[ruleScope ASTForKey:@"Word"] toParent:_parent];
 
     return ruleScope.tree;
 
@@ -208,9 +254,9 @@
 
     PKAST *_parent = [ruleScope ASTForKey:@"array"];
     ruleScope.tree = _parent;
-    [_parent addChild:[ruleScope ASTForKey:@"'['"]];
+    [ruleScope addChild:[ruleScope ASTForKey:@"'['"] toParent:_parent];
     _parent = [ruleScope ASTForKey:@"'['"];
-    [_parent addChild:[ruleScope ASTForKey:@"Number"]];
+    [ruleScope addChild:[ruleScope ASTForKey:@"Number"] toParent:_parent];
 
     return ruleScope.tree;
 
@@ -313,8 +359,8 @@
 
     PKAST *_parent = [ruleScope ASTForKey:@"'double'"];
     ruleScope.tree = _parent;
-    if ([ruleScope cardinalityForKey:@"Word"] > 0) {
-        [_parent addChild:[ruleScope ASTForKey:@"Word"]];
+    if ([ruleScope cardinalityForKey:@"Word"] == 1) {
+        [ruleScope addChild:[ruleScope ASTForKey:@"Word"] toParent:_parent];
         _parent = [ruleScope ASTForKey:@"Word"];
     }
 
@@ -341,9 +387,9 @@
 
     PKAST *_parent = [ruleScope ASTForKey:@"+"];
     ruleScope.tree = _parent;
-    [_parent addChild:[ruleScope ASTForKey:@"char"]];
+    [ruleScope addChild:[ruleScope ASTForKey:@"char"] toParent:_parent];
     _parent = [ruleScope ASTForKey:@"char"];
-    [_parent addChild:[ruleScope ASTForKey:@"Word"]];
+    [ruleScope addChild:[ruleScope ASTForKey:@"Word"] toParent:_parent];
 
     return ruleScope.tree;
 

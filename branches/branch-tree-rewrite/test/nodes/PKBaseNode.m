@@ -37,7 +37,7 @@
     that->_defName = [_defName retain];
     that->_before = [_before retain];
     that->_after = [_after retain];
-    that->_rewriteNode = [_rewriteNode copyWithZone:zone];
+    that->_rewriteNode = [_rewriteNode retain];
     return that;
 }
 

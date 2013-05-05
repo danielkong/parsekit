@@ -8,10 +8,12 @@
 
 #import "PKSRuleScope.h"
 #import <ParseKit/PKAST.h>
+#import <ParseKit/PKToken.h>
 #import "PKSTreeAdaptor.h"
 
 @interface PKSRuleScope ()
 @property (nonatomic, retain) NSMutableDictionary *tab;
+@property (nonatomic, retain) NSMutableDictionary *addCountTab;
 @end
 
 @implementation PKSRuleScope
@@ -28,6 +30,7 @@
     if (self) {
         self.name = name;
         self.tab = [NSMutableDictionary dictionary];
+        self.addCountTab = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -37,6 +40,7 @@
     self.name = nil;
     self.tree = nil;
     self.tab = nil;
+    self.addCountTab = nil;
     [super dealloc];
 }
 
@@ -50,6 +54,7 @@
     if (!all) {
         all = [NSMutableArray array];
         _tab[key] = all;
+        _addCountTab[key] = (id)kCFBooleanFalse;
     }
     
     [all addObject:tree];
@@ -81,8 +86,37 @@
 }
 
 
+
+- (void)addChild:(PKAST *)child toParent:(PKAST *)parent {
+    NSString *key = child.token.stringValue;
+
+    NSAssert(key, @"");
+    if (key) {
+        BOOL needsCopy = [_addCountTab[key] boolValue];
+        _addCountTab[key] = (id)kCFBooleanTrue;
+        
+        if (needsCopy) {
+            child = [[child copy] autorelease];
+        }
+    }
+    
+    [parent addChild:child];
+}
+
+
 - (void)setTree:(PKAST *)tree {
     if (tree != _tree) {
+        NSString *key = tree.token.stringValue;
+        
+        if (key) {
+            BOOL needsCopy = [_addCountTab[key] boolValue];
+            _addCountTab[key] = (id)kCFBooleanTrue;
+            
+            if (needsCopy) {
+                tree = [[tree copy] autorelease];
+            }
+        }
+        
         [_tree autorelease];
         _tree = [tree retain];
         
