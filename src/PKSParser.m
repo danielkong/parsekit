@@ -80,7 +80,7 @@
         self.enableActions = YES;
         
         // create a single exception for reuse in control flow
-        self._exception = [[[PKSRecognitionException alloc] initWithName:NSStringFromClass([PKSRecognitionException class]) reason:nil userInfo:nil] autorelease];
+        self._exception = [[[PKSRecognitionException alloc] init] autorelease];
         
         self._tokenKindTab = [NSMutableDictionary dictionary];
 
@@ -223,23 +223,21 @@
         [result autorelease]; // -1
 
     }
-    @catch (NSException *ex) {
+    @catch (PKSRecognitionException *ex) {
+        NSString *domain = @"PKParseException";
+
         if (outError) {
-            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
             
             // get reason
-            NSString *reason = [ex reason];
+            NSString *reason = [ex currentReason];
             if ([reason length]) [userInfo setObject:reason forKey:NSLocalizedFailureReasonErrorKey];
-            
-            // get domain
-            NSString *exName = [ex name];
-            NSString *domain = exName ? exName : @"PKParseException";
             
             // convert to NSError
             NSError *err = [NSError errorWithDomain:domain code:47 userInfo:[[userInfo copy] autorelease]];
             *outError = err;
         } else {
-            [ex raise];
+            [NSException raise:domain format:nil];
         }
     }
     @finally {

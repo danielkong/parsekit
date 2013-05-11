@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PKSRecognitionException : NSException
+@interface PKSRecognitionException : NSObject //NSException
 
 @property (nonatomic, retain) NSString *currentReason;
 @end
