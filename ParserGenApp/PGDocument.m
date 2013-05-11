@@ -41,6 +41,7 @@
     return self;
 }
 
+
 - (void)dealloc {
     self.destinationPath = nil;
     self.parserName = nil;
@@ -56,6 +57,7 @@
 
 
 - (void)awakeFromNib {
+    self.enableHybridDFA = YES;
 }
 
 
