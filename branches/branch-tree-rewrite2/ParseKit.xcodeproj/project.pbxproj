@@ -92,18 +92,20 @@
 		D3344F1D173EE9A400598362 /* PKSTreeAdaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3344F19173EE9A400598362 /* PKSTreeAdaptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3344F1E173EE9A400598362 /* PKSTreeAdaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3344F19173EE9A400598362 /* PKSTreeAdaptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3344F1F173EE9A400598362 /* PKSTreeAdaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3344F19173EE9A400598362 /* PKSTreeAdaptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3344F21173EE9BD00598362 /* PKSRuleScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F20173EE9BD00598362 /* PKSRuleScope.m */; };
-		D3344F22173EE9BD00598362 /* PKSRuleScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F20173EE9BD00598362 /* PKSRuleScope.m */; };
-		D3344F23173EE9BD00598362 /* PKSRuleScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F20173EE9BD00598362 /* PKSRuleScope.m */; };
-		D3344F25173EE9C600598362 /* PKSTreeAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F24173EE9C600598362 /* PKSTreeAdaptor.m */; };
-		D3344F26173EE9C600598362 /* PKSTreeAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F24173EE9C600598362 /* PKSTreeAdaptor.m */; };
-		D3344F27173EE9C600598362 /* PKSTreeAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F24173EE9C600598362 /* PKSTreeAdaptor.m */; };
 		D3344F32173EEA9400598362 /* PKTreeNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3344F30173EEA9400598362 /* PKTreeNode.h */; };
 		D3344F33173EEA9400598362 /* PKTreeNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3344F30173EEA9400598362 /* PKTreeNode.h */; };
 		D3344F34173EEA9400598362 /* PKTreeNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3344F30173EEA9400598362 /* PKTreeNode.h */; };
 		D3344F35173EEA9400598362 /* PKTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F31173EEA9400598362 /* PKTreeNode.m */; };
 		D3344F36173EEA9400598362 /* PKTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F31173EEA9400598362 /* PKTreeNode.m */; };
 		D3344F37173EEA9400598362 /* PKTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F31173EEA9400598362 /* PKTreeNode.m */; };
+		D3344F3A173EEB6F00598362 /* TreeOutputParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F39173EEB6F00598362 /* TreeOutputParserTest.m */; };
+		D3344F3D173EEB7A00598362 /* TreeOutputParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F3C173EEB7A00598362 /* TreeOutputParser.m */; };
+		D3344F3F173EEBB800598362 /* PKSRuleScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F3E173EEBB800598362 /* PKSRuleScope.m */; };
+		D3344F40173EEBB800598362 /* PKSRuleScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F3E173EEBB800598362 /* PKSRuleScope.m */; };
+		D3344F41173EEBB800598362 /* PKSRuleScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F3E173EEBB800598362 /* PKSRuleScope.m */; };
+		D3344F43173EEBC800598362 /* PKSTreeAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F42173EEBC800598362 /* PKSTreeAdaptor.m */; };
+		D3344F44173EEBC800598362 /* PKSTreeAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F42173EEBC800598362 /* PKSTreeAdaptor.m */; };
+		D3344F45173EEBC800598362 /* PKSTreeAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F42173EEBC800598362 /* PKSTreeAdaptor.m */; };
 		D33494720E29670B00406085 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D33724DA16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D33724D816FA62D400D30459 /* PKDelimitDescriptor.h */; };
 		D33724DB16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D33724D816FA62D400D30459 /* PKDelimitDescriptor.h */; };
@@ -1241,10 +1243,14 @@
 		D3305C4E102F5BAE00DC4F75 /* TDSourceCodeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSourceCodeTextView.m; path = demoapp/TDSourceCodeTextView.m; sourceTree = "<group>"; };
 		D3344F18173EE9A400598362 /* PKSRuleScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSRuleScope.h; path = include/ParseKit/PKSRuleScope.h; sourceTree = "<group>"; };
 		D3344F19173EE9A400598362 /* PKSTreeAdaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSTreeAdaptor.h; path = include/ParseKit/PKSTreeAdaptor.h; sourceTree = "<group>"; };
-		D3344F20173EE9BD00598362 /* PKSRuleScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSRuleScope.m; path = "../branch-tree-rewrite/src/PKSRuleScope.m"; sourceTree = "<group>"; };
-		D3344F24173EE9C600598362 /* PKSTreeAdaptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSTreeAdaptor.m; path = "../branch-tree-rewrite/src/PKSTreeAdaptor.m"; sourceTree = "<group>"; };
 		D3344F30173EEA9400598362 /* PKTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKTreeNode.h; path = src/nodes/PKTreeNode.h; sourceTree = "<group>"; };
 		D3344F31173EEA9400598362 /* PKTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKTreeNode.m; path = src/nodes/PKTreeNode.m; sourceTree = "<group>"; };
+		D3344F38173EEB6F00598362 /* TreeOutputParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeOutputParserTest.h; path = test/TreeOutputParserTest.h; sourceTree = "<group>"; };
+		D3344F39173EEB6F00598362 /* TreeOutputParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TreeOutputParserTest.m; path = test/TreeOutputParserTest.m; sourceTree = "<group>"; };
+		D3344F3B173EEB7A00598362 /* TreeOutputParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeOutputParser.h; path = test/TreeOutputParser.h; sourceTree = "<group>"; };
+		D3344F3C173EEB7A00598362 /* TreeOutputParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TreeOutputParser.m; path = test/TreeOutputParser.m; sourceTree = "<group>"; };
+		D3344F3E173EEBB800598362 /* PKSRuleScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSRuleScope.m; path = src/PKSRuleScope.m; sourceTree = "<group>"; };
+		D3344F42173EEBC800598362 /* PKSTreeAdaptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKSTreeAdaptor.m; path = src/PKSTreeAdaptor.m; sourceTree = "<group>"; };
 		D33494100E2963FD00406085 /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33724D816FA62D400D30459 /* PKDelimitDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDelimitDescriptor.h; path = src/PKDelimitDescriptor.h; sourceTree = "<group>"; };
 		D33724D916FA62D400D30459 /* PKDelimitDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDelimitDescriptor.m; path = src/PKDelimitDescriptor.m; sourceTree = "<group>"; };
@@ -2290,9 +2296,9 @@
 				D375DACA173C649900A5E050 /* ParseKitParser.h */,
 				D375DACB173C64A600A5E050 /* ParseKitParser.m */,
 				D3344F18173EE9A400598362 /* PKSRuleScope.h */,
-				D3344F20173EE9BD00598362 /* PKSRuleScope.m */,
+				D3344F3E173EEBB800598362 /* PKSRuleScope.m */,
 				D3344F19173EE9A400598362 /* PKSTreeAdaptor.h */,
-				D3344F24173EE9C600598362 /* PKSTreeAdaptor.m */,
+				D3344F42173EEBC800598362 /* PKSTreeAdaptor.m */,
 				D3A1492A16F8C79600770DEE /* visitor */,
 				D325FFBC161E4E3200D4EBCC /* ast */,
 			);
@@ -2649,6 +2655,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D3344F3B173EEB7A00598362 /* TreeOutputParser.h */,
+				D3344F3C173EEB7A00598362 /* TreeOutputParser.m */,
 				D30DA1751724AD0100A1A3EC /* JSONParser.h */,
 				D30DA1761724AD0100A1A3EC /* JSONParser.m */,
 				D36E68C01720C848007B4353 /* HTMLParser.h */,
@@ -2708,6 +2716,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D3344F38173EEB6F00598362 /* TreeOutputParserTest.h */,
+				D3344F39173EEB6F00598362 /* TreeOutputParserTest.m */,
 				D30DA1911726028500A1A3EC /* RecoveryResyncSetTest.h */,
 				D30DA1921726028500A1A3EC /* RecoveryResyncSetTest.m */,
 				D30DA18B1725BB5700A1A3EC /* RecoverySingleTokenInsertionTest.h */,
@@ -4022,9 +4032,9 @@
 				D375DAC3173C645C00A5E050 /* PKAST.m in Sources */,
 				D375DACF173C64C000A5E050 /* ParseKitParser.m in Sources */,
 				D3FF6429173C666A00C30A1F /* PKSTokenKindDescriptor.m in Sources */,
-				D3344F21173EE9BD00598362 /* PKSRuleScope.m in Sources */,
-				D3344F25173EE9C600598362 /* PKSTreeAdaptor.m in Sources */,
 				D3344F35173EEA9400598362 /* PKTreeNode.m in Sources */,
+				D3344F3F173EEBB800598362 /* PKSRuleScope.m in Sources */,
+				D3344F43173EEBC800598362 /* PKSTreeAdaptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4297,6 +4307,8 @@
 				D3FF6423173C65E600C30A1F /* PKLocalScope.m in Sources */,
 				D3FF6424173C65E600C30A1F /* PKVariableSymbol.m in Sources */,
 				D3FF6428173C65FD00C30A1F /* PKSymbolTable.m in Sources */,
+				D3344F3A173EEB6F00598362 /* TreeOutputParserTest.m in Sources */,
+				D3344F3D173EEB7A00598362 /* TreeOutputParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4385,9 +4397,9 @@
 				D375DAC0173C639B00A5E050 /* PKRootNode.m in Sources */,
 				D375DAC4173C645C00A5E050 /* PKAST.m in Sources */,
 				D375DAD0173C64C000A5E050 /* ParseKitParser.m in Sources */,
-				D3344F22173EE9BD00598362 /* PKSRuleScope.m in Sources */,
-				D3344F26173EE9C600598362 /* PKSTreeAdaptor.m in Sources */,
 				D3344F36173EEA9400598362 /* PKTreeNode.m in Sources */,
+				D3344F40173EEBB800598362 /* PKSRuleScope.m in Sources */,
+				D3344F44173EEBC800598362 /* PKSTreeAdaptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4476,9 +4488,9 @@
 				D375DAC1173C639B00A5E050 /* PKRootNode.m in Sources */,
 				D375DAC5173C645C00A5E050 /* PKAST.m in Sources */,
 				D375DAD1173C64C000A5E050 /* ParseKitParser.m in Sources */,
-				D3344F23173EE9BD00598362 /* PKSRuleScope.m in Sources */,
-				D3344F27173EE9C600598362 /* PKSTreeAdaptor.m in Sources */,
 				D3344F37173EEA9400598362 /* PKTreeNode.m in Sources */,
+				D3344F41173EEBB800598362 /* PKSRuleScope.m in Sources */,
+				D3344F45173EEBC800598362 /* PKSTreeAdaptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
