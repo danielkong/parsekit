@@ -1,9 +1,0 @@
-
-- ({%if enableASTOutput %}PKAST *{%else%}void{%/if%}){{methodName}} {
-    
-{%if enableASTOutput %}    PKSRuleScope *ruleScope = [PKSRuleScope ruleScopeWithName:@"{{methodName}}"];
-
-{%/if%}{{preCallback}}{{methodBody}}{{postCallback}}{%if enableASTOutput %}
-    return ruleScope.tree;
-{%/if%}
-}

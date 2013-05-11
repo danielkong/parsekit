@@ -1,3 +1,0 @@
-
-{%for 1 to depth %}    {%/for%}PKAST *_parent = [ruleScope ASTForKey:@"{{treeKey}}"];
-{%for 1 to depth %}    {%/for%}ruleScope.tree = _parent;
