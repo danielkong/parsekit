@@ -1,8 +1,0 @@
-@start = s;
-
-s = expr? foo bar;
-  
-expr = foo bar bar;
-
-foo = 'foo';
-bar = 'bar';

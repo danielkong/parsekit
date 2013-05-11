@@ -1,7 +1,0 @@
-@delimitedString = '<' '>' nil;
-@delimitState = '<';
-
-
-@start = s;
-
-s = %{'<', '>'};

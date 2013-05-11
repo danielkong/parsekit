@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'parsergen' target in the 'parsergen' project
-//
-
-#ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-#endif

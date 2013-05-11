@@ -1,3 +1,0 @@
-{%for 1 to depth %}    {%/for%}} else {
-{%for 1 to depth %}    {%/for%}    [self raise:@"no viable alternative found in {{methodName}}"];
-{%for 1 to depth %}    {%/for%}}

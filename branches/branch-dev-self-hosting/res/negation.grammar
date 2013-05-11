@@ -1,5 +1,0 @@
-@start = s;
-
-s = ~foo;
-  
-foo = 'foo';
