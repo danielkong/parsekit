@@ -214,7 +214,7 @@
         className = [NSString stringWithFormat:@"%@Parser", className];
     }
     
-    _root.grammarName = className;
+    _root.grammarName = self.parserName;
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     _visitor.enableARC = _enableARC;
