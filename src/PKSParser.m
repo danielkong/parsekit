@@ -548,6 +548,10 @@
                 }
                 if (removeCount) {
                     [_lookahead removeObjectsInRange:NSMakeRange(0, removeCount)];
+                    SEL sel = @selector(parser:didFailToMatch:);
+                    if (_assembler && [_assembler respondsToSelector:sel]) {
+                        [_assembler performSelector:sel withObject:self withObject:_assembly];
+                    }
                 }
                 break;
             }
