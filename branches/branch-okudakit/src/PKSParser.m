@@ -560,9 +560,7 @@
     }
     
     NSLog(@"RESYNC %d '%@' %@", self._isSpeculating, LT(1), self.assembly);
-    if (result) {
-        self._resyncCount++;
-    }
+
     return result;
 }
 
