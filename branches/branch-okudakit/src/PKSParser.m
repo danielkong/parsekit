@@ -18,6 +18,11 @@
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
+#define LS(i) [self LS:(i)]
+
+@interface NSObject ()
+- (void)parser:(PKSParser *)p didFailToMatch:(PKAssembly *)a;
+@end
 
 @interface PKSTokenAssembly ()
 - (void)consume:(PKToken *)tok;
@@ -270,7 +275,7 @@
         // skip
 
     } else {
-        PKToken *lt = LT(1); // NSLog(@"%@", lt);
+        PKToken *lt = LT(1); NSLog(@"match %@", lt);
         
         BOOL matches = lt.tokenKind == tokenKind || TOKEN_KIND_BUILTIN_ANY == tokenKind;
 
@@ -521,14 +526,31 @@
     BOOL result = NO;
 
     if (_enableAutomaticErrorRecovery) {
+        
+        NSLog(@"RESYNC. \nLT: '%@', \nlookahead: %@ \nassembly: %@", LT(1), _lookahead, _assembly);
+        
         for (;;) {
             PKToken *lt = LT(1);
-            //NSLog(@"LT(1) : %@", lt); NSLog(@"is %ld in %@ ?", LA(1), _resyncSet);
+            NSLog(@"LT(1) : '%@'", lt); NSLog(@"is %ld in %@ ?", LA(1), _resyncSet);
             
             NSAssert([_resyncSet count], @"");
             result = [_resyncSet containsObject:@(lt.tokenKind)];
 
-            if (result) break;
+            if (result) {
+                NSInteger removeCount = 0;
+                // send failed tokens to the assembly so they are not dropped.
+                for (PKToken *tok in _lookahead) {
+                    if (tok == lt) break;
+                    if (PKTokenTypeEOF != tok.tokenType) {
+                        [_assembly consume:tok];
+                        removeCount++;
+                    }
+                }
+                if (removeCount) {
+                    [_lookahead removeObjectsInRange:NSMakeRange(0, removeCount)];
+                }
+                break;
+            }
             
             BOOL done = (lt == [PKToken EOFToken]);
             [self consume:lt];
@@ -537,6 +559,10 @@
         }
     }
     
+    NSLog(@"RESYNC %d '%@' %@", self._isSpeculating, LT(1), self.assembly);
+    if (result) {
+        self._resyncCount++;
+    }
     return result;
 }
 
@@ -619,6 +645,9 @@
         block();
     }
     @catch (PKSRecognitionException *ex) {
+        NSLog(@"LT(1) : %@", LT(1));
+        NSLog(@"lookahead: %@", self._lookahead);
+        NSLog(@"assembly: %@", self.assembly);
         if ([self resync]) {
             completion();
         } else {
