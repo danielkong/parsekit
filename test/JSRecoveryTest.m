@@ -57,10 +57,27 @@
     [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
     
     input = @"var foo;";
     res = [_parser parseString:input assembler:_mock error:&err];
     TDEqualObjects(@"[var, foo, ;]var/foo/;^", [res description]);
+    
+    [_mock verify];
+}
+
+- (void)testBorkedVarMissingSemi {
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
+    
+    [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
+    
+    input = @"var foo";
+    res = [_parser parseString:input assembler:_mock error:&err];
+    TDEqualObjects(@"[var, foo]var/foo^", [res description]);
     
     [_mock verify];
 }
