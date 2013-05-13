@@ -27,13 +27,13 @@
 
 
 - (void)testAddExpr {
-    g = @"@start = expr;"
+    g = @"start = expr;"
         @"expr = addExpr;"
         @"addExpr = atom (('+'|'-') atom)*;"
         @"atom = Number;";
     
     PKAST *root = [factory ASTFromGrammar:g error:nil];
-    TDEqualObjects(@"(ROOT (@start #expr) ($expr #addExpr) ($addExpr (. #atom (* (. (| '+' '-') #atom)))) ($atom Number))", [root treeDescription]);
+    TDEqualObjects(@"(ROOT ($start #expr) ($expr #addExpr) ($addExpr (. #atom (* (. (| '+' '-') #atom)))) ($atom Number))", [root treeDescription]);
     
     NSDictionary *symTab = [factory symbolTableFromGrammar:g error:nil];
     TDNotNil(symTab);
@@ -93,11 +93,11 @@
 
 
 - (void)testFoo {
-    g = @"@start = expr;"
+    g = @"start = expr;"
     @"expr = Word+;";
 
     PKAST *root = [factory ASTFromGrammar:g error:nil];
-    TDEqualObjects(@"(ROOT (@start #expr) ($expr (+ Word)))", [root treeDescription]);
+    TDEqualObjects(@"(ROOT ($start #expr) ($expr (+ Word)))", [root treeDescription]);
 
     NSDictionary *symTab = [factory symbolTableFromGrammar:g error:nil];
     TDNotNil(symTab);
@@ -143,7 +143,7 @@
 
 
 - (void)testFooBar {
-    g = @"@start = expr;"
+    g = @"start = expr;"
     @"expr = Word+;";
     lp = [factory parserFromGrammar:g assembler:as preassembler:as error:nil];
     
@@ -173,7 +173,7 @@
 
 
 - (void)testArray {
-    g = @"@start = array;"
+    g = @"start = array;"
     @"array = '[' Number (commaNumber)* ']';"
     @"commaNumber = ',' Number;";
     
