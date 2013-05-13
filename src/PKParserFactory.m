@@ -351,6 +351,9 @@ void PKReleaseSubparserTree(PKParser *p) {
     defv.collectTokenKinds = self.collectTokenKinds;
     [rootNode visit:defv];
 
+    rootNode.startMethodName = symTab[@"$$"];
+    NSAssert(rootNode.startMethodName, @"");
+    
     return rootNode;
 }
 
