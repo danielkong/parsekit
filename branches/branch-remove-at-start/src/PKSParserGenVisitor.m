@@ -245,7 +245,7 @@
     }
     
     // merge
-    vars[START_METHOD] = self.symbolTable[@"$$"];
+    vars[START_METHOD] = node.startMethodName;
     vars[METHODS] = childStr;
     vars[RULE_METHOD_NAMES] = self.ruleMethodNames;
     vars[ENABLE_MEMOIZATION] = @(self.enableMemoization);
