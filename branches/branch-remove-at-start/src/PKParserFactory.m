@@ -630,7 +630,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKParser *)parserFromSymbolTable:(NSDictionary *)symTab {
-    PKParser *p = symTab[@"$$"];
+    PKParser *p = symTab[symTab[@"$$"]];
     NSAssert([p isKindOfClass:[PKParser class]], @"");
     
     return p;
