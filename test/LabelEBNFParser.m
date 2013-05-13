@@ -81,12 +81,9 @@
     [_label_memo removeAllObjects];
     [_expr_memo removeAllObjects];
 }
-
 - (void)_start {
-    
-    [self s]; 
-    [self matchEOF:YES]; 
-
+    [self s];
+    [self matchEOF:YES];
 }
 
 - (void)__s {

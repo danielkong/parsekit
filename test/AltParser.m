@@ -43,6 +43,7 @@
 @end
 
 @interface AltParser ()
+@property (nonatomic, retain) NSMutableDictionary *start_memo;
 @property (nonatomic, retain) NSMutableDictionary *s_memo;
 @property (nonatomic, retain) NSMutableDictionary *a_memo;
 @property (nonatomic, retain) NSMutableDictionary *b_memo;
@@ -64,6 +65,7 @@
         self._tokenKindNameTab[ALT_TOKEN_KIND_BAR] = @"bar";
         self._tokenKindNameTab[ALT_TOKEN_KIND_BAZ] = @"baz";
 
+        self.start_memo = [NSMutableDictionary dictionary];
         self.s_memo = [NSMutableDictionary dictionary];
         self.a_memo = [NSMutableDictionary dictionary];
         self.b_memo = [NSMutableDictionary dictionary];
@@ -75,6 +77,7 @@
 }
 
 - (void)dealloc {
+    self.start_memo = nil;
     self.s_memo = nil;
     self.a_memo = nil;
     self.b_memo = nil;
@@ -86,6 +89,7 @@
 }
 
 - (void)_clearMemo {
+    [_start_memo removeAllObjects];
     [_s_memo removeAllObjects];
     [_a_memo removeAllObjects];
     [_b_memo removeAllObjects];
@@ -93,12 +97,20 @@
     [_bar_memo removeAllObjects];
     [_baz_memo removeAllObjects];
 }
-
 - (void)_start {
+    [self start];
+    [self matchEOF:YES];
+}
+
+- (void)__start {
     
     [self s]; 
-    [self matchEOF:YES]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
+}
+
+- (void)start {
+    [self parseRule:@selector(__start) withMemo:_start_memo];
 }
 
 - (void)__s {

@@ -73,12 +73,9 @@
     [_s_memo removeAllObjects];
     [_foo_memo removeAllObjects];
 }
-
 - (void)_start {
-    
-    [self s]; 
-    [self matchEOF:YES]; 
-
+    [self s];
+    [self matchEOF:YES];
 }
 
 - (void)__s {

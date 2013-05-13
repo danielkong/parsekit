@@ -211,12 +211,9 @@
     [_or_memo removeAllObjects];
     [_and_memo removeAllObjects];
 }
-
 - (void)_start {
-    
-    [self expr]; 
-    [self matchEOF:YES]; 
-
+    [self expr];
+    [self matchEOF:YES];
 }
 
 - (void)__expr {

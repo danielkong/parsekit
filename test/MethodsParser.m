@@ -43,6 +43,7 @@
 @end
 
 @interface MethodsParser ()
+@property (nonatomic, retain) NSMutableDictionary *start_memo;
 @property (nonatomic, retain) NSMutableDictionary *method_memo;
 @property (nonatomic, retain) NSMutableDictionary *type_memo;
 @property (nonatomic, retain) NSMutableDictionary *args_memo;
@@ -72,6 +73,7 @@
         self._tokenKindNameTab[METHODS_TOKEN_KIND_CLOSE_PAREN] = @")";
         self._tokenKindNameTab[METHODS_TOKEN_KIND_SEMI_COLON] = @";";
 
+        self.start_memo = [NSMutableDictionary dictionary];
         self.method_memo = [NSMutableDictionary dictionary];
         self.type_memo = [NSMutableDictionary dictionary];
         self.args_memo = [NSMutableDictionary dictionary];
@@ -81,6 +83,7 @@
 }
 
 - (void)dealloc {
+    self.start_memo = nil;
     self.method_memo = nil;
     self.type_memo = nil;
     self.args_memo = nil;
@@ -90,19 +93,28 @@
 }
 
 - (void)_clearMemo {
+    [_start_memo removeAllObjects];
     [_method_memo removeAllObjects];
     [_type_memo removeAllObjects];
     [_args_memo removeAllObjects];
     [_arg_memo removeAllObjects];
 }
-
 - (void)_start {
+    [self start];
+    [self matchEOF:YES];
+}
+
+- (void)__start {
     
     do {
         [self method]; 
     } while ([self speculate:^{ [self method]; }]);
-    [self matchEOF:YES]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
+}
+
+- (void)start {
+    [self parseRule:@selector(__start) withMemo:_start_memo];
 }
 
 - (void)__method {
