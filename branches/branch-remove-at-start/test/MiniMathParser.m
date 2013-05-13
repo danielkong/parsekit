@@ -85,12 +85,9 @@
     [_pow_memo removeAllObjects];
     [_atom_memo removeAllObjects];
 }
-
 - (void)_start {
-    
-    [self expr]; 
-    [self matchEOF:YES]; 
-
+    [self expr];
+    [self matchEOF:YES];
 }
 
 - (void)__expr {

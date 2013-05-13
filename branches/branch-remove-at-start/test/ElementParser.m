@@ -93,12 +93,9 @@
     [_rbracket_memo removeAllObjects];
     [_comma_memo removeAllObjects];
 }
-
 - (void)_start {
-    
-    [self list]; 
-    [self matchEOF:YES]; 
-
+    [self list];
+    [self matchEOF:YES];
 }
 
 - (void)__list {

@@ -196,8 +196,12 @@
     return self;
 }
 
-
 - (void)_start {
+    [self program];
+    [self matchEOF:YES];
+}
+
+- (void)program {
     
     [self execute:(id)^{
     
@@ -240,13 +244,11 @@
         [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 
     }];
-    [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
-        [self program]; 
-        [self matchEOF:YES]; 
-    } completion:^{
-        [self matchEOF:YES];
-    }];
+    do {
+        [self element]; 
+    } while ([self speculate:^{ [self element]; }]);
 
+    [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }
 
 - (void)ifSym {
@@ -859,15 +861,6 @@
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchMultiplicativeOperator:)];
-}
-
-- (void)program {
-    
-    do {
-        [self element]; 
-    } while ([self speculate:^{ [self element]; }]);
-
-    [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }
 
 - (void)element {

@@ -43,6 +43,7 @@
 @end
 
 @interface NamedActionParser ()
+@property (nonatomic, retain) NSMutableDictionary *start_memo;
 @property (nonatomic, retain) NSMutableDictionary *a_memo;
 @property (nonatomic, retain) NSMutableDictionary *b_memo;
 @end
@@ -58,6 +59,7 @@
         self._tokenKindNameTab[NAMEDACTION_TOKEN_KIND_A] = @"a";
         self._tokenKindNameTab[NAMEDACTION_TOKEN_KIND_B] = @"b";
 
+        self.start_memo = [NSMutableDictionary dictionary];
         self.a_memo = [NSMutableDictionary dictionary];
         self.b_memo = [NSMutableDictionary dictionary];
     }
@@ -65,6 +67,7 @@
 }
 
 - (void)dealloc {
+    self.start_memo = nil;
     self.a_memo = nil;
     self.b_memo = nil;
 
@@ -72,16 +75,25 @@
 }
 
 - (void)_clearMemo {
+    [_start_memo removeAllObjects];
     [_a_memo removeAllObjects];
     [_b_memo removeAllObjects];
 }
-
 - (void)_start {
+    [self start];
+    [self matchEOF:YES];
+}
+
+- (void)__start {
     
     [self a]; 
     [self b]; 
-    [self matchEOF:YES]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
+}
+
+- (void)start {
+    [self parseRule:@selector(__start) withMemo:_start_memo];
 }
 
 - (void)__a {

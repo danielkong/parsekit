@@ -371,8 +371,12 @@
     [_all_memo removeAllObjects];
     [_none_memo removeAllObjects];
 }
-
 - (void)_start {
+    [self expr];
+    [self matchEOF:YES];
+}
+
+- (void)__expr {
     
     [self execute:(id)^{
     
@@ -393,13 +397,6 @@
 	[t.symbolState add:@"||"];
  
     }];
-    [self expr]; 
-    [self matchEOF:YES]; 
-
-}
-
-- (void)__expr {
-    
     [self orTerm]; 
     while ([self predicts:TDNSPREDICATE_TOKEN_KIND_DOUBLE_PIPE, TDNSPREDICATE_TOKEN_KIND_OR_UPPER, 0]) {
         if ([self speculate:^{ [self orOrTerm]; }]) {

@@ -163,12 +163,9 @@
     [_literal_memo removeAllObjects];
     [_bool_memo removeAllObjects];
 }
-
 - (void)_start {
-    
-    [self expr]; 
-    [self matchEOF:YES]; 
-
+    [self expr];
+    [self matchEOF:YES];
 }
 
 - (void)__expr {

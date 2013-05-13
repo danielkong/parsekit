@@ -43,6 +43,7 @@
 @end
 
 @interface CSSParser ()
+@property (nonatomic, retain) NSMutableDictionary *stylesheet_memo;
 @property (nonatomic, retain) NSMutableDictionary *ruleset_memo;
 @property (nonatomic, retain) NSMutableDictionary *selectors_memo;
 @property (nonatomic, retain) NSMutableDictionary *selector_memo;
@@ -129,6 +130,7 @@
         self._tokenKindNameTab[CSS_TOKEN_KIND_CLOSEPAREN] = @")";
         self._tokenKindNameTab[CSS_TOKEN_KIND_CLOSECURLY] = @"}";
 
+        self.stylesheet_memo = [NSMutableDictionary dictionary];
         self.ruleset_memo = [NSMutableDictionary dictionary];
         self.selectors_memo = [NSMutableDictionary dictionary];
         self.selector_memo = [NSMutableDictionary dictionary];
@@ -171,6 +173,7 @@
 }
 
 - (void)dealloc {
+    self.stylesheet_memo = nil;
     self.ruleset_memo = nil;
     self.selectors_memo = nil;
     self.selector_memo = nil;
@@ -213,6 +216,7 @@
 }
 
 - (void)_clearMemo {
+    [_stylesheet_memo removeAllObjects];
     [_ruleset_memo removeAllObjects];
     [_selectors_memo removeAllObjects];
     [_selector_memo removeAllObjects];
@@ -251,8 +255,12 @@
     [_bang_memo removeAllObjects];
     [_num_memo removeAllObjects];
 }
-
 - (void)_start {
+    [self stylesheet];
+    [self matchEOF:YES];
+}
+
+- (void)__stylesheet {
     
     [self execute:(id)^{
     
@@ -305,8 +313,11 @@
             break;
         }
     }
-    [self matchEOF:YES]; 
 
+}
+
+- (void)stylesheet {
+    [self parseRule:@selector(__stylesheet) withMemo:_stylesheet_memo];
 }
 
 - (void)__ruleset {

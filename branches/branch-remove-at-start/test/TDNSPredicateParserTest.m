@@ -57,13 +57,13 @@
     self.parser = [[[TDNSPredicateParser alloc] init] autorelease];
 
 #if TD_EMIT
-    path = [@"~/work/parsekit/trunk/test/TDNSPredicateParser.h" stringByExpandingTildeInPath];
+    path = [[NSString stringWithFormat:@"%s/test/TDNSPredicateParser.h", getenv("PWD")] stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
     }
 
-    path = [@"~/work/parsekit/trunk/test/TDNSPredicateParser.m" stringByExpandingTildeInPath];
+    path = [[NSString stringWithFormat:@"%s/test/TDNSPredicateParser.m", getenv("PWD")] stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
