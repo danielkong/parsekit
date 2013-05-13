@@ -24,6 +24,7 @@
 #define ENABLE_MEMOIZATION @"enableMemoization"
 #define ENABLE_ERROR_RECOVERY @"enableAutomaticErrorRecovery"
 #define PARSE_TREE @"parseTree"
+#define START_METHOD @"startMethod"
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
 #define METHOD_BODY @"methodBody"
@@ -244,6 +245,7 @@
     }
     
     // merge
+    vars[START_METHOD] = self.symbolTable[@"$$"];
     vars[METHODS] = childStr;
     vars[RULE_METHOD_NAMES] = self.ruleMethodNames;
     vars[ENABLE_MEMOIZATION] = @(self.enableMemoization);
