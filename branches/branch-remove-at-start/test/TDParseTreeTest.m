@@ -103,7 +103,7 @@
     TDNotNil(symTab);
     TDEquals((NSUInteger)2, [symTab count]);
 
-    PKSequence *start = symTab[@"@start"];
+    PKSequence *start = symTab[symTab[@"$$"]];
     TDTrue([start isKindOfClass:[PKSequence class]]);
     TDTrue(1 == [start.subparsers count]);
 
