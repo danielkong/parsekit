@@ -49,7 +49,7 @@ program
         [t.commentState addSingleLineStartMarker:@"//"];
         [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 }
-                       = element+;;
+                       = element+;
 
 ifSym                  = 'if';
 elseSym                = 'else';
