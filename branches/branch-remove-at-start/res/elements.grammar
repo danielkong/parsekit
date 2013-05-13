@@ -1,5 +1,3 @@
-@start = list;
-
 list = lbracket elements rbracket;
 elements = element (comma element)*;
 element = Number | list;
