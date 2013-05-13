@@ -11,6 +11,8 @@
 #import "JavaScriptParser.h"
 #import <OCMock/OCMock.h>
 
+#define VERIFY() @try { [_mock verify]; } @catch (NSException *ex) { STAssertTrue(0, [ex reason]); }
+
 @interface JSRecoveryTest ()
 @property (nonatomic, retain) JavaScriptParser *parser;
 @property (nonatomic, retain) id mock;
@@ -63,7 +65,7 @@
     res = [_parser parseString:input assembler:_mock error:&err];
     TDEqualObjects(@"[var, foo, ;]var/foo/;^", [res description]);
     
-    [_mock verify];
+    VERIFY();
 }
 
 - (void)testBorkedVarMissingSemi {
@@ -79,7 +81,7 @@
     res = [_parser parseString:input assembler:_mock error:&err];
     TDEqualObjects(@"[var, foo]var/foo^", [res description]);
     
-    [_mock verify];
+    VERIFY();
 }
 
 - (void)testMissingVarIdentifier {
@@ -96,7 +98,7 @@
     res = [_parser parseString:input assembler:_mock error:&err];
     TDEqualObjects(@"[var, ;, ;]var/;/;^", [res description]);
     
-    [_mock verify];
+    VERIFY();
 }
 
 
