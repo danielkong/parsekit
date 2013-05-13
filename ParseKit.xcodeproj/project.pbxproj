@@ -86,6 +86,7 @@
 		D32612A316F651F90021845F /* TDParserFactorySymbolTableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C07E8416F54F41000FB894 /* TDParserFactorySymbolTableTest.m */; };
 		D3305C4F102F5BAE00DC4F75 /* TDGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */; };
 		D3305C50102F5BAE00DC4F75 /* TDSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3305C4E102F5BAE00DC4F75 /* TDSourceCodeTextView.m */; };
+		D3344F4917405B4B00598362 /* JSRecoveryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3344F4817405B4B00598362 /* JSRecoveryTest.m */; };
 		D33494720E29670B00406085 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D33724DA16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D33724D816FA62D400D30459 /* PKDelimitDescriptor.h */; };
 		D33724DB16FA62D400D30459 /* PKDelimitDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = D33724D816FA62D400D30459 /* PKDelimitDescriptor.h */; };
@@ -1224,6 +1225,8 @@
 		D3305C4C102F5BAD00DC4F75 /* TDGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGutterView.m; path = demoapp/TDGutterView.m; sourceTree = "<group>"; };
 		D3305C4D102F5BAE00DC4F75 /* TDSourceCodeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSourceCodeTextView.h; path = demoapp/TDSourceCodeTextView.h; sourceTree = "<group>"; };
 		D3305C4E102F5BAE00DC4F75 /* TDSourceCodeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSourceCodeTextView.m; path = demoapp/TDSourceCodeTextView.m; sourceTree = "<group>"; };
+		D3344F4717405B4B00598362 /* JSRecoveryTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSRecoveryTest.h; path = test/JSRecoveryTest.h; sourceTree = "<group>"; };
+		D3344F4817405B4B00598362 /* JSRecoveryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSRecoveryTest.m; path = test/JSRecoveryTest.m; sourceTree = "<group>"; };
 		D33494100E2963FD00406085 /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33724D816FA62D400D30459 /* PKDelimitDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKDelimitDescriptor.h; path = src/PKDelimitDescriptor.h; sourceTree = "<group>"; };
 		D33724D916FA62D400D30459 /* PKDelimitDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKDelimitDescriptor.m; path = src/PKDelimitDescriptor.m; sourceTree = "<group>"; };
@@ -2682,6 +2685,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D3344F4717405B4B00598362 /* JSRecoveryTest.h */,
+				D3344F4817405B4B00598362 /* JSRecoveryTest.m */,
 				D30DA1911726028500A1A3EC /* RecoveryResyncSetTest.h */,
 				D30DA1921726028500A1A3EC /* RecoveryResyncSetTest.m */,
 				D30DA18B1725BB5700A1A3EC /* RecoverySingleTokenInsertionTest.h */,
@@ -4261,6 +4266,7 @@
 				D3FF6423173C65E600C30A1F /* PKLocalScope.m in Sources */,
 				D3FF6424173C65E600C30A1F /* PKVariableSymbol.m in Sources */,
 				D3FF6428173C65FD00C30A1F /* PKSymbolTable.m in Sources */,
+				D3344F4917405B4B00598362 /* JSRecoveryTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
