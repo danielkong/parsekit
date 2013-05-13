@@ -10,7 +10,7 @@ See: http://developer.apple.com/documentation/Cocoa/Conceptual/Predicates/Articl
 
 @symbols = '==' '>=' '=>' '<=' '=<' '!=' '<>' '&&' '||';
 
-@start 
+expr 
 @before {
 	PKTokenizer *t = self.tokenizer;
 	[t setTokenizerState:t.wordState from:'#' to:'#'];
@@ -28,12 +28,10 @@ See: http://developer.apple.com/documentation/Cocoa/Conceptual/Predicates/Articl
 	[t.symbolState add:@"&&"];
 	[t.symbolState add:@"||"];
  }
-
-
-	= expr;
+	= orTerm orOrTerm*;
 
 // Expressions
-    expr                 = orTerm orOrTerm*;
+    expr                 
     orOrTerm             = orKeyword orTerm;
     orTerm               = andTerm andAndTerm*;
     andAndTerm           = andKeyword andTerm;

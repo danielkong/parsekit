@@ -320,12 +320,9 @@
     id vars = [NSMutableDictionary dictionary];
     NSString *methodName = node.token.stringValue;
     
-    BOOL isStartMethod = [methodName isEqualToString:@"@start"];
-    if (isStartMethod) {
-        methodName = @"_start";
-    } else {
-        [self.ruleMethodNames addObject:methodName];
-    }
+    BOOL isStartMethod = [methodName isEqualToString:self.symbolTable[@"$$"]];
+    [self.ruleMethodNames addObject:methodName];
+
     vars[METHOD_NAME] = methodName;
     self.currentDefName = methodName;
 
