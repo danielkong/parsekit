@@ -232,7 +232,7 @@
 
 
 - (void)testStartLiteralNonReserved {
-    id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
+    id mock = [OCMockObject niceMockForProtocol:@protocol(TDMockAssember)];
     s = @"start = foo*; foo = 'bar';";
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
@@ -252,7 +252,7 @@
 
 
 - (void)testStartLiteralNonReserved2 {
-    id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
+    id mock = [OCMockObject niceMockForProtocol:@protocol(TDMockAssember)];
     s = @"start = (foo|baz)*; foo = 'bar'; baz = 'bat';";
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
@@ -272,7 +272,7 @@
 
 
 - (void)testStartLiteralNonReserved3 {
-    id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
+    id mock = [OCMockObject niceMockForProtocol:@protocol(TDMockAssember)];
     s = @"start = (foo|baz)+; foo = 'bar'; baz = 'bat';";
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
@@ -292,7 +292,7 @@
 
 
 - (void)testStartLiteralNonReserved4 {
-    id mock = [OCMockObject mockForProtocol:@protocol(TDMockAssember)];
+    id mock = [OCMockObject niceMockForProtocol:@protocol(TDMockAssember)];
     s = @"start = (foo|baz)+; foo = 'bar'; baz = 'bat';";
     lp = [factory parserFromGrammar:s assembler:mock error:nil];
     TDNotNil(lp);
