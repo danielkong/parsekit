@@ -31,7 +31,6 @@ expr
 	= orTerm orOrTerm*;
 
 // Expressions
-    expr                 
     orOrTerm             = orKeyword orTerm;
     orTerm               = andTerm andAndTerm*;
     andAndTerm           = andKeyword andTerm;
