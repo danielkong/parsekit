@@ -453,7 +453,7 @@
 
 
 - (void)testStartRefToLiteral2 {
-    s = @"foo = 'bar'; baz = 'bat'; start = (foo | baz)*;";
+    s = @"start = (foo | baz)*; foo = 'bar'; baz = 'bat';";
     lp = [factory parserFromGrammar:s assembler:nil error:nil];
     TDNotNil(lp);
     TDTrue([lp isKindOfClass:[PKParser class]]);
