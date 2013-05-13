@@ -6,16 +6,12 @@
 //
 
 #import "JSRecoveryTest.h"
-#import "PKParserFactory.h"
 #import "PKSParserGenVisitor.h"
 #import "PKRootNode.h"
 #import "JavaScriptParser.h"
 #import <OCMock/OCMock.h>
 
 @interface JSRecoveryTest ()
-@property (nonatomic, retain) PKParserFactory *factory;
-@property (nonatomic, retain) PKRootNode *root;
-@property (nonatomic, retain) PKSParserGenVisitor *visitor;
 @property (nonatomic, retain) JavaScriptParser *parser;
 @property (nonatomic, retain) id mock;
 @end
@@ -23,9 +19,6 @@
 @implementation JSRecoveryTest
 
 - (void)dealloc {
-    self.factory = nil;
-    self.root = nil;
-    self.visitor = nil;
     self.parser = nil;
     self.mock = nil;
     [super dealloc];
@@ -53,7 +46,7 @@
 }
 
 - (void)tearDown {
-    self.factory = nil;
+
 }
 
 - (void)testCorrectExpr {
