@@ -62,7 +62,7 @@
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"start=foo;foo='bar';" assembler:nil error:&err];
     
-    TDEqualObjects(@"[=, foo, foo, =, 'bar']start/=/foo/;/foo/=/'bar'/;^", [res description]);
+    TDEqualObjects(@"[start, =, foo, foo, =, 'bar']start/=/foo/;/foo/=/'bar'/;^", [res description]);
 }
 
 @end
