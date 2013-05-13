@@ -17,9 +17,19 @@
 @property (nonatomic, retain) PKRootNode *root;
 @property (nonatomic, retain) PKSParserGenVisitor *visitor;
 @property (nonatomic, retain) JavaScriptParser *parser;
+@property (nonatomic, retain) id mock;
 @end
 
 @implementation JSRecoveryTest
+
+- (void)dealloc {
+    self.factory = nil;
+    self.root = nil;
+    self.visitor = nil;
+    self.parser = nil;
+    self.mock = nil;
+    [super dealloc];
+}
 
 - (void)parser:(PKSParser *)p didMatchVar:(PKAssembly *)a {}
 - (void)parser:(PKSParser *)p didMatchIdentifier:(PKAssembly *)a {}
@@ -35,6 +45,11 @@
 
 - (void)setUp {
     self.parser = [[[JavaScriptParser alloc] init] autorelease];
+
+    self.mock = [OCMockObject niceMockForClass:[JSRecoveryTest class]];
+    
+    // return YES to -respondsToSelector:
+    [[[_mock stub] andReturnValue:OCMOCK_VALUE((BOOL){YES})] respondsToSelector:(SEL)OCMOCK_ANY];
 }
 
 - (void)tearDown {
@@ -46,20 +61,15 @@
     PKAssembly *res = nil;
     NSString *input = nil;
     
-    id mock = [OCMockObject niceMockForClass:[JSRecoveryTest class]];
-
-    // return YES to -respondsToSelector:
-    [[[mock stub] andReturnValue:OCMOCK_VALUE((BOOL){YES})] respondsToSelector:(SEL)OCMOCK_ANY];
-
-    [[mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
-    [[mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
-    [[mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
     
     input = @"var foo;";
-    res = [_parser parseString:input assembler:mock error:&err];
+    res = [_parser parseString:input assembler:_mock error:&err];
     TDEqualObjects(@"[var, foo, ;]var/foo/;^", [res description]);
     
-    [mock verify];
+    [_mock verify];
 }
 
 @end
