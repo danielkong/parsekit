@@ -73,5 +73,8 @@
 - (void)_clearMemo {
 {%for methodName in ruleMethodNames %}    [_{{methodName}}_memo removeAllObjects];
 {%/for%}}{%/if%}
+- (void)_start {
+    [self {{startMethod}}];
+}
 {{methods}}
 @end
