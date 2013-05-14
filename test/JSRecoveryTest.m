@@ -59,6 +59,7 @@
     [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchStmt:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
     
     input = @"var foo;";
@@ -73,8 +74,8 @@
     PKAssembly *res = nil;
     NSString *input = nil;
     
-    [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
-    [[_mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
+//    [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
+//    [[_mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
     
     input = @"var foo";
@@ -91,7 +92,9 @@
     
 //    [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchStmt:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchStmt:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
     
     input = @"var;;";
