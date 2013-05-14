@@ -99,9 +99,9 @@
     [_args_memo removeAllObjects];
     [_arg_memo removeAllObjects];
 }
+
 - (void)_start {
     [self start];
-    [self matchEOF:YES];
 }
 
 - (void)__start {
@@ -109,6 +109,7 @@
     do {
         [self method]; 
     } while ([self speculate:^{ [self method]; }]);
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
 }

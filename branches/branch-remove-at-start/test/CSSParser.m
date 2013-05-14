@@ -255,9 +255,9 @@
     [_bang_memo removeAllObjects];
     [_num_memo removeAllObjects];
 }
+
 - (void)_start {
     [self stylesheet];
-    [self matchEOF:YES];
 }
 
 - (void)__stylesheet {
@@ -313,6 +313,7 @@
             break;
         }
     }
+    [self matchEOF:YES]; 
 
 }
 

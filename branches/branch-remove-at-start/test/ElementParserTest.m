@@ -59,7 +59,9 @@
 - (void)testFoo {    
     ElementParser *p = [[[ElementParser alloc] init] autorelease];
     
-    PKAssembly *res = [p parseString:@"[1, [2,3],4]" assembler:self error:nil];
+    NSError *err = nil;
+    PKAssembly *res = [p parseString:@"[1, [2,3],4]" assembler:self error:&err];
+    if (err) NSLog(@"%@", [err localizedDescription]);
     
     TDEqualObjects(@"[[, 1, [, 2, 3, 4][/1/,/[/2/,/3/]/,/4/]^", [res description]);
 }

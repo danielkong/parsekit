@@ -83,9 +83,9 @@
     [_a_memo removeAllObjects];
     [_b_memo removeAllObjects];
 }
+
 - (void)_start {
     [self s];
-    [self matchEOF:YES];
 }
 
 - (void)__s {
@@ -94,6 +94,7 @@
         [self ab]; 
     } while ([self speculate:^{ [self ab]; }]);
     [self a]; 
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }

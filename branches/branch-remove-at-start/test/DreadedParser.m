@@ -79,9 +79,9 @@
     [_a_memo removeAllObjects];
     [_b_memo removeAllObjects];
 }
+
 - (void)_start {
     [self s];
-    [self matchEOF:YES];
 }
 
 - (void)__s {
@@ -94,6 +94,7 @@
     } else {
         [self raise:@"No viable alternative found in rule 's'."];
     }
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }

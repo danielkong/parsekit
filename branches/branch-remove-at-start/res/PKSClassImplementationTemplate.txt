@@ -72,10 +72,10 @@
 {%/if%}{%if enableMemoization %}
 - (void)_clearMemo {
 {%for methodName in ruleMethodNames %}    [_{{methodName}}_memo removeAllObjects];
-{%/for%}}{%/if%}
+{%/for%}}
+{%/if%}
 - (void)_start {
     [self {{startMethod}}];
-    [self matchEOF:YES];
 }
 {{methods}}
 @end

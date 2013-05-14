@@ -71,9 +71,9 @@
     [_start_memo removeAllObjects];
     [_nonReserved_memo removeAllObjects];
 }
+
 - (void)_start {
     [self start];
-    [self matchEOF:YES];
 }
 
 - (void)__start {
@@ -81,6 +81,7 @@
     do {
         [self nonReserved]; 
     } while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]);
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
 }
