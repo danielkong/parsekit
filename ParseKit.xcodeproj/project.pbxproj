@@ -270,6 +270,7 @@
 		D34BAFDC0FF9E95500D7773A /* NSString+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD60FF9E95500D7773A /* NSString+ParseKitAdditions.m */; };
 		D34BAFDE0FF9E95500D7773A /* PKParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD80FF9E95500D7773A /* PKParserFactory.m */; };
 		D34F539717421743008700F3 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34F538C17421715008700F3 /* OCMock.framework */; };
+		D34F539E1742C57E008700F3 /* JavaScriptWhitespaceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D34F539D1742C57E008700F3 /* JavaScriptWhitespaceParser.m */; };
 		D355C62E0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D355C62C0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m */; };
 		D355C6A70FE9F704006A91A4 /* nspredicate.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D35384EC0FE9691100926552 /* nspredicate.grammar */; };
 		D35F4A8711643630003811F3 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4A8511643630003811F3 /* PKEmailState.m */; };
@@ -1363,6 +1364,8 @@
 		D34BAFD60FF9E95500D7773A /* NSString+ParseKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+ParseKitAdditions.m"; path = "src/NSString+ParseKitAdditions.m"; sourceTree = "<group>"; };
 		D34BAFD80FF9E95500D7773A /* PKParserFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKParserFactory.m; path = src/PKParserFactory.m; sourceTree = "<group>"; };
 		D34F538517421715008700F3 /* OCMock.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OCMock.xcodeproj; path = lib/OCMock/OCMock.xcodeproj; sourceTree = "<group>"; };
+		D34F539C1742C57E008700F3 /* JavaScriptWhitespaceParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JavaScriptWhitespaceParser.h; path = test/JavaScriptWhitespaceParser.h; sourceTree = "<group>"; };
+		D34F539D1742C57E008700F3 /* JavaScriptWhitespaceParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JavaScriptWhitespaceParser.m; path = test/JavaScriptWhitespaceParser.m; sourceTree = "<group>"; };
 		D3521F520E5FA1B0009681F9 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLReader.h; path = test/XMLReader.h; sourceTree = "<group>"; };
 		D3521F530E5FA1B0009681F9 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLReader.m; path = test/XMLReader.m; sourceTree = "<group>"; };
 		D3521F540E5FA1B0009681F9 /* XMLReaderTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLReaderTest.h; path = test/XMLReaderTest.h; sourceTree = "<group>"; };
@@ -2670,6 +2673,8 @@
 				D36E68BB17207542007B4353 /* CSSParser.m */,
 				D36E68B4171F37D7007B4353 /* JavaScriptParser.h */,
 				D36E68B5171F37D7007B4353 /* JavaScriptParser.m */,
+				D34F539C1742C57E008700F3 /* JavaScriptWhitespaceParser.h */,
+				D34F539D1742C57E008700F3 /* JavaScriptWhitespaceParser.m */,
 				D33830C9171DBEB100CCE513 /* NamedActionParser.h */,
 				D33830CA171DBEB100CCE513 /* NamedActionParser.m */,
 				D38BC8AF1716006B00BF530D /* SemanticPredicateParser.h */,
@@ -4334,6 +4339,7 @@
 				D3FF6424173C65E600C30A1F /* PKVariableSymbol.m in Sources */,
 				D3FF6428173C65FD00C30A1F /* PKSymbolTable.m in Sources */,
 				D3344F4917405B4B00598362 /* JSRecoveryTest.m in Sources */,
+				D34F539E1742C57E008700F3 /* JavaScriptWhitespaceParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

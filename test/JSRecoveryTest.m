@@ -9,12 +9,13 @@
 #import "PKSParserGenVisitor.h"
 #import "PKRootNode.h"
 #import "JavaScriptParser.h"
+#import "JavaScriptWhitespaceParser.h"
 #import <OCMock/OCMock.h>
 
 #define VERIFY() @try { [_mock verify]; } @catch (NSException *ex) { STAssertTrue(0, [ex reason]); }
 
 @interface JSRecoveryTest ()
-@property (nonatomic, retain) JavaScriptParser *parser;
+@property (nonatomic, retain) PKSParser *parser;
 @property (nonatomic, retain) id mock;
 @end
 
@@ -46,8 +47,6 @@
 - (void)parser:(PKSParser *)p didFailToMatch:(PKAssembly *)a {}
 
 - (void)setUp {
-    self.parser = [[[JavaScriptParser alloc] init] autorelease];
-
     self.mock = [OCMockObject niceMockForClass:[JSRecoveryTest class]];
     
     // return YES to -respondsToSelector:
@@ -59,6 +58,8 @@
 }
 
 - (void)testCorrectExpr {
+    self.parser = [[[JavaScriptParser alloc] init] autorelease];
+
     NSError *err = nil;
     PKAssembly *res = nil;
     NSString *input = nil;
@@ -77,6 +78,8 @@
 }
 
 - (void)testBorkedVarMissingSemi {
+    self.parser = [[[JavaScriptParser alloc] init] autorelease];
+
     NSError *err = nil;
     PKAssembly *res = nil;
     NSString *input = nil;
@@ -109,6 +112,8 @@
 }
 
 - (void)testMissingVarIdentifier {
+    self.parser = [[[JavaScriptParser alloc] init] autorelease];
+
     NSError *err = nil;
     PKAssembly *res = nil;
     NSString *input = nil;
@@ -138,6 +143,8 @@
 }
 
 - (void)testBorkedFunc1 {
+    self.parser = [[[JavaScriptWhitespaceParser alloc] init] autorelease];
+
     NSError *err = nil;
     PKAssembly *res = nil;
     NSString *input = nil;
@@ -146,6 +153,39 @@
         PKAssembly *a = nil;
         [invoc getArgument:&a atIndex:3];
         //NSLog(@"%@", a);
+        
+        TDNotNil(a);
+        TDEqualObjects(@"[function,  , foo, (, ), {, v]function/ /foo/(/)/{/v^", [a description]);
+        
+        [a pop]; // `v`
+    }] parser:_parser didFailToMatch:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchFunction:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchOpenParen:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchCloseParen:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchParamListOpt:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchFunc:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchElement:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
+    
+    input = @"function foo(){v}";
+    res = [_parser parseString:input assembler:_mock error:&err];
+    TDEqualObjects(@"[function,  , foo, (, ), {, }]function/ /foo/(/)/{/v/}^", [res description]);
+    
+    VERIFY();
+}
+
+- (void)testBorkedFunc2 {
+    self.parser = [[[JavaScriptWhitespaceParser alloc] init] autorelease];
+
+    NSError *err = nil;
+    PKAssembly *res = nil;
+    NSString *input = nil;
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        NSLog(@"%@", a);
         
         TDNotNil(a);
         TDEqualObjects(@"[function, foo, (, ), {, v]function/foo/(/)/{/v^", [a description]);
@@ -161,39 +201,11 @@
     [[_mock expect] parser:_parser didMatchElement:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
     
-    input = @"function foo(){v}";
+    input = @"function foo(){\n\tv\n}";
     res = [_parser parseString:input assembler:_mock error:&err];
-    TDEqualObjects(@"[function, foo, (, ), {, }]function/foo/(/)/{/v/}^", [res description]);
+    TDEqualObjects(@"[function,  , foo, (, ), {, \n\t, \n, \n, }]function/ /foo/(/)/{/\n\t/\n/\n/}^", [res description]);
     
     VERIFY();
 }
 
-//- (void)testBorkedFunc {
-//    NSError *err = nil;
-//    PKAssembly *res = nil;
-//    NSString *input = nil;
-//    
-//    [[[_mock stub] andDo:^(NSInvocation *invoc) {
-//        PKAssembly *a = nil;
-//        [invoc getArgument:&a atIndex:3];
-//        NSLog(@"%@", a);
-//        
-//        TDNotNil(a);
-//        TDEqualObjects(@"[function, foo, (, ), {, v]function/foo/(/)/{/v^", [a description]);
-//        
-//        [a pop]; // `v`
-//    }] parser:_parser didFailToMatch:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchStmt:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchStmt:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
-//    
-//    input = @"function foo() {\n\tv\n}";
-//    res = [_parser parseString:input assembler:_mock error:&err];
-//    TDEqualObjects(@"[function, foo, (, ), {, }]function/foo/(/)/{/v/}^", [res description]);
-//    
-//    VERIFY();
-//}
-//
 @end
