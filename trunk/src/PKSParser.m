@@ -248,6 +248,7 @@
         self.assembly = nil;
         self._lookahead = nil;
         self._markers = nil;
+        self._resyncStack = nil;
     }
     
     return result;
