@@ -34,7 +34,7 @@
 @property (nonatomic, retain) NSMutableArray *_lookahead;
 @property (nonatomic, retain) NSMutableArray *_markers;
 @property (nonatomic, assign) NSInteger _p;
-@property (nonatomic, assign) NSInteger _skip;
+//@property (nonatomic, assign) NSInteger _skip;
 @property (nonatomic, assign, readonly) BOOL _isSpeculating;
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
@@ -201,7 +201,7 @@
     self._markers = [NSMutableArray array];
 
     if (_enableAutomaticErrorRecovery) {
-        self._skip = 0;
+//        self._skip = 0;
         self._resyncStack = [NSMutableArray array];
     }
 
@@ -489,19 +489,19 @@
 }
 
 
-- (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind {
-    NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
-    
-    if (TOKEN_KIND_BUILTIN_EOF == tokenKind) return; // don't insert or delete EOF
-
-    if (_enableAutomaticErrorRecovery && LA(1) != tokenKind) {
-        if (LA(2) == tokenKind) {
-            //[self consume:LT(1)]; // single token deletion
-        } else {
-            //self._skip++; // single token insertion
-        }
-    }
-}
+//- (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind {
+//    NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
+//    
+//    if (TOKEN_KIND_BUILTIN_EOF == tokenKind) return; // don't insert or delete EOF
+//
+//    if (_enableAutomaticErrorRecovery && LA(1) != tokenKind) {
+//        if (LA(2) == tokenKind) {
+//            //[self consume:LT(1)]; // single token deletion
+//        } else {
+//            //self._skip++; // single token insertion
+//        }
+//    }
+//}
 
 
 - (void)pushFollow:(NSInteger)tokenKind {
@@ -814,7 +814,7 @@
 @synthesize _lookahead = _lookahead;
 @synthesize _markers = _markers;
 @synthesize _p = _p;
-@synthesize _skip = _skip;
+//@synthesize _skip = _skip;
 @synthesize _tokenKindTab = _tokenKindTab;
 @synthesize _resyncStack = _resyncStack;
 @end
