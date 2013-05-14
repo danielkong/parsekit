@@ -226,19 +226,19 @@
     }
     @catch (PKSRecognitionException *ex) {
         NSString *domain = @"PKParseException";
+        NSString *reason = [ex currentReason];
 
         if (outError) {
             NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
             
             // get reason
-            NSString *reason = [ex currentReason];
             if ([reason length]) [userInfo setObject:reason forKey:NSLocalizedFailureReasonErrorKey];
             
             // convert to NSError
             NSError *err = [NSError errorWithDomain:domain code:47 userInfo:[[userInfo copy] autorelease]];
             *outError = err;
         } else {
-            [NSException raise:domain format:nil];
+            [NSException raise:domain format:reason, nil];
         }
     }
     @finally {
