@@ -120,6 +120,7 @@
             @"elif": @"ELIF",
             @"elseif": @"ELSEIF",
             @"return": @"RETURN",
+            @"case": @"CASE",
             @"break": @"BREAK",
             @"switch": @"SWITCH",
             @"while": @"WHILE",
