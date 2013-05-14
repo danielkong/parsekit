@@ -1,4 +1,45 @@
+program
+@before {
+        PKTokenizer *t = self.tokenizer;
+        
+        // whitespace
+    //    self.silentlyConsumesWhitespace = YES;
+    //    t.whitespaceState.reportsWhitespaceTokens = YES;
+    //    self.assembly.preservesWhitespaceTokens = YES;
 
+        [t.symbolState add:@"||"];
+        [t.symbolState add:@"&&"];
+        [t.symbolState add:@"!="];
+        [t.symbolState add:@"!=="];
+        [t.symbolState add:@"=="];
+        [t.symbolState add:@"==="];
+        [t.symbolState add:@"<="];
+        [t.symbolState add:@">="];
+        [t.symbolState add:@"++"];
+        [t.symbolState add:@"--"];
+        [t.symbolState add:@"+="];
+        [t.symbolState add:@"-="];
+        [t.symbolState add:@"*="];
+        [t.symbolState add:@"/="];
+        [t.symbolState add:@"%="];
+        [t.symbolState add:@"<<"];
+        [t.symbolState add:@">>"];
+        [t.symbolState add:@">>>"];
+        [t.symbolState add:@"<<="];
+        [t.symbolState add:@">>="];
+        [t.symbolState add:@">>>="];
+        [t.symbolState add:@"&="];
+        [t.symbolState add:@"^="];
+        [t.symbolState add:@"|="];
+
+        t.commentState.reportsCommentTokens = YES;
+        
+        [t setTokenizerState:t.commentState from:'/' to:'/'];
+        [t.commentState addSingleLineStartMarker:@"//"];
+        [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
+}
+	= element+
+	;
 
 arrayLiteral
 	= '[' Empty | expr (',' expr)* ']'
@@ -9,7 +50,7 @@ block
 	;
 	
 breakStmt
-	= 'break' label? ';'
+	= 'break' name? ';' // name = label
 	;
 	
 caseClause
@@ -24,4 +65,74 @@ disruptiveStmt
 	
 doStmt
 	= 'do' block 'while' '(' expr ')' ';'
+	;
+	
+escapedChar
+	= Symbol // TODO
+	;
+
+exponent
+	= Number // TODO
+	;
+
+expr
+	= literal
+	| name
+	| '(' expr ')'
+	| prefixOp expr
+	| expr (infixOp expr | '?' expr ':' expr | invocation | refinement)
+	| 'new' expr invocation
+	| 'delete' expr refinement
+	;
+
+exprStmt
+	= (name refinement* '=')+ expr
+	| name refinement* ('+=' | '-=') expr
+	| name refinement* invocation+
+	| 'delete' expr refinement
+	;
+
+forStmt
+	= 'for'
+	'(' 
+	( exprStmt? ';' expr? ';' exprStmt? )
+	|
+	( name 'in' expr)
+	')' block
+	;
+
+fraction
+	= Number // TODO
+	;
+
+functionBody
+	= '{' varStmts stmts '}'
+	;
+
+functionLiteral
+	= 'function' name? parameters functionBody
+	;
+
+ifStmt 'if' '(' expr ')' block ('else' ifStmt? block)? // TODO worried about ifStmt recursion here
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
 	;

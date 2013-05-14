@@ -110,6 +110,8 @@
             @"Nil": @"NIL_TITLE",
             @"nil": @"NIL",
             @"id": @"ID",
+            @"new": @"NEW",
+            @"delete": @"DELETE",
             @"undefined": @"UNDEFINED",
             @"var": @"VAR",
             @"function": @"FUNCTION",
