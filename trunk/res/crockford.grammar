@@ -44,7 +44,7 @@ program
 	    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:nonWhitespace];
 	    //[t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:nonWhitespace];		
 }
-	= (expr | stmts)*
+	= stmts
 	;
 
 arrayLiteral
@@ -86,7 +86,7 @@ expr
 	| name
 	| '(' expr ')'
 	| prefixOp expr
-	| expr (infixOp expr | '?' expr ':' expr | invocation | refinement)
+//	| expr (infixOp expr | '?' expr ':' expr | invocation | refinement) // TODO
 	| 'new' expr invocation
 	| 'delete' expr refinement
 	;
@@ -109,6 +109,10 @@ forStmt
 
 fraction
 	= Number // TODO
+	;
+
+function
+	= 'function' name parameters functionBody
 	;
 
 functionBody
@@ -152,7 +156,7 @@ literal
 	| stringLiteral
 	| objectLiteral
 	| arrayLiteral
-	| function
+	| functionLiteral
 	| regexLiteral
 	;
 
@@ -168,7 +172,7 @@ objectLiteral
 	= '{' (nameValPair (',' nameValPair)*)? '}'
 	;
 nameValPair // ADDED
-	= (name|string) ':' expr
+	= (name|stringLiteral) ':' expr
 	;
 
 parameters
@@ -194,11 +198,15 @@ returnStmt
 	;
 
 stmts
-    = stmt*;
+    = stmt*
     ;
 
 stmt
-    = (name ':')? // label
+    = function 
+	| nonFunction
+	;
+nonFunction // ADDED
+	= (name ':')? // label
 		( exprStmt ';'
 		| disruptiveStmt
 		| tryStmt
