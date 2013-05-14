@@ -44,7 +44,7 @@ program
 	    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:nonWhitespace];
 	    //[t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:nonWhitespace];		
 }
-	= (expr | stmts)*;
+	= (expr | stmts)*
 	;
 
 arrayLiteral
@@ -119,8 +119,8 @@ functionLiteral
 	= 'function' name? parameters functionBody
 	;
 
-ifStmt 'if' '(' expr ')' block ('else' ifStmt? block)? // TODO worried about ifStmt recursion here
-	= 
+ifStmt
+	= 'if' '(' expr ')' block ('else' ifStmt? block)? // TODO worried about ifStmt recursion here
 	;
 
 infixOp
