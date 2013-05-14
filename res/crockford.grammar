@@ -42,7 +42,7 @@ program
 	;
 
 arrayLiteral
-	= '[' Empty | expr (',' expr)* ']'
+	= '[' (expr (',' expr)*)? ']'
 	;
 
 block
@@ -114,6 +114,131 @@ functionLiteral
 	;
 
 ifStmt 'if' '(' expr ')' block ('else' ifStmt? block)? // TODO worried about ifStmt recursion here
+	= 
+	;
+
+infixOp
+	= '*'
+	| '/'
+	| '%'
+	| '+'
+	| '-'
+	| '>='
+	| '<='
+	| '>'
+	| '<'
+	| '==='
+	| '!=='
+	| '||'
+	| '&&'
+	;
+
+integer
+	= Number // TODO
+	;
+
+invocation
+	= '(' (expr (',' expr)*)? ')'
+	;
+
+literal
+	= numberLiteral
+	| stringLiteral
+	| objectLiteral
+	| arrayLiteral
+	| function
+	| regexLiteral
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
+	= 
+	;
+
+forStmt
 	= 
 	;
 

@@ -61,6 +61,7 @@
             @"===": @"TRIPLE_EQUALS",
             @":=": @"ASSIGN",
             @"!=": @"NE",
+            @"!==": @"DOUBLE_NE",
             @"<>": @"NOT_EQUAL",
             @"{": @"OPEN_CURLY",
             @"}": @"CLOSE_CURLY",
