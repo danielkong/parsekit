@@ -10,6 +10,15 @@
 
 @implementation PKSRecognitionException
 
+- (id)init {
+    self = [super initWithName:NSStringFromClass([self class]) reason:nil userInfo:nil];
+    if (self) {
+        
+    }
+    return self;
+}
+
+
 - (void)dealloc {
     self.currentReason = nil;
     [super dealloc];
