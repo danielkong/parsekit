@@ -3,9 +3,9 @@ program
         PKTokenizer *t = self.tokenizer;
         
         // whitespace
-    //    self.silentlyConsumesWhitespace = YES;
-    //    t.whitespaceState.reportsWhitespaceTokens = YES;
-    //    self.assembly.preservesWhitespaceTokens = YES;
+		self.silentlyConsumesWhitespace = YES;
+		t.whitespaceState.reportsWhitespaceTokens = YES;
+		self.assembly.preservesWhitespaceTokens = YES;
 
         [t.symbolState add:@"||"];
         [t.symbolState add:@"&&"];
@@ -32,13 +32,19 @@ program
         [t.symbolState add:@"^="];
         [t.symbolState add:@"|="];
 
+		// comments
         t.commentState.reportsCommentTokens = YES;
         
         [t setTokenizerState:t.commentState from:'/' to:'/'];
         [t.commentState addSingleLineStartMarker:@"//"];
         [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
+		
+	    // regex delimited strings
+	    NSCharacterSet *nonWhitespace = [[NSCharacterSet whitespaceCharacterSet] invertedSet];
+	    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:nonWhitespace];
+	    //[t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:nonWhitespace];		
 }
-	= element+
+	= (expr | stmts)*;
 	;
 
 arrayLiteral
@@ -150,114 +156,86 @@ literal
 	| regexLiteral
 	;
 
-forStmt
-	= 
+name
+	= Word
 	;
 
-forStmt
-	= 
+numberLiteral
+	= Number
 	;
 
-forStmt
-	= 
+objectLiteral
+	= '{' (nameValPair (',' nameValPair)*)? '}'
+	;
+nameValPair // ADDED
+	= (name|string) ':' expr
 	;
 
-forStmt
-	= 
+parameters
+	= '(' (name (',' name)*)? ')'
 	;
 
-forStmt
-	= 
+prefixOp // TODO removed explicitly positive / negative numbers
+	= 'typeof'
+	| '!'
 	;
 
-forStmt
-	= 
+refinement
+	= '.' name
+	| '[' expr ']'
 	;
 
-forStmt
-	= 
+regexLiteral // TODO big changes to regex
+	= %{'/', '/'} /[imxs]+/?
 	;
 
-forStmt
-	= 
+returnStmt
+	= 'return' expr? ';'
 	;
 
-forStmt
-	= 
+stmts
+    = stmt*;
+    ;
+
+stmt
+    = (name ':')? // label
+		( exprStmt ';'
+		| disruptiveStmt
+		| tryStmt
+		| ifStmt
+		| switchStmt
+		| whileStmt
+		| forStmt
+		| doStmt
+		)
 	;
 
-forStmt
-	= 
+stringLiteral
+	= QuotedString
 	;
 
-forStmt
-	= 
+switchStmt
+	= 'switch' '(' expr ')' '{' (caseClause disruptiveStmt?)+ ('default' ':' stmts)? '}'
 	;
 
-forStmt
-	= 
+throwStmt
+	= 'throw' expr ';'
 	;
 
-forStmt
-	= 
+whileStmt
+	= 'while' '(' expr ')' block
 	;
 
-forStmt
-	= 
+varStmts
+	= ('var' nameExprPair (',' nameExprPair)* ';')*
+	;
+nameExprPair // ADDED
+	= name ('=' expr)?;
+
+whileStmt
+	= 'while' '(' expr ')' block
 	;
 
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
-	;
-
-forStmt
-	= 
+whitespace // TODO
+	= S
 	;

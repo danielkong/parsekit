@@ -117,6 +117,7 @@
             @"var": @"VAR",
             @"function": @"FUNCTION",
             @"instanceof": @"INSTANCEOF",
+            @"typeof": @"TYPEOF",
             @"def": @"DEF",
             @"if": @"IF",
             @"else": @"ELSE",

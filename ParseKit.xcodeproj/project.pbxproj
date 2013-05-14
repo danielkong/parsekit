@@ -271,6 +271,9 @@
 		D34BAFDE0FF9E95500D7773A /* PKParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAFD80FF9E95500D7773A /* PKParserFactory.m */; };
 		D34F539717421743008700F3 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34F538C17421715008700F3 /* OCMock.framework */; };
 		D34F539E1742C57E008700F3 /* JavaScriptWhitespaceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D34F539D1742C57E008700F3 /* JavaScriptWhitespaceParser.m */; };
+		D34F53A717430232008700F3 /* CrockfordParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D34F53A617430232008700F3 /* CrockfordParserTest.m */; };
+		D34F53AC17430249008700F3 /* CrockfordParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D34F53AB17430249008700F3 /* CrockfordParser.m */; };
+		D34F53AE174302A4008700F3 /* crockford.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D34F53AD174302A4008700F3 /* crockford.grammar */; };
 		D355C62E0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D355C62C0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m */; };
 		D355C6A70FE9F704006A91A4 /* nspredicate.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D35384EC0FE9691100926552 /* nspredicate.grammar */; };
 		D35F4A8711643630003811F3 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4A8511643630003811F3 /* PKEmailState.m */; };
@@ -1366,6 +1369,11 @@
 		D34F538517421715008700F3 /* OCMock.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OCMock.xcodeproj; path = lib/OCMock/OCMock.xcodeproj; sourceTree = "<group>"; };
 		D34F539C1742C57E008700F3 /* JavaScriptWhitespaceParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JavaScriptWhitespaceParser.h; path = test/JavaScriptWhitespaceParser.h; sourceTree = "<group>"; };
 		D34F539D1742C57E008700F3 /* JavaScriptWhitespaceParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JavaScriptWhitespaceParser.m; path = test/JavaScriptWhitespaceParser.m; sourceTree = "<group>"; };
+		D34F53A517430232008700F3 /* CrockfordParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrockfordParserTest.h; path = test/CrockfordParserTest.h; sourceTree = "<group>"; };
+		D34F53A617430232008700F3 /* CrockfordParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CrockfordParserTest.m; path = test/CrockfordParserTest.m; sourceTree = "<group>"; };
+		D34F53AA17430249008700F3 /* CrockfordParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrockfordParser.h; path = test/CrockfordParser.h; sourceTree = "<group>"; };
+		D34F53AB17430249008700F3 /* CrockfordParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CrockfordParser.m; path = test/CrockfordParser.m; sourceTree = "<group>"; };
+		D34F53AD174302A4008700F3 /* crockford.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = crockford.grammar; path = res/crockford.grammar; sourceTree = "<group>"; };
 		D3521F520E5FA1B0009681F9 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLReader.h; path = test/XMLReader.h; sourceTree = "<group>"; };
 		D3521F530E5FA1B0009681F9 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLReader.m; path = test/XMLReader.m; sourceTree = "<group>"; };
 		D3521F540E5FA1B0009681F9 /* XMLReaderTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLReaderTest.h; path = test/XMLReaderTest.h; sourceTree = "<group>"; };
@@ -2665,6 +2673,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D34F53AA17430249008700F3 /* CrockfordParser.h */,
+				D34F53AB17430249008700F3 /* CrockfordParser.m */,
 				D30DA1751724AD0100A1A3EC /* JSONParser.h */,
 				D30DA1761724AD0100A1A3EC /* JSONParser.m */,
 				D36E68C01720C848007B4353 /* HTMLParser.h */,
@@ -2726,6 +2736,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D34F53A517430232008700F3 /* CrockfordParserTest.h */,
+				D34F53A617430232008700F3 /* CrockfordParserTest.m */,
 				D3344F4717405B4B00598362 /* JSRecoveryTest.h */,
 				D3344F4817405B4B00598362 /* JSRecoveryTest.m */,
 				D30DA1911726028500A1A3EC /* RecoveryResyncSetTest.h */,
@@ -2795,6 +2807,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D34F53AD174302A4008700F3 /* crockford.grammar */,
 				D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */,
 				D380AFBC0F0C54B60009EC13 /* html.grammar */,
 				D380B5080F0D71A90009EC13 /* css.grammar */,
@@ -3945,6 +3958,7 @@
 				D3BD39681729D37600FC6549 /* PKSPreCallbackSyntaxInteriorTemplate.txt in Resources */,
 				D3BD39771729F1DE00FC6549 /* PKSPostCallbackSyntaxLeafTemplate.txt in Resources */,
 				D3BD39791729F1DE00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt in Resources */,
+				D34F53AE174302A4008700F3 /* crockford.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4340,6 +4354,8 @@
 				D3FF6428173C65FD00C30A1F /* PKSymbolTable.m in Sources */,
 				D3344F4917405B4B00598362 /* JSRecoveryTest.m in Sources */,
 				D34F539E1742C57E008700F3 /* JavaScriptWhitespaceParser.m in Sources */,
+				D34F53A717430232008700F3 /* CrockfordParserTest.m in Sources */,
+				D34F53AC17430249008700F3 /* CrockfordParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
