@@ -38,6 +38,8 @@
 - (void)parser:(PKSParser *)p didMatchElement:(PKAssembly *)a {}
 - (void)parser:(PKSParser *)p didMatchProgram:(PKAssembly *)a {}
 
+- (void)parser:(PKSParser *)p didFailToMatch:(PKAssembly *)a {}
+
 - (void)setUp {
     self.parser = [[[JavaScriptParser alloc] init] autorelease];
 
@@ -78,18 +80,30 @@
 //    [[_mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
 
     [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        NSLog(@"%@", a);
+        
+        TDNotNil(a);
+        TDEqualObjects(@"[var, foo]var/foo^", [a description]);
+        
+        [a pop]; // var
+        [a pop]; // foo
+    }] parser:_parser didFailToMatch:OCMOCK_ANY];
+
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
           PKAssembly *a = nil;
           [invoc getArgument:&a atIndex:3];
           
           TDNotNil(a);
-          TDEqualObjects(@"[var, foo]var/foo^", [a description]);
+          TDEqualObjects(@"[]var/foo^", [a description]);
     }] parser:_parser didMatchProgram:OCMOCK_ANY];
     
     //[[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
     
     input = @"var foo";
     res = [_parser parseString:input assembler:_mock error:&err];
-    TDEqualObjects(@"[var, foo]var/foo^", [res description]);
+    TDEqualObjects(@"[]var/foo^", [res description]);
     
     VERIFY();
 }
@@ -100,19 +114,28 @@
     NSString *input = nil;
     
 //    [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        NSLog(@"%@", a);
+        
+        TDNotNil(a);
+        TDEqualObjects(@"[1, -]1/-^", [a description]);
+        
+        [a pop]; // `-`
+        [a pop]; // 1
+    }] parser:_parser didFailToMatch:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchStmt:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchStmt:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
     
-    input = @"var;;";
+    input = @"1-;;";
     res = [_parser parseString:input assembler:_mock error:&err];
-    TDEqualObjects(@"[var, ;, ;]var/;/;^", [res description]);
+    TDEqualObjects(@"[;, ;]1/-/;/;^", [res description]);
     
     VERIFY();
 }
-
-
 
 @end
