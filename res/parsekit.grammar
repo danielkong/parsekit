@@ -1,9 +1,8 @@
-@start               = statement+;
+start                = statement+;
 statement            = decl | tokenizerDirective;
 tokenizerDirective   = '@'! Word '=' (Word | QuotedString)+ ';'!;
 decl                 = production namedAction* '=' action? expr ';'!;
-production           = startProduction | varProduction;
-startProduction      = '@'! 'start'!;
+production           = varProduction;
 namedAction		     = '@'! (beforeKey | afterKey) action;
 beforeKey    		 = 'before';
 afterKey    		 = 'after';

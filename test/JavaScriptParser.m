@@ -196,8 +196,11 @@
     return self;
 }
 
-
 - (void)_start {
+    [self program];
+}
+
+- (void)program {
     
     [self execute:(id)^{
     
@@ -241,12 +244,15 @@
 
     }];
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
-        [self program]; 
+        do {
+            [self element]; 
+        } while ([self speculate:^{ [self element]; }]);
         [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
     }];
 
+    [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }
 
 - (void)ifSym {
@@ -859,15 +865,6 @@
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchMultiplicativeOperator:)];
-}
-
-- (void)program {
-    
-    do {
-        [self element]; 
-    } while ([self speculate:^{ [self element]; }]);
-
-    [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }
 
 - (void)element {

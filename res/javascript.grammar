@@ -5,7 +5,11 @@
 @singleLineComments = '//';
 @multiLineComments  = '/*' '*/';
 
-@start              
+// Program:
+//           empty
+//           Element Program
+
+program
 @before {
         PKTokenizer *t = self.tokenizer;
         
@@ -45,9 +49,7 @@
         [t.commentState addSingleLineStartMarker:@"//"];
         [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 }
-
-
-					= program;
+                       = element+;
 
 ifSym                  = 'if';
 elseSym                = 'else';
@@ -131,15 +133,6 @@ incrementOperator   = plusPlus | minusMinus;
 unaryOperator       = tilde | delete | typeof | void;
 
 multiplicativeOperator = times | div | mod;
-
-
-
-// Program:
-//           empty
-//           Element Program
-
-program             = element+;
-
 
 
 //  Element:

@@ -75,10 +75,7 @@
 }
 
 - (void)_start {
-    
-    [self s]; 
-    [self matchEOF:YES]; 
-
+    [self s];
 }
 
 - (void)__s {
@@ -88,6 +85,7 @@
     } else {
         [self raise:@"negation test failed in s"];
     }
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }

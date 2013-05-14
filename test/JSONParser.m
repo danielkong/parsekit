@@ -74,8 +74,11 @@
     return self;
 }
 
-
 - (void)_start {
+    [self start];
+}
+
+- (void)start {
     
     [self execute:(id)^{
     

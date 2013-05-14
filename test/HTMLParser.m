@@ -43,6 +43,7 @@
 @end
 
 @interface HTMLParser ()
+@property (nonatomic, retain) NSMutableDictionary *start_memo;
 @property (nonatomic, retain) NSMutableDictionary *anything_memo;
 @property (nonatomic, retain) NSMutableDictionary *scriptElement_memo;
 @property (nonatomic, retain) NSMutableDictionary *scriptStartTag_memo;
@@ -95,6 +96,7 @@
         self._tokenKindNameTab[HTML_TOKEN_KIND_FWDSLASH] = @"/";
         self._tokenKindNameTab[HTML_TOKEN_KIND_GT] = @">";
 
+        self.start_memo = [NSMutableDictionary dictionary];
         self.anything_memo = [NSMutableDictionary dictionary];
         self.scriptElement_memo = [NSMutableDictionary dictionary];
         self.scriptStartTag_memo = [NSMutableDictionary dictionary];
@@ -127,6 +129,7 @@
 }
 
 - (void)dealloc {
+    self.start_memo = nil;
     self.anything_memo = nil;
     self.scriptElement_memo = nil;
     self.scriptStartTag_memo = nil;
@@ -159,6 +162,7 @@
 }
 
 - (void)_clearMemo {
+    [_start_memo removeAllObjects];
     [_anything_memo removeAllObjects];
     [_scriptElement_memo removeAllObjects];
     [_scriptStartTag_memo removeAllObjects];
@@ -189,6 +193,10 @@
 }
 
 - (void)_start {
+    [self start];
+}
+
+- (void)__start {
     
     [self execute:(id)^{
     
@@ -229,6 +237,10 @@
     }
     [self matchEOF:YES]; 
 
+}
+
+- (void)start {
+    [self parseRule:@selector(__start) withMemo:_start_memo];
 }
 
 - (void)__anything {

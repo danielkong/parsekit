@@ -81,10 +81,7 @@
 }
 
 - (void)_start {
-    
-    [self s]; 
-    [self matchEOF:YES]; 
-
+    [self s];
 }
 
 - (void)__s {
@@ -97,6 +94,7 @@
     } else {
         [self raise:@"No viable alternative found in rule 's'."];
     }
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }

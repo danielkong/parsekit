@@ -70,8 +70,11 @@
     return self;
 }
 
-
 - (void)_start {
+    [self start];
+}
+
+- (void)start {
     
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
         do {
@@ -82,6 +85,7 @@
         [self matchEOF:YES];
     }];
 
+    [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
 }
 
 - (void)stat {

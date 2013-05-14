@@ -43,6 +43,7 @@
 @end
 
 @interface GreedParser ()
+@property (nonatomic, retain) NSMutableDictionary *start_memo;
 @property (nonatomic, retain) NSMutableDictionary *a_memo;
 @property (nonatomic, retain) NSMutableDictionary *b_memo;
 @end
@@ -58,6 +59,7 @@
         self._tokenKindNameTab[GREED_TOKEN_KIND_A] = @"a";
         self._tokenKindNameTab[GREED_TOKEN_KIND_B] = @"b";
 
+        self.start_memo = [NSMutableDictionary dictionary];
         self.a_memo = [NSMutableDictionary dictionary];
         self.b_memo = [NSMutableDictionary dictionary];
     }
@@ -65,6 +67,7 @@
 }
 
 - (void)dealloc {
+    self.start_memo = nil;
     self.a_memo = nil;
     self.b_memo = nil;
 
@@ -72,11 +75,16 @@
 }
 
 - (void)_clearMemo {
+    [_start_memo removeAllObjects];
     [_a_memo removeAllObjects];
     [_b_memo removeAllObjects];
 }
 
 - (void)_start {
+    [self start];
+}
+
+- (void)__start {
     
     if ([self predicts:GREED_TOKEN_KIND_A, 0]) {
         [self a]; 
@@ -91,10 +99,15 @@
         } while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]);
         [self b]; 
     } else {
-        [self raise:@"No viable alternative found in rule '_start'."];
+        [self raise:@"No viable alternative found in rule 'start'."];
     }
     [self matchEOF:YES]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
+}
+
+- (void)start {
+    [self parseRule:@selector(__start) withMemo:_start_memo];
 }
 
 - (void)__a {

@@ -57,7 +57,7 @@
     
     _parser.enableAutomaticErrorRecovery = YES;
     
-    // not sure if this usses single token insertion or resync ??
+    // not sure if this uses single token insertion or resync ??
     
     input = @"[=[2].";
     res = [_parser parseString:input assembler:nil error:&err];
