@@ -11,7 +11,7 @@
 @multiLineComments = '/*' '*/';
 @wordState = '-' '@';
 
-@start                  
+stylesheet                  
 @before {
     PKTokenizer *t = self.tokenizer;
 

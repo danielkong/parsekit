@@ -87,10 +87,7 @@
 }
 
 - (void)_start {
-    
-    [self expr]; 
-    [self matchEOF:YES]; 
-
+    [self expr];
 }
 
 - (void)__expr {
@@ -107,6 +104,7 @@
             break;
         }
     }
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }

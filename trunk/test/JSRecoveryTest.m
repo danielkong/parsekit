@@ -89,7 +89,7 @@
     PKAssembly *res = nil;
     NSString *input = nil;
     
-    [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
+//    [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];

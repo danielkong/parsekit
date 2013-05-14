@@ -205,6 +205,9 @@
     }
 
     // define in symbol table
+    if (![self.symbolTable count]) {
+        self.symbolTable[@"$$"] = name;
+    }
     self.symbolTable[name] = cp;
         
     for (PKBaseNode *child in node.children) {

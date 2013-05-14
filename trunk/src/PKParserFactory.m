@@ -122,7 +122,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (void)parser:(PKParser *)p didMatchCallback:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSubSeqExpr:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchSubTrackExpr:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchVarProduction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchAction:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchFactor:(PKAssembly *)a;
@@ -157,7 +156,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 @property (nonatomic, retain) PKToken *square;
 
 @property (nonatomic, retain) PKToken *rootToken;
-@property (nonatomic, retain) PKToken *startToken;
 @property (nonatomic, retain) PKToken *defToken;
 @property (nonatomic, retain) PKToken *refToken;
 @property (nonatomic, retain) PKToken *seqToken;
@@ -193,7 +191,6 @@ void PKReleaseSubparserTree(PKParser *p) {
         self.paren      = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" floatValue:0.0];
         self.square     = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"[" floatValue:0.0];
 
-        self.startToken = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"@start" floatValue:0.0];
         self.rootToken  = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"ROOT" floatValue:0.0];
         self.defToken   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"$" floatValue:0.0];
         self.refToken   = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"#" floatValue:0.0];
@@ -229,7 +226,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     self.paren = nil;
     self.square = nil;
     self.rootToken = nil;
-    self.startToken = nil;
     self.defToken = nil;
     self.refToken = nil;
     self.seqToken = nil;
@@ -355,6 +351,9 @@ void PKReleaseSubparserTree(PKParser *p) {
     defv.collectTokenKinds = self.collectTokenKinds;
     [rootNode visit:defv];
 
+    rootNode.startMethodName = symTab[@"$$"];
+    NSAssert(rootNode.startMethodName, @"");
+    
     return rootNode;
 }
 
@@ -634,7 +633,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 
 - (PKParser *)parserFromSymbolTable:(NSDictionary *)symTab {
-    PKParser *p = symTab[@"@start"];
+    PKParser *p = symTab[symTab[@"$$"]];
     NSAssert([p isKindOfClass:[PKParser class]], @"");
     
     return p;
@@ -658,14 +657,6 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     [allToks addObjectsFromArray:argToks];
     directiveTab[prodName] = allToks;
-}
-
-
-- (void)parser:(PKParser *)p didMatchStartProduction:(PKAssembly *)a {
-    //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-
-    PKDefinitionNode *node = [PKDefinitionNode nodeWithToken:startToken];
-    [a push:node];
 }
 
 
@@ -863,7 +854,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)parser:(PKParser *)p didMatchVariable:(PKAssembly *)a {
     //NSLog(@"%@ %@", NSStringFromSelector(_cmd), a);
-    // parser:didMatchVariable: [@start, =, foo]@start/=/foo^;/foo/=/Word/;
+    // parser:didMatchVariable: [start, =, foo]start/=/foo^;/foo/=/Word/;
 
     PKToken *tok = [a pop];
     NSAssert(tok, @"");
@@ -1176,7 +1167,6 @@ void PKReleaseSubparserTree(PKParser *p) {
 @synthesize square;
 
 @synthesize rootToken;
-@synthesize startToken;
 @synthesize defToken;
 @synthesize refToken;
 @synthesize seqToken;

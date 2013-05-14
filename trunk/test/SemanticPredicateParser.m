@@ -43,6 +43,7 @@
 @end
 
 @interface SemanticPredicateParser ()
+@property (nonatomic, retain) NSMutableDictionary *start_memo;
 @property (nonatomic, retain) NSMutableDictionary *nonReserved_memo;
 @end
 
@@ -53,28 +54,40 @@
     if (self) {
 
 
+        self.start_memo = [NSMutableDictionary dictionary];
         self.nonReserved_memo = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
 - (void)dealloc {
+    self.start_memo = nil;
     self.nonReserved_memo = nil;
 
     [super dealloc];
 }
 
 - (void)_clearMemo {
+    [_start_memo removeAllObjects];
     [_nonReserved_memo removeAllObjects];
 }
 
 - (void)_start {
+    [self start];
+}
+
+- (void)__start {
     
     do {
         [self nonReserved]; 
     } while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]);
     [self matchEOF:YES]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
+}
+
+- (void)start {
+    [self parseRule:@selector(__start) withMemo:_start_memo];
 }
 
 - (void)__nonReserved {

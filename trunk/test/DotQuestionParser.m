@@ -43,6 +43,7 @@
 @end
 
 @interface DotQuestionParser ()
+@property (nonatomic, retain) NSMutableDictionary *start_memo;
 @property (nonatomic, retain) NSMutableDictionary *a_memo;
 @end
 
@@ -55,22 +56,29 @@
 
         self._tokenKindNameTab[DOTQUESTION_TOKEN_KIND_A] = @"a";
 
+        self.start_memo = [NSMutableDictionary dictionary];
         self.a_memo = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
 - (void)dealloc {
+    self.start_memo = nil;
     self.a_memo = nil;
 
     [super dealloc];
 }
 
 - (void)_clearMemo {
+    [_start_memo removeAllObjects];
     [_a_memo removeAllObjects];
 }
 
 - (void)_start {
+    [self start];
+}
+
+- (void)__start {
     
     [self a]; 
     if ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]) {
@@ -79,6 +87,11 @@
     [self a]; 
     [self matchEOF:YES]; 
 
+    [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
+}
+
+- (void)start {
+    [self parseRule:@selector(__start) withMemo:_start_memo];
 }
 
 - (void)__a {

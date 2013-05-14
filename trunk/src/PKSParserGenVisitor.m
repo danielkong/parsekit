@@ -24,6 +24,7 @@
 #define ENABLE_MEMOIZATION @"enableMemoization"
 #define ENABLE_ERROR_RECOVERY @"enableAutomaticErrorRecovery"
 #define PARSE_TREE @"parseTree"
+#define START_METHOD @"startMethod"
 #define METHODS @"methods"
 #define METHOD_NAME @"methodName"
 #define METHOD_BODY @"methodBody"
@@ -79,6 +80,7 @@
     self.interfaceOutputString = nil;
     self.implementationOutputString = nil;
     self.ruleMethodNames = nil;
+    self.startMethodName = nil;
     self.outputStringStack = nil;
     self.currentDefName = nil;
     [super dealloc];
@@ -209,6 +211,7 @@
     self.outputStringStack = [NSMutableArray array];
     
     self.ruleMethodNames = [NSMutableArray array];
+    self.startMethodName = node.startMethodName;
     
     // add namespace to token kinds
     for (PKSTokenKindDescriptor *desc in node.tokenKinds) {
@@ -244,6 +247,7 @@
     }
     
     // merge
+    vars[START_METHOD] = _startMethodName;
     vars[METHODS] = childStr;
     vars[RULE_METHOD_NAMES] = self.ruleMethodNames;
     vars[ENABLE_MEMOIZATION] = @(self.enableMemoization);
@@ -320,12 +324,9 @@
     id vars = [NSMutableDictionary dictionary];
     NSString *methodName = node.token.stringValue;
     
-    BOOL isStartMethod = [methodName isEqualToString:@"@start"];
-    if (isStartMethod) {
-        methodName = @"_start";
-    } else {
-        [self.ruleMethodNames addObject:methodName];
-    }
+    BOOL isStartMethod = [methodName isEqualToString:_startMethodName];
+    [self.ruleMethodNames addObject:methodName];
+
     vars[METHOD_NAME] = methodName;
     self.currentDefName = methodName;
 
@@ -373,16 +374,14 @@
     NSString *preCallbackStr = @"";
     NSString *postCallbackStr = @"";
 
-    if (!isStartMethod) {
-        preCallbackStr = [self callbackStringForNode:node methodName:methodName isPre:YES];
-        postCallbackStr = [self callbackStringForNode:node methodName:methodName isPre:NO];
-    }
+    preCallbackStr = [self callbackStringForNode:node methodName:methodName isPre:YES];
+    postCallbackStr = [self callbackStringForNode:node methodName:methodName isPre:NO];
 
     vars[PRE_CALLBACK] = preCallbackStr;
     vars[POST_CALLBACK] = postCallbackStr;
 
     NSString *templateName = nil;
-    if (!isStartMethod && self.enableMemoization) {
+    if (self.enableMemoization) {
         templateName = @"PKSMethodMemoizationTemplate";
     } else {
         templateName = @"PKSMethodTemplate";
