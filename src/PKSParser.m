@@ -19,6 +19,10 @@
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
 
+@interface NSObject ()
+- (void)parser:(PKSParser *)p didFailToMatch:(PKAssembly *)a;
+@end
+
 @interface PKSTokenAssembly ()
 - (void)consume:(PKToken *)tok;
 @property (nonatomic, readwrite, retain) NSMutableArray *stack;
@@ -491,7 +495,7 @@
 
     if (_enableAutomaticErrorRecovery && LA(1) != tokenKind) {
         if (LA(2) == tokenKind) {
-            [self consume:LT(1)]; // single token deletion
+            //[self consume:LT(1)]; // single token deletion
         } else {
             //self._skip++; // single token insertion
         }
@@ -522,13 +526,19 @@
 
     if (_enableAutomaticErrorRecovery) {
         for (;;) {
+            //NSLog(@"\n\nLT 1: '%@'\n%@\n%@", LT(1), self.assembly, _lookahead);
+            
             PKToken *lt = LT(1);
-            //NSLog(@"LT(1) : %@", lt); NSLog(@"is %ld in %@ ?", LA(1), _resyncSet);
             
             NSAssert([_resyncSet count], @"");
             result = [_resyncSet containsObject:@(lt.tokenKind)];
 
-            if (result) break;
+            if (result) {
+                if (!self._isSpeculating) {
+                    [self fireAssemblerSelector:@selector(parser:didFailToMatch:)];
+                }
+                break;
+            }
             
             BOOL done = (lt == [PKToken EOFToken]);
             [self consume:lt];
