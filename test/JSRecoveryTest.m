@@ -47,7 +47,7 @@
 - (void)parser:(PKSParser *)p didFailToMatch:(PKAssembly *)a {}
 
 - (void)setUp {
-    self.mock = [OCMockObject niceMockForClass:[JSRecoveryTest class]];
+    self.mock = [OCMockObject mockForClass:[JSRecoveryTest class]];
     
     // return YES to -respondsToSelector:
     [[[_mock stub] andReturnValue:OCMOCK_VALUE((BOOL){YES})] respondsToSelector:(SEL)OCMOCK_ANY];
@@ -66,8 +66,14 @@
     
     [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchVariable:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchVariables:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchVarVariables:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchVariablesOrExpr:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchStmt:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchVariablesOrExprStmt:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchElement:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
     
     input = @"var foo;";
@@ -131,8 +137,13 @@
     }] parser:_parser didFailToMatch:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchStmt:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchElement:OCMOCK_ANY];
+
+    [[_mock expect] parser:_parser didMatchVariablesOrExpr:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchSemi:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchVariablesOrExprStmt:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchStmt:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchElement:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
     
     input = @"1-;;";
@@ -201,9 +212,9 @@
     [[_mock expect] parser:_parser didMatchElement:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
     
-    input = @"function foo(){\n\tv\n}";
+    input = @"function foo(){\n\t v\n}";
     res = [_parser parseString:input assembler:_mock error:&err];
-    TDEqualObjects(@"[function,  , foo, (, ), {, \n\t, \n, \n, }]function/ /foo/(/)/{/\n\t/\n/\n/}^", [res description]);
+    TDEqualObjects(@"[function,  , foo, (, ), {, \n\t , \n, \n, }]function/ /foo/(/)/{/\n\t /v/\n/\n/}^", [res description]);
     
     VERIFY();
 }
