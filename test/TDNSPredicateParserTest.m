@@ -37,9 +37,6 @@
 
 
 - (void)setUp {
-    self.tab = [NSMutableDictionary dictionary];
-    self.openCurly = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0];
-
     self.factory = [PKParserFactory factory];
     _factory.collectTokenKinds = YES;
 
@@ -54,8 +51,6 @@
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     [_root visit:_visitor];
     
-    self.parser = [[[TDNSPredicateParser alloc] init] autorelease];
-
 #if TD_EMIT
     path = [[NSString stringWithFormat:@"%s/test/TDNSPredicateParser.h", getenv("PWD")] stringByExpandingTildeInPath];
     err = nil;
@@ -69,6 +64,11 @@
         NSLog(@"%@", err);
     }
 #endif
+
+    self.tab = [NSMutableDictionary dictionary];
+    self.openCurly = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"{" floatValue:0];
+    
+    self.parser = [[[TDNSPredicateParser alloc] init] autorelease];
 }
 
 
