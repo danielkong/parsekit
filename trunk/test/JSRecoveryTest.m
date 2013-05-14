@@ -76,7 +76,16 @@
     
 //    [[_mock expect] parser:_parser didMatchVar:OCMOCK_ANY];
 //    [[_mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
-    [[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
+    
+    void (^block)(NSInvocation *) = ^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+      
+        TDNotNil(a);
+        TDEqualObjects(@"[var, foo]var/foo^", [a description]);
+    };
+    [[[_mock stub] andDo:block] parser:_parser didMatchProgram:OCMOCK_ANY];
+    //[[_mock expect] parser:_parser didMatchProgram:OCMOCK_ANY];
     
     input = @"var foo";
     res = [_parser parseString:input assembler:_mock error:&err];
