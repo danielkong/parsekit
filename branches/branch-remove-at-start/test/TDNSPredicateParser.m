@@ -43,6 +43,7 @@
 @end
 
 @interface TDNSPredicateParser ()
+@property (nonatomic, retain) NSMutableDictionary *start_memo;
 @property (nonatomic, retain) NSMutableDictionary *expr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orOrTerm_memo;
 @property (nonatomic, retain) NSMutableDictionary *orTerm_memo;
@@ -183,6 +184,7 @@
         self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_NONE] = @"NONE";
         self._tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_DOUBLE_EQUALS] = @"==";
 
+        self.start_memo = [NSMutableDictionary dictionary];
         self.expr_memo = [NSMutableDictionary dictionary];
         self.orOrTerm_memo = [NSMutableDictionary dictionary];
         self.orTerm_memo = [NSMutableDictionary dictionary];
@@ -247,6 +249,7 @@
 }
 
 - (void)dealloc {
+    self.start_memo = nil;
     self.expr_memo = nil;
     self.orOrTerm_memo = nil;
     self.orTerm_memo = nil;
@@ -311,6 +314,7 @@
 }
 
 - (void)_clearMemo {
+    [_start_memo removeAllObjects];
     [_expr_memo removeAllObjects];
     [_orOrTerm_memo removeAllObjects];
     [_orTerm_memo removeAllObjects];
@@ -373,10 +377,10 @@
 }
 
 - (void)_start {
-    [self expr];
+    [self start];
 }
 
-- (void)__expr {
+- (void)__start {
     
     [self execute:(id)^{
     
@@ -397,6 +401,20 @@
 	[t.symbolState add:@"||"];
  
     }];
+    do {
+        [self expr]; 
+    } while ([self speculate:^{ [self expr]; }]);
+    [self matchEOF:YES]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
+}
+
+- (void)start {
+    [self parseRule:@selector(__start) withMemo:_start_memo];
+}
+
+- (void)__expr {
+    
     [self orTerm]; 
     while ([self predicts:TDNSPREDICATE_TOKEN_KIND_DOUBLE_PIPE, TDNSPREDICATE_TOKEN_KIND_OR_UPPER, 0]) {
         if ([self speculate:^{ [self orOrTerm]; }]) {
@@ -405,7 +423,6 @@
             break;
         }
     }
-    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
