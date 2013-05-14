@@ -48,7 +48,7 @@
 - (void)_discard;
 
 // error recovery
-- (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind;
+//- (void)_attemptSingleTokenInsertionDeletion:(NSInteger)tokenKind;
 - (void)pushFollow:(NSInteger)tokenKind;
 - (void)popFollow:(NSInteger)tokenKind;
 - (BOOL)resync;
