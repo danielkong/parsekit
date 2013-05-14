@@ -88,13 +88,13 @@
 
 
 //- (void)testKeyPath {
+//    NSError *err = nil;
+//    
 //    [_tab setObject:[NSNumber numberWithBool:YES] forKey:@"foo"];
 //    [_tab setObject:[NSNumber numberWithBool:NO] forKey:@"baz"];
 //    
-//    t.string = @"foo";
-//    a = [PKTokenAssembly assemblyWithTokenizer:t];
-//    res = [[eval.parser parserNamed:@"keyPath"] completeMatchFor:a];
-//    TDEqualObjects(@"[1]foo^", [res description]);
+//    _res = [_parser parseString:@"foo" assembler:self error:&err];
+//    TDEqualObjects(@"[1]foo^", [_res description]);
 //    
 //    t.string = @"bar";
 //    a = [PKTokenAssembly assemblyWithTokenizer:t];
