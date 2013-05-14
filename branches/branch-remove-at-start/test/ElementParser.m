@@ -43,6 +43,7 @@
 @end
 
 @interface ElementParser ()
+@property (nonatomic, retain) NSMutableDictionary *lists_memo;
 @property (nonatomic, retain) NSMutableDictionary *list_memo;
 @property (nonatomic, retain) NSMutableDictionary *elements_memo;
 @property (nonatomic, retain) NSMutableDictionary *element_memo;
@@ -64,6 +65,7 @@
         self._tokenKindNameTab[ELEMENT_TOKEN_KIND_RBRACKET] = @"]";
         self._tokenKindNameTab[ELEMENT_TOKEN_KIND_COMMA] = @",";
 
+        self.lists_memo = [NSMutableDictionary dictionary];
         self.list_memo = [NSMutableDictionary dictionary];
         self.elements_memo = [NSMutableDictionary dictionary];
         self.element_memo = [NSMutableDictionary dictionary];
@@ -75,6 +77,7 @@
 }
 
 - (void)dealloc {
+    self.lists_memo = nil;
     self.list_memo = nil;
     self.elements_memo = nil;
     self.element_memo = nil;
@@ -86,6 +89,7 @@
 }
 
 - (void)_clearMemo {
+    [_lists_memo removeAllObjects];
     [_list_memo removeAllObjects];
     [_elements_memo removeAllObjects];
     [_element_memo removeAllObjects];
@@ -95,7 +99,21 @@
 }
 
 - (void)_start {
-    [self list];
+    [self lists];
+}
+
+- (void)__lists {
+    
+    do {
+        [self list]; 
+    } while ([self speculate:^{ [self list]; }]);
+    [self matchEOF:YES]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchLists:)];
+}
+
+- (void)lists {
+    [self parseRule:@selector(__lists) withMemo:_lists_memo];
 }
 
 - (void)__list {
@@ -103,7 +121,6 @@
     [self lbracket]; 
     [self elements]; 
     [self rbracket]; 
-    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
