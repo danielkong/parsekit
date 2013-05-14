@@ -30,6 +30,7 @@
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
+@property (nonatomic, retain) NSMutableArray *_lookahead;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
@@ -411,7 +412,7 @@
 
 - (void)closeCurly {
     
-    [self match:JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSECURLY discard:NO]; 
+    [self match:JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSECURLY discard:NO];
 
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
 }

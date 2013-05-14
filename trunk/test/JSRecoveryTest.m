@@ -93,7 +93,7 @@
     [[[_mock stub] andDo:^(NSInvocation *invoc) {
         PKAssembly *a = nil;
         [invoc getArgument:&a atIndex:3];
-        NSLog(@"%@", a);
+        //NSLog(@"%@", a);
         
         TDNotNil(a);
         TDEqualObjects(@"[var, foo]var/foo^", [a description]);
@@ -196,12 +196,14 @@
     [[[_mock stub] andDo:^(NSInvocation *invoc) {
         PKAssembly *a = nil;
         [invoc getArgument:&a atIndex:3];
-        NSLog(@"%@", a);
+        //NSLog(@"%@", a);
         
         TDNotNil(a);
-        TDEqualObjects(@"[function, foo, (, ), {, v]function/foo/(/)/{/v^", [a description]);
+        TDEqualObjects(@"[function,  , foo, (, ), {, \n\t , v, \n]function/ /foo/(/)/{/\n\t /v/\n^", [a description]);
         
+        [a pop]; // trailing whitespace
         [a pop]; // `v`
+        [a pop]; // leading whitespace
     }] parser:_parser didFailToMatch:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchFunction:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchIdentifier:OCMOCK_ANY];
@@ -214,7 +216,7 @@
     
     input = @"function foo(){\n\t v\n}";
     res = [_parser parseString:input assembler:_mock error:&err];
-    TDEqualObjects(@"[function,  , foo, (, ), {, \n\t , \n, \n, }]function/ /foo/(/)/{/\n\t /v/\n/\n/}^", [res description]);
+    TDEqualObjects(@"[function,  , foo, (, ), {, }]function/ /foo/(/)/{/\n\t /v/\n/}^", [res description]);
     
     VERIFY();
 }
