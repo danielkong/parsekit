@@ -191,9 +191,9 @@
     [_fwdSlash_memo removeAllObjects];
     [_comment_memo removeAllObjects];
 }
+
 - (void)_start {
     [self start];
-    [self matchEOF:YES];
 }
 
 - (void)__start {
@@ -235,6 +235,7 @@
             break;
         }
     }
+    [self matchEOF:YES]; 
 
 }
 

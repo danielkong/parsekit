@@ -79,9 +79,9 @@
     [_a_memo removeAllObjects];
     [_b_memo removeAllObjects];
 }
+
 - (void)_start {
     [self start];
-    [self matchEOF:YES];
 }
 
 - (void)__start {
@@ -101,6 +101,7 @@
     } else {
         [self raise:@"No viable alternative found in rule 'start'."];
     }
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
 }

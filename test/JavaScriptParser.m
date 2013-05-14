@@ -198,7 +198,6 @@
 
 - (void)_start {
     [self program];
-    [self matchEOF:YES];
 }
 
 - (void)program {
@@ -244,9 +243,14 @@
         [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 
     }];
-    do {
-        [self element]; 
-    } while ([self speculate:^{ [self element]; }]);
+    [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
+        do {
+            [self element]; 
+        } while ([self speculate:^{ [self element]; }]);
+        [self matchEOF:YES]; 
+    } completion:^{
+        [self matchEOF:YES];
+    }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }

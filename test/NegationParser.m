@@ -73,9 +73,9 @@
     [_s_memo removeAllObjects];
     [_foo_memo removeAllObjects];
 }
+
 - (void)_start {
     [self s];
-    [self matchEOF:YES];
 }
 
 - (void)__s {
@@ -85,6 +85,7 @@
     } else {
         [self raise:@"negation test failed in s"];
     }
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }

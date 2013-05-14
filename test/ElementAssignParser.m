@@ -72,14 +72,18 @@
 
 - (void)_start {
     [self start];
-    [self matchEOF:YES];
 }
 
 - (void)start {
     
-    do {
-        [self stat]; 
-    } while ([self speculate:^{ [self stat]; }]);
+    [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
+        do {
+            [self stat]; 
+        } while ([self speculate:^{ [self stat]; }]);
+        [self matchEOF:YES]; 
+    } completion:^{
+        [self matchEOF:YES];
+    }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
 }

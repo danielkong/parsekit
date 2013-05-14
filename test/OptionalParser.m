@@ -83,9 +83,9 @@
     [_foo_memo removeAllObjects];
     [_bar_memo removeAllObjects];
 }
+
 - (void)_start {
     [self s];
-    [self matchEOF:YES];
 }
 
 - (void)__s {
@@ -95,6 +95,7 @@
     }
     [self foo]; 
     [self bar]; 
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }

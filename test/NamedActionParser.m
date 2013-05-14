@@ -79,15 +79,16 @@
     [_a_memo removeAllObjects];
     [_b_memo removeAllObjects];
 }
+
 - (void)_start {
     [self start];
-    [self matchEOF:YES];
 }
 
 - (void)__start {
     
     [self a]; 
     [self b]; 
+    [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
 }
