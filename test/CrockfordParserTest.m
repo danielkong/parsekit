@@ -29,12 +29,12 @@
     _factory.collectTokenKinds = YES;
 
     NSError *err = nil;
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"javascript" ofType:@"grammar"];
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"crockford" ofType:@"grammar"];
     NSString *g = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
     
     err = nil;
     self.root = (id)[_factory ASTFromGrammar:g error:&err];
-    _root.grammarName = @"JavaScript";
+    _root.grammarName = @"Crockford";
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     _visitor.assemblerSettingBehavior = PKParserFactoryAssemblerSettingBehaviorAll;
@@ -65,7 +65,7 @@
 }
 
 
-- (void)parser:(PKSParser *)p didMatchVarVariables:(PKAssembly *)a {
+- (void)parser:(PKSParser *)p didMatchVarStmt:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     flag = YES;
 }

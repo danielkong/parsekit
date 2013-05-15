@@ -3,10 +3,10 @@ program
         PKTokenizer *t = self.tokenizer;
         
         // whitespace
-		self.silentlyConsumesWhitespace = YES;
+/*		self.silentlyConsumesWhitespace = YES;
 		t.whitespaceState.reportsWhitespaceTokens = YES;
 		self.assembly.preservesWhitespaceTokens = YES;
-
+*/
         [t.symbolState add:@"||"];
         [t.symbolState add:@"&&"];
         [t.symbolState add:@"!="];
@@ -116,7 +116,7 @@ function
 	;
 
 functionBody
-	= '{' varStmts stmts '}'
+	= '{' stmts '}'
 	;
 
 functionLiteral
@@ -208,7 +208,8 @@ stmts
     ;
 
 stmt
-    = function 
+    = varStmt
+	| function 
 	| nonFunction
 	;
 nonFunction // ADDED
@@ -240,7 +241,7 @@ tryStmt
 	= 'try' block 'catch' '(' name ')' block ('finally' block)?
 	;
 	
-varStmts
+varStmt
 	= ('var' nameExprPair (',' nameExprPair)* ';')*
 	;
 nameExprPair // ADDED

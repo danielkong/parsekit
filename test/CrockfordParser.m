@@ -165,10 +165,10 @@
         PKTokenizer *t = self.tokenizer;
         
         // whitespace
-		self.silentlyConsumesWhitespace = YES;
+/*		self.silentlyConsumesWhitespace = YES;
 		t.whitespaceState.reportsWhitespaceTokens = YES;
 		self.assembly.preservesWhitespaceTokens = YES;
-
+*/
         [t.symbolState add:@"||"];
         [t.symbolState add:@"&&"];
         [t.symbolState add:@"!="];
@@ -501,7 +501,6 @@
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
-        [self varStmts]; 
         [self stmts]; 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
     } completion:^{ 
@@ -797,7 +796,7 @@
 
 - (void)stmts {
     
-    while ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, TOKEN_KIND_BUILTIN_WORD, 0]) {
+    while ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, CROCKFORD_TOKEN_KIND_VAR, TOKEN_KIND_BUILTIN_WORD, 0]) {
         if ([self speculate:^{ [self stmt]; }]) {
             [self stmt]; 
         } else {
@@ -810,7 +809,9 @@
 
 - (void)stmt {
     
-    if ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, 0]) {
+    if ([self predicts:CROCKFORD_TOKEN_KIND_VAR, 0]) {
+        [self varStmt]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, 0]) {
         [self function]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self nonFunction]; 
@@ -943,7 +944,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchTryStmt:)];
 }
 
-- (void)varStmts {
+- (void)varStmt {
     
     while ([self predicts:CROCKFORD_TOKEN_KIND_VAR, 0]) {
         if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_VAR discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ [self nameExprPair]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; } else {break;}}[self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; }];}]) {
@@ -967,7 +968,7 @@
         }
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchVarStmts:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchVarStmt:)];
 }
 
 - (void)nameExprPair {
