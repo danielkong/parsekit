@@ -316,7 +316,7 @@
 
 
 - (void)visitDefinition:(PKDefinitionNode *)node {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     
     self.depth = 1; // 1 for the try/catch wrapper
 

@@ -230,6 +230,10 @@ throwStmt
 	= 'throw' expr ';'
 	;
 
+tryStmt
+	= 'try' block 'catch' '(' name ')' block ('finally' block)?
+	;
+	
 whileStmt
 	= 'while' '(' expr ')' block
 	;
