@@ -21,6 +21,9 @@ static NSMutableDictionary *sCache = nil;
 
 
 + (PKSTokenKindDescriptor *)descriptorWithStringValue:(NSString *)s name:(NSString *)name {
+    NSParameterAssert(s);
+    NSParameterAssert(name);
+    
     PKSTokenKindDescriptor *desc = sCache[name];
     
     if (!desc) {

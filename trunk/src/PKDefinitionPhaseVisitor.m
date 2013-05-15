@@ -127,6 +127,7 @@
             @"case": @"CASE",
             @"break": @"BREAK",
             @"switch": @"SWITCH",
+            @"default": @"DEFAULT",
             @"while": @"WHILE",
             @"do": @"DO",
             @"for": @"FOR",
