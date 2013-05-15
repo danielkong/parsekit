@@ -190,8 +190,11 @@ refinement
 	;
 
 regexLiteral // TODO big changes to regex
-	= %{'/', '/'} /[imxs]+/?
+	= regexBody /[imxs]+/?
 	;
+regexBody // ADDED
+    = %{'/', '/'}
+    ;
 
 returnStmt
 	= 'return' expr? ';'
