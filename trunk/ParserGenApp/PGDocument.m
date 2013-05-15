@@ -261,12 +261,20 @@ done:
 - (void)done {
     if (_error) {
         [[NSSound soundNamed:@"Basso"] play];
-        [NSApp presentError:_error];
+        [self presentError:_error];
     } else {
         [[NSSound soundNamed:@"Hero"] play];
     }
     
     self.busy = NO;
+}
+
+
+- (void)presentError:(NSError *)error {
+    NSString *title = NSLocalizedString(@"Error parsing grammar", @"");
+    NSString *msg = [error localizedFailureReason];
+    NSString *defaultButton = NSLocalizedString(@"OK", @"");
+    NSRunAlertPanel(title, msg, defaultButton, nil, nil);
 }
 
 @end
