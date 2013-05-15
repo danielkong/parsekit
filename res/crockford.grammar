@@ -190,12 +190,15 @@ refinement
 	;
 
 regexLiteral // TODO big changes to regex
-	= regexBody /[imxs]+/?
+	= regexBody regexMods?
 	;
 regexBody // ADDED
     = %{'/', '/'}
     ;
-
+regexMods
+	= { [[NSRegularExpression regularExpressionWithPattern:@"imxs" options:NSRegularExpressionCaseInsensitive error:nil] numberOfMatchesInString:LS(1) options:0 range:NSMakeRange(0, [LS(1) length])] > 1 }? Word
+	;
+	
 returnStmt
 	= 'return' expr? ';'
 	;
@@ -247,6 +250,7 @@ whileStmt
 	= 'while' '(' expr ')' block
 	;
 
-whitespace // TODO
+/*whitespace // TODO
 	= S
 	;
+*/
