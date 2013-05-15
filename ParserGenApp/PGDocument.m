@@ -136,6 +136,7 @@
     }
     
     self.busy = YES;
+    self.error = nil;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self generateWithDestinationPath:destPath parserName:parserName grammar:grammar];
@@ -208,6 +209,10 @@
 - (void)generateWithDestinationPath:(NSString *)destPath parserName:(NSString *)parserName grammar:(NSString *)grammar {
     NSError *err = nil;
     self.root = (id)[_factory ASTFromGrammar:_grammar error:&err];
+    if (err) {
+        self.error = err;
+        goto done;
+    }
     
     NSString *className = self.parserName;
     if (![className hasSuffix:@"Parser"]) {
@@ -224,7 +229,15 @@
     _visitor.preassemblerSettingBehavior = _preassemblerSettingBehavior;
     _visitor.assemblerSettingBehavior = _assemblerSettingBehavior;
     
-    [_root visit:_visitor];
+    @try {
+        [_root visit:_visitor];
+    }
+    @catch (NSException *ex) {
+        id userInfo = @{NSLocalizedFailureReasonErrorKey: [ex reason]};
+        NSError *err = [NSError errorWithDomain:[ex name] code:0 userInfo:userInfo];
+        self.error = err;
+        goto done;
+    }
     
     NSString *path = [[NSString stringWithFormat:@"%@/%@.h", destPath, className] stringByExpandingTildeInPath];
     err = nil;
@@ -238,6 +251,7 @@
         NSLog(@"%@", err);
     }
     
+done:
     dispatch_async(dispatch_get_main_queue(), ^(void){
         [self done];
     });
@@ -245,7 +259,12 @@
 
 
 - (void)done {
-    [[NSSound soundNamed:@"Hero"] play];
+    if (_error) {
+        [[NSSound soundNamed:@"Basso"] play];
+        [NSApp presentError:_error];
+    } else {
+        [[NSSound soundNamed:@"Hero"] play];
+    }
     
     self.busy = NO;
 }
