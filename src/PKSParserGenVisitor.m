@@ -161,7 +161,7 @@
             PKDefinitionNode *defNode = self.symbolTable[name];
             //NSAssert1(defNode, @"Grammar is missing rule named: `%@`", name);
             if (!defNode) {
-                [NSException raise:@"PKParseException" format:@"Grammar is missing rule named: `%@`", name];
+                [NSException raise:@"PKParseException" format:@"Unknown rule name: `%@` in rule: `%@`", name, _currentDefName];
             }
             [set unionSet:[self lookaheadSetForNode:defNode]];
         } break;
@@ -587,6 +587,10 @@
     NSMutableArray *concreteChildren = [NSMutableArray arrayWithCapacity:[node.children count]];
     for (PKBaseNode *child in node.children) {
         PKBaseNode *concreteNode = [self concreteNodeForNode:child];
+        if (!concreteNode) {
+            NSString *missingName = [child.name substringFromIndex:1];
+            [NSException raise:@"PKParseException" format:@"Unknown rule name: `%@` in rule: `%@`", missingName, _currentDefName];
+        }
         if (concreteNode.isTerminal && [concreteChildren count]) hasTerminal = YES;
         [concreteChildren addObject:concreteNode];
     }
