@@ -237,10 +237,6 @@ tryStmt
 	= 'try' block 'catch' '(' name ')' block ('finally' block)?
 	;
 	
-whileStmt
-	= 'while' '(' expr ')' block
-	;
-
 varStmts
 	= ('var' nameExprPair (',' nameExprPair)* ';')*
 	;
