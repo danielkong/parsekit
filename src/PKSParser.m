@@ -337,7 +337,6 @@
         if (_silentlyConsumesWhitespace && tok.isWhitespace) {
             [self consume:tok];
         } else {
-            //NSLog(@"LT(%ld) : %@", i, [tok debugDescription]);
             break;
         }
     }
@@ -510,10 +509,9 @@
                 break;
             }
             
-            BOOL done = (lt == [PKToken EOFToken]);
+            if (PKTokenTypeEOF == lt.tokenType) break;
+
             [self consume:lt];
-            
-            if (done) break;
         }
     }
     
