@@ -52,145 +52,103 @@
     if (self) {
         self.enableAutomaticErrorRecovery = YES;
 
-        self._tokenKindTab[@"|"] = @(JAVASCRIPT_TOKEN_KIND_PIPE);
-        self._tokenKindTab[@"!="] = @(JAVASCRIPT_TOKEN_KIND_NE);
-        self._tokenKindTab[@"("] = @(JAVASCRIPT_TOKEN_KIND_OPENPAREN);
-        self._tokenKindTab[@"}"] = @(JAVASCRIPT_TOKEN_KIND_CLOSECURLY);
-        self._tokenKindTab[@"return"] = @(JAVASCRIPT_TOKEN_KIND_RETURNSYM);
-        self._tokenKindTab[@"~"] = @(JAVASCRIPT_TOKEN_KIND_TILDE);
-        self._tokenKindTab[@")"] = @(JAVASCRIPT_TOKEN_KIND_CLOSEPAREN);
-        self._tokenKindTab[@"*"] = @(JAVASCRIPT_TOKEN_KIND_TIMES);
-        self._tokenKindTab[@"delete"] = @(JAVASCRIPT_TOKEN_KIND_DELETE);
-        self._tokenKindTab[@"!=="] = @(JAVASCRIPT_TOKEN_KIND_ISNOT);
-        self._tokenKindTab[@"+"] = @(JAVASCRIPT_TOKEN_KIND_PLUS);
-        self._tokenKindTab[@"*="] = @(JAVASCRIPT_TOKEN_KIND_TIMESEQ);
-        self._tokenKindTab[@"instanceof"] = @(JAVASCRIPT_TOKEN_KIND_INSTANCEOF);
-        self._tokenKindTab[@","] = @(JAVASCRIPT_TOKEN_KIND_COMMA);
-        self._tokenKindTab[@"<<="] = @(JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ);
-        self._tokenKindTab[@"if"] = @(JAVASCRIPT_TOKEN_KIND_IFSYM);
-        self._tokenKindTab[@"-"] = @(JAVASCRIPT_TOKEN_KIND_MINUS);
-        self._tokenKindTab[@"null"] = @(JAVASCRIPT_TOKEN_KIND_NULL);
-        self._tokenKindTab[@"false"] = @(JAVASCRIPT_TOKEN_KIND_FALSELITERAL);
-        self._tokenKindTab[@"."] = @(JAVASCRIPT_TOKEN_KIND_DOT);
-        self._tokenKindTab[@"<<"] = @(JAVASCRIPT_TOKEN_KIND_SHIFTLEFT);
-        self._tokenKindTab[@"/"] = @(JAVASCRIPT_TOKEN_KIND_DIV);
-        self._tokenKindTab[@"+="] = @(JAVASCRIPT_TOKEN_KIND_PLUSEQ);
-        self._tokenKindTab[@"<="] = @(JAVASCRIPT_TOKEN_KIND_LE);
-        self._tokenKindTab[@"^="] = @(JAVASCRIPT_TOKEN_KIND_XOREQ);
-        self._tokenKindTab[@"["] = @(JAVASCRIPT_TOKEN_KIND_OPENBRACKET);
-        self._tokenKindTab[@"undefined"] = @(JAVASCRIPT_TOKEN_KIND_UNDEFINED);
-        self._tokenKindTab[@"typeof"] = @(JAVASCRIPT_TOKEN_KIND_TYPEOF);
-        self._tokenKindTab[@"||"] = @(JAVASCRIPT_TOKEN_KIND_OR);
-        self._tokenKindTab[@"function"] = @(JAVASCRIPT_TOKEN_KIND_FUNCTION);
-        self._tokenKindTab[@"]"] = @(JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET);
-        self._tokenKindTab[@"^"] = @(JAVASCRIPT_TOKEN_KIND_CARET);
-        self._tokenKindTab[@"=="] = @(JAVASCRIPT_TOKEN_KIND_EQ);
-        self._tokenKindTab[@"continue"] = @(JAVASCRIPT_TOKEN_KIND_CONTINUESYM);
-        self._tokenKindTab[@"break"] = @(JAVASCRIPT_TOKEN_KIND_BREAKSYM);
-        self._tokenKindTab[@"-="] = @(JAVASCRIPT_TOKEN_KIND_MINUSEQ);
-        self._tokenKindTab[@">="] = @(JAVASCRIPT_TOKEN_KIND_GE);
-        self._tokenKindTab[@":"] = @(JAVASCRIPT_TOKEN_KIND_COLON);
-        self._tokenKindTab[@"in"] = @(JAVASCRIPT_TOKEN_KIND_INSYM);
-        self._tokenKindTab[@";"] = @(JAVASCRIPT_TOKEN_KIND_SEMI);
-        self._tokenKindTab[@"for"] = @(JAVASCRIPT_TOKEN_KIND_FORSYM);
-        self._tokenKindTab[@"++"] = @(JAVASCRIPT_TOKEN_KIND_PLUSPLUS);
-        self._tokenKindTab[@"<"] = @(JAVASCRIPT_TOKEN_KIND_LT);
-        self._tokenKindTab[@"%="] = @(JAVASCRIPT_TOKEN_KIND_MODEQ);
-        self._tokenKindTab[@">>"] = @(JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT);
-        self._tokenKindTab[@"="] = @(JAVASCRIPT_TOKEN_KIND_EQUALS);
-        self._tokenKindTab[@">"] = @(JAVASCRIPT_TOKEN_KIND_GT);
-        self._tokenKindTab[@"void"] = @(JAVASCRIPT_TOKEN_KIND_VOID);
-        self._tokenKindTab[@"?"] = @(JAVASCRIPT_TOKEN_KIND_QUESTION);
-        self._tokenKindTab[@"while"] = @(JAVASCRIPT_TOKEN_KIND_WHILESYM);
-        self._tokenKindTab[@"&="] = @(JAVASCRIPT_TOKEN_KIND_ANDEQ);
-        self._tokenKindTab[@">>>="] = @(JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ);
-        self._tokenKindTab[@"else"] = @(JAVASCRIPT_TOKEN_KIND_ELSESYM);
-        self._tokenKindTab[@"/="] = @(JAVASCRIPT_TOKEN_KIND_DIVEQ);
-        self._tokenKindTab[@"&&"] = @(JAVASCRIPT_TOKEN_KIND_AND);
-        self._tokenKindTab[@"var"] = @(JAVASCRIPT_TOKEN_KIND_VAR);
-        self._tokenKindTab[@"|="] = @(JAVASCRIPT_TOKEN_KIND_OREQ);
-        self._tokenKindTab[@">>="] = @(JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ);
-        self._tokenKindTab[@"--"] = @(JAVASCRIPT_TOKEN_KIND_MINUSMINUS);
-        self._tokenKindTab[@"new"] = @(JAVASCRIPT_TOKEN_KIND_KEYWORDNEW);
-        self._tokenKindTab[@"!"] = @(JAVASCRIPT_TOKEN_KIND_NOT);
-        self._tokenKindTab[@">>>"] = @(JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT);
-        self._tokenKindTab[@"true"] = @(JAVASCRIPT_TOKEN_KIND_TRUELITERAL);
-        self._tokenKindTab[@"this"] = @(JAVASCRIPT_TOKEN_KIND_THIS);
-        self._tokenKindTab[@"with"] = @(JAVASCRIPT_TOKEN_KIND_WITH);
-        self._tokenKindTab[@"==="] = @(JAVASCRIPT_TOKEN_KIND_IS);
-        self._tokenKindTab[@"%"] = @(JAVASCRIPT_TOKEN_KIND_MOD);
-        self._tokenKindTab[@"&"] = @(JAVASCRIPT_TOKEN_KIND_AMP);
-        self._tokenKindTab[@"{"] = @(JAVASCRIPT_TOKEN_KIND_OPENCURLY);
+        self._tokenKindTab[@"{"] = @(CROCKFORD_TOKEN_KIND_OPEN_CURLY);
+        self._tokenKindTab[@">="] = @(CROCKFORD_TOKEN_KIND_GE);
+        self._tokenKindTab[@"&&"] = @(CROCKFORD_TOKEN_KIND_DOUBLE_AMPERSAND);
+        self._tokenKindTab[@"for"] = @(CROCKFORD_TOKEN_KIND_FOR);
+        self._tokenKindTab[@"break"] = @(CROCKFORD_TOKEN_KIND_BREAK);
+        self._tokenKindTab[@"}"] = @(CROCKFORD_TOKEN_KIND_CLOSE_CURLY);
+        self._tokenKindTab[@"return"] = @(CROCKFORD_TOKEN_KIND_RETURN);
+        self._tokenKindTab[@"+="] = @(CROCKFORD_TOKEN_KIND_PLUS_EQUALS);
+        self._tokenKindTab[@"function"] = @(CROCKFORD_TOKEN_KIND_FUNCTION);
+        self._tokenKindTab[@"if"] = @(CROCKFORD_TOKEN_KIND_IF);
+        self._tokenKindTab[@"new"] = @(CROCKFORD_TOKEN_KIND_NEW);
+        self._tokenKindTab[@"else"] = @(CROCKFORD_TOKEN_KIND_ELSE);
+        self._tokenKindTab[@"!"] = @(CROCKFORD_TOKEN_KIND_BANG);
+        self._tokenKindTab[@"finally"] = @(CROCKFORD_TOKEN_KIND_FINALLY);
+        self._tokenKindTab[@":"] = @(CROCKFORD_TOKEN_KIND_COLON);
+        self._tokenKindTab[@"catch"] = @(CROCKFORD_TOKEN_KIND_CATCH);
+        self._tokenKindTab[@";"] = @(CROCKFORD_TOKEN_KIND_SEMI_COLON);
+        self._tokenKindTab[@"do"] = @(CROCKFORD_TOKEN_KIND_DO);
+        self._tokenKindTab[@"!=="] = @(CROCKFORD_TOKEN_KIND_DOUBLE_NE);
+        self._tokenKindTab[@"<"] = @(CROCKFORD_TOKEN_KIND_LT);
+        self._tokenKindTab[@"-="] = @(CROCKFORD_TOKEN_KIND_MINUS_EQUALS);
+        self._tokenKindTab[@"%"] = @(CROCKFORD_TOKEN_KIND_PERCENT);
+        self._tokenKindTab[@"="] = @(CROCKFORD_TOKEN_KIND_EQUALS);
+        self._tokenKindTab[@"throw"] = @(CROCKFORD_TOKEN_KIND_THROW);
+        self._tokenKindTab[@"try"] = @(CROCKFORD_TOKEN_KIND_TRY);
+        self._tokenKindTab[@">"] = @(CROCKFORD_TOKEN_KIND_GT);
+        self._tokenKindTab[@"/,/"] = @(CROCKFORD_TOKEN_KIND_REGEXBODY);
+        self._tokenKindTab[@"typeof"] = @(CROCKFORD_TOKEN_KIND_TYPEOF);
+        self._tokenKindTab[@"("] = @(CROCKFORD_TOKEN_KIND_OPEN_PAREN);
+        self._tokenKindTab[@"while"] = @(CROCKFORD_TOKEN_KIND_WHILE);
+        self._tokenKindTab[@"var"] = @(CROCKFORD_TOKEN_KIND_VAR);
+        self._tokenKindTab[@")"] = @(CROCKFORD_TOKEN_KIND_CLOSE_PAREN);
+        self._tokenKindTab[@"*"] = @(CROCKFORD_TOKEN_KIND_STAR);
+        self._tokenKindTab[@"||"] = @(CROCKFORD_TOKEN_KIND_DOUBLE_PIPE);
+        self._tokenKindTab[@"+"] = @(CROCKFORD_TOKEN_KIND_PLUS);
+        self._tokenKindTab[@"["] = @(CROCKFORD_TOKEN_KIND_OPEN_BRACKET);
+        self._tokenKindTab[@","] = @(CROCKFORD_TOKEN_KIND_COMMA);
+        self._tokenKindTab[@"delete"] = @(CROCKFORD_TOKEN_KIND_DELETE);
+        self._tokenKindTab[@"switch"] = @(CROCKFORD_TOKEN_KIND_SWITCH);
+        self._tokenKindTab[@"-"] = @(CROCKFORD_TOKEN_KIND_MINUS);
+        self._tokenKindTab[@"in"] = @(CROCKFORD_TOKEN_KIND_IN);
+        self._tokenKindTab[@"==="] = @(CROCKFORD_TOKEN_KIND_TRIPLE_EQUALS);
+        self._tokenKindTab[@"]"] = @(CROCKFORD_TOKEN_KIND_CLOSE_BRACKET);
+        self._tokenKindTab[@"."] = @(CROCKFORD_TOKEN_KIND_DOT);
+        self._tokenKindTab[@"default"] = @(CROCKFORD_TOKEN_KIND_DEFAULT);
+        self._tokenKindTab[@"/"] = @(CROCKFORD_TOKEN_KIND_FORWARD_SLASH);
+        self._tokenKindTab[@"case"] = @(CROCKFORD_TOKEN_KIND_CASE);
+        self._tokenKindTab[@"<="] = @(CROCKFORD_TOKEN_KIND_LE);
 
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_PIPE] = @"|";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_NE] = @"!=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_OPENPAREN] = @"(";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_CLOSECURLY] = @"}";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_RETURNSYM] = @"return";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_TILDE] = @"~";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_CLOSEPAREN] = @")";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_TIMES] = @"*";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_DELETE] = @"delete";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_ISNOT] = @"!==";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_PLUS] = @"+";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_TIMESEQ] = @"*=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_INSTANCEOF] = @"instanceof";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_COMMA] = @",";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ] = @"<<=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_IFSYM] = @"if";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_MINUS] = @"-";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_NULL] = @"null";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_FALSELITERAL] = @"false";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_DOT] = @".";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_SHIFTLEFT] = @"<<";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_DIV] = @"/";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_PLUSEQ] = @"+=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_LE] = @"<=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_XOREQ] = @"^=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_OPENBRACKET] = @"[";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_UNDEFINED] = @"undefined";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_TYPEOF] = @"typeof";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_OR] = @"||";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_FUNCTION] = @"function";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET] = @"]";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_CARET] = @"^";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_EQ] = @"==";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_CONTINUESYM] = @"continue";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_BREAKSYM] = @"break";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_MINUSEQ] = @"-=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_GE] = @">=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_COLON] = @":";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_INSYM] = @"in";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_SEMI] = @";";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_FORSYM] = @"for";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_PLUSPLUS] = @"++";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_LT] = @"<";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_MODEQ] = @"%=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT] = @">>";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_EQUALS] = @"=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_GT] = @">";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_VOID] = @"void";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_QUESTION] = @"?";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_WHILESYM] = @"while";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_ANDEQ] = @"&=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ] = @">>>=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_ELSESYM] = @"else";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_DIVEQ] = @"/=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_AND] = @"&&";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_VAR] = @"var";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_OREQ] = @"|=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ] = @">>=";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_MINUSMINUS] = @"--";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_KEYWORDNEW] = @"new";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_NOT] = @"!";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT] = @">>>";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_TRUELITERAL] = @"true";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_THIS] = @"this";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_WITH] = @"with";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_IS] = @"===";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_MOD] = @"%";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_AMP] = @"&";
-        self._tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_OPENCURLY] = @"{";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_OPEN_CURLY] = @"{";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_GE] = @">=";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOUBLE_AMPERSAND] = @"&&";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_FOR] = @"for";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_BREAK] = @"break";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_CLOSE_CURLY] = @"}";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_RETURN] = @"return";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_PLUS_EQUALS] = @"+=";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_FUNCTION] = @"function";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_IF] = @"if";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_NEW] = @"new";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_ELSE] = @"else";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_BANG] = @"!";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_FINALLY] = @"finally";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_COLON] = @":";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_CATCH] = @"catch";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_SEMI_COLON] = @";";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DO] = @"do";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOUBLE_NE] = @"!==";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_LT] = @"<";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_MINUS_EQUALS] = @"-=";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_PERCENT] = @"%";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_EQUALS] = @"=";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_THROW] = @"throw";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_TRY] = @"try";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_GT] = @">";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_REGEXBODY] = @"/,/";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_TYPEOF] = @"typeof";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_OPEN_PAREN] = @"(";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_WHILE] = @"while";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_VAR] = @"var";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_CLOSE_PAREN] = @")";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_STAR] = @"*";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOUBLE_PIPE] = @"||";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_PLUS] = @"+";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_OPEN_BRACKET] = @"[";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_COMMA] = @",";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DELETE] = @"delete";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_SWITCH] = @"switch";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_MINUS] = @"-";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_IN] = @"in";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_TRIPLE_EQUALS] = @"===";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_CLOSE_BRACKET] = @"]";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOT] = @".";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DEFAULT] = @"default";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_FORWARD_SLASH] = @"/";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_CASE] = @"case";
+        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_LE] = @"<=";
 
     }
     return self;
@@ -207,9 +165,9 @@
         PKTokenizer *t = self.tokenizer;
         
         // whitespace
-    //    self.silentlyConsumesWhitespace = YES;
-    //    t.whitespaceState.reportsWhitespaceTokens = YES;
-    //    self.assembly.preservesWhitespaceTokens = YES;
+		self.silentlyConsumesWhitespace = YES;
+		t.whitespaceState.reportsWhitespaceTokens = YES;
+		self.assembly.preservesWhitespaceTokens = YES;
 
         [t.symbolState add:@"||"];
         [t.symbolState add:@"&&"];
@@ -236,17 +194,21 @@
         [t.symbolState add:@"^="];
         [t.symbolState add:@"|="];
 
+		// comments
         t.commentState.reportsCommentTokens = YES;
         
         [t setTokenizerState:t.commentState from:'/' to:'/'];
         [t.commentState addSingleLineStartMarker:@"//"];
         [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
+		
+	    // regex delimited strings
+	    NSCharacterSet *nonWhitespace = [[NSCharacterSet whitespaceCharacterSet] invertedSet];
+	    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:nonWhitespace];
+	    //[t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:nonWhitespace];		
 
     }];
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
-        do {
-            [self element]; 
-        } while ([self speculate:^{ [self element]; }]);
+        [self stmts]; 
         [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
@@ -255,702 +217,587 @@
     [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }
 
-- (void)ifSym {
+- (void)arrayLiteral {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_IFSYM discard:NO]; 
+    [self match:CROCKFORD_TOKEN_KIND_OPEN_BRACKET discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET block:^{ 
+        if ([self speculate:^{ [self expr]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; } else {break;}}}]) {
+            [self expr]; 
+            while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {
+                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {
+                    [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
+                    [self expr]; 
+                } else {
+                    break;
+                }
+            }
+        }
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
+    }];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchIfSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchArrayLiteral:)];
 }
 
-- (void)elseSym {
+- (void)block {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_ELSESYM discard:NO]; 
+    [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
+        if ([self speculate:^{ [self stmts]; }]) {
+            [self stmts]; 
+        }
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
+    }];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchElseSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchBlock:)];
 }
 
-- (void)whileSym {
+- (void)breakStmt {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_WHILESYM discard:NO]; 
+    [self match:CROCKFORD_TOKEN_KIND_BREAK discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+        if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+            [self name]; 
+        }
+        [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    }];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchWhileSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchBreakStmt:)];
 }
 
-- (void)forSym {
+- (void)caseClause {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_FORSYM discard:NO]; 
+    do {
+        [self match:CROCKFORD_TOKEN_KIND_CASE discard:NO]; 
+        [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
+            [self expr]; 
+            [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
+        } completion:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
+        }];
+    } while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_CASE discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self expr]; [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];}]);
+    [self stmts]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchForSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchCaseClause:)];
 }
 
-- (void)inSym {
+- (void)disruptiveStmt {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_INSYM discard:NO]; 
+    if ([self predicts:CROCKFORD_TOKEN_KIND_BREAK, 0]) {
+        [self breakStmt]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_RETURN, 0]) {
+        [self returnStmt]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_THROW, 0]) {
+        [self throwStmt]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'disruptiveStmt'."];
+    }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchInSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchDisruptiveStmt:)];
 }
 
-- (void)breakSym {
+- (void)doStmt {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_BREAKSYM discard:NO]; 
+    [self match:CROCKFORD_TOKEN_KIND_DO discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_WHILE block:^{ 
+        [self block]; 
+        [self match:CROCKFORD_TOKEN_KIND_WHILE discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_WHILE discard:NO]; 
+    }];
+    [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+        [self expr]; 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    }];
+    [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchBreakSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchDoStmt:)];
 }
 
-- (void)continueSym {
+- (void)escapedChar {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_CONTINUESYM discard:NO]; 
+    [self matchSymbol:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchContinueSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchEscapedChar:)];
 }
 
-- (void)with {
+- (void)exponent {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_WITH discard:NO]; 
+    [self matchNumber:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchWith:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchExponent:)];
 }
 
-- (void)returnSym {
+- (void)expr {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_RETURNSYM discard:NO]; 
+    if ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, CROCKFORD_TOKEN_KIND_OPEN_CURLY, CROCKFORD_TOKEN_KIND_REGEXBODY, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+        [self literal]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+        [self name]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_OPEN_PAREN, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+        [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+            [self expr]; 
+            [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+        } completion:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+        }];
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_BANG, CROCKFORD_TOKEN_KIND_TYPEOF, 0]) {
+        [self prefixOp]; 
+        [self expr]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_NEW, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_NEW discard:NO]; 
+        [self expr]; 
+        [self invocation]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_DELETE, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_DELETE discard:NO]; 
+        [self expr]; 
+        [self refinement]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'expr'."];
+    }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchReturnSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
-- (void)var {
+- (void)exprStmt {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_VAR discard:NO]; 
+    if ([self speculate:^{ do {[self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {if ([self speculate:^{ [self refinement]; }]) {[self refinement]; } else {break;}}[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];} while ([self speculate:^{ [self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {if ([self speculate:^{ [self refinement]; }]) {[self refinement]; } else {break;}}[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);[self expr]; }]) {
+        do {
+            [self name]; 
+            [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ 
+                while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {
+                    if ([self speculate:^{ [self refinement]; }]) {
+                        [self refinement]; 
+                    } else {
+                        break;
+                    }
+                }
+                [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; 
+            } completion:^{ 
+                [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; 
+            }];
+        } while ([self speculate:^{ [self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {if ([self speculate:^{ [self refinement]; }]) {[self refinement]; } else {break;}}[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);
+        [self expr]; 
+    } else if ([self speculate:^{ [self name]; while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {if ([self speculate:^{ [self refinement]; }]) {[self refinement]; } else {break;}}if ([self predicts:CROCKFORD_TOKEN_KIND_PLUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_PLUS_EQUALS discard:NO]; } else if ([self predicts:CROCKFORD_TOKEN_KIND_MINUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_MINUS_EQUALS discard:NO]; } else {[self raise:@"No viable alternative found in rule 'exprStmt'."];}[self expr]; }]) {
+        [self name]; 
+        while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {
+            if ([self speculate:^{ [self refinement]; }]) {
+                [self refinement]; 
+            } else {
+                break;
+            }
+        }
+        if ([self predicts:CROCKFORD_TOKEN_KIND_PLUS_EQUALS, 0]) {
+            [self match:CROCKFORD_TOKEN_KIND_PLUS_EQUALS discard:NO]; 
+        } else if ([self predicts:CROCKFORD_TOKEN_KIND_MINUS_EQUALS, 0]) {
+            [self match:CROCKFORD_TOKEN_KIND_MINUS_EQUALS discard:NO]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'exprStmt'."];
+        }
+        [self expr]; 
+    } else if ([self speculate:^{ [self name]; while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {if ([self speculate:^{ [self refinement]; }]) {[self refinement]; } else {break;}}do {[self invocation]; } while ([self speculate:^{ [self invocation]; }]);}]) {
+        [self name]; 
+        while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {
+            if ([self speculate:^{ [self refinement]; }]) {
+                [self refinement]; 
+            } else {
+                break;
+            }
+        }
+        do {
+            [self invocation]; 
+        } while ([self speculate:^{ [self invocation]; }]);
+    } else if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_DELETE discard:NO]; [self expr]; [self refinement]; }]) {
+        [self match:CROCKFORD_TOKEN_KIND_DELETE discard:NO]; 
+        [self expr]; 
+        [self refinement]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'exprStmt'."];
+    }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchVar:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchExprStmt:)];
 }
 
-- (void)delete {
+- (void)forStmt {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_DELETE discard:NO]; 
+    if ([self predicts:CROCKFORD_TOKEN_KIND_FOR, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_FOR discard:NO]; 
+        [self tryAndRecover:CROCKFORD_TOKEN_KIND_OPEN_PAREN block:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+        } completion:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+        }];
+        if ([self speculate:^{ [self exprStmt]; }]) {
+            [self exprStmt]; 
+        }
+        [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+        } completion:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+        }];
+        if ([self speculate:^{ [self expr]; }]) {
+            [self expr]; 
+        }
+        [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+        } completion:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+        }];
+        if ([self speculate:^{ [self exprStmt]; }]) {
+            [self exprStmt]; 
+        }
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+        [self name]; 
+        [self tryAndRecover:CROCKFORD_TOKEN_KIND_IN block:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
+        } completion:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
+        }];
+        [self expr]; 
+        [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+        } completion:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+        }];
+        [self block]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'forStmt'."];
+    }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchDelete:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchForStmt:)];
 }
 
-- (void)keywordNew {
+- (void)fraction {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_KEYWORDNEW discard:NO]; 
+    [self matchNumber:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchKeywordNew:)];
-}
-
-- (void)this {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_THIS discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchThis:)];
-}
-
-- (void)falseLiteral {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_FALSELITERAL discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
-}
-
-- (void)trueLiteral {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_TRUELITERAL discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
-}
-
-- (void)null {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_NULL discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchNull:)];
-}
-
-- (void)undefined {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_UNDEFINED discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchUndefined:)];
-}
-
-- (void)void {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_VOID discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchVoid:)];
-}
-
-- (void)typeof {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_TYPEOF discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchTypeof:)];
-}
-
-- (void)instanceof {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_INSTANCEOF discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchInstanceof:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchFraction:)];
 }
 
 - (void)function {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_FUNCTION discard:NO]; 
+    [self match:CROCKFORD_TOKEN_KIND_FUNCTION discard:NO]; 
+    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
+        [self name]; 
+    } completion:^{ 
+        [self name]; 
+    }];
+    [self parameters]; 
+        [self functionBody]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFunction:)];
 }
 
-- (void)openCurly {
+- (void)functionBody {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_OPENCURLY discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
-}
-
-- (void)closeCurly {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_CLOSECURLY discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
-}
-
-- (void)openParen {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_OPENPAREN discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
-}
-
-- (void)closeParen {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
-}
-
-- (void)openBracket {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_OPENBRACKET discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
-}
-
-- (void)closeBracket {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
-}
-
-- (void)comma {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_COMMA discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
-}
-
-- (void)dot {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_DOT discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
-}
-
-- (void)semi {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_SEMI discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
-}
-
-- (void)colon {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_COLON discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
-}
-
-- (void)equals {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_EQUALS discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchEquals:)];
-}
-
-- (void)not {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_NOT discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchNot:)];
-}
-
-- (void)lt {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_LT discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchLt:)];
-}
-
-- (void)gt {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_GT discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
-}
-
-- (void)amp {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_AMP discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAmp:)];
-}
-
-- (void)pipe {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_PIPE discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchPipe:)];
-}
-
-- (void)caret {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_CARET discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchCaret:)];
-}
-
-- (void)tilde {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_TILDE discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchTilde:)];
-}
-
-- (void)question {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_QUESTION discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchQuestion:)];
-}
-
-- (void)plus {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_PLUS discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchPlus:)];
-}
-
-- (void)minus {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_MINUS discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchMinus:)];
-}
-
-- (void)times {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_TIMES discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchTimes:)];
-}
-
-- (void)div {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_DIV discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchDiv:)];
-}
-
-- (void)mod {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_MOD discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchMod:)];
-}
-
-- (void)or {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_OR discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchOr:)];
-}
-
-- (void)and {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_AND discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAnd:)];
-}
-
-- (void)ne {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_NE discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchNe:)];
-}
-
-- (void)isnot {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_ISNOT discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchIsnot:)];
-}
-
-- (void)eq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_EQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
-}
-
-- (void)is {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_IS discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchIs:)];
-}
-
-- (void)le {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_LE discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchLe:)];
-}
-
-- (void)ge {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_GE discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchGe:)];
-}
-
-- (void)plusPlus {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_PLUSPLUS discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchPlusPlus:)];
-}
-
-- (void)minusMinus {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_MINUSMINUS discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchMinusMinus:)];
-}
-
-- (void)plusEq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_PLUSEQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchPlusEq:)];
-}
-
-- (void)minusEq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_MINUSEQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchMinusEq:)];
-}
-
-- (void)timesEq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_TIMESEQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchTimesEq:)];
-}
-
-- (void)divEq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_DIVEQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchDivEq:)];
-}
-
-- (void)modEq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_MODEQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchModEq:)];
-}
-
-- (void)shiftLeft {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFT discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftLeft:)];
-}
-
-- (void)shiftRight {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftRight:)];
-}
-
-- (void)shiftRightExt {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExt:)];
-}
-
-- (void)shiftLeftEq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftLeftEq:)];
-}
-
-- (void)shiftRightEq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftRightEq:)];
-}
-
-- (void)shiftRightExtEq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftRightExtEq:)];
-}
-
-- (void)andEq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_ANDEQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAndEq:)];
-}
-
-- (void)xorEq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_XOREQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchXorEq:)];
-}
-
-- (void)orEq {
-    
-    [self match:JAVASCRIPT_TOKEN_KIND_OREQ discard:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchOrEq:)];
-}
-
-- (void)assignmentOperator {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_EQUALS, 0]) {
-        [self equals]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_PLUSEQ, 0]) {
-        [self plusEq]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MINUSEQ, 0]) {
-        [self minusEq]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_TIMESEQ, 0]) {
-        [self timesEq]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DIVEQ, 0]) {
-        [self divEq]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MODEQ, 0]) {
-        [self modEq]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ, 0]) {
-        [self shiftLeftEq]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEQ, 0]) {
-        [self shiftRightEq]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ, 0]) {
-        [self shiftRightExtEq]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_ANDEQ, 0]) {
-        [self andEq]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_XOREQ, 0]) {
-        [self xorEq]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OREQ, 0]) {
-        [self orEq]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'assignmentOperator'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAssignmentOperator:)];
-}
-
-- (void)relationalOperator {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_LT, 0]) {
-        [self lt]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_GT, 0]) {
-        [self gt]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_GE, 0]) {
-        [self ge]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_LE, 0]) {
-        [self le]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_INSTANCEOF, 0]) {
-        [self instanceof]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'relationalOperator'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchRelationalOperator:)];
-}
-
-- (void)equalityOperator {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_EQ, 0]) {
-        [self eq]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_NE, 0]) {
-        [self ne]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_IS, 0]) {
-        [self is]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_ISNOT, 0]) {
-        [self isnot]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'equalityOperator'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchEqualityOperator:)];
-}
-
-- (void)shiftOperator {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTLEFT, 0]) {
-        [self shiftLeft]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHT, 0]) {
-        [self shiftRight]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXT, 0]) {
-        [self shiftRightExt]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'shiftOperator'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftOperator:)];
-}
-
-- (void)incrementOperator {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_PLUSPLUS, 0]) {
-        [self plusPlus]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MINUSMINUS, 0]) {
-        [self minusMinus]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'incrementOperator'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchIncrementOperator:)];
-}
-
-- (void)unaryOperator {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_TILDE, 0]) {
-        [self tilde]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DELETE, 0]) {
-        [self delete]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_TYPEOF, 0]) {
-        [self typeof]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_VOID, 0]) {
-        [self void]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'unaryOperator'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryOperator:)];
-}
-
-- (void)multiplicativeOperator {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_TIMES, 0]) {
-        [self times]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DIV, 0]) {
-        [self div]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MOD, 0]) {
-        [self mod]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'multiplicativeOperator'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchMultiplicativeOperator:)];
-}
-
-- (void)element {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_FUNCTION, 0]) {
-        [self func]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_BREAKSYM, JAVASCRIPT_TOKEN_KIND_CONTINUESYM, JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_FORSYM, JAVASCRIPT_TOKEN_KIND_IFSYM, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENCURLY, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_RETURNSYM, JAVASCRIPT_TOKEN_KIND_SEMI, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VAR, JAVASCRIPT_TOKEN_KIND_VOID, JAVASCRIPT_TOKEN_KIND_WHILESYM, JAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self stmt]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'element'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
-}
-
-- (void)func {
-    
-    [self function]; 
-    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
-        [self identifier]; 
+    [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
+        [self varStmts]; 
+        [self stmts]; 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
     } completion:^{ 
-        [self identifier]; 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
     }];
-    [self openParen]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
-        [self paramListOpt]; 
-        [self closeParen]; 
-    } completion:^{ 
-        [self closeParen]; 
-    }];
-    [self compoundStmt]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchFunc:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchFunctionBody:)];
 }
 
-- (void)paramListOpt {
+- (void)functionLiteral {
+    
+    [self match:CROCKFORD_TOKEN_KIND_FUNCTION discard:NO]; 
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+        [self name]; 
+    }
+    [self parameters]; 
+    [self functionBody]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchFunctionLiteral:)];
+}
+
+- (void)ifStmt {
+    
+    [self match:CROCKFORD_TOKEN_KIND_IF discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_OPEN_PAREN block:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    }];
+    [self expr]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    }];
+    [self block]; 
+        if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_ELSE discard:NO]; if ([self speculate:^{ [self ifStmt]; }]) {[self ifStmt]; }[self block]; }]) {
+            [self match:CROCKFORD_TOKEN_KIND_ELSE discard:NO]; 
+            if ([self speculate:^{ [self ifStmt]; }]) {
+                [self ifStmt]; 
+            }
+            [self block]; 
+        }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchIfStmt:)];
+}
+
+- (void)infixOp {
+    
+    if ([self predicts:CROCKFORD_TOKEN_KIND_STAR, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_STAR discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_FORWARD_SLASH, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_PERCENT, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_PERCENT discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_PLUS, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_PLUS discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_MINUS, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_MINUS discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_GE, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_GE discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_LE, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_LE discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_GT, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_GT discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_LT, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_LT discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_TRIPLE_EQUALS, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_TRIPLE_EQUALS discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_DOUBLE_NE, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_DOUBLE_NE discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_DOUBLE_PIPE, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_DOUBLE_PIPE discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_DOUBLE_AMPERSAND, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_DOUBLE_AMPERSAND discard:NO]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'infixOp'."];
+    }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchInfixOp:)];
+}
+
+- (void)integer {
+    
+    [self matchNumber:NO]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchInteger:)];
+}
+
+- (void)invocation {
+    
+    [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+        if ([self speculate:^{ [self expr]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; } else {break;}}}]) {
+            [self expr]; 
+            while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {
+                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {
+                    [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
+                    [self expr]; 
+                } else {
+                    break;
+                }
+            }
+        }
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    }];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchInvocation:)];
+}
+
+- (void)literal {
+    
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
+        [self numberLiteral]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+        [self stringLiteral]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_OPEN_CURLY, 0]) {
+        [self objectLiteral]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {
+        [self arrayLiteral]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, 0]) {
+        [self functionLiteral]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_REGEXBODY, 0]) {
+        [self regexLiteral]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'literal'."];
+    }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchLiteral:)];
+}
+
+- (void)name {
+    
+    [self matchWord:NO]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchName:)];
+}
+
+- (void)numberLiteral {
+    
+    [self matchNumber:NO]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchNumberLiteral:)];
+}
+
+- (void)objectLiteral {
+    
+    [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
+        if ([self speculate:^{ [self nameValPair]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; } else {break;}}}]) {
+            [self nameValPair]; 
+            while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {
+                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; }]) {
+                    [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
+                    [self nameValPair]; 
+                } else {
+                    break;
+                }
+            }
+        }
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
+    }];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchObjectLiteral:)];
+}
+
+- (void)nameValPair {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self paramList]; 
+        [self name]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+        [self stringLiteral]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'nameValPair'."];
     }
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
+    }];
+    [self expr]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchParamListOpt:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchNameValPair:)];
 }
 
-- (void)paramList {
+- (void)parameters {
     
-    [self identifier]; 
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaIdentifier]; }]) {
-            [self commaIdentifier]; 
-        } else {
-            break;
+    [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+        if ([self speculate:^{ [self name]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ [self name]; } completion:^{ [self name]; }];}]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ [self name]; } completion:^{ [self name]; }];} else {break;}}}]) {
+            [self name]; 
+            while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {
+                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ [self name]; } completion:^{ [self name]; }];}]) {
+                    [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
+                    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
+                        [self name]; 
+                    } completion:^{ 
+                        [self name]; 
+                    }];
+                } else {
+                    break;
+                }
+            }
         }
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    }];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchParameters:)];
+}
+
+- (void)prefixOp {
+    
+    if ([self predicts:CROCKFORD_TOKEN_KIND_TYPEOF, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_TYPEOF discard:NO]; 
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_BANG, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_BANG discard:NO]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'prefixOp'."];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchParamList:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchPrefixOp:)];
 }
 
-- (void)commaIdentifier {
+- (void)refinement {
     
-    [self comma]; 
-    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
-        [self identifier]; 
-    } completion:^{ 
-        [self identifier]; 
-    }];
+    if ([self predicts:CROCKFORD_TOKEN_KIND_DOT, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_DOT discard:NO]; 
+        [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
+            [self name]; 
+        } completion:^{ 
+            [self name]; 
+        }];
+    } else if ([self predicts:CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_BRACKET discard:NO]; 
+        [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET block:^{ 
+            [self expr]; 
+            [self match:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
+        } completion:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
+        }];
+    } else {
+        [self raise:@"No viable alternative found in rule 'refinement'."];
+    }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchCommaIdentifier:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchRefinement:)];
 }
 
-- (void)compoundStmt {
+- (void)regexLiteral {
     
-    [self openCurly]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSECURLY block:^{ 
-        [self stmts]; 
-        [self closeCurly]; 
+    [self regexBody]; 
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+        [self regexMods]; 
+    }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchRegexLiteral:)];
+}
+
+- (void)regexBody {
+    
+    [self match:CROCKFORD_TOKEN_KIND_REGEXBODY discard:NO]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchRegexBody:)];
+}
+
+- (void)regexMods {
+    
+    [self testAndThrow:(id)^{ return [[NSRegularExpression regularExpressionWithPattern:@"imxs" options:NSRegularExpressionCaseInsensitive error:nil] numberOfMatchesInString:LS(1) options:0 range:NSMakeRange(0, [LS(1) length])] > 1; }]; 
+    [self matchWord:NO]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchRegexMods:)];
+}
+
+- (void)returnStmt {
+    
+    [self match:CROCKFORD_TOKEN_KIND_RETURN discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+        if ([self speculate:^{ [self expr]; }]) {
+            [self expr]; 
+        }
+        [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
     } completion:^{ 
-        [self closeCurly]; 
+        [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
     }];
 
-    [self fireAssemblerSelector:@selector(parser:didMatchCompoundStmt:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchReturnStmt:)];
 }
 
 - (void)stmts {
     
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_BREAKSYM, JAVASCRIPT_TOKEN_KIND_CONTINUESYM, JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_FORSYM, JAVASCRIPT_TOKEN_KIND_IFSYM, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENCURLY, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_RETURNSYM, JAVASCRIPT_TOKEN_KIND_SEMI, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VAR, JAVASCRIPT_TOKEN_KIND_VOID, JAVASCRIPT_TOKEN_KIND_WHILESYM, JAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
+    while ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, TOKEN_KIND_BUILTIN_WORD, 0]) {
         if ([self speculate:^{ [self stmt]; }]) {
             [self stmt]; 
         } else {
@@ -963,32 +810,10 @@
 
 - (void)stmt {
     
-    if ([self speculate:^{ [self semi]; }]) {
-        [self semi]; 
-    } else if ([self speculate:^{ [self ifStmt]; }]) {
-        [self ifStmt]; 
-    } else if ([self speculate:^{ [self ifElseStmt]; }]) {
-        [self ifElseStmt]; 
-    } else if ([self speculate:^{ [self whileStmt]; }]) {
-        [self whileStmt]; 
-    } else if ([self speculate:^{ [self forParenStmt]; }]) {
-        [self forParenStmt]; 
-    } else if ([self speculate:^{ [self forBeginStmt]; }]) {
-        [self forBeginStmt]; 
-    } else if ([self speculate:^{ [self forInStmt]; }]) {
-        [self forInStmt]; 
-    } else if ([self speculate:^{ [self breakStmt]; }]) {
-        [self breakStmt]; 
-    } else if ([self speculate:^{ [self continueStmt]; }]) {
-        [self continueStmt]; 
-    } else if ([self speculate:^{ [self withStmt]; }]) {
-        [self withStmt]; 
-    } else if ([self speculate:^{ [self returnStmt]; }]) {
-        [self returnStmt]; 
-    } else if ([self speculate:^{ [self compoundStmt]; }]) {
-        [self compoundStmt]; 
-    } else if ([self speculate:^{ [self variablesOrExprStmt]; }]) {
-        [self variablesOrExprStmt]; 
+    if ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, 0]) {
+        [self function]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+        [self nonFunction]; 
     } else {
         [self raise:@"No viable alternative found in rule 'stmt'."];
     }
@@ -996,792 +821,42 @@
     [self fireAssemblerSelector:@selector(parser:didMatchStmt:)];
 }
 
-- (void)ifStmt {
+- (void)nonFunction {
     
-    [self ifSym]; 
-    [self condition]; 
-    [self stmt]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchIfStmt:)];
-}
-
-- (void)ifElseStmt {
-    
-    [self ifSym]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_ELSESYM block:^{ 
-        [self condition]; 
-        [self stmt]; 
-        [self elseSym]; 
-    } completion:^{ 
-        [self elseSym]; 
-    }];
-    [self stmt]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchIfElseStmt:)];
-}
-
-- (void)whileStmt {
-    
-    [self whileSym]; 
-    [self condition]; 
-    [self stmt]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchWhileStmt:)];
-}
-
-- (void)forParenStmt {
-    
-    [self forParen]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
-        [self semi]; 
-    } completion:^{ 
-        [self semi]; 
-    }];
-    [self exprOpt]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
-        [self semi]; 
-    } completion:^{ 
-        [self semi]; 
-    }];
-    [self exprOpt]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
-        [self closeParen]; 
-    } completion:^{ 
-        [self closeParen]; 
-    }];
-    [self stmt]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchForParenStmt:)];
-}
-
-- (void)forBeginStmt {
-    
-    [self forBegin]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
-        [self semi]; 
-    } completion:^{ 
-        [self semi]; 
-    }];
-    [self exprOpt]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
-        [self semi]; 
-    } completion:^{ 
-        [self semi]; 
-    }];
-    [self exprOpt]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
-        [self closeParen]; 
-    } completion:^{ 
-        [self closeParen]; 
-    }];
-    [self stmt]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchForBeginStmt:)];
-}
-
-- (void)forInStmt {
-    
-    [self forBegin]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_INSYM block:^{ 
-        [self inSym]; 
-    } completion:^{ 
-        [self inSym]; 
-    }];
-    [self expr]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
-        [self closeParen]; 
-    } completion:^{ 
-        [self closeParen]; 
-    }];
-    [self stmt]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchForInStmt:)];
-}
-
-- (void)breakStmt {
-    
-    [self breakSym]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
-        [self semi]; 
-    } completion:^{ 
-        [self semi]; 
-    }];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchBreakStmt:)];
-}
-
-- (void)continueStmt {
-    
-    [self continueSym]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
-        [self semi]; 
-    } completion:^{ 
-        [self semi]; 
-    }];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchContinueStmt:)];
-}
-
-- (void)withStmt {
-    
-    [self with]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{ 
-        [self openParen]; 
-    } completion:^{ 
-        [self openParen]; 
-    }];
-    [self expr]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
-        [self closeParen]; 
-    } completion:^{ 
-        [self closeParen]; 
-    }];
-    [self stmt]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchWithStmt:)];
-}
-
-- (void)returnStmt {
-    
-    [self returnSym]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
-        [self exprOpt]; 
-        [self semi]; 
-    } completion:^{ 
-        [self semi]; 
-    }];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchReturnStmt:)];
-}
-
-- (void)variablesOrExprStmt {
-    
-    [self variablesOrExpr]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
-        [self semi]; 
-    } completion:^{ 
-        [self semi]; 
-    }];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchVariablesOrExprStmt:)];
-}
-
-- (void)condition {
-    
-    [self openParen]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
-        [self expr]; 
-        [self closeParen]; 
-    } completion:^{ 
-        [self closeParen]; 
-    }];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchCondition:)];
-}
-
-- (void)forParen {
-    
-    [self forSym]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{ 
-        [self openParen]; 
-    } completion:^{ 
-        [self openParen]; 
-    }];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchForParen:)];
-}
-
-- (void)forBegin {
-    
-    [self forParen]; 
-    [self variablesOrExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchForBegin:)];
-}
-
-- (void)variablesOrExpr {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_VAR, 0]) {
-        [self varVariables]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VOID, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self expr]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'variablesOrExpr'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchVariablesOrExpr:)];
-}
-
-- (void)varVariables {
-    
-    [self var]; 
-    [self variables]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchVarVariables:)];
-}
-
-- (void)variables {
-    
-    [self variable]; 
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaVariable]; }]) {
-            [self commaVariable]; 
-        } else {
-            break;
-        }
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchVariables:)];
-}
-
-- (void)commaVariable {
-    
-    [self comma]; 
-    [self variable]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchCommaVariable:)];
-}
-
-- (void)variable {
-    
-    [self identifier]; 
-    if ([self speculate:^{ [self assignment]; }]) {
-        [self assignment]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchVariable:)];
-}
-
-- (void)assignment {
-    
-    [self equals]; 
-    [self assignmentExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAssignment:)];
-}
-
-- (void)exprOpt {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VOID, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self expr]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchExprOpt:)];
-}
-
-- (void)expr {
-    
-    [self assignmentExpr]; 
-    if ([self speculate:^{ [self commaExpr]; }]) {
-        [self commaExpr]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
-}
-
-- (void)commaExpr {
-    
-    [self comma]; 
-    [self expr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchCommaExpr:)];
-}
-
-- (void)assignmentExpr {
-    
-    [self conditionalExpr]; 
-    if ([self speculate:^{ [self extraAssignment]; }]) {
-        [self extraAssignment]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAssignmentExpr:)];
-}
-
-- (void)extraAssignment {
-    
-    [self assignmentOperator]; 
-    [self assignmentExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchExtraAssignment:)];
-}
-
-- (void)conditionalExpr {
-    
-    [self orExpr]; 
-    if ([self speculate:^{ [self ternaryExpr]; }]) {
-        [self ternaryExpr]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchConditionalExpr:)];
-}
-
-- (void)ternaryExpr {
-    
-    [self question]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_COLON block:^{ 
-        [self assignmentExpr]; 
-        [self colon]; 
-    } completion:^{ 
-        [self colon]; 
-    }];
-    [self assignmentExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchTernaryExpr:)];
-}
-
-- (void)orExpr {
-    
-    [self andExpr]; 
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_OR, 0]) {
-        if ([self speculate:^{ [self orAndExpr]; }]) {
-            [self orAndExpr]; 
-        } else {
-            break;
-        }
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
-}
-
-- (void)orAndExpr {
-    
-    [self or]; 
-    [self andExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchOrAndExpr:)];
-}
-
-- (void)andExpr {
-    
-    [self bitwiseOrExpr]; 
-    if ([self speculate:^{ [self andAndExpr]; }]) {
-        [self andAndExpr]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAndExpr:)];
-}
-
-- (void)andAndExpr {
-    
-    [self and]; 
-    [self andExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAndAndExpr:)];
-}
-
-- (void)bitwiseOrExpr {
-    
-    [self bitwiseXorExpr]; 
-    if ([self speculate:^{ [self pipeBitwiseOrExpr]; }]) {
-        [self pipeBitwiseOrExpr]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchBitwiseOrExpr:)];
-}
-
-- (void)pipeBitwiseOrExpr {
-    
-    [self pipe]; 
-    [self bitwiseOrExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchPipeBitwiseOrExpr:)];
-}
-
-- (void)bitwiseXorExpr {
-    
-    [self bitwiseAndExpr]; 
-    if ([self speculate:^{ [self caretBitwiseXorExpr]; }]) {
-        [self caretBitwiseXorExpr]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchBitwiseXorExpr:)];
-}
-
-- (void)caretBitwiseXorExpr {
-    
-    [self caret]; 
-    [self bitwiseXorExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchCaretBitwiseXorExpr:)];
-}
-
-- (void)bitwiseAndExpr {
-    
-    [self equalityExpr]; 
-    if ([self speculate:^{ [self ampBitwiseAndExpression]; }]) {
-        [self ampBitwiseAndExpression]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchBitwiseAndExpr:)];
-}
-
-- (void)ampBitwiseAndExpression {
-    
-    [self amp]; 
-    [self bitwiseAndExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAmpBitwiseAndExpression:)];
-}
-
-- (void)equalityExpr {
-    
-    [self relationalExpr]; 
-    if ([self speculate:^{ [self equalityOpEqualityExpr]; }]) {
-        [self equalityOpEqualityExpr]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchEqualityExpr:)];
-}
-
-- (void)equalityOpEqualityExpr {
-    
-    [self equalityOperator]; 
-    [self equalityExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchEqualityOpEqualityExpr:)];
-}
-
-- (void)relationalExpr {
-    
-    [self shiftExpr]; 
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_GE, JAVASCRIPT_TOKEN_KIND_GT, JAVASCRIPT_TOKEN_KIND_INSTANCEOF, JAVASCRIPT_TOKEN_KIND_LE, JAVASCRIPT_TOKEN_KIND_LT, 0]) {
-        if ([self speculate:^{ [self relationalOperator]; [self shiftExpr]; }]) {
-            [self relationalOperator]; 
-            [self shiftExpr]; 
-        } else {
-            break;
-        }
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchRelationalExpr:)];
-}
-
-- (void)shiftExpr {
-    
-    [self additiveExpr]; 
-    if ([self speculate:^{ [self shiftOpShiftExpr]; }]) {
-        [self shiftOpShiftExpr]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftExpr:)];
-}
-
-- (void)shiftOpShiftExpr {
-    
-    [self shiftOperator]; 
-    [self shiftExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchShiftOpShiftExpr:)];
-}
-
-- (void)additiveExpr {
-    
-    [self multiplicativeExpr]; 
-    if ([self speculate:^{ [self plusOrMinusExpr]; }]) {
-        [self plusOrMinusExpr]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchAdditiveExpr:)];
-}
-
-- (void)plusOrMinusExpr {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_PLUS, 0]) {
-        [self plusExpr]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_MINUS, 0]) {
-        [self minusExpr]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'plusOrMinusExpr'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchPlusOrMinusExpr:)];
-}
-
-- (void)plusExpr {
-    
-    [self plus]; 
-    [self additiveExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchPlusExpr:)];
-}
-
-- (void)minusExpr {
-    
-    [self minus]; 
-    [self additiveExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchMinusExpr:)];
-}
-
-- (void)multiplicativeExpr {
-    
-    [self unaryExpr]; 
-    if ([self speculate:^{ [self multiplicativeOperator]; [self multiplicativeExpr]; }]) {
-        [self multiplicativeOperator]; 
-        [self multiplicativeExpr]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchMultiplicativeExpr:)];
-}
-
-- (void)unaryExpr {
-    
-    if ([self speculate:^{ [self memberExpr]; }]) {
-        [self memberExpr]; 
-    } else if ([self speculate:^{ [self unaryExpr1]; }]) {
-        [self unaryExpr1]; 
-    } else if ([self speculate:^{ [self unaryExpr2]; }]) {
-        [self unaryExpr2]; 
-    } else if ([self speculate:^{ [self unaryExpr3]; }]) {
-        [self unaryExpr3]; 
-    } else if ([self speculate:^{ [self unaryExpr4]; }]) {
-        [self unaryExpr4]; 
-    } else if ([self speculate:^{ [self unaryExpr6]; }]) {
-        [self unaryExpr6]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'unaryExpr'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr:)];
-}
-
-- (void)unaryExpr1 {
-    
-    [self unaryOperator]; 
-    [self unaryExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr1:)];
-}
-
-- (void)unaryExpr2 {
-    
-    [self minus]; 
-    [self unaryExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr2:)];
-}
-
-- (void)unaryExpr3 {
-    
-    [self incrementOperator]; 
-    [self memberExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr3:)];
-}
-
-- (void)unaryExpr4 {
-    
-    [self memberExpr]; 
-    [self incrementOperator]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr4:)];
-}
-
-- (void)callNewExpr {
-    
-    [self keywordNew]; 
-    [self constructor]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchCallNewExpr:)];
-}
-
-- (void)unaryExpr6 {
-    
-    [self delete]; 
-    [self memberExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchUnaryExpr6:)];
-}
-
-- (void)constructor {
-    
-    if ([self speculate:^{ [self this]; [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_DOT block:^{ [self dot]; } completion:^{ [self dot]; }];}]) {
-        [self this]; 
-        [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_DOT block:^{ 
-            [self dot]; 
+    if ([self speculate:^{ [self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];}]) {
+        [self name]; 
+        [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
         } completion:^{ 
-            [self dot]; 
+            [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
         }];
     }
-    [self constructorCall]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchConstructor:)];
-}
-
-- (void)constructorCall {
-    
-    [self identifier]; 
-    if ([self speculate:^{ if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {[self parenArgListParen]; } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {[self dot]; [self constructorCall]; } else {[self raise:@"No viable alternative found in rule 'constructorCall'."];}}]) {
-        if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
-            [self parenArgListParen]; 
-        } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {
-            [self dot]; 
-            [self constructorCall]; 
-        } else {
-            [self raise:@"No viable alternative found in rule 'constructorCall'."];
-        }
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchConstructorCall:)];
-}
-
-- (void)parenArgListParen {
-    
-    [self openParen]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
-        [self argListOpt]; 
-        [self closeParen]; 
-    } completion:^{ 
-        [self closeParen]; 
-    }];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchParenArgListParen:)];
-}
-
-- (void)memberExpr {
-    
-    [self primaryExpr]; 
-    if ([self speculate:^{ [self dotBracketOrParenExpr]; }]) {
-        [self dotBracketOrParenExpr]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchMemberExpr:)];
-}
-
-- (void)dotBracketOrParenExpr {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_DOT, 0]) {
-        [self dotMemberExpr]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENBRACKET, 0]) {
-        [self bracketMemberExpr]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
-        [self parenMemberExpr]; 
+    if ([self speculate:^{ [self exprStmt]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; }];}]) {
+        [self exprStmt]; 
+        [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+        } completion:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+        }];
+    } else if ([self speculate:^{ [self disruptiveStmt]; }]) {
+        [self disruptiveStmt]; 
+    } else if ([self speculate:^{ [self tryStmt]; }]) {
+        [self tryStmt]; 
+    } else if ([self speculate:^{ [self ifStmt]; }]) {
+        [self ifStmt]; 
+    } else if ([self speculate:^{ [self switchStmt]; }]) {
+        [self switchStmt]; 
+    } else if ([self speculate:^{ [self whileStmt]; }]) {
+        [self whileStmt]; 
+    } else if ([self speculate:^{ [self forStmt]; }]) {
+        [self forStmt]; 
+    } else if ([self speculate:^{ [self doStmt]; }]) {
+        [self doStmt]; 
     } else {
-        [self raise:@"No viable alternative found in rule 'dotBracketOrParenExpr'."];
+        [self raise:@"No viable alternative found in rule 'nonFunction'."];
     }
 
-    [self fireAssemblerSelector:@selector(parser:didMatchDotBracketOrParenExpr:)];
-}
-
-- (void)dotMemberExpr {
-    
-    [self dot]; 
-    [self memberExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchDotMemberExpr:)];
-}
-
-- (void)bracketMemberExpr {
-    
-    [self openBracket]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET block:^{ 
-        [self expr]; 
-        [self closeBracket]; 
-    } completion:^{ 
-        [self closeBracket]; 
-    }];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchBracketMemberExpr:)];
-}
-
-- (void)parenMemberExpr {
-    
-    [self openParen]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
-        [self argListOpt]; 
-        [self closeParen]; 
-    } completion:^{ 
-        [self closeParen]; 
-    }];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchParenMemberExpr:)];
-}
-
-- (void)argListOpt {
-    
-    if ([self speculate:^{ [self argList]; }]) {
-        [self argList]; 
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchArgListOpt:)];
-}
-
-- (void)argList {
-    
-    [self assignmentExpr]; 
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaAssignmentExpr]; }]) {
-            [self commaAssignmentExpr]; 
-        } else {
-            break;
-        }
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchArgList:)];
-}
-
-- (void)commaAssignmentExpr {
-    
-    [self comma]; 
-    [self assignmentExpr]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchCommaAssignmentExpr:)];
-}
-
-- (void)primaryExpr {
-    
-    if ([self predicts:JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, 0]) {
-        [self callNewExpr]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_OPENPAREN, 0]) {
-        [self parenExprParen]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self identifier]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-        [self numLiteral]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self stringLiteral]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_FALSELITERAL, 0]) {
-        [self falseLiteral]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_TRUELITERAL, 0]) {
-        [self trueLiteral]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_NULL, 0]) {
-        [self null]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_UNDEFINED, 0]) {
-        [self undefined]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_THIS, 0]) {
-        [self this]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'primaryExpr'."];
-    }
-
-    [self fireAssemblerSelector:@selector(parser:didMatchPrimaryExpr:)];
-}
-
-- (void)parenExprParen {
-    
-    [self openParen]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
-        [self expr]; 
-        [self closeParen]; 
-    } completion:^{ 
-        [self closeParen]; 
-    }];
-
-    [self fireAssemblerSelector:@selector(parser:didMatchParenExprParen:)];
-}
-
-- (void)identifier {
-    
-    [self matchWord:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchIdentifier:)];
-}
-
-- (void)numLiteral {
-    
-    [self matchNumber:NO]; 
-
-    [self fireAssemblerSelector:@selector(parser:didMatchNumLiteral:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchNonFunction:)];
 }
 
 - (void)stringLiteral {
@@ -1789,6 +864,140 @@
     [self matchQuotedString:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStringLiteral:)];
+}
+
+- (void)switchStmt {
+    
+    [self match:CROCKFORD_TOKEN_KIND_SWITCH discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_OPEN_PAREN block:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    }];
+    [self expr]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    }];
+    [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
+        do {
+            [self caseClause]; 
+            if ([self speculate:^{ [self disruptiveStmt]; }]) {
+                [self disruptiveStmt]; 
+            }
+        } while ([self speculate:^{ [self caseClause]; if ([self speculate:^{ [self disruptiveStmt]; }]) {[self disruptiveStmt]; }}]);
+        if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_DEFAULT discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];[self stmts]; }]) {
+            [self match:CROCKFORD_TOKEN_KIND_DEFAULT discard:NO]; 
+            [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
+                [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
+            } completion:^{ 
+                [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
+            }];
+            [self stmts]; 
+        }
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
+    }];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchSwitchStmt:)];
+}
+
+- (void)throwStmt {
+    
+    [self match:CROCKFORD_TOKEN_KIND_THROW discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+        [self expr]; 
+        [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    }];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchThrowStmt:)];
+}
+
+- (void)tryStmt {
+    
+    [self match:CROCKFORD_TOKEN_KIND_TRY discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CATCH block:^{ 
+        [self block]; 
+        [self match:CROCKFORD_TOKEN_KIND_CATCH discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CATCH discard:NO]; 
+    }];
+    [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
+        [self name]; 
+    } completion:^{ 
+        [self name]; 
+    }];
+    [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+        [self block]; 
+        if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_FINALLY discard:NO]; [self block]; }]) {
+            [self match:CROCKFORD_TOKEN_KIND_FINALLY discard:NO]; 
+            [self block]; 
+        }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchTryStmt:)];
+}
+
+- (void)varStmts {
+    
+    while ([self predicts:CROCKFORD_TOKEN_KIND_VAR, 0]) {
+        if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_VAR discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ [self nameExprPair]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; } else {break;}}[self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; }];}]) {
+            [self match:CROCKFORD_TOKEN_KIND_VAR discard:NO]; 
+            [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+                [self nameExprPair]; 
+                while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {
+                    if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; }]) {
+                        [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
+                        [self nameExprPair]; 
+                    } else {
+                        break;
+                    }
+                }
+                [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+            } completion:^{ 
+                [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+            }];
+        } else {
+            break;
+        }
+    }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchVarStmts:)];
+}
+
+- (void)nameExprPair {
+    
+    [self name]; 
+    if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; [self expr]; }]) {
+        [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; 
+        [self expr]; 
+    }
+
+    [self fireAssemblerSelector:@selector(parser:didMatchNameExprPair:)];
+}
+
+- (void)whileStmt {
+    
+    [self match:CROCKFORD_TOKEN_KIND_WHILE discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_OPEN_PAREN block:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    }];
+    [self expr]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    }];
+    [self block]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchWhileStmt:)];
 }
 
 @end
