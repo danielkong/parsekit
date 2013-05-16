@@ -224,19 +224,22 @@
         [result autorelease]; // -1
 
     }
-    @catch (PKSRecognitionException *ex) {
+    @catch (PKSRecognitionException *rex) {
         NSString *domain = @"PKParseException";
-        NSString *reason = [ex currentReason];
+        NSString *reason = [rex currentReason];
 
         if (outError) {
-            NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-            
-            // get reason
-            if ([reason length]) [userInfo setObject:reason forKey:NSLocalizedFailureReasonErrorKey];
-            
-            // convert to NSError
-            NSError *err = [NSError errorWithDomain:domain code:47 userInfo:[[userInfo copy] autorelease]];
-            *outError = err;
+            *outError = [self errorWithDomain:domain reason:reason];
+        } else {
+            [NSException raise:domain format:reason, nil];
+        }
+    }
+    @catch (NSException *ex) {
+        NSString *domain = NSGenericException;
+        NSString *reason = [ex reason];
+        
+        if (outError) {
+            *outError = [self errorWithDomain:domain reason:reason];
         } else {
             [NSException raise:domain format:reason, nil];
         }
@@ -252,6 +255,18 @@
     }
     
     return result;
+}
+
+
+- (NSError *)errorWithDomain:(NSString *)domain reason:(NSString *)reason {
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    
+    // get reason
+    if ([reason length]) [userInfo setObject:reason forKey:NSLocalizedFailureReasonErrorKey];
+    
+    // convert to NSError
+    NSError *err = [NSError errorWithDomain:domain code:47 userInfo:[[userInfo copy] autorelease]];
+    return err;
 }
 
 
