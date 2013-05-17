@@ -261,7 +261,7 @@ done:
 - (void)done {
     if (_error) {
         [[NSSound soundNamed:@"Basso"] play];
-        [self presentError:_error];
+        [self displayError:_error];
     } else {
         [[NSSound soundNamed:@"Hero"] play];
     }
@@ -270,7 +270,7 @@ done:
 }
 
 
-- (void)presentError:(NSError *)error {
+- (void)displayError:(NSError *)error {
     NSString *title = NSLocalizedString(@"Error parsing grammar", @"");
     NSString *msg = [error localizedFailureReason];
     NSString *defaultButton = NSLocalizedString(@"OK", @"");
