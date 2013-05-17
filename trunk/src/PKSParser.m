@@ -9,6 +9,7 @@
 #import <ParseKit/PKSParser.h>
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
+#import <ParseKit/PKWhitespaceState.h>
 #import <ParseKit/PKSTokenAssembly.h>
 #import <ParseKit/PKSRecognitionException.h>
 #import "NSArray+ParseKitAdditions.h"
@@ -192,6 +193,11 @@
     self.assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
     
     self.tokenizer.delegate = self;
+    
+    if (_silentlyConsumesWhitespace) {
+        _tokenizer.whitespaceState.reportsWhitespaceTokens = YES;
+        _assembly.preservesWhitespaceTokens = YES;
+    }
     
     // setup speculation
     self._p = 0;
