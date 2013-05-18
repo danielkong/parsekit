@@ -90,16 +90,16 @@
 
 - (void)stat {
     
-    if ([self speculate:^{ [self assign]; [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{ [self dot]; } completion:^{ [self dot]; }];}]) {
-        [self assign]; 
+    if ([self speculate:^{ [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{ [self assign]; [self dot]; } completion:^{ [self dot]; }];}]) {
         [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_DOT block:^{ 
+            [self assign]; 
             [self dot]; 
         } completion:^{ 
             [self dot]; 
         }];
-    } else if ([self speculate:^{ [self list]; [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{ [self semi]; } completion:^{ [self semi]; }];}]) {
-        [self list]; 
+    } else if ([self speculate:^{ [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{ [self list]; [self semi]; } completion:^{ [self semi]; }];}]) {
         [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_SEMI block:^{ 
+            [self list]; 
             [self semi]; 
         } completion:^{ 
             [self semi]; 
@@ -113,8 +113,8 @@
 
 - (void)assign {
     
-    [self list]; 
     [self tryAndRecover:ELEMENTASSIGN_TOKEN_KIND_EQ block:^{ 
+        [self list]; 
         [self eq]; 
     } completion:^{ 
         [self eq]; 

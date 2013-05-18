@@ -97,8 +97,8 @@
 
 - (void)pair {
     
-    [self name]; 
     [self tryAndRecover:GREEDYFAILURENESTED_TOKEN_KIND_COLON block:^{ 
+        [self name]; 
         [self colon]; 
     } completion:^{ 
         [self colon]; 

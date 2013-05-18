@@ -374,10 +374,10 @@
 
 - (void)exprStmt {
     
-    if ([self speculate:^{ do {[self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];} while ([self speculate:^{ [self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);[self expr]; }]) {
+    if ([self speculate:^{ do {[self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ [self name]; while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];} while ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ [self name]; while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);[self expr]; }]) {
         do {
-            [self name]; 
             [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ 
+                [self name]; 
                 while ([self speculate:^{ [self refinement]; }]) {
                     [self refinement]; 
                 }
@@ -385,7 +385,7 @@
             } completion:^{ 
                 [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; 
             }];
-        } while ([self speculate:^{ [self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);
+        } while ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ [self name]; while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);
         [self expr]; 
     } else if ([self speculate:^{ [self name]; while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }if ([self predicts:CROCKFORD_TOKEN_KIND_PLUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_PLUS_EQUALS discard:NO]; } else if ([self predicts:CROCKFORD_TOKEN_KIND_MINUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_MINUS_EQUALS discard:NO]; } else {[self raise:@"No viable alternative found in rule 'exprStmt'."];}[self expr]; }]) {
         [self name]; 
@@ -428,10 +428,10 @@
         } completion:^{ 
             [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
         }];
-            if ([self speculate:^{ [self exprStmt]; }]) {
-                [self exprStmt]; 
-            }
             [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+                if ([self speculate:^{ [self exprStmt]; }]) {
+                    [self exprStmt]; 
+                }
                 [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
             } completion:^{ 
                 [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
@@ -448,14 +448,14 @@
                     [self exprStmt]; 
                 }
             } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-                [self name]; 
-                [self tryAndRecover:CROCKFORD_TOKEN_KIND_IN block:^{ 
-                    [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
-                } completion:^{ 
-                    [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
-                }];
-                    [self expr]; 
                     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+                    [self tryAndRecover:CROCKFORD_TOKEN_KIND_IN block:^{ 
+                        [self name]; 
+                        [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
+                    } completion:^{ 
+                        [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
+                    }];
+                        [self expr]; 
                         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
                     } completion:^{ 
                         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
@@ -653,14 +653,14 @@
 
 - (void)nameValPair {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self name]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self stringLiteral]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'nameValPair'."];
-    }
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
+        if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+            [self name]; 
+        } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+            [self stringLiteral]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'nameValPair'."];
+        }
         [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
@@ -788,17 +788,17 @@
 
 - (void)nonFunction {
     
-    if ([self speculate:^{ [self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];}]) {
-        [self name]; 
+    if ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self name]; [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];}]) {
         [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
+            [self name]; 
             [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
         } completion:^{ 
             [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
         }];
     }
-    if ([self speculate:^{ [self exprStmt]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; }];}]) {
-        [self exprStmt]; 
+    if ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ [self exprStmt]; [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; }];}]) {
         [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+            [self exprStmt]; 
             [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
         } completion:^{ 
             [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 

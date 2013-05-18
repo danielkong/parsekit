@@ -1019,8 +1019,8 @@
 
 - (void)forParenStmt {
     
-    [self forParen]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
+        [self forParen]; 
         [self semi]; 
     } completion:^{ 
         [self semi]; 
@@ -1044,8 +1044,8 @@
 
 - (void)forBeginStmt {
     
-    [self forBegin]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
+        [self forBegin]; 
         [self semi]; 
     } completion:^{ 
         [self semi]; 
@@ -1069,8 +1069,8 @@
 
 - (void)forInStmt {
     
-    [self forBegin]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_INSYM block:^{ 
+        [self forBegin]; 
         [self inSym]; 
     } completion:^{ 
         [self inSym]; 
@@ -1144,8 +1144,8 @@
 
 - (void)variablesOrExprStmt {
     
-    [self variablesOrExpr]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
+        [self variablesOrExpr]; 
         [self semi]; 
     } completion:^{ 
         [self semi]; 

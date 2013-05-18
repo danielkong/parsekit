@@ -597,7 +597,12 @@
     BOOL depthIncreased = NO;
     NSUInteger i = 0;
     for (PKBaseNode *child in node.children) {
-        PKBaseNode *concreteNode = concreteChildren[i++];
+        PKBaseNode *concreteNode = concreteChildren[i];
+        
+        BOOL isCurrentChildLiteral = [concreteNode isKindOfClass:[PKLiteralNode class]];
+        if (0 == i && !isCurrentChildLiteral) {
+            partialCount++;
+        }
         
         if (_enableAutomaticErrorRecovery && hasTerminal && partialCount == 1) {
             [childStr appendString:partialChildStr];
@@ -612,7 +617,7 @@
         NSString *terminalCallStr = [self pop];
         [partialChildStr appendString:terminalCallStr];
         
-        if (_enableAutomaticErrorRecovery && [concreteNode isKindOfClass:[PKLiteralNode class]] && partialCount > 0) {
+        if (_enableAutomaticErrorRecovery && isCurrentChildLiteral && partialCount > 0) {
             
             PKSTokenKindDescriptor *desc = [(PKConstantNode *)concreteNode tokenKind];
             id resyncVars = @{TOKEN_KIND: desc, DEPTH: @(_depth - 1), CHILD_STRING: partialChildStr, TERMINAL_CALL_STRING: terminalCallStr};
@@ -631,6 +636,8 @@
             NSAssert([partialChildStr length], @"");
             ++partialCount;
         }
+        
+        ++i;
     }
 
     //if (_enableAutomaticErrorRecovery && [node.children count] > 1) self.depth--;
