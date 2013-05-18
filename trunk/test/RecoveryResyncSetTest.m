@@ -73,7 +73,7 @@
     
     input = @"1]=[2].";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[1, ], =, [, 2, ], .]1/]/=/[/2/]/.^", [res description]);
+    TDEqualObjects(@"[1, ], =, [, 2, .]1/]/=/[/2/]/.^", [res description]);
 }
 
 - (void)testJunkBeforeSemi {
@@ -130,7 +130,7 @@
     
     input = @"[1];;[3];";
     res = [_parser parseString:input assembler:self error:&err];
-    TDEqualObjects(@"[[, 1, ;, flag, ;, [, 3, ], ;][/1/]/;/;/[/3/]/;^", [res description]);
+    TDEqualObjects(@"[[, 1, ;, flag, ;, flag, [, 3, ;, flag][/1/]/;/;/[/3/]/;^", [res description]);
 }
 
 @end
