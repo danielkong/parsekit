@@ -566,6 +566,8 @@
 		D3B22A621703DE2000446945 /* ExpressionParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B22A611703DE2000446945 /* ExpressionParserTest.m */; };
 		D3B4B447170F2A5100572530 /* NSMutableSet+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B4B445170F2A5100572530 /* NSMutableSet+ParseKitAdditions.h */; };
 		D3B4B448170F2A5100572530 /* NSMutableSet+ParseKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B4B446170F2A5100572530 /* NSMutableSet+ParseKitAdditions.m */; };
+		D3B5EA7717470F4F00733A26 /* GreedyFailureParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B5EA7617470F4F00733A26 /* GreedyFailureParser.m */; };
+		D3B5EA7C17470F5600733A26 /* GreedyFailureParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B5EA7B17470F5600733A26 /* GreedyFailureParserTest.m */; };
 		D3B63A3417079F5200BA9DBF /* ExpressionParserActionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A3317079F5100BA9DBF /* ExpressionParserActionsTest.m */; };
 		D3B63A3617079F7A00BA9DBF /* expressionActions.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3517079F7A00BA9DBF /* expressionActions.grammar */; };
 		D3B63A3917079FE100BA9DBF /* ExpressionActionsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A3817079FE000BA9DBF /* ExpressionActionsParser.m */; };
@@ -1588,6 +1590,10 @@
 		D3B473840E48C9CF008AFBDD /* yahoo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = yahoo.json; path = res/yahoo.json; sourceTree = "<group>"; };
 		D3B4B445170F2A5100572530 /* NSMutableSet+ParseKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableSet+ParseKitAdditions.h"; path = "src/NSMutableSet+ParseKitAdditions.h"; sourceTree = "<group>"; };
 		D3B4B446170F2A5100572530 /* NSMutableSet+ParseKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableSet+ParseKitAdditions.m"; path = "src/NSMutableSet+ParseKitAdditions.m"; sourceTree = "<group>"; };
+		D3B5EA7517470F4F00733A26 /* GreedyFailureParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreedyFailureParser.h; path = test/GreedyFailureParser.h; sourceTree = "<group>"; };
+		D3B5EA7617470F4F00733A26 /* GreedyFailureParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GreedyFailureParser.m; path = test/GreedyFailureParser.m; sourceTree = "<group>"; };
+		D3B5EA7A17470F5600733A26 /* GreedyFailureParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreedyFailureParserTest.h; path = test/GreedyFailureParserTest.h; sourceTree = "<group>"; };
+		D3B5EA7B17470F5600733A26 /* GreedyFailureParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GreedyFailureParserTest.m; path = test/GreedyFailureParserTest.m; sourceTree = "<group>"; };
 		D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSSpeculateIfTemplate.txt; path = res/PKSSpeculateIfTemplate.txt; sourceTree = "<group>"; };
 		D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSSpeculateElseIfTemplate.txt; path = res/PKSSpeculateElseIfTemplate.txt; sourceTree = "<group>"; };
 		D3B63A3017075C3000BA9DBF /* PKSActionTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSActionTemplate.txt; path = res/PKSActionTemplate.txt; sourceTree = "<group>"; };
@@ -2673,6 +2679,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D3B5EA7517470F4F00733A26 /* GreedyFailureParser.h */,
+				D3B5EA7617470F4F00733A26 /* GreedyFailureParser.m */,
 				D34F53AA17430249008700F3 /* CrockfordParser.h */,
 				D34F53AB17430249008700F3 /* CrockfordParser.m */,
 				D30DA1751724AD0100A1A3EC /* JSONParser.h */,
@@ -2736,6 +2744,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D3B5EA7A17470F5600733A26 /* GreedyFailureParserTest.h */,
+				D3B5EA7B17470F5600733A26 /* GreedyFailureParserTest.m */,
 				D34F53A517430232008700F3 /* CrockfordParserTest.h */,
 				D34F53A617430232008700F3 /* CrockfordParserTest.m */,
 				D3344F4717405B4B00598362 /* JSRecoveryTest.h */,
@@ -4356,6 +4366,8 @@
 				D34F539E1742C57E008700F3 /* JavaScriptWhitespaceParser.m in Sources */,
 				D34F53A717430232008700F3 /* CrockfordParserTest.m in Sources */,
 				D34F53AC17430249008700F3 /* CrockfordParser.m in Sources */,
+				D3B5EA7717470F4F00733A26 /* GreedyFailureParser.m in Sources */,
+				D3B5EA7C17470F5600733A26 /* GreedyFailureParserTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
