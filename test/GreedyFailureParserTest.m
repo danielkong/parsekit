@@ -62,19 +62,19 @@
     
     [_root visit:_visitor];
     
-//#if TD_EMIT
-//    path = [[NSString stringWithFormat:@"%s/test/GreedyFailureParser.h", getenv("PWD")] stringByExpandingTildeInPath];
-//    err = nil;
-//    if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
-//        NSLog(@"%@", err);
-//    }
-//
-//    path = [[NSString stringWithFormat:@"%s/test/GreedyFailureParser.m", getenv("PWD")] stringByExpandingTildeInPath];
-//    err = nil;
-//    if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
-//        NSLog(@"%@", err);
-//    }
-//#endif
+#if TD_EMIT
+    path = [[NSString stringWithFormat:@"%s/test/GreedyFailureParser.h", getenv("PWD")] stringByExpandingTildeInPath];
+    err = nil;
+    if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
+        NSLog(@"%@", err);
+    }
+
+    path = [[NSString stringWithFormat:@"%s/test/GreedyFailureParser.m", getenv("PWD")] stringByExpandingTildeInPath];
+    err = nil;
+    if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
+        NSLog(@"%@", err);
+    }
+#endif
 
     self.parser = [[[GreedyFailureParser alloc] init] autorelease];
     _parser.enableAutomaticErrorRecovery = YES;
