@@ -22,13 +22,14 @@
 
 structs = structure+;
 
-structure = lcurly pair rcurly;
+structure = lcurly pair (comma pair)* rcurly;
 
 pair = name colon value;
 
 name = QuotedString;
 value = Word;
 
+comma = ',';
 lcurly = '{';
 rcurly = '}';
 colon = ':';
