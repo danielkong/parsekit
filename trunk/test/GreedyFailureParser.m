@@ -85,9 +85,14 @@
 - (void)structure {
     
     [self lcurly]; 
-    [self tryAndRecover:GREEDYFAILURE_TOKEN_KIND_RCURLY block:^{ 
+    [self tryAndRecover:GREEDYFAILURE_TOKEN_KIND_COLON block:^{
         [self name]; 
         [self colon];
+    } completion:^{
+        [self colon];
+    }];
+
+    [self tryAndRecover:GREEDYFAILURE_TOKEN_KIND_RCURLY block:^{
         [self value];
         [self rcurly];
     } completion:^{
