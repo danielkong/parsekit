@@ -22,7 +22,9 @@
 
 structs = structure+;
 
-structure = lcurly name colon value rcurly;
+structure = lcurly pair (',' pair)* rcurly;
+
+pair = name colon value;
 
 name = QuotedString;
 value = Word;
