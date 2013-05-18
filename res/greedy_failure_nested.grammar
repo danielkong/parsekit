@@ -22,7 +22,7 @@
 
 structs = structure+;
 
-structure = lcurly pair (',' pair)* rcurly;
+structure = lcurly pair rcurly;
 
 pair = name colon value;
 
