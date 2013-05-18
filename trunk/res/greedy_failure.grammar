@@ -1,0 +1,8 @@
+struct = '{' string ':' constant '}';
+
+string = QuotedString;
+constant = Word;
+
+/*lcurly = '{';
+rcurly = '}';
+colon = ':';*/
