@@ -226,4 +226,76 @@
     VERIFY();
 }
 
+
+- (void)testIncompleteStruct3 {
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[{]{^", [a description]);
+        [a pop]; // pop {
+        
+    }] parser:_parser didMatchLcurly:OCMOCK_ANY];
+    
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[]{^", [a description]);
+        
+    }] parser:_parser didFailToMatch:OCMOCK_ANY];
+
+//    [[_mock expect] parser:_parser didMatchName:OCMOCK_ANY];
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[:]{/:^", [a description]);
+        [a pop]; // pop :
+        
+    }] parser:_parser didMatchColon:OCMOCK_ANY];
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[bar]{/:/bar^", [a description]);
+        [a pop]; // pop bar
+        
+    }] parser:_parser didMatchValue:OCMOCK_ANY];
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[}]{/:/bar/}^", [a description]);
+        [a pop]; // pop }
+        
+    }] parser:_parser didMatchRcurly:OCMOCK_ANY];
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[]{/:/bar/}^", [a description]);
+        
+    }] parser:_parser didMatchStructure:OCMOCK_ANY];
+    
+    [[_mock expect] parser:_parser didMatchStructs:OCMOCK_ANY];
+    
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"{:bar}" assembler:_mock error:&err];
+    TDEqualObjects(@"[]{/:/bar/}^", [res description]);
+    
+    VERIFY();
+}
 @end
