@@ -310,14 +310,22 @@
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_WHILE discard:NO]; 
     }];
-    [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_OPEN_PAREN block:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    }];
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
         [self expr]; 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     }];
-    [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+    }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchDoStmt:)];
 }
@@ -436,42 +444,42 @@
         } completion:^{ 
             [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
         }];
-        if ([self speculate:^{ [self exprStmt]; }]) {
-            [self exprStmt]; 
-        }
-        [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
-            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
-        } completion:^{ 
-            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
-        }];
-        if ([self speculate:^{ [self expr]; }]) {
-            [self expr]; 
-        }
-        [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
-            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
-        } completion:^{ 
-            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
-        }];
-        if ([self speculate:^{ [self exprStmt]; }]) {
-            [self exprStmt]; 
-        }
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self name]; 
-        [self tryAndRecover:CROCKFORD_TOKEN_KIND_IN block:^{ 
-            [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
-        } completion:^{ 
-            [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
-        }];
-        [self expr]; 
-        [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-            [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
-        } completion:^{ 
-            [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
-        }];
-        [self block]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'forStmt'."];
-    }
+            if ([self speculate:^{ [self exprStmt]; }]) {
+                [self exprStmt]; 
+            }
+            [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+                [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+            } completion:^{ 
+                [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+            }];
+            [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+                if ([self speculate:^{ [self expr]; }]) {
+                    [self expr]; 
+                }
+                [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+            } completion:^{ 
+                [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+            }];
+                if ([self speculate:^{ [self exprStmt]; }]) {
+                    [self exprStmt]; 
+                }
+            } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+                [self name]; 
+                [self tryAndRecover:CROCKFORD_TOKEN_KIND_IN block:^{ 
+                    [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
+                } completion:^{ 
+                    [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
+                }];
+                    [self expr]; 
+                    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+                        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+                    } completion:^{ 
+                        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+                    }];
+                        [self block]; 
+                    } else {
+                        [self raise:@"No viable alternative found in rule 'forStmt'."];
+                    }
 
     [self fireAssemblerSelector:@selector(parser:didMatchForStmt:)];
 }
@@ -486,13 +494,9 @@
 - (void)function {
     
     [self match:CROCKFORD_TOKEN_KIND_FUNCTION discard:NO]; 
-    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
-        [self name]; 
-    } completion:^{ 
-        [self name]; 
-    }];
+    [self name]; 
     [self parameters]; 
-        [self functionBody]; 
+    [self functionBody]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFunction:)];
 }
@@ -530,13 +534,13 @@
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     }];
-    [self expr]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+        [self expr]; 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     }];
-    [self block]; 
+        [self block]; 
         if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_ELSE discard:NO]; if ([self speculate:^{ [self ifStmt]; }]) {[self ifStmt]; }[self block]; }]) {
             [self match:CROCKFORD_TOKEN_KIND_ELSE discard:NO]; 
             if ([self speculate:^{ [self ifStmt]; }]) {
@@ -685,7 +689,7 @@
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
     }];
-    [self expr]; 
+        [self expr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNameValPair:)];
 }
@@ -694,16 +698,12 @@
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-        if ([self speculate:^{ [self name]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ [self name]; } completion:^{ [self name]; }];}]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ [self name]; } completion:^{ [self name]; }];} else {break;}}}]) {
+        if ([self speculate:^{ [self name]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; } else {break;}}}]) {
             [self name]; 
             while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {
-                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ [self name]; } completion:^{ [self name]; }];}]) {
+                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; }]) {
                     [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
-                    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
-                        [self name]; 
-                    } completion:^{ 
-                        [self name]; 
-                    }];
+                    [self name]; 
                 } else {
                     break;
                 }
@@ -734,11 +734,7 @@
     
     if ([self predicts:CROCKFORD_TOKEN_KIND_DOT, 0]) {
         [self match:CROCKFORD_TOKEN_KIND_DOT discard:NO]; 
-        [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
-            [self name]; 
-        } completion:^{ 
-            [self name]; 
-        }];
+        [self name]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {
         [self match:CROCKFORD_TOKEN_KIND_OPEN_BRACKET discard:NO]; 
         [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET block:^{ 
@@ -875,33 +871,37 @@
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     }];
-    [self expr]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+        [self expr]; 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     }];
-    [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
-    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_OPEN_CURLY block:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
+    }];
+            [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
         do {
             [self caseClause]; 
             if ([self speculate:^{ [self disruptiveStmt]; }]) {
                 [self disruptiveStmt]; 
             }
         } while ([self speculate:^{ [self caseClause]; if ([self speculate:^{ [self disruptiveStmt]; }]) {[self disruptiveStmt]; }}]);
-        if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_DEFAULT discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];[self stmts]; }]) {
-            [self match:CROCKFORD_TOKEN_KIND_DEFAULT discard:NO]; 
-            [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
-                [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
+                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_DEFAULT discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];[self stmts]; }]) {
+                [self match:CROCKFORD_TOKEN_KIND_DEFAULT discard:NO]; 
+                [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
+                    [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
+                } completion:^{ 
+                    [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
+                }];
+                    [self stmts]; 
+                }
+                [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
             } completion:^{ 
-                [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
+                [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
             }];
-            [self stmts]; 
-        }
-        [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
-    } completion:^{ 
-        [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
-    }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchSwitchStmt:)];
 }
@@ -928,13 +928,17 @@
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CATCH discard:NO]; 
     }];
-    [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
-    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
-        [self name]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_OPEN_PAREN block:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     } completion:^{ 
-        [self name]; 
+        [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     }];
-    [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+        [self name]; 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    } completion:^{ 
+        [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    }];
         [self block]; 
         if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_FINALLY discard:NO]; [self block]; }]) {
             [self match:CROCKFORD_TOKEN_KIND_FINALLY discard:NO]; 
@@ -990,13 +994,13 @@
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     }];
-    [self expr]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
+        [self expr]; 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     }];
-    [self block]; 
+        [self block]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchWhileStmt:)];
 }

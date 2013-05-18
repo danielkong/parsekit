@@ -85,18 +85,18 @@
 - (void)structure {
     
     [self lcurly]; 
-    [self tryAndRecover:TOKEN_KIND_BUILTIN_QUOTEDSTRING block:^{ 
+    [self tryAndRecover:GREEDYFAILURE_TOKEN_KIND_COLON block:^{ 
         [self name]; 
+        [self colon]; 
     } completion:^{ 
-        [self name]; 
+        [self colon]; 
     }];
-    [self colon]; 
-    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
+    [self tryAndRecover:GREEDYFAILURE_TOKEN_KIND_RCURLY block:^{ 
         [self value]; 
+        [self rcurly]; 
     } completion:^{ 
-        [self value]; 
+        [self rcurly]; 
     }];
-    [self rcurly]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStructure:)];
 }

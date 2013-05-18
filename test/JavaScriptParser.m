@@ -883,19 +883,19 @@
 - (void)func {
     
     [self function]; 
-    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{ 
         [self identifier]; 
+        [self openParen]; 
     } completion:^{ 
-        [self identifier]; 
+        [self openParen]; 
     }];
-    [self openParen]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
         [self paramListOpt]; 
         [self closeParen]; 
     } completion:^{ 
         [self closeParen]; 
     }];
-    [self compoundStmt]; 
+        [self compoundStmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFunc:)];
 }
@@ -926,11 +926,7 @@
 - (void)commaIdentifier {
     
     [self comma]; 
-    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
-        [self identifier]; 
-    } completion:^{ 
-        [self identifier]; 
-    }];
+    [self identifier]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCommaIdentifier:)];
 }
@@ -1015,7 +1011,7 @@
     } completion:^{ 
         [self elseSym]; 
     }];
-    [self stmt]; 
+        [self stmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchIfElseStmt:)];
 }
@@ -1037,19 +1033,19 @@
     } completion:^{ 
         [self semi]; 
     }];
-    [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
+        [self exprOpt]; 
         [self semi]; 
     } completion:^{ 
         [self semi]; 
     }];
-    [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
+        [self exprOpt]; 
         [self closeParen]; 
     } completion:^{ 
         [self closeParen]; 
     }];
-    [self stmt]; 
+        [self stmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchForParenStmt:)];
 }
@@ -1062,19 +1058,19 @@
     } completion:^{ 
         [self semi]; 
     }];
-    [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
+        [self exprOpt]; 
         [self semi]; 
     } completion:^{ 
         [self semi]; 
     }];
-    [self exprOpt]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
+        [self exprOpt]; 
         [self closeParen]; 
     } completion:^{ 
         [self closeParen]; 
     }];
-    [self stmt]; 
+        [self stmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchForBeginStmt:)];
 }
@@ -1087,13 +1083,13 @@
     } completion:^{ 
         [self inSym]; 
     }];
-    [self expr]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
+        [self expr]; 
         [self closeParen]; 
     } completion:^{ 
         [self closeParen]; 
     }];
-    [self stmt]; 
+        [self stmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchForInStmt:)];
 }
@@ -1130,13 +1126,13 @@
     } completion:^{ 
         [self openParen]; 
     }];
-    [self expr]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
+        [self expr]; 
         [self closeParen]; 
     } completion:^{ 
         [self closeParen]; 
     }];
-    [self stmt]; 
+        [self stmt]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchWithStmt:)];
 }
@@ -1324,7 +1320,7 @@
     } completion:^{ 
         [self colon]; 
     }];
-    [self assignmentExpr]; 
+        [self assignmentExpr]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTernaryExpr:)];
 }

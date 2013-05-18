@@ -591,7 +591,7 @@
             NSString *missingName = [child.name substringFromIndex:1];
             [NSException raise:@"PKParseException" format:@"Unknown rule name: `%@` in rule: `%@`", missingName, _currentDefName];
         }
-        if (concreteNode.isTerminal && [concreteChildren count]) hasTerminal = YES;
+        if ([concreteNode isKindOfClass:[PKLiteralNode class]] && [concreteChildren count]) hasTerminal = YES;
         [concreteChildren addObject:concreteNode];
     }
 
@@ -614,7 +614,7 @@
         NSString *terminalCallStr = [self pop];
         [partialChildStr appendString:terminalCallStr];
         
-        if (_enableAutomaticErrorRecovery && concreteNode.isTerminal && partialCount > 0) {
+        if (_enableAutomaticErrorRecovery && [concreteNode isKindOfClass:[PKLiteralNode class]] && partialCount > 0) {
             
             PKSTokenKindDescriptor *desc = [(PKConstantNode *)concreteNode tokenKind];
             id resyncVars = @{TOKEN_KIND: desc, DEPTH: @(_depth - 1), CHILD_STRING: partialChildStr, TERMINAL_CALL_STRING: terminalCallStr};
@@ -623,7 +623,7 @@
             [childStr appendString:tryAndResyncStr];
             
             // reset
-            partialCount = 0;
+            partialCount = 1;
             [partialChildStr setString:@""];
             if (depthIncreased) {
                 self.depth--;
