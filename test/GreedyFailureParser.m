@@ -52,13 +52,13 @@
     if (self) {
         self.enableAutomaticErrorRecovery = YES;
 
-        self._tokenKindTab[@"{"] = @(GREEDYFAILURE_TOKEN_KIND_OPEN_CURLY);
+        self._tokenKindTab[@"{"] = @(GREEDYFAILURE_TOKEN_KIND_LCURLY);
+        self._tokenKindTab[@"}"] = @(GREEDYFAILURE_TOKEN_KIND_RCURLY);
         self._tokenKindTab[@":"] = @(GREEDYFAILURE_TOKEN_KIND_COLON);
-        self._tokenKindTab[@"}"] = @(GREEDYFAILURE_TOKEN_KIND_CLOSE_CURLY);
 
-        self._tokenKindNameTab[GREEDYFAILURE_TOKEN_KIND_OPEN_CURLY] = @"{";
+        self._tokenKindNameTab[GREEDYFAILURE_TOKEN_KIND_LCURLY] = @"{";
+        self._tokenKindNameTab[GREEDYFAILURE_TOKEN_KIND_RCURLY] = @"}";
         self._tokenKindNameTab[GREEDYFAILURE_TOKEN_KIND_COLON] = @":";
-        self._tokenKindNameTab[GREEDYFAILURE_TOKEN_KIND_CLOSE_CURLY] = @"}";
 
     }
     return self;
@@ -71,19 +71,19 @@
 - (void)struct {
     
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
-        [self match:GREEDYFAILURE_TOKEN_KIND_OPEN_CURLY discard:NO]; 
+        [self lcurly]; 
         [self tryAndRecover:TOKEN_KIND_BUILTIN_QUOTEDSTRING block:^{ 
-            [self string]; 
+            [self name]; 
         } completion:^{ 
-            [self string]; 
+            [self name]; 
         }];
-        [self match:GREEDYFAILURE_TOKEN_KIND_COLON discard:NO]; 
+        [self colon]; 
         [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
-            [self constant]; 
+            [self value]; 
         } completion:^{ 
-            [self constant]; 
+            [self value]; 
         }];
-        [self match:GREEDYFAILURE_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
+        [self rcurly]; 
         [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
@@ -92,18 +92,39 @@
     [self fireAssemblerSelector:@selector(parser:didMatchStruct:)];
 }
 
-- (void)string {
+- (void)name {
     
     [self matchQuotedString:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchString:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchName:)];
 }
 
-- (void)constant {
+- (void)value {
     
     [self matchWord:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchConstant:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchValue:)];
+}
+
+- (void)lcurly {
+    
+    [self match:GREEDYFAILURE_TOKEN_KIND_LCURLY discard:NO]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchLcurly:)];
+}
+
+- (void)rcurly {
+    
+    [self match:GREEDYFAILURE_TOKEN_KIND_RCURLY discard:NO]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchRcurly:)];
+}
+
+- (void)colon {
+    
+    [self match:GREEDYFAILURE_TOKEN_KIND_COLON discard:NO]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
 }
 
 @end
