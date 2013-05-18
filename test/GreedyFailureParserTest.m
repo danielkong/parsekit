@@ -101,14 +101,6 @@
 
 - (void)testCompleteStruct {
     
-    [[[_mock stub] andDo:^(NSInvocation *invoc) {
-        PKAssembly *a = nil;
-        [invoc getArgument:&a atIndex:3];
-        NSLog(@"%@", a);
-        
-        TDTrue(0);
-        
-    }] parser:_parser didFailToMatch:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchLcurly:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchName:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchColon:OCMOCK_ANY];
@@ -116,9 +108,43 @@
     [[_mock expect] parser:_parser didMatchRcurly:OCMOCK_ANY];
     [[_mock expect] parser:_parser didMatchStruct:OCMOCK_ANY];
 
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDTrue(0); // should never reach
+        
+    }] parser:_parser didFailToMatch:OCMOCK_ANY];
+
     NSError *err = nil;
     PKAssembly *res = [_parser parseString:@"{'foo':bar}" assembler:_mock error:&err];
     TDEqualObjects(@"[{, 'foo', :, bar, }]{/'foo'/:/bar/}^", [res description]);
+    
+    VERIFY();
+}
+
+- (void)testIncompleteStruct {
+    
+    [[_mock expect] parser:_parser didMatchLcurly:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchName:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchColon:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchValue:OCMOCK_ANY];
+//    [[_mock expect] parser:_parser didMatchRcurly:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchStruct:OCMOCK_ANY];
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[{, 'foo', :, bar]{/'foo'/:/bar^", [a description]);
+        
+    }] parser:_parser didFailToMatch:OCMOCK_ANY];
+
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"{'foo':bar" assembler:_mock error:&err];
+    TDEqualObjects(@"[{, 'foo', :, bar]{/'foo'/:/bar^", [res description]);
     
     VERIFY();
 }
