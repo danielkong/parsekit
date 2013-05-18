@@ -13,17 +13,6 @@
 #import "PKRootNode.h"
 #import "GreedyFailureParser.h"
 
-@interface NSObject ()
-//- (void)parser:(PKSParser *)p didFailToMatch:(PKAssembly *)a;
-//
-//- (void)parser:(PKSParser *)p didMatchLcurly:(PKAssembly *)a;
-//- (void)parser:(PKSParser *)p didMatchRcurly:(PKAssembly *)a;
-//- (void)parser:(PKSParser *)p didMatchName:(PKAssembly *)a;
-//- (void)parser:(PKSParser *)p didMatchColon:(PKAssembly *)a;
-//- (void)parser:(PKSParser *)p didMatchValue:(PKAssembly *)a;
-//- (void)parser:(PKSParser *)p didMatchStructure:(PKAssembly *)a;
-@end
-
 @interface GreedyFailureParserTest ()
 @property (nonatomic, retain) PKParserFactory *factory;
 @property (nonatomic, retain) PKRootNode *root;
