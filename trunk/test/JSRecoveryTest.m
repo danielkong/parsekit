@@ -10,9 +10,6 @@
 #import "PKRootNode.h"
 #import "JavaScriptParser.h"
 #import "JavaScriptWhitespaceParser.h"
-#import <OCMock/OCMock.h>
-
-#define VERIFY() @try { [_mock verify]; } @catch (NSException *ex) { STAssertTrue(0, [ex reason]); }
 
 @interface JSRecoveryTest ()
 @property (nonatomic, retain) PKSParser *parser;
