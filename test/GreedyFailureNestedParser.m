@@ -52,13 +52,15 @@
     if (self) {
         self.enableAutomaticErrorRecovery = YES;
 
-        self._tokenKindTab[@"{"] = @(GREEDYFAILURENESTED_TOKEN_KIND_LCURLY);
-        self._tokenKindTab[@"}"] = @(GREEDYFAILURENESTED_TOKEN_KIND_RCURLY);
+        self._tokenKindTab[@","] = @(GREEDYFAILURENESTED_TOKEN_KIND_COMMA);
         self._tokenKindTab[@":"] = @(GREEDYFAILURENESTED_TOKEN_KIND_COLON);
+        self._tokenKindTab[@"}"] = @(GREEDYFAILURENESTED_TOKEN_KIND_RCURLY);
+        self._tokenKindTab[@"{"] = @(GREEDYFAILURENESTED_TOKEN_KIND_LCURLY);
 
-        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_LCURLY] = @"{";
-        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_RCURLY] = @"}";
+        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_COMMA] = @",";
         self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_COLON] = @":";
+        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_RCURLY] = @"}";
+        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_LCURLY] = @"{";
 
     }
     return self;
@@ -85,20 +87,35 @@
 - (void)structure {
     
     [self lcurly]; 
-    [self tryAndRecover:GREEDYFAILURENESTED_TOKEN_KIND_COLON block:^{ 
-        [self name]; 
-        [self colon]; 
-    } completion:^{ 
-        [self colon]; 
-    }];
     [self tryAndRecover:GREEDYFAILURENESTED_TOKEN_KIND_RCURLY block:^{ 
-        [self value]; 
+        [self pair]; 
+        while ([self predicts:GREEDYFAILURENESTED_TOKEN_KIND_COMMA, 0]) {
+            if ([self speculate:^{ [self match:GREEDYFAILURENESTED_TOKEN_KIND_COMMA discard:NO]; [self pair]; }]) {
+                [self match:GREEDYFAILURENESTED_TOKEN_KIND_COMMA discard:NO]; 
+                [self pair]; 
+            } else {
+                break;
+            }
+        }
         [self rcurly]; 
     } completion:^{ 
         [self rcurly]; 
     }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchStructure:)];
+}
+
+- (void)pair {
+    
+    [self name]; 
+    [self tryAndRecover:GREEDYFAILURENESTED_TOKEN_KIND_COLON block:^{ 
+        [self colon]; 
+    } completion:^{ 
+        [self colon]; 
+    }];
+        [self value]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchPair:)];
 }
 
 - (void)name {
