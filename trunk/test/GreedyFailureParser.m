@@ -72,8 +72,8 @@
     
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
         do {
-            [self struct]; 
-        } while ([self speculate:^{ [self struct]; }]);
+            [self structure]; 
+        } while ([self speculate:^{ [self structure]; }]);
         [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
@@ -82,7 +82,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchStructs:)];
 }
 
-- (void)struct {
+- (void)structure {
     
     [self lcurly]; 
     [self tryAndRecover:TOKEN_KIND_BUILTIN_QUOTEDSTRING block:^{ 
@@ -98,7 +98,7 @@
     }];
     [self rcurly]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchStruct:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchStructure:)];
 }
 
 - (void)name {

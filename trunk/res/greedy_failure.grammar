@@ -1,6 +1,6 @@
-structs = struct+;
+structs = structure+;
 
-struct = lcurly name colon value rcurly;
+structure = lcurly name colon value rcurly;
 
 name = QuotedString;
 value = Word;
