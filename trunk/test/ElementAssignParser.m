@@ -119,7 +119,7 @@
     } completion:^{ 
         [self eq]; 
     }];
-    [self list]; 
+        [self list]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchAssign:)];
 }
