@@ -1,3 +1,5 @@
+structs = struct+;
+
 struct = lcurly name colon value rcurly;
 
 name = QuotedString;
