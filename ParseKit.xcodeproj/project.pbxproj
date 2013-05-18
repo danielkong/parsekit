@@ -569,6 +569,9 @@
 		D3B5EA7717470F4F00733A26 /* GreedyFailureParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B5EA7617470F4F00733A26 /* GreedyFailureParser.m */; };
 		D3B5EA7C17470F5600733A26 /* GreedyFailureParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B5EA7B17470F5600733A26 /* GreedyFailureParserTest.m */; };
 		D3B5EA7E1747101700733A26 /* greedy_failure.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B5EA7D1747101700733A26 /* greedy_failure.grammar */; };
+		D3B5EA811747515D00733A26 /* GreedyFailureNestedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B5EA801747515D00733A26 /* GreedyFailureNestedParser.m */; };
+		D3B5EA841747518600733A26 /* GreedyFailureNestedParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B5EA831747518600733A26 /* GreedyFailureNestedParserTest.m */; };
+		D3B5EA86174751BD00733A26 /* greedy_failure_nested.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B5EA85174751BD00733A26 /* greedy_failure_nested.grammar */; };
 		D3B63A3417079F5200BA9DBF /* ExpressionParserActionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A3317079F5100BA9DBF /* ExpressionParserActionsTest.m */; };
 		D3B63A3617079F7A00BA9DBF /* expressionActions.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3B63A3517079F7A00BA9DBF /* expressionActions.grammar */; };
 		D3B63A3917079FE100BA9DBF /* ExpressionActionsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B63A3817079FE000BA9DBF /* ExpressionActionsParser.m */; };
@@ -1596,6 +1599,11 @@
 		D3B5EA7A17470F5600733A26 /* GreedyFailureParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreedyFailureParserTest.h; path = test/GreedyFailureParserTest.h; sourceTree = "<group>"; };
 		D3B5EA7B17470F5600733A26 /* GreedyFailureParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GreedyFailureParserTest.m; path = test/GreedyFailureParserTest.m; sourceTree = "<group>"; };
 		D3B5EA7D1747101700733A26 /* greedy_failure.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = greedy_failure.grammar; path = res/greedy_failure.grammar; sourceTree = "<group>"; };
+		D3B5EA7F1747515D00733A26 /* GreedyFailureNestedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreedyFailureNestedParser.h; path = test/GreedyFailureNestedParser.h; sourceTree = "<group>"; };
+		D3B5EA801747515D00733A26 /* GreedyFailureNestedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GreedyFailureNestedParser.m; path = test/GreedyFailureNestedParser.m; sourceTree = "<group>"; };
+		D3B5EA821747518600733A26 /* GreedyFailureNestedParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreedyFailureNestedParserTest.h; path = test/GreedyFailureNestedParserTest.h; sourceTree = "<group>"; };
+		D3B5EA831747518600733A26 /* GreedyFailureNestedParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GreedyFailureNestedParserTest.m; path = test/GreedyFailureNestedParserTest.m; sourceTree = "<group>"; };
+		D3B5EA85174751BD00733A26 /* greedy_failure_nested.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = greedy_failure_nested.grammar; path = res/greedy_failure_nested.grammar; sourceTree = "<group>"; };
 		D3B63A231706508400BA9DBF /* PKSSpeculateIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSSpeculateIfTemplate.txt; path = res/PKSSpeculateIfTemplate.txt; sourceTree = "<group>"; };
 		D3B63A251706509800BA9DBF /* PKSSpeculateElseIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSSpeculateElseIfTemplate.txt; path = res/PKSSpeculateElseIfTemplate.txt; sourceTree = "<group>"; };
 		D3B63A3017075C3000BA9DBF /* PKSActionTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PKSActionTemplate.txt; path = res/PKSActionTemplate.txt; sourceTree = "<group>"; };
@@ -2681,6 +2689,8 @@
 		D3B22A581703D07000446945 /* Language Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				D3B5EA7F1747515D00733A26 /* GreedyFailureNestedParser.h */,
+				D3B5EA801747515D00733A26 /* GreedyFailureNestedParser.m */,
 				D3B5EA7517470F4F00733A26 /* GreedyFailureParser.h */,
 				D3B5EA7617470F4F00733A26 /* GreedyFailureParser.m */,
 				D34F53AA17430249008700F3 /* CrockfordParser.h */,
@@ -2746,6 +2756,8 @@
 		D3B22A591703D08B00446945 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D3B5EA821747518600733A26 /* GreedyFailureNestedParserTest.h */,
+				D3B5EA831747518600733A26 /* GreedyFailureNestedParserTest.m */,
 				D3B5EA7A17470F5600733A26 /* GreedyFailureParserTest.h */,
 				D3B5EA7B17470F5600733A26 /* GreedyFailureParserTest.m */,
 				D34F53A517430232008700F3 /* CrockfordParserTest.h */,
@@ -2819,6 +2831,7 @@
 		D3B22A5A1703D09C00446945 /* Grammars */ = {
 			isa = PBXGroup;
 			children = (
+				D3B5EA85174751BD00733A26 /* greedy_failure_nested.grammar */,
 				D3B5EA7D1747101700733A26 /* greedy_failure.grammar */,
 				D34F53AD174302A4008700F3 /* crockford.grammar */,
 				D383498A0F0C0CF30055E4E0 /* json_with_comments.grammar */,
@@ -3973,6 +3986,7 @@
 				D3BD39791729F1DE00FC6549 /* PKSPreCallbackSyntaxLeafTemplate.txt in Resources */,
 				D34F53AE174302A4008700F3 /* crockford.grammar in Resources */,
 				D3B5EA7E1747101700733A26 /* greedy_failure.grammar in Resources */,
+				D3B5EA86174751BD00733A26 /* greedy_failure_nested.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4372,6 +4386,8 @@
 				D34F53AC17430249008700F3 /* CrockfordParser.m in Sources */,
 				D3B5EA7717470F4F00733A26 /* GreedyFailureParser.m in Sources */,
 				D3B5EA7C17470F5600733A26 /* GreedyFailureParserTest.m in Sources */,
+				D3B5EA811747515D00733A26 /* GreedyFailureNestedParser.m in Sources */,
+				D3B5EA841747518600733A26 /* GreedyFailureNestedParserTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
