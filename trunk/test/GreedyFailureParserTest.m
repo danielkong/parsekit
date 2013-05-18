@@ -14,14 +14,14 @@
 #import "GreedyFailureParser.h"
 
 @interface NSObject ()
-- (void)parser:(PKSParser *)p didFailToMatch:(PKAssembly *)a;
-
-- (void)parser:(PKSParser *)p didMatchLcurly:(PKAssembly *)a;
-- (void)parser:(PKSParser *)p didMatchRcurly:(PKAssembly *)a;
-- (void)parser:(PKSParser *)p didMatchName:(PKAssembly *)a;
-- (void)parser:(PKSParser *)p didMatchColon:(PKAssembly *)a;
-- (void)parser:(PKSParser *)p didMatchValue:(PKAssembly *)a;
-- (void)parser:(PKSParser *)p didMatchStruct:(PKAssembly *)a;
+//- (void)parser:(PKSParser *)p didFailToMatch:(PKAssembly *)a;
+//
+//- (void)parser:(PKSParser *)p didMatchLcurly:(PKAssembly *)a;
+//- (void)parser:(PKSParser *)p didMatchRcurly:(PKAssembly *)a;
+//- (void)parser:(PKSParser *)p didMatchName:(PKAssembly *)a;
+//- (void)parser:(PKSParser *)p didMatchColon:(PKAssembly *)a;
+//- (void)parser:(PKSParser *)p didMatchValue:(PKAssembly *)a;
+//- (void)parser:(PKSParser *)p didMatchStruct:(PKAssembly *)a;
 @end
 
 @interface GreedyFailureParserTest ()
@@ -33,6 +33,15 @@
 @end
 
 @implementation GreedyFailureParserTest
+
+- (void)parser:(PKSParser *)p didFailToMatch:(PKAssembly *)a {}
+
+- (void)parser:(PKSParser *)p didMatchLcurly:(PKAssembly *)a {}
+- (void)parser:(PKSParser *)p didMatchRcurly:(PKAssembly *)a {}
+- (void)parser:(PKSParser *)p didMatchName:(PKAssembly *)a {}
+- (void)parser:(PKSParser *)p didMatchColon:(PKAssembly *)a {}
+- (void)parser:(PKSParser *)p didMatchValue:(PKAssembly *)a {}
+- (void)parser:(PKSParser *)p didMatchStruct:(PKAssembly *)a {}
 
 - (void)dealloc {
     self.factory = nil;
@@ -78,6 +87,7 @@
 #endif
 
     self.parser = [[[GreedyFailureParser alloc] init] autorelease];
+    _parser.enableAutomaticErrorRecovery = YES;
 
     self.mock = [OCMockObject mockForClass:[GreedyFailureParserTest class]];
     
@@ -90,32 +100,27 @@
 }
 
 - (void)testCompleteStruct {
-    _parser.enableAutomaticErrorRecovery = YES;
     
-//    [[[_mock stub] andDo:^(NSInvocation *invoc) {
-//        PKAssembly *a = nil;
-//        [invoc getArgument:&a atIndex:3];
-//        //NSLog(@"%@", a);
-//        
-//        TDNotNil(a);
-//        TDEqualObjects(@"[1, -]1/-^", [a description]);
-//        
-//        [a pop]; // `-`
-//        [a pop]; // 1
-//    }] parser:_parser didFailToMatch:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchLcurly:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchName:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchColon:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchValue:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchRcurly:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchStruct:OCMOCK_ANY];
-    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        NSLog(@"%@", a);
+        
+        TDTrue(0);
+        
+    }] parser:_parser didFailToMatch:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchLcurly:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchName:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchColon:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchValue:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchRcurly:OCMOCK_ANY];
+    [[_mock expect] parser:_parser didMatchStruct:OCMOCK_ANY];
 
     NSError *err = nil;
-    PKAssembly *res = [_parser parseString:@"{'foo':bar}" assembler:self error:&err];
+    PKAssembly *res = [_parser parseString:@"{'foo':bar}" assembler:_mock error:&err];
     TDEqualObjects(@"[{, 'foo', :, bar, }]{/'foo'/:/bar/}^", [res description]);
     
-//    VERIFY();
+    VERIFY();
 }
 
 @end
