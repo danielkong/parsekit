@@ -143,6 +143,67 @@
     VERIFY();
 }
 
+- (void)testIncompleteStruct1 {
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[{]{^", [a description]);
+        [a pop]; // pop {
+        
+    }] parser:_parser didMatchLcurly:OCMOCK_ANY];
+    
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"['foo']{/'foo'^", [a description]);
+        [a pop]; // pop 'foo'
+        
+    }] parser:_parser didMatchName:OCMOCK_ANY];
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[:]{/'foo'/:^", [a description]);
+        [a pop]; // pop :
+        
+    }] parser:_parser didMatchColon:OCMOCK_ANY];
+
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[bar]{/'foo'/:/bar^", [a description]);
+        [a pop]; // pop bar
+        
+    }] parser:_parser didMatchValue:OCMOCK_ANY];
+
+    [[_mock expect] parser:_parser didMatchStructs:OCMOCK_ANY];
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[]{/'foo'/:/bar^", [a description]);
+        
+    }] parser:_parser didFailToMatch:OCMOCK_ANY];
+    
+    NSError *err = nil;
+    PKAssembly *res = [_parser parseString:@"{'foo':bar" assembler:_mock error:&err];
+    TDEqualObjects(@"[]{/'foo'/:/bar^", [res description]);
+    
+    VERIFY();
+}
+
 - (void)testIncompleteStruct2 {
     
     [[[_mock stub] andDo:^(NSInvocation *invoc) {

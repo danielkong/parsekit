@@ -52,13 +52,15 @@
     if (self) {
         self.enableAutomaticErrorRecovery = YES;
 
-        self._tokenKindTab[@"{"] = @(GREEDYFAILURENESTED_TOKEN_KIND_LCURLY);
-        self._tokenKindTab[@"}"] = @(GREEDYFAILURENESTED_TOKEN_KIND_RCURLY);
+        self._tokenKindTab[@","] = @(GREEDYFAILURENESTED_TOKEN_KIND_COMMA);
         self._tokenKindTab[@":"] = @(GREEDYFAILURENESTED_TOKEN_KIND_COLON);
+        self._tokenKindTab[@"}"] = @(GREEDYFAILURENESTED_TOKEN_KIND_RCURLY);
+        self._tokenKindTab[@"{"] = @(GREEDYFAILURENESTED_TOKEN_KIND_LCURLY);
 
-        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_LCURLY] = @"{";
-        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_RCURLY] = @"}";
+        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_COMMA] = @",";
         self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_COLON] = @":";
+        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_RCURLY] = @"}";
+        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_LCURLY] = @"{";
 
     }
     return self;
@@ -87,6 +89,10 @@
     [self lcurly]; 
     [self tryAndRecover:GREEDYFAILURENESTED_TOKEN_KIND_RCURLY block:^{ 
         [self pair]; 
+        while ([self speculate:^{ [self comma]; [self pair]; }]) {
+            [self comma]; 
+            [self pair]; 
+        }
         [self rcurly]; 
     } completion:^{ 
         [self rcurly]; 
@@ -120,6 +126,13 @@
     [self matchWord:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchValue:)];
+}
+
+- (void)comma {
+    
+    [self match:GREEDYFAILURENESTED_TOKEN_KIND_COMMA discard:NO]; 
+
+    [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
 - (void)lcurly {
