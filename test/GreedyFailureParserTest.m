@@ -73,19 +73,19 @@
     
     [_root visit:_visitor];
     
-#if TD_EMIT
-    path = [[NSString stringWithFormat:@"%s/test/GreedyFailureParser.h", getenv("PWD")] stringByExpandingTildeInPath];
-    err = nil;
-    if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
-        NSLog(@"%@", err);
-    }
-
-    path = [[NSString stringWithFormat:@"%s/test/GreedyFailureParser.m", getenv("PWD")] stringByExpandingTildeInPath];
-    err = nil;
-    if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
-        NSLog(@"%@", err);
-    }
-#endif
+//#if TD_EMIT
+//    path = [[NSString stringWithFormat:@"%s/test/GreedyFailureParser.h", getenv("PWD")] stringByExpandingTildeInPath];
+//    err = nil;
+//    if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
+//        NSLog(@"%@", err);
+//    }
+//
+//    path = [[NSString stringWithFormat:@"%s/test/GreedyFailureParser.m", getenv("PWD")] stringByExpandingTildeInPath];
+//    err = nil;
+//    if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
+//        NSLog(@"%@", err);
+//    }
+//#endif
 
     self.parser = [[[GreedyFailureParser alloc] init] autorelease];
     _parser.enableAutomaticErrorRecovery = YES;
@@ -166,9 +166,28 @@
         
     }] parser:_parser didMatchLcurly:OCMOCK_ANY];
     
-    [[_mock expect] parser:_parser didMatchName:OCMOCK_ANY];
-    [[_mock expect] parser:_parser didMatchColon:OCMOCK_ANY];
-//    [[_mock expect] parser:_parser didMatchValue:OCMOCK_ANY];
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"['foo']{/'foo'^", [a description]);
+        [a pop]; // pop 'foo'
+        
+    }] parser:_parser didMatchName:OCMOCK_ANY];
+    
+    [[[_mock stub] andDo:^(NSInvocation *invoc) {
+        PKAssembly *a = nil;
+        [invoc getArgument:&a atIndex:3];
+        //NSLog(@"%@", a);
+        
+        TDEqualObjects(@"[:]{/'foo'/:^", [a description]);
+        [a pop]; // pop :
+        
+    }] parser:_parser didMatchColon:OCMOCK_ANY];
+
+    //    [[_mock expect] parser:_parser didMatchValue:OCMOCK_ANY];
 //    [[_mock expect] parser:_parser didMatchRcurly:OCMOCK_ANY];
 
     [[_mock expect] parser:_parser didMatchStructure:OCMOCK_ANY];
@@ -179,7 +198,7 @@
         [invoc getArgument:&a atIndex:3];
         //NSLog(@"%@", a);
         
-        TDEqualObjects(@"['foo', :, }]{/'foo'/:/}^", [a description]);
+        TDEqualObjects(@"[]{/'foo'/:^", [a description]);
         
     }] parser:_parser didFailToMatch:OCMOCK_ANY];
     
