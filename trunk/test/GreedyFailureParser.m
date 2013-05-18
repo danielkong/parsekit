@@ -65,29 +65,38 @@
 }
 
 - (void)_start {
-    [self struct];
+    [self structs];
 }
 
-- (void)struct {
+- (void)structs {
     
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
-        [self lcurly]; 
-        [self tryAndRecover:TOKEN_KIND_BUILTIN_QUOTEDSTRING block:^{ 
-            [self name]; 
-        } completion:^{ 
-            [self name]; 
-        }];
-        [self colon]; 
-        [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
-            [self value]; 
-        } completion:^{ 
-            [self value]; 
-        }];
-        [self rcurly]; 
+        do {
+            [self struct]; 
+        } while ([self speculate:^{ [self struct]; }]);
         [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
     }];
+
+    [self fireAssemblerSelector:@selector(parser:didMatchStructs:)];
+}
+
+- (void)struct {
+    
+    [self lcurly]; 
+    [self tryAndRecover:TOKEN_KIND_BUILTIN_QUOTEDSTRING block:^{ 
+        [self name]; 
+    } completion:^{ 
+        [self name]; 
+    }];
+    [self colon]; 
+    [self tryAndRecover:TOKEN_KIND_BUILTIN_WORD block:^{ 
+        [self value]; 
+    } completion:^{ 
+        [self value]; 
+    }];
+    [self rcurly]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStruct:)];
 }
