@@ -76,10 +76,10 @@
     }
 #endif
 
-    self.parser = [[[GreedyFailureParser alloc] init] autorelease];
+    self.parser = [[[GreedyFailureNestedParser alloc] init] autorelease];
     _parser.enableAutomaticErrorRecovery = YES;
 
-    self.mock = [OCMockObject mockForClass:[GreedyFailureParserTest class]];
+    self.mock = [OCMockObject mockForClass:[GreedyFailureNestedParserTest class]];
     
     // return YES to -respondsToSelector:
     [[[_mock stub] andReturnValue:OCMOCK_VALUE((BOOL){YES})] respondsToSelector:(SEL)OCMOCK_ANY];

@@ -138,7 +138,6 @@
 
 
 - (NSSet *)lookaheadSetForNode:(PKBaseNode *)node {
-    NSLog(@"%@", node);
     NSParameterAssert(node);
     NSAssert(self.symbolTable, @"");
 
