@@ -89,13 +89,9 @@
     [self lcurly]; 
     [self tryAndRecover:GREEDYFAILURENESTED_TOKEN_KIND_RCURLY block:^{ 
         [self pair]; 
-        while ([self predicts:GREEDYFAILURENESTED_TOKEN_KIND_COMMA, 0]) {
-            if ([self speculate:^{ [self match:GREEDYFAILURENESTED_TOKEN_KIND_COMMA discard:NO]; [self pair]; }]) {
-                [self match:GREEDYFAILURENESTED_TOKEN_KIND_COMMA discard:NO]; 
-                [self pair]; 
-            } else {
-                break;
-            }
+        while ([self speculate:^{ [self match:GREEDYFAILURENESTED_TOKEN_KIND_COMMA discard:NO]; [self pair]; }]) {
+            [self match:GREEDYFAILURENESTED_TOKEN_KIND_COMMA discard:NO]; 
+            [self pair]; 
         }
         [self rcurly]; 
     } completion:^{ 

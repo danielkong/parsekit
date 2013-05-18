@@ -912,12 +912,8 @@
 - (void)paramList {
     
     [self identifier]; 
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaIdentifier]; }]) {
-            [self commaIdentifier]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self commaIdentifier]; }]) {
+        [self commaIdentifier]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchParamList:)];
@@ -946,12 +942,8 @@
 
 - (void)stmts {
     
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_BREAKSYM, JAVASCRIPT_TOKEN_KIND_CONTINUESYM, JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSELITERAL, JAVASCRIPT_TOKEN_KIND_FORSYM, JAVASCRIPT_TOKEN_KIND_IFSYM, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENCURLY, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_RETURNSYM, JAVASCRIPT_TOKEN_KIND_SEMI, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUELITERAL, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VAR, JAVASCRIPT_TOKEN_KIND_VOID, JAVASCRIPT_TOKEN_KIND_WHILESYM, JAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self stmt]; }]) {
-            [self stmt]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self stmt]; }]) {
+        [self stmt]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchStmts:)];
@@ -1219,12 +1211,8 @@
 - (void)variables {
     
     [self variable]; 
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaVariable]; }]) {
-            [self commaVariable]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self commaVariable]; }]) {
+        [self commaVariable]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchVariables:)];
@@ -1328,12 +1316,8 @@
 - (void)orExpr {
     
     [self andExpr]; 
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_OR, 0]) {
-        if ([self speculate:^{ [self orAndExpr]; }]) {
-            [self orAndExpr]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self orAndExpr]; }]) {
+        [self orAndExpr]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
@@ -1440,13 +1424,9 @@
 - (void)relationalExpr {
     
     [self shiftExpr]; 
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_GE, JAVASCRIPT_TOKEN_KIND_GT, JAVASCRIPT_TOKEN_KIND_INSTANCEOF, JAVASCRIPT_TOKEN_KIND_LE, JAVASCRIPT_TOKEN_KIND_LT, 0]) {
-        if ([self speculate:^{ [self relationalOperator]; [self shiftExpr]; }]) {
-            [self relationalOperator]; 
-            [self shiftExpr]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self relationalOperator]; [self shiftExpr]; }]) {
+        [self relationalOperator]; 
+        [self shiftExpr]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelationalExpr:)];
@@ -1705,12 +1685,8 @@
 - (void)argList {
     
     [self assignmentExpr]; 
-    while ([self predicts:JAVASCRIPT_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaAssignmentExpr]; }]) {
-            [self commaAssignmentExpr]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self commaAssignmentExpr]; }]) {
+        [self commaAssignmentExpr]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchArgList:)];

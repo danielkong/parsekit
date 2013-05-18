@@ -228,12 +228,8 @@
     [t.delimitState setFallbackState:t.symbolState from:'<' to:'<'];
 
     }];
-    while ([self predicts:HTML_TOKEN_KIND_DOCTYPE, HTML_TOKEN_KIND_LT, HTML_TOKEN_KIND_PROCINSTR, TOKEN_KIND_BUILTIN_ANY, TOKEN_KIND_BUILTIN_COMMENT, 0]) {
-        if ([self speculate:^{ [self anything]; }]) {
-            [self anything]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self anything]; }]) {
+        [self anything]; 
     }
     [self matchEOF:YES]; 
 
@@ -285,12 +281,8 @@
     
     [self lt]; 
     [self scriptTagName]; 
-    while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr]; }]) {
-            [self attr]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self attr]; }]) {
+        [self attr]; 
     }
     [self gt]; 
 
@@ -354,12 +346,8 @@
     
     [self lt]; 
     [self styleTagName]; 
-    while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr]; }]) {
-            [self attr]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self attr]; }]) {
+        [self attr]; 
     }
     [self gt]; 
 
@@ -462,12 +450,8 @@
     
     [self lt]; 
     [self tagName]; 
-    while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr]; }]) {
-            [self attr]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self attr]; }]) {
+        [self attr]; 
     }
     [self fwdSlash]; 
     [self gt]; 
@@ -482,12 +466,8 @@
     
     [self lt]; 
     [self tagName]; 
-    while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self attr]; }]) {
-            [self attr]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self attr]; }]) {
+        [self attr]; 
     }
     [self gt]; 
 

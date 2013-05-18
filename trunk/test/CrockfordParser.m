@@ -221,15 +221,11 @@
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_BRACKET discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET block:^{ 
-        if ([self speculate:^{ [self expr]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; } else {break;}}}]) {
+        if ([self speculate:^{ [self expr]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }}]) {
             [self expr]; 
-            while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {
-                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {
-                    [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
-                    [self expr]; 
-                } else {
-                    break;
-                }
+            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {
+                [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
+                [self expr]; 
             }
         }
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
@@ -378,31 +374,23 @@
 
 - (void)exprStmt {
     
-    if ([self speculate:^{ do {[self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {if ([self speculate:^{ [self refinement]; }]) {[self refinement]; } else {break;}}[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];} while ([self speculate:^{ [self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {if ([self speculate:^{ [self refinement]; }]) {[self refinement]; } else {break;}}[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);[self expr]; }]) {
+    if ([self speculate:^{ do {[self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];} while ([self speculate:^{ [self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);[self expr]; }]) {
         do {
             [self name]; 
             [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ 
-                while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {
-                    if ([self speculate:^{ [self refinement]; }]) {
-                        [self refinement]; 
-                    } else {
-                        break;
-                    }
+                while ([self speculate:^{ [self refinement]; }]) {
+                    [self refinement]; 
                 }
                 [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; 
             } completion:^{ 
                 [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; 
             }];
-        } while ([self speculate:^{ [self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {if ([self speculate:^{ [self refinement]; }]) {[self refinement]; } else {break;}}[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);
+        } while ([self speculate:^{ [self name]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);
         [self expr]; 
-    } else if ([self speculate:^{ [self name]; while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {if ([self speculate:^{ [self refinement]; }]) {[self refinement]; } else {break;}}if ([self predicts:CROCKFORD_TOKEN_KIND_PLUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_PLUS_EQUALS discard:NO]; } else if ([self predicts:CROCKFORD_TOKEN_KIND_MINUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_MINUS_EQUALS discard:NO]; } else {[self raise:@"No viable alternative found in rule 'exprStmt'."];}[self expr]; }]) {
+    } else if ([self speculate:^{ [self name]; while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }if ([self predicts:CROCKFORD_TOKEN_KIND_PLUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_PLUS_EQUALS discard:NO]; } else if ([self predicts:CROCKFORD_TOKEN_KIND_MINUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_MINUS_EQUALS discard:NO]; } else {[self raise:@"No viable alternative found in rule 'exprStmt'."];}[self expr]; }]) {
         [self name]; 
-        while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {
-            if ([self speculate:^{ [self refinement]; }]) {
-                [self refinement]; 
-            } else {
-                break;
-            }
+        while ([self speculate:^{ [self refinement]; }]) {
+            [self refinement]; 
         }
         if ([self predicts:CROCKFORD_TOKEN_KIND_PLUS_EQUALS, 0]) {
             [self match:CROCKFORD_TOKEN_KIND_PLUS_EQUALS discard:NO]; 
@@ -412,14 +400,10 @@
             [self raise:@"No viable alternative found in rule 'exprStmt'."];
         }
         [self expr]; 
-    } else if ([self speculate:^{ [self name]; while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {if ([self speculate:^{ [self refinement]; }]) {[self refinement]; } else {break;}}do {[self invocation]; } while ([self speculate:^{ [self invocation]; }]);}]) {
+    } else if ([self speculate:^{ [self name]; while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }do {[self invocation]; } while ([self speculate:^{ [self invocation]; }]);}]) {
         [self name]; 
-        while ([self predicts:CROCKFORD_TOKEN_KIND_DOT, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {
-            if ([self speculate:^{ [self refinement]; }]) {
-                [self refinement]; 
-            } else {
-                break;
-            }
+        while ([self speculate:^{ [self refinement]; }]) {
+            [self refinement]; 
         }
         do {
             [self invocation]; 
@@ -598,15 +582,11 @@
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-        if ([self speculate:^{ [self expr]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; } else {break;}}}]) {
+        if ([self speculate:^{ [self expr]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }}]) {
             [self expr]; 
-            while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {
-                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {
-                    [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
-                    [self expr]; 
-                } else {
-                    break;
-                }
+            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {
+                [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
+                [self expr]; 
             }
         }
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
@@ -656,15 +636,11 @@
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
-        if ([self speculate:^{ [self nameValPair]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; } else {break;}}}]) {
+        if ([self speculate:^{ [self nameValPair]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; }}]) {
             [self nameValPair]; 
-            while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {
-                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; }]) {
-                    [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
-                    [self nameValPair]; 
-                } else {
-                    break;
-                }
+            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; }]) {
+                [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
+                [self nameValPair]; 
             }
         }
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
@@ -698,15 +674,11 @@
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-        if ([self speculate:^{ [self name]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; } else {break;}}}]) {
+        if ([self speculate:^{ [self name]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; }}]) {
             [self name]; 
-            while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {
-                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; }]) {
-                    [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
-                    [self name]; 
-                } else {
-                    break;
-                }
+            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; }]) {
+                [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
+                [self name]; 
             }
         }
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
@@ -792,12 +764,8 @@
 
 - (void)stmts {
     
-    while ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, CROCKFORD_TOKEN_KIND_VAR, TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self stmt]; }]) {
-            [self stmt]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self stmt]; }]) {
+        [self stmt]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchStmts:)];
@@ -950,26 +918,18 @@
 
 - (void)varStmt {
     
-    while ([self predicts:CROCKFORD_TOKEN_KIND_VAR, 0]) {
-        if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_VAR discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ [self nameExprPair]; while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; } else {break;}}[self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; }];}]) {
-            [self match:CROCKFORD_TOKEN_KIND_VAR discard:NO]; 
-            [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+    while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_VAR discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ [self nameExprPair]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; }[self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; }];}]) {
+        [self match:CROCKFORD_TOKEN_KIND_VAR discard:NO]; 
+        [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
+            [self nameExprPair]; 
+            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; }]) {
+                [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
                 [self nameExprPair]; 
-                while ([self predicts:CROCKFORD_TOKEN_KIND_COMMA, 0]) {
-                    if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; }]) {
-                        [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
-                        [self nameExprPair]; 
-                    } else {
-                        break;
-                    }
-                }
-                [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
-            } completion:^{ 
-                [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
-            }];
-        } else {
-            break;
-        }
+            }
+            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+        } completion:^{ 
+            [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
+        }];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchVarStmt:)];

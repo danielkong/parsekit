@@ -183,12 +183,8 @@
 - (void)__orExpr {
     
     [self andExpr]; 
-    while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_OR, 0]) {
-        if ([self speculate:^{ [self orTerm]; }]) {
-            [self orTerm]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self orTerm]; }]) {
+        [self orTerm]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
@@ -220,12 +216,8 @@
 - (void)__andExpr {
     
     [self relExpr]; 
-    while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_AND, 0]) {
-        if ([self speculate:^{ [self andTerm]; }]) {
-            [self andTerm]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self andTerm]; }]) {
+        [self andTerm]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndExpr:)];
@@ -257,12 +249,8 @@
 - (void)__relExpr {
     
     [self callExpr]; 
-    while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_EQUALS, EXPRESSIONACTIONS_TOKEN_KIND_GE, EXPRESSIONACTIONS_TOKEN_KIND_GT, EXPRESSIONACTIONS_TOKEN_KIND_LE, EXPRESSIONACTIONS_TOKEN_KIND_LT, EXPRESSIONACTIONS_TOKEN_KIND_NE, 0]) {
-        if ([self speculate:^{ [self relOpTerm]; }]) {
-            [self relOpTerm]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self relOpTerm]; }]) {
+        [self relOpTerm]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelExpr:)];
@@ -344,13 +332,9 @@
 - (void)__argList {
     
     [self atom]; 
-    while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA discard:NO]; [self atom]; }]) {
-            [self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA discard:NO]; 
-            [self atom]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA discard:NO]; [self atom]; }]) {
+        [self match:EXPRESSIONACTIONS_TOKEN_KIND_COMMA discard:NO]; 
+        [self atom]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchArgList:)];
@@ -399,12 +383,8 @@
 - (void)__obj {
     
     [self id]; 
-    while ([self predicts:EXPRESSIONACTIONS_TOKEN_KIND_DOT, 0]) {
-        if ([self speculate:^{ [self member]; }]) {
-            [self member]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self member]; }]) {
+        [self member]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchObj:)];
