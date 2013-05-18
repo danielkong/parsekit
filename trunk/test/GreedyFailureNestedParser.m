@@ -52,13 +52,13 @@
     if (self) {
         self.enableAutomaticErrorRecovery = YES;
 
-        self._tokenKindTab[@"{"] = @(GREEDYFAILURE_TOKEN_KIND_LCURLY);
-        self._tokenKindTab[@"}"] = @(GREEDYFAILURE_TOKEN_KIND_RCURLY);
-        self._tokenKindTab[@":"] = @(GREEDYFAILURE_TOKEN_KIND_COLON);
+        self._tokenKindTab[@"{"] = @(GREEDYFAILURENESTED_TOKEN_KIND_LCURLY);
+        self._tokenKindTab[@"}"] = @(GREEDYFAILURENESTED_TOKEN_KIND_RCURLY);
+        self._tokenKindTab[@":"] = @(GREEDYFAILURENESTED_TOKEN_KIND_COLON);
 
-        self._tokenKindNameTab[GREEDYFAILURE_TOKEN_KIND_LCURLY] = @"{";
-        self._tokenKindNameTab[GREEDYFAILURE_TOKEN_KIND_RCURLY] = @"}";
-        self._tokenKindNameTab[GREEDYFAILURE_TOKEN_KIND_COLON] = @":";
+        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_LCURLY] = @"{";
+        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_RCURLY] = @"}";
+        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_COLON] = @":";
 
     }
     return self;
@@ -85,13 +85,13 @@
 - (void)structure {
     
     [self lcurly]; 
-    [self tryAndRecover:GREEDYFAILURE_TOKEN_KIND_COLON block:^{ 
+    [self tryAndRecover:GREEDYFAILURENESTED_TOKEN_KIND_COLON block:^{ 
         [self name]; 
         [self colon]; 
     } completion:^{ 
         [self colon]; 
     }];
-    [self tryAndRecover:GREEDYFAILURE_TOKEN_KIND_RCURLY block:^{ 
+    [self tryAndRecover:GREEDYFAILURENESTED_TOKEN_KIND_RCURLY block:^{ 
         [self value]; 
         [self rcurly]; 
     } completion:^{ 
@@ -117,21 +117,21 @@
 
 - (void)lcurly {
     
-    [self match:GREEDYFAILURE_TOKEN_KIND_LCURLY discard:NO]; 
+    [self match:GREEDYFAILURENESTED_TOKEN_KIND_LCURLY discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLcurly:)];
 }
 
 - (void)rcurly {
     
-    [self match:GREEDYFAILURE_TOKEN_KIND_RCURLY discard:NO]; 
+    [self match:GREEDYFAILURENESTED_TOKEN_KIND_RCURLY discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchRcurly:)];
 }
 
 - (void)colon {
     
-    [self match:GREEDYFAILURE_TOKEN_KIND_COLON discard:NO]; 
+    [self match:GREEDYFAILURENESTED_TOKEN_KIND_COLON discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
 }
