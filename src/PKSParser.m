@@ -285,7 +285,7 @@
 
     PKToken *lt = LT(1); // NSLog(@"%@", lt);
     
-    BOOL matches = lt.tokenKind == tokenKind || TOKEN_KIND_BUILTIN_ANY == tokenKind;
+    BOOL matches = lt.tokenKind == tokenKind || (TOKEN_KIND_BUILTIN_ANY == tokenKind && PKTokenTypeEOF != lt.tokenType);
 
     if (matches) {
         if (TOKEN_KIND_BUILTIN_EOF != tokenKind) {

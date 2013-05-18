@@ -130,12 +130,8 @@
 - (void)actualObject {
     
     [self property]; 
-    while ([self predicts:JSON_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaProperty]; }]) {
-            [self commaProperty]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self commaProperty]; }]) {
+        [self commaProperty]; 
     }
 
 }
@@ -190,12 +186,8 @@
 - (void)actualArray {
     
     [self value]; 
-    while ([self predicts:JSON_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaValue]; }]) {
-            [self commaValue]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self commaValue]; }]) {
+        [self commaValue]; 
     }
 
 }

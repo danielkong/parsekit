@@ -162,13 +162,9 @@
     
     if ([self predicts:METHODSFACTORED_TOKEN_KIND_INT, 0]) {
         [self arg]; 
-        while ([self predicts:METHODSFACTORED_TOKEN_KIND_COMMA, 0]) {
-            if ([self speculate:^{ [self match:METHODSFACTORED_TOKEN_KIND_COMMA discard:NO]; [self arg]; }]) {
-                [self match:METHODSFACTORED_TOKEN_KIND_COMMA discard:NO]; 
-                [self arg]; 
-            } else {
-                break;
-            }
+        while ([self speculate:^{ [self match:METHODSFACTORED_TOKEN_KIND_COMMA discard:NO]; [self arg]; }]) {
+            [self match:METHODSFACTORED_TOKEN_KIND_COMMA discard:NO]; 
+            [self arg]; 
         }
     }
 

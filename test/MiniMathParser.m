@@ -93,16 +93,12 @@
 - (void)__expr {
     
     [self mult]; 
-    while ([self predicts:MINIMATH_TOKEN_KIND_PLUS, 0]) {
-        if ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_PLUS discard:YES]; [self mult]; }]) {
-            [self match:MINIMATH_TOKEN_KIND_PLUS discard:YES]; 
-            [self mult]; 
-            [self execute:(id)^{
-             PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); 
-            }];
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_PLUS discard:YES]; [self mult]; }]) {
+        [self match:MINIMATH_TOKEN_KIND_PLUS discard:YES]; 
+        [self mult]; 
+        [self execute:(id)^{
+         PUSH_FLOAT(POP_FLOAT()+POP_FLOAT()); 
+        }];
     }
     [self matchEOF:YES]; 
 
@@ -116,16 +112,12 @@
 - (void)__mult {
     
     [self pow]; 
-    while ([self predicts:MINIMATH_TOKEN_KIND_STAR, 0]) {
-        if ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_STAR discard:YES]; [self pow]; }]) {
-            [self match:MINIMATH_TOKEN_KIND_STAR discard:YES]; 
-            [self pow]; 
-            [self execute:(id)^{
-             PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); 
-            }];
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self match:MINIMATH_TOKEN_KIND_STAR discard:YES]; [self pow]; }]) {
+        [self match:MINIMATH_TOKEN_KIND_STAR discard:YES]; 
+        [self pow]; 
+        [self execute:(id)^{
+         PUSH_FLOAT(POP_FLOAT()*POP_FLOAT()); 
+        }];
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchMult:)];

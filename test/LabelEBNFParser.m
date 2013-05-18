@@ -111,13 +111,9 @@
 
 - (void)__label {
     
-    while ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        if ([self speculate:^{ [self matchWord:NO]; [self match:LABELEBNF_TOKEN_KIND_COLON discard:NO]; }]) {
-            [self matchWord:NO]; 
-            [self match:LABELEBNF_TOKEN_KIND_COLON discard:NO]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self matchWord:NO]; [self match:LABELEBNF_TOKEN_KIND_COLON discard:NO]; }]) {
+        [self matchWord:NO]; 
+        [self match:LABELEBNF_TOKEN_KIND_COLON discard:NO]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchLabel:)];

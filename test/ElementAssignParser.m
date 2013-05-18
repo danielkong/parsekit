@@ -140,13 +140,9 @@
 - (void)elements {
     
     [self element]; 
-    while ([self predicts:ELEMENTASSIGN_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self comma]; [self element]; }]) {
-            [self comma]; 
-            [self element]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self comma]; [self element]; }]) {
+        [self comma]; 
+        [self element]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElements:)];

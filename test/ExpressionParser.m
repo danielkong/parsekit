@@ -231,12 +231,8 @@
 - (void)__orExpr {
     
     [self andExpr]; 
-    while ([self predicts:EXPRESSION_TOKEN_KIND_OR, 0]) {
-        if ([self speculate:^{ [self orTerm]; }]) {
-            [self orTerm]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self orTerm]; }]) {
+        [self orTerm]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrExpr:)];
@@ -261,12 +257,8 @@
 - (void)__andExpr {
     
     [self relExpr]; 
-    while ([self predicts:EXPRESSION_TOKEN_KIND_AND, 0]) {
-        if ([self speculate:^{ [self andTerm]; }]) {
-            [self andTerm]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self andTerm]; }]) {
+        [self andTerm]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchAndExpr:)];
@@ -291,13 +283,9 @@
 - (void)__relExpr {
     
     [self callExpr]; 
-    while ([self predicts:EXPRESSION_TOKEN_KIND_EQ, EXPRESSION_TOKEN_KIND_GE, EXPRESSION_TOKEN_KIND_GT, EXPRESSION_TOKEN_KIND_LE, EXPRESSION_TOKEN_KIND_LT, EXPRESSION_TOKEN_KIND_NE, 0]) {
-        if ([self speculate:^{ [self relOp]; [self callExpr]; }]) {
-            [self relOp]; 
-            [self callExpr]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self relOp]; [self callExpr]; }]) {
+        [self relOp]; 
+        [self callExpr]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRelExpr:)];
@@ -353,13 +341,9 @@
 - (void)__argList {
     
     [self atom]; 
-    while ([self predicts:EXPRESSION_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self comma]; [self atom]; }]) {
-            [self comma]; 
-            [self atom]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self comma]; [self atom]; }]) {
+        [self comma]; 
+        [self atom]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchArgList:)];
@@ -408,12 +392,8 @@
 - (void)__obj {
     
     [self id]; 
-    while ([self predicts:EXPRESSION_TOKEN_KIND_DOT, 0]) {
-        if ([self speculate:^{ [self member]; }]) {
-            [self member]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self member]; }]) {
+        [self member]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchObj:)];

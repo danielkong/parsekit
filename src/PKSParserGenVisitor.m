@@ -509,11 +509,8 @@
     // Only need to speculate if this repetition's child is non-terminal
     BOOL isLL1 = (_enableHybridDFA && [self isLL1:child]);
     
-    // rep body is always wrapped in an while AND an IF. so increase depth twice
-    NSInteger depth = isLL1 ? 1 : 2;
-
     // recurse first and get entire child str
-    self.depth += depth;
+    self.depth += 1;
     
     // visit for speculative if test
     self.isSpeculating = YES;
@@ -524,7 +521,7 @@
     // visit for child body
     [child visit:self];
 
-    self.depth -= depth;
+    self.depth -= 1;
     
     // pop
     NSMutableString *childStr = [self pop];

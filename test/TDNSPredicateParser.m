@@ -416,12 +416,8 @@
 - (void)__expr {
     
     [self orTerm]; 
-    while ([self predicts:TDNSPREDICATE_TOKEN_KIND_DOUBLE_PIPE, TDNSPREDICATE_TOKEN_KIND_OR_UPPER, 0]) {
-        if ([self speculate:^{ [self orOrTerm]; }]) {
-            [self orOrTerm]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self orOrTerm]; }]) {
+        [self orOrTerm]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
@@ -446,12 +442,8 @@
 - (void)__orTerm {
     
     [self andTerm]; 
-    while ([self predicts:TDNSPREDICATE_TOKEN_KIND_AND_UPPER, TDNSPREDICATE_TOKEN_KIND_DOUBLE_AMPERSAND, 0]) {
-        if ([self speculate:^{ [self andAndTerm]; }]) {
-            [self andAndTerm]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self andAndTerm]; }]) {
+        [self andAndTerm]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchOrTerm:)];
@@ -666,12 +658,8 @@
 - (void)__arrayContents {
     
     [self value]; 
-    while ([self predicts:TDNSPREDICATE_TOKEN_KIND_COMMA, 0]) {
-        if ([self speculate:^{ [self commaValue]; }]) {
-            [self commaValue]; 
-        } else {
-            break;
-        }
+    while ([self speculate:^{ [self commaValue]; }]) {
+        [self commaValue]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchArrayContents:)];
