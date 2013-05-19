@@ -61,7 +61,7 @@
     
     input = @"[=[2].";
     res = [_parser parseString:input assembler:nil error:&err];
-    TDEqualObjects(@"[[, =, [, 2, ], .][/=/[/2/]/.^", [res description]);
+    TDEqualObjects(@"[[, =, [, 2, .][/=/[/2/]/.^", [res description]);
 }
 
 - (void)testMissingLbracketInAssign {
@@ -118,15 +118,15 @@
     
     input = @"[1];[2;[3];";
     res = [_parser parseString:input assembler:self error:&err];
-    TDEqualObjects(@"[[, 1, ;, flag, [, 2, ;, [, 3, ;, flag][/1/]/;/[/2/;/[/3/]/;^", [res description]);
+    TDEqualObjects(@"[[, 1, ;, flag, [, 2, ;, flag, [, 3, ;, flag][/1/]/;/[/2/;/[/3/]/;^", [res description]);
     
     input = @"[1];[2,;[3];";
     res = [_parser parseString:input assembler:self error:&err];
-    TDEqualObjects(@"[[, 1, ;, flag, [, 2, ,, ;, [, 3, ;, flag][/1/]/;/[/2/,/;/[/3/]/;^", [res description]);
+    TDEqualObjects(@"[[, 1, ;, flag, [, 2, ,, ;, flag, [, 3, ;, flag][/1/]/;/[/2/,/;/[/3/]/;^", [res description]);
     
     input = @"[1];[;[3];";
     res = [_parser parseString:input assembler:self error:&err];
-    TDEqualObjects(@"[[, 1, ;, flag, [, ;, [, 3, ;, flag][/1/]/;/[/;/[/3/]/;^", [res description]);
+    TDEqualObjects(@"[[, 1, ;, flag, [, ;, flag, [, 3, ;, flag][/1/]/;/[/;/[/3/]/;^", [res description]);
     
     input = @"[1];;[3];";
     res = [_parser parseString:input assembler:self error:&err];
