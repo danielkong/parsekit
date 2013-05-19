@@ -39,6 +39,11 @@ static PKTokenEOF *EOFToken = nil;
 }
 
 
+- (NSString *)description {
+    return [self stringValue];
+}
+
+
 - (NSString *)debugDescription {
     return [self description];
 }
