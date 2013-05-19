@@ -38,7 +38,7 @@
 @property (nonatomic, assign, readonly) BOOL _isSpeculating;
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
-@property (nonatomic, retain) NSMutableArray *_resyncStack;
+@property (nonatomic, retain) NSCountedSet *_resyncSet;
 
 - (NSInteger)tokenKindForString:(NSString *)str;
 - (NSString *)stringForTokenKind:(NSInteger)tokenKind;
@@ -118,7 +118,7 @@
     self._markers = nil;
     self._tokenKindTab = nil;
     self._tokenKindNameTab = nil;
-    self._resyncStack = nil;
+    self._resyncSet = nil;
     [super dealloc];
 }
 
@@ -205,7 +205,7 @@
     self._markers = [NSMutableArray array];
 
     if (_enableAutomaticErrorRecovery) {
-        self._resyncStack = [NSMutableArray array];
+        self._resyncSet = [NSCountedSet set];
     }
 
     [self _clearMemo];
@@ -257,7 +257,7 @@
         self.assembly = nil;
         self._lookahead = nil;
         self._markers = nil;
-        self._resyncStack = nil;
+        self._resyncSet = nil;
     }
     
     return result;
@@ -499,8 +499,8 @@
     NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
     if (!_enableAutomaticErrorRecovery) return;
     
-    NSAssert(_resyncStack, @"");
-    [_resyncStack addObject:@(tokenKind)];
+    NSAssert(_resyncSet, @"");
+    [_resyncSet addObject:@(tokenKind)];
 }
 
 
@@ -508,8 +508,8 @@
     NSParameterAssert(TOKEN_KIND_BUILTIN_INVALID != tokenKind);
     if (!_enableAutomaticErrorRecovery) return;
 
-    NSAssert(_resyncStack, @"");
-    [_resyncStack removeObject:@(tokenKind)];
+    NSAssert(_resyncSet, @"");
+    [_resyncSet removeObject:@(tokenKind)];
 }
 
 
@@ -518,12 +518,12 @@
 
     if (_enableAutomaticErrorRecovery) {
         for (;;) {
-            //NSLog(@"\n\nLT 1: '%@'\n%@\nla: %@\nresyncStack: %@", LT(1), self.assembly, _lookahead, _resyncStack);
+            //NSLog(@"\n\nLT 1: '%@'\n%@\nla: %@\nresyncSet: %@", LT(1), self.assembly, _lookahead, _resyncSet);
             
             PKToken *lt = LT(1);
             
-            NSAssert([_resyncStack count], @"");
-            result = [[_resyncStack lastObject] integerValue] == lt.tokenKind;
+            NSAssert([_resyncSet count], @"");
+            result = [_resyncSet containsObject:@(lt.tokenKind)];
 
             if (result) {
                 [self fireAssemblerSelector:@selector(parser:didFailToMatch:)];
@@ -805,5 +805,5 @@
 @synthesize _markers = _markers;
 @synthesize _p = _p;
 @synthesize _tokenKindTab = _tokenKindTab;
-@synthesize _resyncStack = _resyncStack;
+@synthesize _resyncSet = _resyncSet;
 @end
