@@ -262,7 +262,7 @@
     TDTrue(tok.isNumber);
     TDEquals(tok.offset, (NSUInteger)3);
 
-//    if ([PKToken EOFToken] == token) break;
+//    if (tok.isEOFen) break;
     
 }
 
@@ -276,7 +276,7 @@
     TDTrue(tok.isSymbol);
     TDEquals(tok.offset, (NSUInteger)1);
 
-    //    if ([PKToken EOFToken] == token) break;
+    //    if (tok.isEOFen) break;
     
 }
 
