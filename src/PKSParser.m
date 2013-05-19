@@ -530,7 +530,7 @@
                 break;
             }
             
-            if (PKTokenTypeEOF == lt.tokenType) break;
+            if (lt.isEOF) break;
 
             [self consume:lt];
         }
