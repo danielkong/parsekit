@@ -57,18 +57,18 @@ typedef enum {
     PKTokenType tokenType;
     NSInteger tokenKind;
     
-    BOOL number;
-    BOOL quotedString;
-    BOOL symbol;
-    BOOL word;
-    BOOL whitespace;
-    BOOL comment;
-    BOOL delimitedString;
-    BOOL URL;
-    BOOL email;
+    BOOL isNumber;
+    BOOL isQuotedString;
+    BOOL isSymbol;
+    BOOL isWord;
+    BOOL isWhitespace;
+    BOOL isComment;
+    BOOL isDelimitedString;
+    BOOL isURL;
+    BOOL isEmail;
 #if PK_PLATFORM_TWITTER_STATE
-    BOOL twitter;
-    BOOL hashtag;
+    BOOL isTwitter;
+    BOOL isHashtag;
 #endif
     
     id value;
@@ -116,70 +116,76 @@ typedef enum {
 
 /*!
     @property   number
-    @brief      True if this token is a number. getter=isNumber
+    @brief      True if this token is the EOF singleton token. getter=isEOF
 */
-@property (nonatomic, readonly, getter=isNumber) BOOL number;
+@property (nonatomic, readonly) BOOL isEOF;
+
+/*!
+    @property   number
+    @brief      True if this token is a number.
+*/
+@property (nonatomic, readonly) BOOL isNumber;
 
 /*!
     @property   quotedString
     @brief      True if this token is a quoted string. getter=isQuotedString
 */
-@property (nonatomic, readonly, getter=isQuotedString) BOOL quotedString;
+@property (nonatomic, readonly) BOOL isQuotedString;
 
 /*!
     @property   symbol
     @brief      True if this token is a symbol. getter=isSymbol
 */
-@property (nonatomic, readonly, getter=isSymbol) BOOL symbol;
+@property (nonatomic, readonly) BOOL isSymbol;
 
 /*!
     @property   word
     @brief      True if this token is a word. getter=isWord
 */
-@property (nonatomic, readonly, getter=isWord) BOOL word;
+@property (nonatomic, readonly) BOOL isWord;
 
 /*!
     @property   whitespace
     @brief      True if this token is whitespace. getter=isWhitespace
 */
-@property (nonatomic, readonly, getter=isWhitespace) BOOL whitespace;
+@property (nonatomic, readonly) BOOL isWhitespace;
 
 /*!
     @property   comment
     @brief      True if this token is a comment. getter=isComment
 */
-@property (nonatomic, readonly, getter=isComment) BOOL comment;
+@property (nonatomic, readonly) BOOL isComment;
 
 /*!
     @property   delimitedString
     @brief      True if this token is a delimited string. getter=isDelimitedString
 */
-@property (nonatomic, readonly, getter=isDelimitedString) BOOL delimitedString;
+@property (nonatomic, readonly) BOOL isDelimitedString;
 
 /*!
     @property   URL
     @brief      True if this token is a URL. getter=isURL
 */
-@property (nonatomic, readonly, getter=isURL) BOOL URL;
+@property (nonatomic, readonly) BOOL isURL;
 
 /*!
     @property   email
     @brief      True if this token is an email address. getter=isEmail
 */
-@property (nonatomic, readonly, getter=isEmail) BOOL email;
+@property (nonatomic, readonly) BOOL isEmail;
 
 #if PK_PLATFORM_TWITTER_STATE
 /*!
     @property   twitter
     @brief      True if this token is an twitter handle. getter=isTwitter
 */
-@property (nonatomic, readonly, getter=isTwitter) BOOL twitter;
+@property (nonatomic, readonly) BOOL isTwitter;
 
 /*!
     @property   hashtaag
     @brief      True if this token is an twitter hashtag. getter=isHashtag
 */
-@property (nonatomic, readonly, getter=isHashtag) BOOL hashtag;
+@property (nonatomic, readonly) BOOL isHashtag;
 #endif
 
 /*!
