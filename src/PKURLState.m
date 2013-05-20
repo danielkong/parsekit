@@ -66,7 +66,10 @@
         matched = [self parseWWWFromReader:r];
 
         if (!matched) {
-            [r unread:[[self bufferedString] length]];
+            if (PKEOF != c) {
+                NSUInteger buffLen = [[self bufferedString] length];
+                [r unread:buffLen];
+            }
             [self resetWithReader:r];
             c = cin;
         }
