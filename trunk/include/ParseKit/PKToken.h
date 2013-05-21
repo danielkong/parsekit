@@ -30,20 +30,21 @@
 typedef enum {
     PKTokenTypeEOF = -1,
     PKTokenTypeInvalid = 0,
-    PKTokenTypeNumber,
-    PKTokenTypeQuotedString,
-    PKTokenTypeSymbol,
-    PKTokenTypeWord,
-    PKTokenTypeWhitespace,
-    PKTokenTypeComment,
-    PKTokenTypeDelimitedString,
-    PKTokenTypeAny,
-    PKTokenTypeURL,
-    PKTokenTypeEmail,
+    PKTokenTypeNumber = 1,
+    PKTokenTypeQuotedString = 2,
+    PKTokenTypeSymbol = 3,
+    PKTokenTypeWord = 4,
+    PKTokenTypeWhitespace = 5,
+    PKTokenTypeComment = 6,
+    PKTokenTypeDelimitedString = 7,
+    PKTokenTypeURL = 8,
+    PKTokenTypeEmail = 9,
 #if PK_PLATFORM_TWITTER_STATE
-    PKTokenTypeTwitter,
-    PKTokenTypeHashtag,
+    PKTokenTypeTwitter = 10,
+    PKTokenTypeHashtag = 11,
 #endif
+    PKTokenTypeEmpty = 12,
+    PKTokenTypeAny = 13,
 } PKTokenType;
 
 /*!
