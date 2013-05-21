@@ -25,6 +25,16 @@
 }
 
 
+- (NSString *)defaultDefNameForStringValue:(NSString *)strVal {
+    NSString *defName = _defaultDefNameTab[strVal];
+    if (!defName) {
+        defName = [@(_fallbackDefNameCounter++) stringValue];
+        _defaultDefNameTab[strVal] = defName;
+    }
+    return defName;
+}
+
+
 - (void)visitRoot:(PKRootNode *)node {
     NSParameterAssert(node);
     NSAssert(self.symbolTable, @"");
@@ -32,7 +42,8 @@
     if (_collectTokenKinds) {
         [PKSTokenKindDescriptor clearCache];
         self.tokenKinds = [NSMutableDictionary dictionary];
-        self.defaultDefNameTab = @{
+        self.fallbackDefNameCounter = 1;
+        self.defaultDefNameTab = [[@{
             @"~": @"TILDE",
             @"`": @"BACKTICK",
             @"!": @"BANG",
@@ -175,7 +186,7 @@
             @"Letter" : @"LETTER_TITLE",
             @"Char" : @"CHAR_TITLE",
             @"SpecificChar": @"SPECIFICCHAR_TITLE",
-        };
+        } mutableCopy] autorelease];
     }
     
     [self recurse:node];
@@ -318,9 +329,7 @@
         if (!name) {
             NSString *defName = node.defName;
             if (!defName) {
-                if (!defName) {
-                    defName = _defaultDefNameTab[strVal];
-                }
+                defName = [self defaultDefNameForStringValue:strVal];
             }
             name = [NSString stringWithFormat:@"TOKEN_KIND_%@", [defName uppercaseString]];
         }
@@ -351,9 +360,7 @@
         if (!name) {
             NSString *defName = node.defName;
             if (!defName) {
-                if (!defName) {
-                    defName = _defaultDefNameTab[strVal];
-                }
+                defName = [self defaultDefNameForStringValue:strVal];
             }
             name = [NSString stringWithFormat:@"TOKEN_KIND_%@", [defName uppercaseString]];
         }
