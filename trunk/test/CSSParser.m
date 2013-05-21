@@ -88,6 +88,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"stylesheet";
         self._tokenKindTab[@","] = @(CSS_TOKEN_KIND_COMMA);
         self._tokenKindTab[@":"] = @(CSS_TOKEN_KIND_COLON);
         self._tokenKindTab[@"~"] = @(CSS_TOKEN_KIND_TILDE);

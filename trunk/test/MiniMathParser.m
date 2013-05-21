@@ -54,6 +54,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"expr";
         self._tokenKindTab[@"+"] = @(MINIMATH_TOKEN_KIND_PLUS);
         self._tokenKindTab[@"*"] = @(MINIMATH_TOKEN_KIND_STAR);
         self._tokenKindTab[@"^"] = @(MINIMATH_TOKEN_KIND_CARET);

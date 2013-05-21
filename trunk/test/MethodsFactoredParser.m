@@ -55,6 +55,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"start";
         self._tokenKindTab[@"int"] = @(METHODSFACTORED_TOKEN_KIND_INT);
         self._tokenKindTab[@"}"] = @(METHODSFACTORED_TOKEN_KIND_CLOSE_CURLY);
         self._tokenKindTab[@","] = @(METHODSFACTORED_TOKEN_KIND_COMMA);

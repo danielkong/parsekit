@@ -50,6 +50,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"structs";
         self.enableAutomaticErrorRecovery = YES;
 
         self._tokenKindTab[@"{"] = @(GREEDYFAILURE_TOKEN_KIND_LCURLY);

@@ -50,6 +50,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"start";
         self._tokenKindTab[@"false"] = @(JSON_TOKEN_KIND_FALSELITERAL);
         self._tokenKindTab[@"}"] = @(JSON_TOKEN_KIND_CLOSECURLY);
         self._tokenKindTab[@"["] = @(JSON_TOKEN_KIND_OPENBRACKET);

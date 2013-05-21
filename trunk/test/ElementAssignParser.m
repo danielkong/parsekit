@@ -50,6 +50,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"start";
         self.enableAutomaticErrorRecovery = YES;
 
         self._tokenKindTab[@"]"] = @(ELEMENTASSIGN_TOKEN_KIND_RBRACKET);

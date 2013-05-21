@@ -80,6 +80,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"expr";
         self._tokenKindTab[@">="] = @(EXPRESSION_TOKEN_KIND_GE);
         self._tokenKindTab[@","] = @(EXPRESSION_TOKEN_KIND_COMMA);
         self._tokenKindTab[@"or"] = @(EXPRESSION_TOKEN_KIND_OR);

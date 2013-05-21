@@ -67,6 +67,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"expr";
         self._tokenKindTab[@"no"] = @(EXPRESSIONACTIONS_TOKEN_KIND_NO);
         self._tokenKindTab[@"NO"] = @(EXPRESSIONACTIONS_TOKEN_KIND_NO_UPPER);
         self._tokenKindTab[@">="] = @(EXPRESSIONACTIONS_TOKEN_KIND_GE);

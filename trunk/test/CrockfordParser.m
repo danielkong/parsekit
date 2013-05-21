@@ -50,6 +50,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"program";
         self.enableAutomaticErrorRecovery = YES;
 
         self._tokenKindTab[@"{"] = @(CROCKFORD_TOKEN_KIND_OPEN_CURLY);

@@ -52,6 +52,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"start";
         self._tokenKindTab[@"<,>"] = @(DELIMITED_TOKEN_KIND_S);
 
         self._tokenKindNameTab[DELIMITED_TOKEN_KIND_S] = @"<,>";

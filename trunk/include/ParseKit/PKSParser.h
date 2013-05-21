@@ -16,7 +16,7 @@
 typedef id   (^PKSActionBlock)   (void);
 typedef void (^PKSSpeculateBlock)(void);
 typedef BOOL (^PKSPredicateBlock)(void);
-typedef void (^PKSResyncBlock)(void);
+typedef void (^PKSResyncBlock)   (void);
 
 enum {
     TOKEN_KIND_BUILTIN_EOF = -1,

@@ -52,6 +52,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"s";
         self._tokenKindTab[@"foo"] = @(NEGATION_TOKEN_KIND_FOO);
 
         self._tokenKindNameTab[NEGATION_TOKEN_KIND_FOO] = @"foo";
