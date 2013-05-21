@@ -37,7 +37,6 @@
 - (void)parser:(PKParser *)p didMatchBaz:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStart:(PKAssembly *)a;
 - (void)parser:(PKParser *)p didMatchStart:(PKAssembly *)a;
-- (void)parser:(PKParser *)p didMatch_Start:(PKAssembly *)a;
 @end
 
 @interface PKParserFactory ()
