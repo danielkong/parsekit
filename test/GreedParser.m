@@ -53,6 +53,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"start";
         self._tokenKindTab[@"a"] = @(GREED_TOKEN_KIND_A);
         self._tokenKindTab[@"b"] = @(GREED_TOKEN_KIND_B);
 

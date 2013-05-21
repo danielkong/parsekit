@@ -50,6 +50,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"program";
         self.enableAutomaticErrorRecovery = YES;
 
         self._tokenKindTab[@"|"] = @(JAVASCRIPT_TOKEN_KIND_PIPE);

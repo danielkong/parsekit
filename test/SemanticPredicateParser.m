@@ -52,6 +52,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"start";
 
 
         self.start_memo = [NSMutableDictionary dictionary];

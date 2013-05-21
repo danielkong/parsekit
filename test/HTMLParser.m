@@ -78,6 +78,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"start";
         self._tokenKindTab[@"script"] = @(HTML_TOKEN_KIND_SCRIPTTAGNAME);
         self._tokenKindTab[@"style"] = @(HTML_TOKEN_KIND_STYLETAGNAME);
         self._tokenKindTab[@"<!DOCTYPE,>"] = @(HTML_TOKEN_KIND_DOCTYPE);

@@ -53,6 +53,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"{{startMethod}}";
 {%if enableAutomaticErrorRecovery %}        self.enableAutomaticErrorRecovery = YES;
 
 {%/if%}{%for kind in tokenKinds %}        self._tokenKindTab[@"{{kind.stringValue}}"] = @({{kind.name}});

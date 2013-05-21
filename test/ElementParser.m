@@ -57,6 +57,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"lists";
         self._tokenKindTab[@"["] = @(ELEMENT_TOKEN_KIND_LBRACKET);
         self._tokenKindTab[@"]"] = @(ELEMENT_TOKEN_KIND_RBRACKET);
         self._tokenKindTab[@","] = @(ELEMENT_TOKEN_KIND_COMMA);

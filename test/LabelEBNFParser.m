@@ -53,6 +53,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self._startRuleName = @"s";
         self._tokenKindTab[@"="] = @(LABELEBNF_TOKEN_KIND_EQUALS);
         self._tokenKindTab[@"return"] = @(LABELEBNF_TOKEN_KIND_RETURN);
         self._tokenKindTab[@":"] = @(LABELEBNF_TOKEN_KIND_COLON);

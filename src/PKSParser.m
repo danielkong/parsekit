@@ -39,6 +39,7 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 @property (nonatomic, retain) NSCountedSet *_resyncSet;
+@property (nonatomic, retain) NSString *_startRuleName;
 
 - (NSInteger)tokenKindForString:(NSString *)str;
 - (NSString *)stringForTokenKind:(NSInteger)tokenKind;
@@ -119,6 +120,7 @@
     self._tokenKindTab = nil;
     self._tokenKindNameTab = nil;
     self._resyncSet = nil;
+    self._startRuleName = nil;
     [super dealloc];
 }
 
@@ -806,4 +808,5 @@
 @synthesize _p = _p;
 @synthesize _tokenKindTab = _tokenKindTab;
 @synthesize _resyncSet = _resyncSet;
+@synthesize _startRuleName = _startRuleName;
 @end
