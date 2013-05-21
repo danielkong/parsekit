@@ -802,6 +802,16 @@
     [self match:TOKEN_KIND_BUILTIN_DELIMITEDSTRING discard:discard];
 }
 
+
+- (void)matchURL:(BOOL)discard {
+    [self match:TOKEN_KIND_BUILTIN_URL discard:discard];
+}
+
+
+- (void)matchEmail:(BOOL)discard {
+    [self match:TOKEN_KIND_BUILTIN_EMAIL discard:discard];
+}
+
 @synthesize _exception = _exception;
 @synthesize _lookahead = _lookahead;
 @synthesize _markers = _markers;

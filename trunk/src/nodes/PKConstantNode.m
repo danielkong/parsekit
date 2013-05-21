@@ -27,6 +27,8 @@ static NSDictionary *sClassTab = nil;
             @"Empty"            : [PKEmpty class],
             @"Any"              : [PKAny class],
             @"S"                : [PKWhitespace class],
+//            @"URL"              : [PKURL class],
+//            @"Email"            : [PKEmail Class],
                      
             @"Digit"            : [PKDigit class],
             @"Letter"           : [PKLetter class],
