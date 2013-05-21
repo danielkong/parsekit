@@ -30,6 +30,7 @@
 @interface PKSParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
+@property (nonatomic, retain) NSString *_startRuleName;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
