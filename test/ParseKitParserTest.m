@@ -44,13 +44,14 @@
     self.parser = [[[ParseKitParser alloc] init] autorelease];
 
 #if TD_EMIT
-    path = [@"~/work/parsekit/trunk/src/ParseKitParser.h" stringByExpandingTildeInPath];
+    path = [[NSString stringWithFormat:@"%s/src/ParseKitParser.h", getenv("PWD")] stringByExpandingTildeInPath];
     err = nil;
     if (![_visitor.interfaceOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);
     }
 
-    path = [@"~/work/parsekit/trunk/src/ParseKitParser.m" stringByExpandingTildeInPath];
+    path = [[NSString stringWithFormat:@"%s/src/ParseKitParser.m", getenv("PWD")] stringByExpandingTildeInPath];
+
     err = nil;
     if (![_visitor.implementationOutputString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err]) {
         NSLog(@"%@", err);

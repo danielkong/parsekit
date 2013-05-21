@@ -79,6 +79,8 @@ enum {
 - (void)matchWhitespace:(BOOL)discard;
 - (void)matchQuotedString:(BOOL)discard;
 - (void)matchDelimitedString:(BOOL)discard;
+- (void)matchURL:(BOOL)discard;
+- (void)matchEmail:(BOOL)discard;
 
 // semantic predicates
 - (BOOL)test:(PKSPredicateBlock)block;

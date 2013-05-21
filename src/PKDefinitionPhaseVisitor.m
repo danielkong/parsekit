@@ -182,6 +182,8 @@
             @"Empty" : @"EMPTY_TITLE",
             @"Any" : @"ANY_TITLE",
             @"S" : @"S_TITLE",
+            @"URL" : @"URL_TITLE",
+            @"Email" : @"EMAIL_TITLE",
             @"Digit" : @"DIGIT_TITLE",
             @"Letter" : @"LETTER_TITLE",
             @"Char" : @"CHAR_TITLE",
