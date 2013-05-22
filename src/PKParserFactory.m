@@ -381,9 +381,9 @@ void PKReleaseSubparserTree(PKParser *p) {
     t.commentState.fallbackState = t.delimitState;
     
     // regex delimited strings
-    NSCharacterSet *nonWhitespace = [[NSCharacterSet whitespaceCharacterSet] invertedSet];
-    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:nonWhitespace];
-    [t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:nonWhitespace];
+    NSCharacterSet *cs = [[NSCharacterSet newlineCharacterSet] invertedSet];
+    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:cs];
+    [t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:cs];
 
     // action and predicate delimited strings
     [t setTokenizerState:t.delimitState from:'{' to:'{'];
