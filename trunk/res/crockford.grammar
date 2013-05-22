@@ -197,7 +197,7 @@ regexBody // ADDED
     = %{'/', '/'}
     ;
 regexMods
-	= { [[NSRegularExpression regularExpressionWithPattern:@"imxs" options:NSRegularExpressionCaseInsensitive error:nil] numberOfMatchesInString:LS(1) options:0 range:NSMakeRange(0, [LS(1) length])] > 1 }? Word
+	= { MATCHES_IGNORE_CASE(@"imxs", LS(1)) }? Word
 	;
 	
 returnStmt
