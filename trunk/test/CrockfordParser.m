@@ -196,17 +196,18 @@
         [t.symbolState add:@"^="];
         [t.symbolState add:@"|="];
 
-		// comments
+        // setup comments
         t.commentState.reportsCommentTokens = YES;
-        
         [t setTokenizerState:t.commentState from:'/' to:'/'];
         [t.commentState addSingleLineStartMarker:@"//"];
         [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
-		
-	    // regex delimited strings
+        
+        // comment state should fallback to delimit state to match regex delimited strings
+        t.commentState.fallbackState = t.delimitState;
+        
+        // regex delimited strings
         NSCharacterSet *cs = [[NSCharacterSet newlineCharacterSet] invertedSet];
-	    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:cs];
-	    //[t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:nonWhitespace];		
+        [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:cs];
 
     }];
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
