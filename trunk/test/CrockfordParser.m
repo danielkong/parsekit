@@ -204,7 +204,7 @@
         [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
 		
 	    // regex delimited strings
-	    NSCharacterSet *cs = [NSCharacterSet newlineCharacherSet];
+        NSCharacterSet *cs = [[NSCharacterSet newlineCharacterSet] invertedSet];
 	    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:cs];
 	    //[t.delimitState addStartMarker:@"/" endMarker:@"/i" allowedCharacterSet:nonWhitespace];		
 
