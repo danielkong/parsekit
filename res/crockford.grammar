@@ -197,7 +197,7 @@ regexBody // ADDED
     = %{'/', '/'}
     ;
 regexMods
-	= { MATCHES_IGNORE_CASE(@"imxs", LS(1)) }? Word
+	= { MATCHES_IGNORE_CASE(@"[imxs]+", LS(1)) }? Word
 	;
 	
 returnStmt
