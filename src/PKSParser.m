@@ -40,6 +40,7 @@
 @property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 @property (nonatomic, retain) NSCountedSet *_resyncSet;
 @property (nonatomic, retain) NSString *_startRuleName;
+@property (nonatomic, retain) NSString *_incrementalRuleName;
 
 - (NSInteger)tokenKindForString:(NSString *)str;
 - (NSString *)stringForTokenKind:(NSInteger)tokenKind;
@@ -121,6 +122,7 @@
     self._tokenKindNameTab = nil;
     self._resyncSet = nil;
     self._startRuleName = nil;
+    self._incrementalRuleName = nil;
     [super dealloc];
 }
 
@@ -819,4 +821,5 @@
 @synthesize _tokenKindTab = _tokenKindTab;
 @synthesize _resyncSet = _resyncSet;
 @synthesize _startRuleName = _startRuleName;
+@synthesize _incrementalRuleName = _incrementalRuleName;
 @end
