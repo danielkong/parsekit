@@ -265,8 +265,8 @@
         }
     }
     @finally {
-        self.tokenizer.delegate = nil;
-        self.tokenizer = nil;
+        //self.tokenizer.delegate = nil;
+        //self.tokenizer = nil;
         self.assembler = nil;
         self.assembly = nil;
         self._lookahead = nil;
