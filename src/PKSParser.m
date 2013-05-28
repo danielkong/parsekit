@@ -165,7 +165,13 @@
     [input scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [input open];
     
-    PKTokenizer *t = [PKTokenizer tokenizerWithStream:input];
+    PKTokenizer *t = _tokenizer;
+    
+    if (t) {
+        t.stream = input;
+    } else {
+        t = [PKTokenizer tokenizerWithStream:input];
+    }
 
     id result = [self _parseWithTokenizer:t assembler:a error:outError];
     
@@ -179,7 +185,13 @@
 - (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outError {
     NSParameterAssert(input);
 
-    PKTokenizer *t = [PKTokenizer tokenizerWithString:input];
+    PKTokenizer *t = _tokenizer;
+    
+    if (t) {
+        t.string = input;
+    } else {
+        t = [PKTokenizer tokenizerWithString:input];
+    }
     
     id result = [self _parseWithTokenizer:t assembler:a error:outError];
     return result;
