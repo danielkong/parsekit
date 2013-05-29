@@ -27,6 +27,44 @@
 }
 
 
+- (void)testNestedParens1 {
+    s = @"(foo(bar))";
+    t.string = s;
+    NSCharacterSet *cs = nil;
+    
+    [t setTokenizerState:delimitState from:'(' to:'('];
+    [delimitState addStartMarker:@"(" endMarker:@")" allowedCharacterSet:cs];
+    delimitState.allowsNestedMarkers = NO;
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"(foo(bar)", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEqualObjects(@")", tok.stringValue);
+}
+
+
+- (void)testNestedParens2 {
+    s = @"(foo(bar))";
+    t.string = s;
+    NSCharacterSet *cs = nil;
+    
+    [t setTokenizerState:delimitState from:'(' to:'('];
+    [delimitState addStartMarker:@"(" endMarker:@")" allowedCharacterSet:cs];
+    delimitState.allowsNestedMarkers = YES;
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(s, tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEqualObjects([PKToken EOFToken], tok);
+}
+
+
 - (void)testLtFooGt {
     s = @"<foo>";
     t.string = s;
@@ -38,11 +76,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -57,11 +95,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -86,7 +124,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -111,7 +149,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -126,11 +164,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -159,7 +197,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -189,7 +227,7 @@
 //    TDEquals(tok.floatValue, (double)0.0);
 //    
 //    tok = [t nextToken];
-//    TDEqualObjects(tok, [PKToken EOFToken]);
+//    TDEqualObjects([PKToken EOFToken], tok);
 //}
 
 
@@ -204,11 +242,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -223,11 +261,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -267,7 +305,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -298,7 +336,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -313,11 +351,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -332,11 +370,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -380,7 +418,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -395,11 +433,11 @@
     tok = [t nextToken];
 
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -414,11 +452,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -433,11 +471,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -452,11 +490,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -471,11 +509,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -492,11 +530,11 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -534,7 +572,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -548,11 +586,11 @@
     
     tok = [t nextToken];
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -580,7 +618,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -599,7 +637,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -613,11 +651,11 @@
     
     tok = [t nextToken];
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
 
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -631,11 +669,11 @@
     
     tok = [t nextToken];
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, s);
+    TDEqualObjects(s, tok.stringValue);
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -662,7 +700,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -680,7 +718,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -698,7 +736,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -716,7 +754,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -734,7 +772,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -752,7 +790,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -770,7 +808,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
@@ -803,7 +841,7 @@
     TDEquals(tok.floatValue, (double)0.0);
     
     tok = [t nextToken];
-    TDEqualObjects(tok, [PKToken EOFToken]);
+    TDEqualObjects([PKToken EOFToken], tok);
 }
 
 
