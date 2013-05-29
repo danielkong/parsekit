@@ -45,7 +45,9 @@
 @property (nonatomic, retain) PKDelimitDescriptorCollection *collection;
 @end
 
-@implementation PKDelimitState
+@implementation PKDelimitState {
+    NSInteger _nestedCount;
+}
 
 - (id)init {
     self = [super init];
@@ -101,11 +103,14 @@
     
     NSUInteger count = [descs count];
     BOOL hasEndMarkers = NO;
+    PKUniChar startChars[count];
     PKUniChar endChars[count];
     PKDelimitDescriptor *selectedDesc = nil;
+    _nestedCount = 0;
 
     NSUInteger i = 0;
     for (PKDelimitDescriptor *desc in descs) {
+        startChars[i] = [startMarker characterAtIndex:0];
         NSString *endMarker = desc.endMarker;
         PKUniChar e = PKEOF;
         
@@ -143,17 +148,50 @@
         BOOL done = NO;
         NSString *endMarker = nil;
         NSCharacterSet *charSet = nil;
-        
+        BOOL hasConsumedAtLeastOneChar = [[self bufferedString] length];
+
         for (NSUInteger i = 0; i < count; ++i) {
+            PKUniChar a = startChars[i];
             PKUniChar e = endChars[i];
             
-            if (e == c) {
+            NSString *peek = nil;
+            
+            BOOL foundNestedStartMarker = NO;
+            
+            if (_allowsNestedMarkers && hasConsumedAtLeastOneChar && a == c) {
                 selectedDesc = descs[i];
                 endMarker = [selectedDesc endMarker];
                 charSet = [selectedDesc characterSet];
                 
-                NSString *peek = [rootNode nextSymbol:r startingWith:e];
+                peek = [rootNode nextSymbol:r startingWith:c];
+                //NSLog(@"%@ %@", peek, [self bufferedString]);
+                
+                if ([startMarker isEqualToString:peek]) {
+                    foundNestedStartMarker = YES;
+                    _nestedCount++;
+                }
+            }
+            
+            if (!foundNestedStartMarker && e == c) {
+                selectedDesc = descs[i];
+                endMarker = [selectedDesc endMarker];
+                charSet = [selectedDesc characterSet];
+                
+                if (!peek) {
+                    peek = [rootNode nextSymbol:r startingWith:c];
+                }
+                //NSLog(@"%@ %@", peek, [self bufferedString]);
+
+                BOOL foundEndMarker = NO;
                 if (endMarker && [endMarker isEqualToString:peek]) {
+                    if (_allowsNestedMarkers && _nestedCount) {
+                        _nestedCount--;
+                    } else {
+                        foundEndMarker = YES;
+                    }
+                }
+                
+                if (foundEndMarker) {
                     [self appendString:endMarker];
                     c = [r read];
                     done = YES;
@@ -165,6 +203,7 @@
                         c = [r read];
                     }
                 }
+
             }
         }
 

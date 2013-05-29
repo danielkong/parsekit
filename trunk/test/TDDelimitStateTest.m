@@ -27,42 +27,42 @@
 }
 
 
-//- (void)testNestedParens1 {
-//    s = @"(foo(bar))";
-//    t.string = s;
-//    NSCharacterSet *cs = nil;
-//    
-//    [t setTokenizerState:delimitState from:'(' to:'('];
-//    [delimitState addStartMarker:@"(" endMarker:@")" allowedCharacterSet:cs];
-//    delimitState.allowsNestedMarkers = NO;
-//    
-//    tok = [t nextToken];
-//    
-//    TDTrue(tok.isDelimitedString);
-//    TDEqualObjects(@"(foo(bar)", tok.stringValue);
-//    
-//    tok = [t nextToken];
-//    TDEqualObjects(@")", tok.stringValue);
-//}
-//
-//
-//- (void)testNestedParens2 {
-//    s = @"(foo(bar))";
-//    t.string = s;
-//    NSCharacterSet *cs = nil;
-//    
-//    [t setTokenizerState:delimitState from:'(' to:'('];
-//    [delimitState addStartMarker:@"(" endMarker:@")" allowedCharacterSet:cs];
-//    delimitState.allowsNestedMarkers = YES;
-//    
-//    tok = [t nextToken];
-//    
-//    TDTrue(tok.isDelimitedString);
-//    TDEqualObjects(s, tok.stringValue);
-//    
-//    tok = [t nextToken];
-//    TDEqualObjects([PKToken EOFToken], tok);
-//}
+- (void)testNestedParens2 {
+    s = @"(foo(bar))";
+    t.string = s;
+    NSCharacterSet *cs = nil;
+    
+    [t setTokenizerState:delimitState from:'(' to:'('];
+    [delimitState addStartMarker:@"(" endMarker:@")" allowedCharacterSet:cs];
+    delimitState.allowsNestedMarkers = YES;
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(s, tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEqualObjects([PKToken EOFToken], tok);
+}
+
+
+- (void)testNestedParens1 {
+    s = @"(foo(bar))";
+    t.string = s;
+    NSCharacterSet *cs = nil;
+    
+    [t setTokenizerState:delimitState from:'(' to:'('];
+    [delimitState addStartMarker:@"(" endMarker:@")" allowedCharacterSet:cs];
+    delimitState.allowsNestedMarkers = NO;
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"(foo(bar)", tok.stringValue);
+    
+    tok = [t nextToken];
+    TDEqualObjects(@")", tok.stringValue);
+}
 
 
 - (void)testLtFooGt {
