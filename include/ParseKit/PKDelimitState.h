@@ -44,4 +44,6 @@
     @details	Default is NO.
 */
 @property (nonatomic) BOOL balancesEOFTerminatedStrings;
+
+@property (nonatomic) BOOL allowsNestedMarkers;
 @end
