@@ -34,6 +34,7 @@
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 @property (nonatomic, retain) NSString *_startRuleName;
+@property (nonatomic, retain) NSString *_statementTerminator;
 
 - (BOOL)_popBool;
 - (NSInteger)_popInteger;
