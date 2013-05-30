@@ -10,7 +10,7 @@
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
 #import <ParseKit/PKWhitespaceState.h>
-#import <ParseKit/PKSTokenAssembly.h>
+#import <ParseKit/PEGTokenAssembly.h>
 #import <ParseKit/PKSRecognitionException.h>
 #import "NSArray+ParseKitAdditions.h"
 
@@ -24,7 +24,7 @@
 - (void)parser:(PEGParser *)p didFailToMatch:(PKAssembly *)a;
 @end
 
-@interface PKSTokenAssembly ()
+@interface PEGTokenAssembly ()
 - (void)consume:(PKToken *)tok;
 @property (nonatomic, readwrite, retain) NSMutableArray *stack;
 @end
@@ -206,7 +206,7 @@
     // setup
     self.assembler = a;
     self.tokenizer = t;
-    self.assembly = [PKSTokenAssembly assemblyWithTokenizer:_tokenizer];
+    self.assembly = [PEGTokenAssembly assemblyWithTokenizer:_tokenizer];
     
     self.tokenizer.delegate = self;
     

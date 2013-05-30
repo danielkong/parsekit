@@ -96,6 +96,6 @@
 
 // static
 #import <ParseKit/PEGParser.h>
-#import <ParseKit/PKSTokenAssembly.h>
+#import <ParseKit/PEGTokenAssembly.h>
 #import <ParseKit/PKSRecognitionException.h>
 

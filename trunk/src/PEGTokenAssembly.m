@@ -12,7 +12,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <ParseKit/PKSTokenAssembly.h>
+#import <ParseKit/PEGTokenAssembly.h>
 #import <ParseKit/PKTokenizer.h>
 #import <ParseKit/PKToken.h>
 
@@ -20,15 +20,15 @@
 @property (nonatomic, readwrite, retain) NSString *defaultCursor;
 @end
 
-@interface PKSTokenAssembly ()
+@interface PEGTokenAssembly ()
 - (void)consume:(PKToken *)tok;
 @property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, retain) NSMutableArray *tokens;
 @end
 
-@implementation PKSTokenAssembly
+@implementation PEGTokenAssembly
 
-+ (PKSTokenAssembly *)assemblyWithTokenizer:(PKTokenizer *)t {
++ (PEGTokenAssembly *)assemblyWithTokenizer:(PKTokenizer *)t {
     return [[[self alloc] initWithTokenzier:t] autorelease];
 }
 
@@ -58,24 +58,24 @@
 - (id)copyWithZone:(NSZone *)zone {
     NSAssert2(0, @"%s why are you copying me??? %@", __PRETTY_FUNCTION__, [self class]);
     
-    PKSTokenAssembly *a = (PKSTokenAssembly *)[super copyWithZone:zone];
-    a->tokenizer = nil; // optimization
-    a->preservesWhitespaceTokens = preservesWhitespaceTokens;
-    if (tokens) a->tokens = [tokens mutableCopy];
+    PEGTokenAssembly *a = (PEGTokenAssembly *)[super copyWithZone:zone];
+    a->_tokenizer = nil; // optimization
+    a->_preservesWhitespaceTokens = _preservesWhitespaceTokens;
+    if (_tokens) a->_tokens = [_tokens mutableCopy];
     return a;
 }
 
 
 - (void)consume:(PKToken *)tok {
-    if (preservesWhitespaceTokens || !tok.isWhitespace) {
+    if (_preservesWhitespaceTokens || !tok.isWhitespace) {
         [self push:tok];
         ++index;
 
-        if (gathersConsumedTokens) {
-            if (!tokens) {
+        if (_gathersConsumedTokens) {
+            if (!_tokens) {
                 self.tokens = [NSMutableArray array];
             }
-            [tokens addObject:tok];
+            [_tokens addObject:tok];
         }
     }
 }
@@ -128,19 +128,19 @@
 - (NSString *)lastConsumedObjects:(NSUInteger)len joinedByString:(NSString *)delimiter {
     NSParameterAssert(delimiter);
     
-    if (!gathersConsumedTokens) return @"";
+    if (!_gathersConsumedTokens) return @"";
 
     NSUInteger end = self.objectsConsumed;
 
     len = MIN(end, len);
     NSUInteger loc = end - len;
 
-    NSAssert(loc < [tokens count], @"");
-    NSAssert(len <= [tokens count], @"");
-    NSAssert(loc + len <= [tokens count], @"");
+    NSAssert(loc < [_tokens count], @"");
+    NSAssert(len <= [_tokens count], @"");
+    NSAssert(loc + len <= [_tokens count], @"");
     
     NSRange r = NSMakeRange(loc, len);
-    NSArray *objs = [tokens subarrayWithRange:r];
+    NSArray *objs = [_tokens subarrayWithRange:r];
     
     NSString *s = [objs componentsJoinedByString:delimiter];
     return s;
@@ -154,14 +154,14 @@
     NSParameterAssert(delimiter);
     NSParameterAssert(start <= end);
     
-    if (!gathersConsumedTokens) return @"";
+    if (!_gathersConsumedTokens) return @"";
 
     NSMutableString *s = [NSMutableString string];
 
-    NSParameterAssert(end <= [tokens count]);
+    NSParameterAssert(end <= [_tokens count]);
 
     for (NSInteger i = start; i < end; i++) {
-        PKToken *tok = [tokens objectAtIndex:i];
+        PKToken *tok = [_tokens objectAtIndex:i];
         if (PKTokenTypeEOF != tok.tokenType) {
             [s appendString:tok.stringValue];
             if (end - 1 != i) {
@@ -173,8 +173,4 @@
     return [[s copy] autorelease];
 }
 
-@synthesize tokenizer;
-@synthesize tokens;
-@synthesize preservesWhitespaceTokens;
-@synthesize gathersConsumedTokens;
 @end
