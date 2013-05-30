@@ -11,7 +11,7 @@
 #import <ParseKit/PKTokenizer.h>
 
 @class PKToken;
-@class PKSTokenAssembly;
+@class PEGTokenAssembly;
 
 typedef id   (^PKSActionBlock)   (void);
 typedef void (^PKSSpeculateBlock)(void);
@@ -48,7 +48,7 @@ enum {
 @property (nonatomic, assign) BOOL enableAutomaticErrorRecovery; // default NO
 
 @property (nonatomic, retain) PKTokenizer *tokenizer;
-@property (nonatomic, retain) PKSTokenAssembly *assembly;
+@property (nonatomic, retain) PEGTokenAssembly *assembly;
 @end
 
 @interface PEGParser (Subclass)

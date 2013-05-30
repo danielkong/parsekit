@@ -8,7 +8,7 @@
 
 #import "PKSParseTreeAssembler.h"
 #import <ParseKit/PEGParser.h>
-#import <ParseKit/PKSTokenAssembly.h>
+#import <ParseKit/PEGTokenAssembly.h>
 #import <ParseKit/PKToken.h>
 
 #import "PKParseTree.h"
