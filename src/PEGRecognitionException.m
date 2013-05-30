@@ -1,14 +1,14 @@
 //
-//  PKSRecognitionException.m
+//  PEGRecognitionException.m
 //  ParseKit
 //
 //  Created by Todd Ditchendorf on 3/28/13.
 //
 //
 
-#import <ParseKit/PKSRecognitionException.h>
+#import <ParseKit/PEGRecognitionException.h>
 
-@implementation PKSRecognitionException
+@implementation PEGRecognitionException
 
 - (id)init {
     self = [super initWithName:NSStringFromClass([self class]) reason:nil userInfo:nil];
