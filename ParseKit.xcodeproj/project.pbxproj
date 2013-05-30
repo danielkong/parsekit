@@ -900,7 +900,6 @@
 		D3F8121A161AA5BC00DEA1CB /* TDTestScaffold.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE54B0E60E46100A0803E /* TDTestScaffold.m */; };
 		D3F81220161AB38100DEA1CB /* regex.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3F8121F161AB38100DEA1CB /* regex.grammar */; };
 		D3F8A3DC175817DF00056188 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = D36C55FC0FD3617B00141CB7 /* RegexKitLite.h */; };
-		D3F8A3DD175817DF00056188 /* ParseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221900FFE8B8C004514FE /* ParseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F8A3DE175817DF00056188 /* PKTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221910FFE8B8C004514FE /* PKTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F8A3DF175817DF00056188 /* PKReader.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221960FFE8B95004514FE /* PKReader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F8A3E0175817DF00056188 /* PKAssembly.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C221990FFE8B9D004514FE /* PKAssembly.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -966,6 +965,7 @@
 		D3F8A485175817DF00056188 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3BD3A74172DC75600FC6549 /* InfoPlist.strings */; };
 		D3F8A487175817DF00056188 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA19E17284EC100A1A3EC /* Foundation.framework */; };
 		D3F8A488175817DF00056188 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
+		D3F8A4A117581A3C00056188 /* PEGKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8A4A017581A3C00056188 /* PEGKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3FD79210F4CC87900BAD816 /* rubyhash.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3FD791F0F4CC86800BAD816 /* rubyhash.grammar */; };
 		D3FDC4A50FFB3B2A00F1F797 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = D36C55FC0FD3617B00141CB7 /* RegexKitLite.h */; };
 		D3FDC6DA0FFC4C8C00F1F797 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = D36C55FC0FD3617B00141CB7 /* RegexKitLite.h */; };
@@ -1868,6 +1868,7 @@
 		D3F8121F161AB38100DEA1CB /* regex.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = regex.grammar; path = res/regex.grammar; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
 		D3F8A48D175817DF00056188 /* PEGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PEGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F8A4921758187300056188 /* PEGKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "PEGKit-Info.plist"; path = "res/PEGKit-Info.plist"; sourceTree = "<group>"; };
+		D3F8A4A017581A3C00056188 /* PEGKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PEGKit.h; path = include/ParseKit/PEGKit.h; sourceTree = "<group>"; };
 		D3FD791F0F4CC86800BAD816 /* rubyhash.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rubyhash.grammar; path = res/rubyhash.grammar; sourceTree = "<group>"; };
 		D3FDC5830FFC4BFC00F1F797 /* libParseKitMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libParseKitMobile.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3FF6412173C65E600C30A1F /* PKBaseScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseScope.h; path = test/PKBaseScope.h; sourceTree = "<group>"; };
@@ -2027,6 +2028,7 @@
 				D3BD3A70172DC58400FC6549 /* ParseKit_Prefix.pch */,
 				D3BD3A71172DC58400FC6549 /* ParseKitMobile_Prefix.pch */,
 				D3C221900FFE8B8C004514FE /* ParseKit.h */,
+				D3F8A4A017581A3C00056188 /* PEGKit.h */,
 				D3C221910FFE8B8C004514FE /* PKTypes.h */,
 				D3C221990FFE8B9D004514FE /* PKAssembly.h */,
 				D34BADA00FF9C9B000D7773A /* PKAssembly.m */,
@@ -3565,7 +3567,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3F8A3DC175817DF00056188 /* RegexKitLite.h in Headers */,
-				D3F8A3DD175817DF00056188 /* ParseKit.h in Headers */,
 				D3F8A3DE175817DF00056188 /* PKTypes.h in Headers */,
 				D3F8A3DF175817DF00056188 /* PKReader.h in Headers */,
 				D3F8A3E0175817DF00056188 /* PKAssembly.h in Headers */,
@@ -3597,6 +3598,7 @@
 				D3F8A41E175817DF00056188 /* PEGTokenAssembly.h in Headers */,
 				D3F8A41F175817DF00056188 /* PEGTokenKindDescriptor.h in Headers */,
 				D3F8A420175817DF00056188 /* PEGRecognitionException.h in Headers */,
+				D3F8A4A117581A3C00056188 /* PEGKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
