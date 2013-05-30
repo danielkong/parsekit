@@ -1,4 +1,4 @@
-#import <ParseKit/PKSParser.h>
+#import <ParseKit/PEGParser.h>
 
 enum {
     TDNSPREDICATE_TOKEN_KIND_ALL = 14,
@@ -39,7 +39,7 @@ enum {
     TDNSPREDICATE_TOKEN_KIND_DOUBLE_EQUALS,
 };
 
-@interface TDNSPredicateParser : PKSParser
+@interface TDNSPredicateParser : PEGParser
 
 @end
 

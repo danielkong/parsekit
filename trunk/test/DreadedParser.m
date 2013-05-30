@@ -30,7 +30,7 @@
 #define LOG(obj) do { NSLog(@"%@", (obj)); } while (0);
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
-@interface PKSParser ()
+@interface PEGParser ()
 @property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
 @property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
 @property (nonatomic, retain) NSString *_startRuleName;

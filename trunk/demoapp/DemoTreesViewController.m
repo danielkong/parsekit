@@ -77,8 +77,8 @@
 //    PKParseTree *tr = [p parse:self.inputString error:nil];
 
 
-//    PKSParser *p = [[[ExpressionSyntaxParser alloc] init] autorelease];
-    PKSParser *p = [[[JavaScriptSyntaxParser alloc] init] autorelease];
+//    PEGParser *p = [[[ExpressionSyntaxParser alloc] init] autorelease];
+    PEGParser *p = [[[JavaScriptSyntaxParser alloc] init] autorelease];
     PKSParseTreeAssembler *ass = [[[PKSParseTreeAssembler alloc] init] autorelease];
     
     [p parseString:self.inputString assembler:ass error:nil];

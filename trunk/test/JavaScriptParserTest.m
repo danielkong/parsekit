@@ -65,7 +65,7 @@
 }
 
 
-- (void)parser:(PKSParser *)p didMatchVarVariables:(PKAssembly *)a {
+- (void)parser:(PEGParser *)p didMatchVarVariables:(PKAssembly *)a {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     flag = YES;
 }

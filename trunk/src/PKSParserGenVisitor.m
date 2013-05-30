@@ -9,7 +9,7 @@
 #import "PKSParserGenVisitor.h"
 #import <ParseKit/ParseKit.h>
 
-#import <ParseKit/PKSParser.h>
+#import <ParseKit/PEGParser.h>
 #import "PKSTokenKindDescriptor.h"
 #import "NSString+ParseKitAdditions.h"
 

@@ -1,4 +1,4 @@
-#import <ParseKit/PKSParser.h>
+#import <ParseKit/PEGParser.h>
 
 enum {
     ELEMENT_TOKEN_KIND_LBRACKET = 14,
@@ -6,7 +6,7 @@ enum {
     ELEMENT_TOKEN_KIND_COMMA,
 };
 
-@interface ElementParser : PKSParser
+@interface ElementParser : PEGParser
 
 @end
 

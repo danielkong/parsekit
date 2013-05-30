@@ -1,4 +1,4 @@
-#import <ParseKit/PKSParser.h>
+#import <ParseKit/PEGParser.h>
 
 enum {
     PARSEKIT_TOKEN_KIND_SYMBOL_TITLE = 14,
@@ -42,7 +42,7 @@ enum {
     PARSEKIT_TOKEN_KIND_DELIMOPEN,
 };
 
-@interface ParseKitParser : PKSParser
+@interface ParseKitParser : PEGParser
 
 @end
 

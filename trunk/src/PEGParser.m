@@ -1,12 +1,12 @@
 //
-//  PKSParser.m
+//  PEGParser.m
 //  ParseKit
 //
 //  Created by Todd Ditchendorf on 3/26/13.
 //
 //
 
-#import <ParseKit/PKSParser.h>
+#import <ParseKit/PEGParser.h>
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTokenizer.h>
 #import <ParseKit/PKWhitespaceState.h>
@@ -21,7 +21,7 @@
 #define LA(i) [self LA:(i)]
 
 @interface NSObject ()
-- (void)parser:(PKSParser *)p didFailToMatch:(PKAssembly *)a;
+- (void)parser:(PEGParser *)p didFailToMatch:(PKAssembly *)a;
 @end
 
 @interface PKSTokenAssembly ()
@@ -29,7 +29,7 @@
 @property (nonatomic, readwrite, retain) NSMutableArray *stack;
 @end
 
-@interface PKSParser ()
+@interface PEGParser ()
 @property (nonatomic, assign) id assembler; // weak ref
 @property (nonatomic, retain) PKSRecognitionException *_exception;
 @property (nonatomic, retain) NSMutableArray *_lookahead;
@@ -77,7 +77,7 @@
 - (void)_clearMemo;
 @end
 
-@implementation PKSParser
+@implementation PEGParser
 
 - (id)init {
     self = [super init];
