@@ -1,33 +1,33 @@
 //
-//  PKSTokenKindDescriptor.m
+//  PEGTokenKindDescriptor.m
 //  ParseKit
 //
 //  Created by Todd Ditchendorf on 3/27/13.
 //
 //
 
-#import "PKSTokenKindDescriptor.h"
+#import "PEGTokenKindDescriptor.h"
 #import <ParseKit/PEGParser.h>
 
 static NSMutableDictionary *sCache = nil;
 
-@implementation PKSTokenKindDescriptor
+@implementation PEGTokenKindDescriptor
 
 + (void)initialize {
-    if ([PKSTokenKindDescriptor class] == self) {
+    if ([PEGTokenKindDescriptor class] == self) {
         sCache = [[NSMutableDictionary alloc] init];
     }
 }
 
 
-+ (PKSTokenKindDescriptor *)descriptorWithStringValue:(NSString *)s name:(NSString *)name {
++ (PEGTokenKindDescriptor *)descriptorWithStringValue:(NSString *)s name:(NSString *)name {
     NSParameterAssert(s);
     NSParameterAssert(name);
     
-    PKSTokenKindDescriptor *desc = sCache[name];
+    PEGTokenKindDescriptor *desc = sCache[name];
     
     if (!desc) {
-        desc = [[[PKSTokenKindDescriptor alloc] init] autorelease];
+        desc = [[[PEGTokenKindDescriptor alloc] init] autorelease];
         desc.stringValue = s;
         desc.name = name;
         
@@ -38,13 +38,13 @@ static NSMutableDictionary *sCache = nil;
 }
 
 
-+ (PKSTokenKindDescriptor *)anyDescriptor {
-    return [PKSTokenKindDescriptor descriptorWithStringValue:@"TOKEN_KIND_BUILTIN_ANY" name:@"TOKEN_KIND_BUILTIN_ANY"];
++ (PEGTokenKindDescriptor *)anyDescriptor {
+    return [PEGTokenKindDescriptor descriptorWithStringValue:@"TOKEN_KIND_BUILTIN_ANY" name:@"TOKEN_KIND_BUILTIN_ANY"];
 }
 
 
-+ (PKSTokenKindDescriptor *)eofDescriptor {
-    return [PKSTokenKindDescriptor descriptorWithStringValue:@"TOKEN_KIND_BUILTIN_EOR" name:@"TOKEN_KIND_BUILTIN_EOF"];
++ (PEGTokenKindDescriptor *)eofDescriptor {
+    return [PEGTokenKindDescriptor descriptorWithStringValue:@"TOKEN_KIND_BUILTIN_EOR" name:@"TOKEN_KIND_BUILTIN_EOF"];
 }
 
 
@@ -70,7 +70,7 @@ static NSMutableDictionary *sCache = nil;
         return NO;
     }
     
-    PKSTokenKindDescriptor *that = (PKSTokenKindDescriptor *)obj;
+    PEGTokenKindDescriptor *that = (PEGTokenKindDescriptor *)obj;
     
     if (![_stringValue isEqualToString:that->_stringValue]) {
         return NO;
