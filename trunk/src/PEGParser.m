@@ -11,7 +11,7 @@
 #import <ParseKit/PKTokenizer.h>
 #import <ParseKit/PKWhitespaceState.h>
 #import <ParseKit/PEGTokenAssembly.h>
-#import <ParseKit/PKSRecognitionException.h>
+#import <ParseKit/PEGRecognitionException.h>
 #import "NSArray+ParseKitAdditions.h"
 
 #define FAILED -1
@@ -31,7 +31,7 @@
 
 @interface PEGParser ()
 @property (nonatomic, assign) id assembler; // weak ref
-@property (nonatomic, retain) PKSRecognitionException *_exception;
+@property (nonatomic, retain) PEGRecognitionException *_exception;
 @property (nonatomic, retain) NSMutableArray *_lookahead;
 @property (nonatomic, retain) NSMutableArray *_markers;
 @property (nonatomic, assign) NSInteger _p;
@@ -85,7 +85,7 @@
         self.enableActions = YES;
         
         // create a single exception for reuse in control flow
-        self._exception = [[[PKSRecognitionException alloc] init] autorelease];
+        self._exception = [[[PEGRecognitionException alloc] init] autorelease];
         
         self._tokenKindTab = [NSMutableDictionary dictionary];
 
@@ -246,7 +246,7 @@
         [result autorelease]; // -1
 
     }
-    @catch (PKSRecognitionException *rex) {
+    @catch (PEGRecognitionException *rex) {
         NSString *domain = @"PKParseException";
         NSString *reason = [rex currentReason];
 
@@ -606,7 +606,7 @@
     @try {
         if (block) block();
     }
-    @catch (PKSRecognitionException *ex) {
+    @catch (PEGRecognitionException *ex) {
         success = NO;
     }
     
@@ -633,7 +633,7 @@
     @try {
         block();
     }
-    @catch (PKSRecognitionException *ex) {
+    @catch (PEGRecognitionException *ex) {
         if ([self resync]) {
             completion();
         } else {
@@ -670,7 +670,7 @@
     if (self._isSpeculating && [self alreadyParsedRule:memoization]) return;
                                 
     @try { [self performSelector:ruleSelector]; }
-    @catch (PKSRecognitionException *ex) { failed = YES; @throw ex; }
+    @catch (PEGRecognitionException *ex) { failed = YES; @throw ex; }
     @finally {
         if (self._isSpeculating) [self memoize:memoization atIndex:startTokenIndex failed:failed];
     }
