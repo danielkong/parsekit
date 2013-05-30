@@ -1,4 +1,4 @@
-#import <ParseKit/PKSParser.h>
+#import <ParseKit/PEGParser.h>
 
 enum {
     JSON_TOKEN_KIND_FALSELITERAL = 14,
@@ -12,7 +12,7 @@ enum {
     JSON_TOKEN_KIND_COLON,
 };
 
-@interface JSONParser : PKSParser
+@interface JSONParser : PEGParser
 
 @end
 

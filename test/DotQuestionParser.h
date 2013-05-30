@@ -1,10 +1,10 @@
-#import <ParseKit/PKSParser.h>
+#import <ParseKit/PEGParser.h>
 
 enum {
     DOTQUESTION_TOKEN_KIND_A = 14,
 };
 
-@interface DotQuestionParser : PKSParser
+@interface DotQuestionParser : PEGParser
 
 @end
 

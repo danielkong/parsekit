@@ -1,5 +1,5 @@
 //
-//  PKSParser.h
+//  PEGParser.h
 //  ParseKit
 //
 //  Created by Todd Ditchendorf on 3/26/13.
@@ -38,7 +38,7 @@ enum {
     TOKEN_KIND_BUILTIN_ANY = 13,
 };
 
-@interface PKSParser : NSObject <PKTokenizerDelegate>
+@interface PEGParser : NSObject <PKTokenizerDelegate>
 
 - (id)parseString:(NSString *)input assembler:(id)a error:(NSError **)outErr;
 - (id)parseStream:(NSInputStream *)input assembler:(id)a error:(NSError **)outErr;
@@ -51,7 +51,7 @@ enum {
 @property (nonatomic, retain) PKSTokenAssembly *assembly;
 @end
 
-@interface PKSParser (Subclass)
+@interface PEGParser (Subclass)
 
 // lookahead
 - (PKToken *)LT:(NSInteger)i;

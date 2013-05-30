@@ -7,7 +7,7 @@
 //
 
 #import "PKSTokenKindDescriptor.h"
-#import <ParseKit/PKSParser.h>
+#import <ParseKit/PEGParser.h>
 
 static NSMutableDictionary *sCache = nil;
 

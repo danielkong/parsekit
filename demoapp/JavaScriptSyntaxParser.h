@@ -1,4 +1,4 @@
-#import <ParseKit/PKSParser.h>
+#import <ParseKit/PEGParser.h>
 
 enum {
     JAVASCRIPTSYNTAXPARSER_TOKEN_KIND_PIPE = 14,
@@ -72,7 +72,7 @@ enum {
     JAVASCRIPTSYNTAXPARSER_TOKEN_KIND_OPENCURLY,
 };
 
-@interface JavaScriptSyntaxParser : PKSParser
+@interface JavaScriptSyntaxParser : PEGParser
 
 @end
 

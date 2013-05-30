@@ -31,7 +31,7 @@
 #import "PKDefinitionPhaseVisitor.h"
 #import "PKResolutionPhaseVisitor.h"
 
-@interface PKSParser (PKParserFactoryAdditionsFriend)
+@interface PEGParser (PKParserFactoryAdditionsFriend)
 - (id)_parseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError;
 @end
 
