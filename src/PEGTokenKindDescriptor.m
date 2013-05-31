@@ -1,13 +1,13 @@
 //
 //  PEGTokenKindDescriptor.m
-//  ParseKit
+//  PEGKit
 //
 //  Created by Todd Ditchendorf on 3/27/13.
 //
 //
 
 #import "PEGTokenKindDescriptor.h"
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 static NSMutableDictionary *sCache = nil;
 

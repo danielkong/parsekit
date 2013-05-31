@@ -12,8 +12,13 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
+#if PEGKIT
+#import <PEGKit/PKToken.h>
+#import <PEGKit/PKTypes.h>
+#else
 #import <ParseKit/PKToken.h>
 #import <ParseKit/PKTypes.h>
+#endif
 #import "NSString+ParseKitAdditions.h"
 
 @interface PKTokenEOF : PKToken {}

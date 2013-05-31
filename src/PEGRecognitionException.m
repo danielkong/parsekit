@@ -1,12 +1,12 @@
 //
 //  PEGRecognitionException.m
-//  ParseKit
+//  PEGKit
 //
 //  Created by Todd Ditchendorf on 3/28/13.
 //
 //
 
-#import <ParseKit/PEGRecognitionException.h>
+#import <PEGKit/PEGRecognitionException.h>
 
 @implementation PEGRecognitionException
 
