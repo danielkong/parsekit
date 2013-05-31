@@ -12,6 +12,15 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
+#if PEGKIT
+#import <PEGKit/PKDelimitState.h>
+#import <PEGKit/PKReader.h>
+#import <PEGKit/PKTokenizer.h>
+#import <PEGKit/PKToken.h>
+#import <PEGKit/PKWhitespaceState.h>
+#import <PEGKit/PKSymbolRootNode.h>
+#import <PEGKit/PKTypes.h>
+#else
 #import <ParseKit/PKDelimitState.h>
 #import <ParseKit/PKReader.h>
 #import <ParseKit/PKTokenizer.h>
@@ -19,6 +28,7 @@
 #import <ParseKit/PKWhitespaceState.h>
 #import <ParseKit/PKSymbolRootNode.h>
 #import <ParseKit/PKTypes.h>
+#endif
 
 #import "PKDelimitDescriptorCollection.h"
 #import "PKDelimitDescriptor.h"
