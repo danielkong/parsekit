@@ -1,17 +1,17 @@
 //
 //  PEGParser.m
-//  ParseKit
+//  PEGKit
 //
 //  Created by Todd Ditchendorf on 3/26/13.
 //
 //
 
-#import <ParseKit/PEGParser.h>
-#import <ParseKit/PKToken.h>
-#import <ParseKit/PKTokenizer.h>
-#import <ParseKit/PKWhitespaceState.h>
-#import <ParseKit/PEGTokenAssembly.h>
-#import <ParseKit/PEGRecognitionException.h>
+#import <PEGKit/PEGParser.h>
+#import <PEGKit/PKToken.h>
+#import <PEGKit/PKTokenizer.h>
+#import <PEGKit/PKWhitespaceState.h>
+#import <PEGKit/PEGTokenAssembly.h>
+#import <PEGKit/PEGRecognitionException.h>
 #import "NSArray+ParseKitAdditions.h"
 
 #define FAILED -1

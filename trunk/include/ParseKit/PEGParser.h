@@ -1,14 +1,14 @@
 //
 //  PEGParser.h
-//  ParseKit
+//  PEGKit
 //
 //  Created by Todd Ditchendorf on 3/26/13.
 //
 //
 
 #import <Foundation/Foundation.h>
-#import <ParseKit/PKTokenizer.h>
-#import <ParseKit/PKTokenizer.h>
+#import <PEGKit/PKTokenizer.h>
+#import <PEGKit/PKTokenizer.h>
 
 @class PKToken;
 @class PEGTokenAssembly;
