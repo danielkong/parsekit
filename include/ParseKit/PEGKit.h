@@ -15,35 +15,35 @@
 #import <Foundation/Foundation.h>
 
 // io
-#import <ParseKit/PKTypes.h>
-#import <ParseKit/PKReader.h>
+#import <PEGKit/PKTypes.h>
+#import <PEGKit/PKReader.h>
 
 // tokens
-#import <ParseKit/PKToken.h>
-#import <ParseKit/PKTokenizer.h>
-#import <ParseKit/PKTokenArraySource.h>
-#import <ParseKit/PKTokenAssembly.h>
-#import <ParseKit/PKTokenizerState.h>
-#import <ParseKit/PKNumberState.h>
-#import <ParseKit/PKQuoteState.h>
-#import <ParseKit/PKDelimitState.h>
-#import <ParseKit/PKURLState.h>
-#import <ParseKit/PKEmailState.h>
+#import <PEGKit/PKToken.h>
+#import <PEGKit/PKTokenizer.h>
+#import <PEGKit/PKTokenArraySource.h>
+#import <PEGKit/PKTokenAssembly.h>
+#import <PEGKit/PKTokenizerState.h>
+#import <PEGKit/PKNumberState.h>
+#import <PEGKit/PKQuoteState.h>
+#import <PEGKit/PKDelimitState.h>
+#import <PEGKit/PKURLState.h>
+#import <PEGKit/PKEmailState.h>
 #if PK_PLATFORM_TWITTER_STATE
-#import <ParseKit/PKTwitterState.h>
-#import <ParseKit/PKHashtagState.h>
+#import <PEGKit/PKTwitterState.h>
+#import <PEGKit/PKHashtagState.h>
 #endif
-#import <ParseKit/PKCommentState.h>
-#import <ParseKit/PKSingleLineCommentState.h>
-#import <ParseKit/PKMultiLineCommentState.h>
-#import <ParseKit/PKSymbolNode.h>
-#import <ParseKit/PKSymbolRootNode.h>
-#import <ParseKit/PKSymbolState.h>
-#import <ParseKit/PKWordState.h>
-#import <ParseKit/PKWhitespaceState.h>
+#import <PEGKit/PKCommentState.h>
+#import <PEGKit/PKSingleLineCommentState.h>
+#import <PEGKit/PKMultiLineCommentState.h>
+#import <PEGKit/PKSymbolNode.h>
+#import <PEGKit/PKSymbolRootNode.h>
+#import <PEGKit/PKSymbolState.h>
+#import <PEGKit/PKWordState.h>
+#import <PEGKit/PKWhitespaceState.h>
 
 // static
-#import <ParseKit/PEGParser.h>
-#import <ParseKit/PEGTokenAssembly.h>
-#import <ParseKit/PEGRecognitionException.h>
+#import <PEGKit/PEGParser.h>
+#import <PEGKit/PEGTokenAssembly.h>
+#import <PEGKit/PEGRecognitionException.h>
 
