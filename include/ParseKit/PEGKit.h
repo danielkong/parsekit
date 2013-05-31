@@ -21,8 +21,6 @@
 // tokens
 #import <PEGKit/PKToken.h>
 #import <PEGKit/PKTokenizer.h>
-#import <PEGKit/PKTokenArraySource.h>
-#import <PEGKit/PKTokenAssembly.h>
 #import <PEGKit/PKTokenizerState.h>
 #import <PEGKit/PKNumberState.h>
 #import <PEGKit/PKQuoteState.h>
