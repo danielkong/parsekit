@@ -12,19 +12,6 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-/*!
-    @mainpage   ParseKit
-                ParseKit is a Mac OS X Framework written by Todd Ditchendorf in Objective-C 2.0 and released under the MIT Open Source License.
-				The framework is an Objective-C implementation of the tools described in <a href="http://www.amazon.com/Building-Parsers-Java-Steven-Metsker/dp/0201719622" title="Amazon.com: Building Parsers With Java(TM): Steven John Metsker: Books">"Building Parsers with Java" by Steven John Metsker</a>. 
-				ParseKit includes some significant additions beyond the designs from the book (many of them hinted at in the book itself) in order to enhance the framework's feature set, usefulness and ease-of-use. Other changes have been made to the designs in the book to match common Cocoa/Objective-C design patterns and conventions. 
-				However, these changes are relatively superficial, and Metsker's book is the best documentation available for this framework.
-                
-                Classes in the ParseKit Framework offer 2 basic services of general use to Cocoa developers:
-    @li Tokenization via a tokenizer class
-    @li Parsing via a high-level parser-building toolkit
-                Learn more on the <a target="_top" href="http://parsekit.com">project site</a>
-*/
- 
 #import <Foundation/Foundation.h>
 
 // io
