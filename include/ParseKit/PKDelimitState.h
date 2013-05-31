@@ -12,7 +12,11 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
+#if PEGKIT
+#import <PEGKit/PKTokenizerState.h>
+#else
 #import <ParseKit/PKTokenizerState.h>
+#endif
 
 @class PKSymbolRootNode;
 @class PKDelimitDescriptorCollection;
