@@ -962,6 +962,7 @@
 		D3F8A487175817DF00056188 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30DA19E17284EC100A1A3EC /* Foundation.framework */; };
 		D3F8A488175817DF00056188 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36C560B0FD363D500141CB7 /* libicucore.dylib */; };
 		D3F8A4A117581A3C00056188 /* PEGKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8A4A017581A3C00056188 /* PEGKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3F8A4E317582AC600056188 /* PEGKit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D3F8A4E217582AC600056188 /* PEGKit_Prefix.pch */; };
 		D3FD79210F4CC87900BAD816 /* rubyhash.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D3FD791F0F4CC86800BAD816 /* rubyhash.grammar */; };
 		D3FDC4A50FFB3B2A00F1F797 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = D36C55FC0FD3617B00141CB7 /* RegexKitLite.h */; };
 		D3FDC6DA0FFC4C8C00F1F797 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = D36C55FC0FD3617B00141CB7 /* RegexKitLite.h */; };
@@ -1865,6 +1866,7 @@
 		D3F8A48D175817DF00056188 /* PEGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PEGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F8A4921758187300056188 /* PEGKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "PEGKit-Info.plist"; path = "res/PEGKit-Info.plist"; sourceTree = "<group>"; };
 		D3F8A4A017581A3C00056188 /* PEGKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PEGKit.h; path = include/ParseKit/PEGKit.h; sourceTree = "<group>"; };
+		D3F8A4E217582AC600056188 /* PEGKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PEGKit_Prefix.pch; path = src/PEGKit_Prefix.pch; sourceTree = "<group>"; };
 		D3FD791F0F4CC86800BAD816 /* rubyhash.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rubyhash.grammar; path = res/rubyhash.grammar; sourceTree = "<group>"; };
 		D3FDC5830FFC4BFC00F1F797 /* libParseKitMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libParseKitMobile.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3FF6412173C65E600C30A1F /* PKBaseScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKBaseScope.h; path = test/PKBaseScope.h; sourceTree = "<group>"; };
@@ -2021,6 +2023,7 @@
 		08FB77AEFE84172EC02AAC07 /* ParseKit */ = {
 			isa = PBXGroup;
 			children = (
+				D3F8A4E217582AC600056188 /* PEGKit_Prefix.pch */,
 				D3BD3A70172DC58400FC6549 /* ParseKit_Prefix.pch */,
 				D3BD3A71172DC58400FC6549 /* ParseKitMobile_Prefix.pch */,
 				D3C221900FFE8B8C004514FE /* ParseKit.h */,
@@ -3593,6 +3596,7 @@
 				D3F8A41F175817DF00056188 /* PEGTokenKindDescriptor.h in Headers */,
 				D3F8A420175817DF00056188 /* PEGRecognitionException.h in Headers */,
 				D3F8A4A117581A3C00056188 /* PEGKit.h in Headers */,
+				D3F8A4E317582AC600056188 /* PEGKit_Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5202,7 +5206,7 @@
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = src/ParseKit_Prefix.pch;
+				GCC_PREFIX_HEADER = src/PEGKit_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "res/PEGKit-Info.plist";
 				LLVM_LTO = NO;
@@ -5221,7 +5225,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = src/ParseKit_Prefix.pch;
+				GCC_PREFIX_HEADER = src/PEGKit_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NS_BLOCK_ASSERTIONS,
 					NDEBUG,
