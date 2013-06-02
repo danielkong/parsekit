@@ -119,4 +119,5 @@
 @synthesize offset;
 @synthesize fallbackState;
 @synthesize fallbackStates;
+@synthesize disabled;
 @end
