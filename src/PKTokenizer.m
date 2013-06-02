@@ -282,9 +282,11 @@
         state = [tokenizerStates objectAtIndex:c];
     }
     
-    if (state.disabled) {
+    while (state.disabled) {
         state = [state nextTokenizerStateFor:c tokenizer:self];
     }
+    
+    NSAssert(state, @"");
     
     return state;
 }
