@@ -33,6 +33,7 @@
     NSUInteger offset;
     PKTokenizerState *fallbackState;
     NSMutableArray *fallbackStates;
+    BOOL disabled;
 }
 
 /*!
@@ -57,4 +58,6 @@
     @brief      The state this tokenizer defers to if it starts, but ultimately aborts recognizing a token
 */
 @property (nonatomic, retain) PKTokenizerState *fallbackState;
+
+@property (nonatomic, assign) BOOL disabled;
 @end

@@ -24,6 +24,10 @@
 @property (nonatomic, readwrite) NSUInteger lineNumber;
 @end
 
+@interface PKTokenizerState ()
+- (PKTokenizerState *)nextTokenizerStateFor:(PKUniChar)c tokenizer:(PKTokenizer *)t;
+@end
+
 @interface PKTokenizer ()
 - (id)initWithString:(NSString *)str stream:(NSInputStream *)stm;
 - (PKTokenizerState *)tokenizerStateFor:(PKUniChar)c;
@@ -268,13 +272,21 @@
 #pragma mark -
 
 - (PKTokenizerState *)tokenizerStateFor:(PKUniChar)c {
+    PKTokenizerState *state = nil;
+    
     if (c < 0 || c >= STATE_COUNT) {
         // customization above 255 is not supported, so fetch default.
-        return [self defaultTokenizerStateFor:c];
+        state = [self defaultTokenizerStateFor:c];
     } else {
         // customization below 255 is supported, so be sure to get the (possibly) customized state from `tokenizerStates`
-        return [tokenizerStates objectAtIndex:c];
+        state = [tokenizerStates objectAtIndex:c];
     }
+    
+    if (state.disabled) {
+        state = [state nextTokenizerStateFor:c tokenizer:self];
+    }
+    
+    return state;
 }
 
 
