@@ -161,11 +161,21 @@
         BOOL hasConsumedAtLeastOneChar = [[self bufferedString] length];
 
         for (NSUInteger i = 0; i < count; ++i) {
+            if ('\\' == c) {
+                [self append:c]; // append escape backslash
+                c = [r read];
+                if (PKEOF == c) {
+                    break;
+                } else {
+                    [self append:c]; // append escaped char and,
+                    c = [r read]; // advance
+                }
+            }
+            
             PKUniChar a = startChars[i];
             PKUniChar e = endChars[i];
             
             NSString *peek = nil;
-            
             BOOL foundNestedStartMarker = NO;
             
             if (_allowsNestedMarkers && hasConsumedAtLeastOneChar && a == c) {
