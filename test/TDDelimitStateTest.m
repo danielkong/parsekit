@@ -27,6 +27,124 @@
 }
 
 
+- (NSString *)stringInFile:(NSString *)filename {
+    NSString *file = [filename stringByDeletingPathExtension];
+    NSString *ext = [filename pathExtension];
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:file ofType:ext];
+    NSString *str = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    return str;
+}
+
+
+- (void)testSlashSlashEscapeSemi {
+    s = @"/foo\\/bar/;";
+    t.string = s;
+    NSCharacterSet *cs = nil;
+    
+    [t setTokenizerState:delimitState from:'/' to:'/'];
+    [delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:cs];
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"/foo\\/bar/", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@";", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    TDEqualObjects([PKToken EOFToken], tok);
+}
+
+
+- (void)testSlashSlashEscape {
+    s = @"/foo\\/bar/";
+    t.string = s;
+    NSCharacterSet *cs = nil;
+    
+    [t setTokenizerState:delimitState from:'/' to:'/'];
+    [delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:cs];
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"/foo\\/bar/", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isEOF);
+}
+
+
+- (void)testSlashSlashEscapeBackslash {
+    s = @"/foo\\\\/bar/";
+    t.string = s;
+    NSCharacterSet *cs = nil;
+    
+    [t setTokenizerState:delimitState from:'/' to:'/'];
+    [delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:cs];
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"/foo\\\\/", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"bar", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@"/", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isEOF);
+}
+
+
+- (void)testSlashSlashEscapeBackslashFile {
+    s = [self stringInFile:[NSString stringWithFormat:@"%@.txt", NSStringFromSelector(_cmd)]];
+    t.string = s;
+    NSCharacterSet *cs = nil;
+    
+    [t setTokenizerState:delimitState from:'/' to:'/'];
+    [delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:cs];
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"/foo\\\\/", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"bar", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@"/", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isEOF);
+}
+
+
 - (void)testNestedParens2 {
     s = @"(foo(bar))";
     t.string = s;
@@ -114,14 +232,14 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, @"/foo/");
-    TDEquals(tok.floatValue, (double)0.0);
+    TDEqualObjects(@"/foo/", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
     
     tok = [t nextToken];
     
     TDTrue(tok.isWord);
-    TDEqualObjects(tok.stringValue, @"bar");
-    TDEquals(tok.floatValue, (double)0.0);
+    TDEqualObjects(@"bar", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
     
     tok = [t nextToken];
     TDEqualObjects([PKToken EOFToken], tok);
@@ -139,14 +257,14 @@
     tok = [t nextToken];
     
     TDTrue(tok.isDelimitedString);
-    TDEqualObjects(tok.stringValue, @"/foo/");
-    TDEquals(tok.floatValue, (double)0.0);
+    TDEqualObjects(@"/foo/", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
     
     tok = [t nextToken];
     
     TDTrue(tok.isSymbol);
-    TDEqualObjects(tok.stringValue, @";");
-    TDEquals(tok.floatValue, (double)0.0);
+    TDEqualObjects(@";", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
     
     tok = [t nextToken];
     TDEqualObjects([PKToken EOFToken], tok);
