@@ -42,6 +42,7 @@
 @property (nonatomic, retain) NSString *startRuleName;
 @property (nonatomic, retain) NSString *statementTerminator;
 @property (nonatomic, retain) NSString *blockStartMarker;
+@property (nonatomic, retain) NSString *blockEndMarker;
 
 - (NSInteger)tokenKindForString:(NSString *)str;
 - (NSString *)stringForTokenKind:(NSInteger)tokenKind;
@@ -125,6 +126,7 @@
     self.startRuleName = nil;
     self.statementTerminator = nil;
     self.blockStartMarker = nil;
+    self.blockEndMarker = nil;
     [super dealloc];
 }
 
