@@ -64,8 +64,8 @@ var                 = 'var';
 delete              = 'delete';
 keywordNew          = 'new';
 this                = 'this';
-falseLiteral        = 'false';
-trueLiteral         = 'true';
+false               = 'false';
+true                = 'true';
 null                = 'null';
 undefined           = 'undefined';
 void                = 'void';
@@ -459,7 +459,7 @@ commaAssignmentExpr = comma assignmentExpr;
 //           null
 //           this
 
-primaryExpr         = callNewExpr | parenExprParen | identifier | numLiteral | stringLiteral | falseLiteral | trueLiteral | null | undefined | this;
+primaryExpr         = callNewExpr | parenExprParen | identifier | numLiteral | stringLiteral | false | true | null | undefined | this;
 parenExprParen      = openParen expr closeParen;
 identifier          = Word;
 numLiteral          = Number;

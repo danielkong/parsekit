@@ -35,14 +35,14 @@ arrayContent  = Empty | actualArray;
 actualArray   = value commaValue*;
 commaValue    = comma comment? value;
 
-value         = (nullLiteral | trueLiteral | falseLiteral | number | string | array | object) comment?;
+value         = (nullLiteral | true | false | number | string | array | object) comment?;
 
 comment       = Comment;
 string        = QuotedString;
 number        = Number;
 nullLiteral   = 'null';
-trueLiteral   = 'true';
-falseLiteral  = 'false';
+true   = 'true';
+false  = 'false';
 
 openCurly     = '{';
 closeCurly    = '}';
