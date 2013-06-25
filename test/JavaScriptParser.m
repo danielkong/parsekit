@@ -62,7 +62,7 @@
         self.tokenKindTab[@"!="] = @(JAVASCRIPT_TOKEN_KIND_NE);
         self.tokenKindTab[@"("] = @(JAVASCRIPT_TOKEN_KIND_OPENPAREN);
         self.tokenKindTab[@"}"] = @(JAVASCRIPT_TOKEN_KIND_CLOSECURLY);
-        self.tokenKindTab[@"return"] = @(JAVASCRIPT_TOKEN_KIND_RETURNSYM);
+        self.tokenKindTab[@"return"] = @(JAVASCRIPT_TOKEN_KIND_RETURN);
         self.tokenKindTab[@"~"] = @(JAVASCRIPT_TOKEN_KIND_TILDE);
         self.tokenKindTab[@")"] = @(JAVASCRIPT_TOKEN_KIND_CLOSEPAREN);
         self.tokenKindTab[@"*"] = @(JAVASCRIPT_TOKEN_KIND_TIMES);
@@ -73,7 +73,7 @@
         self.tokenKindTab[@"instanceof"] = @(JAVASCRIPT_TOKEN_KIND_INSTANCEOF);
         self.tokenKindTab[@","] = @(JAVASCRIPT_TOKEN_KIND_COMMA);
         self.tokenKindTab[@"<<="] = @(JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ);
-        self.tokenKindTab[@"if"] = @(JAVASCRIPT_TOKEN_KIND_IFSYM);
+        self.tokenKindTab[@"if"] = @(JAVASCRIPT_TOKEN_KIND_IF);
         self.tokenKindTab[@"-"] = @(JAVASCRIPT_TOKEN_KIND_MINUS);
         self.tokenKindTab[@"null"] = @(JAVASCRIPT_TOKEN_KIND_NULL);
         self.tokenKindTab[@"false"] = @(JAVASCRIPT_TOKEN_KIND_FALSE);
@@ -91,14 +91,14 @@
         self.tokenKindTab[@"]"] = @(JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET);
         self.tokenKindTab[@"^"] = @(JAVASCRIPT_TOKEN_KIND_CARET);
         self.tokenKindTab[@"=="] = @(JAVASCRIPT_TOKEN_KIND_EQ);
-        self.tokenKindTab[@"continue"] = @(JAVASCRIPT_TOKEN_KIND_CONTINUESYM);
-        self.tokenKindTab[@"break"] = @(JAVASCRIPT_TOKEN_KIND_BREAKSYM);
+        self.tokenKindTab[@"continue"] = @(JAVASCRIPT_TOKEN_KIND_CONTINUE);
+        self.tokenKindTab[@"break"] = @(JAVASCRIPT_TOKEN_KIND_BREAK);
         self.tokenKindTab[@"-="] = @(JAVASCRIPT_TOKEN_KIND_MINUSEQ);
         self.tokenKindTab[@">="] = @(JAVASCRIPT_TOKEN_KIND_GE);
         self.tokenKindTab[@":"] = @(JAVASCRIPT_TOKEN_KIND_COLON);
-        self.tokenKindTab[@"in"] = @(JAVASCRIPT_TOKEN_KIND_INSYM);
+        self.tokenKindTab[@"in"] = @(JAVASCRIPT_TOKEN_KIND_IN);
         self.tokenKindTab[@";"] = @(JAVASCRIPT_TOKEN_KIND_SEMI);
-        self.tokenKindTab[@"for"] = @(JAVASCRIPT_TOKEN_KIND_FORSYM);
+        self.tokenKindTab[@"for"] = @(JAVASCRIPT_TOKEN_KIND_FOR);
         self.tokenKindTab[@"++"] = @(JAVASCRIPT_TOKEN_KIND_PLUSPLUS);
         self.tokenKindTab[@"<"] = @(JAVASCRIPT_TOKEN_KIND_LT);
         self.tokenKindTab[@"%="] = @(JAVASCRIPT_TOKEN_KIND_MODEQ);
@@ -107,10 +107,10 @@
         self.tokenKindTab[@">"] = @(JAVASCRIPT_TOKEN_KIND_GT);
         self.tokenKindTab[@"void"] = @(JAVASCRIPT_TOKEN_KIND_VOID);
         self.tokenKindTab[@"?"] = @(JAVASCRIPT_TOKEN_KIND_QUESTION);
-        self.tokenKindTab[@"while"] = @(JAVASCRIPT_TOKEN_KIND_WHILESYM);
+        self.tokenKindTab[@"while"] = @(JAVASCRIPT_TOKEN_KIND_WHILE);
         self.tokenKindTab[@"&="] = @(JAVASCRIPT_TOKEN_KIND_ANDEQ);
         self.tokenKindTab[@">>>="] = @(JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ);
-        self.tokenKindTab[@"else"] = @(JAVASCRIPT_TOKEN_KIND_ELSESYM);
+        self.tokenKindTab[@"else"] = @(JAVASCRIPT_TOKEN_KIND_ELSE);
         self.tokenKindTab[@"/="] = @(JAVASCRIPT_TOKEN_KIND_DIVEQ);
         self.tokenKindTab[@"&&"] = @(JAVASCRIPT_TOKEN_KIND_AND);
         self.tokenKindTab[@"var"] = @(JAVASCRIPT_TOKEN_KIND_VAR);
@@ -132,7 +132,7 @@
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_NE] = @"!=";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_OPENPAREN] = @"(";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_CLOSECURLY] = @"}";
-        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_RETURNSYM] = @"return";
+        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_RETURN] = @"return";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_TILDE] = @"~";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_CLOSEPAREN] = @")";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_TIMES] = @"*";
@@ -143,7 +143,7 @@
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_INSTANCEOF] = @"instanceof";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_COMMA] = @",";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_SHIFTLEFTEQ] = @"<<=";
-        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_IFSYM] = @"if";
+        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_IF] = @"if";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_MINUS] = @"-";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_NULL] = @"null";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_FALSE] = @"false";
@@ -161,14 +161,14 @@
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_CLOSEBRACKET] = @"]";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_CARET] = @"^";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_EQ] = @"==";
-        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_CONTINUESYM] = @"continue";
-        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_BREAKSYM] = @"break";
+        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_CONTINUE] = @"continue";
+        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_BREAK] = @"break";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_MINUSEQ] = @"-=";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_GE] = @">=";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_COLON] = @":";
-        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_INSYM] = @"in";
+        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_IN] = @"in";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_SEMI] = @";";
-        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_FORSYM] = @"for";
+        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_FOR] = @"for";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_PLUSPLUS] = @"++";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_LT] = @"<";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_MODEQ] = @"%=";
@@ -177,10 +177,10 @@
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_GT] = @">";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_VOID] = @"void";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_QUESTION] = @"?";
-        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_WHILESYM] = @"while";
+        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_WHILE] = @"while";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_ANDEQ] = @"&=";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_SHIFTRIGHTEXTEQ] = @">>>=";
-        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_ELSESYM] = @"else";
+        self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_ELSE] = @"else";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_DIVEQ] = @"/=";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_AND] = @"&&";
         self.tokenKindNameTab[JAVASCRIPT_TOKEN_KIND_VAR] = @"var";
@@ -261,53 +261,53 @@
     [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }
 
-- (void)ifSym_ {
+- (void)if_ {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_IFSYM discard:NO]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_IF discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchIfSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchIf:)];
 }
 
-- (void)elseSym_ {
+- (void)else_ {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_ELSESYM discard:NO]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_ELSE discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchElseSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchElse:)];
 }
 
-- (void)whileSym_ {
+- (void)while_ {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_WHILESYM discard:NO]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_WHILE discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchWhileSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchWhile:)];
 }
 
-- (void)forSym_ {
+- (void)for_ {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_FORSYM discard:NO]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_FOR discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchForSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchFor:)];
 }
 
-- (void)inSym_ {
+- (void)in_ {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_INSYM discard:NO]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_IN discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchInSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchIn:)];
 }
 
-- (void)breakSym_ {
+- (void)break_ {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_BREAKSYM discard:NO]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_BREAK discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchBreakSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchBreak:)];
 }
 
-- (void)continueSym_ {
+- (void)continue_ {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_CONTINUESYM discard:NO]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_CONTINUE discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchContinueSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchContinue:)];
 }
 
 - (void)with_ {
@@ -317,11 +317,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchWith:)];
 }
 
-- (void)returnSym_ {
+- (void)return_ {
     
-    [self match:JAVASCRIPT_TOKEN_KIND_RETURNSYM discard:NO]; 
+    [self match:JAVASCRIPT_TOKEN_KIND_RETURN discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchReturnSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchReturn:)];
 }
 
 - (void)var_ {
@@ -877,7 +877,7 @@
     
     if ([self predicts:JAVASCRIPT_TOKEN_KIND_FUNCTION, 0]) {
         [self func_]; 
-    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_BREAKSYM, JAVASCRIPT_TOKEN_KIND_CONTINUESYM, JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSE, JAVASCRIPT_TOKEN_KIND_FORSYM, JAVASCRIPT_TOKEN_KIND_IFSYM, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENCURLY, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_RETURNSYM, JAVASCRIPT_TOKEN_KIND_SEMI, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUE, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VAR, JAVASCRIPT_TOKEN_KIND_VOID, JAVASCRIPT_TOKEN_KIND_WHILESYM, JAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
+    } else if ([self predicts:JAVASCRIPT_TOKEN_KIND_BREAK, JAVASCRIPT_TOKEN_KIND_CONTINUE, JAVASCRIPT_TOKEN_KIND_DELETE, JAVASCRIPT_TOKEN_KIND_FALSE, JAVASCRIPT_TOKEN_KIND_FOR, JAVASCRIPT_TOKEN_KIND_IF, JAVASCRIPT_TOKEN_KIND_KEYWORDNEW, JAVASCRIPT_TOKEN_KIND_MINUS, JAVASCRIPT_TOKEN_KIND_MINUSMINUS, JAVASCRIPT_TOKEN_KIND_NULL, JAVASCRIPT_TOKEN_KIND_OPENCURLY, JAVASCRIPT_TOKEN_KIND_OPENPAREN, JAVASCRIPT_TOKEN_KIND_PLUSPLUS, JAVASCRIPT_TOKEN_KIND_RETURN, JAVASCRIPT_TOKEN_KIND_SEMI, JAVASCRIPT_TOKEN_KIND_THIS, JAVASCRIPT_TOKEN_KIND_TILDE, JAVASCRIPT_TOKEN_KIND_TRUE, JAVASCRIPT_TOKEN_KIND_TYPEOF, JAVASCRIPT_TOKEN_KIND_UNDEFINED, JAVASCRIPT_TOKEN_KIND_VAR, JAVASCRIPT_TOKEN_KIND_VOID, JAVASCRIPT_TOKEN_KIND_WHILE, JAVASCRIPT_TOKEN_KIND_WITH, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self stmt_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'element'."];
@@ -992,7 +992,7 @@
 
 - (void)ifStmt_ {
     
-    [self ifSym_]; 
+    [self if_]; 
     [self condition_]; 
     [self stmt_]; 
 
@@ -1001,13 +1001,13 @@
 
 - (void)ifElseStmt_ {
     
-    [self ifSym_]; 
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_ELSESYM block:^{ 
+    [self if_]; 
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_ELSE block:^{ 
         [self condition_]; 
         [self stmt_]; 
-        [self elseSym_]; 
+        [self else_]; 
     } completion:^{ 
-        [self elseSym_]; 
+        [self else_]; 
     }];
         [self stmt_]; 
 
@@ -1016,7 +1016,7 @@
 
 - (void)whileStmt_ {
     
-    [self whileSym_]; 
+    [self while_]; 
     [self condition_]; 
     [self stmt_]; 
 
@@ -1075,11 +1075,11 @@
 
 - (void)forInStmt_ {
     
-    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_INSYM block:^{ 
+    [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_IN block:^{ 
         [self forBegin_]; 
-        [self inSym_]; 
+        [self in_]; 
     } completion:^{ 
-        [self inSym_]; 
+        [self in_]; 
     }];
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_CLOSEPAREN block:^{ 
         [self expr_]; 
@@ -1094,7 +1094,7 @@
 
 - (void)breakStmt_ {
     
-    [self breakSym_]; 
+    [self break_]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
         [self semi_]; 
     } completion:^{ 
@@ -1106,7 +1106,7 @@
 
 - (void)continueStmt_ {
     
-    [self continueSym_]; 
+    [self continue_]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
         [self semi_]; 
     } completion:^{ 
@@ -1137,7 +1137,7 @@
 
 - (void)returnStmt_ {
     
-    [self returnSym_]; 
+    [self return_]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_SEMI block:^{ 
         [self exprOpt_]; 
         [self semi_]; 
@@ -1175,7 +1175,7 @@
 
 - (void)forParen_ {
     
-    [self forSym_]; 
+    [self for_]; 
     [self tryAndRecover:JAVASCRIPT_TOKEN_KIND_OPENPAREN block:^{ 
         [self openParen_]; 
     } completion:^{ 

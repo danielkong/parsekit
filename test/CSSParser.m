@@ -81,7 +81,7 @@
 @property (nonatomic, retain) NSMutableDictionary *tilde_memo;
 @property (nonatomic, retain) NSMutableDictionary *pipe_memo;
 @property (nonatomic, retain) NSMutableDictionary *fwdSlash_memo;
-@property (nonatomic, retain) NSMutableDictionary *hashSym_memo;
+@property (nonatomic, retain) NSMutableDictionary *hash_memo;
 @property (nonatomic, retain) NSMutableDictionary *dot_memo;
 @property (nonatomic, retain) NSMutableDictionary *at_memo;
 @property (nonatomic, retain) NSMutableDictionary *bang_memo;
@@ -103,7 +103,7 @@
         self.tokenKindTab[@"/"] = @(CSS_TOKEN_KIND_FWDSLASH);
         self.tokenKindTab[@"="] = @(CSS_TOKEN_KIND_EQ);
         self.tokenKindTab[@">"] = @(CSS_TOKEN_KIND_GT);
-        self.tokenKindTab[@"#"] = @(CSS_TOKEN_KIND_HASHSYM);
+        self.tokenKindTab[@"#"] = @(CSS_TOKEN_KIND_HASH);
         self.tokenKindTab[@"["] = @(CSS_TOKEN_KIND_OPENBRACKET);
         self.tokenKindTab[@"@"] = @(CSS_TOKEN_KIND_AT);
         self.tokenKindTab[@"]"] = @(CSS_TOKEN_KIND_CLOSEBRACKET);
@@ -124,7 +124,7 @@
         self.tokenKindNameTab[CSS_TOKEN_KIND_FWDSLASH] = @"/";
         self.tokenKindNameTab[CSS_TOKEN_KIND_EQ] = @"=";
         self.tokenKindNameTab[CSS_TOKEN_KIND_GT] = @">";
-        self.tokenKindNameTab[CSS_TOKEN_KIND_HASHSYM] = @"#";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_HASH] = @"#";
         self.tokenKindNameTab[CSS_TOKEN_KIND_OPENBRACKET] = @"[";
         self.tokenKindNameTab[CSS_TOKEN_KIND_AT] = @"@";
         self.tokenKindNameTab[CSS_TOKEN_KIND_CLOSEBRACKET] = @"]";
@@ -169,7 +169,7 @@
         self.tilde_memo = [NSMutableDictionary dictionary];
         self.pipe_memo = [NSMutableDictionary dictionary];
         self.fwdSlash_memo = [NSMutableDictionary dictionary];
-        self.hashSym_memo = [NSMutableDictionary dictionary];
+        self.hash_memo = [NSMutableDictionary dictionary];
         self.dot_memo = [NSMutableDictionary dictionary];
         self.at_memo = [NSMutableDictionary dictionary];
         self.bang_memo = [NSMutableDictionary dictionary];
@@ -212,7 +212,7 @@
     self.tilde_memo = nil;
     self.pipe_memo = nil;
     self.fwdSlash_memo = nil;
-    self.hashSym_memo = nil;
+    self.hash_memo = nil;
     self.dot_memo = nil;
     self.at_memo = nil;
     self.bang_memo = nil;
@@ -255,7 +255,7 @@
     [_tilde_memo removeAllObjects];
     [_pipe_memo removeAllObjects];
     [_fwdSlash_memo removeAllObjects];
-    [_hashSym_memo removeAllObjects];
+    [_hash_memo removeAllObjects];
     [_dot_memo removeAllObjects];
     [_at_memo removeAllObjects];
     [_bang_memo removeAllObjects];
@@ -354,8 +354,8 @@
     do {
         if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
             [self selectorWord_]; 
-        } else if ([self predicts:CSS_TOKEN_KIND_HASHSYM, 0]) {
-            [self hashSym_]; 
+        } else if ([self predicts:CSS_TOKEN_KIND_HASH, 0]) {
+            [self hash_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_DOT, 0]) {
             [self dot_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_COLON, 0]) {
@@ -377,7 +377,7 @@
         } else {
             [self raise:@"No viable alternative found in rule 'selector'."];
         }
-    } while ([self predicts:CSS_TOKEN_KIND_CLOSEBRACKET, CSS_TOKEN_KIND_COLON, CSS_TOKEN_KIND_DOT, CSS_TOKEN_KIND_EQ, CSS_TOKEN_KIND_GT, CSS_TOKEN_KIND_HASHSYM, CSS_TOKEN_KIND_OPENBRACKET, CSS_TOKEN_KIND_PIPE, CSS_TOKEN_KIND_TILDE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]);
+    } while ([self predicts:CSS_TOKEN_KIND_CLOSEBRACKET, CSS_TOKEN_KIND_COLON, CSS_TOKEN_KIND_DOT, CSS_TOKEN_KIND_EQ, CSS_TOKEN_KIND_GT, CSS_TOKEN_KIND_HASH, CSS_TOKEN_KIND_OPENBRACKET, CSS_TOKEN_KIND_PIPE, CSS_TOKEN_KIND_TILDE, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]);
 
 }
 
@@ -742,15 +742,15 @@
     [self parseRule:@selector(__fwdSlash) withMemo:_fwdSlash_memo];
 }
 
-- (void)__hashSym {
+- (void)__hash {
     
-    [self match:CSS_TOKEN_KIND_HASHSYM discard:NO]; 
+    [self match:CSS_TOKEN_KIND_HASH discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchHashSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchHash:)];
 }
 
-- (void)hashSym_ {
-    [self parseRule:@selector(__hashSym) withMemo:_hashSym_memo];
+- (void)hash_ {
+    [self parseRule:@selector(__hash) withMemo:_hash_memo];
 }
 
 - (void)__dot {

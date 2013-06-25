@@ -265,49 +265,49 @@
     
     [self match:JAVASCRIPTWHITESPACE_TOKEN_KIND_IFSYM discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchIfSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchIf:)];
 }
 
 - (void)elseSym_ {
     
     [self match:JAVASCRIPTWHITESPACE_TOKEN_KIND_ELSESYM discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchElseSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchElse:)];
 }
 
 - (void)whileSym_ {
     
     [self match:JAVASCRIPTWHITESPACE_TOKEN_KIND_WHILESYM discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchWhileSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchWhile:)];
 }
 
 - (void)forSym_ {
     
     [self match:JAVASCRIPTWHITESPACE_TOKEN_KIND_FORSYM discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchForSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchFor:)];
 }
 
 - (void)inSym_ {
     
     [self match:JAVASCRIPTWHITESPACE_TOKEN_KIND_INSYM discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchInSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchIn:)];
 }
 
 - (void)breakSym_ {
     
     [self match:JAVASCRIPTWHITESPACE_TOKEN_KIND_BREAKSYM discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchBreakSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchBreak:)];
 }
 
 - (void)continueSym_ {
     
     [self match:JAVASCRIPTWHITESPACE_TOKEN_KIND_CONTINUESYM discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchContinueSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchContinue:)];
 }
 
 - (void)with_ {
@@ -321,7 +321,7 @@
     
     [self match:JAVASCRIPTWHITESPACE_TOKEN_KIND_RETURNSYM discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchReturnSym:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchReturn:)];
 }
 
 - (void)var_ {
