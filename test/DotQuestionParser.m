@@ -36,6 +36,7 @@
 @property (nonatomic, retain) NSString *startRuleName;
 @property (nonatomic, retain) NSString *statementTerminator;
 @property (nonatomic, retain) NSString *blockStartMarker;
+@property (nonatomic, retain) NSString *blockEndMarker;
 
 - (BOOL)popBool;
 - (NSInteger)popInteger;
