@@ -7,16 +7,16 @@
 #define LF(i) [self LF:(i)]
 
 #define POP()       [self.assembly pop]
-#define POP_STR()   [self _popString]
-#define POP_TOK()   [self _popToken]
-#define POP_BOOL()  [self _popBool]
-#define POP_INT()   [self _popInteger]
-#define POP_FLOAT() [self _popDouble]
+#define POP_STR()   [self popString]
+#define POP_TOK()   [self popToken]
+#define POP_BOOL()  [self popBool]
+#define POP_INT()   [self popInteger]
+#define POP_FLOAT() [self popDouble]
 
 #define PUSH(obj)     [self.assembly push:(id)(obj)]
-#define PUSH_BOOL(yn) [self _pushBool:(BOOL)(yn)]
-#define PUSH_INT(i)   [self _pushInteger:(NSInteger)(i)]
-#define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
+#define PUSH_BOOL(yn) [self pushBool:(BOOL)(yn)]
+#define PUSH_INT(i)   [self pushInteger:(NSInteger)(i)]
+#define PUSH_FLOAT(f) [self pushDouble:(double)(f)]
 
 #define EQ(a, b) [(a) isEqual:(b)]
 #define NE(a, b) (![(a) isEqual:(b)])
@@ -31,20 +31,20 @@
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
 @interface PEGParser ()
-@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
-@property (nonatomic, retain) NSString *_startRuleName;
-@property (nonatomic, retain) NSString *_statementTerminator;
+@property (nonatomic, retain) NSMutableDictionary *tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *tokenKindNameTab;
+@property (nonatomic, retain) NSString *startRuleName;
+@property (nonatomic, retain) NSString *statementTerminator;
 
-- (BOOL)_popBool;
-- (NSInteger)_popInteger;
-- (double)_popDouble;
-- (PKToken *)_popToken;
-- (NSString *)_popString;
+- (BOOL)popBool;
+- (NSInteger)popInteger;
+- (double)popDouble;
+- (PKToken *)popToken;
+- (NSString *)popString;
 
-- (void)_pushBool:(BOOL)yn;
-- (void)_pushInteger:(NSInteger)i;
-- (void)_pushDouble:(double)d;
+- (void)pushBool:(BOOL)yn;
+- (void)pushInteger:(NSInteger)i;
+- (void)pushDouble:(double)d;
 @end
 
 @interface ElementParser ()
@@ -62,14 +62,14 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self._startRuleName = @"lists";
-        self._tokenKindTab[@"["] = @(ELEMENT_TOKEN_KIND_LBRACKET);
-        self._tokenKindTab[@"]"] = @(ELEMENT_TOKEN_KIND_RBRACKET);
-        self._tokenKindTab[@","] = @(ELEMENT_TOKEN_KIND_COMMA);
+        self.startRuleName = @"lists";
+        self.tokenKindTab[@"["] = @(ELEMENT_TOKEN_KIND_LBRACKET);
+        self.tokenKindTab[@"]"] = @(ELEMENT_TOKEN_KIND_RBRACKET);
+        self.tokenKindTab[@","] = @(ELEMENT_TOKEN_KIND_COMMA);
 
-        self._tokenKindNameTab[ELEMENT_TOKEN_KIND_LBRACKET] = @"[";
-        self._tokenKindNameTab[ELEMENT_TOKEN_KIND_RBRACKET] = @"]";
-        self._tokenKindNameTab[ELEMENT_TOKEN_KIND_COMMA] = @",";
+        self.tokenKindNameTab[ELEMENT_TOKEN_KIND_LBRACKET] = @"[";
+        self.tokenKindNameTab[ELEMENT_TOKEN_KIND_RBRACKET] = @"]";
+        self.tokenKindNameTab[ELEMENT_TOKEN_KIND_COMMA] = @",";
 
         self.lists_memo = [NSMutableDictionary dictionary];
         self.list_memo = [NSMutableDictionary dictionary];
@@ -104,49 +104,49 @@
     [_comma_memo removeAllObjects];
 }
 
-- (void)_start {
-    [self lists];
+- (void)start {
+    [self lists_];
 }
 
 - (void)__lists {
     
     do {
-        [self list]; 
-    } while ([self speculate:^{ [self list]; }]);
+        [self list_]; 
+    } while ([self speculate:^{ [self list_]; }]);
     [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLists:)];
 }
 
-- (void)lists {
+- (void)lists_ {
     [self parseRule:@selector(__lists) withMemo:_lists_memo];
 }
 
 - (void)__list {
     
-    [self lbracket]; 
-    [self elements]; 
-    [self rbracket]; 
+    [self lbracket_]; 
+    [self elements_]; 
+    [self rbracket_]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchList:)];
 }
 
-- (void)list {
+- (void)list_ {
     [self parseRule:@selector(__list) withMemo:_list_memo];
 }
 
 - (void)__elements {
     
-    [self element]; 
-    while ([self speculate:^{ [self comma]; [self element]; }]) {
-        [self comma]; 
-        [self element]; 
+    [self element_]; 
+    while ([self speculate:^{ [self comma_]; [self element_]; }]) {
+        [self comma_]; 
+        [self element_]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchElements:)];
 }
 
-- (void)elements {
+- (void)elements_ {
     [self parseRule:@selector(__elements) withMemo:_elements_memo];
 }
 
@@ -155,7 +155,7 @@
     if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self matchNumber:NO]; 
     } else if ([self predicts:ELEMENT_TOKEN_KIND_LBRACKET, 0]) {
-        [self list]; 
+        [self list_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'element'."];
     }
@@ -163,7 +163,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchElement:)];
 }
 
-- (void)element {
+- (void)element_ {
     [self parseRule:@selector(__element) withMemo:_element_memo];
 }
 
@@ -174,7 +174,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchLbracket:)];
 }
 
-- (void)lbracket {
+- (void)lbracket_ {
     [self parseRule:@selector(__lbracket) withMemo:_lbracket_memo];
 }
 
@@ -185,7 +185,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchRbracket:)];
 }
 
-- (void)rbracket {
+- (void)rbracket_ {
     [self parseRule:@selector(__rbracket) withMemo:_rbracket_memo];
 }
 
@@ -196,7 +196,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
-- (void)comma {
+- (void)comma_ {
     [self parseRule:@selector(__comma) withMemo:_comma_memo];
 }
 

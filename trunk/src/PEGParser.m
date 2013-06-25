@@ -31,50 +31,50 @@
 
 @interface PEGParser ()
 @property (nonatomic, assign) id assembler; // weak ref
-@property (nonatomic, retain) PEGRecognitionException *_exception;
-@property (nonatomic, retain) NSMutableArray *_lookahead;
-@property (nonatomic, retain) NSMutableArray *_markers;
-@property (nonatomic, assign) NSInteger _p;
-@property (nonatomic, assign, readonly) BOOL _isSpeculating;
-@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
-@property (nonatomic, retain) NSCountedSet *_resyncSet;
-@property (nonatomic, retain) NSString *_startRuleName;
-@property (nonatomic, retain) NSString *_statementTerminator;
+@property (nonatomic, retain) PEGRecognitionException *exception;
+@property (nonatomic, retain) NSMutableArray *lookahead;
+@property (nonatomic, retain) NSMutableArray *markers;
+@property (nonatomic, assign) NSInteger p;
+@property (nonatomic, assign, readonly) BOOL isSpeculating;
+@property (nonatomic, retain) NSMutableDictionary *tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *tokenKindNameTab;
+@property (nonatomic, retain) NSCountedSet *resyncSet;
+@property (nonatomic, retain) NSString *startRuleName;
+@property (nonatomic, retain) NSString *statementTerminator;
 
 - (NSInteger)tokenKindForString:(NSString *)str;
 - (NSString *)stringForTokenKind:(NSInteger)tokenKind;
 - (BOOL)lookahead:(NSInteger)x predicts:(NSInteger)tokenKind;
 - (void)fireSyntaxSelector:(SEL)sel withRuleName:(NSString *)ruleName;
 
-- (void)_discard;
+- (void)discard;
 
 // error recovery
 - (void)pushFollow:(NSInteger)tokenKind;
 - (void)popFollow:(NSInteger)tokenKind;
 - (BOOL)resync;
 
-// conenience
-- (BOOL)_popBool;
-- (NSInteger)_popInteger;
-- (double)_popDouble;
-- (PKToken *)_popToken;
-- (NSString *)_popString;
-- (void)_pushBool:(BOOL)yn;
-- (void)_pushInteger:(NSInteger)i;
-- (void)_pushDouble:(double)d;
+// convenience
+- (BOOL)popBool;
+- (NSInteger)popInteger;
+- (double)popDouble;
+- (PKToken *)popToken;
+- (NSString *)popString;
+- (void)pushBool:(BOOL)yn;
+- (void)pushInteger:(NSInteger)i;
+- (void)pushDouble:(double)d;
 
 // backtracking
-- (NSInteger)_mark;
-- (void)_unmark;
-- (void)_seek:(NSInteger)index;
-- (void)_sync:(NSInteger)i;
-- (void)_fill:(NSInteger)n;
+- (NSInteger)mark;
+- (void)unmark;
+- (void)seek:(NSInteger)index;
+- (void)sync:(NSInteger)i;
+- (void)fill:(NSInteger)n;
 
 // memoization
 - (BOOL)alreadyParsedRule:(NSMutableDictionary *)memoization;
 - (void)memoize:(NSMutableDictionary *)memoization atIndex:(NSInteger)startTokenIndex failed:(BOOL)failed;
-- (void)_clearMemo;
+- (void)clearMemo;
 @end
 
 @implementation PEGParser
@@ -85,27 +85,27 @@
         self.enableActions = YES;
         
         // create a single exception for reuse in control flow
-        self._exception = [[[PEGRecognitionException alloc] init] autorelease];
+        self.exception = [[[PEGRecognitionException alloc] init] autorelease];
         
-        self._tokenKindTab = [NSMutableDictionary dictionary];
+        self.tokenKindTab = [NSMutableDictionary dictionary];
 
-        self._tokenKindNameTab = [NSMutableArray array];
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_INVALID] = @"";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_NUMBER] = @"Number";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_QUOTEDSTRING] = @"Quoted String";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_SYMBOL] = @"Symbol";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_WORD] = @"Word";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_LOWERCASEWORD] = @"Lowercase Word";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_UPPERCASEWORD] = @"Uppercase Word";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_WHITESPACE] = @"Whitespace";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_COMMENT] = @"Comment";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_DELIMITEDSTRING] = @"Delimited String";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_URL] = @"URL";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_EMAIL] = @"Email";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_TWITTER] = @"Twitter";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_HASHTAG] = @"Hashtag";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_EMPTY] = @"Empty";
-        self._tokenKindNameTab[TOKEN_KIND_BUILTIN_ANY] = @"Any";
+        self.tokenKindNameTab = [NSMutableArray array];
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_INVALID] = @"";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_NUMBER] = @"Number";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_QUOTEDSTRING] = @"Quoted String";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_SYMBOL] = @"Symbol";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_WORD] = @"Word";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_LOWERCASEWORD] = @"Lowercase Word";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_UPPERCASEWORD] = @"Uppercase Word";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_WHITESPACE] = @"Whitespace";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_COMMENT] = @"Comment";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_DELIMITEDSTRING] = @"Delimited String";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_URL] = @"URL";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_EMAIL] = @"Email";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_TWITTER] = @"Twitter";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_HASHTAG] = @"Hashtag";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_EMPTY] = @"Empty";
+        self.tokenKindNameTab[TOKEN_KIND_BUILTIN_ANY] = @"Any";
 }
     return self;
 }
@@ -115,14 +115,14 @@
     self.tokenizer = nil;
     self.assembly = nil;
     self.assembler = nil;
-    self._exception = nil;
-    self._lookahead = nil;
-    self._markers = nil;
-    self._tokenKindTab = nil;
-    self._tokenKindNameTab = nil;
-    self._resyncSet = nil;
-    self._startRuleName = nil;
-    self._statementTerminator = nil;
+    self.exception = nil;
+    self.lookahead = nil;
+    self.markers = nil;
+    self.tokenKindTab = nil;
+    self.tokenKindNameTab = nil;
+    self.resyncSet = nil;
+    self.startRuleName = nil;
+    self.statementTerminator = nil;
     [super dealloc];
 }
 
@@ -139,7 +139,7 @@
 - (NSInteger)tokenKindForString:(NSString *)str {
     NSInteger tokenKind = TOKEN_KIND_BUILTIN_INVALID;
     
-    id obj = self._tokenKindTab[str];
+    id obj = self.tokenKindTab[str];
     if (obj) {
         tokenKind = [obj integerValue];
     }
@@ -154,7 +154,7 @@
     if (TOKEN_KIND_BUILTIN_EOF == tokenKind) {
         str = [[PKToken EOFToken] stringValue];
     } else {
-        str = self._tokenKindNameTab[tokenKind];
+        str = self.tokenKindNameTab[tokenKind];
     }
 
     return str;
@@ -175,7 +175,7 @@
         t = [PKTokenizer tokenizerWithStream:input];
     }
 
-    id result = [self _parseWithTokenizer:t assembler:a error:outError];
+    id result = [self parseWithTokenizer:t assembler:a error:outError];
     
     [input close];
     [input removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
@@ -195,12 +195,12 @@
         t = [PKTokenizer tokenizerWithString:input];
     }
     
-    id result = [self _parseWithTokenizer:t assembler:a error:outError];
+    id result = [self parseWithTokenizer:t assembler:a error:outError];
     return result;
 }
 
 
-- (id)_parseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError {
+- (id)parseWithTokenizer:(PKTokenizer *)t assembler:(id)a error:(NSError **)outError {
     id result = nil;
     
     // setup
@@ -216,21 +216,21 @@
     }
     
     // setup speculation
-    self._p = 0;
-    self._lookahead = [NSMutableArray array];
-    self._markers = [NSMutableArray array];
+    self.p = 0;
+    self.lookahead = [NSMutableArray array];
+    self.markers = [NSMutableArray array];
 
     if (_enableAutomaticErrorRecovery) {
-        self._resyncSet = [NSCountedSet set];
+        self.resyncSet = [NSCountedSet set];
     }
 
-    [self _clearMemo];
+    [self clearMemo];
     
     @try {
 
         @autoreleasepool {
             // parse
-            [self _start];
+            [self start];
             
             //NSLog(@"%@", _assembly);
             
@@ -271,9 +271,9 @@
         //self.tokenizer = nil;
         self.assembler = nil;
         self.assembly = nil;
-        self._lookahead = nil;
-        self._markers = nil;
-        self._resyncSet = nil;
+        self.lookahead = nil;
+        self.markers = nil;
+        self.resyncSet = nil;
     }
     
     return result;
@@ -306,7 +306,7 @@
     if (matches) {
         if (TOKEN_KIND_BUILTIN_EOF != tokenKind) {
             [self consume:lt];
-            if (discard) [self _discard];
+            if (discard) [self discard];
         }
     } else {
         NSString *msg = [NSString stringWithFormat:@"Expected : %@", [self stringForTokenKind:tokenKind]];
@@ -316,27 +316,27 @@
 
 
 - (void)consume:(PKToken *)tok {
-    if (!self._isSpeculating) {
+    if (!self.isSpeculating) {
         [_assembly consume:tok];
         //NSLog(@"%@", _assembly);
     }
 
-    self._p++;
+    self.p++;
     
     // have we hit end of buffer when not backtracking?
-    if (_p == [_lookahead count] && !self._isSpeculating) {
+    if (_p == [_lookahead count] && !self.isSpeculating) {
         // if so, it's an opp to start filling at index 0 again
-        self._p = 0;
+        self.p = 0;
         [_lookahead removeAllObjects]; // size goes to 0, but retains memory on heap
-        [self _clearMemo]; // clear all rule_memo dictionaries
+        [self clearMemo]; // clear all rule_memo dictionaries
     }
     
-    [self _sync:1];
+    [self sync:1];
 }
 
 
-- (void)_discard {
-    if (self._isSpeculating) return;
+- (void)discard {
+    if (self.isSpeculating) return;
     
     NSAssert(![_assembly isStackEmpty], @"");
     [_assembly pop];
@@ -344,7 +344,7 @@
 
 
 - (void)fireAssemblerSelector:(SEL)sel {
-    if (self._isSpeculating) return;
+    if (self.isSpeculating) return;
     
     if (_assembler && [_assembler respondsToSelector:sel]) {
         [_assembler performSelector:sel withObject:self withObject:_assembly];
@@ -353,7 +353,7 @@
 
 
 - (void)fireSyntaxSelector:(SEL)sel withRuleName:(NSString *)ruleName {
-    if (self._isSpeculating) return;
+    if (self.isSpeculating) return;
     
     if (_assembler && [_assembler respondsToSelector:sel]) {
         [_assembler performSelector:sel withObject:self withObject:ruleName];
@@ -365,7 +365,7 @@
     PKToken *tok = nil;
     
     for (;;) {
-        [self _sync:i];
+        [self sync:i];
 
         NSUInteger idx = _p + i - 1;
         NSAssert(idx < [_lookahead count], @"");
@@ -397,48 +397,48 @@
 }
 
 
-- (NSInteger)_mark {
+- (NSInteger)mark {
     [_markers addObject:@(_p)];
     return _p;
 }
 
 
-- (void)_unmark {
+- (void)unmark {
     NSInteger marker = [[_markers lastObject] integerValue];
     [_markers removeLastObject];
     
-    [self _seek:marker];
+    [self seek:marker];
 }
 
 
-- (void)_seek:(NSInteger)index {
-    self._p = index;
+- (void)seek:(NSInteger)index {
+    self.p = index;
 }
 
 
-- (BOOL)_isSpeculating {
+- (BOOL)isSpeculating {
     return [_markers count] > 0;
 }
 
 
-- (void)_sync:(NSInteger)i {
+- (void)sync:(NSInteger)i {
     NSInteger lastNeededIndex = _p + i - 1;
     NSInteger lastFullIndex = [_lookahead count] - 1;
     
     if (lastNeededIndex > lastFullIndex) { // out of tokens ?
         NSInteger n = lastNeededIndex - lastFullIndex; // get n tokens
-        [self _fill:n];
+        [self fill:n];
     }
 }
 
 
-- (void)_fill:(NSInteger)n {
+- (void)fill:(NSInteger)n {
     for (NSInteger i = 0; i <= n; ++i) { // <= ?? fetches an extra lookahead tok
         PKToken *tok = [_tokenizer nextToken];
 
         // set token kind
         if (TOKEN_KIND_BUILTIN_INVALID == tok.tokenKind) {
-            tok.tokenKind = [self _tokenKindForToken:tok];
+            tok.tokenKind = [self tokenKindForToken:tok];
         }
         
         NSAssert(tok, @"");
@@ -449,7 +449,7 @@
 }
 
 
-- (NSInteger)_tokenKindForToken:(PKToken *)tok {
+- (NSInteger)tokenKindForToken:(PKToken *)tok {
     NSString *key = tok.stringValue;
     
     NSInteger x = tok.tokenKind;
@@ -466,7 +466,7 @@
 }
 
 
-- (void)_raise:(NSString *)fmt, ... {
+- (void)raiseFormat:(NSString *)fmt, ... {
     va_list vargs;
     va_start(vargs, fmt);
     
@@ -507,7 +507,7 @@
     }
     
     NSString *found = lt ? lt.stringValue : @"-nothing-";
-    [self _raise:fmt, msg, lineNum, after, found];
+    [self raiseFormat:fmt, msg, lineNum, after, found];
 }
 
 
@@ -601,7 +601,7 @@
     NSParameterAssert(block);
     
     BOOL success = YES;
-    [self _mark];
+    [self mark];
     
     @try {
         if (block) block();
@@ -610,14 +610,14 @@
         success = NO;
     }
     
-    [self _unmark];
+    [self unmark];
     return success;
 }
 
 
 - (id)execute:(PKSActionBlock)block {
     NSParameterAssert(block);
-    if (self._isSpeculating || !_enableActions) return nil;
+    if (self.isSpeculating || !_enableActions) return nil;
 
     id result = nil;
     if (block) result = block();
@@ -666,29 +666,29 @@
 
 - (void)parseRule:(SEL)ruleSelector withMemo:(NSMutableDictionary *)memoization {
     BOOL failed = NO;
-    NSInteger startTokenIndex = self._p;
-    if (self._isSpeculating && [self alreadyParsedRule:memoization]) return;
+    NSInteger startTokenIndex = self.p;
+    if (self.isSpeculating && [self alreadyParsedRule:memoization]) return;
                                 
     @try { [self performSelector:ruleSelector]; }
     @catch (PEGRecognitionException *ex) { failed = YES; @throw ex; }
     @finally {
-        if (self._isSpeculating) [self memoize:memoization atIndex:startTokenIndex failed:failed];
+        if (self.isSpeculating) [self memoize:memoization atIndex:startTokenIndex failed:failed];
     }
 }
 
 
 - (BOOL)alreadyParsedRule:(NSMutableDictionary *)memoization {
     
-    id idxKey = @(self._p);
+    id idxKey = @(self.p);
     NSNumber *memoObj = memoization[idxKey];
     if (!memoObj) return NO;
     
     NSInteger memo = [memoObj integerValue];
     if (FAILED == memo) {
-        [self _raise:@"already failed prior attempt at start token index %@", idxKey];
+        [self raiseFormat:@"already failed prior attempt at start token index %@", idxKey];
     }
     
-    [self _seek:memo];
+    [self seek:memo];
     return YES;
 }
 
@@ -696,31 +696,31 @@
 - (void)memoize:(NSMutableDictionary *)memoization atIndex:(NSInteger)startTokenIndex failed:(BOOL)failed {
     id idxKey = @(startTokenIndex);
     
-    NSInteger stopTokenIdex = failed ? FAILED : self._p;
+    NSInteger stopTokenIdex = failed ? FAILED : self.p;
     id idxVal = @(stopTokenIdex);
 
     memoization[idxKey] = idxVal;
 }
 
 
-- (void)_clearMemo {
+- (void)clearMemo {
     
 }
 
 
-- (BOOL)_popBool {
+- (BOOL)popBool {
     id obj = [self.assembly pop];
     return [obj boolValue];
 }
 
 
-- (NSInteger)_popInteger {
+- (NSInteger)popInteger {
     id obj = [self.assembly pop];
     return [obj integerValue];
 }
 
 
-- (double)_popDouble {
+- (double)popDouble {
     id obj = [self.assembly pop];
     if ([obj respondsToSelector:@selector(doubleValue)]) {
         return [obj doubleValue];
@@ -730,14 +730,14 @@
 }
 
 
-- (PKToken *)_popToken {
+- (PKToken *)popToken {
     PKToken *tok = [self.assembly pop];
     NSAssert([tok isKindOfClass:[PKToken class]], @"");
     return tok;
 }
 
 
-- (NSString *)_popString {
+- (NSString *)popString {
     id obj = [self.assembly pop];
     if ([obj respondsToSelector:@selector(stringValue)]) {
         return [obj stringValue];
@@ -747,22 +747,22 @@
 }
 
 
-- (void)_pushBool:(BOOL)yn {
+- (void)pushBool:(BOOL)yn {
     [self.assembly push:(id)(yn ? kCFBooleanTrue : kCFBooleanFalse)];
 }
 
 
-- (void)_pushInteger:(NSInteger)i {
+- (void)pushInteger:(NSInteger)i {
     [self.assembly push:@(i)];
 }
 
 
-- (void)_pushDouble:(double)d {
+- (void)pushDouble:(double)d {
     [self.assembly push:@(d)];
 }
 
 
-- (void)_start {
+- (void)start {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
@@ -826,12 +826,4 @@
     [self match:TOKEN_KIND_BUILTIN_EMAIL discard:discard];
 }
 
-@synthesize _exception = _exception;
-@synthesize _lookahead = _lookahead;
-@synthesize _markers = _markers;
-@synthesize _p = _p;
-@synthesize _tokenKindTab = _tokenKindTab;
-@synthesize _resyncSet = _resyncSet;
-@synthesize _startRuleName = _startRuleName;
-@synthesize _statementTerminator = _statementTerminator;
 @end

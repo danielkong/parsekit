@@ -7,16 +7,16 @@
 #define LF(i) [self LF:(i)]
 
 #define POP()       [self.assembly pop]
-#define POP_STR()   [self _popString]
-#define POP_TOK()   [self _popToken]
-#define POP_BOOL()  [self _popBool]
-#define POP_INT()   [self _popInteger]
-#define POP_FLOAT() [self _popDouble]
+#define POP_STR()   [self popString]
+#define POP_TOK()   [self popToken]
+#define POP_BOOL()  [self popBool]
+#define POP_INT()   [self popInteger]
+#define POP_FLOAT() [self popDouble]
 
 #define PUSH(obj)     [self.assembly push:(id)(obj)]
-#define PUSH_BOOL(yn) [self _pushBool:(BOOL)(yn)]
-#define PUSH_INT(i)   [self _pushInteger:(NSInteger)(i)]
-#define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
+#define PUSH_BOOL(yn) [self pushBool:(BOOL)(yn)]
+#define PUSH_INT(i)   [self pushInteger:(NSInteger)(i)]
+#define PUSH_FLOAT(f) [self pushDouble:(double)(f)]
 
 #define EQ(a, b) [(a) isEqual:(b)]
 #define NE(a, b) (![(a) isEqual:(b)])
@@ -31,20 +31,20 @@
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
 @interface PEGParser ()
-@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
-@property (nonatomic, retain) NSString *_startRuleName;
-@property (nonatomic, retain) NSString *_statementTerminator;
+@property (nonatomic, retain) NSMutableDictionary *tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *tokenKindNameTab;
+@property (nonatomic, retain) NSString *startRuleName;
+@property (nonatomic, retain) NSString *statementTerminator;
 
-- (BOOL)_popBool;
-- (NSInteger)_popInteger;
-- (double)_popDouble;
-- (PKToken *)_popToken;
-- (NSString *)_popString;
+- (BOOL)popBool;
+- (NSInteger)popInteger;
+- (double)popDouble;
+- (PKToken *)popToken;
+- (NSString *)popString;
 
-- (void)_pushBool:(BOOL)yn;
-- (void)_pushInteger:(NSInteger)i;
-- (void)_pushDouble:(double)d;
+- (void)pushBool:(BOOL)yn;
+- (void)pushInteger:(NSInteger)i;
+- (void)pushDouble:(double)d;
 @end
 
 @interface CSSParser ()
@@ -93,48 +93,48 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self._startRuleName = @"stylesheet";
-        self._tokenKindTab[@","] = @(CSS_TOKEN_KIND_COMMA);
-        self._tokenKindTab[@":"] = @(CSS_TOKEN_KIND_COLON);
-        self._tokenKindTab[@"~"] = @(CSS_TOKEN_KIND_TILDE);
-        self._tokenKindTab[@";"] = @(CSS_TOKEN_KIND_SEMI);
-        self._tokenKindTab[@"."] = @(CSS_TOKEN_KIND_DOT);
-        self._tokenKindTab[@"!"] = @(CSS_TOKEN_KIND_BANG);
-        self._tokenKindTab[@"/"] = @(CSS_TOKEN_KIND_FWDSLASH);
-        self._tokenKindTab[@"="] = @(CSS_TOKEN_KIND_EQ);
-        self._tokenKindTab[@">"] = @(CSS_TOKEN_KIND_GT);
-        self._tokenKindTab[@"#"] = @(CSS_TOKEN_KIND_HASHSYM);
-        self._tokenKindTab[@"["] = @(CSS_TOKEN_KIND_OPENBRACKET);
-        self._tokenKindTab[@"@"] = @(CSS_TOKEN_KIND_AT);
-        self._tokenKindTab[@"]"] = @(CSS_TOKEN_KIND_CLOSEBRACKET);
-        self._tokenKindTab[@"("] = @(CSS_TOKEN_KIND_OPENPAREN);
-        self._tokenKindTab[@"{"] = @(CSS_TOKEN_KIND_OPENCURLY);
-        self._tokenKindTab[@"URL(,)"] = @(CSS_TOKEN_KIND_URLUPPER);
-        self._tokenKindTab[@"url(,)"] = @(CSS_TOKEN_KIND_URLLOWER);
-        self._tokenKindTab[@"|"] = @(CSS_TOKEN_KIND_PIPE);
-        self._tokenKindTab[@")"] = @(CSS_TOKEN_KIND_CLOSEPAREN);
-        self._tokenKindTab[@"}"] = @(CSS_TOKEN_KIND_CLOSECURLY);
+        self.startRuleName = @"stylesheet";
+        self.tokenKindTab[@","] = @(CSS_TOKEN_KIND_COMMA);
+        self.tokenKindTab[@":"] = @(CSS_TOKEN_KIND_COLON);
+        self.tokenKindTab[@"~"] = @(CSS_TOKEN_KIND_TILDE);
+        self.tokenKindTab[@";"] = @(CSS_TOKEN_KIND_SEMI);
+        self.tokenKindTab[@"."] = @(CSS_TOKEN_KIND_DOT);
+        self.tokenKindTab[@"!"] = @(CSS_TOKEN_KIND_BANG);
+        self.tokenKindTab[@"/"] = @(CSS_TOKEN_KIND_FWDSLASH);
+        self.tokenKindTab[@"="] = @(CSS_TOKEN_KIND_EQ);
+        self.tokenKindTab[@">"] = @(CSS_TOKEN_KIND_GT);
+        self.tokenKindTab[@"#"] = @(CSS_TOKEN_KIND_HASHSYM);
+        self.tokenKindTab[@"["] = @(CSS_TOKEN_KIND_OPENBRACKET);
+        self.tokenKindTab[@"@"] = @(CSS_TOKEN_KIND_AT);
+        self.tokenKindTab[@"]"] = @(CSS_TOKEN_KIND_CLOSEBRACKET);
+        self.tokenKindTab[@"("] = @(CSS_TOKEN_KIND_OPENPAREN);
+        self.tokenKindTab[@"{"] = @(CSS_TOKEN_KIND_OPENCURLY);
+        self.tokenKindTab[@"URL(,)"] = @(CSS_TOKEN_KIND_URLUPPER);
+        self.tokenKindTab[@"url(,)"] = @(CSS_TOKEN_KIND_URLLOWER);
+        self.tokenKindTab[@"|"] = @(CSS_TOKEN_KIND_PIPE);
+        self.tokenKindTab[@")"] = @(CSS_TOKEN_KIND_CLOSEPAREN);
+        self.tokenKindTab[@"}"] = @(CSS_TOKEN_KIND_CLOSECURLY);
 
-        self._tokenKindNameTab[CSS_TOKEN_KIND_COMMA] = @",";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_COLON] = @":";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_TILDE] = @"~";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_SEMI] = @";";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_DOT] = @".";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_BANG] = @"!";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_FWDSLASH] = @"/";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_EQ] = @"=";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_GT] = @">";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_HASHSYM] = @"#";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_OPENBRACKET] = @"[";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_AT] = @"@";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_CLOSEBRACKET] = @"]";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_OPENPAREN] = @"(";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_OPENCURLY] = @"{";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_URLUPPER] = @"URL(,)";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_URLLOWER] = @"url(,)";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_PIPE] = @"|";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_CLOSEPAREN] = @")";
-        self._tokenKindNameTab[CSS_TOKEN_KIND_CLOSECURLY] = @"}";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_COMMA] = @",";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_COLON] = @":";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_TILDE] = @"~";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_SEMI] = @";";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_DOT] = @".";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_BANG] = @"!";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_FWDSLASH] = @"/";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_EQ] = @"=";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_GT] = @">";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_HASHSYM] = @"#";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_OPENBRACKET] = @"[";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_AT] = @"@";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_CLOSEBRACKET] = @"]";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_OPENPAREN] = @"(";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_OPENCURLY] = @"{";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_URLUPPER] = @"URL(,)";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_URLLOWER] = @"url(,)";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_PIPE] = @"|";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_CLOSEPAREN] = @")";
+        self.tokenKindNameTab[CSS_TOKEN_KIND_CLOSECURLY] = @"}";
 
         self.stylesheet_memo = [NSMutableDictionary dictionary];
         self.ruleset_memo = [NSMutableDictionary dictionary];
@@ -262,8 +262,8 @@
     [_num_memo removeAllObjects];
 }
 
-- (void)_start {
-    [self stylesheet];
+- (void)start {
+    [self stylesheet_];
 }
 
 - (void)__stylesheet {
@@ -312,40 +312,40 @@
 	[t.delimitState addStartMarker:@"URL(" endMarker:@")" allowedCharacterSet:nil];
 
     }];
-    while ([self speculate:^{ [self ruleset]; }]) {
-        [self ruleset]; 
+    while ([self speculate:^{ [self ruleset_]; }]) {
+        [self ruleset_]; 
     }
     [self matchEOF:YES]; 
 
 }
 
-- (void)stylesheet {
+- (void)stylesheet_ {
     [self parseRule:@selector(__stylesheet) withMemo:_stylesheet_memo];
 }
 
 - (void)__ruleset {
     
-    [self selectors]; 
-    [self openCurly]; 
-    [self decls]; 
-    [self closeCurly]; 
+    [self selectors_]; 
+    [self openCurly_]; 
+    [self decls_]; 
+    [self closeCurly_]; 
 
 }
 
-- (void)ruleset {
+- (void)ruleset_ {
     [self parseRule:@selector(__ruleset) withMemo:_ruleset_memo];
 }
 
 - (void)__selectors {
     
-    [self selector]; 
-    while ([self speculate:^{ [self commaSelector]; }]) {
-        [self commaSelector]; 
+    [self selector_]; 
+    while ([self speculate:^{ [self commaSelector_]; }]) {
+        [self commaSelector_]; 
     }
 
 }
 
-- (void)selectors {
+- (void)selectors_ {
     [self parseRule:@selector(__selectors) withMemo:_selectors_memo];
 }
 
@@ -353,27 +353,27 @@
     
     do {
         if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-            [self selectorWord]; 
+            [self selectorWord_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_HASHSYM, 0]) {
-            [self hashSym]; 
+            [self hashSym_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_DOT, 0]) {
-            [self dot]; 
+            [self dot_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_COLON, 0]) {
-            [self colon]; 
+            [self colon_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_GT, 0]) {
-            [self gt]; 
+            [self gt_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_OPENBRACKET, 0]) {
-            [self openBracket]; 
+            [self openBracket_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_CLOSEBRACKET, 0]) {
-            [self closeBracket]; 
+            [self closeBracket_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_EQ, 0]) {
-            [self eq]; 
+            [self eq_]; 
         } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-            [self selectorQuotedString]; 
+            [self selectorQuotedString_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_TILDE, 0]) {
-            [self tilde]; 
+            [self tilde_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_PIPE, 0]) {
-            [self pipe]; 
+            [self pipe_]; 
         } else {
             [self raise:@"No viable alternative found in rule 'selector'."];
         }
@@ -381,7 +381,7 @@
 
 }
 
-- (void)selector {
+- (void)selector_ {
     [self parseRule:@selector(__selector) withMemo:_selector_memo];
 }
 
@@ -392,7 +392,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchSelectorWord:)];
 }
 
-- (void)selectorWord {
+- (void)selectorWord_ {
     [self parseRule:@selector(__selectorWord) withMemo:_selectorWord_memo];
 }
 
@@ -403,59 +403,59 @@
     [self fireAssemblerSelector:@selector(parser:didMatchSelectorQuotedString:)];
 }
 
-- (void)selectorQuotedString {
+- (void)selectorQuotedString_ {
     [self parseRule:@selector(__selectorQuotedString) withMemo:_selectorQuotedString_memo];
 }
 
 - (void)__commaSelector {
     
-    [self comma]; 
-    [self selector]; 
+    [self comma_]; 
+    [self selector_]; 
 
 }
 
-- (void)commaSelector {
+- (void)commaSelector_ {
     [self parseRule:@selector(__commaSelector) withMemo:_commaSelector_memo];
 }
 
 - (void)__decls {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self actualDecls]; 
+        [self actualDecls_]; 
     }
 
 }
 
-- (void)decls {
+- (void)decls_ {
     [self parseRule:@selector(__decls) withMemo:_decls_memo];
 }
 
 - (void)__actualDecls {
     
-    [self decl]; 
-    while ([self speculate:^{ [self decl]; }]) {
-        [self decl]; 
+    [self decl_]; 
+    while ([self speculate:^{ [self decl_]; }]) {
+        [self decl_]; 
     }
 
 }
 
-- (void)actualDecls {
+- (void)actualDecls_ {
     [self parseRule:@selector(__actualDecls) withMemo:_actualDecls_memo];
 }
 
 - (void)__decl {
     
-    [self property]; 
-    [self colon]; 
-    [self expr]; 
-    if ([self speculate:^{ [self important]; }]) {
-        [self important]; 
+    [self property_]; 
+    [self colon_]; 
+    [self expr_]; 
+    if ([self speculate:^{ [self important_]; }]) {
+        [self important_]; 
     }
-    [self semi]; 
+    [self semi_]; 
 
 }
 
-- (void)decl {
+- (void)decl_ {
     [self parseRule:@selector(__decl) withMemo:_decl_memo];
 }
 
@@ -466,7 +466,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchProperty:)];
 }
 
-- (void)property {
+- (void)property_ {
     [self parseRule:@selector(__property) withMemo:_property_memo];
 }
 
@@ -474,21 +474,21 @@
     
     do {
         if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-            [self string]; 
+            [self string_]; 
         } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-            [self constant]; 
+            [self constant_]; 
         } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-            [self num]; 
+            [self num_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_URLLOWER, CSS_TOKEN_KIND_URLUPPER, 0]) {
-            [self url]; 
+            [self url_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_OPENPAREN, 0]) {
-            [self openParen]; 
+            [self openParen_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_CLOSEPAREN, 0]) {
-            [self closeParen]; 
+            [self closeParen_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_COMMA, 0]) {
-            [self comma]; 
+            [self comma_]; 
         } else if ([self predicts:CSS_TOKEN_KIND_FWDSLASH, TOKEN_KIND_BUILTIN_SYMBOL, 0]) {
-            [self nonTerminatingSymbol]; 
+            [self nonTerminatingSymbol_]; 
         } else {
             [self raise:@"No viable alternative found in rule 'expr'."];
         }
@@ -496,23 +496,23 @@
 
 }
 
-- (void)expr {
+- (void)expr_ {
     [self parseRule:@selector(__expr) withMemo:_expr_memo];
 }
 
 - (void)__url {
     
     if ([self predicts:CSS_TOKEN_KIND_URLLOWER, 0]) {
-        [self urlLower]; 
+        [self urlLower_]; 
     } else if ([self predicts:CSS_TOKEN_KIND_URLUPPER, 0]) {
-        [self urlUpper]; 
+        [self urlUpper_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'url'."];
     }
 
 }
 
-- (void)url {
+- (void)url_ {
     [self parseRule:@selector(__url) withMemo:_url_memo];
 }
 
@@ -523,7 +523,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchUrlLower:)];
 }
 
-- (void)urlLower {
+- (void)urlLower_ {
     [self parseRule:@selector(__urlLower) withMemo:_urlLower_memo];
 }
 
@@ -534,7 +534,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchUrlUpper:)];
 }
 
-- (void)urlUpper {
+- (void)urlUpper_ {
     [self parseRule:@selector(__urlUpper) withMemo:_urlUpper_memo];
 }
 
@@ -542,7 +542,7 @@
     
     if ([self predicts:CSS_TOKEN_KIND_FWDSLASH, 0]) {
         [self testAndThrow:(id)^{ return NE(LS(1), @";") && NE(LS(1), @"!"); }]; 
-        [self fwdSlash]; 
+        [self fwdSlash_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_SYMBOL, 0]) {
         [self matchSymbol:NO]; 
     } else {
@@ -551,18 +551,18 @@
 
 }
 
-- (void)nonTerminatingSymbol {
+- (void)nonTerminatingSymbol_ {
     [self parseRule:@selector(__nonTerminatingSymbol) withMemo:_nonTerminatingSymbol_memo];
 }
 
 - (void)__important {
     
-    [self bang]; 
+    [self bang_]; 
     [self matchWord:NO]; 
 
 }
 
-- (void)important {
+- (void)important_ {
     [self parseRule:@selector(__important) withMemo:_important_memo];
 }
 
@@ -573,7 +573,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchString:)];
 }
 
-- (void)string {
+- (void)string_ {
     [self parseRule:@selector(__string) withMemo:_string_memo];
 }
 
@@ -584,7 +584,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchConstant:)];
 }
 
-- (void)constant {
+- (void)constant_ {
     [self parseRule:@selector(__constant) withMemo:_constant_memo];
 }
 
@@ -595,7 +595,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchOpenCurly:)];
 }
 
-- (void)openCurly {
+- (void)openCurly_ {
     [self parseRule:@selector(__openCurly) withMemo:_openCurly_memo];
 }
 
@@ -606,7 +606,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCloseCurly:)];
 }
 
-- (void)closeCurly {
+- (void)closeCurly_ {
     [self parseRule:@selector(__closeCurly) withMemo:_closeCurly_memo];
 }
 
@@ -617,7 +617,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchOpenBracket:)];
 }
 
-- (void)openBracket {
+- (void)openBracket_ {
     [self parseRule:@selector(__openBracket) withMemo:_openBracket_memo];
 }
 
@@ -628,7 +628,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCloseBracket:)];
 }
 
-- (void)closeBracket {
+- (void)closeBracket_ {
     [self parseRule:@selector(__closeBracket) withMemo:_closeBracket_memo];
 }
 
@@ -639,7 +639,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchEq:)];
 }
 
-- (void)eq {
+- (void)eq_ {
     [self parseRule:@selector(__eq) withMemo:_eq_memo];
 }
 
@@ -650,7 +650,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
-- (void)comma {
+- (void)comma_ {
     [self parseRule:@selector(__comma) withMemo:_comma_memo];
 }
 
@@ -661,7 +661,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchColon:)];
 }
 
-- (void)colon {
+- (void)colon_ {
     [self parseRule:@selector(__colon) withMemo:_colon_memo];
 }
 
@@ -672,7 +672,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchSemi:)];
 }
 
-- (void)semi {
+- (void)semi_ {
     [self parseRule:@selector(__semi) withMemo:_semi_memo];
 }
 
@@ -683,7 +683,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchOpenParen:)];
 }
 
-- (void)openParen {
+- (void)openParen_ {
     [self parseRule:@selector(__openParen) withMemo:_openParen_memo];
 }
 
@@ -694,7 +694,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchCloseParen:)];
 }
 
-- (void)closeParen {
+- (void)closeParen_ {
     [self parseRule:@selector(__closeParen) withMemo:_closeParen_memo];
 }
 
@@ -705,7 +705,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchGt:)];
 }
 
-- (void)gt {
+- (void)gt_ {
     [self parseRule:@selector(__gt) withMemo:_gt_memo];
 }
 
@@ -716,7 +716,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchTilde:)];
 }
 
-- (void)tilde {
+- (void)tilde_ {
     [self parseRule:@selector(__tilde) withMemo:_tilde_memo];
 }
 
@@ -727,7 +727,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchPipe:)];
 }
 
-- (void)pipe {
+- (void)pipe_ {
     [self parseRule:@selector(__pipe) withMemo:_pipe_memo];
 }
 
@@ -738,7 +738,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchFwdSlash:)];
 }
 
-- (void)fwdSlash {
+- (void)fwdSlash_ {
     [self parseRule:@selector(__fwdSlash) withMemo:_fwdSlash_memo];
 }
 
@@ -749,7 +749,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchHashSym:)];
 }
 
-- (void)hashSym {
+- (void)hashSym_ {
     [self parseRule:@selector(__hashSym) withMemo:_hashSym_memo];
 }
 
@@ -760,7 +760,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchDot:)];
 }
 
-- (void)dot {
+- (void)dot_ {
     [self parseRule:@selector(__dot) withMemo:_dot_memo];
 }
 
@@ -771,7 +771,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchAt:)];
 }
 
-- (void)at {
+- (void)at_ {
     [self parseRule:@selector(__at) withMemo:_at_memo];
 }
 
@@ -782,7 +782,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchBang:)];
 }
 
-- (void)bang {
+- (void)bang_ {
     [self parseRule:@selector(__bang) withMemo:_bang_memo];
 }
 
@@ -793,7 +793,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchNum:)];
 }
 
-- (void)num {
+- (void)num_ {
     [self parseRule:@selector(__num) withMemo:_num_memo];
 }
 
