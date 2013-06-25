@@ -7,16 +7,16 @@
 #define LF(i) [self LF:(i)]
 
 #define POP()       [self.assembly pop]
-#define POP_STR()   [self _popString]
-#define POP_TOK()   [self _popToken]
-#define POP_BOOL()  [self _popBool]
-#define POP_INT()   [self _popInteger]
-#define POP_FLOAT() [self _popDouble]
+#define POP_STR()   [self popString]
+#define POP_TOK()   [self popToken]
+#define POP_BOOL()  [self popBool]
+#define POP_INT()   [self popInteger]
+#define POP_FLOAT() [self popDouble]
 
 #define PUSH(obj)     [self.assembly push:(id)(obj)]
-#define PUSH_BOOL(yn) [self _pushBool:(BOOL)(yn)]
-#define PUSH_INT(i)   [self _pushInteger:(NSInteger)(i)]
-#define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
+#define PUSH_BOOL(yn) [self pushBool:(BOOL)(yn)]
+#define PUSH_INT(i)   [self pushInteger:(NSInteger)(i)]
+#define PUSH_FLOAT(f) [self pushDouble:(double)(f)]
 
 #define EQ(a, b) [(a) isEqual:(b)]
 #define NE(a, b) (![(a) isEqual:(b)])
@@ -31,20 +31,20 @@
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
 @interface PEGParser ()
-@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
-@property (nonatomic, retain) NSString *_startRuleName;
-@property (nonatomic, retain) NSString *_statementTerminator;
+@property (nonatomic, retain) NSMutableDictionary *tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *tokenKindNameTab;
+@property (nonatomic, retain) NSString *startRuleName;
+@property (nonatomic, retain) NSString *statementTerminator;
 
-- (BOOL)_popBool;
-- (NSInteger)_popInteger;
-- (double)_popDouble;
-- (PKToken *)_popToken;
-- (NSString *)_popString;
+- (BOOL)popBool;
+- (NSInteger)popInteger;
+- (double)popDouble;
+- (PKToken *)popToken;
+- (NSString *)popString;
 
-- (void)_pushBool:(BOOL)yn;
-- (void)_pushInteger:(NSInteger)i;
-- (void)_pushDouble:(double)d;
+- (void)pushBool:(BOOL)yn;
+- (void)pushInteger:(NSInteger)i;
+- (void)pushDouble:(double)d;
 @end
 
 @interface CrockfordParser ()
@@ -55,116 +55,116 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self._startRuleName = @"program";
+        self.startRuleName = @"program";
         self.enableAutomaticErrorRecovery = YES;
 
-        self._tokenKindTab[@"{"] = @(CROCKFORD_TOKEN_KIND_OPEN_CURLY);
-        self._tokenKindTab[@">="] = @(CROCKFORD_TOKEN_KIND_GE);
-        self._tokenKindTab[@"&&"] = @(CROCKFORD_TOKEN_KIND_DOUBLE_AMPERSAND);
-        self._tokenKindTab[@"for"] = @(CROCKFORD_TOKEN_KIND_FOR);
-        self._tokenKindTab[@"break"] = @(CROCKFORD_TOKEN_KIND_BREAK);
-        self._tokenKindTab[@"}"] = @(CROCKFORD_TOKEN_KIND_CLOSE_CURLY);
-        self._tokenKindTab[@"return"] = @(CROCKFORD_TOKEN_KIND_RETURN);
-        self._tokenKindTab[@"+="] = @(CROCKFORD_TOKEN_KIND_PLUS_EQUALS);
-        self._tokenKindTab[@"function"] = @(CROCKFORD_TOKEN_KIND_FUNCTION);
-        self._tokenKindTab[@"if"] = @(CROCKFORD_TOKEN_KIND_IF);
-        self._tokenKindTab[@"new"] = @(CROCKFORD_TOKEN_KIND_NEW);
-        self._tokenKindTab[@"else"] = @(CROCKFORD_TOKEN_KIND_ELSE);
-        self._tokenKindTab[@"!"] = @(CROCKFORD_TOKEN_KIND_BANG);
-        self._tokenKindTab[@"finally"] = @(CROCKFORD_TOKEN_KIND_FINALLY);
-        self._tokenKindTab[@":"] = @(CROCKFORD_TOKEN_KIND_COLON);
-        self._tokenKindTab[@"catch"] = @(CROCKFORD_TOKEN_KIND_CATCH);
-        self._tokenKindTab[@";"] = @(CROCKFORD_TOKEN_KIND_SEMI_COLON);
-        self._tokenKindTab[@"do"] = @(CROCKFORD_TOKEN_KIND_DO);
-        self._tokenKindTab[@"!=="] = @(CROCKFORD_TOKEN_KIND_DOUBLE_NE);
-        self._tokenKindTab[@"<"] = @(CROCKFORD_TOKEN_KIND_LT);
-        self._tokenKindTab[@"-="] = @(CROCKFORD_TOKEN_KIND_MINUS_EQUALS);
-        self._tokenKindTab[@"%"] = @(CROCKFORD_TOKEN_KIND_PERCENT);
-        self._tokenKindTab[@"="] = @(CROCKFORD_TOKEN_KIND_EQUALS);
-        self._tokenKindTab[@"throw"] = @(CROCKFORD_TOKEN_KIND_THROW);
-        self._tokenKindTab[@"try"] = @(CROCKFORD_TOKEN_KIND_TRY);
-        self._tokenKindTab[@">"] = @(CROCKFORD_TOKEN_KIND_GT);
-        self._tokenKindTab[@"/,/"] = @(CROCKFORD_TOKEN_KIND_REGEXBODY);
-        self._tokenKindTab[@"typeof"] = @(CROCKFORD_TOKEN_KIND_TYPEOF);
-        self._tokenKindTab[@"("] = @(CROCKFORD_TOKEN_KIND_OPEN_PAREN);
-        self._tokenKindTab[@"while"] = @(CROCKFORD_TOKEN_KIND_WHILE);
-        self._tokenKindTab[@"var"] = @(CROCKFORD_TOKEN_KIND_VAR);
-        self._tokenKindTab[@")"] = @(CROCKFORD_TOKEN_KIND_CLOSE_PAREN);
-        self._tokenKindTab[@"*"] = @(CROCKFORD_TOKEN_KIND_STAR);
-        self._tokenKindTab[@"||"] = @(CROCKFORD_TOKEN_KIND_DOUBLE_PIPE);
-        self._tokenKindTab[@"+"] = @(CROCKFORD_TOKEN_KIND_PLUS);
-        self._tokenKindTab[@"["] = @(CROCKFORD_TOKEN_KIND_OPEN_BRACKET);
-        self._tokenKindTab[@","] = @(CROCKFORD_TOKEN_KIND_COMMA);
-        self._tokenKindTab[@"delete"] = @(CROCKFORD_TOKEN_KIND_DELETE);
-        self._tokenKindTab[@"switch"] = @(CROCKFORD_TOKEN_KIND_SWITCH);
-        self._tokenKindTab[@"-"] = @(CROCKFORD_TOKEN_KIND_MINUS);
-        self._tokenKindTab[@"in"] = @(CROCKFORD_TOKEN_KIND_IN);
-        self._tokenKindTab[@"==="] = @(CROCKFORD_TOKEN_KIND_TRIPLE_EQUALS);
-        self._tokenKindTab[@"]"] = @(CROCKFORD_TOKEN_KIND_CLOSE_BRACKET);
-        self._tokenKindTab[@"."] = @(CROCKFORD_TOKEN_KIND_DOT);
-        self._tokenKindTab[@"default"] = @(CROCKFORD_TOKEN_KIND_DEFAULT);
-        self._tokenKindTab[@"/"] = @(CROCKFORD_TOKEN_KIND_FORWARD_SLASH);
-        self._tokenKindTab[@"case"] = @(CROCKFORD_TOKEN_KIND_CASE);
-        self._tokenKindTab[@"<="] = @(CROCKFORD_TOKEN_KIND_LE);
+        self.tokenKindTab[@"{"] = @(CROCKFORD_TOKEN_KIND_OPEN_CURLY);
+        self.tokenKindTab[@">="] = @(CROCKFORD_TOKEN_KIND_GE);
+        self.tokenKindTab[@"&&"] = @(CROCKFORD_TOKEN_KIND_DOUBLE_AMPERSAND);
+        self.tokenKindTab[@"for"] = @(CROCKFORD_TOKEN_KIND_FOR);
+        self.tokenKindTab[@"break"] = @(CROCKFORD_TOKEN_KIND_BREAK);
+        self.tokenKindTab[@"}"] = @(CROCKFORD_TOKEN_KIND_CLOSE_CURLY);
+        self.tokenKindTab[@"return"] = @(CROCKFORD_TOKEN_KIND_RETURN);
+        self.tokenKindTab[@"+="] = @(CROCKFORD_TOKEN_KIND_PLUS_EQUALS);
+        self.tokenKindTab[@"function"] = @(CROCKFORD_TOKEN_KIND_FUNCTION);
+        self.tokenKindTab[@"if"] = @(CROCKFORD_TOKEN_KIND_IF);
+        self.tokenKindTab[@"new"] = @(CROCKFORD_TOKEN_KIND_NEW);
+        self.tokenKindTab[@"else"] = @(CROCKFORD_TOKEN_KIND_ELSE);
+        self.tokenKindTab[@"!"] = @(CROCKFORD_TOKEN_KIND_BANG);
+        self.tokenKindTab[@"finally"] = @(CROCKFORD_TOKEN_KIND_FINALLY);
+        self.tokenKindTab[@":"] = @(CROCKFORD_TOKEN_KIND_COLON);
+        self.tokenKindTab[@"catch"] = @(CROCKFORD_TOKEN_KIND_CATCH);
+        self.tokenKindTab[@";"] = @(CROCKFORD_TOKEN_KIND_SEMI_COLON);
+        self.tokenKindTab[@"do"] = @(CROCKFORD_TOKEN_KIND_DO);
+        self.tokenKindTab[@"!=="] = @(CROCKFORD_TOKEN_KIND_DOUBLE_NE);
+        self.tokenKindTab[@"<"] = @(CROCKFORD_TOKEN_KIND_LT);
+        self.tokenKindTab[@"-="] = @(CROCKFORD_TOKEN_KIND_MINUS_EQUALS);
+        self.tokenKindTab[@"%"] = @(CROCKFORD_TOKEN_KIND_PERCENT);
+        self.tokenKindTab[@"="] = @(CROCKFORD_TOKEN_KIND_EQUALS);
+        self.tokenKindTab[@"throw"] = @(CROCKFORD_TOKEN_KIND_THROW);
+        self.tokenKindTab[@"try"] = @(CROCKFORD_TOKEN_KIND_TRY);
+        self.tokenKindTab[@">"] = @(CROCKFORD_TOKEN_KIND_GT);
+        self.tokenKindTab[@"/,/"] = @(CROCKFORD_TOKEN_KIND_REGEXBODY);
+        self.tokenKindTab[@"typeof"] = @(CROCKFORD_TOKEN_KIND_TYPEOF);
+        self.tokenKindTab[@"("] = @(CROCKFORD_TOKEN_KIND_OPEN_PAREN);
+        self.tokenKindTab[@"while"] = @(CROCKFORD_TOKEN_KIND_WHILE);
+        self.tokenKindTab[@"var"] = @(CROCKFORD_TOKEN_KIND_VAR);
+        self.tokenKindTab[@")"] = @(CROCKFORD_TOKEN_KIND_CLOSE_PAREN);
+        self.tokenKindTab[@"*"] = @(CROCKFORD_TOKEN_KIND_STAR);
+        self.tokenKindTab[@"||"] = @(CROCKFORD_TOKEN_KIND_DOUBLE_PIPE);
+        self.tokenKindTab[@"+"] = @(CROCKFORD_TOKEN_KIND_PLUS);
+        self.tokenKindTab[@"["] = @(CROCKFORD_TOKEN_KIND_OPEN_BRACKET);
+        self.tokenKindTab[@","] = @(CROCKFORD_TOKEN_KIND_COMMA);
+        self.tokenKindTab[@"delete"] = @(CROCKFORD_TOKEN_KIND_DELETE);
+        self.tokenKindTab[@"switch"] = @(CROCKFORD_TOKEN_KIND_SWITCH);
+        self.tokenKindTab[@"-"] = @(CROCKFORD_TOKEN_KIND_MINUS);
+        self.tokenKindTab[@"in"] = @(CROCKFORD_TOKEN_KIND_IN);
+        self.tokenKindTab[@"==="] = @(CROCKFORD_TOKEN_KIND_TRIPLE_EQUALS);
+        self.tokenKindTab[@"]"] = @(CROCKFORD_TOKEN_KIND_CLOSE_BRACKET);
+        self.tokenKindTab[@"."] = @(CROCKFORD_TOKEN_KIND_DOT);
+        self.tokenKindTab[@"default"] = @(CROCKFORD_TOKEN_KIND_DEFAULT);
+        self.tokenKindTab[@"/"] = @(CROCKFORD_TOKEN_KIND_FORWARD_SLASH);
+        self.tokenKindTab[@"case"] = @(CROCKFORD_TOKEN_KIND_CASE);
+        self.tokenKindTab[@"<="] = @(CROCKFORD_TOKEN_KIND_LE);
 
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_OPEN_CURLY] = @"{";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_GE] = @">=";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOUBLE_AMPERSAND] = @"&&";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_FOR] = @"for";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_BREAK] = @"break";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_CLOSE_CURLY] = @"}";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_RETURN] = @"return";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_PLUS_EQUALS] = @"+=";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_FUNCTION] = @"function";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_IF] = @"if";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_NEW] = @"new";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_ELSE] = @"else";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_BANG] = @"!";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_FINALLY] = @"finally";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_COLON] = @":";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_CATCH] = @"catch";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_SEMI_COLON] = @";";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DO] = @"do";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOUBLE_NE] = @"!==";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_LT] = @"<";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_MINUS_EQUALS] = @"-=";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_PERCENT] = @"%";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_EQUALS] = @"=";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_THROW] = @"throw";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_TRY] = @"try";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_GT] = @">";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_REGEXBODY] = @"/,/";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_TYPEOF] = @"typeof";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_OPEN_PAREN] = @"(";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_WHILE] = @"while";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_VAR] = @"var";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_CLOSE_PAREN] = @")";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_STAR] = @"*";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOUBLE_PIPE] = @"||";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_PLUS] = @"+";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_OPEN_BRACKET] = @"[";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_COMMA] = @",";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DELETE] = @"delete";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_SWITCH] = @"switch";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_MINUS] = @"-";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_IN] = @"in";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_TRIPLE_EQUALS] = @"===";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_CLOSE_BRACKET] = @"]";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOT] = @".";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_DEFAULT] = @"default";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_FORWARD_SLASH] = @"/";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_CASE] = @"case";
-        self._tokenKindNameTab[CROCKFORD_TOKEN_KIND_LE] = @"<=";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_OPEN_CURLY] = @"{";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_GE] = @">=";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOUBLE_AMPERSAND] = @"&&";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_FOR] = @"for";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_BREAK] = @"break";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_CLOSE_CURLY] = @"}";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_RETURN] = @"return";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_PLUS_EQUALS] = @"+=";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_FUNCTION] = @"function";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_IF] = @"if";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_NEW] = @"new";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_ELSE] = @"else";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_BANG] = @"!";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_FINALLY] = @"finally";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_COLON] = @":";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_CATCH] = @"catch";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_SEMI_COLON] = @";";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_DO] = @"do";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOUBLE_NE] = @"!==";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_LT] = @"<";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_MINUS_EQUALS] = @"-=";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_PERCENT] = @"%";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_EQUALS] = @"=";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_THROW] = @"throw";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_TRY] = @"try";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_GT] = @">";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_REGEXBODY] = @"/,/";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_TYPEOF] = @"typeof";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_OPEN_PAREN] = @"(";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_WHILE] = @"while";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_VAR] = @"var";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_CLOSE_PAREN] = @")";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_STAR] = @"*";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOUBLE_PIPE] = @"||";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_PLUS] = @"+";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_OPEN_BRACKET] = @"[";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_COMMA] = @",";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_DELETE] = @"delete";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_SWITCH] = @"switch";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_MINUS] = @"-";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_IN] = @"in";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_TRIPLE_EQUALS] = @"===";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_CLOSE_BRACKET] = @"]";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_DOT] = @".";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_DEFAULT] = @"default";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_FORWARD_SLASH] = @"/";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_CASE] = @"case";
+        self.tokenKindNameTab[CROCKFORD_TOKEN_KIND_LE] = @"<=";
 
     }
     return self;
 }
 
-- (void)_start {
-    [self program];
+- (void)start {
+    [self program_];
 }
 
-- (void)program {
+- (void)program_ {
     
     [self execute:(id)^{
     
@@ -215,7 +215,7 @@
 
     }];
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
-        [self stmts]; 
+        [self stmts_]; 
         [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
@@ -224,15 +224,15 @@
     [self fireAssemblerSelector:@selector(parser:didMatchProgram:)];
 }
 
-- (void)arrayLiteral {
+- (void)arrayLiteral_ {
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_BRACKET discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET block:^{ 
-        if ([self speculate:^{ [self expr]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }}]) {
-            [self expr]; 
-            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {
+        if ([self speculate:^{ [self expr_]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr_]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr_]; }}]) {
+            [self expr_]; 
+            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr_]; }]) {
                 [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
-                [self expr]; 
+                [self expr_]; 
             }
         }
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
@@ -243,12 +243,12 @@
     [self fireAssemblerSelector:@selector(parser:didMatchArrayLiteral:)];
 }
 
-- (void)block {
+- (void)block_ {
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
-        if ([self speculate:^{ [self stmts]; }]) {
-            [self stmts]; 
+        if ([self speculate:^{ [self stmts_]; }]) {
+            [self stmts_]; 
         }
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
     } completion:^{ 
@@ -258,12 +258,12 @@
     [self fireAssemblerSelector:@selector(parser:didMatchBlock:)];
 }
 
-- (void)breakStmt {
+- (void)breakStmt_ {
     
     [self match:CROCKFORD_TOKEN_KIND_BREAK discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
         if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-            [self name]; 
+            [self name_]; 
         }
         [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
     } completion:^{ 
@@ -273,30 +273,30 @@
     [self fireAssemblerSelector:@selector(parser:didMatchBreakStmt:)];
 }
 
-- (void)caseClause {
+- (void)caseClause_ {
     
     do {
         [self match:CROCKFORD_TOKEN_KIND_CASE discard:NO]; 
         [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
-            [self expr]; 
+            [self expr_]; 
             [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
         } completion:^{ 
             [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
         }];
-    } while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_CASE discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self expr]; [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];}]);
-    [self stmts]; 
+    } while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_CASE discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self expr_]; [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];}]);
+    [self stmts_]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchCaseClause:)];
 }
 
-- (void)disruptiveStmt {
+- (void)disruptiveStmt_ {
     
     if ([self predicts:CROCKFORD_TOKEN_KIND_BREAK, 0]) {
-        [self breakStmt]; 
+        [self breakStmt_]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_RETURN, 0]) {
-        [self returnStmt]; 
+        [self returnStmt_]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_THROW, 0]) {
-        [self throwStmt]; 
+        [self throwStmt_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'disruptiveStmt'."];
     }
@@ -304,11 +304,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchDisruptiveStmt:)];
 }
 
-- (void)doStmt {
+- (void)doStmt_ {
     
     [self match:CROCKFORD_TOKEN_KIND_DO discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_WHILE block:^{ 
-        [self block]; 
+        [self block_]; 
         [self match:CROCKFORD_TOKEN_KIND_WHILE discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_WHILE discard:NO]; 
@@ -319,7 +319,7 @@
         [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     }];
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-        [self expr]; 
+        [self expr_]; 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
@@ -333,45 +333,45 @@
     [self fireAssemblerSelector:@selector(parser:didMatchDoStmt:)];
 }
 
-- (void)escapedChar {
+- (void)escapedChar_ {
     
     [self matchSymbol:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchEscapedChar:)];
 }
 
-- (void)exponent {
+- (void)exponent_ {
     
     [self matchNumber:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchExponent:)];
 }
 
-- (void)expr {
+- (void)expr_ {
     
     if ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, CROCKFORD_TOKEN_KIND_OPEN_BRACKET, CROCKFORD_TOKEN_KIND_OPEN_CURLY, CROCKFORD_TOKEN_KIND_REGEXBODY, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self literal]; 
+        [self literal_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self name]; 
+        [self name_]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_OPEN_PAREN, 0]) {
         [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
         [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-            [self expr]; 
+            [self expr_]; 
             [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
         } completion:^{ 
             [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
         }];
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_BANG, CROCKFORD_TOKEN_KIND_TYPEOF, 0]) {
-        [self prefixOp]; 
-        [self expr]; 
+        [self prefixOp_]; 
+        [self expr_]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_NEW, 0]) {
         [self match:CROCKFORD_TOKEN_KIND_NEW discard:NO]; 
-        [self expr]; 
-        [self invocation]; 
+        [self expr_]; 
+        [self invocation_]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_DELETE, 0]) {
         [self match:CROCKFORD_TOKEN_KIND_DELETE discard:NO]; 
-        [self expr]; 
-        [self refinement]; 
+        [self expr_]; 
+        [self refinement_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'expr'."];
     }
@@ -379,25 +379,25 @@
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
-- (void)exprStmt {
+- (void)exprStmt_ {
     
-    if ([self speculate:^{ do {[self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ [self name]; while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];} while ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ [self name]; while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);[self expr]; }]) {
+    if ([self speculate:^{ do {[self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ [self name_]; while ([self speculate:^{ [self refinement_]; }]) {[self refinement_]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];} while ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ [self name_]; while ([self speculate:^{ [self refinement_]; }]) {[self refinement_]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);[self expr_]; }]) {
         do {
             [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ 
-                [self name]; 
-                while ([self speculate:^{ [self refinement]; }]) {
-                    [self refinement]; 
+                [self name_]; 
+                while ([self speculate:^{ [self refinement_]; }]) {
+                    [self refinement_]; 
                 }
                 [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; 
             } completion:^{ 
                 [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; 
             }];
-        } while ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ [self name]; while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);
-        [self expr]; 
-    } else if ([self speculate:^{ [self name]; while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }if ([self predicts:CROCKFORD_TOKEN_KIND_PLUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_PLUS_EQUALS discard:NO]; } else if ([self predicts:CROCKFORD_TOKEN_KIND_MINUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_MINUS_EQUALS discard:NO]; } else {[self raise:@"No viable alternative found in rule 'exprStmt'."];}[self expr]; }]) {
-        [self name]; 
-        while ([self speculate:^{ [self refinement]; }]) {
-            [self refinement]; 
+        } while ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_EQUALS block:^{ [self name_]; while ([self speculate:^{ [self refinement_]; }]) {[self refinement_]; }[self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; }];}]);
+        [self expr_]; 
+    } else if ([self speculate:^{ [self name_]; while ([self speculate:^{ [self refinement_]; }]) {[self refinement_]; }if ([self predicts:CROCKFORD_TOKEN_KIND_PLUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_PLUS_EQUALS discard:NO]; } else if ([self predicts:CROCKFORD_TOKEN_KIND_MINUS_EQUALS, 0]) {[self match:CROCKFORD_TOKEN_KIND_MINUS_EQUALS discard:NO]; } else {[self raise:@"No viable alternative found in rule 'exprStmt'."];}[self expr_]; }]) {
+        [self name_]; 
+        while ([self speculate:^{ [self refinement_]; }]) {
+            [self refinement_]; 
         }
         if ([self predicts:CROCKFORD_TOKEN_KIND_PLUS_EQUALS, 0]) {
             [self match:CROCKFORD_TOKEN_KIND_PLUS_EQUALS discard:NO]; 
@@ -406,19 +406,19 @@
         } else {
             [self raise:@"No viable alternative found in rule 'exprStmt'."];
         }
-        [self expr]; 
-    } else if ([self speculate:^{ [self name]; while ([self speculate:^{ [self refinement]; }]) {[self refinement]; }do {[self invocation]; } while ([self speculate:^{ [self invocation]; }]);}]) {
-        [self name]; 
-        while ([self speculate:^{ [self refinement]; }]) {
-            [self refinement]; 
+        [self expr_]; 
+    } else if ([self speculate:^{ [self name_]; while ([self speculate:^{ [self refinement_]; }]) {[self refinement_]; }do {[self invocation_]; } while ([self speculate:^{ [self invocation_]; }]);}]) {
+        [self name_]; 
+        while ([self speculate:^{ [self refinement_]; }]) {
+            [self refinement_]; 
         }
         do {
-            [self invocation]; 
-        } while ([self speculate:^{ [self invocation]; }]);
-    } else if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_DELETE discard:NO]; [self expr]; [self refinement]; }]) {
+            [self invocation_]; 
+        } while ([self speculate:^{ [self invocation_]; }]);
+    } else if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_DELETE discard:NO]; [self expr_]; [self refinement_]; }]) {
         [self match:CROCKFORD_TOKEN_KIND_DELETE discard:NO]; 
-        [self expr]; 
-        [self refinement]; 
+        [self expr_]; 
+        [self refinement_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'exprStmt'."];
     }
@@ -426,7 +426,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchExprStmt:)];
 }
 
-- (void)forStmt {
+- (void)forStmt_ {
     
     if ([self predicts:CROCKFORD_TOKEN_KIND_FOR, 0]) {
         [self match:CROCKFORD_TOKEN_KIND_FOR discard:NO]; 
@@ -436,38 +436,38 @@
             [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
         }];
             [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
-                if ([self speculate:^{ [self exprStmt]; }]) {
-                    [self exprStmt]; 
+                if ([self speculate:^{ [self exprStmt_]; }]) {
+                    [self exprStmt_]; 
                 }
                 [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
             } completion:^{ 
                 [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
             }];
             [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
-                if ([self speculate:^{ [self expr]; }]) {
-                    [self expr]; 
+                if ([self speculate:^{ [self expr_]; }]) {
+                    [self expr_]; 
                 }
                 [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
             } completion:^{ 
                 [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
             }];
-                if ([self speculate:^{ [self exprStmt]; }]) {
-                    [self exprStmt]; 
+                if ([self speculate:^{ [self exprStmt_]; }]) {
+                    [self exprStmt_]; 
                 }
             } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
                     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
                     [self tryAndRecover:CROCKFORD_TOKEN_KIND_IN block:^{ 
-                        [self name]; 
+                        [self name_]; 
                         [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
                     } completion:^{ 
                         [self match:CROCKFORD_TOKEN_KIND_IN discard:NO]; 
                     }];
-                        [self expr]; 
+                        [self expr_]; 
                         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
                     } completion:^{ 
                         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
                     }];
-                        [self block]; 
+                        [self block_]; 
                     } else {
                         [self raise:@"No viable alternative found in rule 'forStmt'."];
                     }
@@ -475,28 +475,28 @@
     [self fireAssemblerSelector:@selector(parser:didMatchForStmt:)];
 }
 
-- (void)fraction {
+- (void)fraction_ {
     
     [self matchNumber:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFraction:)];
 }
 
-- (void)function {
+- (void)function_ {
     
     [self match:CROCKFORD_TOKEN_KIND_FUNCTION discard:NO]; 
-    [self name]; 
-    [self parameters]; 
-    [self functionBody]; 
+    [self name_]; 
+    [self parameters_]; 
+    [self functionBody_]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFunction:)];
 }
 
-- (void)functionBody {
+- (void)functionBody_ {
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
-        [self stmts]; 
+        [self stmts_]; 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
@@ -505,19 +505,19 @@
     [self fireAssemblerSelector:@selector(parser:didMatchFunctionBody:)];
 }
 
-- (void)functionLiteral {
+- (void)functionLiteral_ {
     
     [self match:CROCKFORD_TOKEN_KIND_FUNCTION discard:NO]; 
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self name]; 
+        [self name_]; 
     }
-    [self parameters]; 
-    [self functionBody]; 
+    [self parameters_]; 
+    [self functionBody_]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFunctionLiteral:)];
 }
 
-- (void)ifStmt {
+- (void)ifStmt_ {
     
     [self match:CROCKFORD_TOKEN_KIND_IF discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_OPEN_PAREN block:^{ 
@@ -526,24 +526,24 @@
         [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     }];
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-        [self expr]; 
+        [self expr_]; 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     }];
-        [self block]; 
-        if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_ELSE discard:NO]; if ([self speculate:^{ [self ifStmt]; }]) {[self ifStmt]; }[self block]; }]) {
+        [self block_]; 
+        if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_ELSE discard:NO]; if ([self speculate:^{ [self ifStmt_]; }]) {[self ifStmt_]; }[self block_]; }]) {
             [self match:CROCKFORD_TOKEN_KIND_ELSE discard:NO]; 
-            if ([self speculate:^{ [self ifStmt]; }]) {
-                [self ifStmt]; 
+            if ([self speculate:^{ [self ifStmt_]; }]) {
+                [self ifStmt_]; 
             }
-            [self block]; 
+            [self block_]; 
         }
 
     [self fireAssemblerSelector:@selector(parser:didMatchIfStmt:)];
 }
 
-- (void)infixOp {
+- (void)infixOp_ {
     
     if ([self predicts:CROCKFORD_TOKEN_KIND_STAR, 0]) {
         [self match:CROCKFORD_TOKEN_KIND_STAR discard:NO]; 
@@ -578,22 +578,22 @@
     [self fireAssemblerSelector:@selector(parser:didMatchInfixOp:)];
 }
 
-- (void)integer {
+- (void)integer_ {
     
     [self matchNumber:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchInteger:)];
 }
 
-- (void)invocation {
+- (void)invocation_ {
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-        if ([self speculate:^{ [self expr]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }}]) {
-            [self expr]; 
-            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr]; }]) {
+        if ([self speculate:^{ [self expr_]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr_]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr_]; }}]) {
+            [self expr_]; 
+            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self expr_]; }]) {
                 [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
-                [self expr]; 
+                [self expr_]; 
             }
         }
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
@@ -604,20 +604,20 @@
     [self fireAssemblerSelector:@selector(parser:didMatchInvocation:)];
 }
 
-- (void)literal {
+- (void)literal_ {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-        [self numberLiteral]; 
+        [self numberLiteral_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self stringLiteral]; 
+        [self stringLiteral_]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_OPEN_CURLY, 0]) {
-        [self objectLiteral]; 
+        [self objectLiteral_]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {
-        [self arrayLiteral]; 
+        [self arrayLiteral_]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, 0]) {
-        [self functionLiteral]; 
+        [self functionLiteral_]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_REGEXBODY, 0]) {
-        [self regexLiteral]; 
+        [self regexLiteral_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'literal'."];
     }
@@ -625,29 +625,29 @@
     [self fireAssemblerSelector:@selector(parser:didMatchLiteral:)];
 }
 
-- (void)name {
+- (void)name_ {
     
     [self matchWord:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchName:)];
 }
 
-- (void)numberLiteral {
+- (void)numberLiteral_ {
     
     [self matchNumber:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNumberLiteral:)];
 }
 
-- (void)objectLiteral {
+- (void)objectLiteral_ {
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_CURLY discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
-        if ([self speculate:^{ [self nameValPair]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; }}]) {
-            [self nameValPair]; 
-            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair]; }]) {
+        if ([self speculate:^{ [self nameValPair_]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair_]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair_]; }}]) {
+            [self nameValPair_]; 
+            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameValPair_]; }]) {
                 [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
-                [self nameValPair]; 
+                [self nameValPair_]; 
             }
         }
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
@@ -658,13 +658,13 @@
     [self fireAssemblerSelector:@selector(parser:didMatchObjectLiteral:)];
 }
 
-- (void)nameValPair {
+- (void)nameValPair_ {
     
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
         if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-            [self name]; 
+            [self name_]; 
         } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-            [self stringLiteral]; 
+            [self stringLiteral_]; 
         } else {
             [self raise:@"No viable alternative found in rule 'nameValPair'."];
         }
@@ -672,20 +672,20 @@
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
     }];
-        [self expr]; 
+        [self expr_]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchNameValPair:)];
 }
 
-- (void)parameters {
+- (void)parameters_ {
     
     [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-        if ([self speculate:^{ [self name]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; }}]) {
-            [self name]; 
-            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name]; }]) {
+        if ([self speculate:^{ [self name_]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name_]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name_]; }}]) {
+            [self name_]; 
+            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self name_]; }]) {
                 [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
-                [self name]; 
+                [self name_]; 
             }
         }
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
@@ -696,7 +696,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchParameters:)];
 }
 
-- (void)prefixOp {
+- (void)prefixOp_ {
     
     if ([self predicts:CROCKFORD_TOKEN_KIND_TYPEOF, 0]) {
         [self match:CROCKFORD_TOKEN_KIND_TYPEOF discard:NO]; 
@@ -709,15 +709,15 @@
     [self fireAssemblerSelector:@selector(parser:didMatchPrefixOp:)];
 }
 
-- (void)refinement {
+- (void)refinement_ {
     
     if ([self predicts:CROCKFORD_TOKEN_KIND_DOT, 0]) {
         [self match:CROCKFORD_TOKEN_KIND_DOT discard:NO]; 
-        [self name]; 
+        [self name_]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_OPEN_BRACKET, 0]) {
         [self match:CROCKFORD_TOKEN_KIND_OPEN_BRACKET discard:NO]; 
         [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET block:^{ 
-            [self expr]; 
+            [self expr_]; 
             [self match:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
         } completion:^{ 
             [self match:CROCKFORD_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
@@ -729,24 +729,24 @@
     [self fireAssemblerSelector:@selector(parser:didMatchRefinement:)];
 }
 
-- (void)regexLiteral {
+- (void)regexLiteral_ {
     
-    [self regexBody]; 
+    [self regexBody_]; 
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self regexMods]; 
+        [self regexMods_]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchRegexLiteral:)];
 }
 
-- (void)regexBody {
+- (void)regexBody_ {
     
     [self match:CROCKFORD_TOKEN_KIND_REGEXBODY discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchRegexBody:)];
 }
 
-- (void)regexMods {
+- (void)regexMods_ {
     
     [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(@"[imxs]+", LS(1)); }]; 
     [self matchWord:NO]; 
@@ -754,12 +754,12 @@
     [self fireAssemblerSelector:@selector(parser:didMatchRegexMods:)];
 }
 
-- (void)returnStmt {
+- (void)returnStmt_ {
     
     [self match:CROCKFORD_TOKEN_KIND_RETURN discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
-        if ([self speculate:^{ [self expr]; }]) {
-            [self expr]; 
+        if ([self speculate:^{ [self expr_]; }]) {
+            [self expr_]; 
         }
         [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
     } completion:^{ 
@@ -769,23 +769,23 @@
     [self fireAssemblerSelector:@selector(parser:didMatchReturnStmt:)];
 }
 
-- (void)stmts {
+- (void)stmts_ {
     
-    while ([self speculate:^{ [self stmt]; }]) {
-        [self stmt]; 
+    while ([self speculate:^{ [self stmt_]; }]) {
+        [self stmt_]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchStmts:)];
 }
 
-- (void)stmt {
+- (void)stmt_ {
     
     if ([self predicts:CROCKFORD_TOKEN_KIND_VAR, 0]) {
-        [self varStmt]; 
+        [self varStmt_]; 
     } else if ([self predicts:CROCKFORD_TOKEN_KIND_FUNCTION, 0]) {
-        [self function]; 
+        [self function_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-        [self nonFunction]; 
+        [self nonFunction_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'stmt'."];
     }
@@ -793,37 +793,37 @@
     [self fireAssemblerSelector:@selector(parser:didMatchStmt:)];
 }
 
-- (void)nonFunction {
+- (void)nonFunction_ {
     
-    if ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self name]; [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];}]) {
+    if ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self name_]; [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];}]) {
         [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
-            [self name]; 
+            [self name_]; 
             [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
         } completion:^{ 
             [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
         }];
     }
-    if ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ [self exprStmt]; [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; }];}]) {
+    if ([self speculate:^{ [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ [self exprStmt_]; [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; }];}]) {
         [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
-            [self exprStmt]; 
+            [self exprStmt_]; 
             [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
         } completion:^{ 
             [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
         }];
-    } else if ([self speculate:^{ [self disruptiveStmt]; }]) {
-        [self disruptiveStmt]; 
-    } else if ([self speculate:^{ [self tryStmt]; }]) {
-        [self tryStmt]; 
-    } else if ([self speculate:^{ [self ifStmt]; }]) {
-        [self ifStmt]; 
-    } else if ([self speculate:^{ [self switchStmt]; }]) {
-        [self switchStmt]; 
-    } else if ([self speculate:^{ [self whileStmt]; }]) {
-        [self whileStmt]; 
-    } else if ([self speculate:^{ [self forStmt]; }]) {
-        [self forStmt]; 
-    } else if ([self speculate:^{ [self doStmt]; }]) {
-        [self doStmt]; 
+    } else if ([self speculate:^{ [self disruptiveStmt_]; }]) {
+        [self disruptiveStmt_]; 
+    } else if ([self speculate:^{ [self tryStmt_]; }]) {
+        [self tryStmt_]; 
+    } else if ([self speculate:^{ [self ifStmt_]; }]) {
+        [self ifStmt_]; 
+    } else if ([self speculate:^{ [self switchStmt_]; }]) {
+        [self switchStmt_]; 
+    } else if ([self speculate:^{ [self whileStmt_]; }]) {
+        [self whileStmt_]; 
+    } else if ([self speculate:^{ [self forStmt_]; }]) {
+        [self forStmt_]; 
+    } else if ([self speculate:^{ [self doStmt_]; }]) {
+        [self doStmt_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'nonFunction'."];
     }
@@ -831,14 +831,14 @@
     [self fireAssemblerSelector:@selector(parser:didMatchNonFunction:)];
 }
 
-- (void)stringLiteral {
+- (void)stringLiteral_ {
     
     [self matchQuotedString:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStringLiteral:)];
 }
 
-- (void)switchStmt {
+- (void)switchStmt_ {
     
     [self match:CROCKFORD_TOKEN_KIND_SWITCH discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_OPEN_PAREN block:^{ 
@@ -847,7 +847,7 @@
         [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     }];
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-        [self expr]; 
+        [self expr_]; 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
@@ -859,19 +859,19 @@
     }];
             [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_CURLY block:^{ 
         do {
-            [self caseClause]; 
-            if ([self speculate:^{ [self disruptiveStmt]; }]) {
-                [self disruptiveStmt]; 
+            [self caseClause_]; 
+            if ([self speculate:^{ [self disruptiveStmt_]; }]) {
+                [self disruptiveStmt_]; 
             }
-        } while ([self speculate:^{ [self caseClause]; if ([self speculate:^{ [self disruptiveStmt]; }]) {[self disruptiveStmt]; }}]);
-                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_DEFAULT discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];[self stmts]; }]) {
+        } while ([self speculate:^{ [self caseClause_]; if ([self speculate:^{ [self disruptiveStmt_]; }]) {[self disruptiveStmt_]; }}]);
+                if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_DEFAULT discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; }];[self stmts_]; }]) {
                 [self match:CROCKFORD_TOKEN_KIND_DEFAULT discard:NO]; 
                 [self tryAndRecover:CROCKFORD_TOKEN_KIND_COLON block:^{ 
                     [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
                 } completion:^{ 
                     [self match:CROCKFORD_TOKEN_KIND_COLON discard:NO]; 
                 }];
-                    [self stmts]; 
+                    [self stmts_]; 
                 }
                 [self match:CROCKFORD_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
             } completion:^{ 
@@ -881,11 +881,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchSwitchStmt:)];
 }
 
-- (void)throwStmt {
+- (void)throwStmt_ {
     
     [self match:CROCKFORD_TOKEN_KIND_THROW discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
-        [self expr]; 
+        [self expr_]; 
         [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
@@ -894,11 +894,11 @@
     [self fireAssemblerSelector:@selector(parser:didMatchThrowStmt:)];
 }
 
-- (void)tryStmt {
+- (void)tryStmt_ {
     
     [self match:CROCKFORD_TOKEN_KIND_TRY discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CATCH block:^{ 
-        [self block]; 
+        [self block_]; 
         [self match:CROCKFORD_TOKEN_KIND_CATCH discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CATCH discard:NO]; 
@@ -909,29 +909,29 @@
         [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     }];
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-        [self name]; 
+        [self name_]; 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     }];
-        [self block]; 
-        if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_FINALLY discard:NO]; [self block]; }]) {
+        [self block_]; 
+        if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_FINALLY discard:NO]; [self block_]; }]) {
             [self match:CROCKFORD_TOKEN_KIND_FINALLY discard:NO]; 
-            [self block]; 
+            [self block_]; 
         }
 
     [self fireAssemblerSelector:@selector(parser:didMatchTryStmt:)];
 }
 
-- (void)varStmt {
+- (void)varStmt_ {
     
-    while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_VAR discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ [self nameExprPair]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; }[self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; }];}]) {
+    while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_VAR discard:NO]; [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ [self nameExprPair_]; while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair_]; }]) {[self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair_]; }[self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; } completion:^{ [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; }];}]) {
         [self match:CROCKFORD_TOKEN_KIND_VAR discard:NO]; 
         [self tryAndRecover:CROCKFORD_TOKEN_KIND_SEMI_COLON block:^{ 
-            [self nameExprPair]; 
-            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair]; }]) {
+            [self nameExprPair_]; 
+            while ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; [self nameExprPair_]; }]) {
                 [self match:CROCKFORD_TOKEN_KIND_COMMA discard:NO]; 
-                [self nameExprPair]; 
+                [self nameExprPair_]; 
             }
             [self match:CROCKFORD_TOKEN_KIND_SEMI_COLON discard:NO]; 
         } completion:^{ 
@@ -942,18 +942,18 @@
     [self fireAssemblerSelector:@selector(parser:didMatchVarStmt:)];
 }
 
-- (void)nameExprPair {
+- (void)nameExprPair_ {
     
-    [self name]; 
-    if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; [self expr]; }]) {
+    [self name_]; 
+    if ([self speculate:^{ [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; [self expr_]; }]) {
         [self match:CROCKFORD_TOKEN_KIND_EQUALS discard:NO]; 
-        [self expr]; 
+        [self expr_]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchNameExprPair:)];
 }
 
-- (void)whileStmt {
+- (void)whileStmt_ {
     
     [self match:CROCKFORD_TOKEN_KIND_WHILE discard:NO]; 
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_OPEN_PAREN block:^{ 
@@ -962,12 +962,12 @@
         [self match:CROCKFORD_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     }];
     [self tryAndRecover:CROCKFORD_TOKEN_KIND_CLOSE_PAREN block:^{ 
-        [self expr]; 
+        [self expr_]; 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     } completion:^{ 
         [self match:CROCKFORD_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
     }];
-        [self block]; 
+        [self block_]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchWhileStmt:)];
 }

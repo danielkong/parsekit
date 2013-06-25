@@ -7,16 +7,16 @@
 #define LF(i) [self LF:(i)]
 
 #define POP()       [self.assembly pop]
-#define POP_STR()   [self _popString]
-#define POP_TOK()   [self _popToken]
-#define POP_BOOL()  [self _popBool]
-#define POP_INT()   [self _popInteger]
-#define POP_FLOAT() [self _popDouble]
+#define POP_STR()   [self popString]
+#define POP_TOK()   [self popToken]
+#define POP_BOOL()  [self popBool]
+#define POP_INT()   [self popInteger]
+#define POP_FLOAT() [self popDouble]
 
 #define PUSH(obj)     [self.assembly push:(id)(obj)]
-#define PUSH_BOOL(yn) [self _pushBool:(BOOL)(yn)]
-#define PUSH_INT(i)   [self _pushInteger:(NSInteger)(i)]
-#define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
+#define PUSH_BOOL(yn) [self pushBool:(BOOL)(yn)]
+#define PUSH_INT(i)   [self pushInteger:(NSInteger)(i)]
+#define PUSH_FLOAT(f) [self pushDouble:(double)(f)]
 
 #define EQ(a, b) [(a) isEqual:(b)]
 #define NE(a, b) (![(a) isEqual:(b)])
@@ -31,20 +31,20 @@
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
 @interface PEGParser ()
-@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
-@property (nonatomic, retain) NSString *_startRuleName;
-@property (nonatomic, retain) NSString *_statementTerminator;
+@property (nonatomic, retain) NSMutableDictionary *tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *tokenKindNameTab;
+@property (nonatomic, retain) NSString *startRuleName;
+@property (nonatomic, retain) NSString *statementTerminator;
 
-- (BOOL)_popBool;
-- (NSInteger)_popInteger;
-- (double)_popDouble;
-- (PKToken *)_popToken;
-- (NSString *)_popString;
+- (BOOL)popBool;
+- (NSInteger)popInteger;
+- (double)popDouble;
+- (PKToken *)popToken;
+- (NSString *)popString;
 
-- (void)_pushBool:(BOOL)yn;
-- (void)_pushInteger:(NSInteger)i;
-- (void)_pushDouble:(double)d;
+- (void)pushBool:(BOOL)yn;
+- (void)pushInteger:(NSInteger)i;
+- (void)pushDouble:(double)d;
 @end
 
 @interface GreedyFailureNestedParser ()
@@ -55,33 +55,33 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self._startRuleName = @"structs";
+        self.startRuleName = @"structs";
         self.enableAutomaticErrorRecovery = YES;
 
-        self._tokenKindTab[@","] = @(GREEDYFAILURENESTED_TOKEN_KIND_COMMA);
-        self._tokenKindTab[@":"] = @(GREEDYFAILURENESTED_TOKEN_KIND_COLON);
-        self._tokenKindTab[@"}"] = @(GREEDYFAILURENESTED_TOKEN_KIND_RCURLY);
-        self._tokenKindTab[@"{"] = @(GREEDYFAILURENESTED_TOKEN_KIND_LCURLY);
+        self.tokenKindTab[@","] = @(GREEDYFAILURENESTED_TOKEN_KIND_COMMA);
+        self.tokenKindTab[@":"] = @(GREEDYFAILURENESTED_TOKEN_KIND_COLON);
+        self.tokenKindTab[@"}"] = @(GREEDYFAILURENESTED_TOKEN_KIND_RCURLY);
+        self.tokenKindTab[@"{"] = @(GREEDYFAILURENESTED_TOKEN_KIND_LCURLY);
 
-        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_COMMA] = @",";
-        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_COLON] = @":";
-        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_RCURLY] = @"}";
-        self._tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_LCURLY] = @"{";
+        self.tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_COMMA] = @",";
+        self.tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_COLON] = @":";
+        self.tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_RCURLY] = @"}";
+        self.tokenKindNameTab[GREEDYFAILURENESTED_TOKEN_KIND_LCURLY] = @"{";
 
     }
     return self;
 }
 
-- (void)_start {
-    [self structs];
+- (void)start {
+    [self structs_];
 }
 
-- (void)structs {
+- (void)structs_ {
     
     [self tryAndRecover:TOKEN_KIND_BUILTIN_EOF block:^{
         do {
-            [self structure]; 
-        } while ([self speculate:^{ [self structure]; }]);
+            [self structure_]; 
+        } while ([self speculate:^{ [self structure_]; }]);
         [self matchEOF:YES]; 
     } completion:^{
         [self matchEOF:YES];
@@ -90,72 +90,72 @@
     [self fireAssemblerSelector:@selector(parser:didMatchStructs:)];
 }
 
-- (void)structure {
+- (void)structure_ {
     
-    [self lcurly]; 
+    [self lcurly_]; 
     [self tryAndRecover:GREEDYFAILURENESTED_TOKEN_KIND_RCURLY block:^{ 
-        [self pair]; 
-        while ([self speculate:^{ [self comma]; [self pair]; }]) {
-            [self comma]; 
-            [self pair]; 
+        [self pair_]; 
+        while ([self speculate:^{ [self comma_]; [self pair_]; }]) {
+            [self comma_]; 
+            [self pair_]; 
         }
-        [self rcurly]; 
+        [self rcurly_]; 
     } completion:^{ 
-        [self rcurly]; 
+        [self rcurly_]; 
     }];
 
     [self fireAssemblerSelector:@selector(parser:didMatchStructure:)];
 }
 
-- (void)pair {
+- (void)pair_ {
     
     [self tryAndRecover:GREEDYFAILURENESTED_TOKEN_KIND_COLON block:^{ 
-        [self name]; 
-        [self colon]; 
+        [self name_]; 
+        [self colon_]; 
     } completion:^{ 
-        [self colon]; 
+        [self colon_]; 
     }];
-        [self value]; 
+        [self value_]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchPair:)];
 }
 
-- (void)name {
+- (void)name_ {
     
     [self matchQuotedString:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchName:)];
 }
 
-- (void)value {
+- (void)value_ {
     
     [self matchWord:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchValue:)];
 }
 
-- (void)comma {
+- (void)comma_ {
     
     [self match:GREEDYFAILURENESTED_TOKEN_KIND_COMMA discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchComma:)];
 }
 
-- (void)lcurly {
+- (void)lcurly_ {
     
     [self match:GREEDYFAILURENESTED_TOKEN_KIND_LCURLY discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchLcurly:)];
 }
 
-- (void)rcurly {
+- (void)rcurly_ {
     
     [self match:GREEDYFAILURENESTED_TOKEN_KIND_RCURLY discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchRcurly:)];
 }
 
-- (void)colon {
+- (void)colon_ {
     
     [self match:GREEDYFAILURENESTED_TOKEN_KIND_COLON discard:NO]; 
 

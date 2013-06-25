@@ -7,16 +7,16 @@
 #define LF(i) [self LF:(i)]
 
 #define POP()       [self.assembly pop]
-#define POP_STR()   [self _popString]
-#define POP_TOK()   [self _popToken]
-#define POP_BOOL()  [self _popBool]
-#define POP_INT()   [self _popInteger]
-#define POP_FLOAT() [self _popDouble]
+#define POP_STR()   [self popString]
+#define POP_TOK()   [self popToken]
+#define POP_BOOL()  [self popBool]
+#define POP_INT()   [self popInteger]
+#define POP_FLOAT() [self popDouble]
 
 #define PUSH(obj)     [self.assembly push:(id)(obj)]
-#define PUSH_BOOL(yn) [self _pushBool:(BOOL)(yn)]
-#define PUSH_INT(i)   [self _pushInteger:(NSInteger)(i)]
-#define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
+#define PUSH_BOOL(yn) [self pushBool:(BOOL)(yn)]
+#define PUSH_INT(i)   [self pushInteger:(NSInteger)(i)]
+#define PUSH_FLOAT(f) [self pushDouble:(double)(f)]
 
 #define EQ(a, b) [(a) isEqual:(b)]
 #define NE(a, b) (![(a) isEqual:(b)])
@@ -28,20 +28,20 @@
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
 @interface PEGParser ()
-@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
-@property (nonatomic, retain) NSString *_startRuleName;
-@property (nonatomic, retain) NSMutableArray *_lookahead;
+@property (nonatomic, retain) NSMutableDictionary *tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *tokenKindNameTab;
+@property (nonatomic, retain) NSString *startRuleName;
+@property (nonatomic, retain) NSMutableArray *lookahead;
 
-- (BOOL)_popBool;
-- (NSInteger)_popInteger;
-- (double)_popDouble;
-- (PKToken *)_popToken;
-- (NSString *)_popString;
+- (BOOL)popBool;
+- (NSInteger)popInteger;
+- (double)popDouble;
+- (PKToken *)popToken;
+- (NSString *)popString;
 
-- (void)_pushBool:(BOOL)yn;
-- (void)_pushInteger:(NSInteger)i;
-- (void)_pushDouble:(double)d;
+- (void)pushBool:(BOOL)yn;
+- (void)pushInteger:(NSInteger)i;
+- (void)pushDouble:(double)d;
 @end
 
 @interface JavaScriptWhitespaceParser ()
@@ -54,151 +54,151 @@
     if (self) {
         self.enableAutomaticErrorRecovery = YES;
 
-        self._tokenKindTab[@"|"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_PIPE);
-        self._tokenKindTab[@"!="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_NE);
-        self._tokenKindTab[@"("] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENPAREN);
-        self._tokenKindTab[@"}"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSECURLY);
-        self._tokenKindTab[@"return"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_RETURNSYM);
-        self._tokenKindTab[@"~"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_TILDE);
-        self._tokenKindTab[@")"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSEPAREN);
-        self._tokenKindTab[@"*"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_TIMES);
-        self._tokenKindTab[@"delete"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_DELETE);
-        self._tokenKindTab[@"!=="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_ISNOT);
-        self._tokenKindTab[@"+"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUS);
-        self._tokenKindTab[@"*="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_TIMESEQ);
-        self._tokenKindTab[@"instanceof"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_INSTANCEOF);
-        self._tokenKindTab[@","] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_COMMA);
-        self._tokenKindTab[@"<<="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTLEFTEQ);
-        self._tokenKindTab[@"if"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_IFSYM);
-        self._tokenKindTab[@"-"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUS);
-        self._tokenKindTab[@"null"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_NULL);
-        self._tokenKindTab[@"false"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_FALSELITERAL);
-        self._tokenKindTab[@"."] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_DOT);
-        self._tokenKindTab[@"<<"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTLEFT);
-        self._tokenKindTab[@"/"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_DIV);
-        self._tokenKindTab[@"+="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUSEQ);
-        self._tokenKindTab[@"<="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_LE);
-        self._tokenKindTab[@"^="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_XOREQ);
-        self._tokenKindTab[@"["] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENBRACKET);
-        self._tokenKindTab[@"undefined"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_UNDEFINED);
-        self._tokenKindTab[@"typeof"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_TYPEOF);
-        self._tokenKindTab[@"||"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_OR);
-        self._tokenKindTab[@"function"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_FUNCTION);
-        self._tokenKindTab[@"]"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSEBRACKET);
-        self._tokenKindTab[@"^"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_CARET);
-        self._tokenKindTab[@"=="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_EQ);
-        self._tokenKindTab[@"continue"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_CONTINUESYM);
-        self._tokenKindTab[@"break"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_BREAKSYM);
-        self._tokenKindTab[@"-="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUSEQ);
-        self._tokenKindTab[@">="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_GE);
-        self._tokenKindTab[@":"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_COLON);
-        self._tokenKindTab[@"in"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_INSYM);
-        self._tokenKindTab[@";"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SEMI);
-        self._tokenKindTab[@"for"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_FORSYM);
-        self._tokenKindTab[@"++"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUSPLUS);
-        self._tokenKindTab[@"<"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_LT);
-        self._tokenKindTab[@"%="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_MODEQ);
-        self._tokenKindTab[@">>"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHT);
-        self._tokenKindTab[@"="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_EQUALS);
-        self._tokenKindTab[@">"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_GT);
-        self._tokenKindTab[@"void"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_VOID);
-        self._tokenKindTab[@"?"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_QUESTION);
-        self._tokenKindTab[@"while"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_WHILESYM);
-        self._tokenKindTab[@"&="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_ANDEQ);
-        self._tokenKindTab[@">>>="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEXTEQ);
-        self._tokenKindTab[@"else"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_ELSESYM);
-        self._tokenKindTab[@"/="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_DIVEQ);
-        self._tokenKindTab[@"&&"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_AND);
-        self._tokenKindTab[@"var"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_VAR);
-        self._tokenKindTab[@"|="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_OREQ);
-        self._tokenKindTab[@">>="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEQ);
-        self._tokenKindTab[@"--"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUSMINUS);
-        self._tokenKindTab[@"new"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_KEYWORDNEW);
-        self._tokenKindTab[@"!"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_NOT);
-        self._tokenKindTab[@">>>"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEXT);
-        self._tokenKindTab[@"true"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_TRUELITERAL);
-        self._tokenKindTab[@"this"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_THIS);
-        self._tokenKindTab[@"with"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_WITH);
-        self._tokenKindTab[@"==="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_IS);
-        self._tokenKindTab[@"%"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_MOD);
-        self._tokenKindTab[@"&"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_AMP);
-        self._tokenKindTab[@"{"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENCURLY);
+        self.tokenKindTab[@"|"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_PIPE);
+        self.tokenKindTab[@"!="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_NE);
+        self.tokenKindTab[@"("] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENPAREN);
+        self.tokenKindTab[@"}"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSECURLY);
+        self.tokenKindTab[@"return"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_RETURNSYM);
+        self.tokenKindTab[@"~"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_TILDE);
+        self.tokenKindTab[@")"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSEPAREN);
+        self.tokenKindTab[@"*"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_TIMES);
+        self.tokenKindTab[@"delete"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_DELETE);
+        self.tokenKindTab[@"!=="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_ISNOT);
+        self.tokenKindTab[@"+"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUS);
+        self.tokenKindTab[@"*="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_TIMESEQ);
+        self.tokenKindTab[@"instanceof"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_INSTANCEOF);
+        self.tokenKindTab[@","] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_COMMA);
+        self.tokenKindTab[@"<<="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTLEFTEQ);
+        self.tokenKindTab[@"if"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_IFSYM);
+        self.tokenKindTab[@"-"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUS);
+        self.tokenKindTab[@"null"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_NULL);
+        self.tokenKindTab[@"false"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_FALSELITERAL);
+        self.tokenKindTab[@"."] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_DOT);
+        self.tokenKindTab[@"<<"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTLEFT);
+        self.tokenKindTab[@"/"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_DIV);
+        self.tokenKindTab[@"+="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUSEQ);
+        self.tokenKindTab[@"<="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_LE);
+        self.tokenKindTab[@"^="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_XOREQ);
+        self.tokenKindTab[@"["] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENBRACKET);
+        self.tokenKindTab[@"undefined"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_UNDEFINED);
+        self.tokenKindTab[@"typeof"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_TYPEOF);
+        self.tokenKindTab[@"||"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_OR);
+        self.tokenKindTab[@"function"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_FUNCTION);
+        self.tokenKindTab[@"]"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSEBRACKET);
+        self.tokenKindTab[@"^"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_CARET);
+        self.tokenKindTab[@"=="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_EQ);
+        self.tokenKindTab[@"continue"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_CONTINUESYM);
+        self.tokenKindTab[@"break"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_BREAKSYM);
+        self.tokenKindTab[@"-="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUSEQ);
+        self.tokenKindTab[@">="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_GE);
+        self.tokenKindTab[@":"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_COLON);
+        self.tokenKindTab[@"in"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_INSYM);
+        self.tokenKindTab[@";"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SEMI);
+        self.tokenKindTab[@"for"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_FORSYM);
+        self.tokenKindTab[@"++"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUSPLUS);
+        self.tokenKindTab[@"<"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_LT);
+        self.tokenKindTab[@"%="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_MODEQ);
+        self.tokenKindTab[@">>"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHT);
+        self.tokenKindTab[@"="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_EQUALS);
+        self.tokenKindTab[@">"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_GT);
+        self.tokenKindTab[@"void"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_VOID);
+        self.tokenKindTab[@"?"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_QUESTION);
+        self.tokenKindTab[@"while"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_WHILESYM);
+        self.tokenKindTab[@"&="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_ANDEQ);
+        self.tokenKindTab[@">>>="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEXTEQ);
+        self.tokenKindTab[@"else"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_ELSESYM);
+        self.tokenKindTab[@"/="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_DIVEQ);
+        self.tokenKindTab[@"&&"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_AND);
+        self.tokenKindTab[@"var"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_VAR);
+        self.tokenKindTab[@"|="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_OREQ);
+        self.tokenKindTab[@">>="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEQ);
+        self.tokenKindTab[@"--"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUSMINUS);
+        self.tokenKindTab[@"new"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_KEYWORDNEW);
+        self.tokenKindTab[@"!"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_NOT);
+        self.tokenKindTab[@">>>"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEXT);
+        self.tokenKindTab[@"true"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_TRUELITERAL);
+        self.tokenKindTab[@"this"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_THIS);
+        self.tokenKindTab[@"with"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_WITH);
+        self.tokenKindTab[@"==="] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_IS);
+        self.tokenKindTab[@"%"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_MOD);
+        self.tokenKindTab[@"&"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_AMP);
+        self.tokenKindTab[@"{"] = @(JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENCURLY);
 
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_PIPE] = @"|";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_NE] = @"!=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENPAREN] = @"(";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSECURLY] = @"}";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_RETURNSYM] = @"return";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_TILDE] = @"~";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSEPAREN] = @")";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_TIMES] = @"*";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_DELETE] = @"delete";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_ISNOT] = @"!==";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUS] = @"+";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_TIMESEQ] = @"*=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_INSTANCEOF] = @"instanceof";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_COMMA] = @",";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTLEFTEQ] = @"<<=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_IFSYM] = @"if";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUS] = @"-";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_NULL] = @"null";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_FALSELITERAL] = @"false";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_DOT] = @".";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTLEFT] = @"<<";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_DIV] = @"/";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUSEQ] = @"+=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_LE] = @"<=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_XOREQ] = @"^=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENBRACKET] = @"[";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_UNDEFINED] = @"undefined";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_TYPEOF] = @"typeof";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_OR] = @"||";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_FUNCTION] = @"function";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSEBRACKET] = @"]";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_CARET] = @"^";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_EQ] = @"==";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_CONTINUESYM] = @"continue";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_BREAKSYM] = @"break";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUSEQ] = @"-=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_GE] = @">=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_COLON] = @":";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_INSYM] = @"in";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SEMI] = @";";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_FORSYM] = @"for";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUSPLUS] = @"++";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_LT] = @"<";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_MODEQ] = @"%=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHT] = @">>";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_EQUALS] = @"=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_GT] = @">";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_VOID] = @"void";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_QUESTION] = @"?";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_WHILESYM] = @"while";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_ANDEQ] = @"&=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEXTEQ] = @">>>=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_ELSESYM] = @"else";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_DIVEQ] = @"/=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_AND] = @"&&";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_VAR] = @"var";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_OREQ] = @"|=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEQ] = @">>=";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUSMINUS] = @"--";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_KEYWORDNEW] = @"new";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_NOT] = @"!";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEXT] = @">>>";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_TRUELITERAL] = @"true";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_THIS] = @"this";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_WITH] = @"with";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_IS] = @"===";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_MOD] = @"%";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_AMP] = @"&";
-        self._tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENCURLY] = @"{";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_PIPE] = @"|";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_NE] = @"!=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENPAREN] = @"(";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSECURLY] = @"}";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_RETURNSYM] = @"return";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_TILDE] = @"~";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSEPAREN] = @")";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_TIMES] = @"*";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_DELETE] = @"delete";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_ISNOT] = @"!==";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUS] = @"+";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_TIMESEQ] = @"*=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_INSTANCEOF] = @"instanceof";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_COMMA] = @",";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTLEFTEQ] = @"<<=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_IFSYM] = @"if";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUS] = @"-";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_NULL] = @"null";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_FALSELITERAL] = @"false";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_DOT] = @".";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTLEFT] = @"<<";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_DIV] = @"/";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUSEQ] = @"+=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_LE] = @"<=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_XOREQ] = @"^=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENBRACKET] = @"[";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_UNDEFINED] = @"undefined";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_TYPEOF] = @"typeof";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_OR] = @"||";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_FUNCTION] = @"function";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_CLOSEBRACKET] = @"]";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_CARET] = @"^";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_EQ] = @"==";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_CONTINUESYM] = @"continue";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_BREAKSYM] = @"break";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUSEQ] = @"-=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_GE] = @">=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_COLON] = @":";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_INSYM] = @"in";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SEMI] = @";";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_FORSYM] = @"for";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_PLUSPLUS] = @"++";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_LT] = @"<";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_MODEQ] = @"%=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHT] = @">>";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_EQUALS] = @"=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_GT] = @">";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_VOID] = @"void";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_QUESTION] = @"?";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_WHILESYM] = @"while";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_ANDEQ] = @"&=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEXTEQ] = @">>>=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_ELSESYM] = @"else";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_DIVEQ] = @"/=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_AND] = @"&&";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_VAR] = @"var";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_OREQ] = @"|=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEQ] = @">>=";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_MINUSMINUS] = @"--";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_KEYWORDNEW] = @"new";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_NOT] = @"!";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_SHIFTRIGHTEXT] = @">>>";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_TRUELITERAL] = @"true";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_THIS] = @"this";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_WITH] = @"with";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_IS] = @"===";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_MOD] = @"%";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_AMP] = @"&";
+        self.tokenKindNameTab[JAVASCRIPTWHITESPACE_TOKEN_KIND_OPENCURLY] = @"{";
 
     }
     return self;
 }
 
-- (void)_start {
+- (void)start {
     [self program];
 }
 

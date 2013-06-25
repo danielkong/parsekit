@@ -7,16 +7,16 @@
 #define LF(i) [self LF:(i)]
 
 #define POP()       [self.assembly pop]
-#define POP_STR()   [self _popString]
-#define POP_TOK()   [self _popToken]
-#define POP_BOOL()  [self _popBool]
-#define POP_INT()   [self _popInteger]
-#define POP_FLOAT() [self _popDouble]
+#define POP_STR()   [self popString]
+#define POP_TOK()   [self popToken]
+#define POP_BOOL()  [self popBool]
+#define POP_INT()   [self popInteger]
+#define POP_FLOAT() [self popDouble]
 
 #define PUSH(obj)     [self.assembly push:(id)(obj)]
-#define PUSH_BOOL(yn) [self _pushBool:(BOOL)(yn)]
-#define PUSH_INT(i)   [self _pushInteger:(NSInteger)(i)]
-#define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
+#define PUSH_BOOL(yn) [self pushBool:(BOOL)(yn)]
+#define PUSH_INT(i)   [self pushInteger:(NSInteger)(i)]
+#define PUSH_FLOAT(f) [self pushDouble:(double)(f)]
 
 #define EQ(a, b) [(a) isEqual:(b)]
 #define NE(a, b) (![(a) isEqual:(b)])
@@ -31,20 +31,20 @@
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
 @interface PEGParser ()
-@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
-@property (nonatomic, retain) NSString *_startRuleName;
-@property (nonatomic, retain) NSString *_statementTerminator;
+@property (nonatomic, retain) NSMutableDictionary *tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *tokenKindNameTab;
+@property (nonatomic, retain) NSString *startRuleName;
+@property (nonatomic, retain) NSString *statementTerminator;
 
-- (BOOL)_popBool;
-- (NSInteger)_popInteger;
-- (double)_popDouble;
-- (PKToken *)_popToken;
-- (NSString *)_popString;
+- (BOOL)popBool;
+- (NSInteger)popInteger;
+- (double)popDouble;
+- (PKToken *)popToken;
+- (NSString *)popString;
 
-- (void)_pushBool:(BOOL)yn;
-- (void)_pushInteger:(NSInteger)i;
-- (void)_pushDouble:(double)d;
+- (void)pushBool:(BOOL)yn;
+- (void)pushInteger:(NSInteger)i;
+- (void)pushDouble:(double)d;
 @end
 
 @interface UnfinishedSeqParser ()
@@ -58,12 +58,12 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self._startRuleName = @"start";
-        self._tokenKindTab[@"a"] = @(UNFINISHEDSEQ_TOKEN_KIND_A);
-        self._tokenKindTab[@"b"] = @(UNFINISHEDSEQ_TOKEN_KIND_B);
+        self.startRuleName = @"start";
+        self.tokenKindTab[@"a"] = @(UNFINISHEDSEQ_TOKEN_KIND_A);
+        self.tokenKindTab[@"b"] = @(UNFINISHEDSEQ_TOKEN_KIND_B);
 
-        self._tokenKindNameTab[UNFINISHEDSEQ_TOKEN_KIND_A] = @"a";
-        self._tokenKindNameTab[UNFINISHEDSEQ_TOKEN_KIND_B] = @"b";
+        self.tokenKindNameTab[UNFINISHEDSEQ_TOKEN_KIND_A] = @"a";
+        self.tokenKindNameTab[UNFINISHEDSEQ_TOKEN_KIND_B] = @"b";
 
         self.start_memo = [NSMutableDictionary dictionary];
         self.a_memo = [NSMutableDictionary dictionary];
@@ -86,21 +86,21 @@
     [_b_memo removeAllObjects];
 }
 
-- (void)_start {
-    [self start];
+- (void)start {
+    [self start_];
 }
 
 - (void)__start {
     
-    [self a]; 
-    [self b]; 
-    [self a]; 
+    [self a_]; 
+    [self b_]; 
+    [self a_]; 
     [self matchEOF:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchStart:)];
 }
 
-- (void)start {
+- (void)start_ {
     [self parseRule:@selector(__start) withMemo:_start_memo];
 }
 
@@ -111,7 +111,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchA:)];
 }
 
-- (void)a {
+- (void)a_ {
     [self parseRule:@selector(__a) withMemo:_a_memo];
 }
 
@@ -122,7 +122,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchB:)];
 }
 
-- (void)b {
+- (void)b_ {
     [self parseRule:@selector(__b) withMemo:_b_memo];
 }
 

@@ -7,16 +7,16 @@
 #define LF(i) [self LF:(i)]
 
 #define POP()       [self.assembly pop]
-#define POP_STR()   [self _popString]
-#define POP_TOK()   [self _popToken]
-#define POP_BOOL()  [self _popBool]
-#define POP_INT()   [self _popInteger]
-#define POP_FLOAT() [self _popDouble]
+#define POP_STR()   [self popString]
+#define POP_TOK()   [self popToken]
+#define POP_BOOL()  [self popBool]
+#define POP_INT()   [self popInteger]
+#define POP_FLOAT() [self popDouble]
 
 #define PUSH(obj)     [self.assembly push:(id)(obj)]
-#define PUSH_BOOL(yn) [self _pushBool:(BOOL)(yn)]
-#define PUSH_INT(i)   [self _pushInteger:(NSInteger)(i)]
-#define PUSH_FLOAT(f) [self _pushDouble:(double)(f)]
+#define PUSH_BOOL(yn) [self pushBool:(BOOL)(yn)]
+#define PUSH_INT(i)   [self pushInteger:(NSInteger)(i)]
+#define PUSH_FLOAT(f) [self pushDouble:(double)(f)]
 
 #define EQ(a, b) [(a) isEqual:(b)]
 #define NE(a, b) (![(a) isEqual:(b)])
@@ -31,20 +31,20 @@
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
 @interface PEGParser ()
-@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
-@property (nonatomic, retain) NSString *_startRuleName;
-@property (nonatomic, retain) NSString *_statementTerminator;
+@property (nonatomic, retain) NSMutableDictionary *tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *tokenKindNameTab;
+@property (nonatomic, retain) NSString *startRuleName;
+@property (nonatomic, retain) NSString *statementTerminator;
 
-- (BOOL)_popBool;
-- (NSInteger)_popInteger;
-- (double)_popDouble;
-- (PKToken *)_popToken;
-- (NSString *)_popString;
+- (BOOL)popBool;
+- (NSInteger)popInteger;
+- (double)popDouble;
+- (PKToken *)popToken;
+- (NSString *)popString;
 
-- (void)_pushBool:(BOOL)yn;
-- (void)_pushInteger:(NSInteger)i;
-- (void)_pushDouble:(double)d;
+- (void)pushBool:(BOOL)yn;
+- (void)pushInteger:(NSInteger)i;
+- (void)pushDouble:(double)d;
 @end
 
 @interface LabelRecursiveParser ()
@@ -58,14 +58,14 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self._startRuleName = @"s";
-        self._tokenKindTab[@"="] = @(LABELRECURSIVE_TOKEN_KIND_EQUALS);
-        self._tokenKindTab[@"return"] = @(LABELRECURSIVE_TOKEN_KIND_RETURN);
-        self._tokenKindTab[@":"] = @(LABELRECURSIVE_TOKEN_KIND_COLON);
+        self.startRuleName = @"s";
+        self.tokenKindTab[@"="] = @(LABELRECURSIVE_TOKEN_KIND_EQUALS);
+        self.tokenKindTab[@"return"] = @(LABELRECURSIVE_TOKEN_KIND_RETURN);
+        self.tokenKindTab[@":"] = @(LABELRECURSIVE_TOKEN_KIND_COLON);
 
-        self._tokenKindNameTab[LABELRECURSIVE_TOKEN_KIND_EQUALS] = @"=";
-        self._tokenKindNameTab[LABELRECURSIVE_TOKEN_KIND_RETURN] = @"return";
-        self._tokenKindNameTab[LABELRECURSIVE_TOKEN_KIND_COLON] = @":";
+        self.tokenKindNameTab[LABELRECURSIVE_TOKEN_KIND_EQUALS] = @"=";
+        self.tokenKindNameTab[LABELRECURSIVE_TOKEN_KIND_RETURN] = @"return";
+        self.tokenKindNameTab[LABELRECURSIVE_TOKEN_KIND_COLON] = @":";
 
         self.s_memo = [NSMutableDictionary dictionary];
         self.label_memo = [NSMutableDictionary dictionary];
@@ -88,21 +88,21 @@
     [_expr_memo removeAllObjects];
 }
 
-- (void)_start {
-    [self s];
+- (void)start {
+    [self s_];
 }
 
 - (void)__s {
     
-    if ([self speculate:^{ [self label]; [self matchWord:NO]; [self match:LABELRECURSIVE_TOKEN_KIND_EQUALS discard:NO]; [self expr]; }]) {
-        [self label]; 
+    if ([self speculate:^{ [self label_]; [self matchWord:NO]; [self match:LABELRECURSIVE_TOKEN_KIND_EQUALS discard:NO]; [self expr_]; }]) {
+        [self label_]; 
         [self matchWord:NO]; 
         [self match:LABELRECURSIVE_TOKEN_KIND_EQUALS discard:NO]; 
-        [self expr]; 
-    } else if ([self speculate:^{ [self label]; [self match:LABELRECURSIVE_TOKEN_KIND_RETURN discard:NO]; [self expr]; }]) {
-        [self label]; 
+        [self expr_]; 
+    } else if ([self speculate:^{ [self label_]; [self match:LABELRECURSIVE_TOKEN_KIND_RETURN discard:NO]; [self expr_]; }]) {
+        [self label_]; 
         [self match:LABELRECURSIVE_TOKEN_KIND_RETURN discard:NO]; 
-        [self expr]; 
+        [self expr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 's'."];
     }
@@ -111,7 +111,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchS:)];
 }
 
-- (void)s {
+- (void)s_ {
     [self parseRule:@selector(__s) withMemo:_s_memo];
 }
 
@@ -120,13 +120,13 @@
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self matchWord:NO]; 
         [self match:LABELRECURSIVE_TOKEN_KIND_COLON discard:NO]; 
-        [self label]; 
+        [self label_]; 
     }
 
     [self fireAssemblerSelector:@selector(parser:didMatchLabel:)];
 }
 
-- (void)label {
+- (void)label_ {
     [self parseRule:@selector(__label) withMemo:_label_memo];
 }
 
@@ -137,7 +137,7 @@
     [self fireAssemblerSelector:@selector(parser:didMatchExpr:)];
 }
 
-- (void)expr {
+- (void)expr_ {
     [self parseRule:@selector(__expr) withMemo:_expr_memo];
 }
 
