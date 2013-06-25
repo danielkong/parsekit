@@ -265,14 +265,14 @@
     
     [self match:JSON_TOKEN_KIND_TRUE discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchTrue:)];
 }
 
 - (void)false_ {
     
     [self match:JSON_TOKEN_KIND_FALSE discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchFalse:)];
 }
 
 - (void)openCurly_ {

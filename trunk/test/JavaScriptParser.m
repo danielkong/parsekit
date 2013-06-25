@@ -356,14 +356,14 @@
     
     [self match:JAVASCRIPT_TOKEN_KIND_FALSE discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchFalse:)];
 }
 
 - (void)true_ {
     
     [self match:JAVASCRIPT_TOKEN_KIND_TRUE discard:NO]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchTrue:)];
 }
 
 - (void)null_ {

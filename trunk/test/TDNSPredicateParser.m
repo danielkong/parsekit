@@ -617,7 +617,7 @@
     
     [self match:TDNSPREDICATE_TOKEN_KIND_TRUE discard:YES]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchTrue:)];
 }
 
 - (void)true_ {
@@ -628,7 +628,7 @@
     
     [self match:TDNSPREDICATE_TOKEN_KIND_FALSE discard:YES]; 
 
-    [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
+    [self fireAssemblerSelector:@selector(parser:didMatchFalse:)];
 }
 
 - (void)false_ {
