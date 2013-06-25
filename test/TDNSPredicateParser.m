@@ -62,8 +62,8 @@
 @property (nonatomic, retain) NSMutableDictionary *string_memo;
 @property (nonatomic, retain) NSMutableDictionary *num_memo;
 @property (nonatomic, retain) NSMutableDictionary *bool_memo;
-@property (nonatomic, retain) NSMutableDictionary *trueLiteral_memo;
-@property (nonatomic, retain) NSMutableDictionary *falseLiteral_memo;
+@property (nonatomic, retain) NSMutableDictionary *true_memo;
+@property (nonatomic, retain) NSMutableDictionary *false_memo;
 @property (nonatomic, retain) NSMutableDictionary *array_memo;
 @property (nonatomic, retain) NSMutableDictionary *arrayContentsOpt_memo;
 @property (nonatomic, retain) NSMutableDictionary *arrayContents_memo;
@@ -126,7 +126,7 @@
         self.tokenKindTab[@"TRUEPREDICATE"] = @(TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE);
         self.tokenKindTab[@"AND"] = @(TDNSPREDICATE_TOKEN_KIND_AND_UPPER);
         self.tokenKindTab[@"}"] = @(TDNSPREDICATE_TOKEN_KIND_CLOSE_CURLY);
-        self.tokenKindTab[@"true"] = @(TDNSPREDICATE_TOKEN_KIND_TRUELITERAL);
+        self.tokenKindTab[@"true"] = @(TDNSPREDICATE_TOKEN_KIND_TRUE);
         self.tokenKindTab[@"!="] = @(TDNSPREDICATE_TOKEN_KIND_NE);
         self.tokenKindTab[@"OR"] = @(TDNSPREDICATE_TOKEN_KIND_OR_UPPER);
         self.tokenKindTab[@"!"] = @(TDNSPREDICATE_TOKEN_KIND_BANG);
@@ -145,7 +145,7 @@
         self.tokenKindTab[@"LIKE"] = @(TDNSPREDICATE_TOKEN_KIND_LIKE);
         self.tokenKindTab[@"ANY"] = @(TDNSPREDICATE_TOKEN_KIND_ANY);
         self.tokenKindTab[@"ENDSWITH"] = @(TDNSPREDICATE_TOKEN_KIND_ENDSWITH);
-        self.tokenKindTab[@"false"] = @(TDNSPREDICATE_TOKEN_KIND_FALSELITERAL);
+        self.tokenKindTab[@"false"] = @(TDNSPREDICATE_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"<="] = @(TDNSPREDICATE_TOKEN_KIND_LE);
         self.tokenKindTab[@"BETWEEN"] = @(TDNSPREDICATE_TOKEN_KIND_BETWEEN);
         self.tokenKindTab[@"=<"] = @(TDNSPREDICATE_TOKEN_KIND_EL);
@@ -163,7 +163,7 @@
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE] = @"TRUEPREDICATE";
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_AND_UPPER] = @"AND";
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_CLOSE_CURLY] = @"}";
-        self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_TRUELITERAL] = @"true";
+        self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_TRUE] = @"true";
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_NE] = @"!=";
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_OR_UPPER] = @"OR";
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_BANG] = @"!";
@@ -182,7 +182,7 @@
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_LIKE] = @"LIKE";
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_ANY] = @"ANY";
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_ENDSWITH] = @"ENDSWITH";
-        self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_FALSELITERAL] = @"false";
+        self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_LE] = @"<=";
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_BETWEEN] = @"BETWEEN";
         self.tokenKindNameTab[TDNSPREDICATE_TOKEN_KIND_EL] = @"=<";
@@ -204,8 +204,8 @@
         self.string_memo = [NSMutableDictionary dictionary];
         self.num_memo = [NSMutableDictionary dictionary];
         self.bool_memo = [NSMutableDictionary dictionary];
-        self.trueLiteral_memo = [NSMutableDictionary dictionary];
-        self.falseLiteral_memo = [NSMutableDictionary dictionary];
+        self.true_memo = [NSMutableDictionary dictionary];
+        self.false_memo = [NSMutableDictionary dictionary];
         self.array_memo = [NSMutableDictionary dictionary];
         self.arrayContentsOpt_memo = [NSMutableDictionary dictionary];
         self.arrayContents_memo = [NSMutableDictionary dictionary];
@@ -269,8 +269,8 @@
     self.string_memo = nil;
     self.num_memo = nil;
     self.bool_memo = nil;
-    self.trueLiteral_memo = nil;
-    self.falseLiteral_memo = nil;
+    self.true_memo = nil;
+    self.false_memo = nil;
     self.array_memo = nil;
     self.arrayContentsOpt_memo = nil;
     self.arrayContents_memo = nil;
@@ -334,8 +334,8 @@
     [_string_memo removeAllObjects];
     [_num_memo removeAllObjects];
     [_bool_memo removeAllObjects];
-    [_trueLiteral_memo removeAllObjects];
-    [_falseLiteral_memo removeAllObjects];
+    [_true_memo removeAllObjects];
+    [_false_memo removeAllObjects];
     [_array_memo removeAllObjects];
     [_arrayContentsOpt_memo removeAllObjects];
     [_arrayContents_memo removeAllObjects];
@@ -473,7 +473,7 @@
 
 - (void)__andTerm {
     
-    if ([self predicts:TDNSPREDICATE_TOKEN_KIND_ALL, TDNSPREDICATE_TOKEN_KIND_ANY, TDNSPREDICATE_TOKEN_KIND_BANG, TDNSPREDICATE_TOKEN_KIND_FALSELITERAL, TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE, TDNSPREDICATE_TOKEN_KIND_NONE, TDNSPREDICATE_TOKEN_KIND_NOT_UPPER, TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY, TDNSPREDICATE_TOKEN_KIND_SOME, TDNSPREDICATE_TOKEN_KIND_TRUELITERAL, TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
+    if ([self predicts:TDNSPREDICATE_TOKEN_KIND_ALL, TDNSPREDICATE_TOKEN_KIND_ANY, TDNSPREDICATE_TOKEN_KIND_BANG, TDNSPREDICATE_TOKEN_KIND_FALSE, TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE, TDNSPREDICATE_TOKEN_KIND_NONE, TDNSPREDICATE_TOKEN_KIND_NOT_UPPER, TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY, TDNSPREDICATE_TOKEN_KIND_SOME, TDNSPREDICATE_TOKEN_KIND_TRUE, TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self primaryExpr_]; 
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_OPEN_PAREN, 0]) {
         [self compoundExpr_]; 
@@ -503,7 +503,7 @@
 
 - (void)__primaryExpr {
     
-    if ([self predicts:TDNSPREDICATE_TOKEN_KIND_ALL, TDNSPREDICATE_TOKEN_KIND_ANY, TDNSPREDICATE_TOKEN_KIND_FALSELITERAL, TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE, TDNSPREDICATE_TOKEN_KIND_NONE, TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY, TDNSPREDICATE_TOKEN_KIND_SOME, TDNSPREDICATE_TOKEN_KIND_TRUELITERAL, TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
+    if ([self predicts:TDNSPREDICATE_TOKEN_KIND_ALL, TDNSPREDICATE_TOKEN_KIND_ANY, TDNSPREDICATE_TOKEN_KIND_FALSE, TDNSPREDICATE_TOKEN_KIND_FALSEPREDICATE, TDNSPREDICATE_TOKEN_KIND_NONE, TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY, TDNSPREDICATE_TOKEN_KIND_SOME, TDNSPREDICATE_TOKEN_KIND_TRUE, TDNSPREDICATE_TOKEN_KIND_TRUEPREDICATE, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self predicate_]; 
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_BANG, TDNSPREDICATE_TOKEN_KIND_NOT_UPPER, 0]) {
         [self negatedPredicate_]; 
@@ -559,7 +559,7 @@
         [self string_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self num_]; 
-    } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_FALSELITERAL, TDNSPREDICATE_TOKEN_KIND_TRUELITERAL, 0]) {
+    } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_FALSE, TDNSPREDICATE_TOKEN_KIND_TRUE, 0]) {
         [self bool_]; 
     } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY, 0]) {
         [self array_]; 
@@ -598,10 +598,10 @@
 
 - (void)__bool {
     
-    if ([self predicts:TDNSPREDICATE_TOKEN_KIND_TRUELITERAL, 0]) {
-        [self trueLiteral_]; 
-    } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_FALSELITERAL, 0]) {
-        [self falseLiteral_]; 
+    if ([self predicts:TDNSPREDICATE_TOKEN_KIND_TRUE, 0]) {
+        [self true_]; 
+    } else if ([self predicts:TDNSPREDICATE_TOKEN_KIND_FALSE, 0]) {
+        [self false_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'bool'."];
     }
@@ -613,26 +613,26 @@
     [self parseRule:@selector(__bool) withMemo:_bool_memo];
 }
 
-- (void)__trueLiteral {
+- (void)__true {
     
-    [self match:TDNSPREDICATE_TOKEN_KIND_TRUELITERAL discard:YES]; 
+    [self match:TDNSPREDICATE_TOKEN_KIND_TRUE discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
 }
 
-- (void)trueLiteral_ {
-    [self parseRule:@selector(__trueLiteral) withMemo:_trueLiteral_memo];
+- (void)true_ {
+    [self parseRule:@selector(__true) withMemo:_true_memo];
 }
 
-- (void)__falseLiteral {
+- (void)__false {
     
-    [self match:TDNSPREDICATE_TOKEN_KIND_FALSELITERAL discard:YES]; 
+    [self match:TDNSPREDICATE_TOKEN_KIND_FALSE discard:YES]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
 }
 
-- (void)falseLiteral_ {
-    [self parseRule:@selector(__falseLiteral) withMemo:_falseLiteral_memo];
+- (void)false_ {
+    [self parseRule:@selector(__false) withMemo:_false_memo];
 }
 
 - (void)__array {
@@ -650,7 +650,7 @@
 
 - (void)__arrayContentsOpt {
     
-    if ([self predicts:TDNSPREDICATE_TOKEN_KIND_FALSELITERAL, TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY, TDNSPREDICATE_TOKEN_KIND_TRUELITERAL, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
+    if ([self predicts:TDNSPREDICATE_TOKEN_KIND_FALSE, TDNSPREDICATE_TOKEN_KIND_OPEN_CURLY, TDNSPREDICATE_TOKEN_KIND_TRUE, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self arrayContents_]; 
     }
 

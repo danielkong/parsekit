@@ -56,22 +56,22 @@
     self = [super init];
     if (self) {
         self.startRuleName = @"start";
-        self.tokenKindTab[@"false"] = @(JSON_TOKEN_KIND_FALSELITERAL);
+        self.tokenKindTab[@"false"] = @(JSON_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"}"] = @(JSON_TOKEN_KIND_CLOSECURLY);
         self.tokenKindTab[@"["] = @(JSON_TOKEN_KIND_OPENBRACKET);
         self.tokenKindTab[@"null"] = @(JSON_TOKEN_KIND_NULLLITERAL);
         self.tokenKindTab[@","] = @(JSON_TOKEN_KIND_COMMA);
-        self.tokenKindTab[@"true"] = @(JSON_TOKEN_KIND_TRUELITERAL);
+        self.tokenKindTab[@"true"] = @(JSON_TOKEN_KIND_TRUE);
         self.tokenKindTab[@"]"] = @(JSON_TOKEN_KIND_CLOSEBRACKET);
         self.tokenKindTab[@"{"] = @(JSON_TOKEN_KIND_OPENCURLY);
         self.tokenKindTab[@":"] = @(JSON_TOKEN_KIND_COLON);
 
-        self.tokenKindNameTab[JSON_TOKEN_KIND_FALSELITERAL] = @"false";
+        self.tokenKindNameTab[JSON_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[JSON_TOKEN_KIND_CLOSECURLY] = @"}";
         self.tokenKindNameTab[JSON_TOKEN_KIND_OPENBRACKET] = @"[";
         self.tokenKindNameTab[JSON_TOKEN_KIND_NULLLITERAL] = @"null";
         self.tokenKindNameTab[JSON_TOKEN_KIND_COMMA] = @",";
-        self.tokenKindNameTab[JSON_TOKEN_KIND_TRUELITERAL] = @"true";
+        self.tokenKindNameTab[JSON_TOKEN_KIND_TRUE] = @"true";
         self.tokenKindNameTab[JSON_TOKEN_KIND_CLOSEBRACKET] = @"]";
         self.tokenKindNameTab[JSON_TOKEN_KIND_OPENCURLY] = @"{";
         self.tokenKindNameTab[JSON_TOKEN_KIND_COLON] = @":";
@@ -183,7 +183,7 @@
 
 - (void)arrayContent_ {
     
-    if ([self predicts:JSON_TOKEN_KIND_FALSELITERAL, JSON_TOKEN_KIND_NULLLITERAL, JSON_TOKEN_KIND_OPENBRACKET, JSON_TOKEN_KIND_OPENCURLY, JSON_TOKEN_KIND_TRUELITERAL, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+    if ([self predicts:JSON_TOKEN_KIND_FALSE, JSON_TOKEN_KIND_NULLLITERAL, JSON_TOKEN_KIND_OPENBRACKET, JSON_TOKEN_KIND_OPENCURLY, JSON_TOKEN_KIND_TRUE, TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
         [self actualArray_]; 
     }
 
@@ -212,10 +212,10 @@
     
     if ([self predicts:JSON_TOKEN_KIND_NULLLITERAL, 0]) {
         [self nullLiteral_]; 
-    } else if ([self predicts:JSON_TOKEN_KIND_TRUELITERAL, 0]) {
-        [self trueLiteral_]; 
-    } else if ([self predicts:JSON_TOKEN_KIND_FALSELITERAL, 0]) {
-        [self falseLiteral_]; 
+    } else if ([self predicts:JSON_TOKEN_KIND_TRUE, 0]) {
+        [self true_]; 
+    } else if ([self predicts:JSON_TOKEN_KIND_FALSE, 0]) {
+        [self false_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self number_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
@@ -261,16 +261,16 @@
     [self fireAssemblerSelector:@selector(parser:didMatchNullLiteral:)];
 }
 
-- (void)trueLiteral_ {
+- (void)true_ {
     
-    [self match:JSON_TOKEN_KIND_TRUELITERAL discard:NO]; 
+    [self match:JSON_TOKEN_KIND_TRUE discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchTrueLiteral:)];
 }
 
-- (void)falseLiteral_ {
+- (void)false_ {
     
-    [self match:JSON_TOKEN_KIND_FALSELITERAL discard:NO]; 
+    [self match:JSON_TOKEN_KIND_FALSE discard:NO]; 
 
     [self fireAssemblerSelector:@selector(parser:didMatchFalseLiteral:)];
 }
