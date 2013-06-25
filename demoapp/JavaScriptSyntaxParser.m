@@ -28,9 +28,9 @@
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
 @interface PEGParser ()
-@property (nonatomic, retain) NSMutableDictionary *_tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *_tokenKindNameTab;
-@property (nonatomic, retain) NSString *_startRuleName;
+@property (nonatomic, retain) NSMutableDictionary *tokenKindTab;
+@property (nonatomic, retain) NSMutableArray *tokenKindNameTab;
+@property (nonatomic, retain) NSString *startRuleName;
 
 - (BOOL)popBool;
 - (NSInteger)popInteger;
