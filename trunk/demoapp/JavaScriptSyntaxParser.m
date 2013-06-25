@@ -713,109 +713,109 @@
 
 }
 
-- (void)__ifSym {
+- (void)__if {
     
-    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"ifSym"];
-    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"ifSym"];
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"if"];
+    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"if"];
 
     [self match:JAVASCRIPTSYNTAXPARSER_TOKEN_KIND_IFSYM discard:NO]; 
 
-    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"ifSym"];
-    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"ifSym"];
+    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"if"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"if"];
 }
 
-- (void)ifSym {
-    [self parseRule:@selector(__ifSym) withMemo:_ifSym_memo];
+- (void)if {
+    [self parseRule:@selector(__if) withMemo:_ifSym_memo];
 }
 
-- (void)__elseSym {
+- (void)__else {
     
-    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"elseSym"];
-    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"elseSym"];
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"else"];
+    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"else"];
 
     [self match:JAVASCRIPTSYNTAXPARSER_TOKEN_KIND_ELSESYM discard:NO]; 
 
-    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"elseSym"];
-    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"elseSym"];
+    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"else"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"else"];
 }
 
-- (void)elseSym {
-    [self parseRule:@selector(__elseSym) withMemo:_elseSym_memo];
+- (void)else {
+    [self parseRule:@selector(__else) withMemo:_elseSym_memo];
 }
 
-- (void)__whileSym {
+- (void)__while {
     
-    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"whileSym"];
-    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"whileSym"];
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"while"];
+    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"while"];
 
     [self match:JAVASCRIPTSYNTAXPARSER_TOKEN_KIND_WHILESYM discard:NO]; 
 
-    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"whileSym"];
-    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"whileSym"];
+    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"while"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"while"];
 }
 
-- (void)whileSym {
-    [self parseRule:@selector(__whileSym) withMemo:_whileSym_memo];
+- (void)while {
+    [self parseRule:@selector(__while) withMemo:_whileSym_memo];
 }
 
-- (void)__forSym {
+- (void)__for {
     
-    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"forSym"];
-    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"forSym"];
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"for"];
+    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"for"];
 
     [self match:JAVASCRIPTSYNTAXPARSER_TOKEN_KIND_FORSYM discard:NO]; 
 
-    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"forSym"];
-    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"forSym"];
+    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"for"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"for"];
 }
 
-- (void)forSym {
-    [self parseRule:@selector(__forSym) withMemo:_forSym_memo];
+- (void)for {
+    [self parseRule:@selector(__for) withMemo:_forSym_memo];
 }
 
-- (void)__inSym {
+- (void)__in {
     
-    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"inSym"];
-    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"inSym"];
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"in"];
+    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"in"];
 
     [self match:JAVASCRIPTSYNTAXPARSER_TOKEN_KIND_INSYM discard:NO]; 
 
-    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"inSym"];
-    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"inSym"];
+    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"in"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"in"];
 }
 
-- (void)inSym {
-    [self parseRule:@selector(__inSym) withMemo:_inSym_memo];
+- (void)in {
+    [self parseRule:@selector(__in) withMemo:_inSym_memo];
 }
 
-- (void)__breakSym {
+- (void)__break {
     
-    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"breakSym"];
-    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"breakSym"];
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"break"];
+    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"break"];
 
     [self match:JAVASCRIPTSYNTAXPARSER_TOKEN_KIND_BREAKSYM discard:NO]; 
 
-    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"breakSym"];
-    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"breakSym"];
+    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"break"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"break"];
 }
 
-- (void)breakSym {
-    [self parseRule:@selector(__breakSym) withMemo:_breakSym_memo];
+- (void)break {
+    [self parseRule:@selector(__break) withMemo:_breakSym_memo];
 }
 
-- (void)__continueSym {
+- (void)__continue {
     
-    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"continueSym"];
-    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"continueSym"];
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"continue"];
+    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"continue"];
 
     [self match:JAVASCRIPTSYNTAXPARSER_TOKEN_KIND_CONTINUESYM discard:NO]; 
 
-    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"continueSym"];
-    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"continueSym"];
+    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"continue"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"continue"];
 }
 
-- (void)continueSym {
-    [self parseRule:@selector(__continueSym) withMemo:_continueSym_memo];
+- (void)continue {
+    [self parseRule:@selector(__continue) withMemo:_continueSym_memo];
 }
 
 - (void)__with {
@@ -833,19 +833,19 @@
     [self parseRule:@selector(__with) withMemo:_with_memo];
 }
 
-- (void)__returnSym {
+- (void)__return {
     
-    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"returnSym"];
-    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"returnSym"];
+    [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"return"];
+    [self fireSyntaxSelector:@selector(parser:willMatchLeaf:) withRuleName:@"return"];
 
     [self match:JAVASCRIPTSYNTAXPARSER_TOKEN_KIND_RETURNSYM discard:NO]; 
 
-    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"returnSym"];
-    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"returnSym"];
+    [self fireSyntaxSelector:@selector(parser:didMatchLeaf:) withRuleName:@"return"];
+    [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"return"];
 }
 
-- (void)returnSym {
-    [self parseRule:@selector(__returnSym) withMemo:_returnSym_memo];
+- (void)return {
+    [self parseRule:@selector(__return) withMemo:_returnSym_memo];
 }
 
 - (void)__var {
@@ -2099,7 +2099,7 @@
     
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"ifStmt"];
 
-    [self ifSym]; 
+    [self if]; 
     [self condition]; 
     [self stmt]; 
 
@@ -2114,10 +2114,10 @@
     
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"ifElseStmt"];
 
-    [self ifSym]; 
+    [self if]; 
     [self condition]; 
     [self stmt]; 
-    [self elseSym]; 
+    [self else]; 
     [self stmt]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"ifElseStmt"];
@@ -2131,7 +2131,7 @@
     
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"whileStmt"];
 
-    [self whileSym]; 
+    [self while]; 
     [self condition]; 
     [self stmt]; 
 
@@ -2185,7 +2185,7 @@
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"forInStmt"];
 
     [self forBegin]; 
-    [self inSym]; 
+    [self in]; 
     [self expr]; 
     [self closeParen]; 
     [self stmt]; 
@@ -2201,7 +2201,7 @@
     
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"breakStmt"];
 
-    [self breakSym]; 
+    [self break]; 
     [self semi]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"breakStmt"];
@@ -2215,7 +2215,7 @@
     
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"continueStmt"];
 
-    [self continueSym]; 
+    [self continue]; 
     [self semi]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"continueStmt"];
@@ -2246,7 +2246,7 @@
     
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"returnStmt"];
 
-    [self returnSym]; 
+    [self return]; 
     [self exprOpt]; 
     [self semi]; 
 
@@ -2290,7 +2290,7 @@
     
     [self fireSyntaxSelector:@selector(parser:willMatchInterior:) withRuleName:@"forParen"];
 
-    [self forSym]; 
+    [self for]; 
     [self openParen]; 
 
     [self fireSyntaxSelector:@selector(parser:didMatchInterior:) withRuleName:@"forParen"];
