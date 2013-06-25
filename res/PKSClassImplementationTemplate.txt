@@ -35,6 +35,7 @@
 @property (nonatomic, retain) NSMutableArray *tokenKindNameTab;
 @property (nonatomic, retain) NSString *startRuleName;
 @property (nonatomic, retain) NSString *statementTerminator;
+@property (nonatomic, retain) NSString *blockStartMarker;
 
 - (BOOL)popBool;
 - (NSInteger)popInteger;
