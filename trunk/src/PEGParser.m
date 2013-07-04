@@ -41,6 +41,7 @@
 @property (nonatomic, retain) NSCountedSet *resyncSet;
 @property (nonatomic, retain) NSString *startRuleName;
 @property (nonatomic, retain) NSString *statementTerminator;
+@property (nonatomic, retain) NSString *singleLineCommentMarker;
 @property (nonatomic, retain) NSString *blockStartMarker;
 @property (nonatomic, retain) NSString *blockEndMarker;
 
@@ -125,6 +126,7 @@
     self.resyncSet = nil;
     self.startRuleName = nil;
     self.statementTerminator = nil;
+    self.singleLineCommentMarker = nil;
     self.blockStartMarker = nil;
     self.blockEndMarker = nil;
     [super dealloc];
