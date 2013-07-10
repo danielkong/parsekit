@@ -25,6 +25,89 @@
 }
 
 
+- (void)testCoreGraphics {
+    s = @"CGContextAddArc(${ctx}, ${x}, ${y}, ${radius}, ${startAngle}, ${endAngle}, ${clockwise})";
+    t = [PKTokenizer tokenizerWithString:s];
+    
+    t.whitespaceState.reportsWhitespaceTokens = YES;
+    
+    [t setTokenizerState:t.symbolState from:'/' to:'/'];
+    
+    [t setTokenizerState:t.delimitState from:'$' to:'$'];
+    [t.symbolState add:@"${"];
+    [t.delimitState addStartMarker:@"${" endMarker:@"}" allowedCharacterSet:nil];
+
+    PKToken *tok = nil;
+    
+    tok = [t nextToken];
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"CGContextAddArc", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@"(", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"${ctx}", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@",", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isWhitespace);
+    TDEqualObjects(@" ", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"${x}", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@",", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isWhitespace);
+    TDEqualObjects(@" ", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"${y}", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@",", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isWhitespace);
+    TDEqualObjects(@" ", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"${radius}", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@",", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isWhitespace);
+    TDEqualObjects(@" ", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"${startAngle}", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@",", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isWhitespace);
+    TDEqualObjects(@" ", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"${endAngle}", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@",", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isWhitespace);
+    TDEqualObjects(@" ", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isDelimitedString);
+    TDEqualObjects(@"${clockwise}", tok.stringValue);
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@")", tok.stringValue);
+}
+
+
 - (void)testBlastOff {
     s = @"\"It's 123 blast-off!\", she said, // watch out!\n"
         @"and <= 3 'ticks' later /* wince */, it's blast-off (to http://google.com)!";
