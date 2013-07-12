@@ -364,8 +364,8 @@
         if (suffix) [self applySuffixFromReader:r];
         
         tok = [PKToken tokenWithTokenType:PKTokenTypeNumber stringValue:[self bufferedString] floatValue:[self value]];
-        tok.offset = offset;
     }
+    tok.offset = offset;
     
     return tok;
 }
