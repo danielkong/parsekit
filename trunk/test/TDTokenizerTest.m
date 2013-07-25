@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "TDTokenizerTest.h"
-#import "ParseKit.h"
+#import <ParseKit/ParseKit.h>
 
 @implementation TDTokenizerTest
 
@@ -22,6 +22,128 @@
 
 
 - (void)tearDown {
+}
+
+
+- (void)testPythonImports {
+    s =
+    @"from Quartz.CoreGraphics import *\n"
+    @"from Quartz.ImageIO import *\n"
+    @"from Foundation import *\n";
+
+    t = [PKTokenizer tokenizerWithString:s];
+    
+    t.whitespaceState.reportsWhitespaceTokens = YES;
+    
+    [t.symbolState add:@"**"];
+    [t.symbolState add:@"//"];
+    [t.symbolState add:@"<<"];
+    [t.symbolState add:@">>"];
+    [t.symbolState add:@"<="];
+    [t.symbolState add:@">="];
+    [t.symbolState add:@"=="];
+    [t.symbolState add:@"!="];
+    [t.symbolState add:@"+="];
+    [t.symbolState add:@"-="];
+    [t.symbolState add:@"*="];
+    [t.symbolState add:@"/="];
+    [t.symbolState add:@"//="];
+    [t.symbolState add:@"%="];
+    [t.symbolState add:@"&="];
+    [t.symbolState add:@"|="];
+    [t.symbolState add:@"^="];
+    [t.symbolState add:@">>="];
+    [t.symbolState add:@"<<="];
+    [t.symbolState add:@"**="];
+	
+    [t setTokenizerState:t.wordState from:'_' to:'_'];
+    [t.wordState setWordChars:YES from:'_' to:'_'];
+	
+    // setup comments
+    t.commentState.reportsCommentTokens = YES;
+    
+    // remove default comments
+    [t setTokenizerState:t.symbolState from:'/' to:'/'];
+    [t.commentState removeSingleLineStartMarker:@"//"];
+    [t.commentState removeMultiLineStartMarker:@"/*"];
+    
+    // add python comments
+    [t setTokenizerState:t.commentState from:'#' to:'#'];
+    [t.commentState addSingleLineStartMarker:@"#"];
+    t.commentState.fallbackState = t.symbolState;
+    
+    // python doc strings
+    [t.symbolState add:@"\"\"\""];
+    [t setTokenizerState:t.delimitState from:'"' to:'"'];
+    [t.delimitState addStartMarker:@"\"\"\"" endMarker:@"\"\"\"" allowedCharacterSet:nil];
+    [t.delimitState setFallbackState:t.quoteState from:'"' to:'"'];
+    
+    // hex, oct, bin numbers
+    [t.numberState addPrefix:@"0x" forRadix:16];
+    [t.numberState addPrefix:@"0o" forRadix:8];
+    //[t.numberState addPrefix:@"0"  forRadix:8];
+    [t.numberState addPrefix:@"0b" forRadix:2];
+    
+    PKToken *tok = nil;
+    
+    tok = [t nextToken];
+    TDEqualObjects(@"<Word «from»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Whitespace « »>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Word «Quartz»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Symbol «.»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Word «CoreGraphics»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Whitespace « »>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Word «import»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Whitespace « »>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Symbol «*»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDTrue(tok.isWhitespace);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Word «from»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Whitespace « »>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Word «Quartz»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Symbol «.»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Word «ImageIO»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Whitespace « »>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Word «import»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Whitespace « »>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Symbol «*»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDTrue(tok.isWhitespace);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Word «from»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Whitespace « »>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Word «Foundation»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Whitespace « »>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Word «import»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Whitespace « »>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDEqualObjects(@"<Symbol «*»>", [tok debugDescription]);
+    tok = [t nextToken];
+    TDTrue(tok.isWhitespace);
+    tok = [t nextToken];
+    TDTrue(tok.isEOF);
 }
 
 
