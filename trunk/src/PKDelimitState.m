@@ -48,6 +48,7 @@
 - (NSString *)bufferedString;
 - (PKTokenizerState *)nextTokenizerStateFor:(PKUniChar)c tokenizer:(PKTokenizer *)t;
 - (void)addStartMarker:(NSString *)start endMarker:(NSString *)end allowedCharacterSet:(NSCharacterSet *)set tokenKind:(NSInteger)kind;
+@property (nonatomic) NSUInteger offset;
 @end
 
 @interface PKDelimitState ()
@@ -109,6 +110,7 @@
     }
     
     [self resetWithReader:r];
+    self.offset = r.offset - [startMarker length];
     [self appendString:startMarker];
     
     NSUInteger count = [descs count];
