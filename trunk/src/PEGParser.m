@@ -260,6 +260,7 @@
     @catch (PEGRecognitionException *rex) {
         NSString *domain = @"PKParseException";
         NSString *reason = [rex currentReason];
+        NSLog(@"%@", reason);
 
         if (outError) {
             *outError = [self errorWithDomain:domain reason:reason];
@@ -270,6 +271,7 @@
     @catch (NSException *ex) {
         NSString *domain = NSGenericException;
         NSString *reason = [ex reason];
+        NSLog(@"%@", reason);
         
         if (outError) {
             *outError = [self errorWithDomain:domain reason:reason];
