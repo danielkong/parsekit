@@ -36,6 +36,73 @@
 }
 
 
+- (void)testUnreadDivEight {
+    s = @"{unread= unread/8";
+    t.string = s;
+    NSCharacterSet *cs = nil;
+    
+    t.whitespaceState.reportsWhitespaceTokens = YES;
+    
+    // setup comments
+    t.commentState.reportsCommentTokens = YES;
+    [t setTokenizerState:t.commentState from:'/' to:'/'];
+    [t.commentState addSingleLineStartMarker:@"//"];
+    [t.commentState addMultiLineStartMarker:@"/*" endMarker:@"*/"];
+    
+    // comment state should fallback to delimit state to match regex delimited strings
+    t.commentState.fallbackState = t.delimitState;
+    
+    // regex delimited strings
+    cs = [[NSCharacterSet newlineCharacterSet] invertedSet];
+    [t.delimitState addStartMarker:@"/" endMarker:@"/" allowedCharacterSet:cs];
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@"{", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"unread", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@"=", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isWhitespace);
+    TDEqualObjects(@" ", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isWord);
+    TDEqualObjects(@"unread", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(@"/", tok.stringValue);
+    TDEquals((double)0.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isNumber);
+    TDEqualObjects(@"8", tok.stringValue);
+    TDEquals((double)8.0, tok.floatValue);
+    
+    tok = [t nextToken];
+    TDEqualObjects([PKToken EOFToken], tok);
+}
+
+
 - (void)testSlashSlashEscapeSemi {
     s = @"/foo\\/bar/;";
     t.string = s;
