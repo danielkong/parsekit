@@ -242,7 +242,16 @@
                     // check if char is not in allowed character set (if given)
                     if (![charSet characterIsMember:c]) {
                         // if not, unwind and return a symbol tok for cin
-                        [r unread:[[self bufferedString] length] - 1];
+                        
+                        // peek
+                        PKUniChar nextChar = [r read];
+                        if (PKEOF != nextChar) {
+                            [r unread];
+                        }
+
+                        NSUInteger len = [[self bufferedString] length];
+                        [r unread:PKEOF == nextChar ? len - 1 : len];
+                        
                         return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
                     }
                 }
