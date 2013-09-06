@@ -243,15 +243,9 @@
                     if (![charSet characterIsMember:c]) {
                         // if not, unwind and return a symbol tok for cin
                         
-                        // peek
-                        PKUniChar nextChar = [r read];
-                        if (PKEOF != nextChar) {
-                            [r unread];
-                        }
-
                         NSUInteger len = [[self bufferedString] length];
-                        [r unread:PKEOF == nextChar ? len - 1 : len];
-                        
+                        [r unread:len - 1];
+
                         return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
                     }
                 }
