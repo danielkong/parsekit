@@ -50,6 +50,12 @@
 }
 
 
+- (NSString *)debugDescription {
+    NSString *buff = [NSString stringWithFormat:@"%@^%@", [string substringToIndex:offset], [string substringFromIndex:offset]];
+    return [NSString stringWithFormat:@"<%@ %p `%@`>", [self class], self, buff];
+}
+
+
 - (NSString *)string {
     return [[string retain] autorelease];
 }

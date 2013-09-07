@@ -71,4 +71,6 @@
     @brief      This reader's current offset in string
 */
 @property (nonatomic, readonly) NSUInteger offset;
+
+- (NSString *)debugDescription;
 @end
