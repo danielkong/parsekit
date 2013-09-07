@@ -215,7 +215,7 @@
                 
                 if (foundEndMarker) {
                     [self appendString:endMarker];
-                    c = [r read];
+                    //c = [r read];
                     done = YES;
                     break;
                 } else {
@@ -243,14 +243,15 @@
                     if (![charSet characterIsMember:c]) {
                         // if not, unwind and return a symbol tok for cin
                         
-                        NSUInteger len = [[self bufferedString] length];
-                        [r unread:len - 1];
+                        NSUInteger buffLen = [[self bufferedString] length];
+                        [r unread:buffLen - 1];
 
                         return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
                     }
                 }
             }
 
+            c = [r read];
             break;
         }
         
