@@ -73,7 +73,9 @@
             PKUniChar peek = [r read];
             if (peek == '\\') { // escaped backslash found
                 // discard `c`
+                [self append:c];
                 [self append:peek];
+                c = PKEOF;	// Just to get past the while() condition
             } else if (peek == cin) {
                 [self append:c];
                 [self append:peek];
