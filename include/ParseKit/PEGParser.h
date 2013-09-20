@@ -49,9 +49,6 @@ enum {
 
 @property (nonatomic, retain) PKTokenizer *tokenizer;
 @property (nonatomic, retain) PEGTokenAssembly *assembly;
-
-@property (nonatomic, assign) BOOL cacheTokens;
-@property (nonatomic, retain) NSMutableArray *tokenCache;
 @end
 
 @interface PEGParser (Subclass)

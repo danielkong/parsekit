@@ -117,7 +117,6 @@
 - (void)dealloc {
     self.tokenizer = nil;
     self.assembly = nil;
-    self.tokenCache = nil;
     self.assembler = nil;
     self.exception = nil;
     self.lookahead = nil;
@@ -231,10 +230,6 @@
         self.resyncSet = [NSCountedSet set];
     }
     
-    if (_cacheTokens) {
-        self.tokenCache = [NSMutableArray array];
-    }
-
     [self clearMemo];
     
     @try {
@@ -313,11 +308,6 @@
     if (TOKEN_KIND_BUILTIN_EMPTY == tokenKind) return;
 
     PKToken *lt = LT(1); // NSLog(@"%@", lt);
-    
-    if (_cacheTokens && lt.isWord) {
-        NSAssert(_tokenCache, @"");
-        [_tokenCache addObject:lt];
-    }
     
     BOOL matches = lt.tokenKind == tokenKind || (TOKEN_KIND_BUILTIN_ANY == tokenKind && PKTokenTypeEOF != lt.tokenType);
 
