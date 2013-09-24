@@ -122,6 +122,12 @@
     
     PKUniChar startChars[count];
     PKUniChar endChars[count];
+    
+    // initialize for static analyzer
+    for (NSUInteger k = 0; k < count; ++k) {
+        startChars[k] = endChars[k] = NULL;
+    }
+    
     PKDelimitDescriptor *selectedDesc = nil;
     _nestedCount = 0;
 
