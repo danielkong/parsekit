@@ -8,6 +8,11 @@
 #import "OCPartialMockObject.h"
 
 
+@interface NSObject ()
+- (id)aMethodThatMustNotExist;
+@end
+
+
 @interface OCPartialMockObject (Private)
 - (void)forwardInvocationForRealObject:(NSInvocation *)anInvocation;
 @end 
