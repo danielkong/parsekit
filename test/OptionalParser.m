@@ -38,6 +38,7 @@
 @property (nonatomic, retain) NSString *singleLineCommentMarker;
 @property (nonatomic, retain) NSString *blockStartMarker;
 @property (nonatomic, retain) NSString *blockEndMarker;
+@property (nonatomic, retain) NSString *braces;
 
 - (BOOL)popBool;
 - (NSInteger)popInteger;
