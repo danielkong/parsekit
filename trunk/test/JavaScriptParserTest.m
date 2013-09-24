@@ -66,7 +66,7 @@
 
 
 - (void)parser:(PEGParser *)p didMatchVarVariables:(PKAssembly *)a {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, a);
     flag = YES;
 }
 - (void)testVarFooEqBar {
