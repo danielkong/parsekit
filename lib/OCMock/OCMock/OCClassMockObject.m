@@ -6,6 +6,9 @@
 #import <objc/runtime.h>
 #import "OCClassMockObject.h"
 
+@interface NSObject ()
+- (id)aMethodThatMustNotExist;
+@end
 
 @implementation OCClassMockObject
 
