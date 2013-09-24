@@ -115,8 +115,13 @@
     
     BOOL hasEndMarkers = NO;
     NSUInteger count = [descs count];
-    PKUniChar startChars[count+1]; // +1 to appease static analyzer
-    PKUniChar endChars[count+1];
+    if (0 == count) {
+        NSAssert(0, @"should never reach");
+        return nil;
+    }
+    
+    PKUniChar startChars[count];
+    PKUniChar endChars[count];
     PKDelimitDescriptor *selectedDesc = nil;
     _nestedCount = 0;
 
@@ -162,7 +167,7 @@
         NSCharacterSet *charSet = nil;
         BOOL hasConsumedAtLeastOneChar = [[self bufferedString] length];
 
-        for (NSUInteger i = 0; i < count; ++i) {
+        for (NSUInteger j = 0; j < count; ++j) {
             if ('\\' == c) {
                 [self append:c]; // append escape backslash
                 c = [r read];
@@ -174,14 +179,14 @@
                 }
             }
             
-            PKUniChar a = startChars[i];
-            PKUniChar e = endChars[i];
+            PKUniChar a = startChars[j];
+            PKUniChar e = endChars[j];
             
             NSString *peek = nil;
             BOOL foundNestedStartMarker = NO;
             
             if (_allowsNestedMarkers && hasConsumedAtLeastOneChar && a == c) {
-                selectedDesc = descs[i];
+                selectedDesc = descs[j];
                 endMarker = [selectedDesc endMarker];
                 charSet = [selectedDesc characterSet];
                 
@@ -195,7 +200,7 @@
             }
             
             if (!foundNestedStartMarker && e == c) {
-                selectedDesc = descs[i];
+                selectedDesc = descs[j];
                 endMarker = [selectedDesc endMarker];
                 charSet = [selectedDesc characterSet];
                 
