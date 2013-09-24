@@ -113,10 +113,10 @@
     self.offset = r.offset - [startMarker length];
     [self appendString:startMarker];
     
-    NSUInteger count = [descs count];
     BOOL hasEndMarkers = NO;
-    PKUniChar startChars[count];
-    PKUniChar endChars[count];
+    NSUInteger count = [descs count];
+    PKUniChar startChars[count+1]; // +1 to appease static analyzer
+    PKUniChar endChars[count+1];
     PKDelimitDescriptor *selectedDesc = nil;
     _nestedCount = 0;
 
