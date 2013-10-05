@@ -151,11 +151,11 @@
         if (PKEOF == c) {
             if (hasEndMarkers && balancesEOFTerminatedStrings) {
                 [self appendString:[descs[0] endMarker]];
+                break;
             } else if (hasEndMarkers) {
                 [r unread:[[self bufferedString] length] - 1];
                 return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
             }
-            break;
         }
         
         //if (!hasEndMarkers && [t.whitespaceState isWhitespaceChar:c]) {
@@ -206,7 +206,7 @@
                 }
             }
             
-            if (!foundNestedStartMarker && e == c) {
+            if (!foundNestedStartMarker && (e == c || PKEOF == c)) {
                 selectedDesc = descs[j];
                 endMarker = [selectedDesc endMarker];
                 charSet = [selectedDesc characterSet];
@@ -225,7 +225,10 @@
                     }
                 }
                 
-                if (foundEndMarker) {
+                if (PKEOF == c) {
+                    done = YES;
+                    break;
+                } else if (foundEndMarker) {
                     [self appendString:endMarker];
                     //c = [r read];
                     done = YES;
