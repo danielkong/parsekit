@@ -144,6 +144,7 @@
         endChars[i++] = e;
     }
     
+    NSCharacterSet *nlset = [NSCharacterSet newlineCharacterSet];
     PKUniChar c;
     for (;;) {
         c = [r read];
@@ -159,7 +160,7 @@
         }
         
         //if (!hasEndMarkers && [t.whitespaceState isWhitespaceChar:c]) {
-        if (!hasEndMarkers && [[NSCharacterSet newlineCharacterSet] characterIsMember:c]) {
+        if (!hasEndMarkers && [nlset characterIsMember:c]) {
             // if only the start marker was matched, dont return delimited string token. instead, defer tokenization
             if ([startMarker isEqualToString:[self bufferedString]]) {
                 [r unread:[startMarker length] - 1];
