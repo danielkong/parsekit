@@ -158,7 +158,8 @@
             break;
         }
         
-        if (!hasEndMarkers && [t.whitespaceState isWhitespaceChar:c]) {
+        //if (!hasEndMarkers && [t.whitespaceState isWhitespaceChar:c]) {
+        if (!hasEndMarkers && [[NSCharacterSet newlineCharacterSet] characterIsMember:c]) {
             // if only the start marker was matched, dont return delimited string token. instead, defer tokenization
             if ([startMarker isEqualToString:[self bufferedString]]) {
                 [r unread:[startMarker length] - 1];
