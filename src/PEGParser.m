@@ -481,6 +481,9 @@
     va_start(vargs, fmt);
     
     NSString *str = [[[NSString alloc] initWithFormat:fmt arguments:vargs] autorelease];
+
+    va_end(vargs);
+
     _exception.currentReason = str;
     
     //NSLog(@"%@", str);
@@ -488,7 +491,6 @@
     // reuse
     @throw _exception;
     
-    va_end(vargs);
 }
 
 
