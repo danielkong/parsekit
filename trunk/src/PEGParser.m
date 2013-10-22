@@ -490,7 +490,6 @@
 
     // reuse
     @throw _exception;
-    
 }
 
 
