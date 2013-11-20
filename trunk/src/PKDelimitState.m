@@ -125,7 +125,7 @@
     
     // initialize for static analyzer
     for (NSUInteger k = 0; k < count; ++k) {
-        startChars[k] = endChars[k] = NULL;
+        startChars[k] = endChars[k] = '\0';
     }
     
     PKDelimitDescriptor *selectedDesc = nil;
