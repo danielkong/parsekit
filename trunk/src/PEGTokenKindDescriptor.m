@@ -10,12 +10,17 @@
 #import <PEGKit/PEGParser.h>
 
 static NSMutableDictionary *sCache = nil;
+static PEGTokenKindDescriptor *sAnyDesc = nil;
+static PEGTokenKindDescriptor *sEOFDesc = nil;
 
 @implementation PEGTokenKindDescriptor
 
 + (void)initialize {
     if ([PEGTokenKindDescriptor class] == self) {
         sCache = [[NSMutableDictionary alloc] init];
+        
+        sAnyDesc = [[PEGTokenKindDescriptor descriptorWithStringValue:@"TOKEN_KIND_BUILTIN_ANY" name:@"TOKEN_KIND_BUILTIN_ANY"] retain];
+        sEOFDesc = [[PEGTokenKindDescriptor descriptorWithStringValue:@"TOKEN_KIND_BUILTIN_EOR" name:@"TOKEN_KIND_BUILTIN_EOF"] retain];
     }
 }
 
@@ -39,12 +44,14 @@ static NSMutableDictionary *sCache = nil;
 
 
 + (PEGTokenKindDescriptor *)anyDescriptor {
-    return [PEGTokenKindDescriptor descriptorWithStringValue:@"TOKEN_KIND_BUILTIN_ANY" name:@"TOKEN_KIND_BUILTIN_ANY"];
+    NSAssert(sAnyDesc, @"");
+    return sAnyDesc;
 }
 
 
 + (PEGTokenKindDescriptor *)eofDescriptor {
-    return [PEGTokenKindDescriptor descriptorWithStringValue:@"TOKEN_KIND_BUILTIN_EOR" name:@"TOKEN_KIND_BUILTIN_EOF"];
+    NSAssert(sEOFDesc, @"");
+    return sEOFDesc;
 }
 
 
