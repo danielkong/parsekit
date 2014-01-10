@@ -57,7 +57,7 @@
 
 
 - (void)awakeFromNib {
-    self.enableHybridDFA = YES;
+
 }
 
 
@@ -223,7 +223,7 @@
     
     self.visitor = [[[PKSParserGenVisitor alloc] init] autorelease];
     _visitor.enableARC = _enableARC;
-    _visitor.enableHybridDFA = _enableHybridDFA; NSAssert(_enableHybridDFA, @"");
+    _visitor.enableHybridDFA = _enableHybridDFA; //NSAssert(_enableHybridDFA, @"");
     _visitor.enableMemoization = _enableMemoization;
     _visitor.enableAutomaticErrorRecovery = _enableAutomaticErrorRecovery;
     _visitor.preassemblerSettingBehavior = _preassemblerSettingBehavior;

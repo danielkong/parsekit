@@ -203,7 +203,7 @@
 - (void)visitRoot:(PKRootNode *)node {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, node);
     NSParameterAssert(node);
-    NSAssert(_enableHybridDFA ,@"");
+    //NSAssert(_enableHybridDFA ,@"");
     
     // setup symbol table
     [self setUpSymbolTableFromRoot:node];
