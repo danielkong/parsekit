@@ -27,6 +27,17 @@
 
 - (NSString *)defaultDefNameForStringValue:(NSString *)strVal {
     NSString *defName = _defaultDefNameTab[strVal];
+    // not sure if we want this
+    if (!defName) {
+        NSArray *comps = [strVal componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
+        defName = [comps componentsJoinedByString:@"_"];
+        if ([defName length]) {
+            _defaultDefNameTab[strVal] = strVal;
+        } else {
+            defName = nil;
+        }
+    }
+    // end
     if (!defName) {
         defName = [@(_fallbackDefNameCounter++) stringValue];
         _defaultDefNameTab[strVal] = defName;
@@ -100,6 +111,7 @@
             @"<-": @"LEFT_ARROW",
             @",": @"COMMA",
             @".": @"DOT",
+            @"..": @"DOT_DOT",
             @"?": @"QUESTION",
             @"true": @"TRUE",
             @"false": @"FALSE",
