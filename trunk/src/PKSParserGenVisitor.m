@@ -170,6 +170,19 @@
                 [set unionSet:[self lookaheadSetForNode:child]];
             }
         } break;
+        case PKNodeTypeDefinition:
+        case PKNodeTypeCollection: {
+            for (PKBaseNode *child in node.children) {
+                NSSet *childSet = [self lookaheadSetForNode:child];
+                [set unionSet:childSet];
+                PKBaseNode *concreteChild = [self concreteNodeForNode:child];
+                if ([concreteChild isKindOfClass:[PKOptionalNode class]]) {
+                    continue;
+                } else {
+                    break; // single look ahead. to implement full LL(*), this would need to be enhanced here.
+                }
+            }
+        } break;
         default: {
             for (PKBaseNode *child in node.children) {
                 [set unionSet:[self lookaheadSetForNode:child]];
