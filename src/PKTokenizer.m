@@ -166,8 +166,7 @@
 
 
 - (PKToken *)nextToken {
-    PKUniChar c = [reader read];
-    
+    PKUniChar c = [reader read]; //NSLog(@"`%C`", (unichar)c);
     PKToken *result = nil;
     
     if (PKEOF == c) {
