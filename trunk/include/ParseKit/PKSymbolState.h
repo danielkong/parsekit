@@ -42,4 +42,7 @@
     @param      s a multi-character symbol that should no longer be recognized as a single symbol token by this state
 */
 - (void)remove:(NSString *)s;
+
+
+- (void)prevent:(PKUniChar)c;
 @end

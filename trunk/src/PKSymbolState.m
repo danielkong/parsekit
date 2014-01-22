@@ -40,16 +40,19 @@
 - (PKToken *)symbolTokenWithSymbol:(NSString *)s;
 
 @property (nonatomic, retain) PKSymbolRootNode *rootNode;
-@property (nonatomic, retain) NSMutableArray *addedSymbols;
+@property (nonatomic, retain) NSMutableSet *addedSymbols;
 @end
 
-@implementation PKSymbolState
+@implementation PKSymbolState {
+    BOOL *_prevented;
+}
 
 - (id)init {
     self = [super init];
     if (self) {
         self.rootNode = [[[PKSymbolRootNode alloc] init] autorelease];
-        self.addedSymbols = [NSMutableArray array];
+        self.addedSymbols = [NSMutableSet set];
+        _prevented = (void *)calloc(128, sizeof(BOOL));
     }
     return self;
 }
@@ -58,11 +61,15 @@
 - (void)dealloc {
     self.rootNode = nil;
     self.addedSymbols = nil;
+    if (_prevented) {
+        free(_prevented);
+    }
     [super dealloc];
 }
 
 
 - (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
+    PKAssertMainThread();
     NSParameterAssert(r);
     [self resetWithReader:r];
     
@@ -79,7 +86,7 @@
         [r unread:1];
     }
     
-    if (1 == len) {
+    if (1 == len && !_prevented[cin]) {
         return [self symbolTokenWith:cin];
     } else {
         PKTokenizerState *state = [self nextTokenizerStateFor:cin tokenizer:t];
@@ -93,6 +100,7 @@
 
 
 - (void)add:(NSString *)s {
+    PKAssertMainThread();
     NSParameterAssert(s);
     [_rootNode add:s];
     [_addedSymbols addObject:s];
@@ -100,9 +108,17 @@
 
 
 - (void)remove:(NSString *)s {
+    PKAssertMainThread();
     NSParameterAssert(s);
     [_rootNode remove:s];
     [_addedSymbols removeObject:s];
+}
+
+
+- (void)prevent:(PKUniChar)c {
+    PKAssertMainThread();
+    NSParameterAssert(c > 0);
+    _prevented[c] = YES;
 }
 
 
