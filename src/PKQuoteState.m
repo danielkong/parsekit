@@ -60,16 +60,16 @@
     do {
         c = [r read];
         if (PKEOF == c) {
-            if (allowsEOFTerminatedQuotes) {
+            if (_allowsEOFTerminatedQuotes) {
                 c = cin;
-                if (balancesEOFTerminatedQuotes) {
+                if (_balancesEOFTerminatedQuotes) {
                     [self append:c];
                 }
             } else {
                 [r unread:[[self bufferedString] length] - 1];
                 return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
             }
-        } else if ((!usesCSVStyleEscaping && c == '\\') || (usesCSVStyleEscaping && c == cin)) {
+        } else if ((!_usesCSVStyleEscaping && c == '\\') || (_usesCSVStyleEscaping && c == cin)) {
             PKUniChar peek = [r read];
             if (peek == '\\') { // escaped backslash found
                 // discard `c`
@@ -96,7 +96,4 @@
     return tok;
 }
 
-@synthesize allowsEOFTerminatedQuotes;
-@synthesize balancesEOFTerminatedQuotes;
-@synthesize usesCSVStyleEscaping;
 @end
