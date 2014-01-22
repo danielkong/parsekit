@@ -66,11 +66,11 @@
     NSParameterAssert(r);
     [self resetWithReader:r];
     
-    NSString *symbol = [rootNode nextSymbol:r startingWith:cin];
+    NSString *symbol = [_rootNode nextSymbol:r startingWith:cin];
     NSUInteger len = [symbol length];
 
     while (len > 1) {
-        if ([addedSymbols containsObject:symbol]) {
+        if ([_addedSymbols containsObject:symbol]) {
             return [self symbolTokenWithSymbol:symbol];
         }
 
@@ -94,15 +94,15 @@
 
 - (void)add:(NSString *)s {
     NSParameterAssert(s);
-    [rootNode add:s];
-    [addedSymbols addObject:s];
+    [_rootNode add:s];
+    [_addedSymbols addObject:s];
 }
 
 
 - (void)remove:(NSString *)s {
     NSParameterAssert(s);
-    [rootNode remove:s];
-    [addedSymbols removeObject:s];
+    [_rootNode remove:s];
+    [_addedSymbols removeObject:s];
 }
 
 
@@ -117,6 +117,4 @@
     return tok;
 }
 
-@synthesize rootNode;
-@synthesize addedSymbols;
 @end
