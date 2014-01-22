@@ -85,15 +85,26 @@
         [r unread:1];
     }
     
-    if (1 == len && !_prevented[cin]) {
+    if (1 == len) {
+        BOOL isPrevented = NO;
+        if (_prevented[cin]) {
+            PKUniChar peek = [r read];
+            if (peek != EOF) {
+                isPrevented = YES;
+                [r unread:1];
+            }
+        }
+        
+        if (!isPrevented) {
+            return [self symbolTokenWith:cin];
+        }
+    }
+
+    PKTokenizerState *state = [self nextTokenizerStateFor:cin tokenizer:t];
+    if (!state || state == self) {
         return [self symbolTokenWith:cin];
     } else {
-        PKTokenizerState *state = [self nextTokenizerStateFor:cin tokenizer:t];
-        if (!state || state == self) {
-            return [self symbolTokenWith:cin];
-        } else {
-            return [state nextTokenFromReader:r startingWith:cin tokenizer:t];
-        }
+        return [state nextTokenFromReader:r startingWith:cin tokenizer:t];
     }
 }
 
