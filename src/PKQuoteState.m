@@ -66,7 +66,7 @@
                     [self append:c];
                 }
             } else {
-                [r unread:[[self bufferedString] length]];
+                [r unread:[[self bufferedString] length] - 1];
                 return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
             }
         } else if ((!usesCSVStyleEscaping && c == '\\') || (usesCSVStyleEscaping && c == cin)) {
