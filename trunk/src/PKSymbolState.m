@@ -69,7 +69,6 @@
 
 
 - (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
-    PKAssertMainThread();
     NSParameterAssert(r);
     [self resetWithReader:r];
     
@@ -100,7 +99,6 @@
 
 
 - (void)add:(NSString *)s {
-    PKAssertMainThread();
     NSParameterAssert(s);
     [_rootNode add:s];
     [_addedSymbols addObject:s];
@@ -108,7 +106,6 @@
 
 
 - (void)remove:(NSString *)s {
-    PKAssertMainThread();
     NSParameterAssert(s);
     [_rootNode remove:s];
     [_addedSymbols removeObject:s];
