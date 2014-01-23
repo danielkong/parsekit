@@ -40,7 +40,10 @@
 #import <PEGKit/PKWordState.h>
 #import <PEGKit/PKWhitespaceState.h>
 
-// static
+// ast
+#import <PEGKit/PKAST.h>
+
+// peg
 #import <PEGKit/PEGParser.h>
 #import <PEGKit/PEGTokenAssembly.h>
 #import <PEGKit/PEGRecognitionException.h>
