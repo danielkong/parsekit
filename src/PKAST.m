@@ -108,6 +108,7 @@
 
 
 - (void)addChild:(PKAST *)a {
+    NSParameterAssert(a);
     if (!_children) {
         self.children = [NSMutableArray array];
     }
