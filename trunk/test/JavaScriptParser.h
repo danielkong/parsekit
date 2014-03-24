@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     JAVASCRIPT_TOKEN_KIND_PIPE = 14,

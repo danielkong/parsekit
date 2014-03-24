@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     NAMEDACTION_TOKEN_KIND_A = 14,

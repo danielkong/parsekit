@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     GREEDYFAILURENESTED_TOKEN_KIND_COMMA = 14,

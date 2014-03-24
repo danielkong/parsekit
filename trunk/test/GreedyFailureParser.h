@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     GREEDYFAILURE_TOKEN_KIND_LCURLY = 14,
