@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     HTML_TOKEN_KIND_SCRIPTTAGNAME = 14,

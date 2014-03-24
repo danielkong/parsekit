@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     EXPRESSIONACTIONS_TOKEN_KIND_NO = 14,

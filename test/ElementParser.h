@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     ELEMENT_TOKEN_KIND_LBRACKET = 14,

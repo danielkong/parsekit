@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     ELEMENTASSIGN_TOKEN_KIND_RBRACKET = 14,

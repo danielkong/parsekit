@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     METHODSFACTORED_TOKEN_KIND_INT = 14,

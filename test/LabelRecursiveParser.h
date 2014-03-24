@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     LABELRECURSIVE_TOKEN_KIND_EQUALS = 14,

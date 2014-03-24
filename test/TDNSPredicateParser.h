@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     TDNSPREDICATE_TOKEN_KIND_ALL = 14,
