@@ -124,7 +124,7 @@
     }
     
     PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:[self bufferedString] floatValue:0.0];
-    tok.offset = offset;
+    tok.offset = self.offset;
     return tok;
 }
 

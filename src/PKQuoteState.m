@@ -92,7 +92,7 @@
     } while (c != cin);
     
     PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeQuotedString stringValue:[self bufferedString] floatValue:0.0];
-    tok.offset = offset;
+    tok.offset = self.offset;
     return tok;
 }
 

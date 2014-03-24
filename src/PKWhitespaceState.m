@@ -113,7 +113,7 @@
     
     if (reportsWhitespaceTokens) {
         PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeWhitespace stringValue:[self bufferedString] floatValue:0.0];
-        tok.offset = offset;
+        tok.offset = self.offset;
         return tok;
     } else {
         return [t nextToken];
