@@ -1,4 +1,4 @@
-#import <ParseKit/PEGParser.h>
+#import <PEGKit/PEGParser.h>
 
 enum {
     PARSEKIT_TOKEN_KIND_SYMBOL_TITLE = 14,

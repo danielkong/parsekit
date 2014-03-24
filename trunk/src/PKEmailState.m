@@ -72,7 +72,7 @@
         }
         
         PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeEmail stringValue:s floatValue:0.0];
-        tok.offset = offset;
+        tok.offset = self.offset;
         return tok;
     } else {
         [r unread:[s length] - 1];
